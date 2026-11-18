@@ -16,7 +16,7 @@ export function createPufferfishArtwork(canvas, options = {}) {
     return Object.freeze({ ...controller, species: 'pufferfish', canvas,
         get disposed() { return controller.getStatus().destroyed; },
         update(patch) { controller.configure(patch); },
-        getOptions() { return controller.getSnapshot().config; },
+        getOptions() { return controller.getDirectorSnapshot()?.speciesConfig ?? controller.getSnapshot().config; },
         play() { controller.setPaused(false); }, pause() { controller.setPaused(true); },
         restart() { controller.reset(); }, pulse() { controller.approach(); }, dispose() { controller.destroy(); } });
 }

@@ -4,63 +4,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Fox · Quiet in the Bracken</title>
+  <title>Fox · Dusk in the Meadow</title>
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="demo.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#meadow">Skip to the meadow</a>
   <div class="page-shell">
     <header class="masthead">
-      <a class="wordmark" href="../../../README.md">ASCII <span>ANIMALS</span></a>
+      <a class="wordmark" href="../../../README.md">ascii <span>animals.</span></a>
       <p class="edition">FIELD STUDIES <span>/</span> FOX</p>
     </header>
     <main>
       <section class="intro" aria-labelledby="title">
-        <div><p class="eyebrow">A SMALL LIFE, MADE OF CHARACTERS</p><h1 id="title">Quiet in the bracken.</h1></div>
-        <p class="dek">A pointed ear. A measured step. Guide a curious fox, then give it a reason to leap.</p>
+        <div><p class="eyebrow">THREE LITTLE LIVES AT THE EDGE OF NIGHT</p><h1 id="title">Dusk in the <em>meadow.</em></h1></div>
+        <p class="dek">A rustle in the grass. Ears turn. One fox takes a chance; another waits to see what happens.</p>
       </section>
-      <div class="study">
+      <section class="scene-picker" aria-label="Choose an authored scene">
+        <button class="scene-card" id="scene-dusk-hunt" type="button" aria-pressed="true" data-scene="dusk-hunt"><span class="scene-number">01 / LISTEN CLOSELY</span><strong>Dusk hunt</strong><span>A measured stalk, a suspended moment, a small leap.</span></button>
+        <button class="scene-card" id="scene-moon-play" type="button" aria-pressed="false" data-scene="moon-play"><span class="scene-number">02 / FOLLOW THE MISCHIEF</span><strong>Moonlit mischief</strong><span>A play bow, a wandering path, an answering hop.</span></button>
+        <button class="scene-card" id="scene-den-watch" type="button" aria-pressed="false" data-scene="den-watch"><span class="scene-number">03 / KEEP A QUIET WATCH</span><strong>Den watch</strong><span>One listens while the others fold into the evening.</span></button>
+      </section>
+      <div class="study" id="meadow">
         <figure class="specimen">
-          <div class="specimen-heading"><span>FOX / STYLIZED STUDY</span><span id="phase">Idle</span></div>
-          <div class="canvas-wrap">
-            <canvas id="fox" aria-hidden="true">A fox with pointed ears, a long muzzle, four legs and a bushy tail.</canvas>
+          <div class="specimen-heading"><span><i class="live-dot" aria-hidden="true"></i><span id="playback-label">LIVE MEADOW</span></span><span id="cast-summary">2 FOXES / DISTINCT INSTINCTS</span></div>
+          <div class="canvas-wrap"><canvas id="fox" tabindex="0" role="img" aria-label="An interactive ASCII meadow with two foxes" aria-describedby="canvas-help scene-synopsis">Two original ASCII foxes with pointed ears, long muzzles, four legs and bushy tails in a dusk meadow.</canvas></div>
+          <div class="scene-story"><span class="scene-marker" id="beat-index">01 / 05</span><div><h2 id="beat-title">Arriving at dusk</h2><p id="scene-synopsis">Ember investigates the grass. Pip keeps a little distance, then follows the invitation.</p></div><span class="beat-tag" id="phase">ARRIVAL</span></div>
+          <ol class="beat-track" aria-label="Scene progression"><li data-beat="arrival" aria-current="step">Arrive</li><li data-beat="listening">Listen</li><li data-beat="investigation">Investigate</li><li data-beat="response">Respond</li><li data-beat="settling">Settle</li></ol>
+          <div class="cast-rail" aria-label="Choose a fox to direct">
+            <button type="button" id="fox-0" class="cast-card" aria-pressed="true"><span class="cast-number">01</span><span><strong>Ember</strong><span class="cast-role" id="role-label-0">Hunter</span></span><span class="cast-action" id="action-label-0">Arriving</span></button>
+            <button type="button" id="fox-1" class="cast-card" aria-pressed="false"><span class="cast-number">02</span><span><strong>Pip</strong><span class="cast-role" id="role-label-1">Lookout</span></span><span class="cast-action" id="action-label-1">Arriving</span></button>
+            <button type="button" id="fox-2" class="cast-card" aria-pressed="false" hidden><span class="cast-number">03</span><span><strong>Bracken</strong><span class="cast-role" id="role-label-2">Dreamer</span></span><span class="cast-action" id="action-label-2">Resting</span></button>
           </div>
-          <figcaption id="fox-description">An original ASCII fox in side profile, with pointed ears, a long muzzle, four articulated legs and a broad, light-tipped tail. Move the pointer or tap to guide it. Use the controls for the same actions by keyboard.</figcaption>
-          <div class="specimen-footer"><span>01 ORIGINAL GEOMETRY</span><span>SEED <b id="seed-label">17</b></span><span>PRINTABLE ASCII</span></div>
+          <figcaption id="canvas-help">Move slowly to invite attention. Tap the meadow to make a local rustle. Choose a fox below to direct it. With the meadow focused: arrow keys guide, Enter rustles, P invites a pounce, Space pauses, Escape clears the guide.</figcaption>
+          <div class="specimen-footer"><span>SEED <b id="seed-label">17</b> <span class="footer-divider">/</span> ORIGINAL GLYPH GEOMETRY</span><div class="capture-actions"><button id="save-png" type="button">Save PNG</button><button id="capture" type="button">Capture ASCII</button></div></div>
         </figure>
         <aside class="director" aria-labelledby="director-title">
-          <div class="director-heading"><p class="eyebrow">A GENTLE INVITATION</p><h2 id="director-title">Direct the fox</h2></div>
-          <p class="instruction">It approaches cautiously, lowers its muzzle to sniff, and balances each short pounce with its tail.</p>
-          <button id="pounce" class="primary" type="button">Invite a pounce <span aria-hidden="true">↗</span></button>
-          <div class="button-row"><button id="pause" type="button">Pause</button><button id="reset" type="button">Reset seed</button></div>
-          <p id="motion-note" class="motion-note">Motion runs only while this study is visible.</p>
-          <div class="control-section">
-            <label for="guide">Guide position</label>
-            <select id="guide"><option value="none">Let it rest</option><option value="left">To the left</option><option value="center">Near the center</option><option value="right">To the right</option></select>
-            <label for="facing">Side profile</label>
-            <select id="facing"><option value="right">Facing right</option><option value="left">Facing left</option></select>
-            <div class="range-label"><label for="tail">Tail sway</label><output id="tail-value" for="tail">0.075</output></div>
-            <input id="tail" type="range" min="0" max="0.16" step="0.005" value="0.075">
-            <div class="range-label"><label for="height">Pounce height</label><output id="height-value" for="height">0.24</output></div>
-            <input id="height" type="range" min="0.10" max="0.34" step="0.01" value="0.24">
-          </div>
-          <div class="control-section poster-section">
-            <label for="poster">Still specimen</label>
-            <div class="poster-controls"><select id="poster"><option value="idle">At rest</option><option value="sniff">Sniffing</option><option value="crouch">Ready to pounce</option></select><button id="show-poster" type="button">Show</button></div>
-            <p class="small-note">Showing a still pauses playback. Reduced motion always keeps a still pose.</p>
-          </div>
-          <p id="action-status" class="action-status" role="status" aria-live="polite">Ready to explore.</p>
+          <div class="director-heading"><p class="eyebrow">A LITTLE DIRECTION</p><h2 id="director-title">Invite a moment.</h2></div>
+          <p class="instruction" id="cue-description">A small rustle gives the selected fox something to listen for, investigate, and eventually pounce toward.</p>
+          <button id="scene-cue" class="primary" type="button"><span id="cue-label">Rustle the grass</span><span aria-hidden="true">↗</span></button>
+          <div class="button-row"><button id="pounce" type="button">Invite a pounce</button><button id="rest" type="button">Let it rest</button></div>
+          <p class="selected-note">Directing <strong id="selected-name">Ember</strong> <span id="selected-role">/ hunter</span></p>
+          <div class="playback-row"><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Replay this scene</button></div>
+          <p id="motion-note" class="motion-note">Automatic motion stops when this meadow is out of view.</p>
+          <section class="control-section" aria-labelledby="cast-heading">
+            <h3 id="cast-heading">Shape the evening</h3>
+            <div class="select-control"><label for="count">Foxes in the meadow</label><select id="count"><option value="1">One · a solitary visit</option><option value="2" selected>Two · a little company</option><option value="3">Three · different instincts</option></select></div>
+            <div class="range-label"><label for="pace">Scene pace</label><output id="pace-value" for="pace">1.00×</output></div><input id="pace" type="range" min="0.5" max="1.5" step="0.05" value="1"><p class="range-hint">Unhurried <span>Playful</span></p>
+            <div class="range-label"><label for="curiosity">Curiosity</label><output id="curiosity-value" for="curiosity">70%</output></div><input id="curiosity" type="range" min="0" max="1" step="0.05" value="0.7"><p class="range-hint">Keep a distance <span>Notice everything</span></p>
+            <div class="range-label"><label for="wind">Meadow wind</label><output id="wind-value" for="wind">Right · 30%</output></div><input id="wind" type="range" min="-1" max="1" step="0.05" value="0.3"><p class="range-hint">From the right <span>From the left</span></p>
+          </section>
+          <details class="fine-tune"><summary>Individual instincts &amp; spacing</summary><p class="small-note">Auto follows this scene. Give each fox its own motive.</p>
+            <div id="role-control-0" class="select-control"><label for="role-0">Ember</label><select id="role-0"><option value="auto">Auto · follow the scene</option><option value="hunter">Hunter · investigate and pounce</option><option value="playmate">Playmate · bow and answer</option><option value="lookout">Lookout · watch and listen</option><option value="dreamer">Dreamer · settle and rest</option></select></div>
+            <div id="role-control-1" class="select-control"><label for="role-1">Pip</label><select id="role-1"><option value="auto">Auto · follow the scene</option><option value="hunter">Hunter · investigate and pounce</option><option value="playmate">Playmate · bow and answer</option><option value="lookout">Lookout · watch and listen</option><option value="dreamer">Dreamer · settle and rest</option></select></div>
+            <div id="role-control-2" class="select-control" hidden><label for="role-2">Bracken</label><select id="role-2"><option value="auto">Auto · follow the scene</option><option value="hunter">Hunter · investigate and pounce</option><option value="playmate">Playmate · bow and answer</option><option value="lookout">Lookout · watch and listen</option><option value="dreamer">Dreamer · settle and rest</option></select></div>
+            <div class="range-label"><label for="spacing">Room to roam</label><output id="spacing-value" for="spacing">1.00×</output></div><input id="spacing" type="range" min="0.8" max="1.15" step="0.05" value="1">
+            <label class="check-control" for="labels"><input id="labels" type="checkbox" checked> Show names in the meadow</label>
+          </details>
+          <details class="still-controls"><summary>Compose a still tableau</summary><p class="small-note">A deliberate still pauses the scene. These remain available with reduced motion.</p><div class="still-buttons"><button id="still-listen" type="button">Listening</button><button id="still-pounce" type="button">Before the leap</button><button id="still-rest" type="button">At rest</button></div></details>
+          <p id="action-status" class="action-status" role="status" aria-live="polite">The evening is yours to direct.</p>
         </aside>
       </div>
-      <section class="observations" aria-label="Movement notes">
-        <div><span class="index">01</span><h3>Notice</h3><p>Breathing and tail motion have their own rhythms, even when the body rests.</p></div>
-        <div><span class="index">02</span><h3>Approach</h3><p>A guide evokes measured stalking and a low, curious sniff.</p></div>
-        <div><span class="index">03</span><h3>Leap</h3><p>The crouch comes first. A short arc follows, with forepaws meeting the ground before the hindfeet.</p></div>
-      </section>
-      <details class="text-export"><summary>Inspect the character specimen</summary><p>This is the actual printable cell grid. Capture a fresh frame when you want to inspect it.</p><button id="capture" type="button">Capture current frame</button><pre id="text-frame" tabindex="0" aria-label="Captured ASCII fox specimen"></pre></details>
-      <noscript><p class="fallback">This interactive study needs JavaScript. The fox is described above; source, tests and rendered evidence are available in the species folder.</p></noscript>
+      <section class="field-notes" aria-label="Meet the meadow"><div><span class="index">01</span><h3>Give them a reason.</h3><p>A guide attracts attention. A local rustle starts a sequence. A pounce has anticipation, a landing, and time to recover.</p></div><div><span class="index">02</span><h3>Leave a little silence.</h3><p>Ears scan, muzzles dip, tails lift or tuck. Each fox has its own rhythm, even when you leave the meadow alone.</p></div><div><span class="index">03</span><h3>Let the scene breathe.</h3><p>The cast shares a place, not a single impulse. Change a motive, invite a small moment, then watch the others answer.</p></div></section>
+      <details class="text-export" id="text-export"><summary>The meadow, character by character</summary><p>Capture the actual current cell grid. This text is a still frame; the PNG uses the currently rendered Canvas and system font.</p><pre id="text-frame" tabindex="0" aria-label="Captured ASCII meadow"></pre></details>
+      <noscript><p class="fallback">This study needs JavaScript to animate. It depicts stylized foxes listening, hunting, playing and resting in a meadow. Source and rendered evidence are linked below.</p></noscript>
     </main>
-    <footer class="page-footer"><p>FOX / ORIGINAL PROCEDURAL STUDY</p><p>Local preview · Central library integration pending</p><a href="../README.md">Implementation &amp; reproduction</a></footer>
+    <footer class="page-footer"><p>FOX / ORIGINAL PROCEDURAL FIELD STUDY</p><p>A small cast. Independent lives.</p><a href="../README.md">Typed API &amp; reproduction</a></footer>
   </div>
 </body>
 </html>

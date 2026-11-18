@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
+  <meta name="description" content="Three small underwater stories, told by original reactive ASCII pufferfish. Explore the reef, follow the tide, and give a watchful visitor room to settle.">
   <title>Pufferfish · A little breathing room</title>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="./demo.js"></script>
@@ -12,51 +13,67 @@
   <main>
     <header class="masthead"><a href="../index.html">ASCII ANIMALS</a><span>FIELD NOTES / PUFFERFISH</span></header>
     <section class="intro" aria-labelledby="title">
-      <div><p class="eyebrow">A small encounter</p><h1 id="title">A little breathing room.</h1></div>
-      <p class="intro-note">Come closer, gently. Give this little fish a moment to notice you—and a little space to settle.</p>
+      <div><p class="eyebrow">Small lives in moving water</p><h1 id="title">A little breathing room.</h1></div>
+      <p class="intro-note">Curious neighbours. A returning tide. A shadow overhead.<br>Choose a scene, meet its visitors, and leave a little room for courage.</p>
+    </section>
+    <section class="scene-selector" aria-label="Choose a pufferfish scene">
+      <button id="scene-reef" class="scene-choice" type="button" aria-pressed="true"><span class="scene-index">01 / DISCOVER</span><strong>Reef ramble</strong><span>Separate discoveries. A quiet gathering.</span></button>
+      <button id="scene-current" class="scene-choice" type="button" aria-pressed="false"><span class="scene-index">02 / SHELTER</span><strong>Returning tide</strong><span>Paddle, find cover, emerge again.</span></button>
+      <button id="scene-shadow" class="scene-choice" type="button" aria-pressed="false"><span class="scene-index">03 / RECOVER</span><strong>Passing shadow</strong><span>A watchful pause. Confidence returns.</span></button>
     </section>
     <div class="study">
-      <section class="specimen" aria-label="Interactive pufferfish">
+      <section class="specimen" aria-label="Interactive pufferfish scene">
         <div class="stage">
-          <canvas id="pufferfish" role="img" aria-describedby="description" aria-label="A round ASCII pufferfish with bright eyes, paddle fins and a short tail. Nearby approach makes it inflate with short spines."></canvas>
-          <div class="stage-header" aria-hidden="true"><span>PUFFERFISH</span><span id="motion-label">IN THE CURRENT</span></div>
-          <div class="stage-footer" aria-hidden="true"><span id="phase">Calm waters</span><span>ORIGINAL PROCEDURAL STUDY</span></div>
-          <p id="fallback" hidden>The animation could not start. A small round pufferfish has bright eyes, two little fins and a short fan tail. When approached, it expands into a spiny ball, then slowly settles.</p>
+          <canvas id="pufferfish" tabindex="0" role="img" aria-describedby="description keyboard-guide motion-note" aria-label="Interactive ASCII pufferfish scene. Round visitors have bright eyes, paddle fins and short tails. Choose an individual with the controls or the number keys, then invite it, approach it, or give the group space."></canvas>
+          <div class="stage-header" aria-hidden="true"><span id="scene-title">Reef ramble</span><span id="motion-label">IN THE CURRENT</span></div>
+          <div class="stage-footer" aria-hidden="true"><span id="phase">Small discoveries</span><span>ORIGINAL PROCEDURAL STUDY</span></div>
+          <p id="fallback" hidden>The animation could not start. Small round pufferfish have bright eyes, paddle fins and short fan tails. They explore, shelter from the tide and watch for a passing shadow. A close approach makes a fish expand into a spiny ball, then gradually settle when given space.</p>
         </div>
-        <p id="description" class="description">Move near the fish and linger for half a second. It notices, inflates in two stages, then floats. Move away to let it deflate. Its cooldown prevents repeated reactions.</p>
-        <p id="motion-note" class="motion-note" hidden>Still view is active. Approach and Give space show two static poses.</p>
+        <div class="scene-caption"><div><p class="eyebrow">In this moment</p><h2 id="scene-beat">Small discoveries</h2></div><p id="scene-description">Separate discoveries, a shared meeting place. Invite one visitor into the open water.</p></div>
+        <p id="description" class="description">Tap a fish to select it. Tap open water to invite your selected visitor there, or use the buttons. Lingering nearby gives it time to notice you; moving away lets it settle. No hovering or dragging is required.</p>
+        <p id="motion-note" class="motion-note" hidden>Still view is active. Deliberate controls choose static compositions.</p>
+        <details class="keyboard-help"><summary>Keyboard field guide</summary><p id="keyboard-guide">Focus the scene with Tab. <kbd>1</kbd>–<kbd>3</kbd> select a visitor, <kbd>I</kbd> invites it, <kbd>A</kbd> approaches, <kbd>Esc</kbd> gives the group space, <kbd>Space</kbd> pauses or resumes, and <kbd>R</kbd> resets. The controls below also work with Tab, Enter and Space.</p></details>
+        <details class="text-export"><summary>Keep a character frame</summary><p class="small">Capture the actual logical character grid. This remains a character frame when the canvas is displaying points.</p><div class="export-actions"><button id="capture-text" type="button">Refresh text frame</button><a id="download-text" class="button-link" href="#text-frame" download="pufferfish-frame.txt">Save .txt</a></div><pre id="text-frame" tabindex="0" aria-label="Captured printable ASCII frame">Choose Refresh text frame to capture this moment.</pre></details>
       </section>
-      <aside class="controls" aria-label="Pufferfish controls">
-        <div class="control-section">
-          <p class="eyebrow">Make an introduction</p>
-          <button id="approach" class="primary" type="button">Approach gently <span aria-hidden="true">↗</span></button>
-          <button id="retreat" type="button">Give some space <span aria-hidden="true">↙</span></button>
-          <p class="small">These controls work with touch, Enter and Space. No hovering required.</p>
-        </div>
-        <div class="control-section">
-          <p class="eyebrow">Take your time</p>
-          <div class="button-row"><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Reset</button></div>
-        </div>
-        <div class="control-section settings">
-          <label for="view">View</label>
-          <select id="view"><option value="right">Right three-quarter</option><option value="front">Face to face</option><option value="left">Left three-quarter</option></select>
-          <label for="quality">Character detail</label>
-          <select id="quality"><option value="small">Small · 72 columns</option><option value="standard" selected>Standard · 120 columns</option><option value="fine">Fine · 160 columns</option></select>
-          <label class="check"><input id="monochrome" type="checkbox"> Neutral tones</label>
-        </div>
-        <details class="control-section settings">
-          <summary>Character settings</summary>
-          <label for="seed">Seed</label><input id="seed" type="number" min="0" max="4294967295" step="1" value="23">
-          <label for="inflation">Maximum size</label><select id="inflation"><option value="1.3">Gentle · 1.30×</option><option value="1.65" selected>Default · 1.65×</option><option value="1.8">Full · 1.80×</option></select>
-          <label class="check"><input id="wobble" type="checkbox" checked> Buoyant wobble</label>
-          <button id="apply" type="button">Apply and reset</button>
-          <p class="small">Changes begin a fresh encounter and preserve your pause setting.</p>
+      <aside class="controls" aria-label="Pufferfish director controls">
+        <section class="control-section visitors" aria-labelledby="visitors-title">
+          <div class="section-heading"><h2 id="visitors-title" class="eyebrow">Meet the visitors</h2><label class="count-label" for="count">Count <select id="count"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></label></div>
+          <div class="actor-list" role="group" aria-label="Select an individual">
+            <button id="actor-0" class="actor-choice" type="button" aria-pressed="true"><span class="actor-number" aria-hidden="true">01</span><span class="actor-name"><strong id="actor-0-name">Visitor one</strong><span id="actor-0-role">explorer</span></span><span id="actor-0-motive" class="actor-motive">exploring</span></button>
+            <button id="actor-1" class="actor-choice" type="button" aria-pressed="false"><span class="actor-number" aria-hidden="true">02</span><span class="actor-name"><strong id="actor-1-name">Visitor two</strong><span id="actor-1-role">sentinel</span></span><span id="actor-1-motive" class="actor-motive">watching</span></button>
+            <button id="actor-2" class="actor-choice" type="button" aria-pressed="false" hidden><span class="actor-number" aria-hidden="true">03</span><span class="actor-name"><strong id="actor-2-name">Visitor three</strong><span id="actor-2-role">drifter</span></span><span id="actor-2-motive" class="actor-motive">settling</span></button>
+          </div>
+          <div class="individual-note"><div class="individual-heading"><strong id="selected-name">Visitor one</strong><span id="selected-phase">Calm</span></div><p id="actor-detail">An eager visitor, drawn to new places and quiet invitations.</p><div class="watchfulness"><label for="watchfulness">Watchfulness</label><span id="watchfulness-value">At ease</span><meter id="watchfulness" min="0" max="1" low=".2" high=".55" optimum="0" value="0">0</meter></div></div>
+          <label class="field-label" for="role">This visitor’s role</label><select id="role"><option value="explorer">Explorer · curious</option><option value="sentinel">Sentinel · watchful</option><option value="drifter">Drifter · unhurried</option></select><p class="small">A new count or role begins a fresh scene.</p>
+        </section>
+        <section class="control-section" aria-labelledby="introduction-title">
+          <h2 id="introduction-title" class="eyebrow">Make an introduction</h2>
+          <button id="invite" class="primary action-button" type="button">Invite closer <span aria-hidden="true">↗</span></button>
+          <div class="button-row"><button id="approach" type="button">Approach</button><button id="retreat" type="button">Give space</button></div>
+          <p class="small">Invite and Approach address your selected visitor. Give space lets the whole group recover. Touch and keyboard welcome.</p>
+          <div class="button-row playback"><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Reset scene</button></div>
+        </section>
+        <details class="control-section tuning" open>
+          <summary>Shape the encounter</summary>
+          <div class="range-field"><label for="current">Current</label><output id="current-value" for="current">+0.35 · right</output><input id="current" type="range" min="-1" max="1" step=".05" value=".35"><span class="range-ends"><span>← left</span><span>right →</span></span></div>
+          <div class="range-field"><label for="tempo">Scene tempo</label><output id="tempo-value" for="tempo">1.00×</output><input id="tempo" type="range" min=".5" max="1.5" step=".05" value="1"></div>
+          <div class="range-field"><label for="curiosity">Curiosity</label><output id="curiosity-value" for="curiosity">75%</output><input id="curiosity" type="range" min="0" max="1" step=".05" value=".75"></div>
+          <div class="range-field"><label for="size">Visitor size</label><output id="size-value" for="size">1.00×</output><input id="size" type="range" min=".8" max="1.1" step=".05" value="1"></div>
+          <div class="range-field"><label for="spacing">Room between visitors</label><output id="spacing-value" for="spacing">1.00×</output><input id="spacing" type="range" min=".8" max="1.2" step=".05" value="1"></div>
+          <button id="apply-director" type="button" disabled>Apply and begin again</button><p id="tuning-note" class="small">Apply a new current or pace to begin the scene again. Your pause setting stays put.</p>
         </details>
-        <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true">Ready for a quiet encounter.</p>
+        <details class="control-section settings">
+          <summary>Look &amp; character</summary>
+          <label for="mode">Mark making</label><select id="mode"><option value="ascii" selected>Characters · ASCII</option><option value="points">Points</option></select>
+          <label for="view">View</label><select id="view"><option value="right" selected>Right three-quarter</option><option value="front">Face to face</option><option value="left">Left three-quarter</option></select>
+          <label for="quality">Character detail</label><select id="quality"><option value="small">Small · 72 columns</option><option value="standard">Standard · 120 columns</option><option value="fine" selected>Fine · 160 columns</option></select>
+          <label class="check"><input id="labels" type="checkbox" checked> Individual labels</label><label class="check"><input id="monochrome" type="checkbox"> Neutral tones</label>
+          <div class="character-settings"><label for="seed">Seed</label><input id="seed" type="number" min="0" max="4294967295" step="1" value="23"><label for="inflation">Maximum inflation</label><select id="inflation"><option value="1.3">Gentle · 1.30×</option><option value="1.65" selected>Default · 1.65×</option><option value="1.8">Full · 1.80×</option></select><label class="check"><input id="wobble" type="checkbox" checked> Buoyant wobble</label><button id="apply-character" type="button">Apply character &amp; reset</button><p class="small">Seed and character changes restart the scene. View and detail changes preserve the moment.</p></div>
+        </details>
+        <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true">Two visitors, a quiet reef. Choose someone to meet.</p>
       </aside>
     </div>
-    <details class="text-export"><summary>View the current character frame</summary><button id="capture-text" type="button">Refresh text frame</button><pre id="text-frame" tabindex="0" aria-label="Captured printable ASCII frame"></pre></details>
-    <footer><span>Round body. Small fins. A little courage.</span><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/PUFFERFISH-API.md">Study notes and reproduction</a></footer>
+    <footer><span>Round bodies. Small discoveries. Room to recover.</span><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/PUFFERFISH-API.md">Study notes and reproduction</a></footer>
   </main>
 </body>
 </html>

@@ -1,6 +1,7 @@
 import { mountFox } from '../species/fox/browser.js';
 import { getBrowserScheduler } from '../core/scheduler.js';
 export { createFox, staticFoxPose, normalizeFoxPointer, FOX_DEFAULTS, FOX_LIMITS, resolveFoxOptions } from '../species/fox/model.js';
+export { createFoxDirector, FOX_DIRECTOR_DEFAULTS, FOX_DIRECTOR_LIMITS, resolveFoxDirectorOptions } from '../species/fox/director.js';
 /** SSR-safe import. Mount in a browser after sizing the canvas. The default
  * borrowed scheduler is shared with the other browser artwork instances.
  * All methods except getStatus/disposed reject after dispose; dispose is idempotent.

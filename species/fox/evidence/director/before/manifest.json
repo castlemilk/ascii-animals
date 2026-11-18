@@ -1,0 +1,152 @@
+{
+  "evidenceKind": "Actual native Skia Canvas output from compiled Fox director/model/scene painter; not browser/deployed evidence",
+  "baseCommit": "c06114404900884814bef879a02f1a49a3e7d590",
+  "checkoutHead": "c7e4c18df63e3ccb174e8e395d25522a010e3538",
+  "uncommittedSource": true,
+  "node": "v24.22.1",
+  "canvas": "@napi-rs/canvas 0.1.100",
+  "sourceHashes": {
+    "director.js": "23968dc5d4ca51e702fd61e04ada309ef987fdbc3f85a65171756775a7e414f5",
+    "director-render.js": "f30efaf43220d84463f7df33e533131becee4ee3fafda154a3b7105b359a45f6",
+    "director-types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "model.js": "95a4811b51cf729f37f2442196047727ceb9cecaebe74770c54a4ac92e9ab96f",
+    "geometry.js": "6b0d79c1d06970ae2470e361f1703f51a3c41fbe543221b2adf6eda531532eac",
+    "config.js": "6adbc4163cbecf6171dfae379749eb89eef299ed2c29d726dbbcc56b85d95533",
+    "preview.js": "9072f25a005ae3a0d5d192c90f5f9b245df971233635a26cb35d429887beedab"
+  },
+  "font": {
+    "path": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+    "bundled": false,
+    "registeredAlias": "ui-monospace"
+  },
+  "files": [
+    {
+      "file": "native-dusk-hunt.png",
+      "sha256": "65b5e134dc1dd78e3cca5c3d17980e842e64936f35f9708feb68b2a53217e726",
+      "state": {
+        "name": "native-dusk-hunt",
+        "scene": "dusk-hunt",
+        "tick": 870,
+        "beat": "investigation",
+        "tableau": null,
+        "actors": [
+          {
+            "id": 0,
+            "name": "Ember",
+            "role": "hunter",
+            "action": "pouncing",
+            "phase": "airborne",
+            "expression": {
+              "headPitch": 0.03499999999999997,
+              "earNear": 0.13782019162110157,
+              "earFar": 0.06555291400026464,
+              "tailLift": 0.05999999999999996,
+              "rest": 0,
+              "bow": 0
+            }
+          },
+          {
+            "id": 1,
+            "name": "Pip",
+            "role": "lookout",
+            "action": "listening",
+            "phase": "idle",
+            "expression": {
+              "headPitch": -0.11386222063163415,
+              "earNear": -0.1914361020764359,
+              "earFar": 0.25638912408402126,
+              "tailLift": -0.12999999999999987,
+              "rest": 0,
+              "bow": 0
+            }
+          },
+          {
+            "id": 2,
+            "name": "Bracken",
+            "role": "playmate",
+            "action": "playing",
+            "phase": "stalk",
+            "expression": {
+              "headPitch": 0.03499999999999997,
+              "earNear": 0.18442747668022832,
+              "earFar": -0.008709541487685058,
+              "tailLift": -0.22999999999999987,
+              "rest": 0,
+              "bow": 0.045155279951973853
+            }
+          }
+        ],
+        "cols": 160,
+        "rows": 64,
+        "occupied": 806,
+        "cellHash": "eebf04ef2ebbdd4ded621b83af179395c637e8757fa7e5a41420e155850800bb",
+        "ownerHash": "2a7a66e9acbb00bf8b0ca9913705352e1c0fad978d96332ccd6da4c3230317ae"
+      }
+    },
+    {
+      "file": "native-portrait-112x64.png",
+      "sha256": "3246b531df1694b231c0d7bd960e772811627423879cc6da58fa83ccb05e898c",
+      "state": {
+        "name": "native-portrait-112x64",
+        "scene": "dusk-hunt",
+        "tick": 870,
+        "beat": "investigation",
+        "tableau": null,
+        "actors": [
+          {
+            "id": 0,
+            "name": "Ember",
+            "role": "hunter",
+            "action": "pouncing",
+            "phase": "airborne",
+            "expression": {
+              "headPitch": 0.03499999999999997,
+              "earNear": 0.13782019162110157,
+              "earFar": 0.06555291400026464,
+              "tailLift": 0.05999999999999996,
+              "rest": 0,
+              "bow": 0
+            }
+          },
+          {
+            "id": 1,
+            "name": "Pip",
+            "role": "lookout",
+            "action": "listening",
+            "phase": "idle",
+            "expression": {
+              "headPitch": -0.11386222063163415,
+              "earNear": -0.1914361020764359,
+              "earFar": 0.25638912408402126,
+              "tailLift": -0.12999999999999987,
+              "rest": 0,
+              "bow": 0
+            }
+          },
+          {
+            "id": 2,
+            "name": "Bracken",
+            "role": "playmate",
+            "action": "playing",
+            "phase": "stalk",
+            "expression": {
+              "headPitch": 0.03499999999999997,
+              "earNear": 0.18442747668022832,
+              "earFar": -0.008709541487685058,
+              "tailLift": -0.22999999999999987,
+              "rest": 0,
+              "bow": 0.045155279951973853
+            }
+          }
+        ],
+        "cols": 112,
+        "rows": 64,
+        "occupied": 743,
+        "cellHash": "ad1d030a89abb42454b1a920b97846c255bbd2e66db48c892db8d161e6333129",
+        "ownerHash": "34722bed2c8bf24b2a3a80748ba72fedcb9ce0ca810c35e4cacc992c48bb3db8"
+      }
+    }
+  ],
+  "critique": "In the native desktop and portrait compositions, the upper fox occupies empty sky above the meadow horizon, weakening the sense of one shared ground plane. The rest tableau is distinct; subtle ear and head changes are harder to read at portrait scale. These are inspected native snapshots, not a browser or playback review."
+}

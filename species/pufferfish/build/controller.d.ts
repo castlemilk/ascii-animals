@@ -1,11 +1,14 @@
 import type { PufferfishLegacyDependency, PufferfishRenderOptions } from './legacy-painter.js';
 import type { PufferfishInput, PufferfishOptions, PufferfishPhase, PufferfishState } from './types.js';
+import type { PufferfishDirectorOptions, PufferfishDirectorState, PufferfishSceneStatus } from './director-types.js';
 export interface PufferfishFrameSource {
     subscribe(callback: (timestamp: number) => void): () => void;
 }
 export interface PufferfishMountOptions {
     readonly frameSource?: PufferfishFrameSource;
     readonly species?: PufferfishOptions;
+    /** Omit to retain the original centered solo experience. */
+    readonly director?: PufferfishDirectorOptions;
     readonly render?: PufferfishRenderOptions;
     readonly paused?: boolean;
     readonly onChange?: (status: PufferfishStatus) => void;
@@ -29,6 +32,7 @@ export interface PufferfishStatus {
     readonly coalescedInputs: number;
     readonly pendingInputs: number;
     readonly failure: string | null;
+    readonly director: PufferfishSceneStatus | null;
 }
 export type PufferfishActionResult = Readonly<{
     kind: 'queued' | 'static-poster' | 'suspended';
@@ -37,11 +41,15 @@ export type PufferfishActionResult = Readonly<{
 export interface PufferfishController {
     configure(patch: PufferfishOptions): void;
     configureRender(patch: PufferfishRenderOptions): void;
+    configureDirector(patch: PufferfishDirectorOptions): void;
+    selectActor(id: number): void;
+    invite(x?: number, y?: number): PufferfishActionResult;
     setPaused(paused: boolean): void;
     reset(seed?: number): void;
     approach(): PufferfishActionResult;
     retreat(): PufferfishActionResult;
     getSnapshot(): PufferfishState;
+    getDirectorSnapshot(): PufferfishDirectorState | null;
     getStatus(): PufferfishStatus;
     exportText(): string;
     destroy(): void;

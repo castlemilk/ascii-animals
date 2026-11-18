@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "node": "v24.22.1",
+  "startedAt": "2026-11-18T12:17:52.101Z",
+  "evidenceKinds": {
+    "core": "real generated JavaScript and original geometry/sampler",
+    "host": "simulated DOM, frames, observers and events with real Owl runtime",
+    "demoControls": "bubbling DOM stub; not native browser",
+    "visual": "executed ASCII rasterized with Pillow",
+    "nativeBrowser": "live baseline inspected; revised localhost refused connection",
+    "performance": "unmeasured"
+  },
+  "checks": [
+    {
+      "name": "build",
+      "command": [
+        "node",
+        "scripts/build.mjs"
+      ],
+      "exitCode": 0,
+      "durationMs": 13500,
+      "log": "build.log"
+    },
+    {
+      "name": "root-types",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "durationMs": 1975,
+      "log": "root-types.log"
+    },
+    {
+      "name": "owl-types",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "species/owl/tsconfig.types.json"
+      ],
+      "exitCode": 0,
+      "durationMs": 1048,
+      "log": "owl-types.log"
+    },
+    {
+      "name": "owl-tests",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "species/owl/tests/adapter.test.mjs",
+        "species/owl/tests/browser.test.mjs",
+        "species/owl/tests/core.test.mjs",
+        "species/owl/tests/demo-controls.test.mjs",
+        "species/owl/tests/director-host.test.mjs",
+        "species/owl/tests/director.test.mjs",
+        "species/owl/tests/geometry.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationMs": 1205,
+      "log": "owl-tests.log"
+    },
+    {
+      "name": "repository-tests",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "test/butterfly.test.mjs",
+        "test/crab.test.mjs",
+        "test/demo-module-dependencies.test.mjs",
+        "test/dragonfly-integration.test.mjs",
+        "test/fox-integration.test.mjs",
+        "test/frog-integration.test.mjs",
+        "test/gecko-integration.test.mjs",
+        "test/generated-demo.test.mjs",
+        "test/lifecycle.test.mjs",
+        "test/owl-integration.test.mjs",
+        "test/parity.test.mjs",
+        "test/public-api.test.mjs",
+        "test/pufferfish-integration.test.mjs",
+        "test/scheduler.test.mjs",
+        "test/seahorse.test.mjs",
+        "test/species-geometry.test.mjs",
+        "test/species-integration.test.mjs",
+        "test/turtle.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationMs": 81236,
+      "log": "repository-tests.log"
+    },
+    {
+      "name": "cuttlefish-regression",
+      "command": [
+        "node",
+        "scripts/check-engine.cjs"
+      ],
+      "exitCode": 0,
+      "durationMs": 31210,
+      "log": "cuttlefish-regression.log"
+    },
+    {
+      "name": "catalogue",
+      "command": [
+        "python3",
+        "scripts/check-catalogue.py"
+      ],
+      "exitCode": 0,
+      "durationMs": 120,
+      "log": "catalogue.log"
+    },
+    {
+      "name": "generated-demo-syntax",
+      "command": [
+        "node",
+        "--check",
+        "dist/owl/demo.mjs"
+      ],
+      "exitCode": 0,
+      "durationMs": 105,
+      "log": "generated-demo-syntax.log"
+    }
+  ],
+  "finishedAt": "2026-11-18T12:20:02.507Z"
+}

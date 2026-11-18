@@ -1,0 +1,7 @@
+{
+  "package.json": "5fafeb6dfdaeddaab8d60d2a4b84a02de5bbe31995086e28a3d70954bedd1583",
+  "src/public/index.ts": "033996fb8a7eb5f57ced48551dabb2fe687c4b2cc2fb013266112e892fb474a0",
+  "src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+  "src/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8",
+  "dist/index.html": "fc3a74199e4d767c27747293ecd0d672d61ec3d3e1589c56253314f5bc420e9c"
+}

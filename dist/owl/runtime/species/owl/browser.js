@@ -1,11 +1,13 @@
 import { createOwl, makeOwlPoster, normalizeOwlPointer } from './owl.js';
 import { renderOwlGrid } from './preview.js';
+import { createOwlDirector, makeOwlDirectorPoster, validateOwlDirectorCue } from './director.js';
+import { renderOwlDirectorGrid, targetOwlActor } from './composition.js';
 const STEP_MS = 1000 / 60;
 const MAX_STEPS = 5;
 const MIN_WIDTH = 350;
 const MIN_HEIGHT = 330;
 const DEFAULT_DESCRIPTION = 'A round-faced owl perched on a branch, with two forward-facing eyes, folded wings and planted feet.';
-const optionKeys = new Set(['owl', 'grid', 'paused', 'frameSource', 'onStatus', 'environment']);
+const optionKeys = new Set(['owl', 'director', 'grid', 'paused', 'frameSource', 'onStatus', 'environment']);
 function object(value, name) {
     if (!value || typeof value !== 'object' || Array.isArray(value))
         throw new TypeError(`${name} must be an object.`);
@@ -22,8 +24,8 @@ function validateBrowserGrid(value) {
     }
 }
 /**
- * Owl-only DOM-text preview. This is a local integration proposal, not a package
- * renderer. It owns its element/listeners/subscription and never a shared clock.
+ * Integrated Owl DOM-text host. Optional direction keeps its composition inside
+ * the same owned element/subscription; it never owns a borrowed shared clock.
  * Missing matchMedia/RAF yields a useful static preview. Observer fallbacks use
  * window resize/scroll plus measurements on explicit actions.
  */
@@ -64,12 +66,17 @@ export function mountOwl(host, options = {}) {
     const media = matchMedia?.('(prefers-reduced-motion: reduce)');
     const motionKnown = Boolean(media);
     const animationAvailable = Boolean(options.frameSource || (requestFrame && cancelFrame));
-    const owl = createOwl(options.owl);
-    let state = owl.getState();
-    let displayed = state;
+    const director = options.director === undefined ? null : createOwlDirector(options.director, options.owl);
+    const owl = director ? null : createOwl(options.owl);
+    let directorState = director?.getState() ?? null;
+    let displayedDirector = directorState;
+    let state = directorState ? directorState.actors[0].simulation : owl.getState();
+    let displayed = directorState ? directorState.actors[0].pose : state;
     let gridOptions = options.grid === undefined ? undefined : { ...options.grid };
     // Validate all logical options before acquiring browser resources.
-    let grid = renderOwlGrid(state, gridOptions ?? { cols: 96, rows: 54 });
+    let grid = directorState
+        ? renderOwlDirectorGrid(directorState, gridOptions ?? (directorState.config.count === 2 ? { cols: 144, rows: 60 } : { cols: 96, rows: 54 }))
+        : renderOwlGrid(state, gridOptions ?? { cols: 96, rows: 54 });
     const shell = doc.createElement('div');
     const pre = doc.createElement('pre');
     shell.setAttribute('data-owl-preview', '');
@@ -87,6 +94,7 @@ export function mountOwl(host, options = {}) {
     let width = 0, height = 0;
     let blockedBy = [];
     let poster = { kind: 'rest' };
+    let directorPoster = null;
     let displayedPoster = 'rest';
     let raf = null;
     let unsubscribe = null;
@@ -96,6 +104,7 @@ export function mountOwl(host, options = {}) {
     let actionOrder = 0;
     let targetAction = null;
     let reactOrder = null;
+    let cueAction = null;
     let resizeObserver = null;
     let intersectionObserver = null;
     let statusSignature = '';
@@ -106,14 +115,16 @@ export function mountOwl(host, options = {}) {
     function getStatus() {
         return Object.freeze({ paused, running, disposed, reducedMotion: reduced,
             blockedBy: Object.freeze([...blockedBy]), tick: state.tick, behavior: state.behavior,
-            displayedPoster, queuedInputs: Number(targetAction !== null) + Number(reactOrder !== null),
-            droppedMs, frames, cols: grid.cols, rows: grid.rows, capabilities });
+            displayedPoster, queuedInputs: Number(targetAction !== null) + Number(reactOrder !== null || cueAction !== null),
+            droppedMs, frames, cols: grid.cols, rows: grid.rows, director: displayedDirector, capabilities });
     }
     function publish() {
         if (disposed)
             return;
         const signature = JSON.stringify([paused, running, reduced, blockedBy, displayedPoster,
-            state.behavior.kind, state.behavior.kind === 'response' ? state.behavior.phase : '', grid.cols, grid.rows]);
+            state.behavior.kind, state.behavior.kind === 'response' ? state.behavior.phase : '', grid.cols, grid.rows,
+            displayedDirector && [displayedDirector.phase.kind, displayedDirector.config,
+                displayedDirector.actors.map(actor => [actor.id, actor.role, actor.motive]), displayedDirector.poster]]);
         if (signature === statusSignature)
             return;
         statusSignature = signature;
@@ -132,6 +143,7 @@ export function mountOwl(host, options = {}) {
     function clearPending() {
         targetAction = null;
         reactOrder = null;
+        cueAction = null;
         actionOrder = 0;
         clearTargetOnStep = true;
     }
@@ -162,21 +174,37 @@ export function mountOwl(host, options = {}) {
         resizeObserver = null;
         intersectionObserver = null;
         shell.remove();
-        owl.dispose();
+        owl?.dispose();
+        director?.dispose();
         blockedBy = ['disposed'];
     }
-    function chosenGrid() {
-        return gridOptions ?? (width < 550 || height < 440 ? { cols: 64, rows: 36 } : { cols: 96, rows: 54 });
+    function chosenGrid(scene = directorState) {
+        if (gridOptions)
+            return gridOptions;
+        if (scene)
+            return scene.config.count === 2
+                ? (width < 700 ? { cols: 80, rows: 90 } : { cols: 144, rows: 60 })
+                : { cols: 96, rows: 54 };
+        return width < 550 || height < 440 ? { cols: 64, rows: 36 } : { cols: 96, rows: 54 };
     }
     function draw(next) {
         if (disposed)
             return;
-        displayed = running || poster === null ? state : makeOwlPoster(state, poster);
+        if (directorState) {
+            displayedDirector = running || directorPoster === null ? directorState : makeOwlDirectorPoster(directorState, directorPoster);
+            displayed = displayedDirector.actors[0].pose;
+            grid = next ?? renderOwlDirectorGrid(displayedDirector, chosenGrid());
+        }
+        else {
+            displayed = running || poster === null ? state : makeOwlPoster(state, poster);
+            grid = next ?? renderOwlGrid(displayed, chosenGrid());
+        }
         displayedPoster = running ? null : poster?.kind ?? 'frozen';
-        grid = next ?? renderOwlGrid(displayed, chosenGrid());
         pre.textContent = grid.text;
         pre.style.fontSize = `${Math.max(0, Math.min(width / (grid.cols * 0.6), height / (grid.rows * 1.1)))}px`;
-        pre.setAttribute('aria-label', `${DEFAULT_DESCRIPTION}${displayedPoster === 'react' ? ' Static wing-stretch pose.' : displayedPoster === 'attention' ? ' Static attentive pose.' : ''}`);
+        pre.setAttribute('aria-label', displayedDirector
+            ? `${displayedDirector.config.count === 2 ? 'Two' : 'One'} round-faced ${displayedDirector.config.count === 2 ? 'owls' : 'owl'} on a twilight perch. ${displayedDirector.config.scene} scene, ${displayedDirector.phase.kind}. ${displayedDirector.actors.map(actor => `${actor.name}: ${actor.motive}`).join('. ')}${running ? '' : ' Still scene.'}`
+            : `${DEFAULT_DESCRIPTION}${displayedPoster === 'react' ? ' Static wing-stretch pose.' : displayedPoster === 'attention' ? ' Static attentive pose.' : ''}`);
         frames++;
     }
     function measure() {
@@ -242,6 +270,7 @@ export function mountOwl(host, options = {}) {
             // Suspension freezes the current pose. Deliberate static actions can
             // replace it, but merely pausing must not collapse an extended wing.
             poster = null;
+            directorPoster = null;
         }
         else if (!running && shouldRun) {
             start();
@@ -267,6 +296,35 @@ export function mountOwl(host, options = {}) {
         actionOrder = 0;
         clearTargetOnStep = false;
         return events;
+    }
+    function directorEventsFor(tick) {
+        const actions = [];
+        if (targetAction)
+            actions.push(targetAction);
+        else if (clearTargetOnStep)
+            actions.push({ type: 'leave', order: -1 });
+        if (cueAction)
+            actions.push({ type: 'cue', ...cueAction });
+        actions.sort((a, b) => a.order - b.order);
+        const events = actions.map((action, index) => {
+            const common = { tick, seq: directorState.lastSequence + 1 + index };
+            if (action.type === 'attention')
+                return { ...common, type: 'attention', x: action.x, y: action.y,
+                    ...(action.target === undefined ? {} : { target: action.target }) };
+            if (action.type === 'cue')
+                return { ...common, type: 'cue', cue: action.cue };
+            return { ...common, type: 'leave' };
+        });
+        targetAction = null;
+        cueAction = null;
+        reactOrder = null;
+        actionOrder = 0;
+        clearTargetOnStep = false;
+        return events;
+    }
+    function syncDirector() {
+        directorState = director.getState();
+        state = directorState.actors[0].simulation;
     }
     function onFrame(timestamp) {
         if (disposed || !running)
@@ -300,7 +358,12 @@ export function mountOwl(host, options = {}) {
                 const steps = Math.min(availableSteps, MAX_STEPS);
                 for (let i = 0; i < steps; i++) {
                     const tick = state.tick + 1;
-                    state = owl.advance(tick, i === 0 ? eventsFor(tick) : []).state;
+                    if (director) {
+                        directorState = director.advance(tick, i === 0 ? directorEventsFor(tick) : []).state;
+                        state = directorState.actors[0].simulation;
+                    }
+                    else
+                        state = owl.advance(tick, i === 0 ? eventsFor(tick) : []).state;
                     accumulator = Math.max(0, accumulator - STEP_MS);
                 }
                 if (steps) {
@@ -320,6 +383,24 @@ export function mountOwl(host, options = {}) {
     function queueTarget(action) {
         targetAction = { ...action, order: actionOrder++ };
     }
+    function eventPoint(event) {
+        // The composed text may be centered within a letterboxed host. Actor cells
+        // live in the actual pre rectangle, not the surrounding empty stage.
+        const rect = director ? pre.getBoundingClientRect() : host.getBoundingClientRect();
+        return normalizeOwlPointer(event.clientX, event.clientY, rect);
+    }
+    function actorPoint(point) {
+        const sceneGrid = grid;
+        const target = targetOwlActor(sceneGrid, point.x, point.y);
+        const rect = sceneGrid.actorRects.find(candidate => candidate.id === target);
+        const col = (point.x + 1) * .5 * (sceneGrid.cols - 1);
+        const row = (point.y + 1) * .5 * (sceneGrid.rows - 1);
+        // Ownership uses composed scene cells; gaze uses the selected owl's viewport.
+        // Otherwise a point to Ash's right but left of scene center looks left.
+        return { target,
+            x: normalized(2 * (col - rect.left) / (rect.width - 1) - 1, 'Actor gaze x'),
+            y: normalized(2 * (row - rect.top) / (rect.height - 1) - 1, 'Actor gaze y') };
+    }
     function pointer(event) {
         if (disposed || !running)
             return;
@@ -327,21 +408,66 @@ export function mountOwl(host, options = {}) {
         if (!running)
             return;
         const e = event;
-        const point = normalizeOwlPointer(e.clientX, e.clientY, host.getBoundingClientRect());
+        const point = eventPoint(e);
         if (point)
-            queueTarget({ type: 'attention', ...point });
+            queueTarget({ type: 'attention', ...(director ? actorPoint(point) : point) });
     }
-    function pointerLeave() {
+    function pointerLeave(event) {
         if (disposed)
             return;
         targetAction = null;
+        if (director && (event?.type === 'pointercancel' || event?.type === 'lostpointercapture'))
+            cueAction = null;
         clearTargetOnStep = true;
         if (running)
             queueTarget({ type: 'leave' });
     }
+    function checkedTarget(target) {
+        if (target === undefined)
+            return undefined;
+        if (target !== 0 && target !== 1)
+            throw new RangeError('Owl target must be 0 or 1.');
+        if (!directorState)
+            throw new TypeError('Individual targets require an enabled Owl director.');
+        if (target >= directorState.config.count)
+            throw new RangeError('Owl target is not active in this scene.');
+        return target;
+    }
+    function cue(value) {
+        assertAlive();
+        if (!director || !directorState)
+            throw new TypeError('Create the Owl with director options before sending scene cues.');
+        const next = validateOwlDirectorCue(value);
+        checkedTarget(next.target);
+        reconcile();
+        assertAlive();
+        if (running) {
+            // Last deliberate cue wins within one upcoming tick; the queue never grows.
+            cueAction = { cue: next, order: actionOrder++ };
+            return Object.freeze({ kind: 'queued' });
+        }
+        directorPoster = next;
+        poster = { kind: 'react' };
+        draw();
+        publish();
+        return Object.freeze({ kind: 'poster', poster: 'react' });
+    }
+    function pointerDown(event) {
+        if (disposed || !director)
+            return;
+        const e = event;
+        if (typeof e.button === 'number' && e.button !== 0)
+            return;
+        const point = eventPoint(e);
+        if (!point)
+            return;
+        cue({ kind: 'rustle', ...actorPoint(point) });
+    }
     try {
         host.appendChild(shell);
         listen(host, 'pointermove', pointer, { passive: true });
+        if (director)
+            listen(host, 'pointerdown', pointerDown, { passive: true });
         for (const event of ['pointerleave', 'pointercancel', 'lostpointercapture'])
             listen(host, event, pointerLeave, { passive: true });
         listen(doc, 'visibilitychange', () => reconcile(true));
@@ -388,6 +514,8 @@ export function mountOwl(host, options = {}) {
         },
         react() {
             assertAlive();
+            if (director)
+                return cue({ kind: 'stretch' });
             reconcile();
             assertAlive();
             if (running) {
@@ -400,21 +528,50 @@ export function mountOwl(host, options = {}) {
             publish();
             return Object.freeze({ kind: 'poster', poster: 'react' });
         },
-        guide(x, y) {
+        guide(x, y, target) {
             assertAlive();
             x = normalized(x, 'Guide x');
             y = normalized(y, 'Guide y');
+            checkedTarget(target);
             reconcile();
             assertAlive();
+            const selection = director ? target ?? 0 : undefined;
             if (running) {
-                queueTarget({ type: 'attention', x, y });
+                queueTarget({ type: 'attention', x, y,
+                    ...(selection === undefined ? {} : { target: selection }) });
                 return Object.freeze({ kind: 'queued' });
             }
             poster = { kind: 'attention', x, y };
+            if (director)
+                directorPoster = { kind: 'attention', x, y,
+                    ...(selection === undefined ? {} : { target: selection }) };
             draw();
             publish();
             return Object.freeze({ kind: 'poster', poster: 'attention' });
         },
+        cue,
+        updateDirector(patch) {
+            assertAlive();
+            if (!director || !directorState)
+                throw new TypeError('Create the Owl with director options before configuring its scene.');
+            object(patch, 'Director patch');
+            // Resolve and sample a temporary candidate before touching the live scene.
+            // This also catches an explicit solo-only grid before enabling a duet.
+            const candidate = createOwlDirector({ ...directorState.config, ...patch }, state.config);
+            try {
+                renderOwlDirectorGrid(candidate.getState(), chosenGrid(candidate.getState()));
+            }
+            finally {
+                candidate.dispose();
+            }
+            director.update(patch);
+            syncDirector();
+            clearPending();
+            directorPoster = null;
+            poster = null;
+            reconcile(true);
+        },
+        getDirectorSnapshot() { assertAlive(); return directorState; },
         leave() {
             assertAlive();
             reconcile();
@@ -422,6 +579,8 @@ export function mountOwl(host, options = {}) {
             pointerLeave();
             if (!running) {
                 poster = { kind: 'rest' };
+                if (director)
+                    directorPoster = { kind: 'rest' };
                 draw();
             }
             publish();
@@ -429,20 +588,31 @@ export function mountOwl(host, options = {}) {
         reset(seed) {
             assertAlive();
             // The core validates first; invalid resets leave all host state untouched.
-            const next = owl.reset(seed);
-            state = next;
+            if (director) {
+                director.reset(seed);
+                syncDirector();
+            }
+            else
+                state = owl.reset(seed);
             clearPending();
             clearTargetOnStep = false;
             previousTime = null;
             accumulator = 0;
             droppedMs = 0;
             poster = { kind: 'rest' };
+            directorPoster = null;
             reconcile(true);
         },
         update(patch) {
             assertAlive();
-            owl.update(patch);
-            state = owl.getState();
+            if (director) {
+                director.updateOwl(patch);
+                syncDirector();
+            }
+            else {
+                owl.update(patch);
+                state = owl.getState();
+            }
             reconcile(true);
         },
         setGrid(patch) {
@@ -450,13 +620,13 @@ export function mountOwl(host, options = {}) {
             validateBrowserGrid(patch);
             const next = { ...patch };
             // Sampling validates atomically before replacing the effective grid.
-            const candidate = renderOwlGrid(displayed, next);
+            const candidate = displayedDirector ? renderOwlDirectorGrid(displayedDirector, next) : renderOwlGrid(displayed, next);
             gridOptions = next;
             draw(candidate);
             publish();
         },
         getStatus,
-        getSnapshot() { assertAlive(); return Object.freeze({ simulation: state, displayed, grid }); },
+        getSnapshot() { assertAlive(); return Object.freeze({ simulation: state, displayed, grid, director: displayedDirector }); },
         exportText() { assertAlive(); return grid.text; },
         dispose() { release(); },
     });

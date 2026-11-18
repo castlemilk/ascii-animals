@@ -1,7 +1,11 @@
-import type { FoxCreateOptions, FoxFrameSource, FoxGridOptions, FoxInput, FoxOptions, FoxOptionsInput, FoxState, FoxStaticPose } from './types.js';
+import type { FoxCue, FoxDirectorInput, FoxDirectorOptions, FoxDirectorOptionsInput, FoxDirectorState, FoxTableau } from './director-types.js';
+import type { FoxCreateOptions, FoxFrameSource, FoxGridOptions, FoxInput, FoxOptions, FoxOptionsInput, FoxPoint, FoxState, FoxStaticPose } from './types.js';
 export interface FoxBrowserOptions {
     readonly fox?: FoxCreateOptions;
     readonly grid?: FoxGridOptions;
+    /** Opt in to a bounded meadow cast. Omit to preserve the original single Fox. */
+    readonly director?: FoxDirectorOptionsInput;
+    readonly onDirectorInputs?: (batch: readonly FoxDirectorInput[]) => void;
     /** Borrowed: only this mount's subscription is released. */
     readonly frameSource?: FoxFrameSource;
     readonly onStatus?: (status: FoxBrowserStatus) => void;
@@ -29,6 +33,8 @@ export interface FoxBrowserStatus {
     readonly rows: number;
     readonly backingWidth: number;
     readonly backingHeight: number;
+    readonly director: FoxDirectorState | null;
+    readonly tableau: FoxTableau | null;
 }
 export interface FoxBrowserController {
     configure(options: FoxOptionsInput): FoxOptions;
@@ -44,6 +50,12 @@ export interface FoxBrowserController {
     /** Diagnostics remain readable after disposal; other operations reject. */
     getStatus(): FoxBrowserStatus;
     exportText(): string;
+    configureDirector(options: FoxDirectorOptionsInput): FoxDirectorOptions;
+    getDirectorOptions(): FoxDirectorOptions | null;
+    getDirectorState(): FoxDirectorState | null;
+    cue(cue: FoxCue, id?: number, point?: FoxPoint): void;
+    selectFox(id: number): void;
+    showTableau(tableau: FoxTableau): void;
     dispose(): void;
 }
 /** Construction alone touches the DOM; importing this module is SSR safe.

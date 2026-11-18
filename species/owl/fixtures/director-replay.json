@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "species": "owl",
+  "directorVersion": 1,
+  "seed": 7,
+  "tickRate": 60,
+  "finalTick": 1080,
+  "options": {"scene":"duet","count":2,"layout":"split","roles":["sentinel","dreamer"]},
+  "events": [
+    {"tick":60,"seq":0,"type":"attention","x":-0.8,"y":-0.2,"target":0},
+    {"tick":120,"seq":1,"type":"cue","cue":{"kind":"rustle","target":0,"x":-0.8,"y":-0.4}},
+    {"tick":121,"seq":2,"type":"cue","cue":{"kind":"call","target":1}},
+    {"tick":360,"seq":3,"type":"leave"},
+    {"tick":480,"seq":4,"type":"cue","cue":{"kind":"call","target":1,"x":0.65,"y":-0.25}},
+    {"tick":840,"seq":5,"type":"cue","cue":{"kind":"stretch","target":0}}
+  ]
+}

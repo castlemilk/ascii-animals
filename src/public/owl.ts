@@ -4,6 +4,10 @@ import {getBrowserScheduler} from '../core/scheduler.js';
 export {createOwl,resolveOwlOptions,makeOwlPoster,normalizeOwlPointer,OWL_DEFAULTS,OWL_LIMITS,OWL_VERSION} from '../species/owl/owl.js';
 export {buildOwlGeometry} from '../species/owl/geometry.js';
 export {renderOwlGrid,GLYPHS} from '../species/owl/preview.js';
+export {createOwlDirector,resolveOwlDirectorOptions,makeOwlDirectorPoster,OWL_DIRECTOR_DEFAULTS,OWL_DIRECTOR_LIMITS} from '../species/owl/director.js';
+export {renderOwlDirectorGrid,targetOwlActor,OWL_SCENE_GLYPHS} from '../species/owl/composition.js';
+export type * from '../species/owl/director.js';
+export type {OwlDirectorGrid,OwlActorRect} from '../species/owl/composition.js';
 export type * from '../species/owl/types.js';
 export type {OwlBrowserOptions,OwlBrowserStatus,OwlBrowserSnapshot,OwlBrowserGridOptions,OwlActionResult} from '../species/owl/browser.js';
 /** A semantic DOM text artwork; its host is an element, not a canvas. */

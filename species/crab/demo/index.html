@@ -1,1 +1,139 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Crab · ASCII Animals</title><link rel="stylesheet" href="styles.css"></head><body><a class="skip" href="#controls">Skip to controls</a><header><a href="../index.html">← ASCII Animals</a><span>FIELD STUDY / 05</span></header><main><section class="intro"><p class="eyebrow">SMALL FOOTSTEPS AT THE TIDELINE</p><h1>The Crab.</h1><p>Eight feet, two formidable claws, and a sideways sense of purpose. Meet the little keeper of the tideline.</p></section><div class="layout"><section class="stage" aria-label="Crab artwork"><div class="stage-top"><span>BRACHYURA / STYLIZED STUDY</span><output id="status" aria-live="off">Still water</output></div><canvas id="animal" role="img" aria-label="An ASCII crab with a broad shell, two open claws, eye stalks and eight jointed walking legs. Use the labelled controls to greet or guide it."></canvas><p class="caption">Walk along the tideline. Tap to alert. Stillness is always available.</p></section><aside id="controls"><h2>Keep it company.</h2><p>Gentle movement, distinct gestures.</p><div class="buttons"><button id="pause">Pause</button><button id="greet">Alert</button><button id="reset">Reset</button></div><label>Behaviour<select id="behavior"><option value="scuttle">Sideways scuttle</option><option value="curious">Curious: follow your guide</option><option value="guard">Guard: raise both claws</option></select></label><label>Colour<select id="palette"><option value="brass">Sunlit brass</option><option value="lagoon">Lagoon glass</option><option value="rose">Rose coral</option></select></label><label>Facing<select id="facing"><option value="left">Left</option><option value="right">Right</option></select></label><label>Pace <output id="speed-value">1.00×</output><input id="speed" type="range" min=".25" max="2" value="1" step=".05"></label><label>Size <output id="scale-value">1.00×</output><input id="scale" type="range" min=".6" max="1.3" value="1" step=".05"></label><div class="buttons guide"><button id="left">Guide left</button><button id="center">Centre</button><button id="right">Guide right</button></div><p id="motion-note" class="note">Reduced-motion preference is respected. Alert changes the still pose without starting playback.</p><button id="capture">Capture ASCII text</button><details><summary>About this study</summary><p>Newly authored procedural geometry, not recovered from the earlier unavailable Pro chat. A stylized rendering, not a biological simulation. ASCII characters and your system monospace font.</p><a href="https://github.com/castlemilk/ascii-animals">Source and typed API</a></details></aside></div><section id="capture-region" hidden><h2>Your current character frame</h2><pre id="text-frame" tabindex="0"></pre></section></main><footer>NO EXTERNAL ASSETS · SHARED SCHEDULER · MADE OF CHARACTERS</footer><script type="module" src="demo.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#091719">
+  <meta name="description" content="A small tidepool theatre, made of characters. Direct a cast of curious, shy and territorial crabs through breakfast, claw calls and the returning tide.">
+  <title>Crab — Tidepool Theatre · ASCII Animals</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#controls">Skip to the director controls</a>
+  <header class="site-header">
+    <a class="wordmark" href="../index.html"><span aria-hidden="true">↖</span> ascii animals<span class="wordmark-dot">.</span></a>
+    <span class="folio">FIELD STUDY 05 <span aria-hidden="true">/</span> THE CRAB</span>
+    <a class="source-link" href="https://github.com/castlemilk/ascii-animals">View source <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow"><span class="small-mark" aria-hidden="true"></span> A THEATRE AT THE WATER’S EDGE</p>
+        <h1 id="page-title">Small lives.<br>Big <em>tide.</em></h1>
+      </div>
+      <div class="intro-note">
+        <p>A little curiosity. A little bravado.<br>A whole world between the rocks.</p>
+        <p class="fine">Give the tidepool a story. Its residents<br class="desktop-break"> will find their own way through it.</p>
+      </div>
+    </section>
+    <section class="scene-picker" aria-label="Choose a tidepool scene">
+      <button class="scene-card" data-scene="forage" aria-pressed="true">
+        <span class="scene-kicker">01 <span>/ LOW TIDE</span><span class="scene-dot" aria-hidden="true"></span></span>
+        <span class="scene-name">Breakfast on the sand.</span>
+        <span class="scene-copy">Emerge, sift, make a discovery. Find the way home.</span>
+      </button>
+      <button class="scene-card" data-scene="signals" aria-pressed="false">
+        <span class="scene-kicker">02 <span>/ CLAW COUNCIL</span><span class="scene-dot" aria-hidden="true"></span></span>
+        <span class="scene-name">A show of hands.</span>
+        <span class="scene-copy">A call, an answer, a little disagreement. Then peace.</span>
+      </button>
+      <button class="scene-card" data-scene="tide" aria-pressed="false">
+        <span class="scene-kicker">03 <span>/ THE RETURNING WASH</span><span class="scene-dot" aria-hidden="true"></span></span>
+        <span class="scene-name">Here comes the water.</span>
+        <span class="scene-copy">Brace, take cover, peek out. Be the first to return.</span>
+      </button>
+    </section>
+    <div class="theatre-layout">
+      <section class="theatre" aria-label="Interactive tidepool theatre">
+        <div class="stage-top">
+          <span class="stage-state"><span id="live-dot" aria-hidden="true"></span><output id="status" aria-live="off">THE POOL IS QUIET</output></span>
+          <output id="water-status" aria-live="off">CURRENT →</output>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="animal" tabindex="0" role="img" aria-describedby="stage-help keyboard-help" aria-label="A tidepool of ASCII crabs with broad shells, open claws, eye stalks and eight jointed walking legs. Select a resident or use the controls to direct its next move."></canvas>
+          <p id="stage-error" class="stage-error" role="alert" hidden></p>
+        </div>
+        <div class="story-strip">
+          <div><span class="eyebrow" id="chapter-number">ACT 01 / 04</span><h2 id="chapter-title">Out of cover</h2></div>
+          <p id="chapter-description">The pool is quiet. Three small lives venture onto the sand.</p>
+        </div>
+        <nav id="chapters" class="chapters" aria-label="Scene chapters"></nav>
+        <div class="stage-toolbar">
+          <div class="playback-actions">
+            <button id="pause" class="primary" type="button">Pause</button>
+            <button id="reset" type="button" title="Restart this scene, keeping your settings">Restart</button>
+            <button id="next-beat" type="button">Next moment <span aria-hidden="true">→</span></button>
+          </div>
+          <label class="hold-control"><input id="hold" type="checkbox"> Hold this chapter</label>
+        </div>
+        <p id="stage-help" class="stage-help">Move gently to invite curiosity. Tap a resident to meet it; tap the sand to offer a place to forage.</p>
+      </section>
+      <aside id="controls" class="director" aria-labelledby="director-title">
+        <p class="eyebrow">THE TIDEPOOL DIRECTOR</p>
+        <h2 id="director-title">Set the scene.</h2>
+        <p class="director-note">A small cast. Different instincts.</p>
+        <label class="range-label" for="count">Residents <output id="count-value" for="count">3 / 5</output></label>
+        <input id="count" type="range" min="1" max="5" value="3" step="1">
+        <div class="range-ends" aria-hidden="true"><span>A quiet corner</span><span>Full tidepool</span></div>
+        <label for="formation">Where they gather</label>
+        <select id="formation"><option value="arc">Around the pool</option><option value="terraces">Among rock terraces</option><option value="shoreline">Along the tideline</option></select>
+        <label class="range-label" for="current">Current <output id="current-value" for="current">→ 25%</output></label>
+        <input id="current" type="range" min="-1" max="1" value=".25" step=".05">
+        <div class="range-ends" aria-hidden="true"><span>← To the left</span><span>To the right →</span></div>
+        <div class="selected-resident">
+          <p class="eyebrow">YOUR LEADING CRAB</p>
+          <h3 id="selected-name">01 / Pip</h3>
+          <p id="selected-motive">Curious by nature. Always the first to investigate.</p>
+          <div class="cue-actions" aria-label="Direct the selected resident">
+            <button id="forage" type="button"><span aria-hidden="true">∴</span> Forage</button>
+            <button id="greet" type="button"><span aria-hidden="true">⌁</span> Signal</button>
+            <button id="shelter" type="button"><span aria-hidden="true">⌂</span> Shelter</button>
+          </div>
+          <p id="selected-state" class="selected-state" aria-live="off">Watching the sand</p>
+        </div>
+        <details class="fine-tune">
+          <summary>Timing, colour &amp; fine tuning</summary>
+          <label class="range-label" for="act-duration">Chapter length <output id="act-duration-value" for="act-duration">4 s</output></label>
+          <input id="act-duration" type="range" min="120" max="720" step="60" value="240">
+          <label class="range-label" for="speed">Footwork <output id="speed-value" for="speed">1.00×</output></label>
+          <input id="speed" type="range" min=".25" max="2" step=".05" value="1">
+          <label class="range-label" for="scale">Resident size <output id="scale-value" for="scale">1.00×</output></label>
+          <input id="scale" type="range" min=".6" max="1.3" step=".05" value="1">
+          <label class="range-label" for="tide">Water reach <output id="tide-value" for="tide">20%</output></label>
+          <input id="tide" type="range" min="0" max="1" step=".05" value=".2">
+          <label for="palette">Colour story</label>
+          <select id="palette"><option value="brass">Sand &amp; copper</option><option value="lagoon">Lagoon glass</option><option value="rose">Rose coral</option></select>
+          <label class="check-label"><input id="labels" type="checkbox" checked> Show resident names</label>
+          <label for="facing">Shell orientation</label>
+          <select id="facing"><option value="left">Left</option><option value="right">Right</option></select>
+        </details>
+        <p id="motion-note" class="motion-note">Pause whenever you like. The story and its controls work as still tableaux, too.</p>
+      </aside>
+    </div>
+    <section class="cast-section" aria-labelledby="cast-title">
+      <div class="section-heading"><div><p class="eyebrow">INDIVIDUAL LIVES</p><h2 id="cast-title">Meet the residents.</h2></div><p>Select a crab. Give it a different instinct.</p></div>
+      <div id="cast" class="cast-grid"></div>
+    </section>
+    <section class="field-notes" aria-label="Interaction notes and exports">
+      <div>
+        <p class="eyebrow">COME CLOSER</p>
+        <p>Curious crabs investigate. Shy ones seek cover.<br>A territorial neighbour might raise a claw.</p>
+        <details class="keyboard-notes"><summary>Keyboard &amp; touch field notes</summary><p id="keyboard-help">Focus the artwork with Tab. Arrow keys move your guide; 1–5 select a resident. F invites foraging, S signals, H seeks shelter, N advances the chapter, Space pauses, and Escape clears the guide. All actions also have labelled controls. On touch, tap the sand or a resident; you can still scroll the page.</p><div class="guide-actions"><button id="left" type="button">Guide left</button><button id="center" type="button">Clear guide</button><button id="right" type="button">Guide right</button></div></details>
+      </div>
+      <div class="export-notes">
+        <p class="eyebrow">A MOMENT TO KEEP</p>
+        <p>Every footprint and claw is drawn live.<br>Keep this instant as characters or an image.</p>
+        <div class="export-actions"><button id="capture" type="button" aria-controls="capture-region" aria-expanded="false">View ASCII</button><button id="download-text" type="button">Save .txt <span aria-hidden="true">↓</span></button><button id="download-image" type="button">Save PNG <span aria-hidden="true">↓</span></button></div>
+      </div>
+    </section>
+    <section id="capture-region" class="capture-region" hidden aria-labelledby="capture-title">
+      <div class="section-heading"><h2 id="capture-title">The tidepool, in characters.</h2><button id="close-capture" type="button">Close snapshot</button></div>
+      <p id="capture-note">A still logical frame. Select and copy it, or save the plain text file.</p>
+      <pre id="text-frame" tabindex="0" aria-label="Captured ASCII tidepool"></pre>
+    </section>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+  </main>
+  <footer><span>ORIGINAL PROCEDURAL GEOMETRY · A STYLIZED STUDY</span><span>NO EXTERNAL ASSETS. JUST CHARACTERS.</span></footer>
+  <script type="module" src="demo.js"></script>
+</body>
+</html>

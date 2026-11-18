@@ -1,0 +1,2790 @@
+{
+  "evidenceVersion": 1,
+  "evidence": "Actual native Canvas / Skia raster output of the canonical renderer. NOT browser, deployed, phone, or FPS evidence.",
+  "tag": "before",
+  "quick": true,
+  "recordedAt": "2026-11-18T12:13:05.571Z",
+  "baseCommit": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "sourceHashes": {
+    "src/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8",
+    "lib/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8",
+    "species/pufferfish/src/types.ts": "f4788cb5dc423fad25b1cb7488a9a04c23fbcc44acdb4a63dcc9b7c5aa6d96a1",
+    "species/pufferfish/src/director-types.ts": "062fec5e877f247be6f6fea310a423387ff0724f0ddcbe0fe2474945d953327c",
+    "species/pufferfish/src/director.ts": "81887cb055c88586d7fb4df288d8b03995e378f726d2bb90fbae8323b30b4b94",
+    "species/pufferfish/src/geometry.ts": "05a78d4eca19f02f54dec2d22326516870db4255df3b859cad28ec6eb8a6e97c",
+    "species/pufferfish/src/legacy-painter.ts": "d23e7d0090e668559986ebecc6e3fe923aabb9b3894e9e39201c2d0d0e05bc0d",
+    "species/pufferfish/scripts/capture-director.mjs": "a3b5cc7c15e93468d142835b3f907b53db6a152f568bd9f69a522dbc3cfed603"
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "canvas": "0.1.100",
+    "platform": "linux",
+    "availableMonospaceFamilies": [
+      "Nimbus Mono PS",
+      "LMMonoCaps10",
+      "LMMonoLt10",
+      "LMMonoLtCond10",
+      "LMMono10",
+      "LMMonoSlant10",
+      "LMMonoPropLt10",
+      "LMMonoProp10",
+      "DejaVu Sans Mono",
+      "Liberation Mono",
+      "Noto Mono",
+      "Noto Sans Mono"
+    ],
+    "selectedFont": "Not instrumented; family inventory is not evidence of exact fallback selection."
+  },
+  "rendering": "Imports lib/animals/cuttlefish.js, borrows actual render/makeAtlas/_put/_rasterize in place; no constructor/RAF/browser stubs. Capture-only lossless native atlas Image cache replaces repeated mutable-Canvas snapshots, with byte-identical first-frame PNG parity.",
+  "captures": [
+    {
+      "file": "reef-0001.png",
+      "scene": "reef",
+      "tick": 1,
+      "beat": "discover",
+      "count": 3,
+      "selected": 0,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4990512969866461,
+          "y": 0.06055979481815753,
+          "scale": 0.54,
+          "yaw": 0.00386966891292283
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.00027815687763499305,
+          "y": -0.09876302370657127,
+          "scale": 0.54,
+          "yaw": 0.001670784388174965
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.060526508853845765,
+          "scale": 0.54,
+          "yaw": 0.00028
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1673,
+      "stateSha256": "15ba7d66977b33d922ec464326a6bb9f44dea1341994de75aaba63f472b57938",
+      "cellsSha256": "228615d63c8e54ac460efa45e4c62b86d218f1881f9b83e886b272e02d433cd0",
+      "pngSha256": "08a44aeec166d6079cb46478891b2209092fccfde11001906ac8b5cd31257990",
+      "rgbaSha256": "01171404402b60a65afc60eeb864b290ac7e80da74c44306005ec5747d44221e",
+      "visibleCellsByActor": [
+        417,
+        418,
+        430
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0240.png",
+      "scene": "reef",
+      "tick": 240,
+      "beat": "discover",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.11173353279812093,
+          "scale": 0.54,
+          "yaw": -0.00034664112123295745
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "invited",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.20977794865253574,
+          "y": -0.09990288340109175,
+          "scale": 0.54,
+          "yaw": 0.02723522414966387
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4726761649855301,
+          "y": -0.1255951807336108,
+          "scale": 0.54,
+          "yaw": -0.05114394155378435
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1538,
+      "stateSha256": "f4c9d1e5704bc6065eda5d4f7b982ea8345f4f4f8b31287822ba76455b79e2dc",
+      "cellsSha256": "702d69fc6a15c15610902e145f9cc855c450597f7118878e5bb1eaadd3808d55",
+      "pngSha256": "5543e0d74800df5ae8a1c45fa54eabaa513b4eeece2ce8b397266f8436192804",
+      "rgbaSha256": "db2bbbb58bbb4608c456c6c1e5e7fa10a6a26c70d2d03fd7804679e8349a4165",
+      "visibleCellsByActor": [
+        391,
+        413,
+        326
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0420.png",
+      "scene": "reef",
+      "tick": 420,
+      "beat": "inspect",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.217358964085761,
+          "scale": 0.54,
+          "yaw": 0.006995266835181566
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "inflating",
+          "inflation": 0.44096209912536444,
+          "x": 0.2100000287866989,
+          "y": -0.1526701184427515,
+          "scale": 0.54,
+          "yaw": 0.0070142267089609535
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.2201606332346247,
+          "scale": 0.54,
+          "yaw": 0.011049420364701797
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1843,
+      "stateSha256": "e265c25561c19888d0c33a7bb3a9edd74e90840153e07bde0400617f66c40b94",
+      "cellsSha256": "fe40b57a737b5f6e80ead289b616eab9cafd26771a0912a4196c438e482017b1",
+      "pngSha256": "c5ba3321f8b9562bdb0cfd7d4320eeaa8299d7365be61509f4919a9fa1b60e79",
+      "rgbaSha256": "a20a34fad45f6201f0d5aa0a9bf70b5ccf6b82a21f852422d1a962bb53560b32",
+      "visibleCellsByActor": [
+        395,
+        609,
+        428
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0660.png",
+      "scene": "reef",
+      "tick": 660,
+      "beat": "gather",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4244408255517727,
+          "y": 0.053874224166888904,
+          "scale": 0.54,
+          "yaw": 0.0699562937284194
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "cooldown",
+          "inflation": 0,
+          "x": 0.00011211911658264427,
+          "y": 0.04323496642572899,
+          "scale": 0.54,
+          "yaw": 0.009608790226602331
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4244408255517727,
+          "y": 0.053874236745365484,
+          "scale": 0.54,
+          "yaw": -0.05595606880765575
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1672,
+      "stateSha256": "0713739715c7c094352716d27564ff1d3a4db56c32c98e539b29691db6463740",
+      "cellsSha256": "c98af27338a00b1fb647b1b96c9ab88c8ec57c468dc5ee40fdcd70d9b3334c58",
+      "pngSha256": "2d5467a8dca015a311115618ac9dcbd4df32675823fee87e55be477cc811c569",
+      "rgbaSha256": "2e9d4ff51562bd6e1a2b94a6ee96958b4db55a20f9e84cc66ad424731bd54c1d",
+      "visibleCellsByActor": [
+        416,
+        422,
+        424
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0900.png",
+      "scene": "reef",
+      "tick": 900,
+      "beat": "rest",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4269488997974066,
+          "y": 0.05080000000696501,
+          "scale": 0.54,
+          "yaw": 0.004258399897301757
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "recovering",
+          "inflation": 0.15507739384675684,
+          "x": 0.00019888568868499457,
+          "y": -0.13625517234886145,
+          "scale": 0.54,
+          "yaw": 0.007994551482088452
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.42698695423113087,
+          "y": 0.050800000006962776,
+          "scale": 0.54,
+          "yaw": 0.009931872283825739
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1714,
+      "stateSha256": "a124ac2b556e3513d3fc8f9d9996465e9affd0882cbf827da23f55a2964d1926",
+      "cellsSha256": "73df9fe50a6b40d9ac827853618ed1c355f43294a825ee5dc073e6e95b8f9c50",
+      "pngSha256": "74a347b3c7e52841e0faedb5c0d8da02158d09a6536eda81a4cb497a4b36d143",
+      "rgbaSha256": "a6b326a6e7aae2f7e9f05aca2ae976b8ac325db21077137a7fafe368da51a0c0",
+      "visibleCellsByActor": [
+        395,
+        476,
+        428
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-1199.png",
+      "scene": "reef",
+      "tick": 1199,
+      "beat": "rest",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4950124261573655,
+          "y": 0.14999999924729346,
+          "scale": 0.54,
+          "yaw": 0.00699717818421445
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.02486064273455742,
+          "y": 0.15000001760025142,
+          "scale": 0.54,
+          "yaw": 0.0070010224468152965
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.14999999924729346,
+          "scale": 0.54,
+          "yaw": 0.0070044470159195404
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1682,
+      "stateSha256": "0dd3fe044729e9b6d7c19eb6b35ed10a9628ecc3f6e0ec92cda59a81cfdfcc26",
+      "cellsSha256": "9f22927b0e158d5972dc21d5b03d497fb7d9ea495f15b7a803b5063228fb937f",
+      "pngSha256": "5603b60892b661b1383eacc2aaef2e11bab600444e6e106fba3e74cd635f1e8c",
+      "rgbaSha256": "3c447870401c8611cbd68d366ccddb6a79240fff6f21d3d6fe82ca08af270ff6",
+      "visibleCellsByActor": [
+        405,
+        423,
+        442
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-mobile-360.png",
+      "scene": "reef",
+      "tick": 0,
+      "beat": "discover",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 360,
+      "height": 420,
+      "cols": 105,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1571,
+      "stateSha256": "b7efaa6a4992dcc6baa5e0aa3256e4a1bc861654c84a0693391ca9180306d411",
+      "cellsSha256": "ec1e76aff3c3068ffc290ca035aa6beae6f94c1367ab3c45595b616d1896e250",
+      "pngSha256": "23b9857dc0624cf0463bf3b1f15d0135572e1b4edbf8c00a100dff685ce912f6",
+      "rgbaSha256": "45a9ff98fc3530ac0919e4475523b93986f10dfc96725f6d5d05ee399d34ece8",
+      "visibleCellsByActor": [
+        707,
+        253,
+        299
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-mobile-390.png",
+      "scene": "reef",
+      "tick": 0,
+      "beat": "discover",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 390,
+      "height": 520,
+      "cols": 92,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1314,
+      "stateSha256": "b7efaa6a4992dcc6baa5e0aa3256e4a1bc861654c84a0693391ca9180306d411",
+      "cellsSha256": "4fd5006b93584e6f1ff7b3afc13aeb366bf5b457b9382958940f7352cca20a50",
+      "pngSha256": "0a1af8ec578e3502c32ab2741155cfe8577ed99d6af531cec6b2b6eae868b4df",
+      "rgbaSha256": "054615b65629f12ddec3890fb447972964b20dd289a651e77e58e8c4f4a9bed0",
+      "visibleCellsByActor": [
+        594,
+        197,
+        239
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-points.png",
+      "scene": "reef",
+      "tick": 1200,
+      "beat": "discover",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4943327641959408,
+          "y": 0.1498394823440517,
+          "scale": 0.54,
+          "yaw": 0.010395600863969328
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.024940196804925614,
+          "y": 0.14923756593166454,
+          "scale": 0.54,
+          "yaw": 0.007398751900783647
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.14980949392414472,
+          "scale": 0.54,
+          "yaw": 0.007004269135282765
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "points"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1668,
+      "stateSha256": "fa5827089c089d47a65308805e144cb5b75c52a115beaa0c8343bcded002fb8e",
+      "cellsSha256": "d67cb2bf7c7794e01792be25c6b9e01a6469d74ba163c8aa17e670b5a4189c68",
+      "pngSha256": "672d7f9678d151ffa9dbf887b31702c582c1b03eb80fc203bb008d5187ec3339",
+      "rgbaSha256": "412468d5a4d8a14c0327f20eb1a26598cef1fd489b578e628faf3bae1a20ac9e",
+      "visibleCellsByActor": [
+        407,
+        420,
+        435
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0001.png",
+      "scene": "current",
+      "tick": 1,
+      "beat": "rising",
+      "count": 3,
+      "selected": 0,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49909330490234977,
+          "y": 0.06050938531931309,
+          "scale": 0.54,
+          "yaw": 0.003589668912922829
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.00023614896193128933,
+          "y": -0.0988134332054157,
+          "scale": 0.54,
+          "yaw": 0.001390784388174965
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.060476099355001325,
+          "scale": 0.54,
+          "yaw": 0.00021003957851851852
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1672,
+      "stateSha256": "b955831f270ce33d970aeb18930ee60e10dee59e277829860071c07842cd2309",
+      "cellsSha256": "4b5d02dcb8391049398e041f6f2c4b471707d89206081bf3212c0a30d6a6f9a1",
+      "pngSha256": "35847807fb871997c6b057960e203c73837c2fb333045a63570bbb07220359c9",
+      "rgbaSha256": "b391fedb31c5e8ca80cb1ee2d988c66c08283dfb1007b27ec4e32fba52cf4c2d",
+      "visibleCellsByActor": [
+        417,
+        419,
+        430
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0240.png",
+      "scene": "current",
+      "tick": 240,
+      "beat": "rising",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.14828464084501836,
+          "scale": 0.54,
+          "yaw": 0.025456364441075775
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "invited",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.20977398428343938,
+          "y": -0.09993933383777903,
+          "scale": 0.54,
+          "yaw": 0.051669438447977264
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": -0.1621462887805082,
+          "scale": 0.54,
+          "yaw": 0.029111565541109174
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1606,
+      "stateSha256": "90fdee2dcb1b8788f2df1ac17c5be1e6fa1c3d4691494d5c5e4a2d7a2240bbb9",
+      "cellsSha256": "6e79ff684483858738321811f63f667f9b45131f39bd1a96445dc54e9baa7d0d",
+      "pngSha256": "3557f7a808867a23daa237cea29bff6b19fd868211b5f7c2bf28fa3b64265c3f",
+      "rgbaSha256": "363f022f4b31b67c8389321ba3fd30e970d584e8da6f8497b800eb8b7003cb56",
+      "visibleCellsByActor": [
+        397,
+        428,
+        358
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0420.png",
+      "scene": "current",
+      "tick": 420,
+      "beat": "shelter",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.1926638644465748,
+          "scale": 0.54,
+          "yaw": 0.03499037001638233
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "inflating",
+          "inflation": 0.44096209912536444,
+          "x": 0.21000000981148692,
+          "y": -0.15267011244883094,
+          "scale": 0.54,
+          "yaw": 0.035008627205513836
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49899781077772476,
+          "y": 0.20276885149438262,
+          "scale": 0.54,
+          "yaw": 0.035182300231315716
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1862,
+      "stateSha256": "ddb7f405337d6e9092138184af3029592d589d13efad41dfe2855193574f4aa9",
+      "cellsSha256": "d385cdb790a647a493a7bfede3864238d46e7ade46b9db993357762f4c60c4c5",
+      "pngSha256": "5b77a9c910ec481eaf61bbddfffcbd8cb01f648340ee4cb82099701bd3a5ba15",
+      "rgbaSha256": "4633614fb596229721b5151f1fb43f742163e638193061b99e37d76874d85084",
+      "visibleCellsByActor": [
+        399,
+        614,
+        423
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0660.png",
+      "scene": "current",
+      "tick": 660,
+      "beat": "returning",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4510880450503671,
+          "y": 0.22238892447204534,
+          "scale": 0.54,
+          "yaw": 0.11192122320742241
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "cooldown",
+          "inflation": 0,
+          "x": 0.001054743153938388,
+          "y": 0.22239346817136718,
+          "scale": 0.54,
+          "yaw": 0.06256112350138798
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.2223889216175564,
+          "scale": 0.54,
+          "yaw": 0.03420770361063223
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1708,
+      "stateSha256": "3b64b4764c4e7acc28c0095645caec609fa1a519e740da460abf99f956bd595c",
+      "cellsSha256": "42181d69bf9661c53fa3e6ec89c6e465a3f9c7c1d32a7a01d79a6a442baa8747",
+      "pngSha256": "8546f0469e7162d84393a493b9cf3734383406c347910ea4ab40e67c6b32158f",
+      "rgbaSha256": "e18b45a77cd0bfd3956bf14346b006691c1c67623056538cad3deb5ffe074f47",
+      "visibleCellsByActor": [
+        429,
+        423,
+        440
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0900.png",
+      "scene": "current",
+      "tick": 900,
+      "beat": "slack",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.1861346149743208,
+          "scale": 0.54,
+          "yaw": -0.005505178301412169
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.01827888807460114,
+          "y": -0.1880789349330794,
+          "scale": 0.54,
+          "yaw": -0.026580824743932314
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4928932103154714,
+          "y": -0.18625856710926675,
+          "scale": 0.54,
+          "yaw": -0.01941068256431264
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1647,
+      "stateSha256": "d4ebf260e22dd0e4f6b3889b267082f8f1218a47c020bbccc3f2d3d8cf9d83b8",
+      "cellsSha256": "e7a102642dbc829376aaf01425de67461260378f9241250801141ec2bfcd19ad",
+      "pngSha256": "8f4fbcaeca297153117c431ae487f251eeaf7b05710cf7e281bb9188adc43cbd",
+      "rgbaSha256": "2d86e29799786fcc0f2ddb32eaeeaa0670b274fd52079f0e812191358bcdcbeb",
+      "visibleCellsByActor": [
+        399,
+        409,
+        427
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-1199.png",
+      "scene": "current",
+      "tick": 1199,
+      "beat": "slack",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.08484181492411429,
+          "scale": 0.54,
+          "yaw": 0.005249946070909404
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.006227613258406525,
+          "y": 0.0738077551497554,
+          "scale": 0.54,
+          "yaw": 0.04318861843363242
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.061762901187727454,
+          "scale": 0.54,
+          "yaw": 0.013692789152354905
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1686,
+      "stateSha256": "d4ad88ef767a76dc7a33d897c2ab9480d324d81f59e740914c7097d34e8deab8",
+      "cellsSha256": "f7835d2819dfde43b1e0ec6f76d978be0a9c6293049ef7b7f7ddc4b39f579f79",
+      "pngSha256": "20ddac63f0a2a1de8ddb6bb69d5d80930c424fc5413fc09e9610b4266ee1292b",
+      "rgbaSha256": "42feeb8dfe197796e616766caf49b105dd0f6d014f2ced8b49244cecd46633ca",
+      "visibleCellsByActor": [
+        406,
+        430,
+        440
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-mobile-360.png",
+      "scene": "current",
+      "tick": 0,
+      "beat": "rising",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 360,
+      "height": 420,
+      "cols": 105,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1573,
+      "stateSha256": "c66753d9b83c235184a1fc18c6cae03d495e668a680872603c1be1c146f7cf59",
+      "cellsSha256": "5dd8285a2ca4c6464ae00ccbaaa22daee92a2b4d1288e8c68f10f3db3a7b22a0",
+      "pngSha256": "284f0e0efc378566dad17b82926d7fbbde1c363b57b964da35b53ef5b3914f65",
+      "rgbaSha256": "8802dab7f33cc6c3e19b58b95b98e748287b70ba843d545faa62bdb161dedf1f",
+      "visibleCellsByActor": [
+        707,
+        253,
+        299
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-mobile-390.png",
+      "scene": "current",
+      "tick": 0,
+      "beat": "rising",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 390,
+      "height": 520,
+      "cols": 92,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1314,
+      "stateSha256": "c66753d9b83c235184a1fc18c6cae03d495e668a680872603c1be1c146f7cf59",
+      "cellsSha256": "d4e741e8da0b570ca732af5d3397b5f8ff834e64345f7415c46f125575db0ba6",
+      "pngSha256": "1349be9b96aeae5085243fd7244eafd6b2afdc154f7f93b8695caff0565c379d",
+      "rgbaSha256": "28744fa3ea9fd3cc6ff727dcb80c17f85e1407b29c5bc78e6a2081d1a707d65c",
+      "visibleCellsByActor": [
+        594,
+        197,
+        239
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-points.png",
+      "scene": "current",
+      "tick": 1200,
+      "beat": "rising",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49909351433776694,
+          "y": 0.08404193439767947,
+          "scale": 0.54,
+          "yaw": 0.008628530385391431
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.005659065061576443,
+          "y": 0.07237333231582835,
+          "scale": 0.54,
+          "yaw": 0.04451381468043753
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.060899032183785805,
+          "scale": 0.54,
+          "yaw": 0.013356795157550167
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "points"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1689,
+      "stateSha256": "e5babdf450b48574aed6dd0961315e11539062b31f883f273682bc0bc1a42d19",
+      "cellsSha256": "d287cc594983a6b024d90b0f87a58f7baf53a4aa723ef89a646b4d76a3ba4307",
+      "pngSha256": "144aa179a20d68a1ca8e8eb581049a9d4b2ff9f1f604655f4f59ec23f5663b72",
+      "rgbaSha256": "7bb37fd04d40e8b39204cc3f366021d0eee1f2fd1c43c2ed50e6dd5e7d556c55",
+      "visibleCellsByActor": [
+        418,
+        431,
+        434
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0001.png",
+      "scene": "shadow",
+      "tick": 1,
+      "beat": "watch",
+      "count": 3,
+      "selected": 0,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4990512969866461,
+          "y": 0.05983979481815753,
+          "scale": 0.54,
+          "yaw": 0.00386966891292283
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.00027815687763499305,
+          "y": -0.09948302370657126,
+          "scale": 0.54,
+          "yaw": 0.001670784388174965
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.059806508853845766,
+          "scale": 0.54,
+          "yaw": 0.00028
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1673,
+      "stateSha256": "317eb907fa521674ef5dfe9eb55b5810421b31c21efcabc071d5ad5eaad299a3",
+      "cellsSha256": "22ed7f687e1bef3da0c333d914dc065202e3bf49f05c8a22020aca0703eeb070",
+      "pngSha256": "fb1b7e65034940a86af3b23e461756f6838491e002ed08b8608ba70520fd7f6b",
+      "rgbaSha256": "ee6c894a7fa6b534016e8c1e0eb3ec7b148ea11fd01afd390ac5dd5a32aa0459",
+      "visibleCellsByActor": [
+        416,
+        416,
+        433
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0240.png",
+      "scene": "shadow",
+      "tick": 240,
+      "beat": "shadow",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.19804511563937865,
+          "scale": 0.54,
+          "yaw": -0.00034664112123295745
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "approach",
+          "inflation": 0,
+          "x": 0.20977614665959166,
+          "y": -0.10011542858732056,
+          "scale": 0.54,
+          "yaw": 0.027226214184943406
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4726761649855301,
+          "y": -0.21219196649356434,
+          "scale": 0.54,
+          "yaw": -0.05114394155378435
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1567,
+      "stateSha256": "5cc36d778eae37e714af1957b33838e4c04d26f52fa6e43ec6922c300b4662df",
+      "cellsSha256": "1de4e4d93d91cec6884939b79f88e853b9ffe0f92e83d6a5e485a443905810cd",
+      "pngSha256": "9a18e14859bd75d0be76ff50ba76f9ca48c8749adebea6c206d11dc44c2b8707",
+      "rgbaSha256": "f3860a45be94ed98f568733f20f3667adb501e429e61978d63ba2f5125ddf565",
+      "visibleCellsByActor": [
+        393,
+        414,
+        352
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0420.png",
+      "scene": "shadow",
+      "tick": 420,
+      "beat": "shadow",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.2524302641025983,
+          "scale": 0.54,
+          "yaw": 0.006995266835181566
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": 0.2097863823620151,
+          "y": -0.2687216370980896,
+          "scale": 0.54,
+          "yaw": 0.007013073196092049
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.47234927319538517,
+          "y": 0.2530671856777142,
+          "scale": 0.54,
+          "yaw": 0.05130636431247305
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 2123,
+      "stateSha256": "848bac5cd41bb02f012b46cc606d976d0b5cd6684f092f9491fa1661e8bc5dec",
+      "cellsSha256": "7f957045cc5eec4feb5b631d5c1fc9fc9745ec652f9f96bd13feeb1d71750504",
+      "pngSha256": "6425603573890298657b9bba0ab9e725ccb61fb2f4d0af895742d4c52f75cb40",
+      "rgbaSha256": "73158f445994f57011e93bf263c396c570967946c8297b0a86b5bc11dfbfd473",
+      "visibleCellsByActor": [
+        400,
+        884,
+        434
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0660.png",
+      "scene": "shadow",
+      "tick": 660,
+      "beat": "release",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.41837303065915743,
+          "y": 0.18002042373093285,
+          "scale": 0.54,
+          "yaw": 0.07652415275073841
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "cooldown",
+          "inflation": 0,
+          "x": 0.033868291962849364,
+          "y": 0.1834252202060839,
+          "scale": 0.54,
+          "yaw": 0.02391839779852238
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.18002042353259984,
+          "scale": 0.54,
+          "yaw": 0.0070347268783714275
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1688,
+      "stateSha256": "b4898a1754faf4561d40dfce4b4b531bf4af1827631bf11dbff675d14f9e12f0",
+      "cellsSha256": "c9501d2122e1cfb0fd8b25457c62b4f5d951d7ae9d5905d2c15db81fb850010e",
+      "pngSha256": "dfdb61b94d4f6a52d0d2818bbed5d2f54737a3da292f8d06bbf8847b9f5482a6",
+      "rgbaSha256": "f66d1bf545df1bded1f046519dbb7ece30086f8b5313c385add973e588fa952a",
+      "visibleCellsByActor": [
+        416,
+        430,
+        439
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0900.png",
+      "scene": "shadow",
+      "tick": 900,
+      "beat": "resume",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.0024191776734780353,
+          "scale": 0.54,
+          "yaw": -0.01376926574228639
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "recovering",
+          "inflation": 0.15507739384675684,
+          "x": -0.013184654840209321,
+          "y": -0.02399646628017758,
+          "scale": 0.54,
+          "yaw": -0.04199717984407227
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.48650797991814276,
+          "y": -0.0020241418844853636,
+          "scale": 0.54,
+          "yaw": -0.035187821301659726
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1695,
+      "stateSha256": "299518afb5a7c08d63a4b43d5748f5a4cb731b0f834c83a52149f1e3d06bc6a7",
+      "cellsSha256": "133af52dcaa5b3aa63920e0d92d475a82374be48f817363a097d622720f32e36",
+      "pngSha256": "9da56753d608b1c828b7c4b333cd10e800071a542ab7ab1b509b8ead8583756d",
+      "rgbaSha256": "ac6333a62b300103c1b30c631c57e9b0a19534a21e573b3243b059617bfcda58",
+      "visibleCellsByActor": [
+        395,
+        463,
+        422
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-1199.png",
+      "scene": "shadow",
+      "tick": 1199,
+      "beat": "resume",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.043952955684006506,
+          "scale": 0.54,
+          "yaw": 0.006999895596487637
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.0009776132597407914,
+          "y": 0.011338731990083074,
+          "scale": 0.54,
+          "yaw": 0.04493854034732165
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.009144865676304428,
+          "scale": 0.54,
+          "yaw": 0.020620351388389475
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1687,
+      "stateSha256": "0c336b1455ff5f298e86cfe1375b4175c9ca1dbfed68c6a559a378bd1730b7b6",
+      "cellsSha256": "4bc86ac18531dbf8311ffe3100cc774eca60e4a5a77c965b85d498cf89456507",
+      "pngSha256": "598a69412d5e9d32e8884d2bcf646cbcfe4f185dc1ff5de0daa66cead78de24d",
+      "rgbaSha256": "70e20f5b46679e72d9ffa27f267ca620c4611a05aea9491e4d17f28b9c056966",
+      "visibleCellsByActor": [
+        405,
+        432,
+        437
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-mobile-360.png",
+      "scene": "shadow",
+      "tick": 0,
+      "beat": "watch",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 360,
+      "height": 420,
+      "cols": 105,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1571,
+      "stateSha256": "7a43f17cdefa31e538d76b19b392cfc90f38895732ea1fa723d46a6f9877a6e9",
+      "cellsSha256": "ec1e76aff3c3068ffc290ca035aa6beae6f94c1367ab3c45595b616d1896e250",
+      "pngSha256": "23b9857dc0624cf0463bf3b1f15d0135572e1b4edbf8c00a100dff685ce912f6",
+      "rgbaSha256": "45a9ff98fc3530ac0919e4475523b93986f10dfc96725f6d5d05ee399d34ece8",
+      "visibleCellsByActor": [
+        707,
+        253,
+        299
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-mobile-390.png",
+      "scene": "shadow",
+      "tick": 0,
+      "beat": "watch",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 390,
+      "height": 520,
+      "cols": 92,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1314,
+      "stateSha256": "7a43f17cdefa31e538d76b19b392cfc90f38895732ea1fa723d46a6f9877a6e9",
+      "cellsSha256": "4fd5006b93584e6f1ff7b3afc13aeb366bf5b457b9382958940f7352cca20a50",
+      "pngSha256": "0a1af8ec578e3502c32ab2741155cfe8577ed99d6af531cec6b2b6eae868b4df",
+      "rgbaSha256": "054615b65629f12ddec3890fb447972964b20dd289a651e77e58e8c4f4a9bed0",
+      "visibleCellsByActor": [
+        594,
+        197,
+        239
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-points.png",
+      "scene": "shadow",
+      "tick": 1200,
+      "beat": "watch",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49905151433776695,
+          "y": 0.04266662213182698,
+          "scale": 0.54,
+          "yaw": 0.010588481929946535
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.0004090650628145098,
+          "y": 0.01041340475268161,
+          "scale": 0.54,
+          "yaw": 0.04626373971806019
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.008029678178414629,
+          "scale": 0.54,
+          "yaw": 0.02008226593690436
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "points"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1691,
+      "stateSha256": "af2a590b891240464b3b2d9bf14b166a3180a957c342dd8e10b56d1c872eaf1a",
+      "cellsSha256": "7b295099152c8d65fd244c1c4aae946a31df23ae737b7907b9f5bed2f9d012d5",
+      "pngSha256": "a1a667ca164b26e05f49931f07abfb2bb3b789361a02d1f778ccefb35ceae892",
+      "rgbaSha256": "d8bdd211c08c05102bdc48c3ea68e2259384a0590e0a01b06ddbc1528f6a36a2",
+      "visibleCellsByActor": [
+        418,
+        427,
+        438
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    }
+  ],
+  "replays": [
+    {
+      "scene": "reef",
+      "config": {
+        "scene": "reef",
+        "count": 3,
+        "tempo": 1,
+        "current": 0.35,
+        "curiosity": 0.75,
+        "spacing": 1,
+        "size": 1,
+        "labels": true,
+        "roles": [
+          "explorer",
+          "sentinel",
+          "drifter"
+        ]
+      },
+      "seed": 23,
+      "tickRate": 60,
+      "events": [
+        {
+          "type": "select",
+          "id": 1,
+          "tick": 121,
+          "seq": 0
+        },
+        {
+          "type": "invite",
+          "x": 0.35,
+          "y": -0.2,
+          "tick": 122,
+          "seq": 1
+        },
+        {
+          "type": "approach",
+          "tick": 361,
+          "seq": 2
+        },
+        {
+          "type": "retreat",
+          "tick": 461,
+          "seq": 3
+        },
+        {
+          "type": "pointer",
+          "x": -0.0000012564820428847429,
+          "y": -0.12954692951402744,
+          "aspect": 1.3333333333333333,
+          "tick": 721,
+          "seq": 4
+        },
+        {
+          "type": "retreat",
+          "tick": 841,
+          "seq": 5
+        }
+      ],
+      "finalState": {
+        "version": "pufferfish-director-v1",
+        "config": {
+          "scene": "reef",
+          "count": 3,
+          "tempo": 1,
+          "current": 0.35,
+          "curiosity": 0.75,
+          "spacing": 1,
+          "size": 1,
+          "labels": true,
+          "roles": [
+            "explorer",
+            "sentinel",
+            "drifter"
+          ]
+        },
+        "speciesConfig": {
+          "seed": 23,
+          "approachRadius": 0.3,
+          "retreatRadius": 0.42,
+          "dwellTicks": 30,
+          "bellyTicks": 42,
+          "spineTicks": 36,
+          "holdTicks": 180,
+          "recoveryTicks": 150,
+          "cooldownTicks": 180,
+          "inflationScale": 1.65,
+          "wobble": 1
+        },
+        "tick": 1200,
+        "lastSequence": 5,
+        "sceneTick": 0,
+        "cycle": 1,
+        "beat": {
+          "scene": "reef",
+          "kind": "discover",
+          "progress": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "name": "Pip",
+            "role": "explorer",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 23,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.5392652839375418,
+              "reactions": 0
+            },
+            "x": -0.4943327641959408,
+            "y": 0.1498394823440517,
+            "vx": 0.000679661961424691,
+            "vy": -0.0001605169032417457,
+            "scale": 0.54,
+            "yaw": 0.010395600863969328,
+            "gaze": {
+              "x": 0.02528342492246096,
+              "y": -0.005971228974348175
+            },
+            "finEffort": 0.2513359547821878,
+            "threat": 0
+          },
+          {
+            "id": 1,
+            "name": "Moss",
+            "role": "sentinel",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 2654435784,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.6764322237311593,
+              "reactions": 2
+            },
+            "x": 0.024940196804925614,
+            "y": 0.14923756593166454,
+            "vx": 0.00007955407036819242,
+            "vy": -0.0007624516685868887,
+            "scale": 0.54,
+            "yaw": 0.007398751900783647,
+            "gaze": {
+              "x": 0.0029594114331095702,
+              "y": -0.028363179678819087
+            },
+            "finEffort": 0.2581590762430045,
+            "threat": 0
+          },
+          {
+            "id": 2,
+            "name": "Miso",
+            "role": "drifter",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 1013904249,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.813599163524777,
+              "reactions": 0
+            },
+            "x": 0.49976923076923063,
+            "y": 0.14980949392414472,
+            "vx": 1.2389115903634736e-18,
+            "vy": -0.0001905053231487319,
+            "scale": 0.54,
+            "yaw": 0.007004269135282765,
+            "gaze": {
+              "x": 2.344688283955187e-14,
+              "y": -0.007086798194888064
+            },
+            "finEffort": 0.2005505323148732,
+            "threat": 0
+          }
+        ],
+        "selected": 1,
+        "pointer": null,
+        "invitation": null,
+        "approach": null,
+        "quietUntil": 1081,
+        "shadowCycle": -1,
+        "flow": 0.06999999999999999
+      },
+      "finalStateSha256": "fa5827089c089d47a65308805e144cb5b75c52a115beaa0c8343bcded002fb8e"
+    },
+    {
+      "scene": "current",
+      "config": {
+        "scene": "current",
+        "count": 3,
+        "tempo": 1,
+        "current": 0.35,
+        "curiosity": 0.75,
+        "spacing": 1,
+        "size": 1,
+        "labels": true,
+        "roles": [
+          "explorer",
+          "sentinel",
+          "drifter"
+        ]
+      },
+      "seed": 23,
+      "tickRate": 60,
+      "events": [
+        {
+          "type": "select",
+          "id": 1,
+          "tick": 121,
+          "seq": 0
+        },
+        {
+          "type": "invite",
+          "x": 0.35,
+          "y": -0.2,
+          "tick": 122,
+          "seq": 1
+        },
+        {
+          "type": "approach",
+          "tick": 361,
+          "seq": 2
+        },
+        {
+          "type": "retreat",
+          "tick": 461,
+          "seq": 3
+        },
+        {
+          "type": "pointer",
+          "x": 0.007016630658512186,
+          "y": 0.12419943357756974,
+          "aspect": 1.3333333333333333,
+          "tick": 721,
+          "seq": 4
+        },
+        {
+          "type": "retreat",
+          "tick": 841,
+          "seq": 5
+        }
+      ],
+      "finalState": {
+        "version": "pufferfish-director-v1",
+        "config": {
+          "scene": "current",
+          "count": 3,
+          "tempo": 1,
+          "current": 0.35,
+          "curiosity": 0.75,
+          "spacing": 1,
+          "size": 1,
+          "labels": true,
+          "roles": [
+            "explorer",
+            "sentinel",
+            "drifter"
+          ]
+        },
+        "speciesConfig": {
+          "seed": 23,
+          "approachRadius": 0.3,
+          "retreatRadius": 0.42,
+          "dwellTicks": 30,
+          "bellyTicks": 42,
+          "spineTicks": 36,
+          "holdTicks": 180,
+          "recoveryTicks": 150,
+          "cooldownTicks": 180,
+          "inflationScale": 1.65,
+          "wobble": 1
+        },
+        "tick": 1200,
+        "lastSequence": 5,
+        "sceneTick": 0,
+        "cycle": 1,
+        "beat": {
+          "scene": "current",
+          "kind": "rising",
+          "progress": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "name": "Pip",
+            "role": "explorer",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 23,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.5392652839375418,
+              "reactions": 0
+            },
+            "x": -0.49909351433776694,
+            "y": 0.08404193439767947,
+            "vx": 0.0006757164314636808,
+            "vy": -0.0007998805264348104,
+            "scale": 0.54,
+            "yaw": 0.008628530385391431,
+            "gaze": {
+              "x": 0.025136651250448956,
+              "y": -0.03490454555048424
+            },
+            "finEffort": 0.27833419502697176,
+            "threat": 0
+          },
+          {
+            "id": 1,
+            "name": "Moss",
+            "role": "sentinel",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 2654435784,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.6764322237311593,
+              "reactions": 1
+            },
+            "x": -0.005659065061576443,
+            "y": 0.07237333231582835,
+            "vx": 0.0005685481968300823,
+            "vy": -0.0014344228339270623,
+            "scale": 0.54,
+            "yaw": 0.04451381468043753,
+            "gaze": {
+              "x": 0.022674667164157874,
+              "y": -0.05928195479512955
+            },
+            "finEffort": 0.32792392801345327,
+            "threat": 0
+          },
+          {
+            "id": 2,
+            "name": "Miso",
+            "role": "drifter",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 1013904249,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.813599163524777,
+              "reactions": 0
+            },
+            "x": 0.49976923076923063,
+            "y": 0.060899032183785805,
+            "vx": 3.4351425789176843e-7,
+            "vy": -0.0008638690039416483,
+            "scale": 0.54,
+            "yaw": 0.013356795157550167,
+            "gaze": {
+              "x": 0.00004748999337152827,
+              "y": -0.038718552024951655
+            },
+            "finEffort": 0.2600119072240221,
+            "threat": 0
+          }
+        ],
+        "selected": 1,
+        "pointer": null,
+        "invitation": null,
+        "approach": null,
+        "quietUntil": 1081,
+        "shadowCycle": -1,
+        "flow": 0.0525
+      },
+      "finalStateSha256": "e5babdf450b48574aed6dd0961315e11539062b31f883f273682bc0bc1a42d19"
+    },
+    {
+      "scene": "shadow",
+      "config": {
+        "scene": "shadow",
+        "count": 3,
+        "tempo": 1,
+        "current": 0.35,
+        "curiosity": 0.75,
+        "spacing": 1,
+        "size": 1,
+        "labels": true,
+        "roles": [
+          "explorer",
+          "sentinel",
+          "drifter"
+        ]
+      },
+      "seed": 23,
+      "tickRate": 60,
+      "events": [
+        {
+          "type": "select",
+          "id": 1,
+          "tick": 121,
+          "seq": 0
+        },
+        {
+          "type": "invite",
+          "x": 0.35,
+          "y": -0.2,
+          "tick": 122,
+          "seq": 1
+        },
+        {
+          "type": "approach",
+          "tick": 361,
+          "seq": 2
+        },
+        {
+          "type": "retreat",
+          "tick": 461,
+          "seq": 3
+        },
+        {
+          "type": "pointer",
+          "x": 0.03351440605411317,
+          "y": 0.17990864888221048,
+          "aspect": 1.3333333333333333,
+          "tick": 721,
+          "seq": 4
+        },
+        {
+          "type": "retreat",
+          "tick": 841,
+          "seq": 5
+        }
+      ],
+      "finalState": {
+        "version": "pufferfish-director-v1",
+        "config": {
+          "scene": "shadow",
+          "count": 3,
+          "tempo": 1,
+          "current": 0.35,
+          "curiosity": 0.75,
+          "spacing": 1,
+          "size": 1,
+          "labels": true,
+          "roles": [
+            "explorer",
+            "sentinel",
+            "drifter"
+          ]
+        },
+        "speciesConfig": {
+          "seed": 23,
+          "approachRadius": 0.3,
+          "retreatRadius": 0.42,
+          "dwellTicks": 30,
+          "bellyTicks": 42,
+          "spineTicks": 36,
+          "holdTicks": 180,
+          "recoveryTicks": 150,
+          "cooldownTicks": 180,
+          "inflationScale": 1.65,
+          "wobble": 1
+        },
+        "tick": 1200,
+        "lastSequence": 5,
+        "sceneTick": 0,
+        "cycle": 1,
+        "beat": {
+          "scene": "shadow",
+          "kind": "watch",
+          "progress": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "name": "Pip",
+            "role": "explorer",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 23,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.5392652839375418,
+              "reactions": 0
+            },
+            "x": -0.49905151433776695,
+            "y": 0.04266662213182698,
+            "vx": 0.0007177164314636806,
+            "vy": -0.0012863335521795232,
+            "scale": 0.54,
+            "yaw": 0.010588481929946535,
+            "gaze": {
+              "x": 0.026699051250448948,
+              "y": -0.05435455991022647
+            },
+            "finEffort": 0.3288014216990369,
+            "threat": 0
+          },
+          {
+            "id": 1,
+            "name": "Moss",
+            "role": "sentinel",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 2654435784,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.6764322237311593,
+              "reactions": 2
+            },
+            "x": -0.0004090650628145098,
+            "y": 0.01041340475268161,
+            "vx": 0.0005685481969262816,
+            "vy": -0.0009253272374014631,
+            "scale": 0.54,
+            "yaw": 0.04626373971806019,
+            "gaze": {
+              "x": 0.022674667167639183,
+              "y": -0.03733166879996391
+            },
+            "finEffort": 0.29010375447032893,
+            "threat": 0
+          },
+          {
+            "id": 2,
+            "name": "Miso",
+            "role": "drifter",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 1013904249,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.813599163524777,
+              "reactions": 0
+            },
+            "x": 0.49976923076923063,
+            "y": 0.008029678178414629,
+            "vx": 0.0000013457208100930438,
+            "vy": -0.0011151874978897998,
+            "scale": 0.54,
+            "yaw": 0.02008226593690436,
+            "gaze": {
+              "x": 0.00014767198093284034,
+              "y": -0.04860681605505962
+            },
+            "finEffort": 0.29301883098446696,
+            "threat": 0
+          }
+        ],
+        "selected": 1,
+        "pointer": null,
+        "invitation": null,
+        "approach": null,
+        "quietUntil": 1081,
+        "shadowCycle": 0,
+        "flow": 0.06999999999999999
+      },
+      "finalStateSha256": "af2a590b891240464b3b2d9bf14b166a3180a957c342dd8e10b56d1c872eaf1a"
+    }
+  ],
+  "animations": [],
+  "assembly": {
+    "gifs": [],
+    "contactSheets": 4
+  },
+  "nativeTiming": {
+    "note": "Single-run CPU/Skia draw times; excludes PNG encoding. No warmup, browser/device/FPS claim.",
+    "count": 27,
+    "p50ms": 12.6348109999999,
+    "p95ms": 61.751742999999806,
+    "p99ms": 68.36868199999981,
+    "maxMs": 68.36868199999981,
+    "rawMs": [
+      58.469552999999905,
+      68.36868199999981,
+      32.37140699999986,
+      11.71923599999991,
+      16.1597069999998,
+      7.8554589999998825,
+      58.187531000000035,
+      26.1321939999998,
+      13.809123,
+      8.344309000000067,
+      61.751742999999806,
+      12.6348109999999,
+      8.778800000000047,
+      12.50678999999991,
+      10.073093999999855,
+      11.778309999999692,
+      53.97701699999925,
+      21.053283000000192,
+      8.538406000000577,
+      8.255106000000524,
+      29.2771759999996,
+      23.097208000000137,
+      7.8365130000001955,
+      6.400661000000582,
+      12.06724899999972,
+      14.216808999999557,
+      8.679533999999876
+    ]
+  },
+  "unrun": [
+    "Browser input/accessibility and device performance are separate acceptance.",
+    "Exact font selection and cross-platform raster parity.",
+    "Real-device memory/thermal behavior."
+  ]
+}

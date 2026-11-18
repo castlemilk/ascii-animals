@@ -1,0 +1,550 @@
+TAP version 13
+# Subtest: butterfly options reject unknown/nonfinite/invalid values without partial mutations
+ok 1 - butterfly options reject unknown/nonfinite/invalid values without partial mutations
+  ---
+  duration_ms: 6.926529
+  type: 'test'
+  ...
+# Subtest: integer tick/event replay produces equal logical frames and restart clears inputs
+ok 2 - integer tick/event replay produces equal logical frames and restart clears inputs
+  ---
+  duration_ms: 69.046566
+  type: 'test'
+  ...
+# Subtest: response orders notice, defend, settle, idle and does not restart while active
+ok 3 - response orders notice, defend, settle, idle and does not restart while active
+  ---
+  duration_ms: 5.918407
+  type: 'test'
+  ...
+# Subtest: all boundary grids produce bounded printable ASCII with distinct anchored poses
+ok 4 - all boundary grids produce bounded printable ASCII with distinct anchored poses
+  ---
+  duration_ms: 342.848325
+  type: 'test'
+  ...
+# Subtest: browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+ok 5 - browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+  ---
+  duration_ms: 119.471894
+  type: 'test'
+  ...
+# Subtest: system reduced motion is authoritative across playback, pointer, reset and options
+ok 6 - system reduced motion is authoritative across playback, pointer, reset and options
+  ---
+  duration_ms: 66.009752
+  type: 'test'
+  ...
+# Subtest: disposal removes owned resources, is idempotent and does not affect other instances
+ok 7 - disposal removes owned resources, is idempotent and does not affect other instances
+  ---
+  duration_ms: 30.734196
+  type: 'test'
+  ...
+# Subtest: zero-sized containers allocate no backing pixels and resize is bounded
+ok 8 - zero-sized containers allocate no backing pixels and resize is bounded
+  ---
+  duration_ms: 3.943913
+  type: 'test'
+  ...
+# Subtest: construction failure rolls back observers and listeners
+ok 9 - construction failure rolls back observers and listeners
+  ---
+  duration_ms: 7.886022
+  type: 'test'
+  ...
+# Subtest: butterfly demo is generated from actual compiled module
+ok 10 - butterfly demo is generated from actual compiled module
+  ---
+  duration_ms: 87.368339
+  type: 'test'
+  ...
+# Subtest: crab options reject unknown/nonfinite/invalid values without partial mutations
+ok 11 - crab options reject unknown/nonfinite/invalid values without partial mutations
+  ---
+  duration_ms: 3.506643
+  type: 'test'
+  ...
+# Subtest: integer tick/event replay produces equal logical frames and restart clears inputs
+ok 12 - integer tick/event replay produces equal logical frames and restart clears inputs
+  ---
+  duration_ms: 23.855343
+  type: 'test'
+  ...
+# Subtest: response orders notice, defend, settle, idle and does not restart while active
+ok 13 - response orders notice, defend, settle, idle and does not restart while active
+  ---
+  duration_ms: 0.394991
+  type: 'test'
+  ...
+# Subtest: all boundary grids produce bounded printable ASCII with distinct anchored poses
+ok 14 - all boundary grids produce bounded printable ASCII with distinct anchored poses
+  ---
+  duration_ms: 295.206744
+  type: 'test'
+  ...
+# Subtest: browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+ok 15 - browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+  ---
+  duration_ms: 92.157997
+  type: 'test'
+  ...
+# Subtest: system reduced motion is authoritative across playback, pointer, reset and options
+ok 16 - system reduced motion is authoritative across playback, pointer, reset and options
+  ---
+  duration_ms: 41.044577
+  type: 'test'
+  ...
+# Subtest: disposal removes owned resources, is idempotent and does not affect other instances
+ok 17 - disposal removes owned resources, is idempotent and does not affect other instances
+  ---
+  duration_ms: 10.819015
+  type: 'test'
+  ...
+# Subtest: zero-sized containers allocate no backing pixels and resize is bounded
+ok 18 - zero-sized containers allocate no backing pixels and resize is bounded
+  ---
+  duration_ms: 4.337586
+  type: 'test'
+  ...
+# Subtest: construction failure rolls back observers and listeners
+ok 19 - construction failure rolls back observers and listeners
+  ---
+  duration_ms: 2.280873
+  type: 'test'
+  ...
+# Subtest: crab demo is generated from actual compiled module
+ok 20 - crab demo is generated from actual compiled module
+  ---
+  duration_ms: 64.024224
+  type: 'test'
+  ...
+# Subtest: every generated demo relative static module dependency is shipped
+ok 21 - every generated demo relative static module dependency is shipped
+  ---
+  duration_ms: 48.778178
+  type: 'test'
+  ...
+# Subtest: Dragonfly and Fox adapters share one scheduler and preserve individual lifecycle
+ok 22 - Dragonfly and Fox adapters share one scheduler and preserve individual lifecycle
+  ---
+  duration_ms: 257.953023
+  type: 'test'
+  ...
+# Subtest: Dragonfly static actions never override reduced motion and invalid options reject
+ok 23 - Dragonfly static actions never override reduced motion and invalid options reject
+  ---
+  duration_ms: 56.051376
+  type: 'test'
+  ...
+# Subtest: Dragonfly real-adapter Pages demo is reproducible
+ok 24 - Dragonfly real-adapter Pages demo is reproducible
+  ---
+  duration_ms: 45.721238
+  type: 'test'
+  ...
+# Subtest: fox and cuttlefish share scheduling without borrowing disposal authority
+ok 25 - fox and cuttlefish share scheduling without borrowing disposal authority
+  ---
+  duration_ms: 356.455474
+  type: 'test'
+  ...
+# Subtest: fox reduced-motion action remains static and exposes explicit fixed-tick model
+ok 26 - fox reduced-motion action remains static and exposes explicit fixed-tick model
+  ---
+  duration_ms: 20.571472
+  type: 'test'
+  ...
+# Subtest: Fox Pages modules and demo are reproducible from canonical typed sources
+ok 27 - Fox Pages modules and demo are reproducible from canonical typed sources
+  ---
+  duration_ms: 76.177037
+  type: 'test'
+  ...
+# Subtest: frog factory shares one scheduler and unsubscribes paused/disposed controllers independently
+ok 28 - frog factory shares one scheduler and unsubscribes paused/disposed controllers independently
+  ---
+  duration_ms: 14.001032
+  type: 'test'
+  ...
+# Subtest: frog self-contained glyph rasterizer renders finite bounded cells without Cuttlefish globals
+ok 29 - frog self-contained glyph rasterizer renders finite bounded cells without Cuttlefish globals
+  ---
+  duration_ms: 314.175204
+  type: 'test'
+  ...
+# Subtest: frog reduced-motion controller never starts travel on play or pulse
+ok 30 - frog reduced-motion controller never starts travel on play or pulse
+  ---
+  duration_ms: 0.847021
+  type: 'test'
+  ...
+# Subtest: Gecko shares scheduler but keeps lifecycle and fixed tick semantics independent
+ok 31 - Gecko shares scheduler but keeps lifecycle and fixed tick semantics independent
+  ---
+  duration_ms: 246.829337
+  type: 'test'
+  ...
+# Subtest: Gecko static curl respects reduced motion, options/base validation is atomic
+ok 32 - Gecko static curl respects reduced motion, options/base validation is atomic
+  ---
+  duration_ms: 25.433512
+  type: 'test'
+  ...
+# Subtest: Gecko generated real-adapter demo is reproducible
+ok 33 - Gecko generated real-adapter demo is reproducible
+  ---
+  duration_ms: 48.389807
+  type: 'test'
+  ...
+# Subtest: global and standalone artifacts are generated from the canonical modules
+ok 34 - global and standalone artifacts are generated from the canonical modules
+  ---
+  duration_ms: 35.359211
+  type: 'test'
+  ...
+# Subtest: classic global build preserves module simulation and lifecycle
+ok 35 - classic global build preserves module simulation and lifecycle
+  ---
+  duration_ms: 4508.107529
+  type: 'test'
+  ...
+# Subtest: instances share scheduling; paused/hidden/offscreen scenes have no subscriptions
+ok 36 - instances share scheduling; paused/hidden/offscreen scenes have no subscriptions
+  ---
+  duration_ms: 432.995982
+  type: 'test'
+  ...
+# Subtest: system reduced motion pauses by default and never resumes automatically
+ok 37 - system reduced motion pauses by default and never resumes automatically
+  ---
+  duration_ms: 127.939835
+  type: 'test'
+  ...
+# Subtest: resize is idempotent; zero-sized elements suspend and resource caps hold
+ok 38 - resize is idempotent; zero-sized elements suspend and resource caps hold
+  ---
+  duration_ms: 178.958104
+  type: 'test'
+  ...
+# Subtest: destroy is idempotent, frees internal buffers and makes mutators inert
+ok 39 - destroy is idempotent, frees internal buffers and makes mutators inert
+  ---
+  duration_ms: 42.409421
+  type: 'test'
+  ...
+# Subtest: failed observer construction rolls back all installed handlers
+ok 40 - failed observer construction rolls back all installed handlers
+  ---
+  duration_ms: 21.409212
+  type: 'test'
+  ...
+# Subtest: manual stepping is explicit, bounded and does not start scheduling
+ok 41 - manual stepping is explicit, bounded and does not start scheduling
+  ---
+  duration_ms: 139.298154
+  type: 'test'
+  ...
+# Subtest: frame cap uses elapsed time and reports discarded stall time
+ok 42 - frame cap uses elapsed time and reports discarded stall time
+  ---
+  duration_ms: 101.397873
+  type: 'test'
+  ...
+# Subtest: coarse grids cannot inflate glyph or ink atlases
+ok 43 - coarse grids cannot inflate glyph or ink atlases
+  ---
+  duration_ms: 34.424143
+  type: 'test'
+  ...
+# Subtest: long thin boxes respect auxiliary canvas dimension limits
+ok 44 - long thin boxes respect auxiliary canvas dimension limits
+  ---
+  duration_ms: 21.91784
+  type: 'test'
+  ...
+# Subtest: lowest supported frame cap advances real elapsed time without routine dropping
+ok 45 - lowest supported frame cap advances real elapsed time without routine dropping
+  ---
+  duration_ms: 324.052426
+  type: 'test'
+  ...
+# Subtest: live option, size and redundant play updates do not reset simulation time
+ok 46 - live option, size and redundant play updates do not reset simulation time
+  ---
+  duration_ms: 1036.199088
+  type: 'test'
+  ...
+# Subtest: missing ResizeObserver falls back to window resize without a polyfill
+ok 47 - missing ResizeObserver falls back to window resize without a polyfill
+  ---
+  duration_ms: 30.072307
+  type: 'test'
+  ...
+# Subtest: invalid host fails clearly and separate documents retain their own scheduler
+ok 48 - invalid host fails clearly and separate documents retain their own scheduler
+  ---
+  duration_ms: 44.901345
+  type: 'test'
+  ...
+# Subtest: non-finite pointer positions do not poison scene state
+ok 49 - non-finite pointer positions do not poison scene state
+  ---
+  duration_ms: 45.201276
+  type: 'test'
+  ...
+# Subtest: public Owl factory retains semantic text and uses a shared scheduler by default
+ok 50 - public Owl factory retains semantic text and uses a shared scheduler by default
+  ---
+  duration_ms: 113.191661
+  type: 'test'
+  ...
+# Subtest: public Owl factory keeps reduced-motion and invalid scheduler contracts
+ok 51 - public Owl factory keeps reduced-motion and invalid scheduler contracts
+  ---
+  duration_ms: 38.787373
+  type: 'test'
+  ...
+# Subtest: fixed input/time sequences preserve imported geometry, ownership and ink state
+ok 52 - fixed input/time sequences preserve imported geometry, ownership and ink state
+  ---
+  duration_ms: 79756.092901
+  type: 'test'
+  ...
+# Subtest: manual replay repeats the same reaction and particle state for the same step sequence
+ok 53 - manual replay repeats the same reaction and particle state for the same step sequence
+  ---
+  duration_ms: 360.550873
+  type: 'test'
+  ...
+# Subtest: strict config rejects unknown/invalid fields atomically and copies role arrays
+ok 54 - strict config rejects unknown/invalid fields atomically and copies role arrays
+  ---
+  duration_ms: 8.8784
+  type: 'test'
+  ...
+# Subtest: facade system pause, controls, atomic update, manual drive and disposal
+ok 55 - facade system pause, controls, atomic update, manual drive and disposal
+  ---
+  duration_ms: 180.060968
+  type: 'test'
+  ...
+# Subtest: raw API undefined pause respects OS and invalid patches cannot poison state
+ok 56 - raw API undefined pause respects OS and invalid patches cannot poison state
+  ---
+  duration_ms: 48.689072
+  type: 'test'
+  ...
+# Subtest: Pufferfish borrows shared scheduler and preserves independent lifecycle
+ok 57 - Pufferfish borrows shared scheduler and preserves independent lifecycle
+  ---
+  duration_ms: 222.546935
+  type: 'test'
+  ...
+# Subtest: Pufferfish reduced motion and compact view use deliberate static poses
+ok 58 - Pufferfish reduced motion and compact view use deliberate static poses
+  ---
+  duration_ms: 110.466121
+  type: 'test'
+  ...
+# Subtest: Pufferfish generated ESM demo is reproducible
+ok 59 - Pufferfish generated ESM demo is reproducible
+  ---
+  duration_ms: 56.750928
+  type: 'test'
+  ...
+# Subtest: scheduler shares one frame and removes each subscription independently
+ok 60 - scheduler shares one frame and removes each subscription independently
+  ---
+  duration_ms: 10.919458
+  type: 'test'
+  ...
+# Subtest: subscriptions added during dispatch wait until the next frame
+ok 61 - subscriptions added during dispatch wait until the next frame
+  ---
+  duration_ms: 1.778088
+  type: 'test'
+  ...
+# Subtest: one failing callback does not strand peers or a pending frame
+ok 62 - one failing callback does not strand peers or a pending frame
+  ---
+  duration_ms: 0.626691
+  type: 'test'
+  ...
+# Subtest: a rejected frame request rolls back a new subscription
+ok 63 - a rejected frame request rolls back a new subscription
+  ---
+  duration_ms: 1.036007
+  type: 'test'
+  ...
+# Subtest: seahorse options reject unknown/nonfinite/invalid values without partial mutations
+ok 64 - seahorse options reject unknown/nonfinite/invalid values without partial mutations
+  ---
+  duration_ms: 3.998809
+  type: 'test'
+  ...
+# Subtest: integer tick/event replay produces equal logical frames and restart clears inputs
+ok 65 - integer tick/event replay produces equal logical frames and restart clears inputs
+  ---
+  duration_ms: 28.82711
+  type: 'test'
+  ...
+# Subtest: response orders inspect, curl, settle, idle and does not restart while active
+ok 66 - response orders inspect, curl, settle, idle and does not restart while active
+  ---
+  duration_ms: 0.548762
+  type: 'test'
+  ...
+# Subtest: all boundary grids produce bounded printable ASCII with distinct anchored poses
+ok 67 - all boundary grids produce bounded printable ASCII with distinct anchored poses
+  ---
+  duration_ms: 130.29661
+  type: 'test'
+  ...
+# Subtest: browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+ok 68 - browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+  ---
+  duration_ms: 58.907655
+  type: 'test'
+  ...
+# Subtest: system reduced motion is authoritative across playback, pointer, reset and options
+ok 69 - system reduced motion is authoritative across playback, pointer, reset and options
+  ---
+  duration_ms: 53.271771
+  type: 'test'
+  ...
+# Subtest: disposal removes owned resources, is idempotent and does not affect other instances
+ok 70 - disposal removes owned resources, is idempotent and does not affect other instances
+  ---
+  duration_ms: 16.618886
+  type: 'test'
+  ...
+# Subtest: zero-sized containers allocate no backing pixels and resize is bounded
+ok 71 - zero-sized containers allocate no backing pixels and resize is bounded
+  ---
+  duration_ms: 14.491106
+  type: 'test'
+  ...
+# Subtest: construction failure rolls back observers and listeners
+ok 72 - construction failure rolls back observers and listeners
+  ---
+  duration_ms: 1.187812
+  type: 'test'
+  ...
+# Subtest: seahorse demo is generated from actual compiled module
+ok 73 - seahorse demo is generated from actual compiled module
+  ---
+  duration_ms: 126.475909
+  type: 'test'
+  ...
+# Subtest: geometry sweeps: bounds, finite samples, LOD, eight fixed-length arms and joint limits
+ok 74 - geometry sweeps: bounds, finite samples, LOD, eight fixed-length arms and joint limits
+  ---
+  duration_ms: 1460.736007
+  type: 'test'
+  ...
+# Subtest: species use the canonical bounded renderer and dispose safely
+ok 75 - species use the canonical bounded renderer and dispose safely
+  ---
+  duration_ms: 316.76356
+  type: 'test'
+  ...
+# Subtest: manta reacts without ink; octopus cups then escapes with ink
+ok 76 - manta reacts without ink; octopus cups then escapes with ink
+  ---
+  duration_ms: 606.597137
+  type: 'test'
+  ...
+# Subtest: mixed species preserve finite formations and atomic typed configuration
+ok 77 - mixed species preserve finite formations and atomic typed configuration
+  ---
+  duration_ms: 212.1188
+  type: 'test'
+  ...
+# Subtest: species replay is deterministic for fixed inputs and instance state is isolated
+ok 78 - species replay is deterministic for fixed inputs and instance state is isolated
+  ---
+  duration_ms: 224.622196
+  type: 'test'
+  ...
+# Subtest: restart clears species pointer attention and preserves explicit pause
+ok 79 - restart clears species pointer attention and preserves explicit pause
+  ---
+  duration_ms: 16.797109
+  type: 'test'
+  ...
+# Subtest: maximum mixed school stays finite within shared limits across aspect ratios
+ok 80 - maximum mixed school stays finite within shared limits across aspect ratios
+  ---
+  duration_ms: 966.792129
+  type: 'test'
+  ...
+# Subtest: turtle options reject unknown/nonfinite/invalid values without partial mutations
+ok 81 - turtle options reject unknown/nonfinite/invalid values without partial mutations
+  ---
+  duration_ms: 22.179398
+  type: 'test'
+  ...
+# Subtest: integer tick/event replay produces equal logical frames and restart clears inputs
+ok 82 - integer tick/event replay produces equal logical frames and restart clears inputs
+  ---
+  duration_ms: 43.209528
+  type: 'test'
+  ...
+# Subtest: response orders notice, defend, settle, idle and does not restart while active
+ok 83 - response orders notice, defend, settle, idle and does not restart while active
+  ---
+  duration_ms: 0.271306
+  type: 'test'
+  ...
+# Subtest: all boundary grids produce bounded printable ASCII with distinct anchored poses
+ok 84 - all boundary grids produce bounded printable ASCII with distinct anchored poses
+  ---
+  duration_ms: 94.2355
+  type: 'test'
+  ...
+# Subtest: browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+ok 85 - browser pause and all visibility causes stop shared subscriptions; resume does not catch up
+  ---
+  duration_ms: 115.6253
+  type: 'test'
+  ...
+# Subtest: system reduced motion is authoritative across playback, pointer, reset and options
+ok 86 - system reduced motion is authoritative across playback, pointer, reset and options
+  ---
+  duration_ms: 17.040032
+  type: 'test'
+  ...
+# Subtest: disposal removes owned resources, is idempotent and does not affect other instances
+ok 87 - disposal removes owned resources, is idempotent and does not affect other instances
+  ---
+  duration_ms: 9.664836
+  type: 'test'
+  ...
+# Subtest: zero-sized containers allocate no backing pixels and resize is bounded
+ok 88 - zero-sized containers allocate no backing pixels and resize is bounded
+  ---
+  duration_ms: 3.140405
+  type: 'test'
+  ...
+# Subtest: construction failure rolls back observers and listeners
+ok 89 - construction failure rolls back observers and listeners
+  ---
+  duration_ms: 5.153078
+  type: 'test'
+  ...
+# Subtest: turtle demo is generated from actual compiled module
+ok 90 - turtle demo is generated from actual compiled module
+  ---
+  duration_ms: 61.619402
+  type: 'test'
+  ...
+1..90
+# tests 90
+# suites 0
+# pass 90
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 81075.434394

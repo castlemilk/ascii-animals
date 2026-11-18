@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/castlemilk/ascii-animals",
+  "branch": "feat/director-owl",
+  "authoringBase": "c06114404900884814bef879a02f1a49a3e7d590",
+  "integrationBase": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "upstreamDuringReview": {
+    "pr": 21,
+    "files": [
+      "README.md"
+    ],
+    "runtimeUnchanged": true,
+    "method": "read-only inspection then local merge of current main"
+  },
+  "preImplementationBriefCommit": "19f908a0bff804d4ea1ec0c2a2129260ea528a5e",
+  "skill": {
+    "repository": "https://github.com/skunkworq/skunkworq-skills",
+    "requestedLinkCommit": "23e078642157a273e2b886222470bd247e5737b5",
+    "reviewedCommit": "e721252075a30888198aafba0953a23fd07bd3c6",
+    "files": {
+      "SKILL.md": "8ef04dec7f4031f7e69b1319e182a7d722b41fe4",
+      "assets/authoring-template.md": "c21bdb67d2348cfd24339d96edafd6084bddd721",
+      "references/cuttlefish-baseline.md": "763044f26a1249a3736a0a243e283860a69ebf72",
+      "references/authoring-and-glyphs.md": "5f0ad36ee8dab5a5b1b7edefc7858fc1ca16e92e",
+      "references/portable-contract.md": "e41cc094b90c8585891107a08d55a3f3039e25f2",
+      "references/accessibility-performance.md": "e8137a10d7dc944b6a3021494c483d0611a0bd3e",
+      "references/validation.md": "e1fef36ebcb4ebed940c83573e2ffef7216353dd",
+      "references/quickstart.md": "6ce52ccb84d4ecf6e77c6b9c168ce7dffcf4e656",
+      "references/examples.md": "8d4e2cca7b3fb5cda4ee4bc1b36a5a1f52170fa8",
+      "assets/reference/contracts.d.ts": "6cf9c7eb6d5126a480a13064db1c65147edb527b",
+      "assets/reference/NOTES.md": "5116eef2fee78f7ff889be5642ff0befa564c13e",
+      "assets/reference/core.mjs": "20402bb2f94b9c486c732f2d35b52ec62764c0d7",
+      "assets/reference/browser.mjs": "4f10c5768f1814476b30a38817d6382a17c0f2b1",
+      "assets/reference/core.test.mjs": "08e6aa99d1791f71759b3da64f5019a2db968168",
+      "assets/reference/index.html": "7e363263943159f29135d05b4f45541fc1428290",
+      "assets/examples/ray.authoring.json": "2b4b17e8fca830e403f5a958a86a9915390e5cf2",
+      "assets/examples/cuttlefish-extraction.authoring.json": "de9708e508df8b52a8a57668930d738d9ba2c08b",
+      "scripts/validate-spec.mjs": "91cab623253f83a048fa412f10fa034a2af7cae8",
+      "scripts/validate-spec.test.mjs": "b211b768fed3a7325d4732f64fcd669b87ec04cf"
+    }
+  },
+  "sourceReuse": {
+    "geometry": "existing integrated species/owl/src/geometry.ts",
+    "glyphs": "existing integrated species/owl/src/preview.ts",
+    "core": "existing integrated species/owl/src/owl.ts",
+    "scheduler": "existing src/core/scheduler.js through src/public/owl.ts",
+    "newWork": "original typed director, composition, host integration, demo controls and tests",
+    "rayCoreCopied": false,
+    "otherSpeciesEdited": false
+  },
+  "rights": {
+    "code": "Original Owl-specific additions; existing repository ownership/license unchanged",
+    "ascii": "Sampled from original Owl geometry, no copied ASCII art",
+    "fontBundled": false,
+    "audioBundled": false,
+    "externalRuntimeAssets": false
+  },
+  "liveComparison": {
+    "owl": "https://castlemilk.github.io/ascii-animals/owl/",
+    "cuttlefish": "https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html",
+    "observed": "Live baseline controls, scene/cast/role changes and staged reactions; baseline screenshot only",
+    "newFeatureDeployed": false
+  },
+  "evidence": {
+    "pure": "executed generated JS + original geometry and sampler",
+    "host": "simulated DOM/RAF/observers/events; actual Owl runtime",
+    "demo": "bubbling DOM control stub",
+    "visual": "531 executed ASCII frames rasterized with Pillow, not browser screenshots",
+    "nativeCanvas": "not applicable: DOM text renderer",
+    "browserNewDemo": "not run; cloud browser localhost returned ERR_CONNECTION_REFUSED",
+    "performance": "unmeasured",
+    "deployment": "not attempted"
+  },
+  "publication": "Artifacts first; pending GitHub approval path is not retried or bypassed; coordinator handoff",
+  "paidServicesUsed": false
+}
