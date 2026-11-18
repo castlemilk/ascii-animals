@@ -1,0 +1,13 @@
+Pufferfish director type fixture verification
+Runtime: Node v24.22.1; TypeScript 5.9.3
+
+Commands executed sequentially from the repository root:
+node node_modules/typescript/bin/tsc -p species/pufferfish/tests/tsconfig.types.json
+node node_modules/typescript/bin/tsc -p species/pufferfish/tests/tsconfig.server.json
+node node_modules/typescript/bin/tsc -p species/pufferfish/tests/tsconfig.nodenext.json
+
+Combined exit status: 0. Each compiler completed with no diagnostics.
+The strict and NodeNext fixtures include positive and intentional-error checks
+against the actual ascii-animals-review/pufferfish package subpath.
+The ES2022-only server fixture imports pure geometry/model/director modules with
+no DOM or Node ambient types. This is compile evidence, not browser execution.

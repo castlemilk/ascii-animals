@@ -57,7 +57,7 @@ export function samplePufferfish(state, sink, options = {}) {
     if (!options || typeof options !== 'object' || Array.isArray(options))
         throw new TypeError('Invalid sample options');
     for (const key of Object.keys(options)) {
-        if (!['quality', 'monochrome', 'staticPose'].includes(key))
+        if (!['quality', 'monochrome', 'staticPose', 'gaze', 'finEffort'].includes(key))
             throw new TypeError(`Unknown sample option: ${key}`);
     }
     const quality = options.quality ?? 'standard';
@@ -65,6 +65,19 @@ export function samplePufferfish(state, sink, options = {}) {
         throw new TypeError('Unknown geometry quality');
     if (options.monochrome !== undefined && typeof options.monochrome !== 'boolean')
         throw new TypeError('monochrome must be boolean');
+    if (Object.hasOwn(options, 'gaze') && options.gaze === undefined)
+        throw new TypeError('gaze cannot be undefined');
+    const gaze = options.gaze === undefined ? { x: 0, y: 0 } : options.gaze;
+    if (!gaze || typeof gaze !== 'object' || Array.isArray(gaze)
+        || Object.keys(gaze).some(key => key !== 'x' && key !== 'y')
+        || !Number.isFinite(gaze.x) || !Number.isFinite(gaze.y)
+        || Math.abs(gaze.x) > 1 || Math.abs(gaze.y) > 1)
+        throw new RangeError('gaze requires finite x/y in -1..1');
+    if (Object.hasOwn(options, 'finEffort') && options.finEffort === undefined)
+        throw new TypeError('finEffort cannot be undefined');
+    const finEffort = options.finEffort === undefined ? 0 : options.finEffort;
+    if (typeof finEffort !== 'number' || !Number.isFinite(finEffort) || finEffort < 0 || finEffort > 1)
+        throw new RangeError('finEffort must be finite in 0..1');
     const pose = posePufferfish(state, options.staticPose ?? false);
     const detail = quality === 'small' ? 0 : quality === 'fine' ? 2 : 1;
     const latitudes = [28, 44, 60][detail];
@@ -130,11 +143,15 @@ export function samplePufferfish(state, sink, options = {}) {
             const r = row / 7 * pupilRadius;
             for (let column = 0; column < eyeSegments; column++) {
                 const phi = column / eyeSegments * TAU;
-                const pupilX = r * Math.cos(phi), pupilY = r * Math.sin(phi);
+                const localX = r * Math.cos(phi), localY = r * Math.sin(phi);
+                const pupilX = localX + gaze.x * eyeRadius * 0.22;
+                const pupilY = localY + gaze.y * eyeRadius * 0.20;
                 // A dark disk follows the front spherical cap rather than floating
                 // ahead of the eye. One tiny off-center highlight keeps the pupil clear.
-                const z = ez + Math.sqrt(Math.max(0, eyeRadius * eyeRadius - r * r)) + 0.008;
-                const highlight = (pupilX + pupilRadius * 0.35) ** 2 + (pupilY + pupilRadius * 0.34) ** 2 < (pupilRadius * 0.18) ** 2;
+                // Preserve the old floating-point path exactly when gaze is omitted.
+                const squaredRadius = gaze.x === 0 && gaze.y === 0 ? r * r : pupilX * pupilX + pupilY * pupilY;
+                const z = ez + Math.sqrt(Math.max(0, eyeRadius * eyeRadius - squaredRadius)) + 0.008;
+                const highlight = (localX + pupilRadius * 0.35) ** 2 + (localY + pupilRadius * 0.34) ** 2 < (pupilRadius * 0.18) ** 2;
                 emit(ex + pupilX, ey + pupilY, z, highlight ? 0.98 : 0.035, 2, eyeId + 1000 + row * 41 + column, 'pupil');
             }
         }
@@ -161,7 +178,7 @@ export function samplePufferfish(state, sink, options = {}) {
     // Broad, bounded side fans begin inside the shell so there is no detached
     // root at any inflation amount. The two waves deliberately differ in phase.
     for (const side of [-1, 1]) {
-        const beat = side < 0 ? pose.leftFin : pose.rightFin;
+        const beat = (side < 0 ? pose.leftFin : pose.rightFin) * (1 + finEffort * 0.45);
         const finId = side < 0 ? 32_000 : 34_000;
         for (let step = 0; step <= fanSteps; step++) {
             const u = step / fanSteps;

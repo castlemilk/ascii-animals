@@ -1,4 +1,4 @@
-/** Species-local proposal v1. These are not merged ascii-animals package exports. */
+/** Integrated Pufferfish model types, exported through the public species subpath. */
 export type PufferfishView = 'front' | 'left' | 'right';
 export type PufferfishQuality = 'small' | 'standard' | 'fine';
 export interface PufferfishOptions {
@@ -113,6 +113,13 @@ export interface PufferfishSampleOptions {
     readonly quality?: PufferfishQuality;
     readonly monochrome?: boolean;
     readonly staticPose?: boolean;
+    /** Local eye attention, each axis -1..1. Omission keeps the original pupils. */
+    readonly gaze?: Readonly<{
+        x: number;
+        y: number;
+    }>;
+    /** Extra paddle amplitude, 0..1. Zero/omission preserves original fin motion. */
+    readonly finEffort?: number;
 }
 export interface PufferfishDefinition {
     readonly id: 'pufferfish-v1';

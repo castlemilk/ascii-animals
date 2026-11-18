@@ -1,4 +1,28 @@
-# Pufferfish · A little breathing room
+# Pufferfish · A little reef, full of intentions
+
+## Current director follow-up
+
+The current integrated factory is `createPufferfishArtwork` from `ascii-animals-review/pufferfish`. The new opt-in director adds **Reef ramble**, **Returning tide** and **Passing shadow**, with one to three visitors, individual explorer/sentinel/drifter roles, exploratory routes, gaze and fin attention, localized staged inflation and coordinated recovery. Omitting `director` preserves the original solo encounter.
+
+The authoritative current reference is [docs/PUFFERFISH-API.md](../../docs/PUFFERFISH-API.md). The [pre-code director brief](DIRECTOR-BRIEF.md) records the scene matrix and constraints. [Director evidence](evidence/director/README.md) contains actual canonical native-Canvas frames, a 20-second GIF, mobile before/after correction, exact source/runtime hashes and honest browser/performance limits. [Director verification](DIRECTOR-VERIFICATION.md) records the final gates and coordinator handoff.
+
+To review the generated integrated demo from the repository root:
+
+```sh
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
+```
+
+Open `http://127.0.0.1:4173/pufferfish/`. Choose a scene, select an individual, then invite or approach it. Give space releases the whole group. Tap an actual fish to select it or empty water to invite the current selection. With the canvas focused, use `1`–`3`, `I`, `A`, `Escape`, `Space` and `R`. The native controls expose those actions without hover. Pause and system reduced motion retain deliberate still alternatives.
+
+Current source is based on main `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`. The private canonical marine renderer, shared scheduler and package contract remain in place. Only Pufferfish paths and its specific facade/integration test change.
+
+---
+
+## Historical original handoff notes
+
+The remaining notes describe the **pre-integration original handoff**, including its original base, captures and then-pending public API. They are retained for provenance. Use the current integrated reference and director verification above for this branch; the historical integration-status statements below are superseded.
 
 An original reactive pufferfish with a small round body, raised eyes, paddle fins and a short tail. A deliberate nearby approach leads through **notice → belly inflation → spine extension → buoyant hold → deflation → cooldown**. Retreat begins recovery, and staying nearby cannot accumulate repeated reactions.
 
@@ -10,7 +34,7 @@ An original reactive pufferfish with a small round body, raised eyes, paddle fin
 
 The GIF is an **actual native Skia Canvas capture of the existing glyph renderer** with the new geometry. It is assembled at the simulation's intended 15-frame capture cadence; it is not a browser recording, real-time throughput benchmark, or seamless looping video. Full PNGs and exact state/cell/pixel hashes are included.
 
-## Run the local demo
+## Original source demo
 
 From the repository root:
 
