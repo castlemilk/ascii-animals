@@ -1,0 +1,1820 @@
+<!doctype html>
+<html lang="en" data-standalone="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d0f">
+  <meta name="description" content="A cuttlefish made of light and letters. Explore an interactive, entirely code-drawn underwater artwork.">
+  <title>Cuttlefish — In the Current</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23080d0f'/%3E%3Cellipse cx='29' cy='25' rx='15' ry='20' transform='rotate(-30 29 25)' fill='%23b8f1cf'/%3E%3Cpath d='M33 40q18 14 22 1M30 42q4 18 18 12M26 42q-3 18 7 17' fill='none' stroke='%23b8f1cf' stroke-width='3'/%3E%3C/svg%3E">
+  <style>
+450;500;550;600;650;700&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
+:root{color-scheme:dark;--bg:#080d0f;--panel:#0e1517;--line:#253033;--text:#e5eae5;--muted:#899594;--dim:#647170;--accent:#b5edce;--accent-dark:#14372c;--mono:'DM Mono','SFMono-Regular',Consolas,monospace;--sans:'DM Sans',Arial,sans-serif;--serif:'Instrument Serif',Georgia,serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased}button,a,input{-webkit-tap-highlight-color:transparent}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:wait}a{color:inherit;text-decoration:none}button{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,pre:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button{border:0}svg{display:block}::selection{background:#b5edce;color:#080d0f}.skip-link{position:fixed;top:12px;left:12px;z-index:100;background:var(--accent);color:var(--bg);padding:12px;transform:translateY(-200%)}.skip-link:focus{transform:translateY(0)}.site-header{height:86px;padding:0 4.2%;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:32px}.wordmark{display:flex;gap:10px;align-items:center;font-size:25px;font-weight:600;letter-spacing:-1.2px}.wordmark-dot{color:var(--accent)}.brand-mark{width:33px;height:33px;color:var(--accent)}nav{display:flex;gap:33px;margin-left:auto;margin-right:7%}nav a{font-size:12px;color:var(--muted);transition:color .2s}nav a:hover,nav .nav-active{color:var(--text)}nav a span{margin-left:5px;color:var(--accent)}.text-button{background:none;padding:9px 0;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:12px;color:#c5ceca;white-space:nowrap}.text-button:hover{color:var(--accent)}.code-icon{color:var(--accent);font-family:var(--mono);font-size:13px}main{max-width:1660px;margin:auto;padding:0 4.2%}.intro{display:flex;justify-content:space-between;align-items:flex-end;padding:36px 0 27px;gap:24px}.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;color:var(--muted);display:flex;align-items:center;gap:10px}.tiny-line{width:16px;height:1px;background:var(--accent)}.edition{color:var(--dim);margin-left:8px}h1{font-family:var(--serif);font-size:clamp(58px,6.25vw,98px);font-weight:400;letter-spacing:-2px;line-height:1;margin:14px 0 0}h1 em{font-weight:400;color:var(--accent)}.intro-copy{font-size:13px;line-height:1.8;color:var(--muted);margin:0 4px 3px 0;max-width:305px}.studio{display:grid;grid-template-columns:minmax(0,1fr) 286px;min-height:570px;border:1px solid var(--line)}.scene{position:relative;min-height:clamp(570px,62vh,720px);min-width:0;overflow:hidden;background:var(--bg);isolation:isolate}.scene canvas{position:absolute;width:100%;height:100%;inset:0;touch-action:pan-y;display:block}.scene-heading{position:absolute;top:23px;left:26px;right:26px;z-index:2;display:flex;justify-content:space-between;pointer-events:none;font:9px var(--mono);letter-spacing:1.3px;color:var(--muted)}.live-label{display:flex;align-items:center;gap:9px}.status-dot{background:var(--accent);width:5px;height:5px;border-radius:50%;box-shadow:0 0 9px #b5edce55;animation:blink 3s infinite}.status-dot.paused{background:var(--dim);animation:none;box-shadow:none}.scene-divider{color:#3b4949;margin:0 4px}.specimen-label{color:var(--dim);display:flex;align-items:center;gap:20px}.specimen-label span{font-size:16px;color:#889d95}.scene-side-label{position:absolute;left:23px;top:50%;z-index:2;writing-mode:vertical-rl;transform:rotate(180deg) translateY(50%);font:8px var(--mono);letter-spacing:2px;color:#52615f;pointer-events:none}.scene-help{position:absolute;left:50%;bottom:78px;transform:translateX(-50%);font-size:11px;color:#748a82;display:flex;align-items:center;gap:8px;white-space:nowrap;pointer-events:none}.pointer-star{color:#94b4a6;font-size:16px}.scene-footer{position:absolute;bottom:19px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:center;z-index:3}.scene-tools{display:flex;align-items:center;gap:3px}.icon-button{display:grid;place-items:center;width:34px;height:34px;border-radius:4px;background:#0c1315bf;border:1px solid transparent;color:#9fb0aa;transition:background .15s,color .15s,border-color .15s}.icon-button:hover{color:var(--accent);background:#192524;border-color:#334842}.icon-button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}.tool-divider{width:1px;height:15px;background:var(--line);margin:0 8px}.scene-stats{font:8px var(--mono);letter-spacing:.7px;color:#789188;font-variant-numeric:tabular-nums}.corner{position:absolute;width:8px;height:8px;border-color:#6b8679;border-style:solid;pointer-events:none;z-index:4}.corner-tl{top:0;left:0;border-width:1px 0 0 1px}.corner-tr{top:0;right:0;border-width:1px 1px 0 0}.corner-bl{bottom:0;left:0;border-width:0 0 1px 1px}.corner-br{bottom:0;right:0;border-width:0 1px 1px 0}.controls{padding:26px 24px 19px;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column}.controls-title{display:flex;align-items:center;justify-content:space-between}.controls-title .eyebrow{font-size:9px;letter-spacing:1.3px}.control-index{font:9px var(--mono);color:var(--dim)}.controls h2{font:400 26px var(--serif);letter-spacing:-.3px;margin:10px 0 25px}.control-group{padding:0;margin:0;border:0;min-width:0}.control-group legend{font-size:11px;color:#c1ccc6;width:100%;padding:0;margin-bottom:12px;display:flex;justify-content:space-between}.control-group legend span{font:9px var(--mono);color:var(--dim)}.segmented{display:flex;padding:3px;border:1px solid #2a3736;border-radius:5px;gap:3px}.mode-button{border-radius:3px;background:transparent;color:var(--muted);padding:9px 6px;font-size:10px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s,color .15s}.mode-button span{font-family:var(--mono);font-size:12px}.mode-button.selected{background:#26342f;color:var(--accent)}.mode-button:hover{color:var(--text)}.palette-group{margin-top:23px}.palettes{display:flex;gap:7px}.palette{flex:1;min-width:0;background:transparent;padding:0 0 4px;color:#7f8c89;font-size:9px;text-align:center}.swatch{height:31px;border-radius:3px;display:block;margin-bottom:8px;border:3px solid var(--panel);box-shadow:0 0 0 1px #253431;position:relative;transition:box-shadow .15s}.swatch-lagoon{background:linear-gradient(120deg,#385d67,#6db4ad 48%,#d0f1bf)}.swatch-ultraviolet{background:linear-gradient(120deg,#414e95,#8d7dc5 50%,#efb5df)}.swatch-ember{background:linear-gradient(120deg,#733737,#c47857 50%,#ecd9a2)}.palette.selected{color:#d9e5df}.palette.selected .swatch{box-shadow:0 0 0 1px var(--accent)}.palette.selected .swatch:after{content:'';position:absolute;right:5px;top:6px;width:4px;height:7px;border:solid #14352d;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}.palette:hover .swatch{box-shadow:0 0 0 1px #839c90}.sliders{border-top:1px solid var(--line);margin-top:22px;padding-top:22px;display:flex;flex-direction:column;gap:18px}.range-control label{display:flex;justify-content:space-between;font-size:11px;color:#b9c7be;align-items:center;margin-bottom:8px}.range-control output{font:10px var(--mono);color:#829f8f}.range-control input{width:100%;display:block;margin:0;height:17px;appearance:none;background:transparent;cursor:pointer;--fill:50%}.range-control input::-webkit-slider-runnable-track{height:2px;background:linear-gradient(to right,#a4d4ba 0%,#a4d4ba var(--fill),#33413c var(--fill),#33413c 100%)}.range-control input::-moz-range-track{height:2px;background:#33413c}.range-control input::-moz-range-progress{background:#a4d4ba;height:2px}.range-control input::-webkit-slider-thumb{appearance:none;width:9px;height:9px;margin-top:-3.5px;border-radius:50%;background:#c1e2ce;box-shadow:0 0 0 4px #b5edce06;transition:box-shadow .2s}.range-control input::-moz-range-thumb{width:9px;height:9px;border:0;border-radius:50%;background:#c1e2ce}.range-control input:hover::-webkit-slider-thumb{box-shadow:0 0 0 5px #b5edce16}.range-endpoints{display:flex;justify-content:space-between;color:var(--dim);font-size:8px;margin-top:4px}.switch-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:19px;border-top:1px solid var(--line);font-size:11px;cursor:pointer;position:relative;gap:14px}.switch-row small{display:block;font-size:9px;color:var(--dim);margin-top:5px}.switch-row input{position:absolute;opacity:0;right:0;width:32px;height:20px;cursor:pointer}.switch{width:31px;height:17px;border-radius:20px;background:#27312e;border:1px solid #3b4b42;display:block;transition:background .2s;flex-shrink:0}.switch:after{content:'';width:9px;height:9px;background:#899b91;display:block;margin:3px;border-radius:50%;transition:transform .2s}.switch-row input:checked+.switch{background:#8ac7a5;border-color:#8ac7a5}.switch-row input:checked+.switch:after{transform:translateX(13px);background:#18352a}.switch-row input:focus-visible+.switch{outline:2px solid var(--accent);outline-offset:4px}.ink-button{width:100%;background:var(--accent);color:#142c22;padding:12px 13px;font-size:11px;font-weight:600;border-radius:4px;margin-top:24px;display:flex;align-items:center;gap:9px;transition:background .2s,transform .2s}.ink-button:hover{background:#d2ffe0;transform:translateY(-1px)}.ink-button:active{transform:translateY(1px)}.ink-icon{font-size:20px;line-height:1;font-weight:400}.ink-arrow{margin-left:auto;font-size:17px;font-weight:400}.control-footnote{font:8px var(--mono);color:var(--dim);text-align:center;margin:10px 0 0}.experiment-caption{display:flex;justify-content:space-between;align-items:center;margin-top:15px;color:var(--muted)}.experiment-caption p{font-size:10px;display:flex;align-items:center;gap:7px;margin:0}.caption-dot{width:3px;height:3px;border-radius:50%;background:var(--accent)}.experiment-caption>span{font:8px var(--mono);letter-spacing:1.1px;color:var(--dim)}.under-surface{padding:87px 0 80px;display:grid;grid-template-columns:1fr 1.05fr;gap:10%;align-items:start}.surface-intro h2{font:400 42px/1.1 var(--serif);letter-spacing:-.7px;margin:18px 0 18px}.surface-intro h2 em{font-weight:400;color:#a8bfb0}.surface-intro p{max-width:343px;font-size:12px;line-height:1.85;color:var(--muted);margin:0}.source-link{display:inline-flex;align-items:center;gap:37px;color:var(--accent);border-bottom:1px solid #496558;background:none;font-size:11px;padding:13px 0 8px;margin-top:15px}.source-link:hover{border-color:var(--accent)}.source-link span{font-size:17px}.anatomy-list{padding-top:1px}.anatomy-item{display:flex;gap:22px;border-top:1px solid var(--line);padding:22px 0}.anatomy-item:last-child{border-bottom:1px solid var(--line)}.anatomy-number{font:9px var(--mono);color:#718b7e;padding-top:4px}.anatomy-item h3{font-weight:500;font-size:14px;margin:0 0 8px;letter-spacing:-.2px}.anatomy-item p{font-size:11px;line-height:1.75;color:var(--muted);max-width:310px;margin:0}.anatomy-glyph{font:28px var(--mono);margin-left:auto;align-self:center;color:#779482;width:36px;text-align:center}.site-footer{margin:0 4.2%;border-top:1px solid var(--line);height:89px;display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted)}.footer-brand{font-size:20px;font-weight:500;letter-spacing:-1px;color:#a6b5ac}.site-footer p{font-size:10px}.site-footer p span{margin:0 10px;color:#496356}.site-footer .text-button{font-size:10px}.site-footer .text-button span{font-size:17px;color:var(--accent)}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,15px);padding:12px 20px;border:1px solid #416756;background:#17271f;color:#d9f1e1;box-shadow:0 12px 32px #0006;font-size:12px;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center;max-width:90vw;border-radius:5px}.toast.visible{opacity:1;transform:translate(-50%,0)}dialog{width:min(960px,calc(100% - 40px));height:min(84vh,840px);padding:27px 30px;background:#0e1517;color:var(--text);border:1px solid #344b41;border-radius:8px;box-shadow:0 40px 120px #000b;overflow:hidden}dialog[open]{display:flex;flex-direction:column}dialog::backdrop{background:#030707bf;backdrop-filter:blur(10px)}.dialog-header{display:flex;justify-content:space-between;gap:20px}.dialog-header h2{font:400 32px var(--serif);margin:12px 0 0}.source-intro{font-size:12px;line-height:1.8;max-width:670px;color:#93a49a;margin:18px 0 22px}.source-toolbar{display:flex;justify-content:space-between;align-items:center;padding:3px 14px;background:#17201e;border:1px solid var(--line);border-bottom:0;font:11px var(--mono);border-radius:4px 4px 0 0}.source-size{margin-left:14px;color:var(--dim);font-size:9px}.source-toolbar .text-button{font:10px var(--mono)}.source-code{background:#080d0f;border:1px solid var(--line);color:#a8c6b6;margin:0;overflow:auto;flex:1;min-height:130px;font:11px/1.8 var(--mono);padding:18px;tab-size:2;white-space:pre}.dialog-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:17px}.dialog-footer p{font-size:9px;line-height:1.8;color:var(--dim);margin:0}.dialog-footer p span{color:#99afa3}.download-source{padding:12px 16px;background:var(--accent);color:#173729;font-size:11px;border-radius:4px;white-space:nowrap}.download-source span{margin-left:16px}.scene:fullscreen{height:100vh;width:100vw;background:var(--bg)}.scene:fullscreen .scene-help{bottom:85px}.scene:fullscreen .scene-heading{top:32px;left:35px;right:35px}.scene:fullscreen .scene-footer{left:35px;right:35px;bottom:28px}.scene.expanded{position:fixed;inset:0;z-index:99;width:100vw;height:100dvh}.scene.error canvas{display:none}.scene.error:after{content:'The current needs a moment. Please reload the page.';position:absolute;inset:40%;font-size:14px;line-height:1.8;color:var(--accent);text-align:center;width:50%;left:25%}@keyframes blink{50%{opacity:.45}}
+@media(min-width:1600px){.studio{grid-template-columns:minmax(0,1fr) 310px}.controls{padding-left:30px;padding-right:30px}.intro{padding-top:45px}.controls h2{margin-bottom:32px}.palette-group{margin-top:27px}.sliders{gap:23px;margin-top:25px;padding-top:25px}.switch-row{margin-top:26px;padding-top:23px}.ink-button{margin-top:28px}}
+@media(max-width:1100px){.site-header{padding:0 3%;height:74px}main{padding:0 3%}nav{margin-right:2%;gap:24px}.studio{grid-template-columns:minmax(0,1fr) 260px}.controls{padding:23px 19px 18px}.controls h2{font-size:24px}.scene-side-label{left:15px}.scene-heading{left:20px;right:20px}.scene-footer{left:15px;right:17px}.scene-stats{font-size:7px}.intro-copy{font-size:11px}.scene{min-height:590px}.under-surface{gap:7%;padding:65px 0}.surface-intro h2{font-size:38px}.site-footer{margin:0 3%}.anatomy-item{gap:16px}}
+@media(max-width:900px){.site-header{height:69px;padding:0 5%}.wordmark{font-size:23px;gap:7px}.brand-mark{width:29px;height:29px}.site-header nav{display:none}.site-header .text-button{font-size:11px}.intro{padding:32px 0 25px;display:block}.intro .eyebrow{font-size:8px;letter-spacing:1.25px}main{padding:0 5%}h1{font-size:67px;letter-spacing:-1.5px;margin-top:17px}.intro-copy{font-size:11px;line-height:1.7;margin-top:16px}.intro-copy br{display:none}.studio{grid-template-columns:1fr;min-height:0}.scene{height:490px;min-height:0}.scene-heading{font-size:8px;top:19px;left:18px;right:18px}.specimen-label{font-size:7px;gap:8px}.scene-side-label{display:none}.scene-help{bottom:74px;font-size:10px}.scene-footer{bottom:15px;left:12px;right:15px}.scene-stats{font-size:7px;max-width:110px;text-align:right;line-height:1.8}.scene-tools{gap:0}.tool-divider{margin:0 4px}.controls{border-left:0;border-top:1px solid var(--line);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:0 24px}.controls-title,.controls h2{grid-column:1/-1}.controls h2{margin:10px 0 23px;font-size:27px}.mode-group{grid-column:1}.palette-group{margin:0;grid-column:2;grid-row:3/5}.palette-group .palettes{gap:6px}.palette{font-size:8px}.palette-group legend span{display:none}.swatch{height:32px}.segmented{flex-direction:column}.mode-button{padding:8px 7px;font-size:10px}.sliders{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:23px;padding-top:23px}.controls .range-control:first-child{grid-column:1/-1}.switch-row{grid-column:1/-1;margin-top:24px;padding-top:22px}.ink-button{grid-column:1/-1;padding:14px;margin-top:22px}.control-footnote{grid-column:1/-1;margin-top:12px}.experiment-caption{gap:8px;margin-top:13px}.experiment-caption p{font-size:9px}.experiment-caption>span{font-size:6px;letter-spacing:.8px}.under-surface{grid-template-columns:1fr;gap:34px;padding:62px 0 54px}.surface-intro h2{font-size:40px;margin-top:18px}.surface-intro p{font-size:12px;max-width:100%}.anatomy-item{padding:20px 0}.anatomy-item p{font-size:11px}.anatomy-glyph{font-size:25px}.site-footer{margin:0 5%;height:auto;min-height:115px;display:grid;grid-template-columns:1fr 1fr;padding:25px 0;gap:12px}.site-footer .footer-brand{grid-column:1}.site-footer p{grid-row:2;grid-column:1/-1;margin:0;font-size:9px}.site-footer .text-button{grid-column:2;grid-row:1;justify-self:end;font-size:9px}.footer-brand{font-size:19px}dialog{padding:21px 18px;width:calc(100% - 24px);height:90dvh}.dialog-header h2{font-size:27px;max-width:220px}.dialog-header .eyebrow{font-size:8px}.source-intro{font-size:11px}.dialog-footer{flex-direction:column;align-items:stretch;gap:15px}.dialog-footer p{font-size:8px}.download-source{text-align:center}.source-code{font-size:10px}.source-size{display:none}}
+@media(max-width:390px){h1{font-size:58px}.scene{height:440px;min-height:0}.scene-heading{font-size:7px}.controls{padding:21px;gap:0 18px}.experiment-caption>span{display:none}.scene-help{font-size:9px}.scene-stats{max-width:90px}.palette{font-size:7px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+@media(max-height:620px){dialog[open]{display:block;overflow-y:auto;height:92dvh}.source-code{height:35dvh;min-height:100px}.dialog-footer{padding-bottom:8px}}
+.ink-icon,.pointer-star,.specimen-label>span{font-family:Arial,sans-serif;font-variant-emoji:text}.ink-arrow,.source-link>span,nav a span{font-family:Arial,sans-serif;font-variant-emoji:text}
+
+.symbol-star{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round}.symbol-arrow{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}nav a span{display:inline-flex;vertical-align:middle}.specimen-label .symbol-star{width:13px;height:13px}.ink-icon .symbol-star{width:19px;height:19px}.pointer-star{display:inline-flex}
+
+/* More room for the new movement and depth controls. */
+@media(min-width:901px){.controls{padding-top:22px;padding-bottom:17px}.controls h2{margin-bottom:19px}.palette-group{margin-top:18px}.sliders{margin-top:18px;padding-top:18px;gap:12px}.switch-row{margin-top:16px;padding-top:16px}.ink-button{margin-top:20px}.range-control label{margin-bottom:5px}}
+/* Keep the viewing hint clear of the wider, deeper swim path. */
+.scene-help{bottom:29px}.scene:fullscreen .scene-help{bottom:39px}
+@media(max-width:560px){.scene-help{display:none}}
+
+/* Three small invitations into the same underwater world. */
+.scene-selector{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:0 0 19px}
+.scene-choice{display:flex;flex-direction:column;align-items:stretch;min-width:0;padding:14px 17px 15px;border:1px solid var(--line);border-radius:4px;background:#0c1315;text-align:left;transition:border-color .2s,background .2s}
+.scene-choice:hover{border-color:#486253;background:#111d18}
+.scene-choice.selected{border-color:#527660;background:linear-gradient(115deg,#192b21,#101c19)}
+.scene-choice-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.scene-choice-number{font:8px var(--mono);letter-spacing:1px;color:#6e8b7b}
+.scene-choice-dot{width:5px;height:5px;border:1px solid #53675a;border-radius:50%;flex-shrink:0}
+.scene-choice.selected .scene-choice-number{color:#9bbda7}
+.scene-choice.selected .scene-choice-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 10px #b5edce33}
+.scene-choice-title{font-size:14px;font-weight:500;color:#c6d5cb;line-height:1.3}
+.scene-choice.selected .scene-choice-title{color:#e2f5e8}
+.scene-choice-description{margin-top:6px;font-size:10px;line-height:1.65;color:#82988a}
+.scene-heading{align-items:flex-start;gap:15px}
+.scene-observation{display:flex;flex-direction:column;align-items:flex-end;gap:7px;max-width:46%;min-width:0;text-align:right}
+.scene-perspective{font-size:8px;letter-spacing:1.25px;color:#688273}
+.scene-phase{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:8px;letter-spacing:1px;color:#9bbda7;text-transform:uppercase}
+.scene-phase-track{display:block;width:80px;height:1px;margin-top:2px;background:#263c2e}
+.scene-phase-track>span{display:block;width:100%;height:100%;background:#88b59a;transform:scaleX(0);transform-origin:left;transition:transform .6s linear}
+.switch-row.inherent,.switch-row.inherent input{cursor:default}
+.switch-row.inherent .switch{opacity:.65}
+.disturbance{display:grid;gap:8px;margin-top:17px;grid-column:1/-1}
+.disturbance[hidden]{display:none}
+.disturbance-label{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#82988a;font-size:10px}
+.disturbance-label output{font:8px var(--mono);letter-spacing:.6px;color:#a4c2ae;text-transform:uppercase}
+.disturbance-track{height:3px;background:#24352c;overflow:hidden;border-radius:2px}
+.disturbance-track>span{display:block;width:100%;height:100%;background:#8dbb9d;transform:scaleX(0);transform-origin:left;transition:transform .25s linear,background .3s}
+.disturbance.alert .disturbance-track>span{background:#c4ad76}
+.disturbance.alert .disturbance-label output{color:#d2bd8b}
+.control-footnote{line-height:1.65}
+@media(max-width:900px){.scene-selector{gap:9px;margin-bottom:16px}.scene-choice{padding:13px 14px}.scene-choice-description{font-size:10px}.scene-perspective,.scene-phase{font-size:7px;letter-spacing:.9px}.scene-observation{gap:6px}.scene-phase-track{width:63px}}
+@media(max-width:560px){.scene-selector{gap:7px}.scene-choice{padding:12px 10px}.scene-choice-top{margin-bottom:9px;gap:4px}.scene-choice-number{font-size:7px;letter-spacing:.35px}.scene-choice-dot{width:4px;height:4px}.scene-choice-title{font-size:13px}.scene-choice-description{font-size:10px;line-height:1.55;margin-top:7px}.scene-heading{gap:10px}.scene-observation{max-width:43%}}
+@media(max-width:350px){.scene-choice{padding:11px 8px}.scene-choice-title{font-size:12px}.scene-choice-number{font-size:6.5px;letter-spacing:.2px}.scene-choice-dot{display:none}}
+
+/* Direct a school without crowding the viewing controls. */
+.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.school-director{border:1px solid var(--line);border-radius:5px;background:linear-gradient(115deg,#101b18,#0c1415 70%);padding:18px 21px 0;margin-bottom:18px}
+.school-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:19px}
+.school-title-group{display:flex;align-items:baseline;gap:15px;flex-wrap:wrap}
+.school-title-group h2{font:400 23px/1.1 var(--serif);color:#d5e5d9;letter-spacing:-.2px;margin:0;white-space:nowrap}
+.school-summary{font:9px var(--mono);letter-spacing:.25px;color:#7f9b8c;white-space:nowrap}
+.school-presets{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.school-preset{min-height:29px;padding:7px 10px;border:1px solid #2c3d34;background:#101b18;border-radius:3px;font-size:10px;color:#93a99a;transition:background .2s,border-color .2s,color .2s}
+.school-preset:hover{color:#c9e3d0;border-color:#567160}
+.school-preset.selected{color:#ccebd6;border-color:#587a65;background:#223b2c}
+.school-basic{display:grid;grid-template-columns:minmax(135px,.75fr) minmax(135px,.75fr) minmax(350px,2fr);gap:27px;align-items:end}
+.school-basic>.range-control{padding-bottom:3px}
+.school-director .range-control label{margin-bottom:7px;font-size:11px}
+.school-director .range-control input{height:23px}
+.school-director .range-endpoints{margin-top:2px;font-size:8px}
+.school-formations legend{font-size:11px;margin-bottom:9px}
+.school-formations legend span{color:#789986}
+.formation-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.formation-choice{min-width:0;min-height:55px;padding:5px 6px 7px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;background:#101a18;border:1px solid #2a3b32;border-radius:3px;color:#829b8b;font-size:10px;transition:color .2s,border-color .2s,background .2s}
+.formation-choice:hover{color:#d4e8d8;border-color:#587361}
+.formation-choice.selected{background:#20382a;border-color:#62886e;color:#c5ebd1}
+.formation-icon{width:31px;height:23px;fill:none;stroke:currentColor;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.school-director.reversed .formation-icon{transform:rotate(180deg)}
+.school-details{border-top:1px solid #273b2f;margin-top:16px}
+.school-details>summary{display:flex;align-items:center;gap:14px;min-height:42px;list-style:none;cursor:pointer;color:#a8c0ad;font-size:10px;user-select:none}
+.school-details>summary::-webkit-details-marker{display:none}
+.school-details>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.school-details>summary>svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;transition:transform .2s}
+.school-details[open]>summary>svg{transform:rotate(180deg)}
+.school-detail-summary{margin-left:auto;color:#678875;font:8px var(--mono);letter-spacing:.25px}
+.school-fine-controls{display:grid;grid-template-columns:1fr 1fr 1.05fr;gap:30px;padding:5px 0 19px;border-bottom:1px solid #263a2d}
+.school-fine-controls .school-reverse{margin:0;border:0;padding:0;grid-column:auto;align-self:center}
+.school-reverse small{font-size:9px;color:#708e7a}
+.school-roles-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:18px 0 13px}
+.school-roles-heading h3{font-size:11px;font-weight:500;color:#bad2c0;margin:0 0 5px}
+.school-roles-heading p{font-size:10px;line-height:1.6;color:#789381;margin:0}
+.school-label-toggle{display:flex;align-items:center;gap:7px;color:#91af9a;font-size:10px;white-space:nowrap;cursor:pointer}
+.school-label-toggle input{width:13px;height:13px;accent-color:#add5bb;cursor:pointer;margin:0}
+.school-roles-fieldset{padding:0 0 20px;margin:0;border:0;min-width:0}
+.school-roles-fieldset:disabled .fish-role{opacity:.55}
+.school-roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.fish-role{min-width:0;border:1px solid #2b4032;background:#101c17;border-radius:4px;padding:10px 11px 9px;transition:border-color .2s}
+.fish-role-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.fish-role-heading label{font:9px var(--mono);letter-spacing:.4px;color:#99b8a3}
+.fish-presence{width:4px;height:4px;background:#405846;border-radius:50%;flex-shrink:0}
+.fish-role.in-view .fish-presence{background:#a1cfad;box-shadow:0 0 7px #9dd7ab30}
+.fish-role select{display:block;width:100%;min-height:34px;padding:6px 8px;border:1px solid #34513e;border-radius:3px;background:#172a1e;color:#c6dfcc;font:11px var(--sans);color-scheme:dark;cursor:pointer}
+.fish-role select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.fish-role select:disabled{cursor:default}
+.fish-status{display:block;margin-top:7px;color:#6e8f79;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;line-height:1.5}
+.school-live-count{font:7px var(--mono);letter-spacing:.65px;color:#6f9480;white-space:nowrap}
+@media(max-width:1100px){.school-heading{align-items:flex-start}.school-title-group{gap:7px;flex-direction:column}.school-basic{gap:20px;grid-template-columns:minmax(125px,.75fr) minmax(125px,.75fr) minmax(330px,2fr)}.school-preset{font-size:9px;padding:7px 8px}.school-director{padding:17px 18px 0}}
+@media(max-width:900px){.school-heading{gap:15px}.school-presets{max-width:58%}.school-basic{grid-template-columns:1fr 1fr;gap:18px 25px}.school-formations{grid-column:1/-1}.formation-choice{min-height:51px}.school-fine-controls{gap:23px}.school-roles{grid-template-columns:repeat(3,minmax(0,1fr))}.school-title-group h2{font-size:25px}.school-summary{font-size:8px}.school-live-count{font-size:6.5px;letter-spacing:.4px}}
+@media(max-width:560px){.school-director{padding:16px 14px 0;margin-bottom:16px}.school-heading{display:block;margin-bottom:19px}.school-title-group{flex-direction:row;align-items:baseline;justify-content:space-between;gap:10px}.school-title-group h2{font-size:24px}.school-summary{font-size:7px}.school-presets{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-width:none;margin-top:13px}.school-preset{font-size:10px;min-height:32px}.school-basic{gap:16px 19px}.formation-choice{font-size:9px;padding:5px 3px 7px;min-height:54px}.formation-options{gap:4px}.school-detail-summary{font-size:7px;letter-spacing:0}.school-details>summary{font-size:9px;gap:8px;min-height:44px}.school-fine-controls{grid-template-columns:1fr 1fr;gap:19px}.school-fine-controls .school-reverse{grid-column:1/-1;padding-top:3px}.school-roles-heading{align-items:flex-start;gap:12px}.school-roles-heading p{font-size:9px}.school-label-toggle{font-size:9px;margin-top:2px}.school-roles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.fish-role{padding:9px}.fish-role select{min-height:40px;font-size:10px}.fish-role-heading label{font-size:8px}.fish-status{font-size:8px}.school-live-count{font-size:6px;letter-spacing:.25px}}
+@media(max-width:360px){.formation-options{grid-template-columns:repeat(3,minmax(0,1fr))}.school-title-group{align-items:center}.school-summary{font-size:6.5px}.school-detail-summary{display:none}.school-roles-heading{display:block}.school-label-toggle{margin-top:10px}.school-details>summary>svg{margin-left:auto}}
+
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#experiment">Skip to the artwork</a>
+  <header class="site-header">
+    <a class="wordmark" href="#" aria-label="Cuttlefish home">
+      <svg class="brand-mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M26 7C13-2 2 11 7 22c3 7 12 9 19 4 6-5 7-14 0-19Z" fill="currentColor"/><path d="M24 26c8 1 4 12 12 8M20 29c-1 11 8 12 8 7M15 29c-5 6-1 10 2 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="26" cy="22" r="1.7" fill="#080d0f"/></svg>
+      <span>cuttlefish<span class="wordmark-dot">.</span></span>
+    </a>
+    <nav aria-label="Main navigation"><a href="#experiment" class="nav-active">The experiment</a><a href="#under-the-surface">Under the surface <span aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M5 15h10V5"/></svg></span></a></nav>
+    <button class="text-button source-trigger" type="button"><span class="code-icon" aria-hidden="true">&lt;/&gt;</span> View source</button>
+  </header>
+
+  <main>
+    <section class="experiment" id="experiment" aria-labelledby="page-title">
+      <div class="intro">
+        <div><div class="eyebrow"><span class="tiny-line"></span> A GENERATIVE FIELD STUDY <span class="edition">/ 001</span></div><h1 id="page-title">In the <em>current.</em></h1></div>
+        <p class="intro-copy">Creatures made of characters.<br> A little mathematics. A little marine magic.</p>
+      </div>
+
+      <div class="scene-selector" role="group" aria-label="Choose a scene">
+        <button class="scene-choice selected" data-scene="swimby" type="button" aria-pressed="true">
+          <span class="scene-choice-top"><span class="scene-choice-number">01 / OBSERVE</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
+          <span class="scene-choice-title">Swim-by</span>
+          <span class="scene-choice-description">Arrives quickly, lingers, then slips away.</span>
+        </button>
+        <button class="scene-choice" data-scene="encounter" type="button" aria-pressed="false">
+          <span class="scene-choice-top"><span class="scene-choice-number">02 / ENCOUNTER</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
+          <span class="scene-choice-title">Close encounter</span>
+          <span class="scene-choice-description">Arms explore the lens. Click for an ink escape.</span>
+        </button>
+        <button class="scene-choice" data-scene="reactive" type="button" aria-pressed="false">
+          <span class="scene-choice-top"><span class="scene-choice-number">03 / INTERACT</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
+          <span class="scene-choice-title">Startle &amp; ink</span>
+          <span class="scene-choice-description">Too much movement: a warning, ink, then escape.</span>
+        </button>
+      </div>
+
+      <section class="school-director" id="school-director" aria-labelledby="school-title">
+        <div class="school-heading">
+          <div class="school-title-group"><h2 id="school-title">School director</h2><output class="school-summary" id="school-summary" aria-live="off">4 cuttlefish · independent</output></div>
+          <div class="school-presets" role="group" aria-label="School presets">
+            <button class="school-preset" data-school-preset="solo" type="button" aria-pressed="false">Solo encounter</button>
+            <button class="school-preset selected" data-school-preset="mixed" type="button" aria-pressed="true">Mixed company</button>
+            <button class="school-preset" data-school-preset="horizontal" type="button" aria-pressed="false">Horizontal procession</button>
+            <button class="school-preset" data-school-preset="diagonal" type="button" aria-pressed="false">Diagonal drift</button>
+          </div>
+        </div>
+        <div class="school-basic">
+          <div class="range-control"><label for="count">Cuttlefish <output id="count-value" for="count">4</output></label><input id="count" type="range" min="1" max="12" step="1" value="4"><div class="range-endpoints"><span>Solo</span><span>A school of 12</span></div></div>
+          <div class="range-control"><label for="size">Overall size <output id="size-value" for="size">70%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="0.7"><div class="range-endpoints"><span>Small visitors</span><span>Up close</span></div></div>
+          <fieldset class="control-group school-formations"><legend>Direction <span id="formation-name">Independent</span></legend><div class="formation-options" role="group" aria-label="Swimming formation">
+            <button class="formation-choice selected" data-formation="independent" type="button" aria-pressed="true" title="Independent paths and individual roles"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 17l9-9m-4 0h4v4M17 19l4-10m-4 2 4-2 2 4M25 5l7 9m-4-1 4 1v-4"/></svg><span>Independent</span></button>
+            <button class="formation-choice" data-formation="horizontal" type="button" aria-pressed="false" title="A horizontal procession"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 7h26m-4-4 4 4-4 4M4 17h26m-4-4 4 4-4 4"/></svg><span>Horizontal</span></button>
+            <button class="formation-choice" data-formation="vertical" type="button" aria-pressed="false" title="A vertical procession, from bottom to top"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M12 21V3m-4 4 4-4 4 4M25 21V3m-4 4 4-4 4 4"/></svg><span>Vertical</span></button>
+            <button class="formation-choice" data-formation="diagonal" type="button" aria-pressed="false" title="A diagonal drift, from bottom left to top right"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 20 19 5m-6 0h6v6M17 20 32 5m-6 0h6v6"/></svg><span>Diagonal</span></button>
+            <button class="formation-choice" data-formation="random" type="button" aria-pressed="false" title="Passes from changing directions"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 7h6c8 0 8 10 16 10h6m-4-4 4 4-4 4M4 17h6c8 0 8-10 16-10h6m-4-4 4 4-4 4"/></svg><span>Random</span></button>
+          </div></fieldset>
+        </div>
+        <details class="school-details" id="school-details">
+          <summary><span>Fine tune &amp; individual roles</span><span class="school-detail-summary" id="school-detail-summary">Varied sizes · forward</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary>
+          <div class="school-fine-controls">
+            <div class="range-control"><label for="sizeVariation">Size variation <output id="sizeVariation-value" for="sizeVariation">45%</output></label><input id="sizeVariation" type="range" min="0" max="1" step="0.05" value="0.45"><div class="range-endpoints"><span>Similar</span><span>Small &amp; large</span></div></div>
+            <div class="range-control"><label for="spacing">Space between <output id="spacing-value" for="spacing">1.00×</output></label><input id="spacing" type="range" min="0.65" max="1.6" step="0.05" value="1"><div class="range-endpoints"><span>Together</span><span>Spread out</span></div></div>
+            <label class="switch-row school-reverse" for="reverse"><span>Reverse direction<small>Reverse each swimming path.</small></span><input id="reverse" type="checkbox" role="switch"><span class="switch" aria-hidden="true"></span></label>
+          </div>
+          <div class="school-roles-heading"><div><h3>Individual roles</h3><p id="roles-help">Auto follows the scene. Give any visitor a different instinct.</p></div><label class="school-label-toggle" for="showLabels"><input id="showLabels" type="checkbox"><span>Show numbers</span></label></div>
+          <fieldset class="school-roles-fieldset" id="school-roles-fieldset" aria-describedby="roles-help"><legend class="visually-hidden">Choose each cuttlefish’s behavior</legend><div class="school-roles" id="school-roles"></div></fieldset>
+        </details>
+      </section>
+
+      <div class="studio">
+        <div class="scene" id="scene">
+          <div class="scene-heading"><div class="live-label"><span class="status-dot" id="status-dot"></span><span id="live-label">LIVE</span><span class="scene-divider">/</span><span id="render-label">ASCII CANVAS</span></div><div class="scene-observation" aria-live="off"><span class="scene-perspective">DIVER’S VIEW</span><span class="school-live-count" id="school-live-count">4 CUTTLEFISH</span><span class="scene-phase" id="scene-phase">Arriving</span><span class="scene-phase-track" aria-hidden="true"><span id="scene-progress"></span></span></div></div>
+          <canvas id="artwork" role="img" aria-label="An animated ASCII cuttlefish enters a fixed diver’s view quickly, lingers nearby with moving fins and arms, then swims away. Choose another scene or use the adjacent controls to explore."></canvas>
+          <div class="scene-side-label" aria-hidden="true">CEPHALOPOD / A STUDY IN MOTION</div>
+          <div class="scene-help" id="scene-help"><span class="pointer-star" aria-hidden="true"><svg class="symbol-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M2 10h16M4.35 4.35l11.3 11.3M4.35 15.65l11.3-11.3"/></svg></span><span id="scene-hint">A quick arrival. A little time together.</span></div>
+          <div class="scene-footer">
+            <div class="scene-tools">
+              <button class="icon-button" id="pause-btn" type="button" aria-label="Pause animation" title="Pause animation (Space)"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg></button>
+              <button class="icon-button" id="reset-btn" type="button" aria-label="Restart this scene and reset settings" title="Restart this scene and reset settings"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 7.5a6 6 0 1 1-.3 4M4.5 3.5v4h4"/></svg></button>
+              <span class="tool-divider"></span>
+              <button class="icon-button" id="fullscreen-btn" type="button" aria-label="Enter fullscreen" title="Enter fullscreen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg></button>
+              <button class="icon-button" id="capture-btn" type="button" aria-label="Save artwork as PNG" title="Save a PNG"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h4l1-2h4l1 2h4v10H3Z"/><circle cx="10" cy="10.5" r="3"/></svg></button>
+            </div>
+            <output class="scene-stats" id="stats" aria-live="off">PREPARING THE CURRENT</output>
+          </div>
+          <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+        </div>
+
+        <aside class="controls" aria-label="Artwork controls">
+          <div class="controls-title"><span class="eyebrow">THE CURRENT</span><span class="control-index">01—03</span></div>
+          <h2>Make it your own.</h2>
+          <fieldset class="control-group mode-group"><legend>Render as</legend><div class="segmented" role="group" aria-label="Rendering style"><button class="mode-button selected" data-mode="ascii" aria-pressed="true" type="button"><span aria-hidden="true">Aa</span> Characters</button><button class="mode-button" data-mode="points" aria-pressed="false" type="button"><span aria-hidden="true">⠿</span> Particles</button></div></fieldset>
+          <fieldset class="control-group palette-group"><legend>Color story <span id="palette-name">Lagoon</span></legend><div class="palettes"><button class="palette selected" data-palette="lagoon" aria-pressed="true" type="button" aria-label="Lagoon palette"><span class="swatch swatch-lagoon"></span><span>Lagoon</span></button><button class="palette" data-palette="ultraviolet" aria-pressed="false" type="button" aria-label="Ultraviolet palette"><span class="swatch swatch-ultraviolet"></span><span>Ultraviolet</span></button><button class="palette" data-palette="ember" aria-pressed="false" type="button" aria-label="Ember palette"><span class="swatch swatch-ember"></span><span>Ember</span></button></div></fieldset>
+          <div class="sliders">
+            <div class="range-control"><label for="speed">Swimming tempo <output id="speed-value" for="speed">1.05×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1.05"><div class="range-endpoints"><span>Unhurried</span><span>Spirited</span></div></div>
+            <div class="range-control"><label for="motion">Swimming range <output id="motion-value" for="motion">60%</output></label><input id="motion" type="range" min="0" max="2" step="0.05" value="1.2"></div>
+            <div class="range-control"><label for="depthStrength">3D depth <output id="depthStrength-value" for="depthStrength">60%</output></label><input id="depthStrength" type="range" min="0" max="2" step="0.05" value="1.2"></div>
+            <div class="range-control"><label for="ripple">Fin ripple <output id="ripple-value" for="ripple">59%</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.01" value="1.3"></div>
+            <div class="range-control"><label for="density">Character density <output id="density-value" for="density">56%</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.01" value="1.1"></div>
+          </div>
+          <label class="switch-row" id="follow-row" for="follow"><span><span id="follow-label">Follow your cursor</span><small id="follow-help">Invite a little curiosity.</small></span><input type="checkbox" id="follow" role="switch"><span class="switch" aria-hidden="true"></span></label>
+          <div class="disturbance" id="disturbance" hidden><div class="disturbance-label"><span>Disturbance</span><output id="disturbance-state" aria-live="off">Calm</output></div><div class="disturbance-track" id="disturbance-meter" role="meter" aria-label="Disturbance around the cuttlefish" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Calm"><span id="disturbance-fill"></span></div></div>
+          <button class="ink-button" id="ink-btn" type="button"><span class="ink-icon" aria-hidden="true"><svg class="symbol-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M2 10h16M4.35 4.35l11.3 11.3M4.35 15.65l11.3-11.3"/></svg></span><span id="ink-label">Invite a visit</span><span class="ink-arrow" aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 15 10-10M5 5h10v10"/></svg></span></button>
+          <p class="control-footnote" id="ink-note">Replay its arrival, pause, and departure.</p>
+        </aside>
+      </div>
+      <div class="experiment-caption"><p><span class="caption-dot"></span> Drawn live, one character at a time.</p><span>NO VIDEO. JUST CODE.</span></div>
+    </section>
+
+    <section class="under-surface" id="under-the-surface" aria-labelledby="surface-title">
+      <div class="surface-intro"><div class="eyebrow">UNDER THE SURFACE</div><h2 id="surface-title">Nature is the reference.<br><em>Math is the medium.</em></h2><p>An original procedural sketch, inspired by the luminous ASCII sea life in your reference. Every curve, ripple, and wandering arm is drawn in the browser.</p><button class="source-link source-trigger" type="button">Look inside the code <span aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 15 10-10M5 5h10v10"/></svg></span></button></div>
+      <div class="anatomy-list">
+        <article class="anatomy-item"><span class="anatomy-number">01</span><div><h3>A body of letters</h3><p>Curved geometry, perspective, and moving highlights give every character a place in three-dimensional space.</p></div><span class="anatomy-glyph" aria-hidden="true">@</span></article>
+        <article class="anatomy-item"><span class="anatomy-number">02</span><div><h3>A traveling ripple</h3><p>Waves travel along the fins as the creature banks, turns, and swims toward and away from the light.</p></div><span class="anatomy-glyph" aria-hidden="true">≈</span></article>
+        <article class="anatomy-item"><span class="anatomy-number">03</span><div><h3>A little independence</h3><p>Arms reach, curl, and explore at their own pace. A startled creature gathers itself, sprays a current of black characters, then escapes.</p></div><span class="anatomy-glyph" aria-hidden="true">∿</span></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="footer-brand" href="#">cuttlefish.</a><p>An experiment in creative code <span>·</span> 2026</p><button class="text-button" id="download-btn" type="button">Take the HTML with you <span aria-hidden="true">↓</span></button></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="source-dialog" aria-labelledby="source-title">
+    <div class="dialog-header"><div><div class="eyebrow">OPEN THE SKETCH</div><h2 id="source-title">The code beneath the current.</h2></div><button class="icon-button" id="close-source" type="button" aria-label="Close source code"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg></button></div>
+    <p class="source-intro">The actual renderer powering this artwork. Vanilla JavaScript, a canvas, and a collection of moving points. Download the complete HTML to play with it locally.</p>
+    <div class="source-toolbar"><span>artwork.js <span class="source-size" id="source-size"></span></span><button id="copy-source" class="text-button" type="button">Copy code</button></div>
+    <pre class="source-code" tabindex="0"><code id="source-code">Loading the renderer…</code></pre>
+    <div class="dialog-footer"><p>Visual reference: the supplied ASCII jellyfish clip by <span>@dwcminh.ascii</span>.<br>This cuttlefish is an original implementation.</p><button class="download-source" type="button">Download HTML <span aria-hidden="true">↓</span></button></div>
+  </dialog>
+<script data-artwork-source>
+/*
+ * Cuttlefish / Field study
+ * Original procedural artwork. Canvas 2D, projected parametric surfaces,
+ * a character-cell depth buffer, and traveling waves. No models or assets.
+ */
+(() => {
+  'use strict';
+  const TAU = Math.PI * 2;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const mix = (a, b, t) => a + (b - a) * t;
+  const smooth = (a, b, x) => { const u = clamp((x - a) / (b - a), 0, 1); return u * u * (3 - 2 * u); };
+  const unit = (v, fallback = [1, 0, 0]) => { const n = Math.hypot(...v); return n > .00001 ? v.map(x => x / n) : fallback.slice(); };
+  const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  // Timed, closed Hermite routes. Tangents agree at every join, including
+  // the loop seam. The diver stays still; actual world-space distance sets size.
+  const SWIM_ROUTE = [
+    [0, -11, .18, -1.1], [1.1, -4.4, -.05, -.45], [2.3, -.75, -.08, -.15],
+    [3.6, -.35, -.02, -.25], [5.8, .15, -.13, -.05], [8, .38, .08, -.35],
+    [10, -.18, .13, -.45], [11.8, -.45, -.03, -.25], [13, .25, -.04, -.12],
+    [14.5, 5.2, -.2, -.35], [16, 12, -.4, -1.8], [18, 24, .1, -8],
+    [19.5, 0, -.5, -19], [21, -24, .3, -8], [23, -11, .18, -1.1]
+  ];
+  const ENCOUNTER_ROUTE = [
+    [0, 2.3, .12, -3.8], [3, 1.1, -.1, -2.7], [7, .06, 0, -.2],
+    [10, 0, 0, .92], [15, 0, 0, .92], [18, .06, -.05, -1.1],
+    [21, 1.2, -.15, -3.3], [24, 3.1, .12, -4.6], [28, 2.3, .12, -3.8]
+  ];
+  function routeAt(route, time) {
+    const last = route.length - 1, duration = route[last][0];
+    const t = ((time % duration) + duration) % duration;
+    let i = 0;
+    while (i < last - 1 && t >= route[i + 1][0]) i++;
+    const a = route[i], b = route[i + 1];
+    const prev = i === 0 ? route[last - 1] : route[i - 1];
+    const next = i + 2 > last ? route[1] : route[i + 2];
+    const pt = prev[0] - (i === 0 ? duration : 0), nt = next[0] + (i + 2 > last ? duration : 0);
+    const span = b[0] - a[0], u = (t - a[0]) / span, u2 = u * u, u3 = u2 * u;
+    return [1, 2, 3].map(j => (2 * u3 - 3 * u2 + 1) * a[j]
+      + (u3 - 2 * u2 + u) * span * (b[j] - prev[j]) / (b[0] - pt)
+      + (-2 * u3 + 3 * u2) * b[j]
+      + (u3 - u2) * span * (next[j] - a[j]) / (nt - a[0]));
+  }
+  const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453123; return s - Math.floor(s); };
+  const GLYPHS = '.,:;!i1l+txzvcofnae0&%8B@';
+  const INK_GLYPHS = '.,:;+=x%#@';
+  const REACTION = { react: .34, spray: .94, escape: 3.25, recover: 8.8 };
+  const FORMATIONS = ['independent', 'horizontal', 'vertical', 'diagonal', 'random'];
+  const BEHAVIORS = ['auto', 'cruise', 'hover', 'orbit', 'curious', 'encounter'];
+  // Each animal owns its clocks and response. Geometry, glyph atlases, the
+  // camera, and the depth buffer belong to the whole school.
+  const FISH_STATE = ['sceneTime', 'reaction', 'agitation', 'movingTime', 'motionTravel', 'motionTurns',
+    'motionVector', 'lastMotionAt', 'startleTension', 'escapeAmount', 'encounterGrip', 'encounterFront',
+    'phase', 'progress', 'subjectVisibility', 'worldX', 'worldY', 'worldZ',
+    'r00', 'r01', 'r02', 'r10', 'r11', 'r12', 'r20', 'r21', 'r22'];
+  const PALETTES = {
+    lagoon: { low: [26, 79, 106], middle: [58, 202, 190], high: [235, 255, 242], fin: [72, 144, 224], ink: [99, 180, 184], atmosphere: [40, 142, 140] },
+    ultraviolet: { low: [55, 40, 116], middle: [142, 101, 222], high: [244, 215, 255], fin: [85, 155, 255], ink: [200, 129, 236], atmosphere: [119, 62, 179] },
+    ember: { low: [103, 40, 42], middle: [218, 105, 66], high: [255, 231, 175], fin: [190, 80, 124], ink: [246, 152, 97], atmosphere: [179, 83, 47] }
+  };
+
+  class CuttlefishArtwork {
+    constructor(canvas, options = {}) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d', { alpha: false });
+      if (!this.ctx) throw new Error('Canvas 2D is unavailable in this browser.');
+      this.options = Object.assign({ scene: 'swimby', palette: 'lagoon', speed: 1.05, ripple: 1.3, density: 1.1, motion: 1.2, depthStrength: 1.2, mode: 'ascii', followPointer: false, glow: true, paused: false, count: 4, formation: 'independent', size: .7, sizeVariation: .45, spacing: 1, reverse: false, showLabels: false, behaviors: [] }, options);
+      this._normalizeOptions();
+      this.paused = Boolean(this.options.paused);
+      this.time = 0; this.sceneTime = 0; this.elapsed = 0; this.last = 0; this.fps = 0; this.frameCount = 0; this.fpsElapsed = 0; this.glyphCount = 0;
+      this.pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+      this.burst = 0; this.ink = []; this.destroyed = false;
+      this.reaction = this._newReaction();
+      this.agitation = 0; this.movingTime = 0; this.startleTension = 0; this.escapeAmount = 0;
+      this.motionTravel = 0; this.motionTurns = 0; this.motionVector = null; this.lastMotionAt = 0;
+      this.phase = 'Approaching'; this.progress = 0;
+      this.encounterGrip = 0; this.encounterFront = 0;
+      this.glowCanvas = document.createElement('canvas');
+      this.glowCtx = this.glowCanvas.getContext('2d');
+      this.haloCanvas = document.createElement('canvas');
+      this.haloCtx = this.haloCanvas.getContext('2d');
+      this.atlas = document.createElement('canvas');
+      this.atlasCtx = this.atlas.getContext('2d');
+      this.inkAtlas = document.createElement('canvas');
+      this.palette = PALETTES[this.options.palette] || PALETTES.lagoon;
+      this.motionAmount = 1.2; this.depthAmount = 1.2;
+      this.samples = new Float32Array(36000 * 6); this.sampleCount = 0;
+      this._rings = {};
+      for (const n of [10, 48, 88]) this._rings[n] = Array.from({ length: n }, (_, i) => [Math.cos(i / n * TAU), Math.sin(i / n * TAU)]);
+      this.plankton = Array.from({ length: 95 }, (_, i) => ({ x: hash(i + 2), y: hash(i + 170), phase: hash(i + 410) * TAU, size: hash(i + 810), char: '.·+*'[i % 4] }));
+      this.fish = []; this._syncFish(true);
+      this._move = e => this._pointerMove(e);
+      this._leave = () => { this.pointer.tx = 0; this.pointer.ty = 0; this.lastPointer = null; };
+      this._touch = e => {
+        const r = this.canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+        this.pointer.tx = clamp(x / r.width - .5, -.5, .5); this.pointer.ty = clamp(y / r.height - .5, -.5, .5);
+        if (this.paused) return;
+        const hit = this._hitFish(x, y);
+        const lensFish = this.options.scene === 'encounter' ? this.fish.find(f => f.behavior === 'encounter' || this._legacySingle()) : null;
+        const target = hit >= 0 ? this.fish[hit] : lensFish;
+        if (target && this._canReact(target)) this._startle('touch', target.id);
+      };
+      this._visibility = () => { this.last = 0; if (!document.hidden) this.render(); };
+      this.canvas.addEventListener('pointermove', this._move, { passive: true });
+      this.canvas.addEventListener('pointerleave', this._leave, { passive: true });
+      this.canvas.addEventListener('pointerdown', this._touch, { passive: true });
+      document.addEventListener('visibilitychange', this._visibility);
+      this.observer = new ResizeObserver(() => this.resize());
+      this.observer.observe(canvas);
+      this.resize();
+      this._tick = this._tick.bind(this);
+      this.raf = requestAnimationFrame(this._tick);
+    }
+
+    resize() {
+      const r = this.canvas.getBoundingClientRect();
+      this.width = Math.max(1, r.width || 900); this.height = Math.max(1, r.height || 620);
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+      this.canvas.width = Math.round(this.width * this.dpr); this.canvas.height = Math.round(this.height * this.dpr);
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+      const density = clamp(Number(this.options.density) || 1, .6, 1.5);
+      this.cellW = (this.width < 520 ? 4.4 : 5.8) / density;
+      this.cellH = this.cellW * 1.35;
+      this.cols = Math.ceil(this.width / this.cellW); this.rows = Math.ceil(this.height / this.cellH);
+      const n = this.cols * this.rows;
+      this.depth = new Float32Array(n); this.tones = new Uint8Array(n); this.glyphs = new Uint8Array(n); this.kinds = new Uint8Array(n);
+      this.owners = new Int16Array(n); this.visibility = new Float32Array(n);
+      this.inkCellW = this.width < 520 ? 6.2 : 8.2; this.inkCellH = this.inkCellW * 1.25;
+      this.inkCols = Math.ceil(this.width / this.inkCellW); this.inkRows = Math.ceil(this.height / this.inkCellH);
+      this.inkDensity = new Float32Array(this.inkCols * this.inkRows);
+      this.inkSprite = Math.ceil(this.inkCellH * 1.5 * this.dpr);
+      this.inkAtlas.width = this.inkSprite * INK_GLYPHS.length; this.inkAtlas.height = this.inkSprite;
+      const ink = this.inkAtlas.getContext('2d');
+      ink.font = `600 ${this.inkCellH * .96 * this.dpr}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
+      ink.textAlign = 'center'; ink.textBaseline = 'middle'; ink.fillStyle = '#010304';
+      for (let i = 0; i < INK_GLYPHS.length; i++) ink.fillText(INK_GLYPHS[i], (i + .5) * this.inkSprite, this.inkSprite * .5);
+      this.glowCanvas.width = this.cols; this.glowCanvas.height = this.rows;
+      this.haloCanvas.width = this.cols; this.haloCanvas.height = this.rows;
+      this.glowPixels = this.glowCtx.createImageData(this.cols, this.rows);
+      this.makeAtlas(); this.render();
+    }
+
+    makeAtlas() {
+      const sz = Math.ceil(this.cellH * 1.6 * this.dpr);
+      this.sprite = sz;
+      this.atlas.width = GLYPHS.length * sz; this.atlas.height = 72 * sz;
+      const a = this.atlasCtx;
+      a.clearRect(0, 0, this.atlas.width, this.atlas.height);
+      a.font = `${Math.max(6, this.cellH * .94) * this.dpr}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
+      a.textAlign = 'center'; a.textBaseline = 'middle';
+      this.colors = []; this.colorBytes = [];
+      for (let k = 0; k < 3; k++) {
+        for (let i = 0; i < 24; i++) {
+          const t = i / 23, p = k === 2 ? { low: [17, 24, 24], middle: [139, 153, 139], high: [248, 241, 207] } : this.palette;
+          const mid = k === 1 ? p.fin : p.middle;
+          const rgb = p.low.map((v, j) => Math.round(t < .49 ? mix(v, mid[j], t / .49) : mix(mid[j], p.high[j], (t - .49) / .51)));
+          const color = `rgb(${rgb.join(',')})`;
+          this.colors.push(color); this.colorBytes.push(rgb); a.fillStyle = color;
+          for (let g = 0; g < GLYPHS.length; g++) a.fillText(GLYPHS[g], (g + .5) * sz, (k * 24 + i + .5) * sz + this.dpr * .25);
+        }
+      }
+    }
+
+    _normalizeOptions() {
+      const o = this.options;
+      const number = (key, fallback, low, high) => { const n = Number(o[key]); o[key] = clamp(Number.isFinite(n) ? n : fallback, low, high); };
+      if (!['swimby', 'encounter', 'reactive'].includes(o.scene)) o.scene = 'swimby';
+      if (!FORMATIONS.includes(o.formation)) o.formation = 'independent';
+      number('speed', 1.05, .3, 2); number('ripple', 1.3, .3, 2); number('density', 1.1, .6, 1.5);
+      number('motion', 1.2, 0, 2); number('depthStrength', 1.2, 0, 2);
+      number('count', 4, 1, 12); o.count = Math.round(o.count);
+      number('size', .7, .35, 1.4); number('sizeVariation', .45, 0, 1); number('spacing', 1, .65, 1.6);
+      o.reverse = Boolean(o.reverse); o.showLabels = Boolean(o.showLabels);
+      o.behaviors = Array.from({ length: 12 }, (_, i) => BEHAVIORS.includes(o.behaviors?.[i]) ? o.behaviors[i] : 'auto');
+    }
+
+    _legacySingle() { return this.options.count === 1 && this.options.formation === 'independent' && this.options.behaviors[0] === 'auto'; }
+
+    _behaviorFor(id) {
+      const choice = this.options.behaviors[id];
+      if (choice !== 'auto') return choice;
+      if (this._legacySingle()) return this.options.scene === 'encounter' ? 'encounter' : this.options.scene === 'reactive' ? 'curious' : 'cruise';
+      if (this.options.scene === 'encounter' && id === 0) return 'encounter';
+      const roles = this.options.scene === 'reactive' ? ['curious', 'hover', 'orbit', 'cruise'] : ['cruise', 'hover', 'orbit', 'curious'];
+      return roles[id % roles.length];
+    }
+
+    _syncFish(reset = false, changedRoles = []) {
+      const old = reset ? [] : this.fish || [];
+      this.fish = Array.from({ length: this.options.count }, (_, id) => {
+        const f = (!changedRoles.includes(id) && old[id]) || { id, sceneTime: 0, reaction: this._newReaction(), agitation: 0, movingTime: 0,
+          motionTravel: 0, motionTurns: 0, motionVector: null, lastMotionAt: 0, startleTension: 0, escapeAmount: 0,
+          encounterGrip: 0, encounterFront: 0, phase: 'Finding the current', progress: 0, subjectVisibility: 1,
+          visible: false, worldX: 0, worldY: 0, worldZ: -1,
+          r00: 1, r01: 0, r02: 0, r10: 0, r11: 1, r12: 0, r20: 0, r21: 0, r22: 1 };
+        f.behavior = this._behaviorFor(id);
+        f.seed = hash(id + 910); f.offset = id * 2.37; f.pace = .84 + hash(id + 501) * .31;
+        // Stable variation: moving a control never randomly changes an animal.
+        f.size = this.options.size * (1 + (hash(id + 602) * 2 - 1) * this.options.sizeVariation * .55);
+        const columns = Math.ceil(Math.sqrt(this.options.count * 1.3)), rows = Math.ceil(this.options.count / columns);
+        const column = id % columns, row = Math.floor(id / columns);
+        f.anchor = [(column - (columns - 1) / 2) * (5.5 / Math.max(1, columns - 1)),
+          (row - (rows - 1) / 2) * (2.6 / Math.max(1, rows - 1)), -.65 - hash(id + 710) * 1.75];
+        if (this.options.count === 1) f.anchor = [0, 0, -.8];
+        return f;
+      });
+      this._activateFish(this.fish[0]);
+    }
+
+    _activateFish(f) {
+      this.activeFish = f;
+      for (const key of FISH_STATE) this[key] = f[key];
+      this.objectScale = f.size;
+    }
+
+    _saveFish() {
+      if (!this.activeFish) return;
+      for (const key of FISH_STATE) this.activeFish[key] = this[key];
+    }
+
+    setOptions(patch) {
+      const oldDensity = this.options.density, oldPalette = this.options.palette;
+      const oldScene = this.options.scene, oldFormation = this.options.formation;
+      const oldBehaviors = this.options.behaviors.slice();
+      Object.assign(this.options, patch); this._normalizeOptions();
+      const reset = oldScene !== this.options.scene || oldFormation !== this.options.formation;
+      const changedRoles = this.options.behaviors.flatMap((behavior, id) => behavior !== oldBehaviors[id] ? [id] : []);
+      this._syncFish(reset, changedRoles);
+      if (reset) { this.ink = []; this.lastPointer = null; }
+      if (patch.paused !== undefined) { this.paused = Boolean(patch.paused); this.last = 0; }
+      if (oldPalette !== this.options.palette) { this.palette = PALETTES[this.options.palette] || PALETTES.lagoon; this.makeAtlas(); }
+      if (oldDensity !== this.options.density) this.resize(); else this.render();
+    }
+
+    setPaused(value) { this.paused = Boolean(value); this.last = 0; if (this.paused) this.fps = 0; this.render(); }
+    getStats() {
+      const reacting = this.fish.find(f => f.reaction.active && f.reaction.age < REACTION.escape) || this.fish.find(f => f.reaction.active);
+      const leader = reacting || this.fish[0];
+      const stage = this._stageOf(leader.reaction);
+      const formation = this.options.formation;
+      const visibleCount = this.fish.filter(f => f.visible).length;
+      const phase = reacting || this._legacySingle() ? leader.phase : formation === 'independent' ? 'Independent lives in the current'
+        : formation === 'random' ? 'Wandering through open water' : `${formation[0].toUpperCase() + formation.slice(1)} current${this.options.reverse ? ' · reversed' : ''}`;
+      return { fps: this.paused || document.hidden ? 0 : Math.round(this.fps), glyphs: this.glyphCount,
+        time: this.time, phase, progress: leader.progress, agitation: Math.max(0, ...this.fish.map(f => clamp(f.agitation, 0, 1))),
+        reactionStage: stage, inkGlyphs: this.inkGlyphCount || 0, count: this.fish.length, visibleCount, formation,
+        fish: this.fish.map(f => ({ id: f.id + 1, behavior: f.behavior, phase: f.phase,
+          reactionStage: this._stageOf(f.reaction), visible: f.visible, size: f.size })) };
+    }
+
+    _newReaction() {
+      return { active: false, age: 99, emitted: 0, remainder: 0, start: [0, 0, 0],
+        forward: [.86, -.04, .51], aim: [0, 0, 1], escapeDir: [-.7, 0, -.7], side: -1, grip: 0, front: 0 };
+    }
+
+    _reactionStage() { return this._stageOf(this.reaction); }
+
+    _stageOf(r) {
+      return !r.active ? 'idle' : r.age < REACTION.react ? 'react' : r.age < REACTION.spray ? 'spray'
+        : r.age < REACTION.escape ? 'escape' : 'recover';
+    }
+
+    restart() {
+      this.time = 0; this.elapsed = 0; this.last = 0; this.burst = 0; this.ink = [];
+      this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
+      this.lastPointer = null; this._syncFish(true); this.render();
+    }
+
+    _hitFish(x, y) {
+      if (!this.owners) return -1;
+      const cx = Math.floor(x / this.cellW), cy = Math.floor(y / this.cellH);
+      let owner = -1, distance = Infinity;
+      // The shared z-buffer determines the visible animal when silhouettes
+      // overlap. Empty water, plankton, and the ink cloud have no owner.
+      for (let oy = -1; oy <= 1; oy++) for (let ox = -2; ox <= 2; ox++) {
+        const xx = cx + ox, yy = cy + oy;
+        if (xx < 0 || xx >= this.cols || yy < 0 || yy >= this.rows) continue;
+        const index = yy * this.cols + xx, id = this.owners[index];
+        if (id >= 0 && this.visibility[index] >= .2 && ox * ox + oy * oy < distance) { owner = id; distance = ox * ox + oy * oy; }
+      }
+      return owner;
+    }
+
+    _hitTest(x, y) { return this._hitFish(x, y) >= 0; }
+    _canReact(f) { return !f.reaction.active && (!this._legacySingle() || this.options.scene !== 'swimby'); }
+
+    _nearestFish(x, y) {
+      let selected = null, nearest = Infinity;
+      for (const f of this.fish) {
+        if (!f.visible || !this._canReact(f)) continue;
+        const q = this._projectWorld(f.worldX, f.worldY, f.worldZ);
+        const distance = Math.hypot(q[0] / this.width - .5 - x, q[1] / this.height - .5 - y);
+        if (distance < nearest) { selected = f; nearest = distance; }
+      }
+      return selected;
+    }
+
+    _pointerMove(e) {
+      const r = this.canvas.getBoundingClientRect(), now = performance.now();
+      const x = clamp((e.clientX - r.left) / r.width - .5, -.5, .5);
+      const y = clamp((e.clientY - r.top) / r.height - .5, -.5, .5);
+      this.pointer.tx = x; this.pointer.ty = y;
+      const prev = this.lastPointer;
+      this.lastPointer = { x, y, time: now };
+      if (!prev || this.paused || e.pointerType === 'touch' || (this._legacySingle() && this.options.scene !== 'reactive')) return;
+      const dt = (now - prev.time) / 1000;
+      if (dt <= 0 || dt > .16) return;
+      const fish = this._nearestFish(x, y);
+      if (!fish) return;
+      this._activateFish(fish); this._camera(this.time + fish.offset);
+      const distance = Math.hypot(x - prev.x, y - prev.y), speed = distance / Math.max(.004, dt);
+      const body = this._project(.35, 0, 0);
+      const distanceFromAnimal = Math.hypot(x + .5 - body[0] / this.width, y + .5 - body[1] / this.height);
+      const proximity = .24 + .76 * Math.exp(-distanceFromAnimal * distanceFromAnimal / .15);
+      if (speed > .24 && distance > .0007) {
+        this.agitation += distance * clamp((speed - .20) * 1.15, 0, 2.4) * proximity;
+        this.movingTime = Math.min(1.2, this.movingTime + Math.min(dt, .045));
+        this.motionTravel += distance * proximity;
+        const direction = [(x - prev.x) / distance, (y - prev.y) / distance];
+        if (this.motionVector && this.motionVector[0] * direction[0] + this.motionVector[1] * direction[1] < -.45) this.motionTurns++;
+        this.motionVector = direction; this.lastMotionAt = this.elapsed;
+      }
+      const repeatedSweeps = this.motionTurns >= 2 && this.motionTravel > .85;
+      const triggered = this.agitation >= 1 && (this.movingTime >= .38 || repeatedSweeps) && this._startleFish('disturbance');
+      this.agitation = Math.min(1.15, this.agitation); this._saveFish();
+      if (triggered) this.render();
+    }
+
+    pulse() {
+      if (this.options.scene === 'swimby') { this.restart(); return; }
+      if (this.paused) { this.setPaused(false); this.canvas.dispatchEvent(new CustomEvent('artwork:resume')); }
+      this._startle('button');
+    }
+
+    _aimAtPointer(origin) {
+      const lens = this.perspectiveStrength;
+      const near = lens > .01 ? .72 / lens : 3.8;
+      const targetZ = this.encounterFront > .5 ? near - .22 : Math.min(near - .4, origin[2] + 1.8);
+      const perspective = 1 / Math.max(.24, 1 - targetZ * lens);
+      const target = [((this.pointer.tx + .5) * this.width - this.cx) / (this.scale * perspective),
+        ((this.pointer.ty + .5) * this.height - this.cyScreen) / (this.scale * perspective), targetZ];
+      return unit(target.map((v, j) => v - origin[j]), [0, 0, 1]);
+    }
+
+    _startle(reason, id) {
+      const fish = Number.isInteger(id) ? this.fish[id] : this._nearestFish(this.pointer.tx, this.pointer.ty) || this.fish.find(f => this._canReact(f));
+      if (!fish || this.paused || !this._canReact(fish)) return false;
+      this._activateFish(fish); this._camera(this.time + fish.offset);
+      const result = this._startleFish(reason); this._saveFish(); this.render(); return result;
+    }
+
+    _startleFish(reason) {
+      if (this.paused || this.reaction.active) return false;
+      const origin = this._world(.93, .02, -.10), aim = this._aimAtPointer(origin);
+      const side = Math.abs(aim[0]) > .12 ? -Math.sign(aim[0]) : (Math.sin(this.time + 1.2) > 0 ? -1 : 1);
+      this.reaction = { active: true, age: 0, emitted: 0, remainder: 0, reason,
+        start: [this.worldX, this.worldY, this.worldZ], forward: [this.r00, this.r10, this.r20],
+        aim, side, escapeDir: unit([-aim[0] * 1.15 + side * .52, -aim[1] * .58, -.83]),
+        grip: this.encounterGrip, front: this.encounterFront,
+        rotation: [this.r00, this.r01, this.r02, this.r10, this.r11, this.r12, this.r20, this.r21, this.r22] };
+      this.agitation = 0; this.movingTime = 0; this.lastPointer = null;
+      this.motionTravel = 0; this.motionTurns = 0; this.motionVector = null;
+      // No particles and no travel impulse here: first the animal notices.
+      return true;
+    }
+
+    _escapeOffset(age) {
+      const r = this.reaction, e = clamp(age - REACTION.spray, 0, REACTION.escape - REACTION.spray);
+      const ramp = .22, peak = 12.4, drag = 1.05;
+      const distance = e < ramp ? peak * (e * .5 - ramp / (2 * Math.PI) * Math.sin(Math.PI * e / ramp))
+        : peak * ramp * .5 + peak / drag * (1 - Math.exp(-drag * (e - ramp)));
+      const offset = r.escapeDir.map(v => v * distance);
+      offset[0] += r.side * 2.6 * smooth(.35, 2.1, e);
+      return offset;
+    }
+
+    _emitInk(count, sprayProgress) {
+      const r = this.reaction, origin = this._world(.93, .02, -.10), aim = r.aim;
+      const radialA = unit(cross(aim, Math.abs(aim[1]) > .85 ? [1, 0, 0] : [0, 1, 0]));
+      const radialB = cross(aim, radialA);
+      for (let j = 0; j < count; j++) {
+        const i = r.emitted++, seed = i + this.elapsed * 31;
+        const angle = hash(seed + 3) * TAU, cone = .13 + hash(seed + 14) * .38;
+        const radial = radialA.map((v, k) => v * Math.cos(angle) + radialB[k] * Math.sin(angle));
+        const speed = 3.0 + 1.6 * Math.sin(Math.PI * sprayProgress) + hash(seed + 70) * .55;
+        this.ink.push({ x: origin[0] + radial[0] * .027, y: origin[1] + radial[1] * .027, z: origin[2] + radial[2] * .027,
+          vx: aim[0] * speed + radial[0] * cone, vy: aim[1] * speed + radial[1] * cone, vz: aim[2] * speed + radial[2] * cone,
+          radius: .029 + hash(seed + 110) * .028, mass: .38 + hash(seed + 52) * .22,
+          life: 6.7 + hash(seed + 90) * 2.7, age: 0, phase: angle, axis: aim });
+      }
+      if (this.ink.length > 1150) this.ink.splice(0, this.ink.length - 1150);
+    }
+
+    _advanceReaction(dt) {
+      const r = this.reaction;
+      if (!r.active) return;
+      const previousAge = r.age; r.age += dt;
+      if (previousAge < REACTION.react) {
+        r.aim = this._aimAtPointer(this._world(.93, .02, -.10));
+        if (Math.abs(r.aim[0]) > .16) r.side = -Math.sign(r.aim[0]);
+        r.escapeDir = unit([-r.aim[0] * 1.15 + r.side * .52, -r.aim[1] * .58, -.83]);
+      }
+      const emissionTime = Math.max(0, Math.min(r.age, REACTION.spray) - Math.max(previousAge, REACTION.react));
+      if (emissionTime > 0) {
+        r.remainder += emissionTime * 760;
+        const n = Math.floor(r.remainder); r.remainder -= n;
+        if (n) this._emitInk(n, clamp((r.age - REACTION.react) / (REACTION.spray - REACTION.react), 0, 1));
+      }
+      if (r.age >= REACTION.recover) {
+        r.active = false;
+        if (this.activeFish.behavior === 'encounter' && this.options.formation === 'independent') this.sceneTime = 0;
+        this.lastPointer = null;
+      }
+    }
+
+    _advanceInk(dt) {
+      const near = this.perspectiveStrength > .01 ? .72 / this.perspectiveStrength : 3.8;
+      for (const p of this.ink) {
+        p.age += dt;
+        // Curl of a smooth vector potential: neighboring glyphs advect
+        // together into eddies instead of scattering as independent confetti.
+        const f = 1.38, phase = this.time * .24;
+        const a = Math.cos((p.x + p.y) * f + phase * .8);
+        const b = Math.cos((p.z + p.x) * f - phase * .7);
+        const c = Math.cos((p.y + p.z) * f + phase);
+        const strength = .10 + .10 * smooth(.15, 1.8, p.age);
+        const flow = [.06 + (a - b) * strength, -.016 + (c - a) * strength, (b - c) * strength * .65];
+        const drag = Math.exp(-dt * (1.12 + p.age * .11));
+        p.vx *= drag; p.vy *= drag; p.vz *= drag;
+        p.x += (p.vx + flow[0]) * dt; p.y += (p.vy + flow[1]) * dt; p.z += (p.vz + flow[2]) * dt;
+        if (p.z > near) {
+          p.z = near; p.vz = Math.min(0, p.vz) * .15;
+          p.vx += Math.cos(p.phase) * dt * .45; p.vy += Math.sin(p.phase) * dt * .45;
+        }
+      }
+      this.ink = this.ink.filter(p => p.age < p.life);
+    }
+
+    _tick(now) {
+      if (this.destroyed) return;
+      const dt = this.last ? Math.min((now - this.last) / 1000, .1) : 0;
+      this.last = now;
+      if (!this.paused && !document.hidden) {
+        this.elapsed += dt; this.time += dt * this.options.speed;
+
+        this.frameCount++; this.fpsElapsed += dt;
+        if (this.fpsElapsed > .6) { this.fps = this.frameCount / this.fpsElapsed; this.frameCount = 0; this.fpsElapsed = 0; }
+        const ease = 1 - Math.exp(-dt * 3);
+        this.pointer.x += (this.pointer.tx - this.pointer.x) * ease; this.pointer.y += (this.pointer.ty - this.pointer.y) * ease;
+        for (const fish of this.fish) {
+          this._activateFish(fish);
+          if (!this.reaction.active) this.sceneTime += dt * this.options.speed;
+          if (fish.behavior === 'encounter' && this.options.formation === 'independent') this.sceneTime = Math.min(11.5, this.sceneTime);
+          this.agitation *= Math.exp(-dt * .95); this.movingTime *= Math.exp(-dt * .45);
+          this.motionTravel *= Math.exp(-dt * .7);
+          if (this.elapsed - this.lastMotionAt > .65) { this.motionTurns = 0; this.motionVector = null; }
+          this._camera(this.time + fish.offset); this._advanceReaction(dt); this._saveFish();
+        }
+        this._advanceInk(dt);
+        this.render();
+      }
+      this.raf = requestAnimationFrame(this._tick);
+    }
+
+    _world(x, y, z) {
+      x = (x - .30) * this.objectScale; y *= this.objectScale; z *= this.objectScale;
+      return [this.worldX + x * this.r00 + y * this.r01 + z * this.r02,
+        this.worldY + x * this.r10 + y * this.r11 + z * this.r12,
+        this.worldZ + x * this.r20 + y * this.r21 + z * this.r22];
+    }
+
+    _projectWorld(x, y, z) {
+      const perspective = 1 / Math.max(.24, 1 - z * this.perspectiveStrength);
+      return [this.cx + x * this.scale * perspective, this.cyScreen + y * this.scale * perspective, z];
+    }
+
+    _project(x, y, z) { const p = this._world(x, y, z); return this._projectWorld(p[0], p[1], p[2]); }
+
+    _shade(nx, ny, nz, detail = 0, fin = false, unit = false) {
+      // Light, half-vector, and camera direction are transformed by R^-1
+      // once per frame. Their dot products equal camera-space normal lighting.
+      if (!unit) {
+        const inv = 1 / Math.max(.0001, Math.sqrt(nx * nx + ny * ny + nz * nz));
+        nx *= inv; ny *= inv; nz *= inv;
+      }
+      let diffuse = nx * this.lx + ny * this.ly + nz * this.lz;
+      if (fin) diffuse = Math.abs(diffuse) * .85 + .15;
+      else diffuse = Math.max(0, diffuse);
+      let spec = Math.max(0, nx * this.hx + ny * this.hy + nz * this.hz);
+      spec *= spec; spec *= spec; spec *= spec; spec *= spec;
+      const view = Math.abs(nx * this.vx + ny * this.vy + nz * this.vz);
+      let rim = 1 - Math.min(1, view); rim = rim * rim * rim;
+      return .10 + .64 * diffuse + .32 * spec + .20 * rim + detail;
+    }
+
+    _put(x, y, z, light, kind = 0, seed = 0) {
+      x = (x - .30) * this.objectScale; y *= this.objectScale; z *= this.objectScale;
+      const xx = this.worldX + x * this.r00 + y * this.r01 + z * this.r02;
+      const yy = this.worldY + x * this.r10 + y * this.r11 + z * this.r12;
+      const zz = this.worldZ + x * this.r20 + y * this.r21 + z * this.r22;
+      const distance = 1 - zz * this.perspectiveStrength;
+      if (distance < .16 || this.sampleCount >= 36000) return;
+      const perspective = 1 / Math.max(.24, distance);
+      const px = xx * perspective, py = yy * perspective;
+      this.minX = Math.min(this.minX, px); this.maxX = Math.max(this.maxX, px);
+      this.minY = Math.min(this.minY, py); this.maxY = Math.max(this.maxY, py);
+      const n = this.sampleCount++ * 6, samples = this.samples;
+      samples[n] = px; samples[n + 1] = py; samples[n + 2] = zz;
+      samples[n + 3] = light; samples[n + 4] = kind; samples[n + 5] = seed;
+    }
+
+    _rasterize() {
+      // A fixed observer: never re-fit or re-center the moving organism.
+      // Foreground arms and a close pass can intentionally leave the frame.
+      const fit = this.scale;
+      const samples = this.samples;
+      for (let i = 0; i < this.sampleCount; i++) {
+        const n = i * 6, zz = samples[n + 2];
+        const col = Math.floor((this.cx + samples[n] * fit) / this.cellW);
+        const row = Math.floor((this.cyScreen + samples[n + 1] * fit) / this.cellH);
+        if (col < 0 || col >= this.cols || row < 0 || row >= this.rows) continue;
+        const index = row * this.cols + col;
+        if (zz <= this.depth[index]) continue;
+        this.depth[index] = zz; this.owners[index] = this.activeFish.id; this.visibility[index] = this.subjectVisibility;
+        const fog = clamp(Math.exp(Math.min(0, zz) * .085 * this.depthAmount), .18, 1) * (zz > 0 ? 1.04 : 1);
+        const light = clamp(samples[n + 3] * fog, .025, 1);
+        this.tones[index] = Math.round(light * 23); this.kinds[index] = samples[n + 4];
+        const variation = ((samples[n + 5] * 17) & 31) / 31 * .19;
+        this.glyphs[index] = clamp(Math.floor((light * .76 + variation) * (GLYPHS.length - 1)), 0, GLYPHS.length - 1);
+      }
+    }
+
+    _cacheNormals() {
+      if (this.normalDepth === this.depthAmount) return;
+      this.normalDepth = this.depthAmount;
+      const thickness = .43 + .055 * this.depthAmount;
+      this.bodyNormals = new Float32Array(83 * 88 * 3);
+      for (let i = 0; i <= 82; i++) {
+        const u = i / 82, theta = Math.PI * .90 * u;
+        const sine = Math.max(.00001, Math.sin(theta));
+        const nx = -.72 * Math.pow(sine, -.28) * Math.cos(theta) * Math.PI * .90 / 2.34;
+        for (let j = 0; j < 88; j++) {
+          const ny = this._rings[88][j][0] / .73, nz = this._rings[88][j][1] / thickness;
+          const inv = 1 / Math.sqrt(nx * nx + ny * ny + nz * nz), n = (i * 88 + j) * 3;
+          this.bodyNormals[n] = nx * inv; this.bodyNormals[n + 1] = ny * inv; this.bodyNormals[n + 2] = nz * inv;
+        }
+      }
+      if (!this.headNormals) {
+        this.headNormals = new Float32Array(37 * 48 * 3);
+        for (let i = 0; i <= 36; i++) {
+          const nx = -Math.cos(Math.PI * i / 36) * Math.PI / .94;
+          for (let j = 0; j < 48; j++) {
+            const ny = this._rings[48][j][0] / .40, nz = this._rings[48][j][1] / .36;
+            const inv = 1 / Math.sqrt(nx * nx + ny * ny + nz * nz), n = (i * 48 + j) * 3;
+            this.headNormals[n] = nx * inv; this.headNormals[n + 1] = ny * inv; this.headNormals[n + 2] = nz * inv;
+          }
+        }
+      }
+    }
+
+    _schoolPose(t) {
+      const fish = this.activeFish, id = fish.id, o = this.options;
+      const travelScale = clamp(this.motionAmount / 1.2, 0, 1.2);
+      const clock = this.sceneTime * fish.pace * travelScale, phase = fish.offset, a = fish.anchor;
+      const formation = o.formation, direction = o.reverse ? -1 : 1;
+      const aspect = this.width / Math.max(1, this.height);
+      // A fixed camera is shared by every animal. Depth changes their apparent
+      // scale and natural occlusion; the camera never fits individual bounds.
+      const scale = Math.min(this.width / 9.8, this.height / 6.8);
+      const lens = .28 * this.depthAmount / (1 + .55 * this.depthAmount);
+      const z = a[2], denominator = 1 - z * lens;
+      const halfW = this.width / (2 * scale) * denominator, halfH = this.height / (2 * scale) * denominator;
+      const anchor = [a[0] * o.spacing, a[1] * o.spacing * Math.min(1.6, 1.6 / aspect), z];
+      let position, forward, bank = 0;
+      if (formation === 'horizontal' || formation === 'vertical' || formation === 'diagonal') {
+        const v = formation === 'horizontal' ? [1, 0] : formation === 'vertical' ? [0, -1] : [Math.SQRT1_2, -Math.SQRT1_2];
+        const normal = [-v[1], v[0]];
+        const lane = this.fish.length > 1 ? (id / (this.fish.length - 1) - .5) : 0;
+        const laneWidth = formation === 'horizontal' ? halfH * 1.02 : formation === 'vertical' ? halfW * 1.02 : Math.min(halfW, halfH) * 1.14;
+        const extent = Math.abs(v[0]) * halfW + Math.abs(v[1]) * halfH + 3.5 * fish.size + 1;
+        // Wrapping happens beyond the full silhouette, never in the diver's view.
+        const travel = ((clock * 1.25 * direction + (id / Math.max(1, this.fish.length) - .5) * extent * 1.2 + extent) % (2 * extent) + 2 * extent) % (2 * extent) - extent;
+        const laneOffset = lane * laneWidth * o.spacing;
+        position = [v[0] * travel + normal[0] * laneOffset, v[1] * travel + normal[1] * laneOffset, z + Math.sin(t * .32 + phase) * .08];
+        forward = unit([v[0] * direction, v[1] * direction, Math.cos(t * .24 + phase) * .065]);
+        bank = Math.sin(t * .39 + phase) * .045;
+        this.phase = `${formation[0].toUpperCase() + formation.slice(1)} swimmer`; this.progress = (travel + extent) / (2 * extent);
+      } else if (formation === 'random') {
+        const u = clock * .19 * direction + phase;
+        const rx = Math.max(.6, halfW - 2.2 * fish.size) * o.spacing, ry = Math.max(.45, halfH - 1.55 * fish.size) * o.spacing;
+        position = [rx * (.69 * Math.sin(u) + .17 * Math.sin(u * 1.73 + id)),
+          ry * (.64 * Math.sin(u * .83 + id * 1.7) + .15 * Math.sin(u * 1.51)),
+          -1.3 + .95 * Math.sin(u * .69 + phase)];
+        forward = unit([rx * (.69 * Math.cos(u) + .2941 * Math.cos(u * 1.73 + id)),
+          ry * (.5312 * Math.cos(u * .83 + id * 1.7) + .2265 * Math.cos(u * 1.51)), .6555 * Math.cos(u * .69 + phase)]);
+        if (o.reverse) forward = forward.map(v => -v);
+        bank = Math.sin(u * .8 + id) * .15;
+        this.phase = 'Wandering'; this.progress = ((u / TAU) % 1 + 1) % 1;
+      } else if (fish.behavior === 'encounter') {
+        const beat = this._reactionStage() === 'recover' ? 0 : this.sceneTime;
+        const front = smooth(1.4, 6.5, beat), hold = smooth(7.5, 10, beat);
+        position = routeAt(ENCOUNTER_ROUTE, beat);
+        this.encounterFront = front; this.encounterGrip = smooth(4.8, 9.5, beat);
+        forward = unit([1 - front, -.04 * (1 - front), .3 + front]);
+        const isLead = id === 0 && o.scene === 'encounter';
+        const target = isLead ? [0, 0, .92] : [anchor[0] * .45, anchor[1] * .45, .74];
+        position = position.map((v, j) => mix(v + (j < 2 && !isLead ? anchor[j] * .35 : 0), target[j], hold));
+        position[0] -= forward[0] * 1.11 * fish.size * front; position[1] -= forward[1] * 1.11 * fish.size * front;
+        this.phase = beat < 3.8 ? 'Turning toward you' : beat < 7.5 ? 'Coming closer' : beat < 10 ? 'Finding a hold' : 'Exploring the lens';
+        this.progress = Math.min(1, beat / 10);
+      } else if (fish.behavior === 'cruise') {
+        const extent = halfW + 3.5 * fish.size + 1;
+        const cruiseDirection = (id % 2 ? -1 : 1) * direction;
+        const travel = ((clock * 1.05 + phase * 1.1 + extent * .55) % (2 * extent)) - extent;
+        position = [travel * cruiseDirection, anchor[1] + Math.sin(clock * .34 + phase) * .17, z + Math.sin(clock * .24 + phase) * .22];
+        forward = unit([cruiseDirection, Math.cos(clock * .34 + phase) * .055, Math.cos(clock * .24 + phase) * .052]);
+        this.phase = 'Passing through'; this.progress = (travel + extent) / (2 * extent);
+      } else if (fish.behavior === 'orbit') {
+        const u = clock * .39 * direction + phase, radius = .75 + fish.seed * .45;
+        position = [anchor[0] + Math.cos(u) * radius, anchor[1] + Math.sin(u) * radius * .48, z + Math.sin(u) * .7];
+        forward = unit([-Math.sin(u) * radius * direction, Math.cos(u) * radius * .48 * direction, Math.cos(u) * .7 * direction]);
+        bank = -.18 * direction;
+        this.phase = 'Circling'; this.progress = ((u / TAU) % 1 + 1) % 1;
+      } else {
+        position = [anchor[0] + Math.sin(clock * .31 + phase) * .22, anchor[1] + Math.sin(clock * .43 + phase) * .13, z + Math.sin(clock * .25 + phase) * .15];
+        if (fish.behavior === 'curious') {
+          position[0] += this.pointer.x * .85; position[1] += this.pointer.y * .48;
+          forward = unit([.62 + this.pointer.x * .7, this.pointer.y * .42, .62]);
+          this.phase = this.agitation > .3 ? 'Noticing your movement' : 'Watching the diver';
+        } else {
+          forward = unit([.82 * (id % 2 ? -1 : 1), -.04 + Math.sin(t * .33) * .06, .52 + Math.sin(t * .27 + phase) * .16]);
+          this.phase = 'Hovering in the current';
+        }
+        bank = Math.sin(t * .37 + phase) * .05; this.progress = (Math.sin(clock * .25) + 1) * .5;
+      }
+      return { position, forward, bank, anchor };
+    }
+
+    _camera(t) {
+      const m = clamp(Number(this.options.motion), 0, 2), d = clamp(Number(this.options.depthStrength), 0, 2);
+      this.motionAmount = Number.isFinite(m) ? m : 1.2; this.depthAmount = Number.isFinite(d) ? d : 1.2;
+      const motion = this.motionAmount <= 1.2 ? this.motionAmount / 1.2 : 1 + (this.motionAmount - 1.2) * .25;
+      const scene = this.options.scene, follow = this.options.followPointer ? 1 : 0;
+      const r = this.reaction, stage = this._reactionStage();
+      this.encounterGrip = 0; this.encounterFront = 0; this.startleTension = 0; this.escapeAmount = 0;
+      this.subjectVisibility = 1;
+      let position, forward, acceleration = [0, 0, 0], bank = 0, lingering = 0;
+      let schoolAnchor = null;
+      if (!this._legacySingle()) {
+        const pose = this._schoolPose(t); position = pose.position; forward = pose.forward; bank = pose.bank; schoolAnchor = pose.anchor;
+      } else if (scene === 'reactive') {
+        position = [Math.sin(t * .24) * .38 + this.pointer.x * .16,
+          Math.sin(t * .38) * .11 + this.pointer.y * .09, -.75 + Math.sin(t * .21) * .22];
+        forward = unit([.88, -.045 + Math.sin(t * .4) * .045, .48 + Math.sin(t * .22) * .13 + this.pointer.x * .18]);
+        bank = Math.sin(t * .35) * .035;
+        this.phase = this.agitation > .3 ? 'Noticing your movement' : 'Calm · watching you';
+        this.progress = this.agitation;
+      } else {
+        const route = scene === 'encounter' ? ENCOUNTER_ROUTE : SWIM_ROUTE;
+        const clock = scene === 'encounter' && stage === 'recover' ? 0 : this.sceneTime;
+        const duration = route[route.length - 1][0], beat = clock % duration;
+        position = routeAt(route, clock);
+        const before = routeAt(route, clock - .06), after = routeAt(route, clock + .06);
+        forward = unit(after.map((v, j) => v - before[j]));
+        acceleration = after.map((v, j) => (v - 2 * position[j] + before[j]) / (.06 * .06));
+        this.progress = beat / duration;
+        if (scene === 'encounter') {
+          const front = smooth(1.4, 6.5, beat), hold = smooth(7.5, 10, beat);
+          this.encounterFront = front;
+          this.encounterGrip = smooth(4.8, 9.5, beat) * Math.min(1, motion);
+          position = position.map((v, j) => mix(v, j === 2 ? .92 : 0, hold));
+          forward = unit(forward.map((v, j) => mix(v, j === 2 ? 1 : 0, front)), [0, 0, 1]);
+          position[0] -= forward[0] * 1.11 * front; position[1] -= forward[1] * 1.11 * front;
+          this.phase = beat < 3.8 ? 'Turning toward you' : beat < 7.5 ? 'Coming closer' : beat < 10 ? 'Finding a hold' : 'Exploring the lens';
+          this.progress = Math.min(1, beat / 10);
+        } else {
+          lingering = smooth(1.8, 3.3, beat) * (1 - smooth(11.5, 13.3, beat));
+          const hovering = unit([.91, -.035 + Math.sin(t * .42) * .05, .39 + Math.sin(t * .32) * .21]);
+          forward = unit(forward.map((v, j) => mix(v, hovering[j], lingering)));
+          this.subjectVisibility = smooth(0, .6, beat) * (1 - smooth(16.2, 17.3, beat));
+          this.phase = beat < 2.5 ? 'Arriving in a hurry' : beat < 11.8 ? 'Hanging in the current' : beat < 13.3 ? 'Getting ready to leave' : beat < 17.3 ? 'Swimming out of view' : 'Open water';
+        }
+      }
+      const rest = schoolAnchor || [-.35, 0, -.7], restForward = unit([.9, -.06, .34]);
+      const throughRoute = !this._legacySingle() && (['horizontal', 'vertical', 'diagonal'].includes(this.options.formation)
+        || (this.options.formation === 'independent' && this.activeFish.behavior === 'cruise'));
+      // A through-route slows down with Motion; it never shrinks its wrapping
+      // boundary into the view. Zero Motion holds a distributed resting pose.
+      const positionAmount = throughRoute && motion > .001 ? 1 : motion;
+      position = position.map((v, j) => mix(rest[j], v, positionAmount));
+      forward = unit(forward.map((v, j) => mix(restForward[j], v, Math.min(1, positionAmount))));
+      if (scene !== 'reactive') {
+        const curiosity = follow * (1 - this.encounterFront) * .45;
+        position[0] += this.pointer.x * curiosity; position[1] += this.pointer.y * curiosity * .6;
+      }
+      if (r.active) {
+        this.subjectVisibility = 1;
+        const age = r.age, amount = Math.min(1, motion);
+        this.startleTension = smooth(0, REACTION.react, age) * (1 - smooth(REACTION.spray, 1.55, age));
+        this.escapeAmount = smooth(.70, 1.45, age) * (1 - smooth(REACTION.escape, REACTION.recover, age));
+        this.encounterGrip = r.grip * (1 - smooth(REACTION.spray, 1.5, age));
+        this.encounterFront = r.front * (1 - smooth(.94, 2.15, age));
+        const escape = this._escapeOffset(age).map(v => v * amount);
+        const facingThreat = unit(r.forward.map((v, j) => mix(v, r.aim[j], smooth(REACTION.spray, 1.8, age) * .72)));
+        if (stage === 'recover') {
+          const u = smooth(REACTION.escape, REACTION.recover, age);
+          const far = r.start.map((v, j) => v + escape[j]);
+          position = far.map((v, j) => mix(v, position[j], u));
+          position[2] -= Math.sin(u * Math.PI) * 2.4 * amount;
+          forward = unit(facingThreat.map((v, j) => mix(v, forward[j], u)));
+          bank = -r.side * .24 * (1 - u);
+        } else {
+          // Mantle-first jet: notice and contract, then spray while nearly
+          // stationary, then accelerate away with the arms streaming behind.
+          position = r.start.map((v, j) => v + escape[j] - r.forward[j] * .045 * this.startleTension * amount);
+          forward = facingThreat;
+          bank = -r.side * .24 * smooth(REACTION.spray, 1.55, age);
+        }
+        this.phase = stage === 'react' ? 'Reacting · gathering arms' : stage === 'spray' ? 'Spraying ASCII ink' : stage === 'escape' ? 'Jetting away' : scene === 'encounter' ? 'Circling back' : 'Returning quietly';
+        this.progress = age / REACTION.recover;
+      }
+      if (motion < .001) { this.phase = r.active ? this.phase : 'Holding position'; this.subjectVisibility = 1; }
+      const reference = [0, -.70710678, .70710678];
+      let dorsal = unit(reference.map((v, j) => v - forward[j] * dot(reference, forward)), [0, -1, 0]);
+      let lateral = unit(cross(dorsal, forward), [0, 1, 0]);
+      if (this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
+      bank *= (1 - this.encounterFront) * Math.min(1, motion);
+      const cb = Math.cos(bank), sb = Math.sin(bank), l = lateral.slice(), z = dorsal.slice();
+      lateral = l.map((v, j) => v * cb - z[j] * sb); dorsal = z.map((v, j) => v * cb + l[j] * sb);
+      this.r00 = forward[0]; this.r10 = forward[1]; this.r20 = forward[2];
+      this.r01 = lateral[0]; this.r11 = lateral[1]; this.r21 = lateral[2];
+      this.r02 = dorsal[0]; this.r12 = dorsal[1]; this.r22 = dorsal[2];
+      if (r.active && r.age <= REACTION.spray && r.rotation) {
+        // A stationary warning and spray, including at the largest body size.
+        // Turning starts with the escape, so near-plane protection cannot pull
+        // the animal backward before its ink jet has finished.
+        [this.r00, this.r01, this.r02, this.r10, this.r11, this.r12, this.r20, this.r21, this.r22] = r.rotation;
+      }
+      const lx = -.38, ly = -.48, lz = .790, hx = -.204, hy = -.258, hz = .944;
+      this.lx = this.r00 * lx + this.r10 * ly + this.r20 * lz; this.ly = this.r01 * lx + this.r11 * ly + this.r21 * lz; this.lz = this.r02 * lx + this.r12 * ly + this.r22 * lz;
+      this.hx = this.r00 * hx + this.r10 * hy + this.r20 * hz; this.hy = this.r01 * hx + this.r11 * hy + this.r21 * hz; this.hz = this.r02 * hx + this.r12 * hy + this.r22 * hz;
+      this.vx = this.r20; this.vy = this.r21; this.vz = this.r22;
+      this.perspectiveStrength = .28 * this.depthAmount / (1 + .55 * this.depthAmount);
+      if (this.perspectiveStrength > 0) {
+        // Keep the complete scaled surface in front of the near plane, even
+        // when a large wanderer turns its feeding arms straight at the diver.
+        const grip = clamp(this.encounterGrip, 0, 1);
+        const maxX = mix(2.78, 2.02, grip), maxY = mix(1.8, 3.25, grip), maxZ = mix(1.4, 2.5, grip);
+        const frontExtent = (Math.max(-2.15 * this.r20, maxX * this.r20) + maxY * Math.abs(this.r21) + maxZ * Math.abs(this.r22)) * this.objectScale;
+        position[2] = Math.min(position[2], .72 / this.perspectiveStrength - frontExtent);
+      }
+      this.worldX = position[0]; this.worldY = position[1]; this.worldZ = position[2];
+      this.cx = this.width * .5; this.cyScreen = this.height * .48;
+      this.scale = this._legacySingle() ? Math.min(this.width / 7.4, this.height / 4.6) : Math.min(this.width / 9.8, this.height / 6.8);
+      const projectedRadius = this.objectScale * this.scale / Math.max(.24, 1 - this.worldZ * this.perspectiveStrength);
+      this.geometryStep = projectedRadius > 105 || this.encounterGrip > .3 ? 1 : projectedRadius > 46 ? 2 : 3;
+      this._cacheNormals();
+    }
+
+    _body(t) {
+      const ripple = this.options.ripple, lod = this.geometryStep || 1;
+      const nu = 82, nv = 88, ring = this._rings[88];
+      const thickness = .43 + .055 * this.depthAmount;
+      for (let i = 0; i <= nu; i += lod) {
+        const u = i / nu, theta = Math.PI * .90 * u;
+        const sine = Math.max(.00001, Math.sin(theta));
+        const profile = i === 0 ? 0 : Math.pow(sine, .72);
+        const slope = .72 * Math.pow(sine, -.28) * Math.cos(theta) * Math.PI * .90 / 2.34;
+        const x = -1.85 + 2.34 * u;
+        const breath = (1 + .037 * Math.sin(t * 2.8 - u * 3.2)) * (1 - this.startleTension * .09);
+        const ry = .73 * profile * breath, rz = thickness * profile;
+        const flex = .035 * Math.sin(t * 2.2 - u * 3.8);
+        for (let j = 0; j < nv; j += lod) {
+          const phi = j / nv * TAU, c = ring[j][0], sn = ring[j][1];
+          const stripe = Math.sin(u * 35 + Math.sin(phi * 5 + t * .65) * 1.8 - t * 1.25);
+          const mottling = Math.sin(u * 79 + phi * 13) * Math.cos(phi * 19 - u * 25 + t * .3);
+          const relief = 1 + .013 * stripe;
+          const ni = (i * nv + j) * 3, bn = this.bodyNormals;
+          const light = this._shade(bn[ni], bn[ni + 1], bn[ni + 2], .11 * stripe + .045 * mottling, false, true);
+          this._put(x, ry * c * relief, rz * sn * relief + flex, light, 0, i * 101 + j);
+        }
+      }
+      // The tail tapers to a true point. A solid shoulder cap closes the
+      // front of the mantle underneath the overlapping head.
+      const frontProfile = Math.pow(Math.sin(Math.PI * .9), .72);
+      for (let ir = 0; ir <= 12; ir += this.geometryStep || 1) {
+        const r = ir / 12;
+        for (let j = 0; j < 48; j += this.geometryStep || 1) {
+          const a = this._rings[48][j];
+          this._put(.49, .73 * frontProfile * r * a[0], thickness * frontProfile * r * a[1], this._shade(1, 0, 0, -.035), 0, ir * 51 + j);
+        }
+      }
+      // A broad, very thin skirt fin: out-of-plane traveling waves make
+      // its near and far edges trade occlusion naturally as the animal turns.
+      for (let side = -1; side <= 1; side += 2) {
+        for (let i = 0; i <= 116; i += lod) {
+          const u = i / 116;
+          const x = -1.85 + 2.34 * u;
+          const profile = Math.pow(Math.max(0, Math.sin(Math.PI * .9 * u)), .72);
+          const ry = .73 * profile * (1 + .037 * Math.sin(t * 2.8 - u * 3.2));
+          const spread = .31 * Math.pow(Math.sin(Math.PI * u), .65) * (1 - this.escapeAmount * .48);
+          const phase = u * 20 - t * 4.8 + side * .85;
+          const wave = (Math.sin(phase) * .18 + Math.sin(phase * 1.8 + 1.1) * .035) * ripple;
+          const flex = .035 * Math.sin(t * 2.2 - u * 3.8);
+          for (let j = 0; j <= 15; j += lod) {
+            const v = j / 15;
+            const y = side * (ry + spread * v + Math.sin(phase) * .04 * v);
+            const z = flex + .015 + wave * Math.pow(v, 1.35) - .045 * v;
+            const nx = -Math.cos(phase) * .65 * ripple * v;
+            const ny = -side * wave * 2.5 * v;
+            const edge = j === 15 ? .32 : .03;
+            const light = this._shade(nx, ny, 1, -.12 + .10 * v + edge, true);
+            this._put(x, y, z, light, 1, i * 29 + j + side);
+          }
+        }
+      }
+      // A closed ellipsoidal head and two raised, rounded eyes.
+      for (let i = 0; i <= 36; i += lod) {
+        const u = i / 36, x = .30 + .94 * u;
+        const r = Math.sin(Math.PI * u), slope = Math.cos(Math.PI * u) * Math.PI / .94;
+        for (let j = 0; j < 48; j += this.geometryStep || 1) {
+          const a = this._rings[48][j];
+          const ni = (i * 48 + j) * 3, hn = this.headNormals;
+          const light = this._shade(hn[ni], hn[ni + 1], hn[ni + 2], Math.sin(u * 30 + j * .7) * .035, false, true);
+          this._put(x, a[0] * .40 * r, a[1] * .36 * r, light, 0, i * 71 + j);
+        }
+      }
+      this._eye(.75, -.31, .35, .145, t);
+      this._eye(.79, .33, .43, .20, t);
+    }
+
+    _eye(x, y, z, radius, t) {
+      // The luminous crescent and a W-shaped dark slit distinguish the eye.
+      for (let iy = -12; iy <= 12; iy += this.geometryStep || 1) {
+        for (let ix = -14; ix <= 14; ix += this.geometryStep || 1) {
+          const u = ix / 14, v = iy / 12, rr = u * u + v * v;
+          if (rr > 1) continue;
+          const dome = Math.sqrt(1 - rr);
+          const slit = -.03 + .20 * Math.cos(u * Math.PI * 2);
+          const pupil = Math.abs(v - slit) < .19 && Math.abs(u) < .82;
+          const light = pupil ? .025 : .46 + this._shade(u * .45, v * .45, dome, 0) * .54;
+          this._put(x + u * radius * 1.1, y + v * radius * .72, z + .1 * dome, light, 0, ix * 17 + iy * 9);
+        }
+      }
+    }
+
+    _arms(t) {
+      const requestedGrip = Number(this.encounterGrip);
+      const tension = clamp(Number(this.startleTension) || 0, 0, 1);
+      const escape = clamp(Number(this.escapeAmount) || 0, 0, 1);
+      const grip = Number.isFinite(requestedGrip)
+        ? clamp(requestedGrip, 0, 1) * (1 - .9 * escape) : 0;
+      // Ordinary swimming retains its trailing waves. A jet bundles the arms
+      // into the slipstream; a short startle contracts them before release.
+      if (grip <= .001) {
+        const ring = this._rings[10];
+        for (let k = 0; k < 10; k++) {
+          const feeding = k >= 8, angle = (k % 8) / 8 * TAU;
+          const side = feeding ? (k === 8 ? -1 : 1) : Math.cos(angle);
+          const length = feeding ? 2.05 : 1.36 + .21 * Math.sin(k * 2.1);
+          const segments = Math.round((feeding ? 84 : 68) / (this.geometryStep || 1)), step = length / segments;
+          let x = 1.02, y = Math.cos(angle) * .20, z = Math.sin(angle) * .17;
+          const fan = side * (feeding ? .20 : .48) * (1 - .72 * escape) * (1 - .14 * tension);
+          const curlSign = feeding ? side : (k % 2 === 0 ? 1 : -1);
+          for (let i = 0; i <= segments; i++) {
+            const u = i / segments, delayed = t * 2.25 - u * 5.2 + k * .83;
+            const wave = Math.sin(delayed) * (.23 + .19 * this.options.ripple) * u * (1 - .68 * escape);
+            const curl = curlSign * (feeding ? 1.7 : 5.4) * Math.pow(u, 4.1) * (1 - .84 * escape + .1 * tension);
+            const theta = fan + wave + curl;
+            const beta = Math.sin(angle) * .15 + Math.sin(delayed * .82) * (.22 + .13 * this.options.ripple) * u * (1 - .66 * escape);
+            const ct = Math.cos(theta), st = Math.sin(theta), cb = Math.cos(beta), sb = Math.sin(beta);
+            if (i > 0) { x += ct * cb * step; y += st * cb * step; z += sb * step; }
+            const club = feeding ? .054 * Math.exp(-Math.pow((u - .89) / .1, 2)) : 0;
+            const radius = (feeding ? .035 : .064) * Math.pow(1 - u, .65) + .007 + club;
+            for (let j = 0; j < 10; j += this.geometryStep || 1) {
+              const ca = ring[j][0], sa = ring[j][1];
+              const nx = -st * ca - sb * ct * sa, ny = ct * ca - sb * st * sa, nz = cb * sa;
+              const light = this._shade(nx, ny, nz, .06 * Math.sin(u * 55 - t), false, true);
+              this._put(x + nx * radius, y + ny * radius, z + nz * radius, light, k % 3 === 0 ? 1 : 0, i * 19 + j + k * 90);
+            }
+            if (i % 5 === 0 && u > .12 && u < .96) this._put(x - sb * ct * radius, y - sb * st * radius, z + cb * radius * 1.05, .97, 0, i + k);
+          }
+        }
+        return;
+      }
+
+      if (!this._gripPoints) {
+        this._gripPoints = Array.from({ length: 10 }, () => new Float32Array(85 * 3));
+        this._gripRing = Array.from({ length: 12 }, (_, j) => [Math.cos(j / 12 * TAU), Math.sin(j / 12 * TAU)]);
+        this._cupRing = Array.from({ length: 8 }, (_, j) => [Math.cos(j / 8 * TAU), Math.sin(j / 8 * TAU)]);
+      }
+      if (!this._crawlArms) {
+        // Angular sectors, reach, bend, phase and pace differ deliberately.
+        // Neighbors alternate between holding purchase and exploring the lens.
+        this._crawlArms = [
+          [ .10, 1.38,  .52, .02, .151, 1.08],
+          [ .63, 1.19, -.72, .47, .177,  .94],
+          [1.68, 1.53,  .66, .19, .129, 1.05],
+          [2.29, 1.30, -.44, .71, .163,  .91],
+          [3.29, 1.50, -.62, .38, .142, 1.12],
+          [3.84, 1.18,  .77, .90, .184,  .97],
+          [4.83, 1.58, -.55, .61, .136, 1.00],
+          [5.64, 1.29,  .68, .26, .169,  .92],
+          [ .40, 1.76, -.43, .79, .113,  .86],
+          [3.57, 1.87,  .57, .11, .121,  .90]
+        ];
+      }
+      const ease = (a, b, x) => {
+        const q = clamp((x - a) / (b - a), 0, 1);
+        return q * q * (3 - 2 * q);
+      };
+      const g = grip * grip * (3 - 2 * grip);
+      const aspect = this.width / Math.max(1, this.height);
+      const spreadY = clamp(aspect, 1, 1.55), spreadZ = clamp(1 / aspect, 1, 1.30);
+
+      for (let k = 0; k < 10; k++) {
+        const feeding = k >= 8, normalAngle = (k % 8) / 8 * TAU;
+        const cfg = this._crawlArms[k];
+        const cycle = ((t * cfg[4] + cfg[3]) % 1 + 1) % 1;
+        const contact = ease(.09, .23, cycle) * (1 - ease(.69, .86, cycle));
+        const creep = ease(.20, .69, cycle) * (1 - ease(.86, 1, cycle));
+        const lifted = 1 - contact;
+        const angle = cfg[0] + .075 * Math.sin(t * (.31 + k * .013) + k * 1.77);
+        const curlSign = Math.sign(cfg[2]);
+        const tipAngle = angle + curlSign * (.10 + .28 * creep)
+          + .045 * Math.sin(t * .67 + k * 1.19) * lifted;
+        const reach = cfg[1] * (1 - .12 * lifted + .045 * Math.sin(TAU * cycle - .4))
+          * (1 - .12 * tension);
+        const bendAngle = tipAngle - cfg[2] * (.72 + .46 * lifted)
+          + .07 * Math.sin(t * .53 + k * 1.4);
+        const outerReach = reach + (.30 + .13 * lifted) * (feeding ? .72 : 1);
+        const midAngle = angle - cfg[2] * .28 + .10 * Math.sin(t * .46 - k * .71);
+        // The distal contact patch is almost still in depth while it creeps.
+        // Peeling lifts that arm off the glass, retracts it, then reaches again.
+        const tipX = 2.08 - .45 * lifted - .15 * tension;
+        const p0x = 1.02, p0y = Math.cos(normalAngle) * .20, p0z = Math.sin(normalAngle) * .17;
+        const p1x = 1.52 + .08 * Math.sin(t * .65 + k),
+          p1y = Math.cos(midAngle) * .55 * spreadY,
+          p1z = Math.sin(midAngle) * .55 * spreadZ;
+        const p2x = 2.26 - .10 * lifted - .12 * tension,
+          p2y = Math.cos(bendAngle) * outerReach * spreadY,
+          p2z = Math.sin(bendAngle) * outerReach * spreadZ;
+        const p3x = tipX,
+          p3y = Math.cos(tipAngle) * reach * spreadY,
+          p3z = Math.sin(tipAngle) * reach * spreadZ;
+        const side = feeding ? (k === 8 ? -1 : 1) : Math.cos(normalAngle);
+        const segments = Math.round((feeding ? 84 : 68) / (this.geometryStep || 1));
+        const length = feeding ? 2.05 : 1.36 + .21 * Math.sin(k * 2.1), step = length / segments;
+        const normalCurlSign = feeding ? side : (k % 2 === 0 ? 1 : -1);
+        const points = this._gripPoints[k];
+        let nx = p0x, ny = p0y, nz = p0z;
+
+        for (let i = 0; i <= segments; i++) {
+          const u = i / segments, delayed = t * 2.25 - u * 5.2 + k * .83;
+          const theta = side * (feeding ? .20 : .48) * (1 - .72 * escape) * (1 - .14 * tension)
+            + Math.sin(delayed) * (.23 + .19 * this.options.ripple) * u * (1 - .68 * escape)
+            + normalCurlSign * (feeding ? 1.7 : 5.4) * Math.pow(u, 4.1) * (1 - .84 * escape + .1 * tension);
+          const beta = Math.sin(normalAngle) * .15
+            + Math.sin(delayed * .82) * (.22 + .13 * this.options.ripple) * u * (1 - .66 * escape);
+          if (i > 0) {
+            nx += Math.cos(theta) * Math.cos(beta) * step;
+            ny += Math.sin(theta) * Math.cos(beta) * step;
+            nz += Math.sin(beta) * step;
+          }
+          const v = 1 - u, b0 = v * v * v, b1 = 3 * v * v * u, b2 = 3 * v * u * u, b3 = u * u * u;
+          // Local muscular waves travel down an arm. Their endpoint envelope
+          // is zero, so the moving elbow does not drag an attached tip around.
+          const envelope = Math.pow(Math.max(0, Math.sin(Math.PI * u)), 1.3);
+          const localWave = Math.sin(t * (1.17 + k * .047) - u * 7.1 + k * 1.91);
+          const crossWave = Math.sin(t * (.83 + k * .023) - u * 4.7 - k * 1.13);
+          const wave = envelope * (.055 + .025 * this.options.ripple) * localWave;
+          const ex = p0x * b0 + p1x * b1 + p2x * b2 + p3x * b3
+            + envelope * .055 * crossWave;
+          const ey = p0y * b0 + p1y * b1 + p2y * b2 + p3y * b3
+            - Math.sin(angle) * wave * spreadY;
+          const ez = p0z * b0 + p1z * b1 + p2z * b2 + p3z * b3
+            + Math.cos(angle) * wave * spreadZ;
+          const n = i * 3;
+          points[n] = nx + (ex - nx) * g;
+          points[n + 1] = ny + (ey - ny) * g;
+          points[n + 2] = nz + (ez - nz) * g;
+        }
+
+        for (let i = 0; i <= segments; i++) {
+          const u = i / segments, n = i * 3;
+          const prev = Math.max(0, i - 1) * 3, next = Math.min(segments, i + 1) * 3;
+          let tx = points[next] - points[prev], ty = points[next + 1] - points[prev + 1], tz = points[next + 2] - points[prev + 2];
+          let inv = 1 / Math.max(.00001, Math.hypot(tx, ty, tz));
+          tx *= inv; ty *= inv; tz *= inv;
+          let rx = 0, ry = Math.cos(angle), rz = Math.sin(angle);
+          let dp = rx * tx + ry * ty + rz * tz;
+          rx -= dp * tx; ry -= dp * ty; rz -= dp * tz;
+          if (rx * rx + ry * ry + rz * rz < .00001) {
+            rx = 0; ry = -Math.sin(angle); rz = Math.cos(angle);
+            dp = ry * ty + rz * tz; rx -= dp * tx; ry -= dp * ty; rz -= dp * tz;
+          }
+          inv = 1 / Math.max(.00001, Math.hypot(rx, ry, rz)); rx *= inv; ry *= inv; rz *= inv;
+          const bx = ty * rz - tz * ry, by = tz * rx - tx * rz, bz = tx * ry - ty * rx;
+          const club = feeding ? .054 * Math.exp(-Math.pow((u - .89) / .1, 2)) : 0;
+          const normalRadius = (feeding ? .035 : .064) * Math.pow(1 - u, .65) + .007 + club;
+          const gripRadius = ((feeding ? .061 : .096) * cfg[5] * (1 - .68 * u) + .014 + club * .75)
+            * (1 + .12 * tension) * (1 + .045 * Math.sin(t * 1.5 - u * 8 + k));
+          const radius = normalRadius + (gripRadius - normalRadius) * g;
+          const x = points[n], y = points[n + 1], z = points[n + 2];
+          for (let j = 0; j < 12; j += this.geometryStep || 1) {
+            const ca = this._gripRing[j][0], sa = this._gripRing[j][1];
+            const sx = rx * ca + bx * sa, sy = ry * ca + by * sa, sz = rz * ca + bz * sa;
+            const texture = .045 * Math.sin(u * 65 - t * .7 + k);
+            this._put(x + sx * radius, y + sy * radius, z + sz * radius,
+              this._shade(sx, sy, sz, texture, false, true), k % 3 === 0 ? 1 : 0, i * 19 + j + k * 90);
+          }
+          if (i % 6 === 0 && u > .10 && u < .95) {
+            let cx = g, cy = 0, cz = 1 - g;
+            dp = cx * tx + cy * ty + cz * tz;
+            cx -= dp * tx; cy -= dp * ty; cz -= dp * tz;
+            if (cx * cx + cy * cy + cz * cz < .00001) { cx = -rx; cy = -ry; cz = -rz; }
+            inv = 1 / Math.max(.00001, Math.hypot(cx, cy, cz)); cx *= inv; cy *= inv; cz *= inv;
+            const ux = cy * tz - cz * ty, uy = cz * tx - cx * tz, uz = cx * ty - cy * tx;
+            const cupRadius = radius * (.27 + .09 * g), lift = radius * 1.02;
+            const light = clamp(.25 + this._shade(cx, cy, cz, 0, false, true) * .86, .38, .98);
+            for (let j = 0; j < 8; j++) {
+              const ca = this._cupRing[j][0], sa = this._cupRing[j][1];
+              this._put(x + cx * lift + (tx * ca + ux * sa) * cupRadius,
+                y + cy * lift + (ty * ca + uy * sa) * cupRadius,
+                z + cz * lift + (tz * ca + uz * sa) * cupRadius,
+                light, 0, 17000 + k * 200 + i * 8 + j);
+            }
+            this._put(x + cx * (lift - .009), y + cy * (lift - .009), z + cz * (lift - .009), .075, 0, k * 600 + i);
+          }
+        }
+      }
+    }
+
+    _beak(t) {
+      // A small, stylized two-jaw beak. Its focal center is on the +X mouth
+      // axis (y=z=0), so the scene director can aim the mouth at the viewport.
+      const f = Number(this.encounterFront), g = Number(this.encounterGrip);
+      const reveal = clamp(Math.max(Number.isFinite(f) ? f : 0, Number.isFinite(g) ? g : 0), 0, 1);
+      const size = .72 + .28 * reveal;
+      const ring = this._rings[48];
+      const mouthX = 1.255;
+
+      // Outer lip and shadowed oral disk; both occlude the closed head tip.
+      for (let ir = 0; ir <= 12; ir += this.geometryStep || 1) {
+        const radius = ir / 12 * .285 * size;
+        const lip = ir > 9;
+        for (let j = 0; j < 48; j += this.geometryStep || 1) {
+          const ca = ring[j][0], sa = ring[j][1];
+          const x = mouthX + (lip ? .008 * Math.sin((ir - 9) / 3 * Math.PI) : .003);
+          const light = lip ? .14 + this._shade(1, ca * .25, sa * .25, 0) * .30 : .025;
+          this._put(x, ca * radius, sa * radius, light, lip ? 0 : 2, 22000 + ir * 48 + j);
+        }
+      }
+
+      const gape = .010 + reveal * .012 * (.5 + .5 * Math.sin(t * .75));
+      for (let jaw = 0; jaw < 2; jaw++) {
+        const sign = jaw === 0 ? 1 : -1, length = jaw === 0 ? .275 : .225;
+        for (let i = 0; i <= 26; i += this.geometryStep || 1) {
+          const u = i / 26, one = 1 - u;
+          const x = 1.27 + length * Math.pow(u, .85) * size;
+          const z = sign * ((.095 + gape) * one - .018 * u + .025 * Math.sin(Math.PI * u)) * size;
+          const dx = length * .85 * Math.pow(Math.max(u, .001), -.15);
+          const dz = sign * (-.113 - gape + .025 * Math.PI * Math.cos(Math.PI * u));
+          const inv = 1 / Math.hypot(dx, dz), tx = dx * inv, tz = dz * inv;
+          const wide = (.174 * Math.pow(one, .68) + .006) * size;
+          const thick = (.053 * Math.pow(one, .6) + .003) * size;
+          for (let j = 0; j < 24; j += this.geometryStep || 1) {
+            const a = j / 24 * TAU, ca = Math.cos(a), sa = Math.sin(a);
+            const nx = -tz * sa / thick, ny = ca / wide, nz = tx * sa / thick;
+            const horn = .18 + .64 * this._shade(nx, ny, nz, .025 * Math.sin(u * 33));
+            this._put(x - tz * sa * thick, ca * wide, z + tx * sa * thick,
+              horn, 2, 24000 + jaw * 1000 + i * 24 + j);
+          }
+          if (i === 26) this._put(x, 0, z, .22, 0, 28000 + jaw);
+        }
+      }
+    }
+
+    _drawInk() {
+      const c = this.ctx, density = this.inkDensity;
+      if (!this.ink.length) { this.inkGlyphCount = 0; return; }
+      density.fill(0);
+      for (const p of this.ink) {
+        const perspective = 1 / Math.max(.24, 1 - p.z * this.perspectiveStrength);
+        const q = this._projectWorld(p.x, p.y, p.z);
+        const radius = (p.radius + Math.sqrt(p.age) * .105) * this.scale * perspective;
+        const cx = q[0] / this.inkCellW, cy = q[1] / this.inkCellH;
+        const rx = clamp(radius / this.inkCellW, .75, 9), ry = clamp(radius / this.inkCellH, .65, 8);
+        const fade = 1 - smooth(p.life * .28, p.life, p.age);
+        const mass = p.mass * fade / (1 + p.age * .13);
+        const left = Math.max(0, Math.floor(cx - rx)), right = Math.min(this.inkCols - 1, Math.ceil(cx + rx));
+        const top = Math.max(0, Math.floor(cy - ry)), bottom = Math.min(this.inkRows - 1, Math.ceil(cy + ry));
+        for (let row = top; row <= bottom; row++) for (let col = left; col <= right; col++) {
+          const dx = (col + .5 - cx) / rx, dy = (row + .5 - cy) / ry, rr = dx * dx + dy * dy;
+          if (rr < 1) density[row * this.inkCols + col] += mass * (1 - rr) * (1 - rr);
+        }
+      }
+      const sz = this.inkSprite, drawSize = sz / this.dpr;
+      let glyphCount = 0;
+      for (let i = 0; i < density.length; i++) {
+        if (density[i] < .065) continue;
+        const concentration = 1 - Math.exp(-density[i] * .38);
+        const glyph = clamp(Math.floor(Math.pow(concentration, .55) * INK_GLYPHS.length), 0, INK_GLYPHS.length - 1);
+        const x = (i % this.inkCols + .5) * this.inkCellW, y = (Math.floor(i / this.inkCols) + .5) * this.inkCellH;
+        c.globalAlpha = .40 + .60 * Math.min(1, concentration * 1.8);
+        // Only black character sprites are drawn: no shaded disk, smoke
+        // bitmap, blur or filled silhouette underneath the ASCII plume.
+        c.drawImage(this.inkAtlas, glyph * sz, 0, sz, sz, x - drawSize / 2, y - drawSize / 2, drawSize, drawSize);
+        glyphCount++;
+      }
+      this.inkGlyphCount = glyphCount; c.globalAlpha = 1;
+    }
+
+    render() {
+      if (!this.width || this.destroyed) return;
+      const c = this.ctx, w = this.width, h = this.height, t = this.time;
+      c.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+      c.globalAlpha = 1; c.filter = 'none'; c.globalCompositeOperation = 'source-over';
+      c.fillStyle = '#080d0f'; c.fillRect(0, 0, w, h);
+      const atmosphere = this.palette.atmosphere;
+      const g = c.createRadialGradient(w * .48, h * .44, 0, w * .48, h * .44, Math.max(w, h) * .66);
+      g.addColorStop(0, `rgba(${atmosphere.join(',')},${this.options.scene === 'swimby' ? .10 : .23})`); g.addColorStop(1, `rgba(${atmosphere.join(',')},0)`);
+      c.fillStyle = g; c.fillRect(0, 0, w, h);
+      c.font = '10px monospace'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      for (let i = 0; i < this.plankton.length; i++) {
+        const p = this.plankton[i];
+        // A gentle independent current provides a stable visual reference.
+        const px = ((p.x - t * (.0007 + p.size * .0009)) % 1 + 1) % 1 * w;
+        const py = ((p.y + Math.sin(t * .16 + p.phase) * .006) % 1 + 1) % 1 * h;
+        c.fillStyle = `rgba(${this.palette.middle.join(',')},${.08 + p.size * .24})`;
+        if (p.size > .76) c.fillText(p.char, px, py); else c.fillRect(px, py, p.size > .5 ? 1.5 : .8, p.size > .5 ? 1.5 : .8);
+      }
+      this.depth.fill(-Infinity); this.tones.fill(0); this.owners.fill(-1); this.visibility.fill(0);
+      for (const fish of this.fish) {
+        this._activateFish(fish);
+        const localTime = t + fish.offset;
+        this._camera(localTime);
+        this.sampleCount = 0; this.minX = Infinity; this.maxX = -Infinity; this.minY = Infinity; this.maxY = -Infinity;
+        if (this.subjectVisibility > .005) { this._body(localTime); this._arms(localTime); this._beak(localTime); this._rasterize(); }
+        fish.visible = false; this._saveFish();
+      }
+      for (let i = 0; i < this.owners.length; i++) if (this.owners[i] >= 0) this.fish[this.owners[i]].visible = true;
+      const glow = this.glowCtx;
+      let count = 0;
+      if (this.options.glow) {
+        // Blur only the tiny character grid, not the full high-DPI canvas.
+        // One pixel upload also replaces thousands of fillStyle/fillRect calls.
+        const pixels = this.glowPixels.data;
+        pixels.fill(0);
+        for (let i = 0; i < this.depth.length; i++) {
+          if (this.depth[i] === -Infinity) continue;
+          count++;
+          if (this.tones[i] < 6) continue;
+          const rgb = this.colorBytes[this.kinds[i] * 24 + this.tones[i]], p = i * 4;
+          pixels[p] = rgb[0]; pixels[p + 1] = rgb[1]; pixels[p + 2] = rgb[2]; pixels[p + 3] = Math.round(160 * this.visibility[i]);
+        }
+        glow.putImageData(this.glowPixels, 0, 0);
+        const hc = this.haloCtx;
+        hc.clearRect(0, 0, this.cols, this.rows);
+        hc.filter = 'blur(1.25px)'; hc.drawImage(this.glowCanvas, 0, 0);
+        hc.filter = 'none';
+        c.globalAlpha = .52; c.imageSmoothingEnabled = true;
+        c.drawImage(this.haloCanvas, 0, 0, this.cols * this.cellW, this.rows * this.cellH);
+        c.globalAlpha = 1;
+      }
+      c.globalAlpha = 1;
+      const points = this.options.mode === 'points';
+      const sz = this.sprite, drawSize = sz / this.dpr;
+      for (let i = 0; i < this.depth.length; i++) {
+        if (this.depth[i] === -Infinity) continue;
+        if (!this.options.glow) count++;
+        const x = (i % this.cols + .5) * this.cellW;
+        const y = (Math.floor(i / this.cols) + .5) * this.cellH;
+        c.globalAlpha = this.visibility[i];
+        const color = this.kinds[i] * 24 + this.tones[i];
+        if (points) {
+          c.fillStyle = this.colors[color];
+          const radius = this.cellW * (.13 + this.tones[i] / 23 * .13);
+          c.beginPath(); c.arc(x, y, radius, 0, TAU); c.fill();
+        } else {
+          c.drawImage(this.atlas, this.glyphs[i] * sz, color * sz, sz, sz, x - drawSize / 2, y - drawSize / 2, drawSize, drawSize);
+        }
+      }
+      c.globalAlpha = 1;
+      if (this.options.showLabels) {
+        c.font = '600 11px monospace'; c.textAlign = 'center'; c.textBaseline = 'middle';
+        for (const fish of this.fish) {
+          if (!fish.visible) continue;
+          const q = this._projectWorld(fish.worldX, fish.worldY, fish.worldZ);
+          const x = clamp(q[0], 20, w - 20), y = clamp(q[1] - 26, 18, h - 18);
+          c.fillStyle = 'rgba(5,14,16,.82)'; c.fillRect(x - 14, y - 10, 28, 20);
+          c.fillStyle = '#c8f8e8'; c.fillText(String(fish.id + 1).padStart(2, '0'), x, y);
+        }
+      }
+      this._drawInk();
+      this.glyphCount = count;
+      this._activateFish(this.fish[0]);
+    }
+
+    destroy() {
+      this.destroyed = true; cancelAnimationFrame(this.raf); this.observer.disconnect();
+      this.canvas.removeEventListener('pointermove', this._move); this.canvas.removeEventListener('pointerleave', this._leave);
+      this.canvas.removeEventListener('pointerdown', this._touch);
+      document.removeEventListener('visibilitychange', this._visibility);
+    }
+  }
+  window.CuttlefishArtwork = CuttlefishArtwork;
+})();
+
+</script>
+<script>
+/* Cuttlefish — microsite controls. No framework, no network services. */
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const defaults = {scene:'swimby',palette:'lagoon',speed:1.05,ripple:1.3,density:1.1,motion:1.2,depthStrength:1.2,mode:'ascii',followPointer:false,glow:true,count:4,formation:'independent',size:.7,sizeVariation:.45,spacing:1,reverse:false,showLabels:false,behaviors:['auto','auto','auto','auto']};
+  const formationNames = {independent:'Independent',horizontal:'Horizontal',vertical:'Vertical',diagonal:'Diagonal',random:'Random'};
+  const roleNames = {auto:'Auto · follow scene',cruise:'Cruise',hover:'Hover',orbit:'Orbit',curious:'Curious',encounter:'Visit the lens'};
+  const schoolPresets = {
+    solo: {name:'Solo encounter',options:{scene:'encounter',count:1,formation:'independent',size:1,sizeVariation:0,spacing:1,reverse:false,behaviors:['auto']}},
+    mixed: {name:'Mixed company',options:{count:4,formation:'independent',size:.7,sizeVariation:.45,spacing:1,reverse:false,behaviors:['auto','auto','auto','auto']}},
+    horizontal: {name:'Horizontal procession',options:{scene:'swimby',count:6,formation:'horizontal',size:.55,sizeVariation:.2,spacing:1.05,reverse:false,behaviors:Array(6).fill('auto')}},
+    diagonal: {name:'Diagonal drift',options:{scene:'swimby',count:5,formation:'diagonal',size:.6,sizeVariation:.35,spacing:1.2,reverse:false,behaviors:Array(5).fill('auto')}}
+  };
+  const scenes = {
+    swimby: {
+      name:'Swim-by',hint:'A quick arrival. A little time together.',phase:'Arriving',
+      description:'An animated ASCII cuttlefish enters a fixed diver’s view quickly, lingers nearby with moving fins and arms, then swims away. Choose another scene or use the adjacent controls to explore.',
+      action:'Invite a visit',note:'Replay its arrival, pause, and departure.'
+    },
+    encounter: {
+      name:'Close encounter',hint:'Watch the arms crawl. Click for ink toward the lens.',phase:'Approaching',
+      description:'An animated ASCII cuttlefish approaches the lens, centers its beak, and explores the view with independently crawling arms. Click or tap the artwork, or use Startle cuttlefish, to make it react, spray black ASCII ink toward the lens, then escape.',
+      action:'Startle cuttlefish',note:'A warning. Ink toward the lens. Then escape.'
+    },
+    reactive: {
+      name:'Startle & ink',hint:'Move repeatedly nearby, or click the cuttlefish.',phase:'Watching you',
+      description:'An animated ASCII cuttlefish watches nearby mouse movement. Repeated disturbance nearby, a click or tap on the cuttlefish itself, or the Startle cuttlefish button makes it react, spray black ASCII ink toward the pointer, then dart away. Empty water does not respond to clicks.',
+      action:'Startle cuttlefish',note:'Move repeatedly nearby, or tap the cuttlefish.'
+    }
+  };
+  const state = {...defaults,behaviors:defaults.behaviors.slice()};
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = reduceMotion.matches;
+  let renderer;
+  let toastTimer;
+  let sourceText = '';
+  const canvas = $('artwork');
+  const scene = $('scene');
+  const dialog = $('source-dialog');
+
+  function toast(message) {
+    $('toast').textContent = message;
+    $('toast').classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $('toast').classList.remove('visible'), 3100);
+  }
+  function updatePlayback() {
+    renderer?.setPaused(paused);
+    $('pause-btn').setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation');
+    $('pause-btn').title = (paused ? 'Play' : 'Pause') + ' animation (Space)';
+    $('pause-btn').innerHTML = paused ? '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6Z"/></svg>' : '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg>';
+    $('live-label').textContent = paused ? 'PAUSED' : 'LIVE';
+    $('status-dot').classList.toggle('paused', paused);
+    refreshSceneHint();
+    refreshTelemetry();
+  }
+  function refreshSceneHint() {
+    let hint = scenes[state.scene].hint;
+    if (state.formation !== 'independent') hint = 'A shared ' + formationNames[state.formation].toLowerCase() + ' current. Click a visitor for ink.';
+    else if (state.count > 1) hint = state.scene === 'encounter'
+      ? 'A visitor meets the lens. Its neighbors keep drifting.'
+      : 'Different lives in the current. Click a visitor to startle it.';
+    $('scene-hint').textContent = paused ? 'Still waters. Press play to animate.' : hint;
+  }
+  function refreshTelemetry() {
+    if (!renderer) return;
+    const stats = renderer.getStats();
+    const glyphs = Number.isFinite(stats.glyphs) ? Math.round(stats.glyphs).toLocaleString() : '—';
+    const fps = Number.isFinite(stats.fps) ? Math.round(stats.fps) : 0;
+    $('stats').textContent = (paused ? 'STILL' : fps + ' FPS') + ' · ' + glyphs + (state.mode === 'ascii' ? ' GLYPHS' : ' POINTS');
+    $('scene-phase').textContent = typeof stats.phase === 'string' && stats.phase ? stats.phase : scenes[state.scene].phase;
+    const progress = Number.isFinite(stats.progress) ? Math.max(0, Math.min(1, stats.progress)) : 0;
+    $('scene-progress').style.transform = 'scaleX(' + progress + ')';
+    const agitation = Number.isFinite(stats.agitation) ? Math.max(0, Math.min(1, stats.agitation)) : 0;
+    const stage = stats.reactionStage || 'idle';
+    const stageLabels = {react:'Reacting',spray:'Spraying',escape:'Escaping',recover:'Settling'};
+    const disturbance = stageLabels[stage] || (agitation < .18 ? 'Calm' : agitation < .65 ? 'Aware' : agitation < .9 ? 'Uneasy' : 'Alert');
+    $('disturbance-state').textContent = disturbance;
+    $('disturbance-fill').style.transform = 'scaleX(' + agitation + ')';
+    $('disturbance-meter').setAttribute('aria-valuenow', String(Math.round(agitation * 100)));
+    $('disturbance-meter').setAttribute('aria-valuetext', disturbance);
+    $('disturbance').classList.toggle('alert', agitation > .65 || ['react','spray','escape'].includes(stage));
+    const fish = Array.isArray(stats.fish) ? stats.fish : [];
+    const activeStages = ['react','spray','escape','recover'];
+    const reacting = state.scene !== 'swimby' && (fish.length
+      ? fish.every(item => activeStages.includes(item.reactionStage))
+      : activeStages.includes(stage));
+    $('ink-btn').disabled = reacting;
+    $('ink-btn').title = reacting ? 'Let the visitors finish their escape.' : scenes[state.scene].action;
+    const population = Number.isFinite(stats.count) ? Math.round(stats.count) : state.count;
+    const visible = Number.isFinite(stats.visibleCount) ? Math.round(stats.visibleCount) : fish.length ? fish.filter(item=>item.visible).length : null;
+    $('school-live-count').textContent = population + ' IN SCHOOL' + (visible === null ? '' : ' · ' + visible + ' IN VIEW');
+    for (let i = 0; i < state.count; i++) {
+      const status = $('fish-status-' + i), card = $('fish-card-' + i), item = fish[i];
+      if (!status || !card) continue;
+      const phase = item && typeof item.phase === 'string' ? item.phase : 'Following the scene';
+      const label = item && !item.visible ? 'Beyond the view' : phase;
+      if (status.textContent !== label) status.textContent = label;
+      status.title = phase;
+      card.classList.toggle('in-view', Boolean(item?.visible));
+    }
+  }
+
+  function refreshSchoolControls() {
+    $('school-summary').textContent = state.count + ' in school · ' + formationNames[state.formation].toLowerCase();
+    $('formation-name').textContent = formationNames[state.formation];
+    $('school-director').classList.toggle('reversed', state.reverse);
+    $('reverse').checked = state.reverse;
+    $('showLabels').checked = state.showLabels;
+    $('school-detail-summary').textContent = (state.sizeVariation > .05 ? 'Varied sizes' : 'Similar sizes') + ' · ' + (state.reverse ? 'reversed' : 'forward');
+    for (const id of ['count','size','sizeVariation','spacing']) {
+      const input = $(id), value = state[id];
+      input.value = value;
+      $(id + '-value').textContent = id === 'count' ? String(value) : id === 'spacing' ? value.toFixed(2) + '×' : Math.round(value * 100) + '%';
+      input.style.setProperty('--fill', ((value - Number(input.min)) / (Number(input.max) - Number(input.min)) * 100) + '%');
+    }
+    document.querySelectorAll('[data-formation]').forEach(button => {
+      const selected = button.dataset.formation === state.formation;
+      button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', String(selected));
+    });
+    document.querySelectorAll('[data-school-preset]').forEach(button => {
+      const preset = schoolPresets[button.dataset.schoolPreset].options;
+      const selected = Object.entries(preset).every(([key,value]) => Array.isArray(value)
+        ? value.length === state.behaviors.length && value.every((role,i)=>role === state.behaviors[i])
+        : typeof value === 'number' ? Math.abs(state[key] - value) < .001 : state[key] === value);
+      button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', String(selected));
+    });
+    const roles = $('school-roles');
+    if (roles.children.length !== state.count) {
+      roles.replaceChildren();
+      for (let i = 0; i < state.count; i++) {
+        const card = document.createElement('div'); card.className = 'fish-role'; card.id = 'fish-card-' + i;
+        const heading = document.createElement('div'); heading.className = 'fish-role-heading';
+        const label = document.createElement('label'); label.htmlFor = 'fish-role-' + i; label.textContent = 'Cuttlefish ' + String(i + 1).padStart(2,'0');
+        const dot = document.createElement('span'); dot.className = 'fish-presence'; dot.setAttribute('aria-hidden','true');
+        heading.append(label,dot);
+        const select = document.createElement('select'); select.id = 'fish-role-' + i; select.dataset.fishRole = i;
+        for (const [value,name] of Object.entries(roleNames)) {
+          const option = document.createElement('option'); option.value = value; option.textContent = name; select.append(option);
+        }
+        const status = document.createElement('span'); status.id = 'fish-status-' + i; status.className = 'fish-status'; status.setAttribute('aria-live','off'); status.textContent = 'Following the scene';
+        card.append(heading,select,status); roles.append(card);
+      }
+    }
+    for (let i = 0; i < state.count; i++) $('fish-role-' + i).value = state.behaviors[i] || 'auto';
+    const independent = state.formation === 'independent';
+    $('school-roles-fieldset').disabled = !independent;
+    $('roles-help').textContent = independent ? 'Auto follows the scene. Give any visitor a different instinct.'
+      : formationNames[state.formation] + ' formation directs every visitor. Choose Independent to use these individual roles.';
+  }
+  function formatSlider(id, value) {
+    if (id === 'speed') return value.toFixed(2) + '×';
+    const input = $(id);
+    return Math.round((value - Number(input.min)) / (Number(input.max) - Number(input.min)) * 100) + '%';
+  }
+  function refreshControls() {
+    document.querySelectorAll('[data-scene]').forEach(button => {
+      const selected = button.dataset.scene === state.scene;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    document.querySelectorAll('[data-mode]').forEach(button => {
+      const selected = button.dataset.mode === state.mode;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    document.querySelectorAll('[data-palette]').forEach(button => {
+      const selected = button.dataset.palette === state.palette;
+      button.classList.toggle('selected', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    $('palette-name').textContent = state.palette.charAt(0).toUpperCase() + state.palette.slice(1);
+    for (const id of ['speed','motion','depthStrength','ripple','density']) {
+      const input = $(id);
+      input.value = state[id];
+      $(id+'-value').textContent = formatSlider(id, state[id]);
+      input.style.setProperty('--fill', ((state[id] - Number(input.min)) / (Number(input.max) - Number(input.min)) * 100) + '%');
+    }
+    const reactive = state.scene === 'reactive';
+    $('follow').checked = reactive || state.followPointer;
+    $('follow').disabled = reactive;
+    $('follow-row').classList.toggle('inherent', reactive);
+    $('follow-label').textContent = reactive ? 'Mouse-reactive' : 'Follow your cursor';
+    $('follow-help').textContent = reactive ? 'Gentle movement keeps it calm.' : 'Invite a little curiosity.';
+    $('disturbance').hidden = !reactive;
+    $('ink-label').textContent = scenes[state.scene].action;
+    const school = state.count > 1 || state.formation !== 'independent';
+    $('ink-note').textContent = school ? (state.scene === 'swimby' ? 'Replay the school’s arrival and movement.' : 'Click a visitor for its own ink escape.') : scenes[state.scene].note;
+    canvas.setAttribute('aria-label', school
+      ? state.count + ' animated ASCII cuttlefish with ' + formationNames[state.formation].toLowerCase() + ' movement. Click or tap a visible visitor to make that animal react, spray black ASCII ink, then escape. Use School director to change the population, sizes, formation and individual roles.'
+      : scenes[state.scene].description);
+    $('render-label').textContent = state.mode === 'ascii' ? 'ASCII CANVAS' : 'PARTICLE CANVAS';
+    refreshSceneHint();
+    refreshSchoolControls();
+  }
+  function change(patch) {
+    if (patch.behaviors) patch = {...patch,behaviors:patch.behaviors.slice()};
+    Object.assign(state, patch);
+    renderer?.setOptions(patch.behaviors ? {...patch,behaviors:patch.behaviors.slice()} : patch);
+    if (Object.prototype.hasOwnProperty.call(patch, 'scene')) renderer?.setPaused(paused);
+    refreshControls();
+    refreshTelemetry();
+  }
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+  async function downloadHTML() {
+    try {
+      if (document.documentElement.dataset.standalone === 'true') {
+        const page = document.documentElement.cloneNode(true);
+        page.querySelector('#source-dialog')?.removeAttribute('open');
+        page.querySelector('#source-code').textContent = 'Loading the renderer…';
+        page.querySelector('#toast')?.classList.remove('visible');
+        page.querySelector('#scene')?.classList.remove('expanded');
+        page.querySelector('body').style.overflow = '';
+        const html = '<!doctype html>\n' + page.outerHTML;
+        downloadBlob(new Blob([html], {type:'text/html'}), 'cuttlefish.html');
+      } else {
+        const response = await fetch('cuttlefish.html');
+        if (!response.ok) throw new Error('The HTML download is unavailable.');
+        downloadBlob(await response.blob(), 'cuttlefish.html');
+      }
+      toast('Your standalone HTML is ready to explore.');
+    } catch (error) { toast('Could not download the HTML. Please try again.'); }
+  }
+  async function openSource() {
+    dialog.showModal();
+    if (sourceText) return;
+    try {
+      const embedded = document.querySelector('script[data-artwork-source]');
+      if (embedded) sourceText = embedded.textContent;
+      else {
+        const response = await fetch('artwork.js');
+        if (!response.ok) throw new Error('Source unavailable');
+        sourceText = await response.text();
+      }
+      $('source-code').textContent = sourceText;
+      $('source-size').textContent = (new Blob([sourceText]).size / 1024).toFixed(1) + ' KB';
+    } catch (error) { $('source-code').textContent = 'The renderer source could not be loaded. Download the HTML below to inspect the complete code.'; }
+  }
+  document.querySelectorAll('.source-trigger').forEach(button => button.addEventListener('click', openSource));
+  $('close-source').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+  });
+  $('copy-source').addEventListener('click', async () => {
+    if (!sourceText) return toast('The renderer is still loading.');
+    try {
+      await navigator.clipboard.writeText(sourceText);
+      $('copy-source').textContent = 'Copied ✓';
+      setTimeout(() => $('copy-source').textContent = 'Copy code', 1800);
+    } catch (error) { toast('Copy is unavailable here. Use Download HTML to keep the code.'); }
+  });
+  document.querySelectorAll('.download-source, #download-btn').forEach(button => button.addEventListener('click', downloadHTML));
+  document.querySelectorAll('[data-scene]').forEach(button => button.addEventListener('click', () => {
+    if (state.scene !== button.dataset.scene) change({scene:button.dataset.scene});
+  }));
+  document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => change({mode:button.dataset.mode})));
+  document.querySelectorAll('[data-palette]').forEach(button => button.addEventListener('click', () => change({palette:button.dataset.palette})));
+  for (const id of ['speed','motion','depthStrength','ripple','density']) $(id).addEventListener('input', event => change({[id]:Number(event.target.value)}));
+  for (const id of ['size','sizeVariation','spacing']) $(id).addEventListener('input', event => change({[id]:Number(event.target.value)}));
+  $('count').addEventListener('input', event => {
+    const count = Math.max(1,Math.min(12,Math.round(Number(event.target.value))));
+    change({count,behaviors:Array.from({length:count},(_,i)=>state.behaviors[i] || 'auto')});
+  });
+  $('reverse').addEventListener('change', event => change({reverse:event.target.checked}));
+  $('showLabels').addEventListener('change', event => change({showLabels:event.target.checked}));
+  document.querySelectorAll('[data-formation]').forEach(button => button.addEventListener('click',()=>change({formation:button.dataset.formation})));
+  document.querySelectorAll('[data-school-preset]').forEach(button => button.addEventListener('click',()=>{
+    const preset = schoolPresets[button.dataset.schoolPreset];
+    change({...preset.options,behaviors:preset.options.behaviors.slice()});
+    toast(preset.name + ', ready to explore.');
+  }));
+  $('school-roles').addEventListener('change', event => {
+    const index = Number(event.target.dataset.fishRole);
+    if (state.formation !== 'independent' || !Number.isInteger(index) || index < 0 || index >= state.count || !Object.prototype.hasOwnProperty.call(roleNames,event.target.value)) return;
+    const behaviors = state.behaviors.slice(); behaviors[index] = event.target.value;
+    change({behaviors});
+  });
+  $('follow').addEventListener('change', event => {
+    if (state.scene !== 'reactive') change({followPointer:event.target.checked});
+  });
+  $('pause-btn').addEventListener('click', () => { paused = !paused; updatePlayback(); });
+  $('reset-btn').addEventListener('click', () => {
+    const settings = {...defaults,behaviors:defaults.behaviors.slice()};
+    delete settings.scene;
+    change(settings);
+    renderer?.restart();
+    paused = paused || reduceMotion.matches;
+    updatePlayback();
+    refreshTelemetry();
+    toast(scenes[state.scene].name + ', from the beginning.');
+  });
+  $('ink-btn').addEventListener('click', () => {
+    if (paused && reduceMotion.matches) return toast('Press play to animate this scene.');
+    if (paused) {paused = false; updatePlayback();}
+    if (state.scene === 'swimby') renderer?.restart();
+    else renderer?.pulse();
+    refreshTelemetry();
+    toast(state.scene === 'swimby' ? 'A new arrival in the current.' : 'Watch it react, spray, then escape.');
+  });
+  $('capture-btn').addEventListener('click', () => {
+    canvas.toBlob(blob => {
+      if (!blob) return toast('Could not capture this frame. Please try again.');
+      downloadBlob(blob, 'cuttlefish-' + state.palette + '-' + Date.now() + '.png');
+      toast('A moment in the current, captured.');
+    }, 'image/png');
+  });
+  function updateFullscreen() {
+    const expanded = document.fullscreenElement === scene || scene.classList.contains('expanded');
+    $('fullscreen-btn').setAttribute('aria-label', expanded ? 'Exit fullscreen' : 'Enter fullscreen');
+    $('fullscreen-btn').title = expanded ? 'Exit fullscreen (Esc)' : 'Enter fullscreen';
+    renderer?.resize();
+  }
+  $('fullscreen-btn').addEventListener('click', async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else if (scene.classList.contains('expanded')) {scene.classList.remove('expanded'); document.body.style.overflow='';}
+      else if (scene.requestFullscreen) await scene.requestFullscreen();
+      else { scene.classList.add('expanded'); document.body.style.overflow='hidden'; }
+    } catch (error) {scene.classList.toggle('expanded');document.body.style.overflow=scene.classList.contains('expanded')?'hidden':'';}
+    updateFullscreen();
+  });
+  document.addEventListener('fullscreenchange', updateFullscreen);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && scene.classList.contains('expanded')) {scene.classList.remove('expanded');document.body.style.overflow='';updateFullscreen();}
+    if (event.code !== 'Space' || dialog.open || /INPUT|TEXTAREA|SELECT|BUTTON|A|SUMMARY/.test(event.target.tagName) || event.target.isContentEditable) return;
+    event.preventDefault(); paused = !paused; updatePlayback();
+  });
+  reduceMotion.addEventListener('change', event => { if (event.matches) {paused=true;updatePlayback();} });
+  try {
+    renderer = new window.CuttlefishArtwork(canvas, {...state,behaviors:state.behaviors.slice(),paused});
+    updatePlayback();
+    refreshControls();
+    refreshTelemetry();
+    setInterval(refreshTelemetry, 200);
+  } catch (error) {
+    console.error('Artwork could not initialize:', error);
+    scene.classList.add('error');
+    $('stats').textContent = 'ARTWORK UNAVAILABLE';
+    $('live-label').textContent = 'OFFLINE';
+    $('status-dot').classList.add('paused');
+  }
+})();
+
+</script>
+</body>
+</html>
