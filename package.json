@@ -27,6 +27,11 @@
       "types": "./lib/public/fox.d.ts",
       "import": "./lib/public/fox.js",
       "default": "./lib/public/fox.js"
+    },
+    "./seahorse": {
+      "types": "./lib/public/seahorse.d.ts",
+      "import": "./lib/public/seahorse.js",
+      "default": "./lib/public/seahorse.js"
     }
   },
   "sideEffects": false,

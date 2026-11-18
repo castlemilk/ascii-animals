@@ -1,3 +1,4 @@
+import { buildSeahorseDemo } from './build-seahorse.mjs';
 import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
 import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
@@ -38,4 +39,5 @@ for (const [subpath, conditions] of Object.entries(metadata.exports)) {
 }
 const demo = await buildDemo();
 const fox = await buildFoxDemo();
+const seahorse = await buildSeahorseDemo();
 console.log(JSON.stringify({ demo, fox, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
