@@ -52,3 +52,8 @@ assert.equal(frog.stepFrog(frog.createFrog(), 1).state.tick, 1);
 const owl=await import('ascii-animals-review/owl');
 assert.equal(root.createOwlArtwork,owl.createOwlArtwork);
 const om=owl.createOwl({seed:7});assert.equal(om.advance(1).state.tick,1);om.dispose();
+
+const crab = await import('ascii-animals-review/crab');
+assert.equal(typeof crab.createCrabArtwork,'function');
+assert.equal(crab.createCrabModel().frame().columns,120);
+assert.throws(()=>crab.createCrabModel({speed:NaN}));

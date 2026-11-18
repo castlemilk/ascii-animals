@@ -57,6 +57,11 @@
       "types": "./lib/public/seahorse.d.ts",
       "import": "./lib/public/seahorse.js",
       "default": "./lib/public/seahorse.js"
+    },
+    "./crab": {
+      "types": "./lib/public/crab.d.ts",
+      "import": "./lib/public/crab.js",
+      "default": "./lib/public/crab.js"
     }
   },
   "sideEffects": false,

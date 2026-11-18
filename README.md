@@ -45,6 +45,12 @@ and [local demo](dist/seahorse/index.html). It adds hovering, curiosity and a cu
 holdfast pose; reduced motion and pause always remain authoritative. This review
 candidate is not yet advertised as deployed in the catalogue.
 
+## Crab artwork candidate
+
+The newly authored [Crab API](docs/CRAB-API.md) and [local demo](dist/crab/index.html)
+add sideways scuttling, a broad shell, eight articulated walking legs and paired
+claws with a defensive gesture. Independent browser acceptance is pending.
+
 ## TypeScript-first artwork API
 
 The compiled, strict TypeScript facade exposes all currently supported cuttlefish

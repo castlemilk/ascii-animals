@@ -31,3 +31,5 @@ export type { FrogArtwork, FrogMountOptions, FrogConfigPatch, FrogState, FrogInp
 export {createOwlArtwork} from './public/owl.js';
 export type {OwlArtwork,OwlBrowserOptions,OwlBrowserStatus,OwlOptions,OwlState} from './public/owl.js';
 export * from './public/seahorse.js';
+
+export * from './public/crab.js';
