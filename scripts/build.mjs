@@ -1,3 +1,4 @@
+import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
 import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
@@ -26,6 +27,7 @@ async function copyTree(from, to, suffix) {
 
 await copyTree(path.join(root, 'src'), output, '.js');
 await copyTree(path.join(root, 'types'), output, '.d.ts');
+await buildFoxPackage();
 execFileSync(process.execPath, [path.join(root, 'node_modules/typescript/bin/tsc'), '-p', path.join(root, 'tsconfig.json')], { stdio: 'inherit' });
 const metadata = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 for (const [subpath, conditions] of Object.entries(metadata.exports)) {
@@ -35,4 +37,5 @@ for (const [subpath, conditions] of Object.entries(metadata.exports)) {
   if (Object.keys(conditions)[0] !== 'types') throw new Error(`Types condition must come first: ${subpath}`);
 }
 const demo = await buildDemo();
-console.log(JSON.stringify({ demo, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
+const fox = await buildFoxDemo();
+console.log(JSON.stringify({ demo, fox, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

@@ -70,3 +70,21 @@ DEFAULT_OPTIONS.count = 9;
 typedArtwork.getOptions().behaviors.push('hover');
 // @ts-expect-error manual time is numeric
 typedArtwork.advance('0.1');
+
+import { createFoxArtwork as rootFox } from 'ascii-animals-review';
+import { createFoxArtwork, createFox, type FoxArtwork, type FoxInput } from 'ascii-animals-review/fox';
+const fox: FoxArtwork = createFoxArtwork(document.createElement('canvas'), { fox: { seed: 17, tailSway: .1 } });
+fox.update({ pounceHeight: .2 }); fox.play(); fox.pause(); fox.restart(); fox.pulse();
+fox.guide(.8, .15); fox.leave(); fox.showStaticPose('sniff'); fox.getOptions(); fox.exportText(); fox.dispose();
+const rootFoxFactory: typeof createFoxArtwork = rootFox;
+const model = createFox({ seed: 17 });
+const input: FoxInput = { type: 'pounce', tick: 1, seq: 0 };
+model.step(1, [input]); model.dispose();
+// @ts-expect-error fox preserves its own supported option model
+fox.update({ formation: 'horizontal' });
+// @ts-expect-error fixed-tick model is not the seconds-based artwork API
+fox.advance(.1);
+// @ts-expect-error no unsupported pose or behavior
+fox.showStaticPose('dance');
+// @ts-expect-error callback input batches are readonly
+createFoxArtwork(document.createElement('canvas'), { onInputs(batch) { batch.push(input); } });

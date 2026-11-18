@@ -1,0 +1,2 @@
+# Full-width ASCII grids intentionally retain right padding and empty bottom rows.
+evidence/frame-*.txt -whitespace

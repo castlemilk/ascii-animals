@@ -1,0 +1,50 @@
+✔ species descriptor, documented defaults and neutral state are explicit (6.253315ms)
+✔ all finite configuration limits accept endpoints and reject excess atomically (2.626885ms)
+✔ seed is uint32 and playback policy is a boolean (0.473372ms)
+✔ tick is exactly the next safe integer; failed steps leave state untouched (0.694116ms)
+✔ a whole input batch is validated before guide or pounce can take effect (1.283027ms)
+✔ normalized guidance clamps finite coordinates and honors ordered leave/guide (0.505849ms)
+✔ pointer normalization uses CSS bounds, handles edges, and rejects unusable input (0.61485ms)
+✔ paused steps validate but consume neither ticks nor events, and reset preserves pause (0.35531ms)
+✔ pounce completes every authored phase and rejects repeated requests until cooldown ends (27.003456ms)
+✔ active response captures configuration; updates cannot redirect or retime the leap (1.037031ms)
+✖ morphology updated during a response takes effect without leaving old facing/scale paws (2.568251ms)
+✔ forepaws reach the ground before hindpaws during the landing pose (0.485246ms)
+✔ stance feet stay planted while the root stalks; four legs have independent swing times (7.752522ms)
+✔ idle appendages move independently while the root and planted paws stay still (11.655426ms)
+✔ same seed/options/event log survive presentation grouping at 1, 2 and 5 ticks (3098.347871ms)
+✔ seeds and instances are independent, and reset reproduces its own initial replay (11.195267ms)
+✔ pose sampling is pure and public snapshots cannot corrupt later simulation (41.579326ms)
+✔ all behavior phases and extreme supported configurations retain bounded attached geometry (1439.222742ms)
+✔ static alternatives are reproducible and left/right poses preserve the silhouette anchors (3.949106ms)
+✔ ASCII grids obey exact declared cell limits and work at minimum/default/maximum sizes (51.857792ms)
+✔ dispose is repeatable and every other model operation rejects use after release (0.823721ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 20
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5015.19977
+
+✖ failing tests:
+
+test at tests/model.test.mjs:313:1
+✖ morphology updated during a response takes effect without leaving old facing/scale paws (2.568251ms)
+  AssertionError [ERR_ASSERTION]: far-hind applies new local morphology: -0.322 != 0.2668
+      at near (file:///workspace/scratch/5a0f9aa79a6a/ascii-animals-fox/species/fox/tests/model.test.mjs:19:10)
+      at TestContext.<anonymous> (file:///workspace/scratch/5a0f9aa79a6a/ascii-animals-fox/species/fox/tests/model.test.mjs:324:5)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
