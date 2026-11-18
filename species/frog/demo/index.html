@@ -2,29 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Frog / A little leap</title><meta name="description" content="An original reactive ASCII frog. Aim a landing point, watch it gather and leap, or explore quiet static poses.">
+  <title>Frog / A pond, alive</title>
+  <meta name="description" content="Direct a little ASCII pond. Choose one to three frogs, give them roles, and watch a quiet rest, a firefly hunt or a moonlit chorus unfold.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main>
-    <header><a class="wordmark" href="#study">ASCII ANIMALS <span>/ FIELD NOTES</span></a><span class="edition">FROG · 01</span></header>
-    <section class="intro" aria-labelledby="heading"><div><p class="eyebrow">A STUDY IN ANTICIPATION</p><h1 id="heading">A little leap.</h1></div><p class="lead">A quiet breath. A considered landing.<br>A small creature, ready when you are.</p></section>
-    <section id="study" class="study" aria-label="Interactive frog study">
-      <div class="stage-top"><span class="tag"><i></i> FROG / LANDING STUDY</span><span class="stage-help">POINT TO AIM · TAP TO LEAP</span></div>
-      <div class="canvas-wrap"><canvas id="frog" tabindex="0" role="img" aria-label="ASCII frog with a broad squat torso, large eyes, folded rear legs and two attached forelimbs. Arrow keys aim; Enter or Space leaps; Escape clears the landing target." aria-describedby="instructions"></canvas>
-        <div id="fallback" hidden><img src="../evidence/frog-poster.png" alt="Static glyph-rendered frog with raised eyes, squat body and folded legs"><p>The live Canvas preview is unavailable. This is a static specimen of the frog.</p></div>
+    <header><a class="wordmark" href="#study">ASCII ANIMALS <span>/ FIELD NOTES</span></a><span class="edition">FROG · THE POND</span></header>
+    <section class="intro" aria-labelledby="heading">
+      <div><p class="eyebrow">LITTLE CREATURES. SHARED RHYTHMS.</p><h1 id="heading">A pond, alive.</h1></div>
+      <p class="lead">A caller, a hunter, a dreamer.<br>Set the scene. Let their evening unfold.</p>
+    </section>
+
+    <fieldset class="scene-choices"><legend>Choose a scene</legend>
+      <label class="scene-card" for="scene-stillwater"><input id="scene-stillwater" name="scene" type="radio" value="stillwater"><span class="scene-number">01 / SLOW DOWN</span><strong>Stillwater</strong><span>A quiet breath. A curious glance.</span></label>
+      <label class="scene-card" for="scene-firefly"><input id="scene-firefly" name="scene" type="radio" value="firefly-supper"><span class="scene-number">02 / PAY ATTENTION</span><strong>Firefly supper</strong><span>Follow a light across the lily pads.</span></label>
+      <label class="scene-card" for="scene-chorus"><input id="scene-chorus" name="scene" type="radio" value="moonlit-chorus" checked><span class="scene-number">03 / FIND A RHYTHM</span><strong>Moonlit chorus</strong><span>One voice, then a neighbor’s answer.</span></label>
+    </fieldset>
+    <div class="scene-context"><p id="scene-purpose">One frog calls across the water. Its neighbors answer in turn, leaving a little silence between phrases.</p><p id="scene-arc">Listen → call → answer → quiet</p></div>
+
+    <section id="study" class="study" aria-label="Interactive frog pond">
+      <div class="stage-top"><span class="tag"><i aria-hidden="true"></i><span id="scene-title">Moonlit chorus</span></span><span id="scene-phase">Finding the rhythm</span></div>
+      <div class="canvas-wrap">
+        <canvas id="frog" tabindex="0" role="img" aria-label="A character-rendered pond with squat frogs, raised eyes, folded rear legs and attached forelimbs on lily pads. Focus the pond to select frogs with 1, 2 or 3; aim with arrows; hop with Enter or Space; call with C; lure a firefly with H; ripple with R; clear the target with Escape." aria-describedby="instructions"></canvas>
+        <div id="fallback" hidden><img src="../evidence/frog-poster.png" alt="Static glyph-rendered frog from the earlier single-frog study, showing raised eyes, a squat body and folded legs"><p>The live pond is unavailable. This is the earlier single-frog static specimen, not a capture of this pond scene.</p></div>
       </div>
-      <div class="toolbar"><button id="leap" class="primary" type="button">Leap <span aria-hidden="true">↗</span></button><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Reset</button><div class="toolbar-field"><label for="target">Landing</label><select id="target"><option value="">Pointer / current</option><option value="right">Right bank</option><option value="left">Left bank</option><option value="center">Center</option><option value="far">Far bank</option></select></div><div class="toolbar-field"><label for="pose">Static pose</label><select id="pose"><option value="">Choose a pose…</option><option value="rest">Rest</option><option value="crouch">Crouch</option><option value="airborne">Airborne</option><option value="landed">Landed</option></select></div></div>
-      <p id="status" role="status" aria-live="polite">Aim with the pointer, then tap or press Leap. The frog waits for you.</p>
+      <div class="cast" aria-label="Meet and select the frogs">
+        <article id="actor-0" class="actor-card" data-selected="true"><button id="select-0" class="actor-select" type="button" aria-pressed="true" aria-label="Select Moss, frog 1"><span class="actor-number">1</span><strong>Moss</strong><span class="selected-mark" aria-hidden="true">●</span></button><p id="motive-0" class="motive">Resting on the water</p><div class="role-field"><label for="role-0">Moss’s role</label><select id="role-0" aria-describedby="role-note-0"><option value="caller">Caller</option><option value="hunter">Hunter</option><option value="dreamer">Dreamer</option></select></div><p id="role-note-0" class="role-note">Starts a conversation</p></article>
+        <article id="actor-1" class="actor-card" data-selected="false"><button id="select-1" class="actor-select" type="button" aria-pressed="false" aria-label="Select Pip, frog 2"><span class="actor-number">2</span><strong>Pip</strong><span class="selected-mark" aria-hidden="true">●</span></button><p id="motive-1" class="motive">Resting on the water</p><div class="role-field"><label for="role-1">Pip’s role</label><select id="role-1" aria-describedby="role-note-1"><option value="caller">Caller</option><option value="hunter" selected>Hunter</option><option value="dreamer">Dreamer</option></select></div><p id="role-note-1" class="role-note">Watches for supper</p></article>
+        <article id="actor-2" class="actor-card" data-selected="false"><button id="select-2" class="actor-select" type="button" aria-pressed="false" aria-label="Select Fern, frog 3"><span class="actor-number">3</span><strong>Fern</strong><span class="selected-mark" aria-hidden="true">●</span></button><p id="motive-2" class="motive">Resting on the water</p><div class="role-field"><label for="role-2">Fern’s role</label><select id="role-2" aria-describedby="role-note-2"><option value="caller">Caller</option><option value="hunter">Hunter</option><option value="dreamer" selected>Dreamer</option></select></div><p id="role-note-2" class="role-note-2 role-note">Takes the long pause</p></article>
+      </div>
+      <div class="action-heading"><span>DIRECT <strong id="selected-name">Moss</strong></span><span id="motion-note">Motion on · pause whenever you like</span></div>
+      <div class="toolbar">
+        <button id="leap" class="primary" type="button">Hop <span aria-hidden="true">↗</span></button><button id="call" type="button">Call</button><button id="hunt" type="button">Lure firefly</button><button id="ripple" type="button">Ripple</button>
+        <div class="toolbar-field landing-field"><label for="target">Landing pad</label><select id="target"><option value="">Aim / nearest free</option><option value="0">Pad 1</option><option value="1">Pad 2</option><option value="2">Pad 3</option><option value="3">Pad 4</option><option value="4">Pad 5</option><option value="5">Pad 6</option><option value="unavailable" disabled hidden>Current aim · unavailable</option></select></div>
+        <button id="pause" class="quiet" type="button" aria-pressed="false">Pause</button><button id="reset" class="quiet" type="button">Reset</button>
+      </div>
+      <p id="status" role="status" aria-live="polite">Choose a frog. Preview a free pad, then Hop — or invite a call, a firefly, a ripple.</p>
     </section>
-    <section class="details" aria-label="How the frog moves"><ol class="sequence"><li><small>01</small><strong>Gather</strong><p>Folded legs load up beneath a low, steady body.</p></li><li><small>02</small><strong>Leap</strong><p>One committed arc toward the marked landing.</p></li><li><small>03</small><strong>Settle</strong><p>A soft compression, a short recovery, then stillness.</p></li></ol>
-      <details><summary>Shape, motion &amp; specimen</summary><div class="settings"><label>View<select id="view"><option value="front">Front</option><option value="left">Left three-quarter</option><option value="right">Right three-quarter</option><option value="profile">Profile study</option></select></label><label>Frog size<input id="size" type="range" min="0.75" max="1.15" step="0.05" value="1"></label><label>Leap height<input id="height" type="range" min="0.45" max="1.1" step="0.05" value="0.85"></label><label class="check"><input id="silhouette" type="checkbox"> Single tone</label><button id="text" type="button">Show character frame</button></div><pre id="specimen" tabindex="0" hidden aria-label="Current frog character frame"></pre></details>
-      <p id="instructions" class="instructions">Keyboard: focus the scene, use arrows to aim and Enter or Space to leap. Tab moves to every control. Touch: tap a landing point, or use the Landing menu and Leap. Pause keeps the current pose; the Static pose menu pauses on a chosen posture. Reduced motion keeps the frog still and lets Leap cycle poses.</p>
+
+    <section class="direction" aria-labelledby="direction-heading">
+      <div class="section-heading"><h2 id="direction-heading">Set their evening.</h2><p>Scene changes start a fresh arrangement. Roles keep the current positions.</p></div>
+      <div class="director-settings">
+        <div class="field"><label for="count">Company</label><select id="count"><option value="1">One frog</option><option value="2">Two frogs</option><option value="3" selected>Three frogs</option></select></div>
+        <div class="field"><label for="layout">Lily-pad arrangement</label><select id="layout"><option value="arc">A loose arc</option><option value="stepping-stones">Stepping stones</option><option value="shelter">Sheltered corner</option></select></div>
+        <div class="field tempo-field"><label for="tempo">Scene pace <output id="tempo-value" for="tempo">1.0×</output></label><input id="tempo" type="range" min="0.5" max="1.5" step="0.05" value="1" aria-describedby="tempo-help"><small id="tempo-help">Long pauses ↔ closer cues</small></div>
+        <label class="check autonomy"><input id="autonomy" type="checkbox" checked><span>Let them lead<small>Uncheck to direct every action.</small></span></label>
+      </div>
     </section>
-    <footer><span>ORIGINAL GEOMETRY · MADE OF CHARACTERS</span><span>Take a moment. There is no hurry.</span></footer>
-    <noscript><p>This frog needs JavaScript for interaction. Its silhouette has a squat torso, two raised eyes, folded rear legs and two shorter forelimbs. The controls let it aim, crouch, leap and land.</p></noscript>
+
+    <section class="details" aria-label="Presentation and controls">
+      <details><summary>Shape, still studies &amp; presentation</summary><div class="settings">
+        <div class="field"><label for="pose">Static pose · pauses the pond</label><select id="pose"><option value="">Choose a pose…</option><option value="rest">Rest</option><option value="crouch">Crouch</option><option value="airborne">Airborne</option><option value="landed">Landed</option></select></div>
+        <div class="field"><label for="view">Frog view</label><select id="view"><option value="front">Front</option><option value="left">Left three-quarter</option><option value="right">Right three-quarter</option><option value="profile">Profile · diagnostic study</option></select></div>
+        <div class="field"><label for="size">Frog size</label><input id="size" type="range" min="0.75" max="1.15" step="0.05" value="1"></div>
+        <div class="field"><label for="height">Leap height</label><input id="height" type="range" min="0.45" max="1.1" step="0.05" value="0.85"></div>
+        <label class="check"><input id="labels" type="checkbox" checked> Names on the pond</label><label class="check"><input id="trajectories" type="checkbox"> Landing guides</label><label class="check"><input id="silhouette" type="checkbox"> Single-tone frogs</label><button id="text" type="button">Show character frame</button>
+      </div><p class="presentation-note">The frogs, lily pads and water are characters. Names and landing guides are drawn over the scene. Profile is an anatomy study; the front views show the frogs most clearly.</p><pre id="specimen" tabindex="0" hidden aria-label="Current pond character frame"></pre></details>
+      <div id="instructions" class="instructions"><p><strong>At the pond.</strong> Tap a visible frog to select it. Point at a free lily pad to preview a landing; tap the pad to hop. Tap open water for a ripple. Dragging scrolls the page without triggering an action. The Landing pad menu and buttons offer the same actions without pointing.</p><p><strong>At the keyboard.</strong> Focus the pond. <kbd>1</kbd>–<kbd>3</kbd> select a frog; arrow keys aim; <kbd>Enter</kbd> or <kbd>Space</kbd> hops. <kbd>C</kbd> calls, <kbd>H</kbd> lures a firefly, <kbd>R</kbd> makes a ripple, <kbd>Esc</kbd> clears the target. Tab reaches every control.</p><p><strong>A quieter view.</strong> Pause freezes the pond. While paused, Call, Lure firefly and Ripple choose still expressions; the Static pose menu offers four postures. Reduced motion keeps the whole pond still and lets Hop cycle those postures. Resume returns to the scene when motion is enabled.</p></div>
+    </section>
+    <footer><span>ORIGINAL GEOMETRY · MADE OF CHARACTERS</span><span>There is time for another quiet moment.</span></footer>
+    <noscript><p>This pond needs JavaScript for interaction. It shows up to three frogs with squat torsos, raised eyes, folded rear legs and attached forelimbs. The controls select quiet resting, a firefly hunt or a call-and-answer scene, with static alternatives for reduced motion.</p></noscript>
   </main>
-  <script src="../../../dist/artwork.js"></script>
   <script type="module" src="../generated/demo.mjs"></script>
 </body>
 </html>

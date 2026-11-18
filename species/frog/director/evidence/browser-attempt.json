@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "evidence": "Actual live cloud-browser UI interaction before implementation",
+    "cuttlefish": "https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html",
+    "frog": "https://castlemilk.github.io/ascii-animals/frog/",
+    "checked": ["scene selectors and presets", "solo close encounter and visible response", "horizontal procession, six actors and labels", "particle presentation", "single-frog landing menu and Leap request"]
+  },
+  "newDemo": {
+    "url": "http://127.0.0.1:8765/frog/",
+    "outcome": "Cloud browser connection refused; local scratch server is not reachable from that browser",
+    "error": "net::ERR_CONNECTION_REFUSED",
+    "browserExecutionPassed": false,
+    "noDeploymentAttempted": true,
+    "remaining": ["new demo DOM input and rendering", "physical touch device", "screen reader", "browser performance and memory"]
+  }
+}

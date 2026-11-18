@@ -1,4 +1,5 @@
-/** Species-local proposal v1. These types are not shared ascii-animals exports. */
+/** Frog-specific types exposed through the integrated private package's /frog entry. */
+import type { FrogDirectorOptions, FrogPondState, FrogRole } from './pond-types.mjs';
 export type Vec2 = Readonly<{
     x: number;
     y: number;
@@ -139,6 +140,7 @@ export interface GeometryOptions {
     readonly motion?: boolean;
     readonly staticPose?: StaticPose;
     readonly silhouette?: boolean;
+    readonly pondStill?: 'call' | 'hunt' | 'ripple';
 }
 export interface FrogSpecies {
     readonly id: 'frog';
@@ -154,6 +156,11 @@ export interface FrogPreviewOptions {
     readonly rows?: number;
     readonly view?: FrogView;
     readonly silhouette?: boolean;
+    /** Pond-only presentation; does not reset simulation. */
+    readonly labels?: boolean;
+    readonly trajectories?: boolean;
+    /** Pond presentation cap; model stepping stays at 60 Hz. Default 20, range 12..30. */
+    readonly renderFps?: number;
 }
 export interface FrogPreviewFrame {
     readonly glyphs: number;
@@ -162,6 +169,10 @@ export interface FrogPreviewFrame {
     readonly rows: number;
     readonly geometry: FrogGeometryResult;
 }
+export interface FrogPondPreviewFrame extends FrogPreviewFrame {
+    readonly actorGlyphs: readonly number[];
+    readonly environmentSamples: number;
+}
 export interface FrogPreview {
     resize(width: number, height: number, dpr: number): void;
     update(options: FrogPreviewOptions): void;
@@ -169,9 +180,15 @@ export interface FrogPreview {
     toText(): string;
     /** Convert normalized canvas coordinates to normalized ground-plane coordinates. */
     targetAt(point: Vec2): Vec2;
+    /** Optional so existing single-frog injected previews remain compatible. */
+    drawPond?(state: FrogPondState, options?: GeometryOptions): FrogPondPreviewFrame;
+    pondTargetAt?(point: Vec2): Vec2;
+    pickPondFrog?(point: Vec2): number | null;
     dispose(): void;
 }
 export interface FrogMountOptions extends FrogOptions {
+    /** Omitted retains the original single-frog behavior. */
+    readonly director?: FrogDirectorOptions;
     /** Borrowed continuous frame source, unsubscribed when suspended/disposed. */
     readonly frameSource?: {
         subscribe(callback: (timestamp: number) => void): () => void;
@@ -179,6 +196,8 @@ export interface FrogMountOptions extends FrogOptions {
     readonly paused?: boolean;
     readonly preview?: FrogPreviewOptions;
     readonly onAction?: (message: string) => void;
+    /** Readonly pond snapshot after a changed frame; never a separate timer. */
+    readonly onPondChange?: (state: FrogPondState) => void;
     /** Injectable preview for bookkeeping tests; default uses actual legacy seams. */
     readonly previewFactory?: (canvas: HTMLCanvasElement, options: FrogPreviewOptions) => FrogPreview;
 }
@@ -200,7 +219,15 @@ export interface FrogControllerStatus {
 }
 export interface FrogController {
     getState(): FrogState;
+    getPondState(): FrogPondState | null;
     getStatus(): FrogControllerStatus;
+    /** Validates first, enables/resets pond; preserves explicit pause. */
+    updateDirector(patch: FrogDirectorOptions): void;
+    selectFrog(id: number): void;
+    setRole(id: number, role: FrogRole): void;
+    call(): void;
+    hunt(point?: Vec2): void;
+    ripple(point?: Vec2): void;
     target(point: Vec2): void;
     leap(): void;
     clearTarget(): void;

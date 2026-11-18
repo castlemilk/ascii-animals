@@ -92,7 +92,19 @@ export function frogLandmarks(state, options = {}) {
 export function sampleFrog(state, sink, options = {}) {
     if (typeof sink !== 'function')
         throw new TypeError('Frog sample sink must be a function');
-    const pose = poseFrog(state, options);
+    return sampleFrogPose(poseFrog(state, options), sink, options);
+}
+/**
+ * The same anatomical model accepts an explicit posed root for pond direction.
+ * No alternate mesh, sampling topology, or single-frog behavior is introduced.
+ */
+export function sampleFrogPose(pose, sink, options = {}) {
+    if (typeof sink !== 'function')
+        throw new TypeError('Frog sample sink must be a function');
+    if (!pose || ![pose.origin.x, pose.origin.y, pose.origin.z, pose.scale,
+        pose.compression, pose.extension, pose.throat, pose.gaze, pose.phase].every(Number.isFinite)
+        || pose.scale <= 0)
+        throw new TypeError('Frog pose must contain finite values and a positive scale');
     const transform = transformation(pose, options.view ?? 'front');
     const landmarks = modelLandmarks(pose);
     const lightDirection = unit(v(-.36, -.55, .76));

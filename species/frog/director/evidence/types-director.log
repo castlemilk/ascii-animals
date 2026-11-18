@@ -1,0 +1,4 @@
+Command: node node_modules/typescript/bin/tsc -p species/frog/tests/tsconfig.director.json
+
+
+Exit: 0

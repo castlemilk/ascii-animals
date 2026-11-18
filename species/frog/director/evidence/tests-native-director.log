@@ -1,0 +1,15 @@
+Command: node --test species/frog/tests/native-director.test.mjs
+
+✔ native Canvas / bounded native pond (13275.548205ms)
+✔ native Canvas / native pond replay (50322.325045ms)
+✔ native Canvas / native pond inverse (2395.322733ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 66119.181076
+
+Exit: 0

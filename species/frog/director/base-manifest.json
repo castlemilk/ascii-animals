@@ -1,0 +1,27 @@
+{
+  "base": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "branch": "feat/director-frog",
+  "files": {
+    "README.md": "76c50679c8f8df543d0d5821bfee44aa7c8d674f6c707cc0bf3d891a74865f5c",
+    "package.json": "5fafeb6dfdaeddaab8d60d2a4b84a02de5bbe31995086e28a3d70954bedd1583",
+    "docs/ANIMAL-APIS.md": "74cab064b3a6c511180b3eb50f89629d53009e094cc0f55c93a13d14288a8b5d",
+    "docs/FROG-API.md": "5e1a5f89ed9f758231fff6c7aead199cdbf23814c57deb26556044df2ad0db76",
+    "src/public/frog.ts": "775c4ed8adb37620b96d5c89cd5332c7868af9598c097da7111a3607f6adebab",
+    "src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+    "scripts/build-frog.mjs": "5940bdd8c632e75769018fa808c9919265da419403e054807e40fd713eeff0d0",
+    "species/frog/src/frog.mts": "4d7bb680eb38cb349997a9229dae1c7e6a115f047acffb5e9d084755c14e0772",
+    "species/frog/src/geometry.mts": "bb4976f20f4e3433b1a57697e273b3a48e73d7ced7709d4fb0ad568d94d4f262",
+    "species/frog/src/controller.mts": "4149807d5036992fd7aca07fc83beab060faac58a8efdcae1208064773eb26a1",
+    "species/frog/src/legacy-preview.mts": "9e0043a0b8c727f2d77e2a8d536b6cde4e3b766017fb974b9ceb9f25c1140c9d",
+    "dist/frog/index.html": "6f57286f058c679b4196859df2a84c39dd6670dda05718e306b485edef703274",
+    "dist/frog/demo.mjs": "9da58540debc559b84bcf5feb1570c20c44690fb627fd7d4cee4ea6e93730672",
+    "dist/cuttlefish-demo.html": "1616f654d1bf06ed17bb9cdaa5c1d950904121896a5d7a2ffc3e1336dbbf4918",
+    "src/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8"
+  },
+  "skillMain": "23e078642157a273e2b886222470bd247e5737b5",
+  "livePages": [
+    "https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html",
+    "https://castlemilk.github.io/ascii-animals/frog/"
+  ],
+  "baselineBrowser": "Live UI inspection and limited interactions; no performance/accessibility certification."
+}
