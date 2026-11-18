@@ -1,6 +1,6 @@
 import { createButterflyArtwork } from './runtime/public/butterfly.js';
 const $=id=>document.getElementById(id),art=createButterflyArtwork($('animal'));
-function sync(){const s=art.getStatus();$('pause').textContent=s.paused?'Play':'Pause';$('status').textContent=`${s.paused?'STILL':'LIVE'} / ${s.phase.toUpperCase()}`;$('motion-note').textContent=s.reducedMotion?'Reduced motion: a still study. Approach changes the pose; playback remains still.':'Pointer guidance never starts playback. Pause and reset preserve your choice.';}
+function sync(){const s=art.getStatus();$('pause').disabled=s.reducedMotion;$('pause').textContent=s.reducedMotion?'Motion reduced':s.paused?'Play':'Pause';$('status').textContent=`${s.paused?'STILL':'LIVE'} / ${s.phase.toUpperCase()}`;$('motion-note').textContent=s.reducedMotion?'Reduced motion: a still study. Approach changes the pose; playback remains still.':'Pointer guidance never starts playback. Pause and reset preserve your choice.';}
 $('pause').onclick=()=>{art.getStatus().paused?art.play():art.pause();sync();};$('greet').onclick=()=>{art.pulse();sync();};$('reset').onclick=()=>{art.restart();sync();};
 for(const key of ['behavior','palette','facing'])$(key).onchange=()=>{art.update({[key]:$(key).value});sync();};
 for(const key of ['speed','scale'])$(key).oninput=()=>{const value=Number($(key).value);art.update({[key]:value});$(key+'-value').textContent=value.toFixed(2)+'×';};
