@@ -4,6 +4,8 @@ import { getBrowserScheduler } from '../core/scheduler.js';
 import type { FoxOptionsInput } from '../species/fox/types.js';
 export { createFox, staticFoxPose, normalizeFoxPointer, FOX_DEFAULTS, FOX_LIMITS, resolveFoxOptions } from '../species/fox/model.js';
 export type * from '../species/fox/types.js';
+export { createFoxDirector, FOX_DIRECTOR_DEFAULTS, FOX_DIRECTOR_LIMITS, resolveFoxDirectorOptions } from '../species/fox/director.js';
+export type * from '../species/fox/director-types.js';
 export type { FoxBrowserOptions, FoxBrowserStatus } from '../species/fox/browser.js';
 
 /** Fox uses explicit fixed-tick input/model semantics, not the cuttlefish clock. */

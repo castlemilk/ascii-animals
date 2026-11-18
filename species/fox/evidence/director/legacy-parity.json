@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "base": "c06114404900884814bef879a02f1a49a3e7d590",
+  "stateComparisons": 3600,
+  "exactPoseAndCellComparisons": 720,
+  "scope": "Legacy no-director numerical model/geometry/text compatibility. No browser/pixel/performance assertion."
+}
