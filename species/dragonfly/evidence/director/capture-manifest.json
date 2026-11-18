@@ -1,0 +1,1247 @@
+{
+  "evidence": "actual native Canvas using the committed species geometry, projection, glyph compositor and painter",
+  "browser": false,
+  "performanceAcceptance": false,
+  "seed": 17,
+  "tickHz": 60,
+  "animationFps": 12,
+  "font": "ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace",
+  "fontFileBundled": false,
+  "platformPixelIdentityPromised": false,
+  "sourceSha256": {
+    "director.ts": "e420458201795a1bd4d6ed4d492bcec1b2718874b2de39412bd408ed7af7dc7c",
+    "browser.ts": "1e410e3307a0c84c4d70e1abe85c6763f403473e4efc99f9843b7b9ed9e0752a",
+    "preview.ts": "2f8b462e1a9ca6965a8f8242617c66e9f89d37912447754632d96c6b84dc4740",
+    "pond-preview.ts": "6c1819e7be0203a5349471e2ae839bc3f1958048d315985b2e4c9878faf81d05",
+    "demo.ts": "39a05b2a9b53dc162a75280c4e56b4e49c966a0c855fb5b23078cb9f0743789e"
+  },
+  "eventSequence": [
+    {
+      "type": "select",
+      "id": 1,
+      "tick": 90,
+      "seq": 0
+    },
+    {
+      "type": "pointer",
+      "x": 0.6,
+      "y": -0.35,
+      "tick": 91,
+      "seq": 1
+    },
+    {
+      "type": "cue",
+      "cue": "dart",
+      "tick": 140,
+      "seq": 2
+    },
+    {
+      "type": "leave",
+      "tick": 420,
+      "seq": 3
+    },
+    {
+      "type": "cue",
+      "cue": "perch",
+      "tick": 480,
+      "seq": 4
+    },
+    {
+      "type": "cue",
+      "cue": "return",
+      "tick": 720,
+      "seq": 5
+    }
+  ],
+  "frames": [
+    {
+      "file": "patrol.png",
+      "title": "Pond patrol / separate territories / tick 360",
+      "width": 900,
+      "height": 600,
+      "cols": 120,
+      "rows": 64,
+      "view": "dorsal",
+      "neutral": false,
+      "tick": 360,
+      "scene": "patrol",
+      "arc": "patrol",
+      "selected": 0,
+      "memberCount": 3,
+      "options": {
+        "scene": "patrol",
+        "count": 3,
+        "route": "banks",
+        "tempo": 1,
+        "spread": 1,
+        "scale": 0.4,
+        "breeze": 0.12,
+        "labels": true,
+        "roles": [
+          "patroller",
+          "sentinel",
+          "skimmer",
+          "wanderer"
+        ]
+      },
+      "samples": 13044,
+      "animalCells": 406,
+      "clippedSamples": 0,
+      "labelsPlaced": 3,
+      "perches": [
+        {
+          "id": 0,
+          "col": 39,
+          "row": 23,
+          "depth": 0.06
+        },
+        {
+          "id": 1,
+          "col": 79,
+          "row": 23,
+          "depth": 0.06
+        },
+        {
+          "id": 2,
+          "col": 44,
+          "row": 41,
+          "depth": 0.06
+        }
+      ],
+      "members": [
+        {
+          "id": 0,
+          "label": "Azure",
+          "seed": 17,
+          "role": "patroller",
+          "position": {
+            "x": -0.7108133927893887,
+            "y": -0.43026381777295547,
+            "z": 0.17149540575735117
+          },
+          "perch": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": -0.12674924794435216,
+            "y": -0.043686212660443334
+          },
+          "heading": -0.09506193595826412,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 360,
+            "duration": 1080
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 1,
+          "label": "Reed",
+          "seed": 104746,
+          "role": "sentinel",
+          "position": {
+            "x": 0.7429327093419668,
+            "y": -0.26439626945119077,
+            "z": 0.13386857248723805
+          },
+          "perch": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.04033129662758508,
+            "y": -0.21738473720567525
+          },
+          "heading": 0.030248472470688806,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 577,
+            "duration": 840
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 2,
+          "label": "Ember",
+          "seed": 209475,
+          "role": "skimmer",
+          "position": {
+            "x": -0.5132929969998863,
+            "y": 0.5931951264778953,
+            "z": 0.19427629979805283
+          },
+          "perch": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.04778958814293538,
+            "y": -0.07014905164897113
+          },
+          "heading": 0.035842191107201535,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 794,
+            "duration": 1080
+          },
+          "modelTick": 360
+        }
+      ]
+    },
+    {
+      "file": "attention.png",
+      "title": "Hovering attention / selected visitor follows / tick 360",
+      "width": 900,
+      "height": 600,
+      "cols": 120,
+      "rows": 64,
+      "view": "dorsal",
+      "neutral": false,
+      "tick": 360,
+      "scene": "attention",
+      "arc": "patrol",
+      "selected": 0,
+      "memberCount": 3,
+      "options": {
+        "scene": "attention",
+        "count": 3,
+        "route": "banks",
+        "tempo": 1,
+        "spread": 1,
+        "scale": 0.4,
+        "breeze": 0.12,
+        "labels": true,
+        "roles": [
+          "patroller",
+          "sentinel",
+          "skimmer",
+          "wanderer"
+        ]
+      },
+      "samples": 13044,
+      "animalCells": 395,
+      "clippedSamples": 0,
+      "labelsPlaced": 3,
+      "perches": [
+        {
+          "id": 0,
+          "col": 39,
+          "row": 23,
+          "depth": 0.06
+        },
+        {
+          "id": 1,
+          "col": 79,
+          "row": 23,
+          "depth": 0.06
+        },
+        {
+          "id": 2,
+          "col": 44,
+          "row": 41,
+          "depth": 0.06
+        }
+      ],
+      "members": [
+        {
+          "id": 0,
+          "label": "Azure",
+          "seed": 17,
+          "role": "patroller",
+          "position": {
+            "x": 0.15116189320122772,
+            "y": -0.16032692960012213,
+            "z": 0.26000000000001056
+          },
+          "perch": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.01344716311420663,
+            "y": -0.018766970861311287
+          },
+          "heading": 0.010085372335654973,
+          "phase": {
+            "kind": "attention",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 1,
+          "label": "Reed",
+          "seed": 104746,
+          "role": "sentinel",
+          "position": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "perch": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": -0.09999999999999999,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 2,
+          "label": "Ember",
+          "seed": 209475,
+          "role": "skimmer",
+          "position": {
+            "x": -0.85772196473205,
+            "y": 0.8652746635703508,
+            "z": 0.12000000000000459
+          },
+          "perch": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.056541389622603154,
+            "y": -0.025662242531744837
+          },
+          "heading": 0.042406042216952364,
+          "phase": {
+            "kind": "hover",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 360
+        }
+      ]
+    },
+    {
+      "file": "relay.png",
+      "title": "Reed relay / four staggered motives / tick 360",
+      "width": 900,
+      "height": 600,
+      "cols": 120,
+      "rows": 64,
+      "view": "oblique",
+      "neutral": false,
+      "tick": 360,
+      "scene": "relay",
+      "arc": "return",
+      "selected": 0,
+      "memberCount": 4,
+      "options": {
+        "scene": "relay",
+        "count": 4,
+        "route": "figure-eight",
+        "tempo": 1,
+        "spread": 1,
+        "scale": 0.4,
+        "breeze": 0.12,
+        "labels": true,
+        "roles": [
+          "patroller",
+          "sentinel",
+          "skimmer",
+          "wanderer"
+        ]
+      },
+      "samples": 17392,
+      "animalCells": 474,
+      "clippedSamples": 0,
+      "labelsPlaced": 4,
+      "perches": [
+        {
+          "id": 0,
+          "col": 37,
+          "row": 27,
+          "depth": -0.13178581128472422
+        },
+        {
+          "id": 1,
+          "col": 76,
+          "row": 20,
+          "depth": -0.13178581128472422
+        },
+        {
+          "id": 2,
+          "col": 47,
+          "row": 42,
+          "depth": 0.26771372069774535
+        },
+        {
+          "id": 3,
+          "col": 79,
+          "row": 37,
+          "depth": 0.26771372069774535
+        }
+      ],
+      "members": [
+        {
+          "id": 0,
+          "label": "Azure",
+          "seed": 17,
+          "role": "patroller",
+          "position": {
+            "x": 0.5312009756126452,
+            "y": -0.42002941911203245,
+            "z": 0.17341194381944985
+          },
+          "perch": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": -0.8933221465411127,
+            "y": -0.10943282185513938
+          },
+          "heading": -0.6699916099058345,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 360,
+            "duration": 720
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 1,
+          "label": "Reed",
+          "seed": 104746,
+          "role": "sentinel",
+          "position": {
+            "x": 0.7552736510255498,
+            "y": -0.30757927858175027,
+            "z": 0.12633118512558875
+          },
+          "perch": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": -0.008659132597390817,
+            "y": -0.049546885466158416
+          },
+          "heading": -0.006494349448043113,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 540,
+            "duration": 720
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 2,
+          "label": "Ember",
+          "seed": 209475,
+          "role": "skimmer",
+          "position": {
+            "x": -0.7799992309994622,
+            "y": 1.0200901069397443,
+            "z": 0.06000186938242663
+          },
+          "perch": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": -0.000018514942649011938,
+            "y": -0.0005492410841304733
+          },
+          "heading": -0.01801568062117508,
+          "phase": {
+            "kind": "land",
+            "elapsed": 0,
+            "duration": 60
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 3,
+          "label": "Moss",
+          "seed": 314204,
+          "role": "wanderer",
+          "position": {
+            "x": 0.8533824778624004,
+            "y": 0.9965881581965093,
+            "z": 0.08837251126627337
+          },
+          "perch": {
+            "x": 0.83,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.13370756980390452,
+            "y": -0.1355831945013501
+          },
+          "heading": 0.1002806773529284,
+          "phase": {
+            "kind": "launch",
+            "elapsed": 30,
+            "duration": 70
+          },
+          "modelTick": 360
+        }
+      ]
+    },
+    {
+      "file": "perch.png",
+      "title": "Deliberate reed landing / held until released / tick 700",
+      "width": 900,
+      "height": 600,
+      "cols": 120,
+      "rows": 64,
+      "view": "dorsal",
+      "neutral": false,
+      "tick": 700,
+      "scene": "patrol",
+      "arc": "patrol",
+      "selected": 1,
+      "memberCount": 3,
+      "options": {
+        "scene": "patrol",
+        "count": 3,
+        "route": "banks",
+        "tempo": 1,
+        "spread": 1,
+        "scale": 0.4,
+        "breeze": 0.12,
+        "labels": true,
+        "roles": [
+          "patroller",
+          "sentinel",
+          "skimmer",
+          "wanderer"
+        ]
+      },
+      "samples": 13044,
+      "animalCells": 426,
+      "clippedSamples": 0,
+      "labelsPlaced": 3,
+      "perches": [
+        {
+          "id": 0,
+          "col": 39,
+          "row": 23,
+          "depth": 0.06
+        },
+        {
+          "id": 1,
+          "col": 79,
+          "row": 23,
+          "depth": 0.06
+        },
+        {
+          "id": 2,
+          "col": 44,
+          "row": 41,
+          "depth": 0.06
+        }
+      ],
+      "members": [
+        {
+          "id": 0,
+          "label": "Azure",
+          "seed": 17,
+          "role": "patroller",
+          "position": {
+            "x": -0.8203800056674599,
+            "y": -0.3591889639429731,
+            "z": 0.15231532065802902
+          },
+          "perch": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": -0.5828205535151422,
+            "y": -0.4659468442782636
+          },
+          "heading": -0.30554584390391276,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 700,
+            "duration": 1080
+          },
+          "modelTick": 700
+        },
+        {
+          "id": 1,
+          "label": "Reed",
+          "seed": 104746,
+          "role": "sentinel",
+          "position": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "perch": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": -0.09999999999999999,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 700
+        },
+        {
+          "id": 2,
+          "label": "Ember",
+          "seed": 209475,
+          "role": "skimmer",
+          "position": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "perch": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": -0.01999999999999999,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 54,
+            "duration": 130
+          },
+          "modelTick": 700
+        }
+      ]
+    },
+    {
+      "file": "small-grid.png",
+      "title": "Small grid / 360 x 286 / 72 x 44 cells",
+      "width": 360,
+      "height": 286,
+      "cols": 72,
+      "rows": 44,
+      "view": "dorsal",
+      "neutral": false,
+      "tick": 360,
+      "scene": "patrol",
+      "arc": "patrol",
+      "selected": 0,
+      "memberCount": 3,
+      "options": {
+        "scene": "patrol",
+        "count": 3,
+        "route": "banks",
+        "tempo": 1,
+        "spread": 1,
+        "scale": 0.4,
+        "breeze": 0.12,
+        "labels": true,
+        "roles": [
+          "patroller",
+          "sentinel",
+          "skimmer",
+          "wanderer"
+        ]
+      },
+      "samples": 13044,
+      "animalCells": 202,
+      "clippedSamples": 0,
+      "labelsPlaced": 3,
+      "perches": [
+        {
+          "id": 0,
+          "col": 23,
+          "row": 16,
+          "depth": 0.06
+        },
+        {
+          "id": 1,
+          "col": 48,
+          "row": 16,
+          "depth": 0.06
+        },
+        {
+          "id": 2,
+          "col": 26,
+          "row": 27,
+          "depth": 0.06
+        }
+      ],
+      "members": [
+        {
+          "id": 0,
+          "label": "Azure",
+          "seed": 17,
+          "role": "patroller",
+          "position": {
+            "x": -0.7108133927893887,
+            "y": -0.43026381777295547,
+            "z": 0.17149540575735117
+          },
+          "perch": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": -0.12674924794435216,
+            "y": -0.043686212660443334
+          },
+          "heading": -0.09506193595826412,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 360,
+            "duration": 1080
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 1,
+          "label": "Reed",
+          "seed": 104746,
+          "role": "sentinel",
+          "position": {
+            "x": 0.7429327093419668,
+            "y": -0.26439626945119077,
+            "z": 0.13386857248723805
+          },
+          "perch": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.04033129662758508,
+            "y": -0.21738473720567525
+          },
+          "heading": 0.030248472470688806,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 577,
+            "duration": 840
+          },
+          "modelTick": 360
+        },
+        {
+          "id": 2,
+          "label": "Ember",
+          "seed": 209475,
+          "role": "skimmer",
+          "position": {
+            "x": -0.5132929969998863,
+            "y": 0.5931951264778953,
+            "z": 0.19427629979805283
+          },
+          "perch": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0.04778958814293538,
+            "y": -0.07014905164897113
+          },
+          "heading": 0.035842191107201535,
+          "phase": {
+            "kind": "patrol",
+            "elapsed": 794,
+            "duration": 1080
+          },
+          "modelTick": 360
+        }
+      ]
+    },
+    {
+      "file": "still.png",
+      "title": "Four still visitors / minimum 72 x 44 grid / tick 0",
+      "width": 360,
+      "height": 286,
+      "cols": 72,
+      "rows": 44,
+      "view": "dorsal",
+      "neutral": true,
+      "tick": 0,
+      "scene": "patrol",
+      "arc": "arrive",
+      "selected": 0,
+      "memberCount": 4,
+      "options": {
+        "scene": "patrol",
+        "count": 4,
+        "route": "banks",
+        "tempo": 1,
+        "spread": 1,
+        "scale": 0.4,
+        "breeze": 0.12,
+        "labels": true,
+        "roles": [
+          "patroller",
+          "sentinel",
+          "skimmer",
+          "wanderer"
+        ]
+      },
+      "samples": 17392,
+      "animalCells": 279,
+      "clippedSamples": 0,
+      "labelsPlaced": 4,
+      "perches": [
+        {
+          "id": 0,
+          "col": 23,
+          "row": 16,
+          "depth": 0.06
+        },
+        {
+          "id": 1,
+          "col": 48,
+          "row": 16,
+          "depth": 0.06
+        },
+        {
+          "id": 2,
+          "col": 26,
+          "row": 27,
+          "depth": 0.06
+        },
+        {
+          "id": 3,
+          "col": 46,
+          "row": 27,
+          "depth": 0.06
+        }
+      ],
+      "members": [
+        {
+          "id": 0,
+          "label": "Azure",
+          "seed": 17,
+          "role": "patroller",
+          "position": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "perch": {
+            "x": -1.02,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": -0.18,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 0
+        },
+        {
+          "id": 1,
+          "label": "Reed",
+          "seed": 104746,
+          "role": "sentinel",
+          "position": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "perch": {
+            "x": 0.96,
+            "y": -0.25,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": -0.09999999999999999,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 0
+        },
+        {
+          "id": 2,
+          "label": "Ember",
+          "seed": 209475,
+          "role": "skimmer",
+          "position": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "perch": {
+            "x": -0.78,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": -0.01999999999999999,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 0
+        },
+        {
+          "id": 3,
+          "label": "Moss",
+          "seed": 314204,
+          "role": "wanderer",
+          "position": {
+            "x": 0.83,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "perch": {
+            "x": 0.83,
+            "y": 1.02,
+            "z": 0.06
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0
+          },
+          "heading": 0.06,
+          "phase": {
+            "kind": "perched",
+            "elapsed": 0,
+            "duration": 0
+          },
+          "modelTick": 0
+        }
+      ]
+    }
+  ],
+  "animation": {
+    "file": "pond-director.gif",
+    "frames": 193,
+    "fps": 12,
+    "tickStart": 0,
+    "tickEnd": 960,
+    "clippedSamplesAcrossFrames": 0,
+    "checkpoints": [
+      {
+        "tick": 0,
+        "selected": 0,
+        "phase": {
+          "kind": "hover",
+          "elapsed": 0,
+          "duration": 0
+        },
+        "position": {
+          "x": -0.88,
+          "y": -0.38,
+          "z": 0.17
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "arc": "arrive"
+      },
+      {
+        "tick": 90,
+        "selected": 1,
+        "phase": {
+          "kind": "launch",
+          "elapsed": 7,
+          "duration": 70
+        },
+        "position": {
+          "x": 0.9599978907538737,
+          "y": -0.25001058068585325,
+          "z": 0.06070530914468415
+        },
+        "velocity": {
+          "x": -0.00006779744329434698,
+          "y": -0.00025094232399495444
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 140,
+        "selected": 1,
+        "phase": {
+          "kind": "launch",
+          "elapsed": 1,
+          "duration": 24
+        },
+        "position": {
+          "x": 0.6667568514528173,
+          "y": -0.02758421312260603,
+          "z": 0.25664283524860265
+        },
+        "velocity": {
+          "x": -0.12214498367210636,
+          "y": 0.07366374936480853
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 165,
+        "selected": 1,
+        "phase": {
+          "kind": "dart",
+          "elapsed": 2,
+          "duration": 24
+        },
+        "position": {
+          "x": 0.646508580926889,
+          "y": -0.05548334123693435,
+          "z": 0.24770003012013697
+        },
+        "velocity": {
+          "x": -0.42321286535370484,
+          "y": -0.2249336074862518
+        },
+        "arc": "intercept"
+      },
+      {
+        "tick": 190,
+        "selected": 1,
+        "phase": {
+          "kind": "settle",
+          "elapsed": 3,
+          "duration": 48
+        },
+        "position": {
+          "x": 0.11469349630467467,
+          "y": -0.1683142409159679,
+          "z": 0.24971396588622405
+        },
+        "velocity": {
+          "x": -0.6881703816328041,
+          "y": -0.10303026796370533
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 235,
+        "selected": 1,
+        "phase": {
+          "kind": "return",
+          "elapsed": 0,
+          "duration": 90
+        },
+        "position": {
+          "x": 0.11584068849163902,
+          "y": -0.16537101702779475,
+          "z": 0.2499932877200284
+        },
+        "velocity": {
+          "x": 0.09155986295328826,
+          "y": 0.015240093539704389
+        },
+        "arc": "return"
+      },
+      {
+        "tick": 325,
+        "selected": 1,
+        "phase": {
+          "kind": "cooldown",
+          "elapsed": 0,
+          "duration": 60
+        },
+        "position": {
+          "x": 0.5796649675879645,
+          "y": -0.05109638407917065,
+          "z": 0.256150524984903
+        },
+        "velocity": {
+          "x": 0.3394980348739851,
+          "y": 0.08488785464960767
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 420,
+        "selected": 1,
+        "phase": {
+          "kind": "patrol",
+          "elapsed": 637,
+          "duration": 840
+        },
+        "position": {
+          "x": 0.6921209406660259,
+          "y": -0.058291616004857064,
+          "z": 0.24926079764894843
+        },
+        "velocity": {
+          "x": 0.04222360264796113,
+          "y": -0.07332300394901123
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 480,
+        "selected": 1,
+        "phase": {
+          "kind": "return",
+          "elapsed": 1,
+          "duration": 100
+        },
+        "position": {
+          "x": 0.7705733037102838,
+          "y": -0.3578515439423824,
+          "z": 0.13659481990645295
+        },
+        "velocity": {
+          "x": 0.03297486919891251,
+          "y": -0.05421557381430557
+        },
+        "arc": "return"
+      },
+      {
+        "tick": 580,
+        "selected": 1,
+        "phase": {
+          "kind": "land",
+          "elapsed": 1,
+          "duration": 60
+        },
+        "position": {
+          "x": 0.9350249502749702,
+          "y": -0.26404383794710307,
+          "z": 0.06443700877929574
+        },
+        "velocity": {
+          "x": 0.09893379610212454,
+          "y": 0.05567175192935211
+        },
+        "arc": "return"
+      },
+      {
+        "tick": 640,
+        "selected": 1,
+        "phase": {
+          "kind": "land",
+          "elapsed": 0,
+          "duration": 60
+        },
+        "position": {
+          "x": 0.9601751508135237,
+          "y": -0.24990134129196195,
+          "z": 0.06002980985947599
+        },
+        "velocity": {
+          "x": -0.00003877731004378837,
+          "y": -0.000022902537303266737
+        },
+        "arc": "return"
+      },
+      {
+        "tick": 700,
+        "selected": 1,
+        "phase": {
+          "kind": "perched",
+          "elapsed": 0,
+          "duration": 0
+        },
+        "position": {
+          "x": 0.96,
+          "y": -0.25,
+          "z": 0.06
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 720,
+        "selected": 1,
+        "phase": {
+          "kind": "return",
+          "elapsed": 1,
+          "duration": 100
+        },
+        "position": {
+          "x": 0.9599999836240076,
+          "y": -0.2500003427933689,
+          "z": 0.0600031731616931
+        },
+        "velocity": {
+          "x": -9.825595394456302e-7,
+          "y": -0.000020567602133732728
+        },
+        "arc": "return"
+      },
+      {
+        "tick": 820,
+        "selected": 1,
+        "phase": {
+          "kind": "settle",
+          "elapsed": 1,
+          "duration": 45
+        },
+        "position": {
+          "x": 0.9521895147009568,
+          "y": -0.41349437123493965,
+          "z": 0.18539220504625098
+        },
+        "velocity": {
+          "x": -0.004682414674669226,
+          "y": -0.09801547711640085
+        },
+        "arc": "patrol"
+      },
+      {
+        "tick": 960,
+        "selected": 1,
+        "phase": {
+          "kind": "launch",
+          "elapsed": 37,
+          "duration": 70
+        },
+        "position": {
+          "x": 0.9386423790558772,
+          "y": -0.27961757830291833,
+          "z": 0.09379340477820687
+        },
+        "velocity": {
+          "x": -0.0978877434226267,
+          "y": -0.12497562853420688
+        },
+        "arc": "return"
+      }
+    ]
+  }
+}

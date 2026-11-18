@@ -1,100 +1,94 @@
-# Dragonfly — a moment in the reeds
+# Dragonfly — the pond director
 
-An original **TypeScript-first reactive ASCII dragonfly** with a long segmented abdomen, two large eyes, four independently phased attached wings, pointer-guided hover and a deliberate short dart into stabilized hover.
+Original procedural ASCII dragonflies with paired large eyes, a long segmented
+abdomen and four narrow, attached, independently phased wings. This extension
+adds a small directed pond around the existing integrated TypeScript model.
 
-**Draft species integration.** All implementation and evidence are local to this directory. The merged TypeScript facade supports Cuttlefish; a public shared species hook is still proposed. The small preview is replaceable when the coordinator accepts that renderer contract. [Exact compatibility and base](INTEGRATION.md) · [Typed API/defaults/validation](API.md) · [Authoring record](AUTHORING.md) · [Validation and critique](VALIDATION.md)
+The accepted `createDragonflyArtwork` adapter and `./dragonfly` package entry are
+already part of main. The new director is **pending integration review** on
+`feat/director-dragonfly`, based on `c06114404900884814bef879a02f1a49a3e7d590`.
+It changes only Dragonfly-owned source, generated demo/runtime, tests and docs.
+The public wrapper continues to borrow the canonical per-window scheduler.
 
-![Actual native Canvas glyph animation of the Dragonfly](evidence/dragonfly.gif)
+[Director API/defaults/validation](DIRECTOR-API.md) · [Pre-code brief and scene matrix](DIRECTOR.md) · [Actual evidence and remaining gates](DIRECTOR-VALIDATION.md) · [Integrated adapter](../../docs/DRAGONFLY-API.md)
 
-This is an actual **native Canvas** recording of the supplied deterministic event fixture, using the same geometry, character cells and painter as the preview. It is not a browser or deployment capture. The six-second clip repeats the fixture from its beginning; the replay reset at the GIF boundary is intentional. It is not advertised as a seamlessly looping movie.
+![Actual native Canvas recording of the deterministic pond sequence](evidence/director/pond-director.gif)
 
-## Try the local interactive specimen
+This GIF contains 193 actual native Canvas frames at 12 fps, sampled from explicit
+60 Hz simulation ticks 0–960. It uses the same procedural geometry, projection,
+glyph compositor and painter as the demo. The replay resets at the GIF boundary;
+it is not a browser recording or a seamless-loop claim.
 
-From the repository root:
+## Direct the pond
 
-```sh
-python3 -m http.server 8000 --bind 127.0.0.1
-```
+- **Pond patrol:** separate territories, lookout pauses, landings and takeoffs.
+- **Hovering attention:** one visitor attends the guide while others keep their
+  own motives near the reeds.
+- **Reed relay:** staggered short crossings, route following and rests.
+- Choose 1–4 visitors, select by name, and assign patroller/sentinel/skimmer/wanderer
+  roles. Route, tempo, spacing, size and breeze shape the composition.
+- **Dart & return** sends the selected visitor on a deliberate short excursion,
+  stabilizes, then returns. **Land on a reed** holds a perch; **Resume route**
+  releases it. Pointer movement guides attention without triggering darts.
 
-Open **http://127.0.0.1:8000/species/dragonfly/**. Generated ESM is committed, so viewing the specimen needs no npm installation. Serve the page over HTTP; direct `file:` ES-module loading is not a verified route.
+The demo provides keyboard/touch alternatives: native selectors and buttons,
+Guide, Pause/Reset, Slow/Still, and canvas-scoped 1–4/arrow/Space shortcuts.
+Reduced motion remains still; an explicit action changes the composed pose.
+Hidden/offscreen/zero-size hosts suspend work. There is one canvas/subscription
+per ensemble, not one animation callback per visitor.
 
-Move your pointer or tap to guide the hover. **Invite a dart** starts one short translation, stabilization, then cooldown. Repeated dart requests during the response are ignored. Use **Pause**, **Reset**, **Slow** or **Still** at any time. Under reduced-motion preference, the specimen stays static and the action changes a single pose.
+## Preview and reproduce
 
-Keyboard users can Tab through native controls, use Guide to steer, and activate buttons with Enter/Space. The focused canvas also accepts arrows and Space. Touch controls need no hover or repeated gestures; scrolling remains enabled. Hidden, offscreen and zero-sized specimens suspend scheduled work.
-
-## Use the typed model
-
-```ts
-import { createDragonfly, type DragonflyInput } from './species/dragonfly/lib/index.js';
-
-const animal = createDragonfly({ seed: 17, motion: 'slow', wingAmplitude: 0.2 });
-const inputs: DragonflyInput[] = [{ type: 'pointer', tick: 1, seq: 0, x: 0.6, y: -0.2 }];
-animal.step(1, inputs);
-const geometry = animal.sample();
-animal.setPaused(true);
-animal.configure({ trackingSpeed: 0.2 });
-animal.reset(); // Keeps config and pause.
-animal.dispose();
-```
-
-Browser mounting is a separate, SSR-safe import:
-
-```ts
-import { mountDragonfly } from './species/dragonfly/lib/browser.js';
-
-const controller = mountDragonfly(canvas, {
-  model: { seed: 17, motion: 'slow' },
-  view: 'oblique',
-});
-controller.setTarget(0.5, -0.2);
-controller.dart();
-controller.setPaused(true);
-controller.reset();
-controller.dispose();
-```
-
-The browser controller exposes frozen `getState()`/`getOptions()` snapshots, status, controlled configuration and disposal. It does not expose its mutable owned model. It uses no shared global scheduler or external service. `examples/typed-model.ts` and the declaration consumer tests are executable type-check fixtures.
-
-## Build and check
-
-Node 24.22.1 and TypeScript 5.9.3 were used for the recorded checks. Runtime code has zero package dependencies. To rebuild, install the species-local pinned TypeScript development dependency, or point `DRAGONFLY_TSC` to an existing `typescript/lib/tsc.js`.
+The generated public-adapter demo is `dist/dragonfly/index.html`. From the repo root:
 
 ```sh
-# From the species folder, when TypeScript 5.9.3 is already available:
+python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
+# Open http://127.0.0.1:8000/dragonfly/
+```
+
+The species-local source study at `species/dragonfly/index.html` can also be served
+from the repository root. It uses the same compiled species host; the integrated
+`dist` demo additionally uses the accepted public adapter/shared scheduler.
+
+With TypeScript 5.9.3 available:
+
+```sh
 node scripts/build.mjs
-node scripts/build.mjs --check
-node --test tests/*.test.mjs
-
-# From the repository root, also checks the original cuttlefish and standalone:
-node species/dragonfly/scripts/check.mjs
+node --test species/dragonfly/tests/*.test.mjs test/dragonfly-integration.test.mjs
+node species/dragonfly/scripts/build.mjs --check
+npm run typecheck
 ```
 
-The type check uses strict mode, exact optional properties and unchecked-index protection. It imports the generated declarations and contains positive examples plus 14 intentional negative assertions. [Raw executed logs](evidence/checks.json) distinguish numerical/type/mock checks from raster evidence.
+The generated ESM and declarations are committed. Runtime code requires no npm
+runtime dependencies. The package remains private and unpublished.
 
-## Reproduce native frames
-
-With an existing `@napi-rs/canvas` module, set `DRAGONFLY_CANVAS` to its directory if it is not locally resolvable:
+To reproduce native evidence, use an already installed `@napi-rs/canvas` and ffmpeg:
 
 ```sh
-node species/dragonfly/scripts/render-evidence.mjs /tmp/dragonfly-render
-ffmpeg -framerate 15 -i /tmp/dragonfly-render/animation-frames/frame-%03d.png \
-  -filter_complex '[0:v]split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3' \
-  -loop 0 /tmp/dragonfly-render/dragonfly.gif
+# Optional: DRAGONFLY_CANVAS_MODULE=/absolute/path/to/@napi-rs/canvas/index.js
+node species/dragonfly/scripts/capture-director.mjs /tmp/dragonfly-director-evidence
 ```
 
-This renders explicit simulation ticks, rather than synthesizing conceptual images. It also produces the actual state hashes, contact sheet, smallest-grid poster and text specimen. The code does not bundle font files; system fonts vary across machines.
+The capture program records the exact seed, tick/event sequence, source digests,
+positions, phases, clipping and label counts. It exports PNG/text posters,
+scene/motion contact sheets and an actual GIF. No font files or copied ASCII art
+are bundled; installed system monospace fonts may differ between platforms.
 
-![Native Canvas contact sheet: idle, approach, dart, recovery, cooldown and tracking](evidence/contact-sheet.png)
+![Actual native Canvas scenes and minimum-grid still alternative](evidence/director/contact-sheet.png)
 
-## Browser acceptance status
+## Evidence boundary and original provenance
 
-The installed Chromium process failed before any page opened (`socket() failed: Operation not permitted`; `ptrace: Operation not permitted`). The optional runner is ready for a supported environment:
+Numerical, type, instrumented host and offline package checks are recorded in
+[DIRECTOR-VALIDATION.md](DIRECTOR-VALIDATION.md). Native Canvas frames have been
+critiqued and corrected. The live baseline was inspected in Chrome; this new local
+demo was not browser-tested because the cloud browser could not reach the local
+server. Browser layout/input, real touch, screen readers, measured browser
+performance and deployment acceptance remain unrun for this extension.
 
-```sh
-# Start the local server above first. Use installed Playwright/Chromium:
-node species/dragonfly/scripts/browser-smoke.mjs
-```
-
-`DRAGONFLY_PLAYWRIGHT_MODULE` and `DRAGONFLY_CHROMIUM` can identify existing installations. The runner records failure/blocked status explicitly and captures screenshots only after real execution. It does not substitute stubs for browser claims. Real browser behavior, phone/touch hardware, screen readers, browser performance and long-session heap acceptance remain unrun here.
-
-No other species, root documentation, shared engine, package export, npm release or deployment is changed. The manual Pages workflow publishes only `dist/`; this separate preview is not automatically live.
+The original anatomy/geometry/font-rights provenance remains in
+[AUTHORING.md](AUTHORING.md) and `authoring.json`. The original solo
+[API](API.md), [validation record](VALIDATION.md) and [integration proposal](INTEGRATION.md)
+are retained as historical records of the initial species delivery. They do not
+supersede the accepted current package adapter or this additive director API.
+No educational ray renderer, external ASCII artwork, third-party mesh or font
+binary was copied into the director.

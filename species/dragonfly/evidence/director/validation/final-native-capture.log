@@ -1,0 +1,38 @@
+{
+  "output": "/workspace/scratch/14e681deb57b/dragonfly-director/species/dragonfly/evidence/director",
+  "posters": 6,
+  "gifFrames": 193,
+  "clippedSamplesAcrossAnimation": 0,
+  "postersClipped": [
+    {
+      "file": "patrol.png",
+      "clipped": 0,
+      "labels": 3
+    },
+    {
+      "file": "attention.png",
+      "clipped": 0,
+      "labels": 3
+    },
+    {
+      "file": "relay.png",
+      "clipped": 0,
+      "labels": 4
+    },
+    {
+      "file": "perch.png",
+      "clipped": 0,
+      "labels": 3
+    },
+    {
+      "file": "small-grid.png",
+      "clipped": 0,
+      "labels": 3
+    },
+    {
+      "file": "still.png",
+      "clipped": 0,
+      "labels": 4
+    }
+  ]
+}

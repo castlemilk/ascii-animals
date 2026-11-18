@@ -1,5 +1,5 @@
 /** Deliberately small, Dragonfly-only review surface. Not a shared renderer API. */
-import type { DragonflyGeometry, DragonflyGrid, DragonflyMaterial, DragonflyPreviewOptions } from './types.js';
+import type { DragonflyGeometry, DragonflyGrid, DragonflyMaterial, DragonflyPreviewOptions, Vec3 } from './types.js';
 
 export const DRAGONFLY_GLYPHS = ' .,:;-=+x*oO#@';
 export const DRAGONFLY_FONT = 'ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace';
@@ -9,6 +9,32 @@ const RAMPS: Readonly<Record<DragonflyMaterial, string>> = {
   body: '+xoO#', band: '.,:;', wing: '.,:;-=', vein: '-=+x*', eye: 'oO#@', leg: '-=+x',
 };
 const COLORS = ['#b4e4b3', '#637e57', '#78b9ad', '#b6dbcd', '#eddda0', '#90ab91'] as const;
+
+export interface DragonflyProjectedPoint { col: number; row: number; depth: number }
+
+/** The same orthographic projection for animal samples and their reed contacts.
+ * Pass an output object to reuse it while sampling; no per-point allocation is required. */
+export function createDragonflyProjector(options: Pick<DragonflyPreviewOptions, 'cols' | 'rows' | 'view'>):
+  (point: Vec3, output?: DragonflyProjectedPoint) => DragonflyProjectedPoint {
+  const { cols, rows, view } = options;
+  if (!Number.isInteger(cols) || cols < 72 || cols > 160 || !Number.isInteger(rows) || rows < 44 || rows > 88)
+    throw new RangeError('Dragonfly preview grid must be 72..160 columns and 44..88 rows');
+  if (view !== 'dorsal' && view !== 'oblique') throw new TypeError('Unknown Dragonfly preview view');
+  const units = Math.min((cols - 6) * DRAGONFLY_CELL_ASPECT / 5.2, (rows - 6) / 4.2);
+  const angle = view === 'oblique' ? -0.24 : 0, tilt = view === 'oblique' ? 0.32 : 0;
+  const ca = Math.cos(angle), sa = Math.sin(angle), ct = Math.cos(tilt), st = Math.sin(tilt);
+  return (point, output = { col: 0, row: 0, depth: 0 }) => {
+    if (![point.x, point.y, point.z].every(Number.isFinite)) throw new TypeError('Projection points must be finite');
+    const cy = point.y - 0.35;
+    const py = cy * ct - point.z * st;
+    const px = point.x * ca - py * sa;
+    const rowY = point.x * sa + py * ca;
+    output.col = Math.floor(cols / 2 + px * units / DRAGONFLY_CELL_ASPECT);
+    output.row = Math.floor(rows / 2 + rowY * units);
+    output.depth = cy * st + point.z * ct;
+    return output;
+  };
+}
 
 function validateGrid(grid: DragonflyGrid): void {
   if (!grid || !Number.isInteger(grid.cols) || !Number.isInteger(grid.rows) ||
@@ -37,10 +63,8 @@ export function rasterizeDragonfly(geometry: DragonflyGeometry, options: Dragonf
   const materials = new Uint8Array(size);
   const depth = new Float64Array(size).fill(-Infinity);
   const stable = new Uint32Array(size).fill(0xffffffff);
-  const units = Math.min((cols - 6) * DRAGONFLY_CELL_ASPECT / 5.2, (rows - 6) / 4.2);
-  const angle = view === 'oblique' ? -0.24 : 0;
-  const tilt = view === 'oblique' ? 0.32 : 0;
-  const ca = Math.cos(angle), sa = Math.sin(angle), ct = Math.cos(tilt), st = Math.sin(tilt);
+  const project = createDragonflyProjector(options);
+  const projected: DragonflyProjectedPoint = { col: 0, row: 0, depth: 0 };
   let clippedSamples = 0;
   for (const point of geometry.samples) {
     if (![point.x, point.y, point.z, point.tone].every(Number.isFinite) || point.tone < 0 || point.tone > 1)
@@ -49,13 +73,7 @@ export function rasterizeDragonfly(geometry: DragonflyGeometry, options: Dragonf
       throw new RangeError('Invalid Dragonfly stable sample index');
     const material = MATERIALS.indexOf(point.material);
     if (material === -1) throw new TypeError('Unknown Dragonfly material');
-    const cy = point.y - 0.35;
-    const py = cy * ct - point.z * st;
-    const pz = cy * st + point.z * ct;
-    const px = point.x * ca - py * sa;
-    const rowY = point.x * sa + py * ca;
-    const col = Math.floor(cols / 2 + px * units / DRAGONFLY_CELL_ASPECT);
-    const row = Math.floor(rows / 2 + rowY * units);
+    const { col, row, depth: pz } = project(point, projected);
     if (col < 0 || col >= cols || row < 0 || row >= rows) { clippedSamples++; continue; }
     const index = row * cols + col;
     const previous = depth[index]!;

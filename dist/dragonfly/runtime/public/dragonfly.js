@@ -1,6 +1,7 @@
 import { mountDragonfly } from '../species/dragonfly/browser.js';
 import { getBrowserScheduler } from '../core/scheduler.js';
 export { createDragonfly, replayDragonfly, validateDragonflyOptions, DRAGONFLY_DEFAULTS, DRAGONFLY_LIMITS } from '../species/dragonfly/model.js';
+export { createDragonflyDirector, validateDragonflyDirectorOptions, DRAGONFLY_DIRECTOR_DEFAULTS, DRAGONFLY_DIRECTOR_LIMITS } from '../species/dragonfly/director.js';
 /** Dedicated typed adapter: preserves Dragonfly's full/slow/static motion and
  * fixed-tick model; no cuttlefish geometry or clock compatibility is implied. */
 export function createDragonflyArtwork(canvas, options = {}) {
