@@ -1,0 +1,47 @@
+Pufferfish director test review
+
+Final scoped command (repository root):
+node --test --test-reporter=spec species/pufferfish/tests/*.test.mjs test/pufferfish-integration.test.mjs
+Observed result: exit 0; 77 tests, 77 pass, 0 fail, 0 skipped.
+Breakdown: 73 species cases and 4 public integration cases.
+Runtime: Node v24.22.1.
+
+Regression evidence before the final rebuild
+
+Four new targeted cases failed against the earlier locally compiled output:
+- A fresh explicit retreat at tick 1 followed by manual approach at tick 2
+  produced zero reactions at tick 40. The automatic-shadow quiet interval also
+  blocked later deliberate input.
+- Pausing after a live invitation left that raw invitation present. A subsequent
+  static action could clear the queued retreat and let the old invitation resume.
+- Curiosity 0 and 1 produced identical idle and explicit-invitation paths.
+- Pointerleave followed by an invitation button action discarded the invitation.
+
+The final runtime passes these regressions. The controller also preserves an
+explicit retreat through an intervening passive pointerleave, so subsequent
+approach/invite actions in that same coalesced frame cannot override it.
+
+Two test expectation corrections after the final runtime build
+
+1. configureRender preserved every immutable simulation field but target clearing
+   returned a fresh object. The test now checks complete deep value equality;
+   stable reference identity is not a documented public guarantee. No runtime
+   change was made for this correction.
+
+2. Explicit-invitation personal space is assessed at tick 300, before expiry at
+   tick 361. At tick 120 both visitors were still traveling near the 0.004 per-tick
+   horizontal velocity cap, giving a distance difference of only 0.00685. At
+   tick 300 they had settled at distances approximately 0.26000 (curiosity 0) and
+   0.17205 (curiosity 1). The greater-than-0.01 effect assertion is retained;
+   the old identical-path implementation fails it. No runtime change was made
+   for this correction.
+
+Evidence boundaries
+
+Pure model tests use explicit ticks, seeds and ordered events. Controller tests
+use resource-accounting DOM/Canvas doubles and actual canonical rendering
+methods; they establish scheduling, ownership-grid, event, sample/cell budget
+and cleanup behavior. The public integration test also uses a fake browser host.
+These are not browser interaction, native Canvas pixel, visual recognizability,
+accessibility, deployed-site or frame-time performance passes. Native visual
+capture and any browser acceptance are separate evidence owned by the root task.

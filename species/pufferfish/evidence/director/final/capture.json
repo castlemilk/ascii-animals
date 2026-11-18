@@ -1,0 +1,3914 @@
+{
+  "evidenceVersion": 1,
+  "evidence": "Actual native Canvas / Skia raster output of the canonical renderer. NOT browser, deployed, phone, or FPS evidence.",
+  "tag": "final",
+  "quick": false,
+  "recordedAt": "2026-11-18T12:24:57.806Z",
+  "baseCommit": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "sourceHashes": {
+    "src/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8",
+    "lib/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8",
+    "species/pufferfish/src/types.ts": "96f32188a909c1eb532fbf34ee3cd54e3bb8726be81b907bf3cdda6b6c520899",
+    "species/pufferfish/src/director-types.ts": "062fec5e877f247be6f6fea310a423387ff0724f0ddcbe0fe2474945d953327c",
+    "species/pufferfish/src/director.ts": "d4a347fd367639844ffc4e9ca8978441e67766b1a986cd86da6a893bd035c1e6",
+    "species/pufferfish/src/geometry.ts": "05a78d4eca19f02f54dec2d22326516870db4255df3b859cad28ec6eb8a6e97c",
+    "species/pufferfish/src/model.ts": "5499d48e8e5a9310e3f7b6849455b7801875f01ebd2e65c7e35e1ba969b7da3f",
+    "species/pufferfish/src/legacy-painter.ts": "2234e4278e2fc912c790352e08b8f6ddc943872b81fb9f57927736d834263fba",
+    "species/pufferfish/scripts/capture-director.mjs": "4454e36167d2425bf72c166fce27a4d2d8c50b9e8a2e6b80fcfe851e98548db1",
+    "lib/species/pufferfish/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "lib/species/pufferfish/director-types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "lib/species/pufferfish/director.js": "38767e3d06d58f906a436f2257b9f94632c5c67d93518892e0393c706eaf1982",
+    "lib/species/pufferfish/geometry.js": "e0b182bf4d0b2632a427ace28146a81851b0dbb69d67de140a23911c342e8b5b",
+    "lib/species/pufferfish/legacy-painter.js": "cbb39fa27150103d6c027f634c651cca777d141af4df60b02ea786b1e0be47d6",
+    "lib/species/pufferfish/model.js": "624791f62314171b60d7a1fb56a4ae0953c57e48efad80fefbdeab0c2e3682c4"
+  },
+  "runtime": {
+    "node": "v24.22.1",
+    "canvas": "0.1.100",
+    "platform": "linux",
+    "availableMonospaceFamilies": [
+      "Nimbus Mono PS",
+      "LMMonoCaps10",
+      "LMMonoLt10",
+      "LMMonoLtCond10",
+      "LMMono10",
+      "LMMonoSlant10",
+      "LMMonoPropLt10",
+      "LMMonoProp10",
+      "DejaVu Sans Mono",
+      "Liberation Mono",
+      "Noto Mono",
+      "Noto Sans Mono"
+    ],
+    "selectedFont": "Not instrumented; family inventory is not evidence of exact fallback selection."
+  },
+  "rendering": "Imports lib/animals/cuttlefish.js, borrows actual render/makeAtlas/_put/_rasterize in place; no constructor/RAF/browser stubs. Capture-only lossless native atlas Image cache replaces repeated mutable-Canvas snapshots, with byte-identical first-frame PNG parity.",
+  "captures": [
+    {
+      "file": "reef-0001.png",
+      "scene": "reef",
+      "tick": 1,
+      "beat": "discover",
+      "count": 3,
+      "selected": 0,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49919426122631605,
+          "y": 0.06055979481815753,
+          "scale": 0.54,
+          "yaw": 0.00315484771457287
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.00023295638501930665,
+          "y": -0.09876302370657127,
+          "scale": 0.54,
+          "yaw": 0.0014447819250965332
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.060526508853845765,
+          "scale": 0.54,
+          "yaw": 0.00028
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1674,
+      "sceneScale": 1,
+      "stateSha256": "02fe2328944f988166700a243432a8c28421e3ce70f9878e2dbf51b3339d7c31",
+      "cellsSha256": "d0cbce9126a55bd6ef241e29106169ff2ffecbdd93c611cbbfe1815c049aa938",
+      "pngSha256": "ddcafa8d6f90d46d67e92c733accb4d8b5e3d0523073f5c9983970b1860930a0",
+      "rgbaSha256": "5844fa9ac2883f7c96552d0cc28eb36855ae19e473588c5b07a435af2f011e4d",
+      "visibleCellsByActor": [
+        416,
+        420,
+        430
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0240.png",
+      "scene": "reef",
+      "tick": 240,
+      "beat": "discover",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.11173353279812093,
+          "scale": 0.54,
+          "yaw": 0.001850870087322062
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "invited",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.18481411884833057,
+          "y": -0.09990288340109175,
+          "scale": 0.54,
+          "yaw": 0.023298646620903973
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4804581553246507,
+          "y": -0.1255951807336108,
+          "scale": 0.54,
+          "yaw": -0.03877500461314759
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1571,
+      "sceneScale": 1,
+      "stateSha256": "8a7b5e7e7dd1490ea0123e127e80706117791c76b25885c9b78da55d2913ce14",
+      "cellsSha256": "5fe40974539e3a3d8ede18cfa034bb10385e54ab7e6ea2bd7947b289cf8e33f7",
+      "pngSha256": "c77b88cedf57c57c40545bcd067862bf71d5797a79ea022001e80bef7e4bd33b",
+      "rgbaSha256": "4c420e640a1e21c18063899fd7c3a786286f943fe5aae5416a701ba36c6806ad",
+      "visibleCellsByActor": [
+        391,
+        414,
+        358
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0420.png",
+      "scene": "reef",
+      "tick": 420,
+      "beat": "inspect",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.217358964085761,
+          "scale": 0.54,
+          "yaw": 0.006996683135974024
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "inflating",
+          "inflation": 0.44096209912536444,
+          "x": 0.1850000414019442,
+          "y": -0.1526701184427515,
+          "scale": 0.54,
+          "yaw": 0.0070113551522707
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.2201606332346247,
+          "scale": 0.54,
+          "yaw": 0.010095979652455872
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1849,
+      "sceneScale": 1,
+      "stateSha256": "79ba0ce10642e2772214586f7872a19212afa3ac07ef21280bc3fd766a89c861",
+      "cellsSha256": "8084deb26c47600caa5d278677b24cdb1e5a235c88862e1547c9651580bfb36e",
+      "pngSha256": "314337380f3645acdb0e1dcf519594c1c0d9a58234478c9161f4420471d5a292",
+      "rgbaSha256": "748d40ef8b59924f6c17479f78f65e794558b03a44dfb7d5504ffa3a1f0d7ac1",
+      "visibleCellsByActor": [
+        395,
+        615,
+        428
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0660.png",
+      "scene": "reef",
+      "tick": 660,
+      "beat": "gather",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4244408255517727,
+          "y": 0.053874224166888904,
+          "scale": 0.54,
+          "yaw": 0.06995629380716954
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "cooldown",
+          "inflation": 0,
+          "x": 0.00011285032854450842,
+          "y": 0.04323496642572899,
+          "scale": 0.54,
+          "yaw": 0.00983479184667567
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "inspecting",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4244408255517727,
+          "y": 0.053874236745365484,
+          "scale": 0.54,
+          "yaw": -0.05595612182730534
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1672,
+      "sceneScale": 1,
+      "stateSha256": "385e30c31d1219a0cec985981511c042f6f3f82c4c3c1378618493e686667135",
+      "cellsSha256": "d4ee6982faa80d234f1251f2491fdded0fda4916108202a43074c94fec2a3e24",
+      "pngSha256": "282fd05eb4919a1af7c5029b18c1c14cf8ccc8de22aa52c8f7014fef78c9f7d5",
+      "rgbaSha256": "9299562794984fe465de54fecaced83abcf8f84ede8459a0e7fc8f6cd70ca8c9",
+      "visibleCellsByActor": [
+        416,
+        422,
+        424
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-0900.png",
+      "scene": "reef",
+      "tick": 900,
+      "beat": "rest",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4269488997974066,
+          "y": 0.05080000000696501,
+          "scale": 0.54,
+          "yaw": 0.004258399897306138
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "recovering",
+          "inflation": 0.15507739384675684,
+          "x": 0.0001988856920448514,
+          "y": -0.13625517234886145,
+          "scale": 0.54,
+          "yaw": 0.007994563998263168
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.42698695423113087,
+          "y": 0.050800000006962776,
+          "scale": 0.54,
+          "yaw": 0.009931872280877704
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1714,
+      "sceneScale": 1,
+      "stateSha256": "65f7a98931c6794971123aa8f44a1a3428250c45f29ac5db34133b74e44faef7",
+      "cellsSha256": "73df9fe50a6b40d9ac827853618ed1c355f43294a825ee5dc073e6e95b8f9c50",
+      "pngSha256": "74a347b3c7e52841e0faedb5c0d8da02158d09a6536eda81a4cb497a4b36d143",
+      "rgbaSha256": "a6b326a6e7aae2f7e9f05aca2ae976b8ac325db21077137a7fafe368da51a0c0",
+      "visibleCellsByActor": [
+        395,
+        476,
+        428
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-1199.png",
+      "scene": "reef",
+      "tick": 1199,
+      "beat": "rest",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4950124261573655,
+          "y": 0.14999999924729346,
+          "scale": 0.54,
+          "yaw": 0.00699717818421445
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.02486064273455742,
+          "y": 0.15000001760025142,
+          "scale": 0.54,
+          "yaw": 0.007001022446877799
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.14999999924729346,
+          "scale": 0.54,
+          "yaw": 0.007004447015919526
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1682,
+      "sceneScale": 1,
+      "stateSha256": "0cd7427d2d67677934d1521b40379785d3b32b85995fe794c88331475b00f2c4",
+      "cellsSha256": "9f22927b0e158d5972dc21d5b03d497fb7d9ea495f15b7a803b5063228fb937f",
+      "pngSha256": "5603b60892b661b1383eacc2aaef2e11bab600444e6e106fba3e74cd635f1e8c",
+      "rgbaSha256": "3c447870401c8611cbd68d366ccddb6a79240fff6f21d3d6fe82ca08af270ff6",
+      "visibleCellsByActor": [
+        405,
+        423,
+        442
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-mobile-360.png",
+      "scene": "reef",
+      "tick": 0,
+      "beat": "discover",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 360,
+      "height": 420,
+      "cols": 105,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1072,
+      "sceneScale": 0.72,
+      "stateSha256": "b7efaa6a4992dcc6baa5e0aa3256e4a1bc861654c84a0693391ca9180306d411",
+      "cellsSha256": "c41ac81a962a6c28d216ef5fe283ab393e00e8203efa48785fc72f4fcf91c879",
+      "pngSha256": "47af63f5a253ad971197d68270514c5aa2d560b825f43f2ef6cfcc67fd57a460",
+      "rgbaSha256": "e3c335717c8d866c9c08b9bffba7811b102f087391924beca55163888b455252",
+      "visibleCellsByActor": [
+        434,
+        161,
+        164
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-mobile-390.png",
+      "scene": "reef",
+      "tick": 0,
+      "beat": "discover",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 390,
+      "height": 520,
+      "cols": 92,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 897,
+      "sceneScale": 0.72,
+      "stateSha256": "b7efaa6a4992dcc6baa5e0aa3256e4a1bc861654c84a0693391ca9180306d411",
+      "cellsSha256": "b5df5504b17347152f238102db7cd6bb34d0e3be168102d6411224d8c89131a1",
+      "pngSha256": "a94504e006501b6c33932396e4fa0f9087464619609c12d66c9e946efdfb6f4d",
+      "rgbaSha256": "79116e0128105b20e8da335f6929abcb9cedfeb953892e46c132b7f9b5530e7b",
+      "visibleCellsByActor": [
+        352,
+        127,
+        134
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-front.png",
+      "scene": "reef",
+      "tick": 1200,
+      "beat": "discover",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49447569311605366,
+          "y": 0.1498394823440517,
+          "scale": 0.54,
+          "yaw": 0.009680956263405087
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.024894950434887358,
+          "y": 0.14923756593166454,
+          "scale": 0.54,
+          "yaw": 0.007172520050652372
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.14980949392414472,
+          "scale": 0.54,
+          "yaw": 0.007004269135282751
+        }
+      ],
+      "options": {
+        "view": "front",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1839,
+      "sceneScale": 1,
+      "stateSha256": "7a1d0344ed9bb86afab60549cbb71e71d74d3c4c6c4701d35322df94fdc9570c",
+      "cellsSha256": "00c5690d873ecce864d38ef2794c0606364b001e3d3b8b44a40b50d6da1a3296",
+      "pngSha256": "9894dcbc90a7204e499122c8e85dc686da8e4c7d15a96fb56f8fbd43a371279a",
+      "rgbaSha256": "297a0272bcb1a3fd2ced49f73d3651af7ae7b0495deb1b4381574d5dbc9f7474",
+      "visibleCellsByActor": [
+        482,
+        462,
+        488
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "reef-points.png",
+      "scene": "reef",
+      "tick": 1200,
+      "beat": "discover",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49447569311605366,
+          "y": 0.1498394823440517,
+          "scale": 0.54,
+          "yaw": 0.009680956263405087
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.024894950434887358,
+          "y": 0.14923756593166454,
+          "scale": 0.54,
+          "yaw": 0.007172520050652372
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.14980949392414472,
+          "scale": 0.54,
+          "yaw": 0.007004269135282751
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "points"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1668,
+      "sceneScale": 1,
+      "stateSha256": "7a1d0344ed9bb86afab60549cbb71e71d74d3c4c6c4701d35322df94fdc9570c",
+      "cellsSha256": "53a04a41edddd47b4b4be591dfefff5cedcdf2de53fb3b99a199046fe8d4d981",
+      "pngSha256": "1541538398eb9b5b453ded1f46ab09922dcd40a286f6c6ba295d12a6726d0428",
+      "rgbaSha256": "74bf9176997e2c9c23c9e1cf068988d00ba7714a290a7f16f9356a0eadbe8685",
+      "visibleCellsByActor": [
+        407,
+        420,
+        435
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0001.png",
+      "scene": "current",
+      "tick": 1,
+      "beat": "rising",
+      "count": 3,
+      "selected": 0,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49923626914201974,
+          "y": 0.06050938531931309,
+          "scale": 0.54,
+          "yaw": 0.0028748477145728694
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.00019094846931560296,
+          "y": -0.0988134332054157,
+          "scale": 0.54,
+          "yaw": 0.0011647819250965332
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.060476099355001325,
+          "scale": 0.54,
+          "yaw": 0.00021003957851851852
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1672,
+      "sceneScale": 1,
+      "stateSha256": "4e678133b45363a7c5737a6aa2f78d690d87dec808ef9569e9b6767cc0de205c",
+      "cellsSha256": "2e981f51dbab1fe142d51367b8870eff08a79f4a3746d1863f3ab75e8c4cf5bb",
+      "pngSha256": "f009e2947bba176bb5629872a479b9b027f27204f6bf390b843b190523c36599",
+      "rgbaSha256": "be97b9f8f4bfbd09ed92b95d4644679b3659f316904c5585e86b968b74dc76e6",
+      "visibleCellsByActor": [
+        416,
+        420,
+        430
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0240.png",
+      "scene": "current",
+      "tick": 240,
+      "beat": "rising",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.14828464084501836,
+          "scale": 0.54,
+          "yaw": 0.02681370592346188
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "invited",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.1847881251608657,
+          "y": -0.09993933383777903,
+          "scale": 0.54,
+          "yaw": 0.04732307293326526
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": -0.1621462887805082,
+          "scale": 0.54,
+          "yaw": 0.029111565541109174
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1618,
+      "sceneScale": 1,
+      "stateSha256": "82bb1c5386c371e36a05e898f6334c262fe6806a416b924eddf5e2b1126f793c",
+      "cellsSha256": "65ba406f53441766527e5359e8b09494ba4cf473664ba2fb036861c578899304",
+      "pngSha256": "599a4da6c7b9dde43d3f44e69a8a54d8cd0fe84deb9d27f137bcdeca9f4e15f2",
+      "rgbaSha256": "39cc50406173af012c2176ad1941fbc5f04486fdf67b0867d547c8a7eae76fd0",
+      "visibleCellsByActor": [
+        396,
+        426,
+        373
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0420.png",
+      "scene": "current",
+      "tick": 420,
+      "beat": "shelter",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.1926638644465748,
+          "scale": 0.54,
+          "yaw": 0.03499124418848907
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "inflating",
+          "inflation": 0.44096209912536444,
+          "x": 0.18500003548749314,
+          "y": -0.15267011244883094,
+          "scale": 0.54,
+          "yaw": 0.03500552694461911
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4990002244422714,
+          "y": 0.20276885149438262,
+          "scale": 0.54,
+          "yaw": 0.03494579309429044
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1855,
+      "sceneScale": 1,
+      "stateSha256": "b0e0193da21cab571426db9c8f5b024e05f39eb90e9c5f39c31f6d092a5821da",
+      "cellsSha256": "59af0e66c726feb52696f53258d20ec8049c1c505910cf19f77a6500a41012a3",
+      "pngSha256": "3860f261ae71eeab721b7c391806dd901bdc43b3353334c38bece89e1114279e",
+      "rgbaSha256": "8409848c87e044b70409b9eda7b404c31f663f40d377ba0235bef9147660bc48",
+      "visibleCellsByActor": [
+        399,
+        606,
+        424
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0660.png",
+      "scene": "current",
+      "tick": 660,
+      "beat": "returning",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.46791002766236195,
+          "y": 0.22238892447204534,
+          "scale": 0.54,
+          "yaw": 0.09234650567859623
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "cooldown",
+          "inflation": 0,
+          "x": -0.004560613781214714,
+          "y": 0.22239346817136718,
+          "scale": 0.54,
+          "yaw": 0.05684716902752382
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.2223889216175564,
+          "scale": 0.54,
+          "yaw": 0.034207690058889316
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1711,
+      "sceneScale": 1,
+      "stateSha256": "2c38a1d3b95869099012e445ccafd4fb4f36e3f6536fa5329ba5c03d882f1fd3",
+      "cellsSha256": "a43d8909315bf65a085b4d0b4170fb40b70a1473b5d7b88ee788b9dc0f5ff781",
+      "pngSha256": "512e4cb3184f6a07cc0162964fce6966670d46db0bc70a03ab612fca28caeb75",
+      "rgbaSha256": "c859b1416914f2e9a1b3fb80d4fe0781e9a0c7dc0dfbdab83a1db3cc25e3c365",
+      "visibleCellsByActor": [
+        423,
+        432,
+        440
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-0900.png",
+      "scene": "current",
+      "tick": 900,
+      "beat": "slack",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.1861346149743208,
+          "scale": 0.54,
+          "yaw": -0.0006194774203227715
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.016171650194385552,
+          "y": -0.1880789349330794,
+          "scale": 0.54,
+          "yaw": -0.019515557207368833
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4973191127134352,
+          "y": -0.18625856710926675,
+          "scale": 0.54,
+          "yaw": -0.003922779243777901
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1651,
+      "sceneScale": 1,
+      "stateSha256": "cabb05d11f5bc26a09db4a0f2fa024f66918fb8b3e727f1d47803ba8a570e54d",
+      "cellsSha256": "88d8c2e48fb8a631b325de3277329c3b7ff5dcd16bde740a80c9156d0fb37dcb",
+      "pngSha256": "899fb64676bc18ea72a690ba3f2aec368dd51e6f26e87b72990fae71b35eda3b",
+      "rgbaSha256": "384a799f07f3ab430500c0c75e16899988c2bf675efb9f663c29308403ff2405",
+      "visibleCellsByActor": [
+        398,
+        409,
+        432
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-1199.png",
+      "scene": "current",
+      "tick": 1199,
+      "beat": "slack",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.08484181492411429,
+          "scale": 0.54,
+          "yaw": 0.0052499705988601165
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.006068751103769233,
+          "y": 0.0738077551497554,
+          "scale": 0.54,
+          "yaw": 0.03702360217293104
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.061762901187727454,
+          "scale": 0.54,
+          "yaw": 0.009910685746599203
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1685,
+      "sceneScale": 1,
+      "stateSha256": "6b33d54fdbe182d78420a026e72f361691c8e8fde5d4dc5549a32a251ca724e4",
+      "cellsSha256": "452b122bd2761232496f974a2cad28f1bccbeb4939b36ef88c89a2c646a7d4b6",
+      "pngSha256": "fbf5f9bd45937519c7d5c7a2e9710b4b6efacca25f1b864d398d53895da3a40a",
+      "rgbaSha256": "7e47aaddb803e61b4b9fd918da1266f72bec3340e1c5c4a6d7586177b2658aa3",
+      "visibleCellsByActor": [
+        406,
+        429,
+        440
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-mobile-360.png",
+      "scene": "current",
+      "tick": 0,
+      "beat": "rising",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 360,
+      "height": 420,
+      "cols": 105,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1074,
+      "sceneScale": 0.72,
+      "stateSha256": "c66753d9b83c235184a1fc18c6cae03d495e668a680872603c1be1c146f7cf59",
+      "cellsSha256": "83ed32be0876be4472bb347ce6f440a26ac9e32da2ac28a091971067011ac161",
+      "pngSha256": "11c88a9ea07dfbce478d0c1b88868590b06f3ee0918abc3259511d721a6ab330",
+      "rgbaSha256": "a1ac5ae6f7e4ba4e60230f7363cb379bb40c89d37c11759c68f12258a9519949",
+      "visibleCellsByActor": [
+        434,
+        161,
+        164
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-mobile-390.png",
+      "scene": "current",
+      "tick": 0,
+      "beat": "rising",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 390,
+      "height": 520,
+      "cols": 92,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 897,
+      "sceneScale": 0.72,
+      "stateSha256": "c66753d9b83c235184a1fc18c6cae03d495e668a680872603c1be1c146f7cf59",
+      "cellsSha256": "a3572b13a1bdb63b6ddd5fb7a28898be0b4c64b3a824ba7ad04345b9f5476a87",
+      "pngSha256": "9631deb53a6196e53ce6a9015528b504f0f409339cee75643a96a370550a23d2",
+      "rgbaSha256": "0e5b9abc5dde21ac7679c5dd051d67763046db8b9d5244c20a404b264958ae1c",
+      "visibleCellsByActor": [
+        352,
+        127,
+        134
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "current-points.png",
+      "scene": "current",
+      "tick": 1200,
+      "beat": "rising",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4992364432578798,
+          "y": 0.08404193439767947,
+          "scale": 0.54,
+          "yaw": 0.007913909331659875
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.005592591988924984,
+          "y": 0.07237333231582835,
+          "scale": 0.54,
+          "yaw": 0.038133453660235045
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.060899032183785805,
+          "scale": 0.54,
+          "yaw": 0.00972470720707009
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "points"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1689,
+      "sceneScale": 1,
+      "stateSha256": "7f3d763897c410c7489fc6ab3f250894ffeff995e24c07f4ab6bd89a41e16699",
+      "cellsSha256": "5f311d093e7258e3bf57ee87d576fb7c1d1ebacda2a4d868a006acfc3a4fe4a1",
+      "pngSha256": "ad49bba04dfc140139cf007da93cce1d7bfc21d0634f4c7bfc3c603b40619ae7",
+      "rgbaSha256": "5e0be05f3c4535d3b36228f489ad793de3893a4cdbc228c01166cef078132f70",
+      "visibleCellsByActor": [
+        418,
+        431,
+        434
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0001.png",
+      "scene": "shadow",
+      "tick": 1,
+      "beat": "watch",
+      "count": 3,
+      "selected": 0,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49919426122631605,
+          "y": 0.05983979481815753,
+          "scale": 0.54,
+          "yaw": 0.00315484771457287
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.00023295638501930665,
+          "y": -0.09948302370657126,
+          "scale": 0.54,
+          "yaw": 0.0014447819250965332
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.059806508853845766,
+          "scale": 0.54,
+          "yaw": 0.00028
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1675,
+      "sceneScale": 1,
+      "stateSha256": "fa60918e6fa374467b36da4ec459c602cd310a0e946839de11cd25bfc3cb4994",
+      "cellsSha256": "6fa30492457271cabcdb9fa180f8ad5f8c68c7a8c715759adbfc3765dd0f4f5e",
+      "pngSha256": "facdb20c4bde7b87145c045dcc434de4c61c80ecd0d59a489be4774eeb21ca49",
+      "rgbaSha256": "7bf962d00aa203abbf41795a3ab0b072eda13eb9f5b2765784eb08e7618584c1",
+      "visibleCellsByActor": [
+        415,
+        419,
+        433
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0240.png",
+      "scene": "shadow",
+      "tick": 240,
+      "beat": "shadow",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.19804511563937865,
+          "scale": 0.54,
+          "yaw": 0.001850870087322062
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "approach",
+          "inflation": 0,
+          "x": 0.18481256387842476,
+          "y": -0.10011542858732056,
+          "scale": 0.54,
+          "yaw": 0.02329087177137491
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4804581553246507,
+          "y": -0.21219196649356434,
+          "scale": 0.54,
+          "yaw": -0.03877500461314759
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1594,
+      "sceneScale": 1,
+      "stateSha256": "5826a200c51903c48f0f28309bc3e191cac12fda6a76f224366c708726653eda",
+      "cellsSha256": "f4e9bf0f81ef742a548d8c549dc552b2de04e2684a81d3d3a8bf15492b3f4068",
+      "pngSha256": "c0bcb08dfd945eec2408b682c9b17306efee3b75bc4d7dc0eac34e18a9c6b39c",
+      "rgbaSha256": "82f0eca949d2c7755511ac14454f5d3ee646fec83888d068581757bc665d13fe",
+      "visibleCellsByActor": [
+        393,
+        416,
+        377
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0420.png",
+      "scene": "shadow",
+      "tick": 420,
+      "beat": "shadow",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.2524302641025983,
+          "scale": 0.54,
+          "yaw": 0.006996683135974024
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": 0.1848634214005296,
+          "y": -0.2687216370980896,
+          "scale": 0.54,
+          "yaw": 0.007010735383044659
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "sheltering",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.480092517151687,
+          "y": 0.2530671856777142,
+          "scale": 0.54,
+          "yaw": 0.044108130996710716
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 2120,
+      "sceneScale": 1,
+      "stateSha256": "3649c4b420378dfd9a7fcaa4819fb1f8d254b23b070a825cda6c8aa3549bec81",
+      "cellsSha256": "f37591e629954db9a68a6e155d13060fbf9b43a109734ebe53707e290036e839",
+      "pngSha256": "da824edbf741c3714f44275be59f453eb3a110d1f92d32a2be07924fe3b20f69",
+      "rgbaSha256": "db33c424086fefb370f179043c59ecd15dffd394a205ca19ce3b70b72bd29fd2",
+      "visibleCellsByActor": [
+        400,
+        885,
+        431
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0660.png",
+      "scene": "shadow",
+      "tick": 660,
+      "beat": "release",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.43488641190240596,
+          "y": 0.18002042373093285,
+          "scale": 0.54,
+          "yaw": 0.06502440087690188
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "cooldown",
+          "inflation": 0,
+          "x": 0.028365305711952764,
+          "y": 0.1834252202060839,
+          "scale": 0.54,
+          "yaw": 0.021233734902444797
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.18002042353259984,
+          "scale": 0.54,
+          "yaw": 0.007021615533922374
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1690,
+      "sceneScale": 1,
+      "stateSha256": "474a691c044eefbdbddadd022b4b1f16e14b9f87adb873dfe679902ddb3b3b91",
+      "cellsSha256": "4e9d2932febb223d1cbb90192eedbd2a48498f12badf1fc340393836fc3b7cb6",
+      "pngSha256": "5e44a653e3d70014f2b047be72b95587b8915a967871d45bf8db0a6c108157dd",
+      "rgbaSha256": "0caac508a27b85dc05cd9287409847e3ea09723191f13c64c2cce28ce8598b7a",
+      "visibleCellsByActor": [
+        420,
+        428,
+        439
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-0900.png",
+      "scene": "shadow",
+      "tick": 900,
+      "beat": "resume",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": -0.0024191776734780353,
+          "scale": 0.54,
+          "yaw": -0.00758691928665725
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "recovering",
+          "inflation": 0.15507739384675684,
+          "x": -0.011042148425785771,
+          "y": -0.02399646628017758,
+          "scale": 0.54,
+          "yaw": -0.03403513460155965
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.4919577770372916,
+          "y": -0.0020241418844853636,
+          "scale": 0.54,
+          "yaw": -0.020198908435445806
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1712,
+      "sceneScale": 1,
+      "stateSha256": "97759bbd6103f783cf2f7becdd3b2e29b220a9e5825aab4a818201d672be0ae8",
+      "cellsSha256": "63d34c6b2570037b1289ad4ae27c421b30d9b8cf0004711a038e4bc721ed3dd4",
+      "pngSha256": "1bcbb55372c9074a8ee280ae66e2e93c582072800f31250a0882da25394e36e5",
+      "rgbaSha256": "c4550cf8190af60c42e06155995f3500665067b458a3043dc2455235fd6d1fe0",
+      "visibleCellsByActor": [
+        397,
+        473,
+        427
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-1199.png",
+      "scene": "shadow",
+      "tick": 1199,
+      "beat": "resume",
+      "count": 3,
+      "selected": 1,
+      "staticPose": false,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.49976923076923063,
+          "y": 0.043952955684006506,
+          "scale": 0.54,
+          "yaw": 0.0069999267804767016
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.0008187511050329137,
+          "y": 0.011338731990083074,
+          "scale": 0.54,
+          "yaw": 0.0387735275408994
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "exploring",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.009144865676304428,
+          "scale": 0.54,
+          "yaw": 0.015499132494963718
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1684,
+      "sceneScale": 1,
+      "stateSha256": "61788ec9f593873000b89d6d5c38482b38ff65e904938a0529f956d2f831680c",
+      "cellsSha256": "4759a6614571596551f206e02ed47f898dc42df733f8361b5c3e4fbf3f32ef4c",
+      "pngSha256": "84182cd6db146db1279ad636b335cd7d9baea107a8756e010a3dcad520abcddd",
+      "rgbaSha256": "cd0dd2cfefcf3a7ad835a1c10c49b8e59846191d46dfb8812865ad15c473c2cc",
+      "visibleCellsByActor": [
+        405,
+        429,
+        437
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-mobile-360.png",
+      "scene": "shadow",
+      "tick": 0,
+      "beat": "watch",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 360,
+      "height": 420,
+      "cols": 105,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 1072,
+      "sceneScale": 0.72,
+      "stateSha256": "7a43f17cdefa31e538d76b19b392cfc90f38895732ea1fa723d46a6f9877a6e9",
+      "cellsSha256": "c41ac81a962a6c28d216ef5fe283ab393e00e8203efa48785fc72f4fcf91c879",
+      "pngSha256": "47af63f5a253ad971197d68270514c5aa2d560b825f43f2ef6cfcc67fd57a460",
+      "rgbaSha256": "e3c335717c8d866c9c08b9bffba7811b102f087391924beca55163888b455252",
+      "visibleCellsByActor": [
+        434,
+        161,
+        164
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-mobile-390.png",
+      "scene": "shadow",
+      "tick": 0,
+      "beat": "watch",
+      "count": 3,
+      "selected": 0,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "defensive",
+          "phase": "holding",
+          "inflation": 1,
+          "x": -0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0,
+          "y": -0.1,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "settling",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.45324615384615374,
+          "y": 0.06,
+          "scale": 0.5940000000000001,
+          "yaw": 0
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "ascii"
+      },
+      "width": 390,
+      "height": 520,
+      "cols": 92,
+      "rows": 90,
+      "samples": 14793,
+      "glyphs": 897,
+      "sceneScale": 0.72,
+      "stateSha256": "7a43f17cdefa31e538d76b19b392cfc90f38895732ea1fa723d46a6f9877a6e9",
+      "cellsSha256": "b5df5504b17347152f238102db7cd6bb34d0e3be168102d6411224d8c89131a1",
+      "pngSha256": "a94504e006501b6c33932396e4fa0f9087464619609c12d66c9e946efdfb6f4d",
+      "rgbaSha256": "79116e0128105b20e8da335f6929abcb9cedfeb953892e46c132b7f9b5530e7b",
+      "visibleCellsByActor": [
+        352,
+        127,
+        134
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    },
+    {
+      "file": "shadow-points.png",
+      "scene": "shadow",
+      "tick": 1200,
+      "beat": "watch",
+      "count": 3,
+      "selected": 1,
+      "staticPose": true,
+      "actorPhases": [
+        {
+          "id": 0,
+          "role": "explorer",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.4991944432578798,
+          "y": 0.04266662213182698,
+          "scale": 0.54,
+          "yaw": 0.009873867266011796
+        },
+        {
+          "id": 1,
+          "role": "sentinel",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": -0.0003425919901071527,
+          "y": 0.01041340475268161,
+          "scale": 0.54,
+          "yaw": 0.03988338201389223
+        },
+        {
+          "id": 2,
+          "role": "drifter",
+          "motive": "watching",
+          "phase": "idle",
+          "inflation": 0,
+          "x": 0.49976923076923063,
+          "y": 0.008029678178414629,
+          "scale": 0.54,
+          "yaw": 0.015161589869282757
+        }
+      ],
+      "options": {
+        "view": "right",
+        "quality": "fine",
+        "monochrome": false,
+        "maxDpr": 2,
+        "mode": "points"
+      },
+      "width": 900,
+      "height": 675,
+      "cols": 160,
+      "rows": 89,
+      "samples": 14793,
+      "glyphs": 1691,
+      "sceneScale": 1,
+      "stateSha256": "7925286fe4262526fc3ac9e1eb8d18b6d0b938aab6ee27e7e24ea296bc436ec3",
+      "cellsSha256": "d54dc5aa6e3dac6f2b1d702f21513cc9e3058a515e82488161a68d73a17354d2",
+      "pngSha256": "d3e44b48c7b4332a16810f4df4d5ade2fda6f26ffad9b73d5754b6d0c08c40e1",
+      "rgbaSha256": "e774084df02ec5023b3373c078857e833f2fd39a02f4f06be6e25ecb7bbf8467",
+      "visibleCellsByActor": [
+        418,
+        426,
+        439
+      ],
+      "actorCellsOnOuterGridEdge": [
+        0,
+        0,
+        0
+      ],
+      "note": "Counts query actual visible owner cells. Zero edge cells alone is not an arbitrary-pose clipping proof."
+    }
+  ],
+  "replays": [
+    {
+      "scene": "reef",
+      "config": {
+        "scene": "reef",
+        "count": 3,
+        "tempo": 1,
+        "current": 0.35,
+        "curiosity": 0.75,
+        "spacing": 1,
+        "size": 1,
+        "labels": true,
+        "roles": [
+          "explorer",
+          "sentinel",
+          "drifter"
+        ]
+      },
+      "seed": 23,
+      "tickRate": 60,
+      "events": [
+        {
+          "type": "select",
+          "id": 1,
+          "tick": 121,
+          "seq": 0
+        },
+        {
+          "type": "invite",
+          "x": 0.35,
+          "y": -0.2,
+          "tick": 122,
+          "seq": 1
+        },
+        {
+          "type": "approach",
+          "tick": 361,
+          "seq": 2
+        },
+        {
+          "type": "retreat",
+          "tick": 461,
+          "seq": 3
+        },
+        {
+          "type": "pointer",
+          "x": -0.0000012565373820704296,
+          "y": -0.12954692951402744,
+          "aspect": 1.3333333333333333,
+          "tick": 721,
+          "seq": 4
+        },
+        {
+          "type": "retreat",
+          "tick": 841,
+          "seq": 5
+        }
+      ],
+      "finalState": {
+        "version": "pufferfish-director-v1",
+        "config": {
+          "scene": "reef",
+          "count": 3,
+          "tempo": 1,
+          "current": 0.35,
+          "curiosity": 0.75,
+          "spacing": 1,
+          "size": 1,
+          "labels": true,
+          "roles": [
+            "explorer",
+            "sentinel",
+            "drifter"
+          ]
+        },
+        "speciesConfig": {
+          "seed": 23,
+          "approachRadius": 0.3,
+          "retreatRadius": 0.42,
+          "dwellTicks": 30,
+          "bellyTicks": 42,
+          "spineTicks": 36,
+          "holdTicks": 180,
+          "recoveryTicks": 150,
+          "cooldownTicks": 180,
+          "inflationScale": 1.65,
+          "wobble": 1
+        },
+        "tick": 1200,
+        "lastSequence": 5,
+        "sceneTick": 0,
+        "cycle": 1,
+        "beat": {
+          "scene": "reef",
+          "kind": "discover",
+          "progress": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "name": "Pip",
+            "role": "explorer",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 23,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.5392652839375418,
+              "reactions": 0
+            },
+            "x": -0.49447569311605366,
+            "y": 0.1498394823440517,
+            "vx": 0.0005367330413118429,
+            "vy": -0.0001605169032417457,
+            "scale": 0.54,
+            "yaw": 0.009680956263405087,
+            "gaze": {
+              "x": 0.019966469094263018,
+              "y": -0.005971228974348175
+            },
+            "finEffort": 0.23752214150335385,
+            "threat": 0
+          },
+          {
+            "id": 1,
+            "name": "Moss",
+            "role": "sentinel",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 2654435784,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.6764322237311593,
+              "reactions": 2
+            },
+            "x": 0.024894950434887358,
+            "y": 0.14923756593166454,
+            "vx": 0.00003430770032993715,
+            "vy": -0.0007624516685868887,
+            "scale": 0.54,
+            "yaw": 0.007172520050652372,
+            "gaze": {
+              "x": 0.0012762464676864742,
+              "y": -0.028363179678819087
+            },
+            "finEffort": 0.25782231424903596,
+            "threat": 0
+          },
+          {
+            "id": 2,
+            "name": "Miso",
+            "role": "drifter",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 1013904249,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.813599163524777,
+              "reactions": 0
+            },
+            "x": 0.49976923076923063,
+            "y": 0.14980949392414472,
+            "vx": 1.2389115903634736e-18,
+            "vy": -0.0001905053231487319,
+            "scale": 0.54,
+            "yaw": 0.007004269135282751,
+            "gaze": {
+              "x": 2.344688283955187e-14,
+              "y": -0.007086798194888064
+            },
+            "finEffort": 0.2005505323148732,
+            "threat": 0
+          }
+        ],
+        "selected": 1,
+        "pointer": null,
+        "invitation": null,
+        "approach": null,
+        "quietUntil": 1081,
+        "shadowCycle": -1,
+        "flow": 0.06999999999999999
+      },
+      "finalStateSha256": "7a1d0344ed9bb86afab60549cbb71e71d74d3c4c6c4701d35322df94fdc9570c"
+    },
+    {
+      "scene": "current",
+      "config": {
+        "scene": "current",
+        "count": 3,
+        "tempo": 1,
+        "current": 0.35,
+        "curiosity": 0.75,
+        "spacing": 1,
+        "size": 1,
+        "labels": true,
+        "roles": [
+          "explorer",
+          "sentinel",
+          "drifter"
+        ]
+      },
+      "seed": 23,
+      "tickRate": 60,
+      "events": [
+        {
+          "type": "select",
+          "id": 1,
+          "tick": 121,
+          "seq": 0
+        },
+        {
+          "type": "invite",
+          "x": 0.35,
+          "y": -0.2,
+          "tick": 122,
+          "seq": 1
+        },
+        {
+          "type": "approach",
+          "tick": 361,
+          "seq": 2
+        },
+        {
+          "type": "retreat",
+          "tick": 461,
+          "seq": 3
+        },
+        {
+          "type": "pointer",
+          "x": 0.0015718954892934443,
+          "y": 0.12419943357756974,
+          "aspect": 1.3333333333333333,
+          "tick": 721,
+          "seq": 4
+        },
+        {
+          "type": "retreat",
+          "tick": 841,
+          "seq": 5
+        }
+      ],
+      "finalState": {
+        "version": "pufferfish-director-v1",
+        "config": {
+          "scene": "current",
+          "count": 3,
+          "tempo": 1,
+          "current": 0.35,
+          "curiosity": 0.75,
+          "spacing": 1,
+          "size": 1,
+          "labels": true,
+          "roles": [
+            "explorer",
+            "sentinel",
+            "drifter"
+          ]
+        },
+        "speciesConfig": {
+          "seed": 23,
+          "approachRadius": 0.3,
+          "retreatRadius": 0.42,
+          "dwellTicks": 30,
+          "bellyTicks": 42,
+          "spineTicks": 36,
+          "holdTicks": 180,
+          "recoveryTicks": 150,
+          "cooldownTicks": 180,
+          "inflationScale": 1.65,
+          "wobble": 1
+        },
+        "tick": 1200,
+        "lastSequence": 5,
+        "sceneTick": 0,
+        "cycle": 1,
+        "beat": {
+          "scene": "current",
+          "kind": "rising",
+          "progress": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "name": "Pip",
+            "role": "explorer",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 23,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.5392652839375418,
+              "reactions": 0
+            },
+            "x": -0.4992364432578798,
+            "y": 0.08404193439767947,
+            "vx": 0.0005327875113508327,
+            "vy": -0.0007998805264348104,
+            "scale": 0.54,
+            "yaw": 0.007913909331659875,
+            "gaze": {
+              "x": 0.019819695422251014,
+              "y": -0.03490454555048424
+            },
+            "finEffort": 0.26973282428195133,
+            "threat": 0
+          },
+          {
+            "id": 1,
+            "name": "Moss",
+            "role": "sentinel",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 2654435784,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.6764322237311593,
+              "reactions": 1
+            },
+            "x": -0.005592591988924984,
+            "y": 0.07237333231582835,
+            "vx": 0.0004761591148442492,
+            "vy": -0.0014344228339270623,
+            "scale": 0.54,
+            "yaw": 0.038133453660235045,
+            "gaze": {
+              "x": 0.01899003375004634,
+              "y": -0.05928195479512955
+            },
+            "finEffort": 0.3247638887461001,
+            "threat": 0
+          },
+          {
+            "id": 2,
+            "name": "Miso",
+            "role": "drifter",
+            "motive": "exploring",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 1013904249,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.813599163524777,
+              "reactions": 0
+            },
+            "x": 0.49976923076923063,
+            "y": 0.060899032183785805,
+            "vx": 8.977806697084388e-8,
+            "vy": -0.0008638690039416483,
+            "scale": 0.54,
+            "yaw": 0.00972470720707009,
+            "gaze": {
+              "x": 0.000015089915755254832,
+              "y": -0.038718552024951655
+            },
+            "finEffort": 0.2600119008606766,
+            "threat": 0
+          }
+        ],
+        "selected": 1,
+        "pointer": null,
+        "invitation": null,
+        "approach": null,
+        "quietUntil": 1081,
+        "shadowCycle": -1,
+        "flow": 0.0525
+      },
+      "finalStateSha256": "7f3d763897c410c7489fc6ab3f250894ffeff995e24c07f4ab6bd89a41e16699"
+    },
+    {
+      "scene": "shadow",
+      "config": {
+        "scene": "shadow",
+        "count": 3,
+        "tempo": 1,
+        "current": 0.35,
+        "curiosity": 0.75,
+        "spacing": 1,
+        "size": 1,
+        "labels": true,
+        "roles": [
+          "explorer",
+          "sentinel",
+          "drifter"
+        ]
+      },
+      "seed": 23,
+      "tickRate": 60,
+      "events": [
+        {
+          "type": "select",
+          "id": 1,
+          "tick": 121,
+          "seq": 0
+        },
+        {
+          "type": "invite",
+          "x": 0.35,
+          "y": -0.2,
+          "tick": 122,
+          "seq": 1
+        },
+        {
+          "type": "approach",
+          "tick": 361,
+          "seq": 2
+        },
+        {
+          "type": "retreat",
+          "tick": 461,
+          "seq": 3
+        },
+        {
+          "type": "pointer",
+          "x": 0.02806831170132852,
+          "y": 0.17990864888221048,
+          "aspect": 1.3333333333333333,
+          "tick": 721,
+          "seq": 4
+        },
+        {
+          "type": "retreat",
+          "tick": 841,
+          "seq": 5
+        }
+      ],
+      "finalState": {
+        "version": "pufferfish-director-v1",
+        "config": {
+          "scene": "shadow",
+          "count": 3,
+          "tempo": 1,
+          "current": 0.35,
+          "curiosity": 0.75,
+          "spacing": 1,
+          "size": 1,
+          "labels": true,
+          "roles": [
+            "explorer",
+            "sentinel",
+            "drifter"
+          ]
+        },
+        "speciesConfig": {
+          "seed": 23,
+          "approachRadius": 0.3,
+          "retreatRadius": 0.42,
+          "dwellTicks": 30,
+          "bellyTicks": 42,
+          "spineTicks": 36,
+          "holdTicks": 180,
+          "recoveryTicks": 150,
+          "cooldownTicks": 180,
+          "inflationScale": 1.65,
+          "wobble": 1
+        },
+        "tick": 1200,
+        "lastSequence": 5,
+        "sceneTick": 0,
+        "cycle": 1,
+        "beat": {
+          "scene": "shadow",
+          "kind": "watch",
+          "progress": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "name": "Pip",
+            "role": "explorer",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 23,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.5392652839375418,
+              "reactions": 0
+            },
+            "x": -0.4991944432578798,
+            "y": 0.04266662213182698,
+            "vx": 0.0005747875113508326,
+            "vy": -0.0012863335521795232,
+            "scale": 0.54,
+            "yaw": 0.009873867266011796,
+            "gaze": {
+              "x": 0.02138209542225101,
+              "y": -0.05435455991022647
+            },
+            "finEffort": 0.3223912591564031,
+            "threat": 0
+          },
+          {
+            "id": 1,
+            "name": "Moss",
+            "role": "sentinel",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 2654435784,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.6764322237311593,
+              "reactions": 2
+            },
+            "x": -0.0003425919901071527,
+            "y": 0.01041340475268161,
+            "vx": 0.00047615911492576105,
+            "vy": -0.0009253272374014631,
+            "scale": 0.54,
+            "yaw": 0.03988338201389223,
+            "gaze": {
+              "x": 0.01899003375289782,
+              "y": -0.03733166879996391
+            },
+            "finEffort": 0.2855652679333459,
+            "threat": 0
+          },
+          {
+            "id": 2,
+            "name": "Miso",
+            "role": "drifter",
+            "motive": "watching",
+            "state": {
+              "version": "pufferfish-v1",
+              "config": {
+                "seed": 1013904249,
+                "approachRadius": 0.3,
+                "retreatRadius": 0.42,
+                "dwellTicks": 30,
+                "bellyTicks": 42,
+                "spineTicks": 36,
+                "holdTicks": 180,
+                "recoveryTicks": 150,
+                "cooldownTicks": 180,
+                "inflationScale": 1.65,
+                "wobble": 1
+              },
+              "tick": 1200,
+              "lastSequence": 1199,
+              "phase": {
+                "kind": "idle"
+              },
+              "pointer": {
+                "active": false,
+                "x": 0,
+                "y": 0,
+                "aspect": 1
+              },
+              "inflation": 0,
+              "variation": 1.813599163524777,
+              "reactions": 0
+            },
+            "x": 0.49976923076923063,
+            "y": 0.008029678178414629,
+            "vx": 4.845348235172857e-7,
+            "vy": -0.0011151874978897998,
+            "scale": 0.54,
+            "yaw": 0.015161589869282757,
+            "gaze": {
+              "x": 0.00006134693467878053,
+              "y": -0.04860681605505962
+            },
+            "finEffort": 0.29301876031519125,
+            "threat": 0
+          }
+        ],
+        "selected": 1,
+        "pointer": null,
+        "invitation": null,
+        "approach": null,
+        "quietUntil": 1081,
+        "shadowCycle": 0,
+        "flow": 0.06999999999999999
+      },
+      "finalStateSha256": "7925286fe4262526fc3ac9e1eb8d18b6d0b938aab6ee27e7e24ea296bc436ec3"
+    }
+  ],
+  "animations": [
+    {
+      "scene": "current",
+      "file": "current-native.gif",
+      "durationMs": 20000,
+      "sampledFrames": 100,
+      "intervalTicks": 12,
+      "frames": [
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0000.png",
+          "tick": 0,
+          "durationMs": 200,
+          "stateSha256": "1ce565c941dd8ab8d0c262394cbecfe489697947ee5446c33ad2859e286ba176",
+          "cellsSha256": "cc60ca62f72ea8c795dd85c10b0566d8bf4d45c88b564d2f26501e8039adde97",
+          "samples": 14793,
+          "pngSha256": "0eac06edf918778897f60f7e8ed38425459465f1c5045210f604981cfda98632"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0012.png",
+          "tick": 12,
+          "durationMs": 200,
+          "stateSha256": "8ad140a4ff8fe0fea5fa9893c80890881f4fc84852a17ff33b9127993295390a",
+          "cellsSha256": "33571b1fa911896bc4bb7ef8261956b3dfad024beb6cc1a1a30cf58841070422",
+          "samples": 14793,
+          "pngSha256": "e50ea083f2b177f5a3142fc992b17f762e3cb5feec4543d16b7ae125b16ba290"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0024.png",
+          "tick": 24,
+          "durationMs": 200,
+          "stateSha256": "ad29aff746675c10114eedc6cbd1fc9b5b126fc4ec4639bbe859f87c3ef3678d",
+          "cellsSha256": "5cfb2e346b5a347654df8b7592bcd030c6f469c68785b91465114cde63d0b3e9",
+          "samples": 14793,
+          "pngSha256": "8d6d2382bcc7f8b89b5d32bd5054ce897be7938b17e520ce91dd7b22790695e7"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0036.png",
+          "tick": 36,
+          "durationMs": 200,
+          "stateSha256": "4db4f1c6ca63db665103f16f76c5827ffc03262304cfc1a02375030def1ac6dc",
+          "cellsSha256": "834519e79861e29816e344bcf4f6151543da3a18b97ce4018f967dcf1af0f857",
+          "samples": 14793,
+          "pngSha256": "fdba3c5c2d15cf03e4b67764809f9a24047ca345dbccda662b8f516a04dd04ac"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0048.png",
+          "tick": 48,
+          "durationMs": 200,
+          "stateSha256": "5d4fe3722cc886eb15a21895b3cad8f9a3aaf1d01efbab84dea73898b20080c6",
+          "cellsSha256": "a97b0055d1d7ec0c2801fdfaaefb897bcdd98d034c00ebb5aeb92ec9c96b526f",
+          "samples": 14793,
+          "pngSha256": "c8c35dc9de94778df17c1a40e0b9b884a2641e8dcfdd6ef12cf002225aa621cf"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0060.png",
+          "tick": 60,
+          "durationMs": 200,
+          "stateSha256": "9c951fc77cf20862737bbd94095e12e996a3eacb49bf3d81c0842a0eb949ca18",
+          "cellsSha256": "70ced977faa095c0fd6789cc55ac5466f7f58ad9602950418534f9860e2f0bf9",
+          "samples": 14793,
+          "pngSha256": "fdc142710a2634c521bdc5047208dbf5d3d6ac0e8757ab9f4823542fc02bfb13"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0072.png",
+          "tick": 72,
+          "durationMs": 200,
+          "stateSha256": "e0ebde0ee36b957d11049f12cac6a3d3de1e31cb8c7fd5ca7b9fa640cc315d17",
+          "cellsSha256": "fdde1b6eb10126583e1096b6e81fb25f719f71da37e2dfd18de27171060e269a",
+          "samples": 14793,
+          "pngSha256": "a13b6ae8c05c5cafe20b3fe4fb7de8c8f254c90927a444a64e1d5a7063941937"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0084.png",
+          "tick": 84,
+          "durationMs": 200,
+          "stateSha256": "e8eaf7c09c1c7fcc2f09243cf783c5100f685c3747218ccdb56a3deac506c2c7",
+          "cellsSha256": "7c22bc516aad587fcc0c162648685992e40847bd31ee5961b3348cd718d3886f",
+          "samples": 14793,
+          "pngSha256": "e6c28062f89e94d5494be6b9050357381fc1c9f3ffd455fe2c6f3e686974affd"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0096.png",
+          "tick": 96,
+          "durationMs": 200,
+          "stateSha256": "bfb1b934c1b3e6762d7e09adbfb93ec07c8ca24deb4d02adb9026feab45d6e21",
+          "cellsSha256": "29a77c025904b881ac5e5fee23fd1849164408df351fc3edf866525e398d4d21",
+          "samples": 14793,
+          "pngSha256": "3cfb64db2bec61ffd6a826d993d9b1472f8da41da2c82948346bbe4a9411ce46"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0108.png",
+          "tick": 108,
+          "durationMs": 200,
+          "stateSha256": "9c36133b3ef3b7c38ef08ca6d8960861d30b21bf12d49fba8856c7e8eb9b73c5",
+          "cellsSha256": "29bc375ecd6b68dcf780398fd22788dcdb50252379b82464800479f31529150e",
+          "samples": 14793,
+          "pngSha256": "81406c3ff429396d3d39723c9e7855fc9b4501f62fdf3c821603827ed32c8d95"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0120.png",
+          "tick": 120,
+          "durationMs": 200,
+          "stateSha256": "525507996b6db3a81041ca3970373572e4117d2e1672ba1f83088c48102caaca",
+          "cellsSha256": "6a31f265a4ca72651e7fd3034a932a8d6024ae635dd9faf5b5128b9796893c45",
+          "samples": 14793,
+          "pngSha256": "f320dd94404bffd3effbf8dc59d299b51703239cd2d3b6d7904f946eb8957a46"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0132.png",
+          "tick": 132,
+          "durationMs": 200,
+          "stateSha256": "cd5fdaf1bf297f1de247d8b336341b8b37ba207a4e392f3338c168a94b775996",
+          "cellsSha256": "1fcf665c9a64ca76fd90340cc858ad4f2844cdffd439b500df339d6496b7998b",
+          "samples": 14793,
+          "pngSha256": "3e8adcbba91d057c656dc78e9949d49145773ad4ee849df5ca02a89df5b3e325"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0144.png",
+          "tick": 144,
+          "durationMs": 200,
+          "stateSha256": "ec4ca8189728139505f518840ab8b8fa5cf33556fe2a105d42080d7e8aa86c2c",
+          "cellsSha256": "64820cc2977718cfd07752e364163f24978a79027d4dd20386779d0d07781da5",
+          "samples": 14793,
+          "pngSha256": "ac60cd191f4be5af377ac4a64d513225ef6e414333ed6b3c80cb1fb5e36c37ef"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0156.png",
+          "tick": 156,
+          "durationMs": 200,
+          "stateSha256": "141c2136e18f18028179c71273be027d93b996451d80683dee98a5124566afd7",
+          "cellsSha256": "80c65a28c26ddebb0df82ecf62b990737a01dac966bc26ceef1ed4407c0ac020",
+          "samples": 14793,
+          "pngSha256": "eaf1b411b36a367a8662fc5d7f945460471b5c1ec3b4c7a0c2d26fa717ee92cb"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0168.png",
+          "tick": 168,
+          "durationMs": 200,
+          "stateSha256": "e3c0d7be6b5ed14b0894a386fdf7aed215a10701c4406d11ed401ff486e7bb5c",
+          "cellsSha256": "1d091d7c781f9eac6a7f3af8c61ba74e30c5a4f386eeb5ad9d9b08a7801ce16b",
+          "samples": 14793,
+          "pngSha256": "f462ca2f705fe41ff5f854ccde078f2d5239195e820f8f0247755251abef99c4"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0180.png",
+          "tick": 180,
+          "durationMs": 200,
+          "stateSha256": "f064b4e5c70a999acc5ca2324f96bdd9d305f1da492caa9e4cf548f029c09b2f",
+          "cellsSha256": "f1ed70df6e94a9bc9f524d3ecd53e94e8230ae7084a07f5000c3d06a227c9e6d",
+          "samples": 14793,
+          "pngSha256": "2cffd9392bb2a56ecf41c757cd50e39c3233aeaf0e4664a74eb6bc5ad04e7c0e"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0192.png",
+          "tick": 192,
+          "durationMs": 200,
+          "stateSha256": "d6c427095feaf2c0883c17e9c68f5e54606ddbc2194832f1352f37261eb64901",
+          "cellsSha256": "47fa76a6b4f18900b2994bbe6ac0cfd36028fd2b10854a303c07ff1590513f53",
+          "samples": 14793,
+          "pngSha256": "295f6b73f778e5fd23b50fbab37f99671b4299bbf3a30d6de9acd7c6be37c00b"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0204.png",
+          "tick": 204,
+          "durationMs": 200,
+          "stateSha256": "b4635600984a60bff6b7891f6d668777a94b9c2be8c66adb3b9cf30d8c92f7cc",
+          "cellsSha256": "79bccbc6079345e60c94bac7b1621ca6ec5191d62f4ef99f28f598ad00c9e69d",
+          "samples": 14793,
+          "pngSha256": "1a5dde5eaa8bdb91ba6a1591d7e4a0131f6f5efc7227814e73061f12f7cb2f81"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0216.png",
+          "tick": 216,
+          "durationMs": 200,
+          "stateSha256": "f9053b09311020e32e21e9b00ab52a6b986cdddf985d6f0a679de2828f63f676",
+          "cellsSha256": "df7842b7ae99700c46a3614312e5728f9814adb9c5a3bca76307e1daea547926",
+          "samples": 14793,
+          "pngSha256": "b486df1601818a9a0a7983d5be4b9f8f23ebf6cef92b002fe022a7e949c6419d"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0228.png",
+          "tick": 228,
+          "durationMs": 200,
+          "stateSha256": "a56d063179499a6fe777bf982cad9cb7eba65eafd13a59da062b07a56e8436ee",
+          "cellsSha256": "c5d6e7e03257e82ebbedd723415d503b622fae08a5769592983db24a3361ae84",
+          "samples": 14793,
+          "pngSha256": "a4ae4b7254afe7c505df9f3ed622b958f33b86a5f060b965bfaf5d86db222e9f"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0240.png",
+          "tick": 240,
+          "durationMs": 200,
+          "stateSha256": "82bb1c5386c371e36a05e898f6334c262fe6806a416b924eddf5e2b1126f793c",
+          "cellsSha256": "65ba406f53441766527e5359e8b09494ba4cf473664ba2fb036861c578899304",
+          "samples": 14793,
+          "pngSha256": "599a4da6c7b9dde43d3f44e69a8a54d8cd0fe84deb9d27f137bcdeca9f4e15f2"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0252.png",
+          "tick": 252,
+          "durationMs": 200,
+          "stateSha256": "d88eb48bf3e274e54836a80660dda548c1e20adf96ef98c31ce2e93d836ff275",
+          "cellsSha256": "3cec0f4e68b4acbd151619ddabaf15d88499e454db004087b332991e9967fc15",
+          "samples": 14793,
+          "pngSha256": "b046a1e1ad03215fccd38d98f1461eaf50c24c52f84799352d4f65e1cde86ac3"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0264.png",
+          "tick": 264,
+          "durationMs": 200,
+          "stateSha256": "3d333d6c50ee007aa6dcba5008fa96c16b902c9a260d31b63cc42330f5302177",
+          "cellsSha256": "6065c0b96caaaec1dfd2c879599a04e08e00e217922c419208e78ed5b7b646ca",
+          "samples": 14793,
+          "pngSha256": "9dd472b907e21213f9c34dee63b24ce3e868209abf7df55165208b8d2dd921f3"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0276.png",
+          "tick": 276,
+          "durationMs": 200,
+          "stateSha256": "96e304d2130d50a655956ea1f783d72a4b2c97760e87a10a342aa0a182ba77c4",
+          "cellsSha256": "dae9e80ff71fc4d03fbf3774a242859dafd90236a0bf814fe38ed6f4c8e9a6e2",
+          "samples": 14793,
+          "pngSha256": "c54eae330bf7b6ba0be18fc647edd849595c337fa856e94aa4b21e828d131bcb"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0288.png",
+          "tick": 288,
+          "durationMs": 200,
+          "stateSha256": "d60362e13d31073750b7e3c97a8a51add580eb4de4edb56ad748a4ec9cc3b371",
+          "cellsSha256": "1a0ad66a4446d11a3d2ab30388f983402be6218e805a25822011884b7bdfa50a",
+          "samples": 14793,
+          "pngSha256": "73594d3d01f767ebd885b012f83438e569bf9a72862a09863d9e3c9fb424682e"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0300.png",
+          "tick": 300,
+          "durationMs": 200,
+          "stateSha256": "a25cd3f407fad55b5342d5dc6c31651fe9edaa9f8e4264b856838754faefc94c",
+          "cellsSha256": "63cd51d0076da48d2e71a3793a8d16c4a32624e2349c7ca3e34b5bb2404ae716",
+          "samples": 14793,
+          "pngSha256": "a51a1dde570ec62822b59598d14f30bffe765713678b31aecb26662350745bf9"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0312.png",
+          "tick": 312,
+          "durationMs": 200,
+          "stateSha256": "7da7546b03759b9b7e9b4117876914c1933bfac5b438d9bf7e4de91160a77edc",
+          "cellsSha256": "fc69b1848c3592d2f0d521c15288f0fdec8871884bf77fc5828f66e28a773acc",
+          "samples": 14793,
+          "pngSha256": "f6a3af7213154cb4346373843da3bcb780fe0c07c259d275d8a0860f5bd8f531"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0324.png",
+          "tick": 324,
+          "durationMs": 200,
+          "stateSha256": "231e9797aed4a8b8754aaafbf07c2b733ed37bfd4a5412f3a757e470036294b0",
+          "cellsSha256": "6a05dabadb132cca7246265551acda6d51b2e5c4f4658c79ded260b8e977c61e",
+          "samples": 14793,
+          "pngSha256": "7a250a1914c582370af0ed9a9aedf8a41095c043a9d35c044a8413b680210bde"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0336.png",
+          "tick": 336,
+          "durationMs": 200,
+          "stateSha256": "d9689e9bb38fa4b190d78f1af98b5ba4cb1972ca473da0d0b17e3488ad596829",
+          "cellsSha256": "488b8627f9761f41e49d4e65311b67abef3d009676483deaf04efc11fd6a8d96",
+          "samples": 14793,
+          "pngSha256": "c91bca69cca5dd4d72c04bfb705ae3fe259ff5de310ed66fc3aa27f3bb1005a4"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0348.png",
+          "tick": 348,
+          "durationMs": 200,
+          "stateSha256": "a5d6694f2aca0ae5b9fcd85b4b374d35e064ef49e611cf26c9a4bab77e5a153e",
+          "cellsSha256": "dc6689b4f0e48a0e878ce9b6a1c207ecf2cfad058841515de9ab85b740d0644f",
+          "samples": 14793,
+          "pngSha256": "15691fc9ee56fef00f43cfb84e2dabea9633ea94553f97c2de8d8aeb057944be"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0360.png",
+          "tick": 360,
+          "durationMs": 200,
+          "stateSha256": "b81cf38ccb72a1bf1d2c7b7f238c6ff8948d58e9f66b01c537d709b4f46cfedb",
+          "cellsSha256": "da061970353c99874dd7f64e31a7569482e96de75ba5d6f0f14c69cd7002aeb9",
+          "samples": 14793,
+          "pngSha256": "2ba361daa7b2b3cf4ee5c0a282d258586fec5d247e31810127ebfb1e59609543"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0372.png",
+          "tick": 372,
+          "durationMs": 200,
+          "stateSha256": "93dd6e3d189316bb7f15582c9a2307ecea21c1ba55762e770298e0192857cb5e",
+          "cellsSha256": "59a3bea2527364c5c16be10fc912ff4c1431a62dea95e4988e41e83f86ad5765",
+          "samples": 14793,
+          "pngSha256": "9196ac6be67d76c7648beb400bc54788ad7ba43ccbbea013d168ac5490579881"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0384.png",
+          "tick": 384,
+          "durationMs": 200,
+          "stateSha256": "dbf890a0690a3ec858fa4b444fe56e7c07b33adbba52c2d384f59d51888f2050",
+          "cellsSha256": "a060adf55e6fb2e45c5c81a11519abf86464f5df039fbda47a76917414bc01d5",
+          "samples": 14793,
+          "pngSha256": "1e530774597230d66af412f6ca313b77f9e5cf19846116998da0abeb9bdb376f"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0396.png",
+          "tick": 396,
+          "durationMs": 200,
+          "stateSha256": "3ce8d2df2e310caf059f8e33cf7b2c1fa0a822c8883acd3f00f4a50a5bcf6ae1",
+          "cellsSha256": "ef2d7ef1ad15e534820410e8d879b27fce2e655c380a6976b292e324fe40356c",
+          "samples": 14793,
+          "pngSha256": "c8162afb459065751a623750889d0daf1d1629700bc75658622c8331859dc22f"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0408.png",
+          "tick": 408,
+          "durationMs": 200,
+          "stateSha256": "51e5f17bb6aebb169f2b6f06d2997e33d118b03a8269f527afa291b039023a31",
+          "cellsSha256": "3ff39555aaa068df4489680ae100d3dcf8a96075997a787b47818f36c36d32ef",
+          "samples": 14793,
+          "pngSha256": "1f294ab1a42705e34e5aa2a4edd45f281576091dc8bcfe1c7035f8ce3b830a44"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0420.png",
+          "tick": 420,
+          "durationMs": 200,
+          "stateSha256": "b0e0193da21cab571426db9c8f5b024e05f39eb90e9c5f39c31f6d092a5821da",
+          "cellsSha256": "59af0e66c726feb52696f53258d20ec8049c1c505910cf19f77a6500a41012a3",
+          "samples": 14793,
+          "pngSha256": "3860f261ae71eeab721b7c391806dd901bdc43b3353334c38bece89e1114279e"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0432.png",
+          "tick": 432,
+          "durationMs": 200,
+          "stateSha256": "9b03291d9696e83a88eae0a3bf4e71c84c26a8ddd2b7af2ba534986beaabd3ba",
+          "cellsSha256": "4157e003d0022e0758ccee306387bad1efde5dee634b3c8af033524dd3ad1b05",
+          "samples": 14793,
+          "pngSha256": "2e182b5b286e3570e5cc62527168dd86b5691a221b5e5bf0d1c353925de49b56"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0444.png",
+          "tick": 444,
+          "durationMs": 200,
+          "stateSha256": "453d690d64bc6fe4218244abaa801731853c5b33b979f1c2a2309132e4c654f5",
+          "cellsSha256": "76185ab7cf5dfd49edff73c1248ea8e17015368b4c437839abcebda4618494b0",
+          "samples": 14793,
+          "pngSha256": "0e16ecee442346ba4d3f905dfcb9670f64e7c6564561cb235dbbbc2caa1528b1"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0456.png",
+          "tick": 456,
+          "durationMs": 200,
+          "stateSha256": "ae8696a3c604cb7615aa0a165aed3b728dd04bb1ab9172f35de7e44dfb71f2a6",
+          "cellsSha256": "208f95e06b96a378f2234710270eb8b6d1b23e4606ac6c9d79bcefd584d4d3e8",
+          "samples": 14793,
+          "pngSha256": "f0d997d631eb5aea42ebef2d835f7e467d50505e0e91645383b623d3223011ff"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0468.png",
+          "tick": 468,
+          "durationMs": 200,
+          "stateSha256": "32545f40552bf6937d16846929c03a95eadeaf927818161a0f4a117457bb9a6c",
+          "cellsSha256": "735e7c37eea0e17a0299000371bec207508ffddb150650d9b587d17923fccb18",
+          "samples": 14793,
+          "pngSha256": "6115e382f804a6db2f0cb9c6396e64bc1e468e3b85dcd54f426f0ecdbd6bc5fe"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0480.png",
+          "tick": 480,
+          "durationMs": 200,
+          "stateSha256": "f784344e30854435c73e832364a19dfbe50cd14b59fd52d1b1635a55c436be5c",
+          "cellsSha256": "28bcf32cf76990f66c149e932094322b1282488d61b3cd25895a637ad7859f35",
+          "samples": 14793,
+          "pngSha256": "5723f56ddc3a9ce14304dfe3d4be83b40a21b4b8e529fdb2601ef2ccdc29a4c2"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0492.png",
+          "tick": 492,
+          "durationMs": 200,
+          "stateSha256": "afb886751f02519938e1a31069356cb94db5ba6c8a993535d88147e38348fb7c",
+          "cellsSha256": "1245daf170d14066589f78ffbbc4ac4f8000b85291c5299384f88d3c6810dd02",
+          "samples": 14793,
+          "pngSha256": "fec90b0012cda7bf2bc470cebdd232ec96c46ea249dcdc0b59b801e5a0f6ae35"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0504.png",
+          "tick": 504,
+          "durationMs": 200,
+          "stateSha256": "ce35d978e5b9e58476fc10285992fc9ef1e89742ac2da1b66c22c70cc6d2f24c",
+          "cellsSha256": "29bb4619862e40c7100ac7f38daff96b0922f3971330340b8cb64ffe3bba7eee",
+          "samples": 14793,
+          "pngSha256": "4dcfc07228320a4b75f9a4d27e3e4dad411f4c82cb78604a2ee56a5d7c87d28c"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0516.png",
+          "tick": 516,
+          "durationMs": 200,
+          "stateSha256": "52e892ba41d60e6979643e1f9e30967075633aafe1933a6b59495818ef1550e7",
+          "cellsSha256": "a1aeefa834c297cf0a194e081bc30f54e1fc3d151408b913c020ce249710e8c4",
+          "samples": 14793,
+          "pngSha256": "0f016d6a344272a1074964826744185643c2e378cd34781ab41b22d659391f9f"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0528.png",
+          "tick": 528,
+          "durationMs": 200,
+          "stateSha256": "cfa20afaa52c07dd92372c1ee2a6c89249fa5868826c9b087fa88ebc4189a6a2",
+          "cellsSha256": "adfb902ec3fdbe0d6c6dd5f487f2cc86ee2abb6afb0fb10511869bae8f25746f",
+          "samples": 14793,
+          "pngSha256": "8141743e231261de8d76ba8af91147a451b3a3aedb4c75582711d11a23796f79"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0540.png",
+          "tick": 540,
+          "durationMs": 200,
+          "stateSha256": "6377ae2235863c5ab0a4b5c08e6f2dfdaffa795dd3de3b4f556e8a63cfde49eb",
+          "cellsSha256": "200d98718d48e8ac007741a50039662234efe11ed42a904f844ace8f505010b5",
+          "samples": 14793,
+          "pngSha256": "6d44912c0f1540598d8f6ad95f2c41396a74f0641bf513f94f94e2c66da17583"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0552.png",
+          "tick": 552,
+          "durationMs": 200,
+          "stateSha256": "82561e3d134611aa8532fc9cdce497d764d907b03aad8e0b5e7e654a83a591d9",
+          "cellsSha256": "0585ea8c19ea75e39523bd218aa9b9ee1ea4c76e913d2e01236721301c53d870",
+          "samples": 14793,
+          "pngSha256": "e5c899823d7c102939897957843f142efcf56fa38d36590b17948498163a1afa"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0564.png",
+          "tick": 564,
+          "durationMs": 200,
+          "stateSha256": "fe852011249108afe179c2f7dd35a26e3cdcc25c71411308083182f0f45bdc15",
+          "cellsSha256": "6963da543f105464de0e8ace82ee32c65a6688038af8162e5aed326ae4e3bbb8",
+          "samples": 14793,
+          "pngSha256": "4e87ad74d9a06aa069387d6484374cb7637b8f7e5130782b807aaf95f7033446"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0576.png",
+          "tick": 576,
+          "durationMs": 200,
+          "stateSha256": "23f9d0459bff3ed4ffdbdb52f910aec266e49920c40107d3ae8b5076d1c019af",
+          "cellsSha256": "0d905237315cfa46845578ab63a2b939274d3c4e16b0ab8218cb6190fdc1985a",
+          "samples": 14793,
+          "pngSha256": "75b8d51facc9ce0e429eccd681a43096380acf87b0b48a21ebcc8fb271037dc4"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0588.png",
+          "tick": 588,
+          "durationMs": 200,
+          "stateSha256": "ef50a4f2a36589782e974eb729d216bbe1a9d1402f5c1b2211593b6aae016367",
+          "cellsSha256": "35e77dc1ae1ee582789ca844a3d18be76af112f89829ceced7390b6337dce070",
+          "samples": 14793,
+          "pngSha256": "bdf971416f24c261d67b80cf2de98c74cb610f252b3fed9cb176525332298cc7"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0600.png",
+          "tick": 600,
+          "durationMs": 200,
+          "stateSha256": "a6dad51e02db61a416e689cd5384f935b6382d3fb80e6dfff2ea7c96f31ec500",
+          "cellsSha256": "edca9e3c8e178bfefea0a6a800221dbb7144680b35ec42f98b90c278a645e335",
+          "samples": 14793,
+          "pngSha256": "62954b7192077e8caf2102a3ab4331de83cbb376b2ce0633d9545fef6245d073"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0612.png",
+          "tick": 612,
+          "durationMs": 200,
+          "stateSha256": "1276e2386fdc73aa3b432b8effc6f27f90cd84588b071fdf46b6ae250b4b2c76",
+          "cellsSha256": "d6ebe78756e756daaa43af04acaae207d0b836ced76be6cfbb4cf842fb163920",
+          "samples": 14793,
+          "pngSha256": "31c37eb57afb963bf6528d2bb85dd27c1bdf129b2625b99f3bd7a45283961d73"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0624.png",
+          "tick": 624,
+          "durationMs": 200,
+          "stateSha256": "e15d11f3c419abee14038aa77d14b3e1b201985f70dabcbd1b92473bb939c42e",
+          "cellsSha256": "9570261d1858a30bddba57b2a35a914418fd792246617d84d498d57e3b32bf04",
+          "samples": 14793,
+          "pngSha256": "c157626048f495061dffa2d97c5a9071f72d769059fdfb14275292dea52823ef"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0636.png",
+          "tick": 636,
+          "durationMs": 200,
+          "stateSha256": "90411b1bd50ca5cf9cc748320679a5c72fcb893fc9999eb32d69578a31c22240",
+          "cellsSha256": "a94d511c11d7c57d2d1e5eb1c3927f286debbabec8b724f352ad97e261ea26bf",
+          "samples": 14793,
+          "pngSha256": "b5bc6c650882861e56dd6c2c53a49d2438de72ecad94e5780b0b2af0ab60bc70"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0648.png",
+          "tick": 648,
+          "durationMs": 200,
+          "stateSha256": "b13c3d599dd963ab401556ada8cd65e6ad221ecdc6e092cb0da25983b9a7f63d",
+          "cellsSha256": "119391a32153233aaca401b45fd06840d2a5655577eeccb634b031fad77e97d6",
+          "samples": 14793,
+          "pngSha256": "b1cad8c19e37823735820a3491ac13285a658b13bea83d7da04e8ab83881c2c7"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0660.png",
+          "tick": 660,
+          "durationMs": 200,
+          "stateSha256": "2c38a1d3b95869099012e445ccafd4fb4f36e3f6536fa5329ba5c03d882f1fd3",
+          "cellsSha256": "a43d8909315bf65a085b4d0b4170fb40b70a1473b5d7b88ee788b9dc0f5ff781",
+          "samples": 14793,
+          "pngSha256": "512e4cb3184f6a07cc0162964fce6966670d46db0bc70a03ab612fca28caeb75"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0672.png",
+          "tick": 672,
+          "durationMs": 200,
+          "stateSha256": "88d94abecb246d6f7f9314d39f3c4cf0187659c8b21909077eef4858ca2527d0",
+          "cellsSha256": "3a5cfbec5bc215355684a85be6c0cbe8b736427ff6cb020cdad7392ae5884a0e",
+          "samples": 14793,
+          "pngSha256": "da402b173ca035a54fc02a471e930082426528b4e83bd98d8f56557a3d3209cf"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0684.png",
+          "tick": 684,
+          "durationMs": 200,
+          "stateSha256": "e97fe8e1a9e0ffae2b2de26b4188de446bfc927a645c9e973e4ae2e4bd6d6bff",
+          "cellsSha256": "61ea5b602235a37c31d43c9175299182940f80da6bf8a454f2e14864acada344",
+          "samples": 14793,
+          "pngSha256": "d202964bc7976b5382686c8e636bd0773725435afa61e7a1d12ad9c982482f9c"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0696.png",
+          "tick": 696,
+          "durationMs": 200,
+          "stateSha256": "7b60bf989faacff6c8219ac355ac809199753579ff8d6bcfc267c15cc7a050d8",
+          "cellsSha256": "e0c3b9a934886e43b4bc53c944f59824446aad8d17b50a26526b54682d640c60",
+          "samples": 14793,
+          "pngSha256": "8c9b5b1ac3fd47b757b6a9c0b2cf079c7f991095b577d554cc97d23a50346042"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0708.png",
+          "tick": 708,
+          "durationMs": 200,
+          "stateSha256": "37219bd772a76810777e28b15a6f41785eabb6af52923a3fdff3ab71e9b1f6dd",
+          "cellsSha256": "0ba8b586d96b661107899413ace190f927ebb8a72e980d3349d4994f069a8d10",
+          "samples": 14793,
+          "pngSha256": "d1e0a31537bd9a9afec27364107801dd08e0a1fdfc4e0a5624a47badb291ca05"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0720.png",
+          "tick": 720,
+          "durationMs": 200,
+          "stateSha256": "4f8ef990fc1b1e16e6eb20ee020f8d3e672b231f5a6f160cf346e5fc0f2d210b",
+          "cellsSha256": "7e4e90e0c68f4c6e5e8e8e06365e727d35860d7c509e87bbb7184937233d981b",
+          "samples": 14793,
+          "pngSha256": "59051ecf5a84dffdcd4e7b7587d08fcc250978074b6cf9fd18d676216ebe56c5"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0732.png",
+          "tick": 732,
+          "durationMs": 200,
+          "stateSha256": "0ff199fb6a1a5b1c1cbf36eab2c8967519812dd003c71acde11f7224a80065f3",
+          "cellsSha256": "cd4aa036444d3248cc1ad43e553bd02b4b09c6e8bfd38f6186ecb94d05e05ced",
+          "samples": 14793,
+          "pngSha256": "4fb6220aab6c5936a0dcdf0b6aea5f2b9dacfda29746b47fd8cb5c328ef2e899"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0744.png",
+          "tick": 744,
+          "durationMs": 200,
+          "stateSha256": "7fb7bb7c743b4c16059df84878ea7e5beff6f61b5ecc7bf3c3b04b29d900b33d",
+          "cellsSha256": "9d53ca2ff462a9099a97447f54a69a3ecbaaefbb3801cf3ac0d2aec284009a7d",
+          "samples": 14793,
+          "pngSha256": "a069bb891c17155792b577a079938ea54d54600126aa85ccfe88d1f0cb28286f"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0756.png",
+          "tick": 756,
+          "durationMs": 200,
+          "stateSha256": "141d376ee1a7513be0ac8860e656cde971115459f343f75e0d9969c2b0a34aca",
+          "cellsSha256": "4aab8f5fd32863d99e0ea61cf8ee38b660b89ba222c80d8dcd8cb6b93aa138a9",
+          "samples": 14793,
+          "pngSha256": "12474ae93d078839adfdc9869d669ec320f900c524ddc43870046ee7402275cc"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0768.png",
+          "tick": 768,
+          "durationMs": 200,
+          "stateSha256": "74ec8df6d45852b30686a01c64c60615c6683268874419ffb9644008c435386e",
+          "cellsSha256": "c7641ff27d0e487ce673bd264708819e4ec539ac949ee9de68440b0ac41b68d6",
+          "samples": 14793,
+          "pngSha256": "963f3ab67632d470c71afb0d07b1204945325711762959feb2fbf1fe7f32ea65"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0780.png",
+          "tick": 780,
+          "durationMs": 200,
+          "stateSha256": "77dc0d594ed8fd6d35dd9f3caabfb3ca5e0f08009989d1690b9935a47b7de5fd",
+          "cellsSha256": "25fd93813361fdd995a6bc3a4cec2783d7ac95fb784f85ea4c80aa5077ba76c8",
+          "samples": 14793,
+          "pngSha256": "db7063ab669f8fae77aebfebefe699af389c7a94353acb68e5b80a0704eeff9c"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0792.png",
+          "tick": 792,
+          "durationMs": 200,
+          "stateSha256": "361f528905bd56ae026f44fed48d5aa802abce0325ea486b93ea286d17c0e649",
+          "cellsSha256": "68c232061d1e56a48d5d383fb2ad59ddefa63fef64dfe2c11c4cda5e8db8ed9e",
+          "samples": 14793,
+          "pngSha256": "b5b1beb22db8ccda2480ddfc3a11052c707e87aee087ad9edb3fc36bb0466ca9"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0804.png",
+          "tick": 804,
+          "durationMs": 200,
+          "stateSha256": "34c331da69f96c518ccbc967bc08748d16527d510e74d34b7292f00c12c3d1c4",
+          "cellsSha256": "4d96c3df3e14c70a78f79e0ab5bccbbf2332d2dfdf12755b14c727771b628818",
+          "samples": 14793,
+          "pngSha256": "56dd0c963b3028d217ad2c48511ecf58adb5ed3bb5d0b44a3f0285f923fd24ea"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0816.png",
+          "tick": 816,
+          "durationMs": 200,
+          "stateSha256": "ee481b7cfd376a44663b1af2bbe354eb2da88c13932e4eef279840a9486b0197",
+          "cellsSha256": "3748e4e62a027313c7c1abf0cf9c5c29e409ef37127666ce927e30c5d90162dc",
+          "samples": 14793,
+          "pngSha256": "d7fd077f88d42ff8615adda3330d698a558cc02690a14031b40b82deeaf11197"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0828.png",
+          "tick": 828,
+          "durationMs": 200,
+          "stateSha256": "09fdbbf2973897020b4fa836cb4442b7556659ef1ab22fd50da42082561a4ae2",
+          "cellsSha256": "708a9487c97270cdc8c4b901ef3d2f4bcf7cab70dfc04e20426c36112144af4f",
+          "samples": 14793,
+          "pngSha256": "80d9c2c5a4d5c4266625169610c3b0a298ffdd2ee99ad25c762590b72e905461"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0840.png",
+          "tick": 840,
+          "durationMs": 200,
+          "stateSha256": "107ccb1e35393f7b35c69f275ad2c27e0d1324776c610290aaeaf58727cd310c",
+          "cellsSha256": "083bfd5ecda3e2f85661375883fa4b2630b42d901e80166c0cedc403fd368cb5",
+          "samples": 14793,
+          "pngSha256": "e8341cf4ee92dd39623b6a3e0363f49ad4a9d47450e95bf85e49d41f389807b3"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0852.png",
+          "tick": 852,
+          "durationMs": 200,
+          "stateSha256": "9813175c6c4c5e357786ce88e6da0f2ffe45a66c14b74eb67108fb46b7c370db",
+          "cellsSha256": "84d01a41df9e8d38ccb9c01b8d01cc4638cd34bf3fbc8b0f76934e0ca8f74945",
+          "samples": 14793,
+          "pngSha256": "400becf1bc2624eb05fa47f9750cd0da7dd628a70393c9f2083d426976647b02"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0864.png",
+          "tick": 864,
+          "durationMs": 200,
+          "stateSha256": "b6554b1414334fb966c09560bacd99a6f5c53a9cb89d9d60908d433f2ba8ca66",
+          "cellsSha256": "405e3da3983ce48507d982595b0d0fd453903abfdb4e3cd2bd78d8ab8b16be53",
+          "samples": 14793,
+          "pngSha256": "5da7760b8c6c6a280fb565ccaf9b33bac50e682f88751dd80c98d4fe4ba201e5"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0876.png",
+          "tick": 876,
+          "durationMs": 200,
+          "stateSha256": "81ff68e2af6b55c69db49a0a4c2f3e2bbc3a6a78f0e73667e302a4d86372d059",
+          "cellsSha256": "78f893910234fb505a39a0853f0a68abc454c367fb5dae036b5b66540f89a35a",
+          "samples": 14793,
+          "pngSha256": "232efd53d2597127c079a94079db271bc6807f8ce6d88bae0cf079c989d82187"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0888.png",
+          "tick": 888,
+          "durationMs": 200,
+          "stateSha256": "ad13fc7f9fcdedbab171fa5b384603a78f5c85eae3a00d0100f8993a860c7b7c",
+          "cellsSha256": "f0c1895a5507dd8095ec0407adad82b012f127db4504a336419f7ad7d43d9208",
+          "samples": 14793,
+          "pngSha256": "56e342ff00f6e2483b413302421965250d10a7c394060b1b90bf83316531293b"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0900.png",
+          "tick": 900,
+          "durationMs": 200,
+          "stateSha256": "cabb05d11f5bc26a09db4a0f2fa024f66918fb8b3e727f1d47803ba8a570e54d",
+          "cellsSha256": "88d8c2e48fb8a631b325de3277329c3b7ff5dcd16bde740a80c9156d0fb37dcb",
+          "samples": 14793,
+          "pngSha256": "899fb64676bc18ea72a690ba3f2aec368dd51e6f26e87b72990fae71b35eda3b"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0912.png",
+          "tick": 912,
+          "durationMs": 200,
+          "stateSha256": "515a1ea7fd10c18811d4557fc23538da827016cd9c6ce7c60d4e75637c33c357",
+          "cellsSha256": "d2ceb42545572462ac32f0a213379a5939736b5c0577041a7fb77d8f934038f2",
+          "samples": 14793,
+          "pngSha256": "79965d3fc1a6d1554f3df42e52e4e7dbb358cb43d768e037ee6542be258fa3c6"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0924.png",
+          "tick": 924,
+          "durationMs": 200,
+          "stateSha256": "bdde19612b64bd2db0bd970ca1f465b03753466e636bcb07fcc31cf7e91c05cb",
+          "cellsSha256": "274ec58d68782cdb1049300b5411ee85de60235910aa26cc4c4e8097dd6b8c79",
+          "samples": 14793,
+          "pngSha256": "adfb768d451675cb0aa460f36251143cfcc8594ad37ef733a9f8b44d744f76cc"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0936.png",
+          "tick": 936,
+          "durationMs": 200,
+          "stateSha256": "80c7a30385422f8b2062f7b4e2608156b8299fcf7017dba88cc95ae106d21beb",
+          "cellsSha256": "2701f91bb459a61a84f699b679bc803377c5382a7028f7289d1e1f91cdd14fcb",
+          "samples": 14793,
+          "pngSha256": "928982156fbf4f26183d3a3c3c7804cd0f223313a5658832273700bd370534d2"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0948.png",
+          "tick": 948,
+          "durationMs": 200,
+          "stateSha256": "ca762440d1582d2c549cd34e0aebddb9efcc8b124b82b436401119a669b3f4ed",
+          "cellsSha256": "9df61600c08f424f0d74b1fd6d4708e407f512490eeb0dfbaa17bbc2326d30fa",
+          "samples": 14793,
+          "pngSha256": "9a664832d0573f8921c08453172adf2c391f8402000ed1070a412f1522970c50"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0960.png",
+          "tick": 960,
+          "durationMs": 200,
+          "stateSha256": "8aca1ea691461d9535078c206cb806fd83766f351503bbd30a6cfe0746ecd747",
+          "cellsSha256": "0c880f4b82c628258f4c73df0517bad28d71854852c010bedeec2d9119ca3083",
+          "samples": 14793,
+          "pngSha256": "9811b7e8171a9311eb1650ae4ee81015ca0807b5cfba12cf540016ee9a7bf390"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0972.png",
+          "tick": 972,
+          "durationMs": 200,
+          "stateSha256": "03c79c67ea3e720e0c9c437d866f5ebcf10e1c10b006903d6e5a4e5896424726",
+          "cellsSha256": "b82d9c4ad8fb76c0e8cd4f0e0b5000d0cdb98572daa77519066d7fcc3601e42a",
+          "samples": 14793,
+          "pngSha256": "782d5fa3a9ffc73c6f56ff693b8b01fc34485ca8efc4e5b6e00f6856568399c2"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0984.png",
+          "tick": 984,
+          "durationMs": 200,
+          "stateSha256": "14533d828ea3e0cf23ecdf6753dcb987c7ecafaa0d6dcbe1684d1088e45815e1",
+          "cellsSha256": "da2ac087a4b70cada9ee6e5f281a8725fae2e1a5720d8b7c1601a7b112ab7797",
+          "samples": 14793,
+          "pngSha256": "e5426d61e83629aa800771c73cca572a60fe3fa67dba8d7df5fd730ec80f17aa"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-0996.png",
+          "tick": 996,
+          "durationMs": 200,
+          "stateSha256": "1311ec554d029d5db0df64b204f820002d57c735d0f0bd399089e48df9a6a077",
+          "cellsSha256": "e2643ee6d4758964bc9e1ee541df8c5242f420d710d323984cb93890b444eaaa",
+          "samples": 14793,
+          "pngSha256": "84d843eaccec39ded7e4dd3e373891d1b0401cb42a2a2d6bdc74af2eb1df6af9"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1008.png",
+          "tick": 1008,
+          "durationMs": 200,
+          "stateSha256": "248fb56860c66317c09a6805827e980ddd5ef01a7bbb8598b77f4707ccea4fc4",
+          "cellsSha256": "730f80cb1654672708751faaac219bc328f789a981e4e792503e0d0f35268616",
+          "samples": 14793,
+          "pngSha256": "89c4209e05c0091bdb5b0a27a9b0f82df6f56ecd8d0607d953d9c2708048a5bf"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1020.png",
+          "tick": 1020,
+          "durationMs": 200,
+          "stateSha256": "90b33ec253a18e0c06b9de2d84143b2d5ffbe734554671f07978c7bb84295fb2",
+          "cellsSha256": "ec449cd5be264e4c9912a3907e593b4af0f79e6a6cfbb1875d4b96138c6dea9d",
+          "samples": 14793,
+          "pngSha256": "77f3f2650810ef1da6d9df408f9e897ff31fb8b71c9ee95482e42543e5941ea6"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1032.png",
+          "tick": 1032,
+          "durationMs": 200,
+          "stateSha256": "2290e4dc2bdfdb51a025903f9ac9bf381095752f7dfbc07ca694dc1e218be647",
+          "cellsSha256": "2f2cffc6388d31208d8161bd97000a609672ace7e255c70f8f4e0ab65d3448ee",
+          "samples": 14793,
+          "pngSha256": "b53f248d7161796b23f4cf260a2e0219b659d0a6268aec772a6500c4bb6936e4"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1044.png",
+          "tick": 1044,
+          "durationMs": 200,
+          "stateSha256": "ddd13015d35260853b47fb2e64ce1316ef25d0b78fabdafface7896d548a95ab",
+          "cellsSha256": "ae2260b0573190443676fe6574d3e926092a68887881372d450ec71950538156",
+          "samples": 14793,
+          "pngSha256": "1609b88d3e4a1124f9ade10edb71d8cb3507249f716bb2171ffcb440729dd8d7"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1056.png",
+          "tick": 1056,
+          "durationMs": 200,
+          "stateSha256": "218832d0f55dfed8b929e79b78703efd1bee27212abf6c57316cb77e5ea7be12",
+          "cellsSha256": "9c7229f0b31d2c2cfeb4038d6b1aa3e9826d3ff87c440e538c7834bf53bb6c32",
+          "samples": 14793,
+          "pngSha256": "09ada1319f69315f271cc1835dd947232d2cebffe9f97a022f6a4ad0cad2bee6"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1068.png",
+          "tick": 1068,
+          "durationMs": 200,
+          "stateSha256": "8c84bacc91dea65d2144d5ce07dc83d38cc2ce6511a8dd735377ba71d7c0e074",
+          "cellsSha256": "eb097b2f69ac809c2d4c08f89236d43da07d3aa211fc82e57a231d27761af1e0",
+          "samples": 14793,
+          "pngSha256": "9c952d5e3fde50a7fd0f036db739d3bbf4fbc74445a5be24a70b0e16a0386f99"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1080.png",
+          "tick": 1080,
+          "durationMs": 200,
+          "stateSha256": "6d61151ac672d820d62813478e7c21e592a4ce240de8e74dd809a71c2859ad3d",
+          "cellsSha256": "93358959aa5002a32869a8f71b87cf50e4e104de51ec73740de6d3525042b11a",
+          "samples": 14793,
+          "pngSha256": "3d74a8a2c432d3f0bb0f42e4056c90b91e4df70830b71495e8acf8cc7d20caf7"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1092.png",
+          "tick": 1092,
+          "durationMs": 200,
+          "stateSha256": "3395010c05b7073b145fa6830c5ff999db21ba4181ef28efe2ab69f618e2df1e",
+          "cellsSha256": "f64edc957b3add6947307047e477331870ee42a45987236e27ce7a577f9233bd",
+          "samples": 14793,
+          "pngSha256": "80acb6759037853f40fa90b1c9540826945b6af7510437c7135216c6a99f5abc"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1104.png",
+          "tick": 1104,
+          "durationMs": 200,
+          "stateSha256": "6a82555cc81564543a7196c5ab0704889626bb9b0a280b516a67a93c32374dab",
+          "cellsSha256": "5f9a9558bd208a1030e41e56595f61d009f39abbbc6c6cac0a14ce637c1fc7f8",
+          "samples": 14793,
+          "pngSha256": "dd5496bb7088fad2bbb4acaa9828a60b6793b721931d901bd50ee9ba555f78b5"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1116.png",
+          "tick": 1116,
+          "durationMs": 200,
+          "stateSha256": "61ec1b57a5607cdc0dfc118d42b4e3071cace2a60adda45b6b03a435df93e726",
+          "cellsSha256": "e1a7af294a0a85c1c094133fb53f17e66a91135fe50a12f69bbc4caca44432b3",
+          "samples": 14793,
+          "pngSha256": "0263ea7b8c21274b9f3c1e761a6a6a8b5b7fd3a1ed922cbb4c4ab2ef08b13da1"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1128.png",
+          "tick": 1128,
+          "durationMs": 200,
+          "stateSha256": "de136ba41a37be86180458150b6192731e14d55fe844adf2e86580d3a869b5cc",
+          "cellsSha256": "15259c19dbcc94a3c6dbe27e167ce47f29616766933f230655685b7295157b2c",
+          "samples": 14793,
+          "pngSha256": "e44f855be00c64591d3f2429381578699f629e69c9bf92d71e0cf84dc78c60e9"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1140.png",
+          "tick": 1140,
+          "durationMs": 200,
+          "stateSha256": "957d3ffc8976ad394b9941d469531ba41666a2aec3e6c1792760de2a805e5619",
+          "cellsSha256": "65a0f869791acbd21a45991b5d7349692442e286307d1d7951e7a20e1719965c",
+          "samples": 14793,
+          "pngSha256": "d0dafd66b25ea21cad9298fb0b0700f72968073bb3dea64cae4ec9176eb69d95"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1152.png",
+          "tick": 1152,
+          "durationMs": 200,
+          "stateSha256": "371822db7d9cd3f8c24fd5a78896d0f5d9543bcbf2ec2434c13fe88c7ecc180d",
+          "cellsSha256": "522edf75e7b8156f64dc76a625089c51dda2979463357e161ece1aed91465702",
+          "samples": 14793,
+          "pngSha256": "ba538da324609ae9e09b5376057a6a6760b94747b3cfa12c876f77a179fd1013"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1164.png",
+          "tick": 1164,
+          "durationMs": 200,
+          "stateSha256": "062335534240731f4c34ed31605d86ccdad3ed6bcd7bac149cadce312e141ee3",
+          "cellsSha256": "5dcc241b2555d8194ecb68b147e66ec8ebce795c551b7e1f1549bf4167d935b2",
+          "samples": 14793,
+          "pngSha256": "8933198d9fc803ae352b8e691f018c11798be253724870efeed22b8da94a51d3"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1176.png",
+          "tick": 1176,
+          "durationMs": 200,
+          "stateSha256": "b016301e35813d08699e0af41a98609c51cd7bddfadbc60c9875e2f3c018f944",
+          "cellsSha256": "19f3f96326ba84ed287a5d893f5407882d16439816bf39a90a9716edb8a9fc39",
+          "samples": 14793,
+          "pngSha256": "6f698fefd17cd1a99b2f530032cf7f9364b32da2f152cb73bfc2f1360a100e1f"
+        },
+        {
+          "file": "/tmp/pufferfish-director-frames-fZy7BZ/current-1188.png",
+          "tick": 1188,
+          "durationMs": 200,
+          "stateSha256": "5300b43782d0a8c7bc52323122a3a2bbee6879f98703301b0aee92c3ef0f4868",
+          "cellsSha256": "d18998bf8a7d310839ebbe05ac6dd932e1a5570674e55e623e2f064fd6ec9266",
+          "samples": 14793,
+          "pngSha256": "619548715090c60cd514ba5c7b2a751efc8ecac57e20e3ec1c2248ebbc5f9bc3"
+        }
+      ]
+    }
+  ],
+  "assembly": {
+    "gifs": [
+      {
+        "file": "current-native.gif",
+        "frames": 100,
+        "durationMs": 20000
+      }
+    ],
+    "contactSheets": 4
+  },
+  "nativeTiming": {
+    "note": "Single-run CPU/Skia draw times; excludes PNG encoding. No warmup, browser/device/FPS claim.",
+    "count": 128,
+    "p50ms": 6.644498000001477,
+    "p95ms": 17.1567170000003,
+    "p99ms": 41.914431999999806,
+    "maxMs": 65.18800800000008,
+    "rawMs": [
+      65.18800800000008,
+      27.20170600000006,
+      18.312510999999972,
+      7.600104999999985,
+      8.24343500000009,
+      6.004199000000199,
+      41.914431999999806,
+      14.65593100000001,
+      13.013196999999991,
+      13.17247099999986,
+      10.26814400000012,
+      14.637461999999914,
+      9.006638999999723,
+      17.1567170000003,
+      9.807464999999866,
+      16.123576000000412,
+      7.109074999999848,
+      12.983756999999969,
+      5.732078999999885,
+      6.2794199999998455,
+      5.258661999999731,
+      5.9112410000002455,
+      7.383969999999863,
+      11.062097999999878,
+      8.741305000000011,
+      13.853853999999956,
+      5.08706200000006,
+      6.4311509999997725,
+      14.000234999999975,
+      6.834847000000082,
+      7.202580000000125,
+      10.450148999999783,
+      11.39719500000001,
+      5.696083999999701,
+      5.021234000000277,
+      5.592536000000109,
+      7.758374000000003,
+      7.067258000000038,
+      5.445740000000114,
+      9.46299099999942,
+      9.033480999999483,
+      7.911743999999999,
+      5.519796999999926,
+      9.558357999999316,
+      10.318202000000383,
+      10.201251000000411,
+      12.354486000000179,
+      6.168158999999832,
+      16.56579799999963,
+      8.377427999999782,
+      5.276992999999493,
+      5.5728760000001785,
+      28.803077999999914,
+      10.846958000000086,
+      5.473488999999972,
+      12.556980000000294,
+      8.836242000000311,
+      5.74191299999984,
+      6.839375000000473,
+      13.173044000000118,
+      6.153659999999945,
+      5.498808000000281,
+      6.267238000000361,
+      6.048616000000038,
+      5.790925999999672,
+      5.319725999999719,
+      5.658100999999988,
+      5.8699509999996735,
+      9.084963999999673,
+      6.094825000000128,
+      5.176899999999478,
+      4.8969600000000355,
+      5.28351400000065,
+      8.454458000000159,
+      5.360692999999628,
+      5.284089999999196,
+      5.405582000000322,
+      6.652906000000257,
+      6.428890999999567,
+      5.943939000000682,
+      4.949633999999605,
+      5.813406000000214,
+      5.639997000000221,
+      5.3292520000004515,
+      4.764740999999958,
+      4.981480000000374,
+      4.9961560000001555,
+      7.848207000000002,
+      5.081407000000581,
+      5.073620999999548,
+      5.4603199999992285,
+      7.885228000001007,
+      5.766738999998779,
+      5.133064999999988,
+      5.178450999999768,
+      6.644498000001477,
+      7.060466999999335,
+      5.656297999999879,
+      5.882881999999881,
+      7.511749999999665,
+      6.965692000001582,
+      8.463257999999769,
+      6.4989539999987755,
+      5.720913999999539,
+      6.876036999999997,
+      7.637331999998423,
+      7.39535799999976,
+      6.647401000000173,
+      6.846627999999328,
+      4.877081000000544,
+      6.102078999998412,
+      6.069932000000335,
+      6.410855000000083,
+      7.176978000001327,
+      5.028793000001315,
+      5.755213000000367,
+      4.423009000000093,
+      5.472834000000148,
+      9.466134000000238,
+      5.957135000000562,
+      12.650900000000547,
+      6.85413299999891,
+      20.875206999999136,
+      12.816571999999724,
+      5.69235000000117,
+      4.2805089999983466,
+      3.803233000000546,
+      9.115311999999903
+    ]
+  },
+  "unrun": [
+    "Browser input/accessibility and device performance are separate acceptance.",
+    "Exact font selection and cross-platform raster parity.",
+    "Real-device memory/thermal behavior."
+  ]
+}

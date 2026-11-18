@@ -1,0 +1,45 @@
+{
+  "evidence": "Derived only from the actual native capture PNGs and GIF; no browser or generated-image content.",
+  "beforeAfter": {
+    "file": "mobile-before-after.png",
+    "sources": [
+      "before/reef-mobile-360.png",
+      "final/reef-mobile-360.png"
+    ],
+    "comparisons": [
+      {
+        "file": "reef-mobile-360.png",
+        "identicalStateSha256": "b7efaa6a4992dcc6baa5e0aa3256e4a1bc861654c84a0693391ca9180306d411",
+        "beforePngSha256": "23b9857dc0624cf0463bf3b1f15d0135572e1b4edbf8c00a100dff685ce912f6",
+        "afterPngSha256": "47af63f5a253ad971197d68270514c5aa2d560b825f43f2ef6cfcc67fd57a460"
+      },
+      {
+        "file": "reef-mobile-390.png",
+        "identicalStateSha256": "b7efaa6a4992dcc6baa5e0aa3256e4a1bc861654c84a0693391ca9180306d411",
+        "beforePngSha256": "0a1af8ec578e3502c32ab2741155cfe8577ed99d6af531cec6b2b6eae868b4df",
+        "afterPngSha256": "a94504e006501b6c33932396e4fa0f9087464619609c12d66c9e946efdfb6f4d"
+      }
+    ]
+  },
+  "motionStrip": {
+    "file": "final/current-inflation-strip.png",
+    "source": "final/current-native.gif",
+    "frameIndices": [
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "frameDurationMs": 200
+  },
+  "mobile-before-after.png": {
+    "sha256": "a1433f41a58ff093ecc57eaa549e2db3238d1aed63de23436f70736a8a35f095"
+  },
+  "final/current-inflation-strip.png": {
+    "sha256": "e59990ef79fd0620932190384b22aae4053ef288081444695d678233b96a4dde"
+  }
+}
