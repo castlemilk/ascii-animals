@@ -1,0 +1,6 @@
+{
+  "valid": true,
+  "id": "gecko-v1",
+  "status": "reference-implemented",
+  "note": "Structure and bounds only; no rights, anatomy, runtime or visual certification."
+}

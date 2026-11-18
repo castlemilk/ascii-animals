@@ -32,6 +32,11 @@
       "types": "./lib/public/dragonfly.d.ts",
       "import": "./lib/public/dragonfly.js",
       "default": "./lib/public/dragonfly.js"
+    },
+    "./gecko": {
+      "types": "./lib/public/gecko.d.ts",
+      "import": "./lib/public/gecko.js",
+      "default": "./lib/public/gecko.js"
     }
   },
   "sideEffects": false,
@@ -46,13 +51,13 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs",
+    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs species/gecko/test/*.test.mjs",
     "test:legacy": "node scripts/check-engine.cjs",
     "bench:cpu": "node bench/benchmark.cjs --source src/animals/cuttlefish.js --esm --out artifacts/benchmark.json",
     "check:package": "node scripts/check-package.mjs",
     "prepublishOnly": "node -e \"throw new Error('Review candidate: publication is intentionally disabled')\"",
     "pretest": "npm run build",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/dragonfly/tsconfig.types.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/dragonfly/tsconfig.types.json && tsc -p species/gecko/test/tsconfig.json",
     "test:fox": "node node_modules/typescript/bin/tsc -p species/fox/tsconfig.types.json && node --test species/fox/tests/*.test.mjs"
   },
   "repository": {

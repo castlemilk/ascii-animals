@@ -1,0 +1,15 @@
+Command: node -e 'console.log(JSON.stringify({node:process.version,platform:process.platform,arch:process.arch,typescript:require("./node_modules/typescript/package.json").version},null,2))'
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:53.339120+00:00
+Exit code: 0
+Duration seconds: 0.158840
+
+STDOUT
+{
+  "node": "v24.22.1",
+  "platform": "linux",
+  "arch": "x64",
+  "typescript": "5.9.3"
+}
+
+STDERR

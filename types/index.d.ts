@@ -20,3 +20,6 @@ export type { FoxArtwork, FoxBrowserOptions, FoxBrowserStatus, FoxOptions, FoxCr
 
 export { createDragonflyArtwork } from './public/dragonfly.js';
 export type { DragonflyArtwork, DragonflyMountOptions, DragonflyBrowserStatus, DragonflyOptions, DragonflyState, DragonflyInput } from './public/dragonfly.js';
+
+export { createGeckoArtwork } from './public/gecko.js';
+export type { GeckoArtwork, GeckoMountOptions, GeckoControllerStatus, GeckoViewOptions } from './public/gecko.js';

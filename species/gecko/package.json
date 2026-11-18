@@ -1,0 +1,14 @@
+{
+  "name": "ascii-animals-gecko-review",
+  "version": "0.0.0-review.1",
+  "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
+  "description": "Species-local TypeScript gecko; shared library integration pending.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check:types": "node scripts/build.mjs --types",
+    "test": "node --test test/*.test.mjs",
+    "capture": "node scripts/capture.mjs"
+  }
+}

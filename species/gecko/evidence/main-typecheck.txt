@@ -1,0 +1,9 @@
+Command: node /workspace/scratch/5bc33bd36e8d/toolchain/node_modules/typescript/lib/tsc.js -p tsconfig.json --noEmit
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:55.414843+00:00
+Exit code: 0
+Duration seconds: 2.620105
+
+STDOUT
+
+STDERR

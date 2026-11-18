@@ -1,0 +1,744 @@
+{
+  "evidenceKind": "native Canvas (@napi-rs/canvas), not browser or deployed",
+  "runtime": "v24.22.1",
+  "width": 720,
+  "height": 550,
+  "defaultGrid": [
+    176,
+    78
+  ],
+  "minimumGrid": [
+    112,
+    50
+  ],
+  "fontAvailable": true,
+  "seed": 37,
+  "eventLog": "events.json",
+  "frames": [
+    {
+      "name": "idle",
+      "tick": 0,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 0,
+        "lastSequence": 0,
+        "position": {
+          "x": 0.18,
+          "y": 0
+        },
+        "heading": -0.24,
+        "target": null,
+        "behavior": {
+          "kind": "idle",
+          "since": 0
+        },
+        "tailCurl": 0,
+        "phase": 4.691273702128596,
+        "feet": [
+          {
+            "id": "front-left",
+            "front": true,
+            "side": -1,
+            "position": {
+              "x": 0.3247605928035775,
+              "y": -0.3339825905210582
+            },
+            "angle": -1.04,
+            "phase": "stance",
+            "plantedAt": 0
+          },
+          {
+            "id": "front-right",
+            "front": true,
+            "side": 1,
+            "position": {
+              "x": 0.4626281161313155,
+              "y": 0.22939343489311897
+            },
+            "angle": 0.56,
+            "phase": "stance",
+            "plantedAt": 0
+          },
+          {
+            "id": "rear-left",
+            "front": false,
+            "side": -1,
+            "position": {
+              "x": -0.10262811613131556,
+              "y": -0.22939343489311897
+            },
+            "angle": -2.4800000000000004,
+            "phase": "stance",
+            "plantedAt": 0
+          },
+          {
+            "id": "rear-right",
+            "front": false,
+            "side": 1,
+            "position": {
+              "x": 0.03523940719642249,
+              "y": 0.3339825905210582
+            },
+            "angle": 2,
+            "phase": "stance",
+            "plantedAt": 0
+          }
+        ],
+        "nextFoot": 0,
+        "stepsCompleted": 0
+      },
+      "cells": 924,
+      "samples": 9260
+    },
+    {
+      "name": "approach",
+      "tick": 72,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 72,
+        "lastSequence": 1,
+        "position": {
+          "x": 0.24611316192553276,
+          "y": -0.049986170551364915
+        },
+        "heading": -1.0200000000000018,
+        "target": {
+          "x": 0.234,
+          "y": -0.117
+        },
+        "behavior": {
+          "kind": "approach",
+          "since": 1
+        },
+        "tailCurl": 0,
+        "phase": 5.891273702128592,
+        "feet": [
+          {
+            "id": "front-left",
+            "side": -1,
+            "front": true,
+            "position": {
+              "x": 0.36088789300859103,
+              "y": -0.34571732640853525
+            },
+            "angle": -1.0508333333333333,
+            "phase": "stance",
+            "plantedAt": 19
+          },
+          {
+            "id": "front-right",
+            "side": 1,
+            "front": true,
+            "position": {
+              "x": 0.5991199239278022,
+              "y": 0.05895141182881718
+            },
+            "angle": 0.15916666666666568,
+            "phase": "stance",
+            "plantedAt": 55
+          },
+          {
+            "id": "rear-left",
+            "front": false,
+            "side": -1,
+            "position": {
+              "x": -0.10231879791671268,
+              "y": -0.09512194899429582
+            },
+            "angle": -3.070520690443532,
+            "phase": "swing",
+            "since": 55,
+            "duration": 18,
+            "from": {
+              "x": -0.10262811613131556,
+              "y": -0.22939343489311897
+            },
+            "to": {
+              "x": -0.1023160151230865,
+              "y": -0.09391397022842406
+            },
+            "fromAngle": -2.4800000000000004,
+            "toAngle": -3.075833333333335,
+            "lift": 0.0060776862183425755
+          },
+          {
+            "id": "rear-right",
+            "side": 1,
+            "front": false,
+            "position": {
+              "x": 0.1620206747592551,
+              "y": 0.33220037436099864
+            },
+            "angle": 1.7941666666666665,
+            "phase": "stance",
+            "plantedAt": 37
+          }
+        ],
+        "nextFoot": 0,
+        "stepsCompleted": 3
+      },
+      "cells": 835,
+      "samples": 9260
+    },
+    {
+      "name": "curl",
+      "tick": 197,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 197,
+        "lastSequence": 2,
+        "position": {
+          "x": 0.25381878630803495,
+          "y": -0.12202452562000264
+        },
+        "heading": -2.189999999999993,
+        "target": {
+          "x": 0.234,
+          "y": -0.117
+        },
+        "behavior": {
+          "kind": "startle",
+          "since": 181,
+          "heading": -2.189999999999993
+        },
+        "tailCurl": 0.8861834475397529,
+        "phase": 7.974607035461918,
+        "feet": [
+          {
+            "id": "front-left",
+            "side": -1,
+            "front": true,
+            "position": {
+              "x": -0.08485210607006645,
+              "y": -0.294851768277944
+            },
+            "angle": -2.6108333333333293,
+            "phase": "stance",
+            "plantedAt": 163
+          },
+          {
+            "id": "front-right",
+            "side": 1,
+            "front": true,
+            "position": {
+              "x": 0.5855896169174837,
+              "y": -0.30308649070436766
+            },
+            "angle": -0.620833333333332,
+            "phase": "stance",
+            "plantedAt": 127
+          },
+          {
+            "id": "rear-left",
+            "side": -1,
+            "front": false,
+            "position": {
+              "x": -0.021673525373247383,
+              "y": 0.09055706176903233
+            },
+            "angle": -3.855833333333331,
+            "phase": "stance",
+            "plantedAt": 145
+          },
+          {
+            "id": "rear-right",
+            "side": 1,
+            "front": false,
+            "position": {
+              "x": 0.595252420330539,
+              "y": -0.07659326133529523
+            },
+            "angle": 0.23416666666667263,
+            "phase": "stance",
+            "plantedAt": 181
+          }
+        ],
+        "nextFoot": 2,
+        "stepsCompleted": 10
+      },
+      "cells": 866,
+      "samples": 9260
+    },
+    {
+      "name": "retreat",
+      "tick": 226,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 226,
+        "lastSequence": 2,
+        "position": {
+          "x": 0.26,
+          "y": -0.050901650918091845
+        },
+        "heading": -2.189999999999993,
+        "target": {
+          "x": 0.234,
+          "y": -0.117
+        },
+        "behavior": {
+          "kind": "retreat",
+          "since": 199,
+          "heading": -2.189999999999993,
+          "traveled": 0.07305456914544109
+        },
+        "tailCurl": 0.9972061510711485,
+        "phase": 8.457940368795274,
+        "feet": [
+          {
+            "id": "front-left",
+            "side": -1,
+            "front": true,
+            "position": {
+              "x": -0.08485210607006645,
+              "y": -0.294851768277944
+            },
+            "angle": -2.6108333333333293,
+            "phase": "stance",
+            "plantedAt": 163
+          },
+          {
+            "id": "front-right",
+            "side": 1,
+            "front": true,
+            "position": {
+              "x": 0.3856123399920547,
+              "y": -0.4367716907847902
+            },
+            "angle": -1.3899999999999928,
+            "phase": "stance",
+            "plantedAt": 217
+          },
+          {
+            "id": "rear-left",
+            "front": false,
+            "side": -1,
+            "position": {
+              "x": 0.07653410012181339,
+              "y": 0.1940106176992487
+            },
+            "angle": -4.142916666666662,
+            "phase": "swing",
+            "since": 217,
+            "duration": 18,
+            "from": {
+              "x": -0.021673525373247383,
+              "y": 0.09055706176903233
+            },
+            "to": {
+              "x": 0.17474172561687415,
+              "y": 0.2974641736294651
+            },
+            "fromAngle": -3.855833333333331,
+            "toAngle": -4.429999999999993,
+            "lift": 0.035
+          },
+          {
+            "id": "rear-right",
+            "side": 1,
+            "front": false,
+            "position": {
+              "x": 0.595252420330539,
+              "y": -0.07659326133529523
+            },
+            "angle": 0.23416666666667263,
+            "phase": "stance",
+            "plantedAt": 181
+          }
+        ],
+        "nextFoot": 0,
+        "stepsCompleted": 11
+      },
+      "cells": 871,
+      "samples": 9260
+    },
+    {
+      "name": "recovery",
+      "tick": 302,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 302,
+        "lastSequence": 2,
+        "position": {
+          "x": 0.2445898091922626,
+          "y": -0.03573897579316112
+        },
+        "heading": -1.9716000000000027,
+        "target": {
+          "x": 0.234,
+          "y": -0.117
+        },
+        "behavior": {
+          "kind": "recover",
+          "since": 247
+        },
+        "tailCurl": 0.0007779210424698783,
+        "phase": 9.724607035462004,
+        "feet": [
+          {
+            "id": "front-left",
+            "side": -1,
+            "front": true,
+            "position": {
+              "x": -0.08062849417142087,
+              "y": -0.001503907521467722
+            },
+            "angle": -2.989999999999993,
+            "phase": "stance",
+            "plantedAt": 253
+          },
+          {
+            "id": "front-right",
+            "side": 1,
+            "front": true,
+            "position": {
+              "x": 0.3742978831888317,
+              "y": -0.38977635631525015
+            },
+            "angle": -1.292499999999998,
+            "phase": "stance",
+            "plantedAt": 289
+          },
+          {
+            "id": "rear-left",
+            "front": false,
+            "side": -1,
+            "position": {
+              "x": 0.08591592516806502,
+              "y": 0.26672260198203646
+            },
+            "angle": -4.293930658436214,
+            "phase": "swing",
+            "since": 289,
+            "duration": 18,
+            "from": {
+              "x": 0.17474172561687415,
+              "y": 0.2974641736294651
+            },
+            "to": {
+              "x": 0.06526749311107219,
+              "y": 0.25957642091437555
+            },
+            "fromAngle": -4.429999999999993,
+            "toAngle": -4.2623000000000015,
+            "lift": 0.026811555509164232
+          },
+          {
+            "id": "rear-right",
+            "side": 1,
+            "front": false,
+            "position": {
+              "x": 0.5988799705001026,
+              "y": -0.023654043706454117
+            },
+            "angle": 0.07730000000000592,
+            "phase": "stance",
+            "plantedAt": 271
+          }
+        ],
+        "nextFoot": 0,
+        "stepsCompleted": 15
+      },
+      "cells": 870,
+      "samples": 9260
+    },
+    {
+      "name": "cooldown",
+      "tick": 410,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 410,
+        "lastSequence": 3,
+        "position": {
+          "x": 0.21547743267725983,
+          "y": -0.07256847120786318
+        },
+        "heading": -2.5652666666666613,
+        "target": {
+          "x": -0.20800000000000002,
+          "y": 0.065
+        },
+        "behavior": {
+          "kind": "cooldown",
+          "since": 367
+        },
+        "tailCurl": 7.853515611264847e-10,
+        "phase": 11.524607035462093,
+        "feet": [
+          {
+            "id": "front-left",
+            "side": -1,
+            "front": true,
+            "position": {
+              "x": -0.1534788784561687,
+              "y": -0.08339652321121532
+            },
+            "angle": -3.0294333333333308,
+            "phase": "stance",
+            "plantedAt": 397
+          },
+          {
+            "id": "front-right",
+            "side": 1,
+            "front": true,
+            "position": {
+              "x": 0.39618572128022567,
+              "y": -0.4037638197968186
+            },
+            "angle": -1.1989000000000027,
+            "phase": "stance",
+            "plantedAt": 361
+          },
+          {
+            "id": "rear-left",
+            "side": -1,
+            "front": false,
+            "position": {
+              "x": 0.07055417364209284,
+              "y": 0.24782438937414125
+            },
+            "angle": -4.309099999999999,
+            "phase": "stance",
+            "plantedAt": 379
+          },
+          {
+            "id": "rear-right",
+            "front": false,
+            "side": 1,
+            "position": {
+              "x": 0.5562751516761407,
+              "y": -0.13008990959753158
+            },
+            "angle": -0.0909308184727905,
+            "phase": "swing",
+            "since": 397,
+            "duration": 18,
+            "from": {
+              "x": 0.5755938034426634,
+              "y": 0.021643138444426488
+            },
+            "to": {
+              "x": 0.5517843408259346,
+              "y": -0.16536175085834176
+            },
+            "fromAngle": 0.3112999999999977,
+            "toAngle": -0.18443333333332879,
+            "lift": 0.026811555509164232
+          }
+        ],
+        "nextFoot": 2,
+        "stepsCompleted": 21
+      },
+      "cells": 902,
+      "samples": 9260
+    },
+    {
+      "name": "settled",
+      "tick": 600,
+      "state": {
+        "version": 1,
+        "seed": 37,
+        "initialHeading": -0.24,
+        "options": {
+          "creepSpeed": 0.1,
+          "turnRate": 0.65,
+          "stride": 0.1,
+          "stepTicks": 18,
+          "tailLength": 1,
+          "toeSpread": 1,
+          "curlStrength": 1,
+          "tailSway": 0.035,
+          "breathing": 0.008,
+          "startleTicks": 18,
+          "retreatTicks": 48,
+          "retreatDistance": 0.14,
+          "recoveryTicks": 120,
+          "cooldownTicks": 120
+        },
+        "tick": 600,
+        "lastSequence": 4,
+        "position": {
+          "x": -0.012159635643690265,
+          "y": -0.028836514404606016
+        },
+        "heading": -3.588419922214091,
+        "target": null,
+        "behavior": {
+          "kind": "idle",
+          "since": 570
+        },
+        "tailCurl": 2.2221420613422872e-20,
+        "phase": 14.691273702128917,
+        "feet": [
+          {
+            "id": "front-left",
+            "side": -1,
+            "front": true,
+            "position": {
+              "x": -0.05218290124647509,
+              "y": 0.31191155869574183
+            },
+            "angle": -4.388419922214091,
+            "phase": "stance",
+            "plantedAt": 541
+          },
+          {
+            "id": "front-right",
+            "side": 1,
+            "front": true,
+            "position": {
+              "x": -0.3569140113368352,
+              "y": -0.18521915906679673
+            },
+            "angle": -2.788419922214091,
+            "phase": "stance",
+            "plantedAt": 577
+          },
+          {
+            "id": "rear-left",
+            "side": -1,
+            "front": false,
+            "position": {
+              "x": 0.3716737192435725,
+              "y": 0.1088215164318343
+            },
+            "angle": -5.828419922214091,
+            "phase": "stance",
+            "plantedAt": 523
+          },
+          {
+            "id": "rear-right",
+            "side": 1,
+            "front": false,
+            "position": {
+              "x": 0.06694260915321217,
+              "y": -0.3883092013307043
+            },
+            "angle": -1.3484199222140916,
+            "phase": "stance",
+            "plantedAt": 559
+          }
+        ],
+        "nextFoot": 3,
+        "stepsCompleted": 31
+      },
+      "cells": 938,
+      "samples": 9260
+    }
+  ],
+  "gif": "201 actual native Canvas frames, explicit 0..600 ticks at 20fps. Replay has a deliberate reset cut.",
+  "sourceHashes": {
+    "src/types.ts": "e1c217f2c8c353774e392c40d9776ef9596f9632b193ec3a51e05c1d10ffc884",
+    "src/gecko.ts": "c4e7c59229bfc2dc67cd5078395991144303769cd6fccd2ce1cd3c1c0472341d",
+    "src/geometry.ts": "60aa07cee838b2d77c8391688e5a9bca311abb5474147c3e7be3287df3d7d986",
+    "src/preview.ts": "a81939d63df591bf275e1adf219dc989d1044698d7df04e99b73784e2facf4c7",
+    "src/proposed-adapter.ts": "c7af1aa85e99578b411abaa050215ff636cba84c37097d815e8c756d165200a9"
+  }
+}

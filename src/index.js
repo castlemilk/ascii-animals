@@ -6,3 +6,5 @@ export { createArtwork, DEFAULT_OPTIONS, normalizeOptions } from './public/index
 export { createFoxArtwork } from './public/fox.js';
 
 export { createDragonflyArtwork } from './public/dragonfly.js';
+
+export { createGeckoArtwork } from './public/gecko.js';

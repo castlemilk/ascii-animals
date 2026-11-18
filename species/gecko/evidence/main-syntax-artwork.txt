@@ -1,0 +1,9 @@
+Command: node --check dist/artwork.js
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:58.035890+00:00
+Exit code: 0
+Duration seconds: 0.100429
+
+STDOUT
+
+STDERR
