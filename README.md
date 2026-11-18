@@ -25,6 +25,13 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 The roster is a development plan, not a list of package exports. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
 
 
+## Fox artwork
+
+The original reactive fox is available through a dedicated typed adapter and
+[`./fox` package subpath](docs/FOX-API.md), with [a runnable demo](./dist/fox/index.html).
+It preserves its own fixed-tick behavior model rather than pretending to accept
+cuttlefish formations or ink controls. Package publication remains disabled.
+
 ## TypeScript-first artwork API
 
 The compiled, strict TypeScript facade exposes all currently supported cuttlefish

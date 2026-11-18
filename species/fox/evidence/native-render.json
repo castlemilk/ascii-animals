@@ -1,0 +1,59 @@
+{
+  "evidenceKind": "Native Skia Canvas through @napi-rs/canvas, NOT browser/deployed evidence",
+  "node": "v24.22.1",
+  "font": {
+    "path": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+    "bundled": false,
+    "registeredAlias": "ui-monospace"
+  },
+  "surface": {
+    "width": 896,
+    "height": 704,
+    "cols": 112,
+    "rows": 44,
+    "cellWidth": 8,
+    "cellHeight": 16
+  },
+  "seed": 17,
+  "ticks": 720,
+  "gifFrames": 181,
+  "gifFps": 15,
+  "frameSelection": [
+    {
+      "tick": 0,
+      "name": "idle"
+    },
+    {
+      "tick": 100,
+      "name": "stalk"
+    },
+    {
+      "tick": 149,
+      "name": "interest"
+    },
+    {
+      "tick": 173,
+      "name": "crouch"
+    },
+    {
+      "tick": 192,
+      "name": "airborne"
+    },
+    {
+      "tick": 210,
+      "name": "forepaw-landing"
+    },
+    {
+      "tick": 236,
+      "name": "recover"
+    },
+    {
+      "tick": 280,
+      "name": "cooldown"
+    }
+  ],
+  "finalStateHash": "5cba95f1d8aa5988f14f3b332979d7cb303bfede4b185044d4705b3d91c11cc1",
+  "finalCellHash": "afe583df108b367b6e0577c95e98feaa27487eb974fa98c875e739d4003575b2",
+  "note": "GIF cadence is a replay capture setting, not measured animation throughput. No browser/accessibility/performance certification."
+}

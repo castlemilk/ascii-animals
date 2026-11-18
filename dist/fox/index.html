@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Fox · Quiet in the Bracken</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="demo.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="masthead">
+      <a class="wordmark" href="../index.html">ASCII <span>ANIMALS</span></a>
+      <p class="edition">FIELD STUDIES <span>/</span> FOX</p>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div><p class="eyebrow">A SMALL LIFE, MADE OF CHARACTERS</p><h1 id="title">Quiet in the bracken.</h1></div>
+        <p class="dek">A pointed ear. A measured step. Guide a curious fox, then give it a reason to leap.</p>
+      </section>
+      <div class="study">
+        <figure class="specimen">
+          <div class="specimen-heading"><span>FOX / STYLIZED STUDY</span><span id="phase">Idle</span></div>
+          <div class="canvas-wrap">
+            <canvas id="fox" aria-hidden="true">A fox with pointed ears, a long muzzle, four legs and a bushy tail.</canvas>
+          </div>
+          <figcaption id="fox-description">An original ASCII fox in side profile, with pointed ears, a long muzzle, four articulated legs and a broad, light-tipped tail. Move the pointer or tap to guide it. Use the controls for the same actions by keyboard.</figcaption>
+          <div class="specimen-footer"><span>01 ORIGINAL GEOMETRY</span><span>SEED <b id="seed-label">17</b></span><span>PRINTABLE ASCII</span></div>
+        </figure>
+        <aside class="director" aria-labelledby="director-title">
+          <div class="director-heading"><p class="eyebrow">A GENTLE INVITATION</p><h2 id="director-title">Direct the fox</h2></div>
+          <p class="instruction">It approaches cautiously, lowers its muzzle to sniff, and balances each short pounce with its tail.</p>
+          <button id="pounce" class="primary" type="button">Invite a pounce <span aria-hidden="true">↗</span></button>
+          <div class="button-row"><button id="pause" type="button">Pause</button><button id="reset" type="button">Reset seed</button></div>
+          <p id="motion-note" class="motion-note">Motion runs only while this study is visible.</p>
+          <div class="control-section">
+            <label for="guide">Guide position</label>
+            <select id="guide"><option value="none">Let it rest</option><option value="left">To the left</option><option value="center">Near the center</option><option value="right">To the right</option></select>
+            <label for="facing">Side profile</label>
+            <select id="facing"><option value="right">Facing right</option><option value="left">Facing left</option></select>
+            <div class="range-label"><label for="tail">Tail sway</label><output id="tail-value" for="tail">0.075</output></div>
+            <input id="tail" type="range" min="0" max="0.16" step="0.005" value="0.075">
+            <div class="range-label"><label for="height">Pounce height</label><output id="height-value" for="height">0.24</output></div>
+            <input id="height" type="range" min="0.10" max="0.34" step="0.01" value="0.24">
+          </div>
+          <div class="control-section poster-section">
+            <label for="poster">Still specimen</label>
+            <div class="poster-controls"><select id="poster"><option value="idle">At rest</option><option value="sniff">Sniffing</option><option value="crouch">Ready to pounce</option></select><button id="show-poster" type="button">Show</button></div>
+            <p class="small-note">Showing a still pauses playback. Reduced motion always keeps a still pose.</p>
+          </div>
+          <p id="action-status" class="action-status" role="status" aria-live="polite">Ready to explore.</p>
+        </aside>
+      </div>
+      <section class="observations" aria-label="Movement notes">
+        <div><span class="index">01</span><h3>Notice</h3><p>Breathing and tail motion have their own rhythms, even when the body rests.</p></div>
+        <div><span class="index">02</span><h3>Approach</h3><p>A guide evokes measured stalking and a low, curious sniff.</p></div>
+        <div><span class="index">03</span><h3>Leap</h3><p>The crouch comes first. A short arc follows, with forepaws meeting the ground before the hindfeet.</p></div>
+      </section>
+      <details class="text-export"><summary>Inspect the character specimen</summary><p>This is the actual printable cell grid. Capture a fresh frame when you want to inspect it.</p><button id="capture" type="button">Capture current frame</button><pre id="text-frame" tabindex="0" aria-label="Captured ASCII fox specimen"></pre></details>
+      <noscript><p class="fallback">This interactive study needs JavaScript. The fox is described above; source, tests and rendered evidence are available in the species folder.</p></noscript>
+    </main>
+    <footer class="page-footer"><p>FOX / ORIGINAL PROCEDURAL STUDY</p><p>Typed Fox adapter · Independent fixed-tick behavior</p><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/FOX-API.md">Implementation &amp; reproduction</a></footer>
+  </div>
+</body>
+</html>
