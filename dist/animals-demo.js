@@ -14,7 +14,9 @@
     count: 1, behaviors: ['hover'], formation: 'independent', size: 1.1, sizeVariation: 0,
     spacing: 1, density: 1.2, ripple: 1.3, speed: 1.05, motion: 1.2, depthStrength: 1.2,
     palette: 'lagoon', mode: 'ascii', glow: true, followPointer: true, showLabels: false });
-  let settings = defaults(), selection = 'manta', renderer = null;
+  const requestedSpecies = new URLSearchParams(window.location.search).get('species');
+  const initialSpecies = ['manta', 'octopus', 'cuttlefish'].includes(requestedSpecies) ? requestedSpecies : 'manta';
+  let settings = defaults(), selection = initialSpecies, renderer = null;
   let interval = null, disposers = [], savedPaused = undefined, downloadURL = null, mounted = false, generation = 0;
 
   function listen(target, type, handler) {

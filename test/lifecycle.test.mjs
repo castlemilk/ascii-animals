@@ -93,7 +93,7 @@ test('coarse grids cannot inflate glyph or ink atlases', () => {
   const host = fakeBrowser({ dpr: 4 }), canvas = host.canvas(3840, 2160);
   const a = new CuttlefishArtwork(canvas, { ...options, autoStart: false, maxCells: 1024, maxPixels: 16777216 });
   assert(a.depth.length <= 1024); assert(a.atlas.width <= 1600); assert(a.atlas.height <= 4608);
-  assert(a.inkAtlas.width <= 640); assert(a.inkAtlas.height <= 64);
+  assert(a.inkAtlas.width <= 640); assert(a.inkAtlas.height <= 128);
   assert(a.spriteDrawSize > a.sprite / a.dpr); assert(a.inkDrawSize > a.inkSprite / a.dpr);
   a.destroy();
 });

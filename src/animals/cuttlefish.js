@@ -199,11 +199,15 @@ export class CuttlefishArtwork {
       const inkNaturalSize = Math.max(1, Math.ceil(this.inkCellH * 1.5 * dpr));
       this.inkSprite = Math.min(64, inkNaturalSize);
       this.inkDrawSize = inkNaturalSize / dpr;
-      this.inkAtlas.width = this.inkSprite * INK_GLYPHS.length; this.inkAtlas.height = this.inkSprite;
+      this.inkAtlas.width = this.inkSprite * INK_GLYPHS.length; this.inkAtlas.height = this.inkSprite * 2;
       const ink = this.inkAtlas.getContext('2d');
       ink.font = `600 ${this.inkCellH * .96 * dpr * this.inkSprite / inkNaturalSize}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
       ink.textAlign = 'center'; ink.textBaseline = 'middle'; ink.fillStyle = '#010304';
       for (let i = 0; i < INK_GLYPHS.length; i++) ink.fillText(INK_GLYPHS[i], (i + .5) * this.inkSprite, this.inkSprite * .5);
+      // A light violet ASCII plume stays legible on the dark octopus demo.
+      // Keep the original cuttlefish ink row unchanged.
+      ink.fillStyle = '#b8a6dc';
+      for (let i = 0; i < INK_GLYPHS.length; i++) ink.fillText(INK_GLYPHS[i], (i + .5) * this.inkSprite, this.inkSprite * 1.5);
       this.glowCanvas.width = this.cols; this.glowCanvas.height = this.rows;
       this.haloCanvas.width = this.cols; this.haloCanvas.height = this.rows;
       this.glowPixels = this.glowCtx.createImageData(this.cols, this.rows);
@@ -516,7 +520,7 @@ export class CuttlefishArtwork {
         this.ink.push({ x: origin[0] + radial[0] * .027, y: origin[1] + radial[1] * .027, z: origin[2] + radial[2] * .027,
           vx: aim[0] * speed + radial[0] * cone, vy: aim[1] * speed + radial[1] * cone, vz: aim[2] * speed + radial[2] * cone,
           radius: .029 + hash(seed + 110) * .028, mass: .38 + hash(seed + 52) * .22,
-          life: 6.7 + hash(seed + 90) * 2.7, age: 0, phase: angle, axis: aim });
+          life: 6.7 + hash(seed + 90) * 2.7, age: 0, phase: angle, axis: aim, ...(this.activeFish.species === 'octopus' ? { lightInk: true } : {}) });
       }
       if (this.ink.length > 1150) this.ink.splice(0, this.ink.length - 1150);
     }
@@ -1262,10 +1266,16 @@ export class CuttlefishArtwork {
     }
 
     _drawInk() {
+      this.inkGlyphCount = this._drawInkLayer(false) + (this.ink.some(p => p.lightInk) ? this._drawInkLayer(true) : 0);
+      this.ctx.globalAlpha = 1;
+    }
+
+    _drawInkLayer(lightInk) {
       const c = this.ctx, density = this.inkDensity;
-      if (!this.ink.length) { this.inkGlyphCount = 0; return; }
+      if (!this.ink.length) return 0;
       density.fill(0);
       for (const p of this.ink) {
+        if (Boolean(p.lightInk) !== lightInk) continue;
         const perspective = 1 / Math.max(.24, 1 - p.z * this.perspectiveStrength);
         const q = this._projectWorld(p.x, p.y, p.z);
         const radius = (p.radius + Math.sqrt(p.age) * .105) * this.scale * perspective;
@@ -1288,12 +1298,12 @@ export class CuttlefishArtwork {
         const glyph = clamp(Math.floor(Math.pow(concentration, .55) * INK_GLYPHS.length), 0, INK_GLYPHS.length - 1);
         const x = (i % this.inkCols + .5) * this.inkCellW, y = (Math.floor(i / this.inkCols) + .5) * this.inkCellH;
         c.globalAlpha = .40 + .60 * Math.min(1, concentration * 1.8);
-        // Only black character sprites are drawn: no shaded disk, smoke
+        // Only character sprites are drawn: no shaded disk, smoke
         // bitmap, blur or filled silhouette underneath the ASCII plume.
-        c.drawImage(this.inkAtlas, glyph * sz, 0, sz, sz, x - drawSize / 2, y - drawSize / 2, drawSize, drawSize);
+        c.drawImage(this.inkAtlas, glyph * sz, lightInk ? sz : 0, sz, sz, x - drawSize / 2, y - drawSize / 2, drawSize, drawSize);
         glyphCount++;
       }
-      this.inkGlyphCount = glyphCount; c.globalAlpha = 1;
+      return glyphCount;
     }
 
     render() {
