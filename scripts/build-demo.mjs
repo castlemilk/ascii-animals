@@ -14,7 +14,7 @@ export async function buildDemo({ check = false } = {}) {
   const animal = source[1].replace("import { getBrowserScheduler } from '../core/scheduler.js';", '').replace(/^export (?=(?:class|function) )/gm, '');
   if (/^\s*(?:import|export)\s/m.test(scheduler + animal)) throw new Error('Unsupported module shape in classic compatibility build');
   const engine = `// GENERATED from ${inputs.join(', ')}. Do not edit.\n// source-sha256: ${hash}\n(function () {\n'use strict';\n${scheduler}\n${animal}\nwindow.CuttlefishArtwork = CuttlefishArtwork;\nwindow.createCuttlefish = createCuttlefish;\n})();\n`;
-  let html = await readFile(path.join(root, 'dist/index.html'), 'utf8');
+  let html = await readFile(path.join(root, 'dist/cuttlefish-demo.html'), 'utf8');
   let css = await readFile(path.join(root, 'dist/styles.css'), 'utf8');
   const app = await readFile(path.join(root, 'dist/app.js'), 'utf8');
   css = css.replace(/@import\s+url\([^)]*\)\s*;\s*/, '');

@@ -1,3 +1,7 @@
+# Current integration status
+
+The TypeScript/canonical renderer foundation merged through PR #2 at `246dc33875d1270c11f6f3612614744e6f97562d`. The package remains private and unpublished. The root is now the animal catalogue, with the interactive study at `dist/cuttlefish-demo.html`. The review history below records evidence and limitations at the time of each review; it is not a current release announcement.
+
 # Integration review — 2026-11-18
 
 ## Provenance and scope
