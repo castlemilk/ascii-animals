@@ -6,7 +6,7 @@ function context(){return new Proxy({createRadialGradient:()=>({addColorStop:noo
 function canvas(w=947,h=707){const ctx=context();return {getContext:()=>ctx,getBoundingClientRect:()=>({left:0,top:0,width:w,height:h}),addEventListener:noop,removeEventListener:noop,dispatchEvent:noop};}
 let clock=1000;
 const scope={console,performance:{now:()=>clock},document:{createElement:()=>canvas(),addEventListener:noop,removeEventListener:noop,hidden:false},window:{devicePixelRatio:1},ResizeObserver:class{observe(){}disconnect(){}},requestAnimationFrame:()=>1,cancelAnimationFrame:noop,CustomEvent:class{}};
-vm.createContext(scope);vm.runInContext(fs.readFileSync(path.join(__dirname,'..','dist','artwork.js'),'utf8'),scope);const Artwork=scope.window.CuttlefishArtwork;
+vm.createContext(scope);vm.runInContext(fs.readFileSync(path.join(__dirname,'..','test','fixtures','legacy-artwork.cjs'),'utf8'),scope);const Artwork=scope.window.CuttlefishArtwork;
 let samples=0,maxSamples=0,minNear=Infinity,clipped=0,bad=0,cases=0;
 const originalPut=Artwork.prototype._put;
 Artwork.prototype._put=function(x,y,z,light,kind,seed){const p=this._world(x,y,z),denom=1-p[2]*this.perspectiveStrength;if(![...p,denom,light].every(Number.isFinite))bad++;minNear=Math.min(minNear,denom);if(denom<.16)clipped++;samples++;originalPut.call(this,x,y,z,light,kind,seed);maxSamples=Math.max(maxSamples,this.sampleCount);};

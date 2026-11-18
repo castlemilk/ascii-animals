@@ -1,0 +1,54 @@
+{
+  "name": "ascii-animals-review",
+  "version": "0.0.0-review.0",
+  "description": "Local review candidate for a framework-neutral procedural ASCII animals library",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./cuttlefish": {
+      "types": "./lib/animals/cuttlefish.d.ts",
+      "import": "./lib/animals/cuttlefish.js",
+      "default": "./lib/animals/cuttlefish.js"
+    },
+    "./core": {
+      "types": "./lib/core/index.d.ts",
+      "import": "./lib/core/index.js",
+      "default": "./lib/core/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "lib/",
+    "README.md",
+    "NOTICE.md",
+    "docs/*.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:legacy": "node scripts/check-engine.cjs",
+    "bench:cpu": "node bench/benchmark.cjs --source src/animals/cuttlefish.js --esm --out artifacts/benchmark.json",
+    "check:package": "node scripts/check-package.mjs",
+    "prepublishOnly": "node -e \"throw new Error('Review candidate: publication is intentionally disabled')\"",
+    "pretest": "npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/castlemilk/ascii-animals.git"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}
