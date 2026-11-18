@@ -97,3 +97,20 @@ fox.advance(.1);
 fox.showStaticPose('dance');
 // @ts-expect-error callback input batches are readonly
 createFoxArtwork(document.createElement('canvas'), { onInputs(batch) { batch.push(input); } });
+
+import { createDragonflyArtwork, createDragonfly, type DragonflyInput } from 'ascii-animals-review/dragonfly';
+const dragonfly = createDragonflyArtwork(document.createElement('canvas'), { model: { seed: 17, motion: 'slow' }, view: 'dorsal' });
+dragonfly.update({ wingAmplitude: .3 }); dragonfly.setTarget(.5, .1); dragonfly.dart();
+dragonfly.pause(); dragonfly.restart(); dragonfly.play(); dragonfly.setNeutral(true);
+dragonfly.setView('oblique'); dragonfly.exportText(); dragonfly.dispose();
+const dragonflyModel = createDragonfly({ seed: 17 });
+const dragonflyInput: DragonflyInput = { type: 'dart', tick: 1, seq: 0 };
+dragonflyModel.step(1, [dragonflyInput]); dragonflyModel.dispose();
+// @ts-expect-error seed changes use reset, not configure
+dragonfly.update({ seed: 4 });
+// @ts-expect-error unsupported species-specific interaction
+dragonfly.pounce();
+// @ts-expect-error unsupported projection
+dragonfly.setView('front');
+// @ts-expect-error motion mode is a finite named union
+dragonfly.update({ motion: 'hyper' });

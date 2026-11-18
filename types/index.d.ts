@@ -18,3 +18,6 @@ export type { Artwork, ArtworkOptions, ArtworkConfig, ArtworkStats } from './pub
 
 export { createFoxArtwork } from './public/fox.js';
 export type { FoxArtwork, FoxBrowserOptions, FoxBrowserStatus, FoxOptions, FoxCreateOptions, FoxState, FoxInput } from './public/fox.js';
+
+export { createDragonflyArtwork } from './public/dragonfly.js';
+export type { DragonflyArtwork, DragonflyMountOptions, DragonflyBrowserStatus, DragonflyOptions, DragonflyState, DragonflyInput } from './public/dragonfly.js';
