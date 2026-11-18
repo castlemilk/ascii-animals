@@ -1,0 +1,2 @@
+# Exact-width ASCII cell evidence intentionally retains spaces and empty rows.
+evidence/frog-specimen.txt -whitespace

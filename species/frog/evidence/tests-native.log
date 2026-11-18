@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: native Canvas / actual legacy cells
+ok 1 - native Canvas / actual legacy cells
+  ---
+  duration_ms: 22005.29416
+  type: 'test'
+  ...
+# Subtest: native Canvas / actual cell export
+ok 2 - native Canvas / actual cell export
+  ---
+  duration_ms: 18110.991691
+  type: 'test'
+  ...
+# Subtest: native Canvas / actual projection
+ok 3 - native Canvas / actual projection
+  ---
+  duration_ms: 35657.026229
+  type: 'test'
+  ...
+# Subtest: native Canvas / private adapter
+ok 4 - native Canvas / private adapter
+  ---
+  duration_ms: 864.730543
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 76802.033113

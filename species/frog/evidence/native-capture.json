@@ -1,0 +1,742 @@
+{
+  "evidence": "native Canvas, not browser",
+  "node": "v24.22.1",
+  "seed": 23,
+  "viewport": [
+    720,
+    540
+  ],
+  "dpr": 1,
+  "frames": [
+    {
+      "tick": 0,
+      "file": "frames/0000.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 936
+    },
+    {
+      "tick": 3,
+      "file": "frames/0001.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 936
+    },
+    {
+      "tick": 6,
+      "file": "frames/0002.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 936
+    },
+    {
+      "tick": 9,
+      "file": "frames/0003.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 936
+    },
+    {
+      "tick": 12,
+      "file": "frames/0004.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 936
+    },
+    {
+      "tick": 15,
+      "file": "frames/0005.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 926
+    },
+    {
+      "tick": 18,
+      "file": "frames/0006.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 903
+    },
+    {
+      "tick": 21,
+      "file": "frames/0007.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 867
+    },
+    {
+      "tick": 24,
+      "file": "frames/0008.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 848
+    },
+    {
+      "tick": 27,
+      "file": "frames/0009.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 824
+    },
+    {
+      "tick": 30,
+      "file": "frames/0010.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 842
+    },
+    {
+      "tick": 33,
+      "file": "frames/0011.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 888
+    },
+    {
+      "tick": 36,
+      "file": "frames/0012.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 890
+    },
+    {
+      "tick": 39,
+      "file": "frames/0013.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 890
+    },
+    {
+      "tick": 42,
+      "file": "frames/0014.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 896
+    },
+    {
+      "tick": 45,
+      "file": "frames/0015.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 898
+    },
+    {
+      "tick": 48,
+      "file": "frames/0016.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 888
+    },
+    {
+      "tick": 51,
+      "file": "frames/0017.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 894
+    },
+    {
+      "tick": 54,
+      "file": "frames/0018.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 893
+    },
+    {
+      "tick": 57,
+      "file": "frames/0019.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 891
+    },
+    {
+      "tick": 60,
+      "file": "frames/0020.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 894
+    },
+    {
+      "tick": 63,
+      "file": "frames/0021.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 890
+    },
+    {
+      "tick": 66,
+      "file": "frames/0022.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 898
+    },
+    {
+      "tick": 69,
+      "file": "frames/0023.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 925
+    },
+    {
+      "tick": 72,
+      "file": "frames/0024.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 808
+    },
+    {
+      "tick": 75,
+      "file": "frames/0025.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 831
+    },
+    {
+      "tick": 78,
+      "file": "frames/0026.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 893
+    },
+    {
+      "tick": 81,
+      "file": "frames/0027.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 917
+    },
+    {
+      "tick": 84,
+      "file": "frames/0028.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 921
+    },
+    {
+      "tick": 87,
+      "file": "frames/0029.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 923
+    },
+    {
+      "tick": 90,
+      "file": "frames/0030.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 926
+    },
+    {
+      "tick": 93,
+      "file": "frames/0031.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 927
+    },
+    {
+      "tick": 96,
+      "file": "frames/0032.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 935
+    },
+    {
+      "tick": 99,
+      "file": "frames/0033.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 943
+    },
+    {
+      "tick": 102,
+      "file": "frames/0034.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 105,
+      "file": "frames/0035.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 108,
+      "file": "frames/0036.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 111,
+      "file": "frames/0037.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 114,
+      "file": "frames/0038.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 117,
+      "file": "frames/0039.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 120,
+      "file": "frames/0040.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 123,
+      "file": "frames/0041.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 126,
+      "file": "frames/0042.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 129,
+      "file": "frames/0043.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 132,
+      "file": "frames/0044.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 135,
+      "file": "frames/0045.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 138,
+      "file": "frames/0046.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 141,
+      "file": "frames/0047.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 144,
+      "file": "frames/0048.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 147,
+      "file": "frames/0049.png",
+      "phase": "idle",
+      "samples": 17918,
+      "glyphs": 941
+    },
+    {
+      "tick": 150,
+      "file": "frames/0050.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 940
+    },
+    {
+      "tick": 153,
+      "file": "frames/0051.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 940
+    },
+    {
+      "tick": 156,
+      "file": "frames/0052.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 940
+    },
+    {
+      "tick": 159,
+      "file": "frames/0053.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 940
+    },
+    {
+      "tick": 162,
+      "file": "frames/0054.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 940
+    },
+    {
+      "tick": 165,
+      "file": "frames/0055.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 926
+    },
+    {
+      "tick": 168,
+      "file": "frames/0056.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 906
+    },
+    {
+      "tick": 171,
+      "file": "frames/0057.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 875
+    },
+    {
+      "tick": 174,
+      "file": "frames/0058.png",
+      "phase": "crouch",
+      "samples": 17918,
+      "glyphs": 844
+    },
+    {
+      "tick": 177,
+      "file": "frames/0059.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 815
+    },
+    {
+      "tick": 180,
+      "file": "frames/0060.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 852
+    },
+    {
+      "tick": 183,
+      "file": "frames/0061.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 882
+    },
+    {
+      "tick": 186,
+      "file": "frames/0062.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 887
+    },
+    {
+      "tick": 189,
+      "file": "frames/0063.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 888
+    },
+    {
+      "tick": 192,
+      "file": "frames/0064.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 891
+    },
+    {
+      "tick": 195,
+      "file": "frames/0065.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 895
+    },
+    {
+      "tick": 198,
+      "file": "frames/0066.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 890
+    },
+    {
+      "tick": 201,
+      "file": "frames/0067.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 899
+    },
+    {
+      "tick": 204,
+      "file": "frames/0068.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 887
+    },
+    {
+      "tick": 207,
+      "file": "frames/0069.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 883
+    },
+    {
+      "tick": 210,
+      "file": "frames/0070.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 889
+    },
+    {
+      "tick": 213,
+      "file": "frames/0071.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 889
+    },
+    {
+      "tick": 216,
+      "file": "frames/0072.png",
+      "phase": "flight",
+      "samples": 17918,
+      "glyphs": 910
+    },
+    {
+      "tick": 219,
+      "file": "frames/0073.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 922
+    },
+    {
+      "tick": 222,
+      "file": "frames/0074.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 814
+    },
+    {
+      "tick": 225,
+      "file": "frames/0075.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 812
+    },
+    {
+      "tick": 228,
+      "file": "frames/0076.png",
+      "phase": "landing",
+      "samples": 17918,
+      "glyphs": 882
+    },
+    {
+      "tick": 231,
+      "file": "frames/0077.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 899
+    },
+    {
+      "tick": 234,
+      "file": "frames/0078.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 904
+    },
+    {
+      "tick": 237,
+      "file": "frames/0079.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 907
+    },
+    {
+      "tick": 240,
+      "file": "frames/0080.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 910
+    },
+    {
+      "tick": 243,
+      "file": "frames/0081.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 922
+    },
+    {
+      "tick": 246,
+      "file": "frames/0082.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 926
+    },
+    {
+      "tick": 249,
+      "file": "frames/0083.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 930
+    },
+    {
+      "tick": 252,
+      "file": "frames/0084.png",
+      "phase": "recovery",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 255,
+      "file": "frames/0085.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 943
+    },
+    {
+      "tick": 258,
+      "file": "frames/0086.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 943
+    },
+    {
+      "tick": 261,
+      "file": "frames/0087.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 943
+    },
+    {
+      "tick": 264,
+      "file": "frames/0088.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 943
+    },
+    {
+      "tick": 267,
+      "file": "frames/0089.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 270,
+      "file": "frames/0090.png",
+      "phase": "cooldown",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 273,
+      "file": "frames/0091.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 276,
+      "file": "frames/0092.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 279,
+      "file": "frames/0093.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 282,
+      "file": "frames/0094.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 285,
+      "file": "frames/0095.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 288,
+      "file": "frames/0096.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 291,
+      "file": "frames/0097.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 294,
+      "file": "frames/0098.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 297,
+      "file": "frames/0099.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    },
+    {
+      "tick": 300,
+      "file": "frames/0100.png",
+      "phase": "interest",
+      "samples": 17918,
+      "glyphs": 942
+    }
+  ],
+  "contactTicks": [
+    0,
+    10,
+    24,
+    36,
+    47,
+    72,
+    88,
+    109
+  ],
+  "captureFont": {
+    "file": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+    "family": "Liberation Mono"
+  },
+  "fontStrategy": "existing atlas system font fallback; no binary bundled",
+  "pending": [
+    "browser input",
+    "screen-reader",
+    "real mobile",
+    "browser p95/p99",
+    "heap profiling"
+  ]
+}

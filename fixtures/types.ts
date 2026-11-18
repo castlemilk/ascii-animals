@@ -88,3 +88,12 @@ fox.advance(.1);
 fox.showStaticPose('dance');
 // @ts-expect-error callback input batches are readonly
 createFoxArtwork(document.createElement('canvas'), { onInputs(batch) { batch.push(input); } });
+
+import { createFrogArtwork, createFrog, stepFrog } from 'ascii-animals-review/frog';
+const frog = createFrogArtwork(document.createElement('canvas'), {config:{jumpHeight:.7}, paused:true});
+frog.target({x:.4,y:.1}); frog.pulse(); frog.update({flightTicks:42}); frog.pause(); frog.dispose();
+stepFrog(createFrog({seed:23}),1);
+// @ts-expect-error invalid view
+createFrogArtwork(document.createElement('canvas'), {preview:{view:'orbit'}});
+// @ts-expect-error invalid config property
+frog.update({wingSpan:1});

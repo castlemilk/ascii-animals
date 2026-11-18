@@ -232,3 +232,7 @@ This study began with a supplied luminous ASCII jellyfish video credited on scre
 [GitHub Pages demo](https://castlemilk.github.io/ascii-animals/) is deployed **manually**, not on pushes or pull requests. In GitHub Actions, choose **Deploy demo to GitHub Pages** → **Run workflow** on `main`. The workflow validates the committed standalone artifact and publishes only `dist/`; repository research, recordings and source history are not part of the web deployment. The GitHub Actions environment links to the exact deployment.
 
 Updating `main` does not update the live demo until a maintainer deliberately runs the deployment workflow. No npm publication is involved.
+
+## Frog adapter
+
+The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick leap study with shared scheduling, validated settings and reduced-motion static poses. Its generated demo lives at `dist/frog/`; catalogue availability follows reviewed deployment.

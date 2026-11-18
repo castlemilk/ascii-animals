@@ -1,3 +1,4 @@
+import { buildFrogPackage, buildFrogDemo } from './build-frog.mjs';
 import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
 import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
@@ -28,6 +29,7 @@ async function copyTree(from, to, suffix) {
 await copyTree(path.join(root, 'src'), output, '.js');
 await copyTree(path.join(root, 'types'), output, '.d.ts');
 await buildFoxPackage();
+await buildFrogPackage();
 execFileSync(process.execPath, [path.join(root, 'node_modules/typescript/bin/tsc'), '-p', path.join(root, 'tsconfig.json')], { stdio: 'inherit' });
 const metadata = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 for (const [subpath, conditions] of Object.entries(metadata.exports)) {
@@ -38,4 +40,5 @@ for (const [subpath, conditions] of Object.entries(metadata.exports)) {
 }
 const demo = await buildDemo();
 const fox = await buildFoxDemo();
+const frog = await buildFrogDemo();
 console.log(JSON.stringify({ demo, fox, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
