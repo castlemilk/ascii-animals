@@ -22,7 +22,7 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 | Owl | Available: [interactive study](https://castlemilk.github.io/ascii-animals/owl/index.html) |
 | Fox | Available: [interactive study](https://castlemilk.github.io/ascii-animals/fox/index.html) |
 
-All thirteen studies have passed bounded independent Chrome visual acceptance. Typed APIs and configuration are documented in the API map below; species intentionally preserve their own interaction contracts. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
+All thirteen studies are deployed from [PR #20](https://github.com/castlemilk/ascii-animals/pull/20), release commit `c06114404900884814bef879a02f1a49a3e7d590`, via the successful [manual Pages run](https://github.com/castlemilk/ascii-animals/actions/runs/44296685081). All 103 shipped HTML/JS/CSS/JSON assets were verified byte-identical to the reviewed build. The studies passed bounded independent Chrome visual acceptance; see [scope and limitations](docs/VISUAL-ACCEPTANCE.md). This establishes functional demo readiness, not parity with Cuttlefish’s expressive director or the owner’s creative bar. Richer species-specific scenes, ensembles, individual roles and interactions remain active follow-up work. Typed APIs and configuration are documented in the API map below; species intentionally preserve their own interaction contracts. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
 
 
 ## Dragonfly artwork
@@ -38,18 +38,18 @@ The original reactive fox is available through a dedicated typed adapter and
 It preserves its own fixed-tick behavior model rather than pretending to accept
 cuttlefish formations or ink controls. Package publication remains disabled.
 
-## Seahorse artwork candidate
+## Seahorse artwork
 
 A newly authored, original Seahorse study has a dedicated [typed API](docs/SEAHORSE-API.md)
 and [local demo](dist/seahorse/index.html). It adds hovering, curiosity and a curled
-holdfast pose; reduced motion and pause always remain authoritative. This review
-candidate is not yet advertised as deployed in the catalogue.
+holdfast pose; reduced motion and pause always remain authoritative. The study is
+[live in the catalogue](https://castlemilk.github.io/ascii-animals/seahorse/index.html); bounded browser acceptance is recorded in the release evidence above.
 
-## Crab artwork candidate
+## Crab artwork
 
 The newly authored [Crab API](docs/CRAB-API.md) and [local demo](dist/crab/index.html)
 add sideways scuttling, a broad shell, eight articulated walking legs and paired
-claws with a defensive gesture. Independent browser acceptance is pending.
+claws with a defensive gesture. The study is [live](https://castlemilk.github.io/ascii-animals/crab/index.html), with bounded independent browser acceptance recorded in the release evidence above.
 
 [Complete typed API map and configuration guides](docs/ANIMAL-APIS.md)
 
@@ -88,14 +88,14 @@ Procedural animals drawn with moving characters, using a framework-neutral Canva
 
 ## Review status and source
 
-Integration review: see [independently rerun checks and remaining blockers](docs/INTEGRATION-REVIEW.md). The TypeScript foundation is merged. It remains private and is not a released npm package.
+Current collection evidence: [all-species integration](docs/ALL-SPECIES-INTEGRATION.md) and [bounded visual acceptance](docs/VISUAL-ACCEPTANCE.md). The [original package integration review](docs/INTEGRATION-REVIEW.md) is historical and retains its then-open checks; it is not the current deployment status. The TypeScript foundation is merged. It remains private and is not a released npm package.
 [Open the Cuttlefish study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
-This README accompanies a local package candidate based on [PR #1's import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`](https://github.com/castlemilk/ascii-animals/commit/7e5984d34a139b8de4643f1ed0607897a42d88dc), branch `feat/cuttlefish-microsite-import`. Its imported files match the inspected local site snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; local hosting metadata is excluded from the import. The original `main` read contained only `.gitignore` at `84bd1f84fab0f5f5dec053c0d10562c10be8c188`.
+The original package review was based on [PR #1's import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`](https://github.com/castlemilk/ascii-animals/commit/7e5984d34a139b8de4643f1ed0607897a42d88dc), branch `feat/cuttlefish-microsite-import`. Its imported files match the inspected local site snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; local hosting metadata is excluded from the import. The original `main` read contained only `.gitignore` at `84bd1f84fab0f5f5dec053c0d10562c10be8c188`.
 
-The accessible saved microsite version 4 points to the older source commit `6214a09171fa328beec984edd6533c33e83ce9f1`. Site metadata links it to the supplied [Cuttlefish conversation](https://chatgpt.com/c/6afd2c72-71ec-83ec-b182-835c5e7f86b1), but this review could not read the full conversation or inspect the live runtime. Do not assume the saved site, import branch, and candidate are identical.
+The accessible saved microsite version 4 points to the older source commit `6214a09171fa328beec984edd6533c33e83ce9f1`. Site metadata links it to the supplied [Cuttlefish conversation](https://chatgpt.com/c/6afd2c72-71ec-83ec-b182-835c5e7f86b1), but that original provenance review could not read the full conversation or inspect the live runtime. Later browser acceptance applies to the integrated GitHub Pages build, not that historical saved site. Do not assume the saved site, import branch, and candidate are identical.
 
-The local package is named `ascii-animals-review@0.0.0-review.0`, with `private: true` and `license: "UNLICENSED"`. It has not been published. A final package name, license, browser support matrix, and visual/performance acceptance remain owner decisions. The microsite, recorder and standalone now use a generated browser-global build of the same canonical `src/` engine. A frozen legacy renderer remains only under `test/fixtures/` for compatibility checks.
+The local package is named `ascii-animals-review@0.0.0-review.0`, with `private: true` and `license: "UNLICENSED"`. It has not been published. A final package name, license, browser support matrix, and broader visual/performance acceptance remain owner decisions; bounded Chrome checks do not certify creative completeness or measured performance. The microsite, recorder and standalone now use a generated browser-global build of the same canonical `src/` engine. A frozen legacy renderer remains only under `test/fixtures/` for compatibility checks.
 
 [API guide](docs/API.md) · [Architecture](docs/ARCHITECTURE.md) · [Extension guide](docs/EXTENDING.md) · [Release checks](docs/RELEASE.md) · [Backlog drafts](docs/BACKLOG.md)
 
@@ -256,13 +256,13 @@ Updating `main` does not update the live demo until a maintainer deliberately ru
 
 ### Gecko
 
-The original reactive Gecko is available through the typed `createGeckoArtwork` named export and `ascii-animals-review/gecko`. Its dedicated [API guide](docs/GECKO-API.md) documents fixed-tick gait, guide/startle/curl behavior and lifecycle. The generated demo is `dist/gecko/index.html`; catalogue/deployment status is tracked separately.
-### Pufferfish review adapter
+The original reactive Gecko is available through the typed `createGeckoArtwork` named export and `ascii-animals-review/gecko`. Its dedicated [API guide](docs/GECKO-API.md) documents fixed-tick gait, guide/startle/curl behavior and lifecycle. The generated demo is `dist/gecko/index.html`; the [catalogue](https://castlemilk.github.io/ascii-animals/) links the deployed study.
+### Pufferfish adapter
 
-`createPufferfishArtwork` and `ascii-animals-review/pufferfish` expose the independently configured fixed-tick pufferfish model, staged inflation and deliberate static poses. See [Pufferfish API and provenance](docs/PUFFERFISH-API.md). Local generated demo: `dist/pufferfish/index.html`. Availability remains under review until browser acceptance; no npm release.
+`createPufferfishArtwork` and `ascii-animals-review/pufferfish` expose the independently configured fixed-tick pufferfish model, staged inflation and deliberate static poses. See [Pufferfish API and provenance](docs/PUFFERFISH-API.md). Local generated demo: `dist/pufferfish/index.html`. The study is [live](https://castlemilk.github.io/ascii-animals/pufferfish/index.html) with bounded browser acceptance recorded above; no npm release.
 ## Frog adapter
 
-The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick leap study with shared scheduling, validated settings and reduced-motion static poses. Its generated demo lives at `dist/frog/`; catalogue availability follows reviewed deployment.
+The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick leap study with shared scheduling, validated settings and reduced-motion static poses. Its generated demo lives at `dist/frog/`; the [catalogue](https://castlemilk.github.io/ascii-animals/) links the deployed study.
 ## Owl TypeScript artwork
 
-The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals-review/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. This is not an npm publication or a claim of browser acceptance.
+The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals-review/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. The study is deployed and has the bounded browser acceptance recorded above. This is not an npm publication or a claim of exhaustive browser coverage.
