@@ -1,6 +1,7 @@
 import { mountGecko } from '../species/gecko/browser.js';
 import { getBrowserScheduler } from '../core/scheduler.js';
-export { createGecko, resolveGeckoOptions, DEFAULT_GECKO_OPTIONS, GECKO_LIMITS } from '../species/gecko/gecko.js';
+export { createGecko, resolveGeckoOptions, DEFAULT_GECKO_OPTIONS, DEFAULT_GECKO_HABITAT, GECKO_LIMITS } from '../species/gecko/gecko.js';
+export { createGeckoDirector, resolveGeckoDirectorOptions, DEFAULT_GECKO_DIRECTOR_OPTIONS, GECKO_DIRECTOR_LIMITS, GECKO_SCENES } from '../species/gecko/director.js';
 /** Explicit adapter preserving Gecko's integer-tick gait and input ordering. */
 export function createGeckoArtwork(canvas, options = {}) {
     if (!options || typeof options !== 'object' || Array.isArray(options))

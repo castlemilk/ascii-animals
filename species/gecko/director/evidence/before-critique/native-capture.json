@@ -1,0 +1,3382 @@
+{
+  "kind": "actual native Canvas of compiled scene geometry, rasterizer and painter; NOT browser or deployed evidence",
+  "seed": 37,
+  "inputs": [],
+  "options": "default director except scene, per independent replay",
+  "runtime": "v24.22.1",
+  "nativeFontAvailable": true,
+  "wide": {
+    "width": 1000,
+    "height": 680,
+    "grid": [
+      224,
+      144
+    ]
+  },
+  "close": {
+    "width": 360,
+    "height": 360,
+    "grid": [
+      112,
+      72
+    ]
+  },
+  "frames": [
+    {
+      "name": "moonlit-wall-0000",
+      "state": {
+        "tick": 0,
+        "arc": {
+          "scene": "moonlit-wall",
+          "beat": "emerge",
+          "beatIndex": 0,
+          "progress": 0,
+          "cycle": 0,
+          "scoreTick": 0
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.76,
+            "y": -0.4910102040743039
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.6,
+              "y": 0.68
+            },
+            "scale": 1,
+            "heading": -1.3,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.04,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.8205821314735768,
+                  "y": 0.3904425389070873
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.2617183839316048,
+                  "y": 0.545591859509348
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9382816160683953,
+                  "y": 0.8144081404906521
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.3794178685264233,
+                  "y": 0.9695574610929129
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.053191489361702135,
+              "y": 0.34042553191489366
+            },
+            "scale": 0.94,
+            "heading": -0.7,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.04,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.0346336412653592,
+                  "y": -0.023106593589900026
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.40827989986322,
+                  "y": 0.4205018750351033
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -0.3018969211398157,
+                  "y": 0.26034918879468405
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.07174933745804506,
+                  "y": 0.7039576574196873
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.840909090909091,
+              "y": -0.31818181818181823
+            },
+            "scale": 0.88,
+            "heading": 2.65,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.04,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.7838498647899341,
+                  "y": 0.04132373770665887
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.510072150841802,
+                  "y": -0.46999393590274696
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.17174603097638,
+                  "y": -0.1663697004608895
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.897968317028248,
+                  "y": -0.6776873740702953
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2584
+    },
+    {
+      "name": "moonlit-wall-0360",
+      "state": {
+        "tick": 360,
+        "arc": {
+          "scene": "moonlit-wall",
+          "beat": "climb",
+          "beatIndex": 1,
+          "progress": 0.5,
+          "cycle": 0,
+          "scoreTick": 360
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.8337038751285348,
+            "y": -0.4965998131638041
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.658252293335082,
+              "y": 0.15891156147750363
+            },
+            "scale": 1,
+            "heading": -1.7045455572208497,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25657409738399634,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9673317813518947,
+                  "y": 0.03653460250537247
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.3954722089169171,
+                  "y": -0.0628106007733206
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9036567663220818,
+                  "y": 0.5097700010766887
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.3388381170150054,
+                  "y": 0.3580963600083298
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.31466164094538557,
+              "y": -0.2967508809558151
+            },
+            "scale": 0.94,
+            "heading": -1.5625428735104867,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.19666050392479223,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "swing",
+                "position": {
+                  "x": 0.026612800093026776,
+                  "y": -0.5343474551603606
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6060342014050976,
+                  "y": -0.4618517017022641
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.022731978713939824,
+                  "y": -0.06415235922914087
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6020932222050625,
+                  "y": 0.015632034861553477
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.777537718028722,
+              "y": -0.0908467196114882
+            },
+            "scale": 0.88,
+            "heading": 1.6357588513040762,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.256465768775742,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "swing",
+                "position": {
+                  "x": 2.047772580180169,
+                  "y": 0.1529091793970398
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4770648708053808,
+                  "y": 0.060717229207155166
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0823356498794547,
+                  "y": -0.3088951347960863
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.507697505830557,
+                  "y": -0.4101624340789267
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2614
+    },
+    {
+      "name": "moonlit-wall-0690",
+      "state": {
+        "tick": 690,
+        "arc": {
+          "scene": "moonlit-wall",
+          "beat": "inspect",
+          "beatIndex": 2,
+          "progress": 0.5,
+          "cycle": 0,
+          "scoreTick": 690
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.7951477268162771,
+            "y": -0.5617763742899267
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.7182716004529892,
+              "y": -0.28715446163401603
+            },
+            "scale": 1,
+            "heading": -1.7045455572208459,
+            "motive": "inspect",
+            "emotion": "curious",
+            "tailExpression": 0.24130089935709526,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -2.0273396489192606,
+                  "y": -0.40944640138382177
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4624254285255505,
+                  "y": -0.5604097541035191
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9813551283603674,
+                  "y": -0.06768750419928374
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.3988459845823684,
+                  "y": -0.08788464388087287
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.31904638857781836,
+              "y": -0.8280010036170334
+            },
+            "scale": 0.94,
+            "heading": -1.5625428735104916,
+            "motive": "inspect",
+            "emotion": "curious",
+            "tailExpression": 0.2568316639848116,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.031182957324543355,
+                  "y": -1.0880615553438797
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6106973495684891,
+                  "y": -1.0268324580552597
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.02738629588155261,
+                  "y": -0.6280631640172922
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6067563703684551,
+                  "y": -0.5493487214914426
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.747878835640112,
+              "y": 0.36506458351715443
+            },
+            "scale": 0.88,
+            "heading": 1.6357588513040977,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.259352485952613,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0282518055237473,
+                  "y": 0.522472535614976
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4453367640640753,
+                  "y": 0.548436297670347
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 2.051468340468878,
+                  "y": 0.16559190328794457
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4759693990892637,
+                  "y": 0.0775566343842654
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2581
+    },
+    {
+      "name": "lantern-hunt-0180",
+      "state": {
+        "tick": 180,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "stalk",
+          "beatIndex": 1,
+          "progress": 0.05555555555555555,
+          "cycle": 0,
+          "scoreTick": 180
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.8078736463163255,
+            "y": -0.4751318594800529
+          },
+          "visible": true,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.598244425767731,
+              "y": 0.6048925653667034
+            },
+            "scale": 1,
+            "heading": -1.7045455572208317,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.2565659067858287,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.8144680242267401,
+                  "y": 0.35302924449263884
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.2617183839316048,
+                  "y": 0.545591859509348
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9382816160683953,
+                  "y": 0.8144081404906521
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.3080484522874076,
+                  "y": 0.8271298429077569
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.3593565341351506,
+              "y": 0.010892116091871245
+            },
+            "scale": 0.94,
+            "heading": -0.8014017801337074,
+            "motive": "stalk",
+            "emotion": "focused",
+            "tailExpression": 0.09999773077906239,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.22429190373221375,
+                  "y": -0.27051095880472703
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6983775177676399,
+                  "y": 0.07546164463461372
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": -0.0000554497834496237,
+                  "y": -0.033872287100443155
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.36986692885422395,
+                  "y": 0.42043693979294455
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.8150489781280505,
+              "y": -0.29673758744850987
+            },
+            "scale": 0.88,
+            "heading": 2.2858333333333376,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.17991082653641052,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.753533083217603,
+                  "y": 0.06220632836118618
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.510072150841802,
+                  "y": -0.46999393590274696
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.17174603097638,
+                  "y": -0.1663697004608895
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.7587224162359236,
+                  "y": -0.6402819627484293
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2602
+    },
+    {
+      "name": "lantern-hunt-0720",
+      "state": {
+        "tick": 720,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "poise",
+          "beatIndex": 2,
+          "progress": 0.25,
+          "cycle": 0,
+          "scoreTick": 720
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.7872862352993292,
+            "y": -0.5638865694638551
+          },
+          "visible": true,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.7105509584923029,
+              "y": -0.343643224659341
+            },
+            "scale": 1,
+            "heading": -1.2137122238875115,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.2565740976937792,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -2.0370183970686084,
+                  "y": -0.5126965468944988
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.4624254285255505,
+                  "y": -0.5604097541035191
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9813551283603674,
+                  "y": -0.06768750419928374
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4516513611342399,
+                  "y": -0.10064729088492946
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.43056922317681834,
+              "y": -0.06281536856245538
+            },
+            "scale": 0.94,
+            "heading": -0.8549190361032322,
+            "motive": "poise",
+            "emotion": "focused",
+            "tailExpression": 0.09999999999999988,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.3823917620705341,
+                  "y": -0.4493110764834521
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.8167455832124466,
+                  "y": -0.05678110398367123
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.09266860325695134,
+                  "y": -0.11948845989493231
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.5170270528333744,
+                  "y": 0.27163285699258555
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.7370167952688433,
+              "y": 0.34258700958727145
+            },
+            "scale": 0.88,
+            "heading": 2.12659218463743,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25988136756357344,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0282518055237473,
+                  "y": 0.522472535614976
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4307760359566382,
+                  "y": 0.5248060544851554
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 2.0790780883142874,
+                  "y": 0.23844739733679915
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4759693990892637,
+                  "y": 0.0775566343842654
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2621
+    },
+    {
+      "name": "lantern-hunt-0820",
+      "state": {
+        "tick": 820,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "strike",
+          "beatIndex": 3,
+          "progress": 0.1111111111111111,
+          "cycle": 0,
+          "scoreTick": 820
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.7590810104786234,
+            "y": -0.5629446723911951
+          },
+          "visible": false,
+          "caughtBy": "pip"
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.5743741786615575,
+              "y": -0.48220399126138075
+            },
+            "scale": 1,
+            "heading": -0.6978208859109051,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.11095542670924634,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.67313683377014,
+                  "y": -0.7912971404933853
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.227123548525261,
+                  "y": -0.39492856591182246
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9082155354015966,
+                  "y": -0.5807240325218762
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.5930051511945027,
+                  "y": -0.08811118891341063
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.43056922317681834,
+              "y": -0.06281536856245538
+            },
+            "scale": 0.94,
+            "heading": -0.8549190361032322,
+            "motive": "strike",
+            "emotion": "focused",
+            "tailExpression": 0.09999999999999988,
+            "phase": "idle",
+            "catches": 1,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.3823917620705341,
+                  "y": -0.4493110764834521
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.8167455832124466,
+                  "y": -0.05678110398367123
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.09266860325695134,
+                  "y": -0.11948845989493231
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.5170270528333744,
+                  "y": 0.27163285699258555
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.6522407810989397,
+              "y": 0.40367594154896036
+            },
+            "scale": 0.88,
+            "heading": 2.7068137607826763,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.05455918716324496,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.8252753318413308,
+                  "y": 0.7257794291172258
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.3225607450843595,
+                  "y": 0.25392441159696916
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.9453542076513584,
+                  "y": 0.5872972071330423
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.655237980255726,
+                  "y": 0.03269675472064007
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2643
+    },
+    {
+      "name": "lantern-hunt-1060",
+      "state": {
+        "tick": 1060,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "return",
+          "beatIndex": 4,
+          "progress": 0.38095238095238093,
+          "cycle": 0,
+          "scoreTick": 1060
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.6996403565763016,
+            "y": -0.5201907066732803
+          },
+          "visible": false,
+          "caughtBy": "pip"
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.3081919791334495,
+              "y": -0.23483375329522782
+            },
+            "scale": 1,
+            "heading": 1.326583489686994,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.24937965061702638,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -0.9754159458278842,
+                  "y": -0.09875891485177095
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.5563406046727337,
+                  "y": -0.03129380723312246
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.0908719092804562,
+                  "y": -0.5620905137129306
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.66543473632878,
+                  "y": -0.46909499943684796
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.2565095073260329,
+              "y": 0.010405143955030099
+            },
+            "scale": 0.94,
+            "heading": -4.160231847201345,
+            "motive": "return",
+            "emotion": "curious",
+            "tailExpression": 0.25999957621994374,
+            "phase": "approach",
+            "catches": 1,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "swing",
+                "position": {
+                  "x": 0.2095344304702711,
+                  "y": 0.2703412453308613
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -0.0899471739901629,
+                  "y": -0.06273021559666589
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6188095715109747,
+                  "y": -0.024789507507752946
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.31837341192650154,
+                  "y": -0.4179981366603801
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.6000800076621782,
+              "y": 0.21656809370882898
+            },
+            "scale": 0.88,
+            "heading": 4.899005318103189,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25998765543501584,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.2722418795772694,
+                  "y": 0.09215533385636884
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.9246102746117817,
+                  "y": 0.06082577982586562
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 1.3308982188973302,
+                  "y": 0.49902061073814674
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.8458961512375616,
+                  "y": 0.5145698523353027
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2636
+    },
+    {
+      "name": "passing-shadow-0550",
+      "state": {
+        "tick": 550,
+        "arc": {
+          "scene": "passing-shadow",
+          "beat": "explore",
+          "beatIndex": 1,
+          "progress": 0.8809523809523809,
+          "cycle": 0,
+          "scoreTick": 550
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.8241505492707201,
+            "y": -0.5397007549690901
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.6915899975391735,
+              "y": -0.08885566290538423
+            },
+            "scale": 1,
+            "heading": -1.7045455572208577,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25805422302714176,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -2.007337026396804,
+                  "y": -0.2607860667540888
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4225157545672757,
+                  "y": -0.26379937319272256
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9436620113669827,
+                  "y": 0.212449331817227
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.3623493476954676,
+                  "y": 0.18335990149687395
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.32838553710629276,
+              "y": -0.6343279241590258
+            },
+            "scale": 0.94,
+            "heading": -1.6155829911318875,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25993959709446995,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.03128900666457435,
+                  "y": -0.7861786785183398
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": 0.610372118516276,
+                  "y": -0.8196276400110316
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.0526674902241589,
+                  "y": -0.3091574940404458
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6287280153136027,
+                  "y": -0.4100498695386688
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.7693987689081287,
+              "y": 0.03426382403776759
+            },
+            "scale": 0.88,
+            "heading": 1.6357588513040822,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.042667419884609266,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0424604794122465,
+                  "y": 0.30405921365101723
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.46782233536335,
+                  "y": 0.20279191436817254
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0730931144374263,
+                  "y": -0.1668204496350653
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4984549703885282,
+                  "y": -0.2680877489179093
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2629
+    },
+    {
+      "name": "passing-shadow-0625",
+      "state": {
+        "tick": 625,
+        "arc": {
+          "scene": "passing-shadow",
+          "beat": "shadow",
+          "beatIndex": 2,
+          "progress": 0.20833333333333334,
+          "cycle": 0,
+          "scoreTick": 625
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.8104466546383851,
+            "y": -0.5537446105963417
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": true,
+          "progress": 0.16666666666666666,
+          "position": {
+            "x": 1.45,
+            "y": -0.25
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.7060612654558,
+              "y": -0.24914741199141024
+            },
+            "scale": 1,
+            "heading": -1.372045557220856,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.2057709737289613,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -2.0273396489192606,
+                  "y": -0.40944640138382177
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4425183770897325,
+                  "y": -0.41245970782245517
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9636646338894397,
+                  "y": 0.06378899718749426
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4146979068175116,
+                  "y": -0.04875873043900393
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.3264849890860624,
+              "y": -0.671969873911636
+            },
+            "scale": 0.94,
+            "heading": -1.7580829911318876,
+            "motive": "retreat",
+            "emotion": "wary",
+            "tailExpression": 0.49373139092121804,
+            "phase": "startle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.021581485520043,
+                  "y": -0.9115456667170503
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6073495317540181,
+                  "y": -0.8870710540165627
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.04595173622638359,
+                  "y": -0.45900708078742974
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6287280153136027,
+                  "y": -0.4100498695386688
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.7681338263067081,
+              "y": 0.06426787318877342
+            },
+            "scale": 0.88,
+            "heading": 1.3507588513040831,
+            "motive": "retreat",
+            "emotion": "wary",
+            "tailExpression": 0.5116988650667991,
+            "phase": "startle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0424604794122465,
+                  "y": 0.30405921365101723
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4772943048351233,
+                  "y": 0.32025673778472064
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0730931144374263,
+                  "y": -0.1668204496350653
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4915575558795524,
+                  "y": -0.16206186446938892
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2923
+    },
+    {
+      "name": "passing-shadow-0770",
+      "state": {
+        "tick": 770,
+        "arc": {
+          "scene": "passing-shadow",
+          "beat": "shelter",
+          "beatIndex": 3,
+          "progress": 0.2777777777777778,
+          "cycle": 0,
+          "scoreTick": 770
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.7734312167253111,
+            "y": -0.5649635669156163
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.45,
+            "y": -0.25
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.5933134737250394,
+              "y": -0.3857811706741212
+            },
+            "scale": 1,
+            "heading": 0.02971624171151556,
+            "motive": "shelter",
+            "emotion": "wary",
+            "tailExpression": 0.5996915714799699,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4861359726075667,
+                  "y": -0.7560589405780654
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.2327280955663402,
+                  "y": -0.3422435216299441
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9264489844824235,
+                  "y": -0.4983363784105162
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.7170041373285008,
+                  "y": -0.06570618997633043
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.34797220640375875,
+              "y": -0.543575807166024
+            },
+            "scale": 0.94,
+            "heading": -2.3052829911318913,
+            "motive": "shelter",
+            "emotion": "wary",
+            "tailExpression": 0.6199654134191854,
+            "phase": "recover",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -0.030301084322861306,
+                  "y": -0.6226062547921654
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": 0.46516648135623745,
+                  "y": -0.9065798747443471
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.16324334304136004,
+                  "y": -0.2538702201927658
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.690446695588504,
+                  "y": -0.5579735548346745
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.7411625384268026,
+              "y": -0.06531175404068479
+            },
+            "scale": 0.88,
+            "heading": 0.8548588513040798,
+            "motive": "shelter",
+            "emotion": "wary",
+            "tailExpression": 0.6199703349392777,
+            "phase": "recover",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.1040454542452625,
+                  "y": 0.06411277646870894
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.6284872615830086,
+                  "y": 0.3058557846823163
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 1.867924108101087,
+                  "y": -0.3826785555029625
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.3989812446499297,
+                  "y": -0.09945023063952035
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2516
+    },
+    {
+      "name": "passing-shadow-1080",
+      "state": {
+        "tick": 1080,
+        "arc": {
+          "scene": "passing-shadow",
+          "beat": "return",
+          "beatIndex": 4,
+          "progress": 0.42857142857142855,
+          "cycle": 0,
+          "scoreTick": 1080
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.6963978818755837,
+            "y": -0.5154615942409235
+          },
+          "visible": false,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.45,
+            "y": -0.25
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.5639722695130516,
+              "y": 0.26423872475239424
+            },
+            "scale": 1,
+            "heading": 1.6572352488110154,
+            "motive": "return",
+            "emotion": "wary",
+            "tailExpression": 0.6199999995084848,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.2890838295019598,
+                  "y": 0.451168111281825
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.8688349443339327,
+                  "y": 0.4232130607348323
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.2478606235063494,
+                  "y": -0.02454913382018213
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.832170032111241,
+                  "y": 0.00009868587656496758
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.1424105920968653,
+              "y": -0.06157219078331031
+            },
+            "scale": 0.94,
+            "heading": -4.4939896362335805,
+            "motive": "shelter",
+            "emotion": "wary",
+            "tailExpression": 0.6199999999991628,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.39518837230946474,
+                  "y": 0.13793568833626407
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -0.18728406833554107,
+                  "y": 0.08548708598072198
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 0.4952669835025034,
+                  "y": -0.3129921125162366
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -0.08382544775819567,
+                  "y": -0.3806701448204669
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.841756204034974,
+              "y": -0.2669271371785509
+            },
+            "scale": 0.88,
+            "heading": -1.5873223491934014,
+            "motive": "watch",
+            "emotion": "wary",
+            "tailExpression": 0.6199999999992819,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.5487985331213652,
+                  "y": -0.44348504178175124
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": 2.1313419891378085,
+                  "y": -0.49242139909212645
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.5311396669777275,
+                  "y": -0.016207724170751822
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 2.1356744062774147,
+                  "y": -0.03225216963711842
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 27780,
+      "occupied": 2558
+    }
+  ],
+  "movie": {
+    "fps": 15,
+    "frames": [
+      {
+        "scene": "moonlit-wall",
+        "tick": 0
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 4
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 8
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 12
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 16
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 20
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 24
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 28
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 32
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 36
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 40
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 44
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 48
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 52
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 56
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 60
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 64
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 68
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 72
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 76
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 80
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 84
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 88
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 92
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 96
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 100
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 104
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 108
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 112
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 116
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 120
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 124
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 128
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 132
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 136
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 140
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 144
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 148
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 152
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 156
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 160
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 164
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 168
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 172
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 176
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 180
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 184
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 188
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 192
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 196
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 200
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 204
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 208
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 212
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 216
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 220
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 224
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 228
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 232
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 236
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 240
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 244
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 248
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 252
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 256
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 260
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 264
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 268
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 272
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 276
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 280
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 284
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 288
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 292
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 296
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 300
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 304
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 308
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 312
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 316
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 320
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 324
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 328
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 332
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 336
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 340
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 344
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 348
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 352
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 356
+      },
+      {
+        "scene": "moonlit-wall",
+        "tick": 360
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 480
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 484
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 488
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 492
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 496
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 500
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 504
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 508
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 512
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 516
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 520
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 524
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 528
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 532
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 536
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 540
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 544
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 548
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 552
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 556
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 560
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 564
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 568
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 572
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 576
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 580
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 584
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 588
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 592
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 596
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 600
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 604
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 608
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 612
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 616
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 620
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 624
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 628
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 632
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 636
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 640
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 644
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 648
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 652
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 656
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 660
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 664
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 668
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 672
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 676
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 680
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 684
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 688
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 692
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 696
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 700
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 704
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 708
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 712
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 716
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 720
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 724
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 728
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 732
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 736
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 740
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 744
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 748
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 752
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 756
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 760
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 764
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 768
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 772
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 776
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 780
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 784
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 788
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 792
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 796
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 800
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 804
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 808
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 812
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 816
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 820
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 824
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 828
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 832
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 836
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 840
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 844
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 848
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 852
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 856
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 860
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 864
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 868
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 872
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 876
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 880
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 884
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 888
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 892
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 896
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 900
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 904
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 908
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 912
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 916
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 920
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 924
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 928
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 932
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 936
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 940
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 944
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 948
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 952
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 956
+      },
+      {
+        "scene": "lantern-hunt",
+        "tick": 960
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 540
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 544
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 548
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 552
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 556
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 560
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 564
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 568
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 572
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 576
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 580
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 584
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 588
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 592
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 596
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 600
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 604
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 608
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 612
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 616
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 620
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 624
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 628
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 632
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 636
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 640
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 644
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 648
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 652
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 656
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 660
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 664
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 668
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 672
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 676
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 680
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 684
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 688
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 692
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 696
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 700
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 704
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 708
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 712
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 716
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 720
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 724
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 728
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 732
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 736
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 740
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 744
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 748
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 752
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 756
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 760
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 764
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 768
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 772
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 776
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 780
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 784
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 788
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 792
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 796
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 800
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 804
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 808
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 812
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 816
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 820
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 824
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 828
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 832
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 836
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 840
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 844
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 848
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 852
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 856
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 860
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 864
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 868
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 872
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 876
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 880
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 884
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 888
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 892
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 896
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 900
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 904
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 908
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 912
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 916
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 920
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 924
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 928
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 932
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 936
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 940
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 944
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 948
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 952
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 956
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 960
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 964
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 968
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 972
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 976
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 980
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 984
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 988
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 992
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 996
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 1000
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 1004
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 1008
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 1012
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 1016
+      },
+      {
+        "scene": "passing-shadow",
+        "tick": 1020
+      }
+    ],
+    "durationSeconds": 22.2,
+    "editing": "Three labeled chronological excerpts with explicit cuts; 4 real simulation ticks per frame. Looped reset cut."
+  },
+  "hashes": {
+    "src/director.ts": "3bdf1476f76962bc0dbec161c82336eed2144fc7306c76e9af0fb1356f7addc4",
+    "compiled/director.js": "3e4fc33b168c63e5ba9b5963a6e25254fb2de33a1830e91fca60fae1910a4dcd",
+    "src/director-preview.ts": "83224a50130bb2a9c6656321c21c1c052b37e21f791d2d1bcad346bf2318cc85",
+    "compiled/director-preview.js": "471000d2bdea4b11642daea2e5971689a81d30b3c34c191ca32554bd0743869f",
+    "src/gecko.ts": "11fc2762b9a0aa425558825e3b7bae216a281a66cd26a196e17b336b8d7d879b",
+    "compiled/gecko.js": "e88437dbc4772e954be7c2fccb7a26d9ed3abfeaaaf62e270daf3d23e24c8fef",
+    "src/geometry.ts": "60aa07cee838b2d77c8391688e5a9bca311abb5474147c3e7be3287df3d7d986",
+    "compiled/geometry.js": "21a1147058c836feee71dedd64546e7fa556c276826c2ebe7ea1aa964d59de3f",
+    "src/preview.ts": "3b388b54cf73e2f59271f16c9fe026193eb94233ddbadbdeb837b5f05b08f9fd",
+    "compiled/preview.js": "6c2e7c659391af29cc661ee0956c3b70ecd1a422bd362770a1dd4d9d82c6a43f",
+    "src/types.ts": "47af6b6fb60c2973ebf719e57c854a98bde8c92991fbf84bd787af84d609d628",
+    "compiled/types.d.ts": "fefc48cd14d3c7d1bea3a91e5a54759178a8e6e6c8de15d7daa514f7372accc7"
+  },
+  "performance": "No browser frame time, heap, or device benchmark was run."
+}

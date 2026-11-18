@@ -1,0 +1,15 @@
+{
+  "newDirectorPageOpened": false,
+  "localAttempt": {
+    "toolchain": "Playwright with /usr/bin/chromium",
+    "outcome": "failed during startup before a page opened",
+    "errorPrefix": "browserType.launch: Target page, context or browser has been closed; Chromium FATAL startup log",
+    "retry": false
+  },
+  "cloudBrowser": {
+    "liveBaselineInspected": true,
+    "newLocalPreviewUrlExposed": false
+  },
+  "browserAcceptanceClaimed": false,
+  "performanceAcceptanceClaimed": false
+}

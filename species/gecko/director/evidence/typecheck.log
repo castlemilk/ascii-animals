@@ -1,0 +1,5 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ascii-animals-review@0.0.0-review.0 typecheck
+> tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/dragonfly/tsconfig.types.json && tsc -p species/gecko/test/tsconfig.json && tsc -p species/frog/tests/tsconfig.json && tsc -p species/owl/tsconfig.types.json
+

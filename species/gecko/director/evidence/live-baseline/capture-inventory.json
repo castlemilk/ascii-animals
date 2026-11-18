@@ -1,0 +1,95 @@
+{
+  "kind": "actual deployed baseline cloud-browser evidence; NOT the new director",
+  "files": {
+    "cuttlefish-escape.jpg": {
+      "sha256": "6a6faedb04c5a024886a6ef0acaf0588702950090d88822ff6e8934150306de6",
+      "bytes": 191969,
+      "includedInSpeciesEvidence": false
+    },
+    "cuttlefish-solo-observed.jpg": {
+      "sha256": "16a4afb281822a528afd55eb6eb479644046c21821a9227323d5d5371afc325c",
+      "bytes": 158631,
+      "includedInSpeciesEvidence": false
+    },
+    "cuttlefish-12-horizontal.jpg": {
+      "sha256": "84b9f2e15fc5bd4ae14ff892a4a8f57c30f153d07484e70eca0dcfa436a814d5",
+      "bytes": 208791,
+      "includedInSpeciesEvidence": true
+    },
+    "cuttlefish-after-startle.jpg": {
+      "sha256": "93e67c7f4b3d4c0aaf0e244f333c4d193fffa7ca27d3f0f7b4b822d4e9121391",
+      "bytes": 172068,
+      "includedInSpeciesEvidence": false
+    },
+    "gecko-guide.jpg": {
+      "sha256": "110e847a5e4a5e5a58012e0339a11cf8a19a17cfe91a170ebe587256e6c94782",
+      "bytes": 88494,
+      "includedInSpeciesEvidence": false
+    },
+    "cuttlefish-export.png": {
+      "sha256": "78b281b5dbf6fcaeeaf24abad2ce6ae350c4a2ad226cd30d5b7e50efdf575b25",
+      "bytes": 479223,
+      "includedInSpeciesEvidence": false
+    },
+    "gecko-options-portrait.jpg": {
+      "sha256": "85670942ff37ee4a2e74b53a99bc5e437dcd8604f062ad8c60383c837421b59d",
+      "bytes": 123447,
+      "includedInSpeciesEvidence": false
+    },
+    "gecko-default.jpg": {
+      "sha256": "b9cfb4689b816c7f2c64d9a143b5cc14e286bc7b17b228a724e18037210290a7",
+      "bytes": 88079,
+      "includedInSpeciesEvidence": true
+    },
+    "cuttlefish-solo-linger.jpg": {
+      "sha256": "9396f1812c212355cd022b3da67717993a9023103c54ef38fc86ace94cd449b3",
+      "bytes": 162187,
+      "includedInSpeciesEvidence": false
+    },
+    "cuttlefish-independent-roles.jpg": {
+      "sha256": "5e48f9bc37686f2ef5c70fb2d3261306bff45c3beb5b607f7e86e6d3ac07ae70",
+      "bytes": 176060,
+      "includedInSpeciesEvidence": true
+    },
+    "LIVE-COMPARISON.md": {
+      "sha256": "d1d946b00389b9ce8b4ebd3cb0c4a3c4b4de5692717869928a7c9ad669fb5574",
+      "bytes": 8182,
+      "includedInSpeciesEvidence": true
+    },
+    "gecko-startle.jpg": {
+      "sha256": "ee4947cb1b9a07b3fd24d13c547b3d05f6235d24dd5d9edaebbe1f873269f3a4",
+      "bytes": 88446,
+      "includedInSpeciesEvidence": true
+    },
+    "gecko-pointer.jpg": {
+      "sha256": "bc0df8bf274910e69df9182a7aff203e06e633de146750e7d4c5d807b7d151c4",
+      "bytes": 93383,
+      "includedInSpeciesEvidence": false
+    },
+    "cuttlefish-close-encounter.jpg": {
+      "sha256": "5089c8e26608d6512487bbb837b7a40d922b77bba3c73d89ca3c123479293c62",
+      "bytes": 190356,
+      "includedInSpeciesEvidence": true
+    },
+    "gecko-keyboard.jpg": {
+      "sha256": "5b72b3ad9c78724ec3b7d9d00855a095955de622b2fdfb00e5d657f72b76b7c3",
+      "bytes": 94870,
+      "includedInSpeciesEvidence": false
+    },
+    "gecko-paused-neutral.jpg": {
+      "sha256": "5877fd594d28423273a080dbaf808c87f4f74092637468cde292b0de57b41219",
+      "bytes": 122913,
+      "includedInSpeciesEvidence": false
+    },
+    "cuttlefish-default.jpg": {
+      "sha256": "7e3c3e117b8875315b9a478ec4320d65b8d793e893988e267f29840a3952aaf9",
+      "bytes": 153420,
+      "includedInSpeciesEvidence": true
+    },
+    "cuttlefish-export.html": {
+      "sha256": "f09b1786843346f65060647bbe683180f225a90a02ef6d4f36869f3b65f93e3b",
+      "bytes": 188186,
+      "includedInSpeciesEvidence": false
+    }
+  }
+}

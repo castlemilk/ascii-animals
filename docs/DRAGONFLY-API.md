@@ -1,5 +1,39 @@
 # Dragonfly typed adapter
 
+## Additive pond director
+
+The Dragonfly entry now also offers an opt-in bounded ensemble. Passing
+`director: { scene: 'patrol', count: 3 }` to `createDragonflyArtwork` enables pond
+patrol, hovering attention and reed relay. Each of 1–4 named individuals retains
+its own role, seeded route, perch and multi-stage dart/return response.
+
+```ts
+import { createDragonflyArtwork, createDragonflyDirector } from 'ascii-animals-review/dragonfly';
+const pond = createDragonflyArtwork(canvas, { director: { scene: 'relay', count: 4 } });
+pond.selectIndividual(2);
+pond.setTarget(.6, -.35);
+pond.cue('dart');
+pond.configureDirector({ route: 'figure-eight', tempo: .8, breeze: .2 });
+const ensemble = pond.getDirectorState(); // separate from the legacy getState()
+pond.dispose();
+
+const headless = createDragonflyDirector({ scene: 'patrol', count: 3 }, { seed: 17 });
+headless.step(1, [{ type: 'cue', cue: 'perch', tick: 1, seq: 0 }]);
+headless.dispose();
+```
+
+Omitting `director` preserves the existing solo experience. Model configuration,
+legacy snapshots and replay retain their meaning. Director options and events
+have distinct types, defaults, validation, snapshots and exact-tick semantics.
+All visitors share one existing scheduler subscription and one composed canvas.
+The implementation and full contract are documented in
+[the species director API](../species/dragonfly/DIRECTOR-API.md), including which
+model options affect ensemble motion, accessibility, fixed phase windows,
+configuration/reset/disposal semantics, bounds and evidence limits. This addition
+is pending integration review; it is not a shared species-contract migration.
+
+## Original solo adapter
+
 `createDragonflyArtwork` is a dedicated browser adapter for the original four-wing,
 segmented-abdomen Dragonfly model. It preserves hover/tracking, deliberate dart,
 stabilization/recovery/cooldown, and full/slow/static motion. It does not pretend to

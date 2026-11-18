@@ -1,6 +1,9 @@
-/** Local demonstration host, pending consolidation with the central library. */
+/** Gecko host: solo compatibility and opt-in choreography share one lifecycle. */
 import { createGecko, normalizeGuide } from './gecko.js';
-import { drawGeckoGrid, renderGeckoGrid } from './preview.js';
+import { drawGeckoGrid, renderGeckoGrid, geckoPointFromCanvas } from './preview.js';
+import { createGeckoDirector, geckoDirectorPoster } from './director.js';
+import { renderGeckoDirectorGrid } from './director-preview.js';
+import type { GeckoDirectorOptions, GeckoDirectorOptionsPatch, GeckoDirectorState, GeckoDirectorCue, GeckoDirectorEvent, GeckoIndividualId, GeckoDirectorRecipe } from './director.js';
 import type { GeckoConfig, GeckoEvent, GeckoGrid, GeckoOptions, GeckoOptionsPatch, GeckoReset, GeckoState } from './types.js';
 
 export interface GeckoViewOptions {
@@ -12,6 +15,8 @@ export interface GeckoViewOptions {
 }
 export interface GeckoFrameSource { subscribe(callback: (timestampMs: number) => void): () => void }
 export interface GeckoMountOptions {
+  /** Opt-in wall ensemble. Omit to retain the original single-gecko contract. */
+  readonly director?: GeckoDirectorOptionsPatch;
   readonly frameSource?: GeckoFrameSource;
   readonly config?: GeckoConfig;
   readonly paused?: boolean;
@@ -20,6 +25,8 @@ export interface GeckoMountOptions {
   readonly onStatus?: (status: GeckoControllerStatus) => void;
 }
 export interface GeckoControllerStatus {
+  readonly director: Readonly<{scene:GeckoDirectorOptions['scene'];beat:string;population:number;selectedId:GeckoIndividualId|null}> | null;
+  readonly directorPoster: 'none' | GeckoDirectorCue['type'];
   readonly tick: number;
   readonly phase: GeckoState['behavior']['kind'];
   readonly paused: boolean;
@@ -43,7 +50,14 @@ export type GeckoActionResult =
   | { readonly outcome: 'queued' }
   | { readonly outcome: 'static' }
   | { readonly outcome: 'ignored'; readonly reason: 'resting' };
+/** Richer cue receipt without widening the existing solo action contract. */
+export type GeckoDirectorActionResult = GeckoActionResult | { readonly outcome:'ignored'; readonly reason:'busy' };
 export interface GeckoController {
+  getDirectorSnapshot(): GeckoDirectorState | null;
+  configureDirector(patch: GeckoDirectorOptionsPatch): Readonly<GeckoDirectorOptions>;
+  direct(cue: GeckoDirectorCue): GeckoDirectorActionResult;
+  selectGecko(id: GeckoIndividualId | null): void;
+  exportScene(): GeckoDirectorRecipe | null;
   getSnapshot(): GeckoState;
   /** This remains available after disposal. */
   getStatus(): GeckoControllerStatus;
@@ -95,7 +109,7 @@ function viewOptions(patch: Partial<GeckoViewOptions>, previous: Readonly<GeckoV
 }
 
 export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions = {}): GeckoController {
-  record(options, ['config', 'paused', 'view', 'onStatus', 'frameSource'], 'mount options');
+  record(options, ['config', 'paused', 'view', 'onStatus', 'frameSource', 'director'], 'mount options');
   if (options.paused !== undefined) boolean(options.paused, 'paused');
   if (options.onStatus !== undefined && typeof options.onStatus !== 'function') throw new TypeError('onStatus must be a function');
   if (options.frameSource !== undefined && (!options.frameSource || typeof options.frameSource.subscribe !== 'function')) throw new TypeError('frameSource must implement subscribe');
@@ -105,8 +119,16 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
   if (!host) throw new TypeError('A connected browser document is required');
   const context = canvas.getContext('2d', { alpha: false });
   if (!context) throw new Error('Canvas 2D is unavailable; the static text alternative remains available.');
-  const model = createGecko(options.config);
-  let snapshot = model.getSnapshot();
+  if (options.director !== undefined && options.config !== undefined) {
+    record(options.config, ['seed', 'heading', 'options'], 'director animal config');
+  }
+  const director = options.director === undefined ? null : createGeckoDirector({
+    ...(options.config?.seed === undefined ? {} : { seed: options.config.seed }),
+    ...(options.config?.heading === undefined ? {} : { heading: options.config.heading }),
+    ...(options.config?.options === undefined ? {} : { animal: options.config.options }), options: options.director });
+  const model = director ? null : createGecko(options.config);
+  let sceneSnapshot = director?.getSnapshot() ?? null;
+  let snapshot = sceneSnapshot?.individuals[0]!.body ?? model!.getSnapshot();
   let paused = options.paused ?? false;
   let disposed = false;
   const motion = host.matchMedia('(prefers-reduced-motion: reduce)');
@@ -128,8 +150,10 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
   let height = 0;
   let dpr = 1;
   let cssWidth = 0;
-  let pendingGuide: { type: 'guide'; x: number; y: number } | { type: 'leave' } | null = null;
+  let pendingGuide: { type: 'guide'; x: number; y: number; id?:GeckoIndividualId } | { type: 'leave' } | null = null;
   let pendingStartle = false;
+  let pendingCue: GeckoDirectorCue | null = null;
+  let stillCue: GeckoDirectorCue | null = null;
   let clearOnResume = false;
   let lastGrid: GeckoGrid | null = null;
   const cleanup: Array<() => void> = [];
@@ -139,7 +163,9 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
   function getStatus(): GeckoControllerStatus {
     return {
       tick: snapshot.tick, phase: snapshot.behavior.kind, paused, reducedMotion, hidden, pageSuspended, offscreen, zeroSize, tooSmall,
-      disposed, running: running(), poster, pendingInputs: Number(pendingGuide !== null) + Number(pendingStartle),
+      director: sceneSnapshot ? { scene: sceneSnapshot.options.scene, beat: sceneSnapshot.arc.beat, population: sceneSnapshot.individuals.length, selectedId: sceneSnapshot.selectedId } : null,
+      directorPoster: stillCue?.type ?? 'none',
+      disposed, running: running(), poster, pendingInputs: Number(pendingGuide !== null) + Number(pendingStartle) + Number(pendingCue !== null),
       queuedFrames: Number(frame !== null || subscribed), renderedFrames, droppedMilliseconds,
       dimensions: { width, height, dpr }
     };
@@ -150,11 +176,12 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     stopFrame();
     pendingGuide = null;
     pendingStartle = false;
+    pendingCue = null; stillCue = null;
     clearOnResume = false;
     lastTime = null;
     accumulator = 0;
     for (const release of cleanup.splice(0).reverse()) release();
-    model.dispose();
+    model?.dispose(); director?.dispose();
     lastGrid = null;
     canvas.width = 0;
     canvas.height = 0;
@@ -169,7 +196,8 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     accumulator = 0;
     pendingGuide = null;
     pendingStartle = false;
-    clearOnResume = snapshot.target !== null;
+    pendingCue = null;
+    clearOnResume = director ? sceneSnapshot!.pointer !== null : snapshot.target !== null;
   }
   function stopFrame(): void {
     if (frame !== null) host!.cancelAnimationFrame(frame);
@@ -198,6 +226,13 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
       : snapshot;
   }
   function grid(): GeckoGrid {
+    if (sceneSnapshot) {
+      const close = cssWidth < 640 || sceneSnapshot.individuals.length === 1;
+      const dimensions = view.grid === 'auto' ? close ? { cols: 112, rows: 72 } : { cols: 224, rows: 144 } : view.grid;
+      const state = stillCue ? geckoDirectorPoster(sceneSnapshot, stillCue) : sceneSnapshot;
+      return renderGeckoDirectorGrid(state, { ...dimensions, neutral: view.neutral,
+        focus: close ? state.selectedId ?? state.individuals[0]!.id : null });
+    }
     const dimensions = view.grid === 'auto'
       ? cssWidth < 560 ? { cols: 112, rows: 50 } : { cols: 176, rows: 78 }
       : view.grid;
@@ -214,7 +249,7 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     if (disposed) return;
     const rect = canvas.getBoundingClientRect();
     zeroSize = !Number.isFinite(rect.width) || !Number.isFinite(rect.height) || rect.width <= 0 || rect.height <= 0;
-    tooSmall = !zeroSize && rect.width < MIN_WIDTH;
+    tooSmall = !zeroSize && rect.width < (director ? 320 : MIN_WIDTH);
     cssWidth = zeroSize ? 0 : rect.width;
     if (zeroSize || tooSmall) {
       width = 0; height = 0; canvas.width = 0; canvas.height = 0; lastGrid = null;
@@ -232,6 +267,19 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     notify();
   }
   function advanceOne(): void {
+    if (director) {
+      const events: GeckoDirectorEvent[] = [];
+      let sequence = sceneSnapshot!.lastSequence;
+      const nextTick = sceneSnapshot!.tick + 1;
+      if (clearOnResume) events.push({type:'leave',tick:nextTick,seq:++sequence});
+      if (pendingGuide) events.push({...pendingGuide,tick:nextTick,seq:++sequence});
+      if (pendingCue) events.push({...pendingCue,tick:nextTick,seq:++sequence});
+      const signature = sceneSignature(sceneSnapshot!);
+      pendingGuide=null;pendingCue=null;pendingStartle=false;clearOnResume=false;
+      sceneSnapshot=director.step(events).state;snapshot=sceneSnapshot.individuals[0]!.body;
+      if(sceneSignature(sceneSnapshot)!==signature)notify();
+      return;
+    }
     const events: GeckoEvent[] = [];
     let sequence = snapshot.lastSequence;
     const nextTick = snapshot.tick + 1;
@@ -240,7 +288,7 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     if (pendingStartle) events.push({ type: 'startle', tick: nextTick, seq: ++sequence });
     pendingGuide = null; pendingStartle = false; clearOnResume = false;
     const phase = snapshot.behavior.kind;
-    snapshot = model.step(events).state;
+    snapshot = model!.step(events).state;
     if (snapshot.behavior.kind !== phase) notify();
   }
   function tick(timestamp: number): void {
@@ -272,20 +320,53 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     target.addEventListener(type, handler, options);
     cleanup.push(() => target.removeEventListener(type, handler, options));
   }
+  function sceneSignature(state:GeckoDirectorState):string {
+    return [state.options.scene,state.arc.beat,Math.floor(state.arc.progress*20),state.selectedId,
+      ...state.individuals.map(a=>`${a.id}:${a.role}:${a.motive}:${a.emotion}:${a.body.behavior.kind}:${Math.ceil(a.cooldown/60)}:${a.catches}`)].join('|');
+  }
+  function cueOwner(x:number,y:number):GeckoIndividualId {
+    const state=sceneSnapshot!;
+    if(state.selectedId!==null)return state.selectedId;
+    const point={x:x*3.3,y:y*2.2};
+    const distance=(a:GeckoDirectorState['individuals'][number])=>Math.hypot(a.body.position.x*a.scale-point.x,a.body.position.y*a.scale-point.y);
+    return state.individuals.reduce((best,a)=>distance(a)<distance(best)?a:best,state.individuals[0]!).id;
+  }
+  function direct(cue:GeckoDirectorCue):GeckoDirectorActionResult {
+    ensure();if(!director)throw new Error('Mount with director options to direct a wall');
+    record(cue,['type','id','x','y'],'director cue');
+    if(!['moth','shadow','return','inspect'].includes(cue.type))throw new TypeError('Unknown director cue');
+    if('x'in cue||'y'in cue)for(const value of [cue.x,cue.y]) {
+      if(typeof value!=='number'||!Number.isFinite(value))throw new TypeError('Cue requires two finite normalized coordinates');
+      if(value < -1 || value > 1)throw new RangeError('Cue coordinates must be in [-1,1]');
+    }
+    if('id'in cue&&!sceneSnapshot!.individuals.some(a=>a.id===cue.id))throw new RangeError('Cue target is not in the cast');
+    const id=cue.id??cueOwner(cue.x??0,cue.y??0),actor=sceneSnapshot!.individuals.find(a=>a.id===id)!;
+    const captured:GeckoDirectorCue={type:cue.type,id,...('x'in cue?{x:cue.x!,y:cue.y!}:{})};
+    if(!running()) {
+      stillCue=captured;poster=cue.type==='shadow'?'curled':'current';draw();notify();return {outcome:'static'};
+    }
+    if(cue.type==='shadow'&&(actor.cooldown>0||!['idle','approach'].includes(actor.body.behavior.kind)))return {outcome:'ignored',reason:'busy'};
+    pendingCue=captured;stillCue=null;return {outcome:'queued'};
+  }
   function guide(x: number, y: number): GeckoActionResult {
     ensure();
     if (typeof x !== 'number' || typeof y !== 'number' || !Number.isFinite(x) || !Number.isFinite(y)) throw new TypeError('Guide coordinates must be finite numbers');
     if (!running()) return { outcome: 'ignored', reason: 'resting' };
-    pendingGuide = { type: 'guide', x: Math.max(-1, Math.min(1, x)), y: Math.max(-1, Math.min(1, y)) };
+    const px=Math.max(-1, Math.min(1, x)),py=Math.max(-1, Math.min(1, y));
+    pendingGuide = { type: 'guide', x: px, y: py, ...(director ? {id:cueOwner(px,py)} : {}) };
     return { outcome: 'queued' };
   }
   function clearGuide(): void {
     ensure();
     pendingGuide = running() ? { type: 'leave' } : null;
-    if (!running()) clearOnResume = snapshot.target !== null;
+    if (!running()) clearOnResume = director ? sceneSnapshot!.pointer !== null : snapshot.target !== null;
   }
   function startle(): GeckoActionResult {
     ensure();
+    if (director) {
+      const result=direct({type:'shadow'});
+      return result.outcome==='ignored'?{outcome:'ignored',reason:'resting'}:result;
+    }
     if (!running()) {
       poster = 'curled'; draw(); notify(); return { outcome: 'static' };
     }
@@ -295,13 +376,19 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
   function setPaused(value: boolean): void {
     ensure(); boolean(value, 'paused');
     paused = value;
-    if (!paused && !reducedMotion) poster = 'current';
+    if (!paused && !reducedMotion) { poster = 'current'; stillCue = null; }
     reconcile(); draw(); notify();
   }
   function onPointer(event: PointerEvent): void {
     if (disposed || !running()) return;
     if (event.type === 'pointermove' && event.pointerType === 'touch' && event.buttons === 0) return;
-    const point = normalizeGuide(event.clientX, event.clientY, canvas.getBoundingClientRect());
+    const rect=canvas.getBoundingClientRect();
+    if (director) {
+      const currentGrid=lastGrid??grid(),point=geckoPointFromCanvas(currentGrid,width,height,event.clientX,event.clientY,rect);
+      if(point)guide(point.x/3.3,point.y/2.2);
+      return;
+    }
+    const point = normalizeGuide(event.clientX, event.clientY, rect);
     if (point) guide(point.x, point.y);
   }
   function onDeparture(): void { if (!disposed) clearGuide(); }
@@ -316,16 +403,30 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
   }
 
   const controller: GeckoController = {
-    getSnapshot() { ensure(); return model.getSnapshot(); },
+    getSnapshot() { ensure(); return director ? director.getSnapshot().individuals[0]!.body : model!.getSnapshot(); },
+    getDirectorSnapshot() { ensure(); return director?.getSnapshot() ?? null; },
+    configureDirector(patch) {
+      ensure();if(!director)throw new Error('Mount with director options to configure a wall');
+      const result=director.update(patch);sceneSnapshot=director.getSnapshot();snapshot=sceneSnapshot.individuals[0]!.body;
+      pendingGuide=null;pendingCue=null;stillCue=null;draw();notify();return result;
+    },
+    selectGecko(id) {
+      ensure();if(!director)throw new Error('Mount with director options to select an individual');
+      director.select(id);sceneSnapshot=director.getSnapshot();stillCue=null;draw();notify();
+    },
+    direct,
+    exportScene(){ensure();return director?.exportRecipe()??null;},
     getStatus,
     update(patch) {
-      ensure(); const resolved = model.update(patch); snapshot = model.getSnapshot();
+      ensure(); const resolved = director ? director.updateAnimal(patch) : model!.update(patch);
+      sceneSnapshot=director?.getSnapshot()??null;snapshot=sceneSnapshot?.individuals[0]!.body??model!.getSnapshot();
       draw(); notify(); return resolved;
     },
     setView(patch) { ensure(); view = viewOptions(patch, view); resize(); return view; },
     setPaused, guide, clearGuide, startle,
     reset(settings = {}) {
-      ensure(); snapshot = model.reset(settings); poster = 'current';
+      ensure();if(director){sceneSnapshot=director.reset(settings);snapshot=sceneSnapshot.individuals[0]!.body;}else snapshot=model!.reset(settings);
+      poster = 'current'; stillCue=null; pendingCue=null;
       pendingGuide = null; pendingStartle = false; clearOnResume = false;
       accumulator = 0; lastTime = null; draw(); reconcile(); notify();
     },
@@ -345,7 +446,7 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     listen(motion, 'change', () => {
       if (disposed) return;
       reducedMotion = motion.matches;
-      if (!reducedMotion) poster = 'current';
+      if (!reducedMotion) { poster = 'current'; stillCue = null; }
       reconcile(); draw(); notify();
     });
     listen(host, 'resize', resize);

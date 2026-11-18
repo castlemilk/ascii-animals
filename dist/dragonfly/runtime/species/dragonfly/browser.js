@@ -1,5 +1,7 @@
 /** Browser ownership for the local Dragonfly specimen; no shared scheduler or package API is assumed. */
 import { createDragonfly } from './model.js';
+import { createDragonflyDirector } from './director.js';
+import { rasterizeDragonflyPond, paintDragonflyPond } from './pond-preview.js';
 import { gridToText, paintDragonfly, rasterizeDragonfly } from './preview.js';
 export function normalizeDragonflyPointer(clientX, clientY, rect) {
     if (![clientX, clientY, rect.left, rect.top, rect.width, rect.height].every(Number.isFinite))
@@ -13,7 +15,7 @@ export function mountDragonfly(canvas, options = {}) {
     if (!options || typeof options !== 'object' || Array.isArray(options))
         throw new TypeError('Dragonfly mount options must be an object');
     for (const key of Object.keys(options))
-        if (!['model', 'paused', 'view', 'neutral', 'onStatus', 'environment', 'frameSource'].includes(key))
+        if (!['model', 'paused', 'view', 'neutral', 'onStatus', 'environment', 'frameSource', 'director'].includes(key))
             throw new TypeError(`Unknown Dragonfly mount option: ${key}`);
     if (options.frameSource !== undefined && typeof options.frameSource?.subscribe !== 'function')
         throw new TypeError('frameSource must provide subscribe');
@@ -39,15 +41,18 @@ export function mountDragonfly(canvas, options = {}) {
     if (view !== 'oblique' && view !== 'dorsal')
         throw new TypeError('Unknown Dragonfly view');
     let neutral = options.neutral ?? false;
-    const model = createDragonfly(options.model);
+    const director = options.director === undefined ? null : createDragonflyDirector(options.director, options.model);
+    const model = director ? null : createDragonfly(options.model);
     const media = win.matchMedia('(prefers-reduced-motion: reduce)');
-    let requestedMotion = model.getOptions().motion;
+    let requestedMotion = speciesOptions().motion;
     let userPaused = options.paused ?? false;
     let disposed = false, offscreen = false, zeroSized = true;
     let releaseFrame = null, subscribed = false;
     let frameId = null, previousTime = null, remainder = 0;
     let width = 0, height = 0, dpr = 1, cols = 72, rows = 44;
     let pendingTarget = null, pendingDart = false;
+    let pendingSelection = null, pendingCue = null;
+    let disposedDirectorState = null;
     let guide = { x: 0, y: 0 };
     let droppedMilliseconds = 0, renderedFrames = 0, sampleCount = 0;
     let lastGrid = null;
@@ -56,18 +61,52 @@ export function mountDragonfly(canvas, options = {}) {
     let resizeObserver = null, intersectionObserver = null;
     const removeListeners = [];
     const tickMilliseconds = 1000 / 60;
+    function speciesState() { return director ? director.getPrimaryState() : model.getState(); }
+    function speciesOptions() { return director ? director.getModelOptions() : model.getOptions(); }
+    function currentTick() { return director ? director.getState().tick : model.getState().tick; }
+    function clearModelTarget() { if (director)
+        director.clearTarget();
+    else
+        model.clearTarget(); }
+    function setModelPaused(value) { if (director)
+        director.setPaused(value);
+    else
+        model.setPaused(value); }
+    function setPose(value) { if (director)
+        director.setStaticPose(value);
+    else
+        model.setStaticPose(value); }
+    function configureModel(patch) {
+        if (director)
+            director.configureModel(patch);
+        else
+            model.configure(patch);
+        return speciesOptions();
+    }
+    function resetModel(seed) { if (director)
+        director.reset(seed);
+    else
+        model.reset(seed); }
+    function visible() { return !doc.hidden && !offscreen && !zeroSized; }
+    function phaseSignature() {
+        if (!director)
+            return speciesState().behavior.kind;
+        const state = director.getState();
+        return `${state.arc}:${state.selected}:${state.members.map(member => member.phase.kind).join(',')}`;
+    }
     function assertAlive() { if (disposed)
         throw new Error('Dragonfly browser controller is disposed'); }
     function isActive() {
-        return !disposed && !userPaused && !media.matches && model.getOptions().motion !== 'static' && !doc.hidden && !offscreen && !zeroSized;
+        return !disposed && !userPaused && !media.matches && speciesOptions().motion !== 'static' && !doc.hidden && !offscreen && !zeroSized;
     }
     function getStatus() {
-        const state = disposed ? null : model.getState();
+        const state = disposed ? null : speciesState();
         return {
-            tick: state?.tick ?? lastTick, behavior: state?.behavior.kind ?? lastBehavior, paused: userPaused,
-            motion: disposed ? requestedMotion : model.getOptions().motion, requestedMotion,
+            director: disposed ? disposedDirectorState : director?.getState() ?? null,
+            tick: disposed ? lastTick : currentTick(), behavior: state?.behavior.kind ?? lastBehavior, paused: userPaused,
+            motion: disposed ? requestedMotion : speciesOptions().motion, requestedMotion,
             reducedMotion: media.matches, hidden: Boolean(doc.hidden), offscreen, zeroSized, disposed,
-            queuedFrames: frameId === null && !subscribed ? 0 : 1, pendingInputs: Number(pendingTarget !== null) + Number(pendingDart),
+            queuedFrames: frameId === null && !subscribed ? 0 : 1, pendingInputs: Number(pendingTarget !== null) + (director ? Number(pendingSelection !== null) + Number(pendingCue !== null) : Number(pendingDart)),
             droppedMilliseconds, renderedFrames, cols, rows, width, height, dpr, samples: sampleCount,
             occupied: lastGrid?.occupied ?? 0, clippedSamples: lastGrid?.clippedSamples ?? 0,
         };
@@ -87,14 +126,17 @@ export function mountDragonfly(canvas, options = {}) {
     function dropInput() {
         pendingTarget = null;
         pendingDart = false;
+        pendingSelection = null;
+        pendingCue = null;
         if (!disposed)
-            model.clearTarget();
+            clearModelTarget();
     }
     function release() {
         if (disposed)
             return;
-        lastTick = model.getState().tick;
-        lastBehavior = model.getState().behavior.kind;
+        lastTick = currentTick();
+        lastBehavior = speciesState().behavior.kind;
+        disposedDirectorState = director?.getState() ?? null;
         stopFrame();
         dropInput();
         disposed = true;
@@ -102,7 +144,10 @@ export function mountDragonfly(canvas, options = {}) {
         intersectionObserver?.disconnect();
         for (const remove of removeListeners.splice(0).reverse())
             remove();
-        model.dispose();
+        if (director)
+            director.dispose();
+        else
+            model.dispose();
         lastGrid = null;
         canvas.width = 0;
         canvas.height = 0;
@@ -125,10 +170,19 @@ export function mountDragonfly(canvas, options = {}) {
     function draw() {
         if (disposed || zeroSized || doc.hidden || offscreen)
             return;
-        const geometry = model.sample();
-        sampleCount = geometry.samples.length;
-        lastGrid = rasterizeDragonfly(geometry, { cols, rows, view, neutral });
-        paintDragonfly(context, lastGrid, { width, height, dpr, neutral });
+        if (director) {
+            const members = director.sample();
+            sampleCount = members.reduce((sum, member) => sum + member.geometry.samples.length, 0);
+            const pond = rasterizeDragonflyPond(members, { cols, rows, view, neutral });
+            lastGrid = pond;
+            paintDragonflyPond(context, pond, { width, height, dpr, neutral, labels: director.getOptions().labels });
+        }
+        else {
+            const geometry = model.sample();
+            sampleCount = geometry.samples.length;
+            lastGrid = rasterizeDragonfly(geometry, { cols, rows, view, neutral });
+            paintDragonfly(context, lastGrid, { width, height, dpr, neutral });
+        }
         renderedFrames++;
     }
     function enqueueFrame() {
@@ -166,7 +220,7 @@ export function mountDragonfly(canvas, options = {}) {
         notify();
     }
     function collectEvents(tick) {
-        let sequence = model.getState().lastSeq + 1;
+        let sequence = speciesState().lastSeq + 1;
         const events = [];
         if (pendingTarget !== null)
             events.push({ type: 'pointer', tick, seq: sequence++, x: pendingTarget.x, y: pendingTarget.y });
@@ -174,6 +228,21 @@ export function mountDragonfly(canvas, options = {}) {
             events.push({ type: 'dart', tick, seq: sequence });
         pendingTarget = null;
         pendingDart = false;
+        return events;
+    }
+    function collectDirectorEvents(tick) {
+        let sequence = director.getState().lastSeq + 1;
+        const events = [];
+        // Selection applies before the same-tick guide and cue, independent of DOM event frequency.
+        if (pendingSelection !== null)
+            events.push({ type: 'select', tick, seq: sequence++, id: pendingSelection });
+        if (pendingTarget !== null)
+            events.push({ type: 'pointer', tick, seq: sequence++, x: pendingTarget.x, y: pendingTarget.y });
+        if (pendingCue !== null)
+            events.push({ type: 'cue', tick, seq: sequence, cue: pendingCue });
+        pendingSelection = null;
+        pendingTarget = null;
+        pendingCue = null;
         return events;
     }
     function onFrame(time) {
@@ -186,7 +255,7 @@ export function mountDragonfly(canvas, options = {}) {
         try {
             if (!Number.isFinite(time))
                 throw new TypeError('Animation timestamp must be finite');
-            const oldBehavior = model.getState().behavior.kind;
+            const oldBehavior = phaseSignature();
             if (previousTime !== null) {
                 const elapsed = Math.max(0, time - previousTime) + remainder;
                 const due = Math.floor((elapsed + 1e-8) / tickMilliseconds);
@@ -194,14 +263,17 @@ export function mountDragonfly(canvas, options = {}) {
                 remainder = Math.max(0, elapsed - due * tickMilliseconds);
                 droppedMilliseconds += (due - steps) * tickMilliseconds;
                 for (let step = 0; step < steps; step++) {
-                    const tick = model.getState().tick + 1;
-                    model.step(tick, collectEvents(tick));
+                    const tick = currentTick() + 1;
+                    if (director)
+                        director.step(tick, collectDirectorEvents(tick));
+                    else
+                        model.step(tick, collectEvents(tick));
                 }
             }
             previousTime = time;
             draw();
             enqueueFrame();
-            if (oldBehavior !== model.getState().behavior.kind)
+            if (oldBehavior !== phaseSignature())
                 notify();
         }
         catch (error) {
@@ -242,7 +314,7 @@ export function mountDragonfly(canvas, options = {}) {
         if (doc.hidden || offscreen || zeroSized)
             return;
         if (!isActive()) {
-            model.setStaticPose(x < 0 ? 0 : 1);
+            setPose(x < 0 ? 0 : 1);
             draw();
             notify();
             return;
@@ -253,7 +325,7 @@ export function mountDragonfly(canvas, options = {}) {
         assertAlive();
         pendingTarget = null;
         guide = { x: 0, y: 0 };
-        model.clearTarget();
+        clearModelTarget();
     }
     function pointer(event) {
         if (!isActive())
@@ -272,13 +344,13 @@ export function mountDragonfly(canvas, options = {}) {
         if (typeof value !== 'boolean')
             throw new TypeError('paused must be boolean');
         userPaused = value;
-        model.setPaused(value);
+        setModelPaused(value);
         reconcile();
     }
     function preferenceChanged() {
         if (disposed)
             return;
-        model.configure({ motion: media.matches ? 'static' : requestedMotion });
+        configureModel({ motion: media.matches ? 'static' : requestedMotion });
         reconcile();
     }
     function keydown(event) {
@@ -287,6 +359,14 @@ export function mountDragonfly(canvas, options = {}) {
         const key = event;
         if (key.altKey || key.ctrlKey || key.metaKey)
             return;
+        if (director && /^[1-4]$/.test(key.key)) {
+            const id = Number(key.key) - 1;
+            if (director.getState().members.some(member => member.id === id)) {
+                key.preventDefault();
+                selectIndividual(id);
+            }
+            return;
+        }
         if (key.code === 'Space' || key.key === ' ') {
             key.preventDefault();
             setPaused(!userPaused);
@@ -306,16 +386,80 @@ export function mountDragonfly(canvas, options = {}) {
         key.preventDefault();
         setTarget(Math.max(-1, Math.min(1, x)), Math.max(-1, Math.min(1, y)));
     }
+    function selectIndividual(id) {
+        assertAlive();
+        if (!director)
+            throw new Error('The pond director was not enabled for this mount');
+        if (!Number.isInteger(id) || !director.getState().members.some(member => member.id === id))
+            throw new RangeError('Select an existing Dragonfly individual ID');
+        if (!visible())
+            return;
+        if (isActive())
+            pendingSelection = id;
+        else {
+            director.selectIndividual(id);
+            draw();
+            notify();
+        }
+    }
+    function dartAction() {
+        if (director) {
+            cueAction('dart');
+            return;
+        }
+        assertAlive();
+        if (!visible())
+            return;
+        if (!isActive()) {
+            setPose(speciesState().staticPose === 0 ? 1 : 0);
+            draw();
+            notify();
+            return;
+        }
+        pendingDart = true;
+    }
+    function cueAction(cue) {
+        assertAlive();
+        if (!['dart', 'perch', 'return'].includes(cue))
+            throw new TypeError('Unknown Dragonfly cue');
+        if (!director) {
+            if (cue === 'dart') {
+                dartAction();
+                return;
+            }
+            throw new Error('The pond director was not enabled for this mount');
+        }
+        if (!visible())
+            return;
+        if (!isActive()) {
+            setPose(speciesState().staticPose === 0 ? 1 : 0);
+            draw();
+            notify();
+            return;
+        }
+        pendingCue = cue;
+    }
     const controller = {
         setPaused,
+        configureDirector(patch) {
+            assertAlive();
+            if (!director)
+                throw new Error('The pond director was not enabled for this mount');
+            director.configure(patch);
+            reconcile();
+        },
+        getDirectorState() { return disposed ? disposedDirectorState : director?.getState() ?? null; },
+        getDirectorOptions() { return director?.getOptions() ?? null; },
+        selectIndividual,
+        cue: cueAction,
         configure(patch) {
             assertAlive();
             // Validate through the species before changing the remembered user policy.
-            const next = model.configure(patch);
+            const next = configureModel(patch);
             if (patch.motion !== undefined)
                 requestedMotion = next.motion;
             if (media.matches)
-                model.configure({ motion: 'static' });
+                configureModel({ motion: 'static' });
             reconcile();
         },
         setView(value) {
@@ -335,39 +479,29 @@ export function mountDragonfly(canvas, options = {}) {
             notify();
         },
         setTarget, clearTarget,
-        dart() {
-            assertAlive();
-            if (doc.hidden || offscreen || zeroSized)
-                return;
-            if (!isActive()) {
-                model.setStaticPose(model.getState().staticPose === 0 ? 1 : 0);
-                draw();
-                notify();
-                return;
-            }
-            pendingDart = true;
-        },
+        dart: dartAction,
         reset(seed) {
             assertAlive();
-            model.reset(seed);
+            resetModel(seed);
             guide = { x: 0, y: 0 };
             reconcile();
         },
         render() { assertAlive(); draw(); },
         exportText() {
             assertAlive();
-            return gridToText(rasterizeDragonfly(model.sample(), { cols, rows, view, neutral }));
+            return gridToText(director ? rasterizeDragonflyPond(director.sample(), { cols, rows, view, neutral }) :
+                rasterizeDragonfly(model.sample(), { cols, rows, view, neutral }));
         },
-        getState() { return model.getState(); },
-        getOptions() { return model.getOptions(); },
+        getState() { return speciesState(); },
+        getOptions() { return speciesOptions(); },
         getStatus,
         dispose() { if (disposed)
             return; release(); notify(); },
     };
     try {
-        model.setPaused(userPaused);
+        setModelPaused(userPaused);
         if (media.matches)
-            model.configure({ motion: 'static' });
+            configureModel({ motion: 'static' });
         listen(canvas, 'pointermove', pointer, { passive: true });
         listen(canvas, 'pointerdown', pointer, { passive: true });
         for (const type of ['pointerleave', 'pointercancel', 'lostpointercapture'])

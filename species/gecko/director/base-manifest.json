@@ -1,0 +1,32 @@
+{
+  "base": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "branch": "feat/director-gecko",
+  "skill": "23e078642157a273e2b886222470bd247e5737b5",
+  "sourceSha256": {
+    "docs/ANIMAL-APIS.md": "74cab064b3a6c511180b3eb50f89629d53009e094cc0f55c93a13d14288a8b5d",
+    "docs/GECKO-API.md": "d5d3bfa743b3f889d6b8256a64e6cbcf018934459bedf5e51b434f35341143a6",
+    "src/public/gecko.ts": "898f992ab8e44b659ff621de56d5becf91794e7dd53032e1209bae38697422d0",
+    "species/gecko/src/gecko.ts": "1dc2e108ef50f68d6a934625644cf685d2e169dcc7cb7541e802f7cdf7c9d1a0",
+    "species/gecko/src/browser.ts": "5e2a815238c2dd6cfb4a2dec5a22d67be7c01129d39396dd64ae48f790f06c37",
+    "species/gecko/src/geometry.ts": "60aa07cee838b2d77c8391688e5a9bca311abb5474147c3e7be3287df3d7d986",
+    "species/gecko/src/preview.ts": "a81939d63df591bf275e1adf219dc989d1044698d7df04e99b73784e2facf4c7",
+    "species/gecko/src/demo.ts": "f5ddbe859f8680b1d83c26802842dff8ad9721025a85a2058ed0cad769626390",
+    "dist/cuttlefish-demo.html": "1616f654d1bf06ed17bb9cdaa5c1d950904121896a5d7a2ffc3e1336dbbf4918",
+    "dist/app.js": "ca670894193c1d51d53676031dae6281b337b524c725a3c401bb5dd2015168bc",
+    "src/animals/cuttlefish.js": "579a97f5152e0d94b70c559e22d8b8aa4016de4ad440b3f3b3bf327e167ea6a8",
+    "src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+    "scripts/build-gecko.mjs": "e6f43538702d8ba1660faded83ec887edc0f2c659fde7d48192baeac25c6e716",
+    "package.json": "5fafeb6dfdaeddaab8d60d2a4b84a02de5bbe31995086e28a3d70954bedd1583"
+  },
+  "openPrSearchAtStart": [],
+  "liveEvidence": "Actual cloud-browser baseline comparison is recorded under evidence/live-baseline; new director evidence is native Canvas and stubs only.",
+  "inspectedImplementationBase": "c06114404900884814bef879a02f1a49a3e7d590",
+  "mainRecheck": {
+    "head": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+    "changesFromInitialBase": [
+      "README.md"
+    ],
+    "runtimeContractsChanged": false,
+    "localAction": "Fast-forwarded the isolated, uncommitted director branch before final validation; no Gecko work replayed."
+  }
+}

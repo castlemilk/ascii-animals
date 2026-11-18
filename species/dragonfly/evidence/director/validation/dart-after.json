@@ -1,0 +1,19 @@
+{
+  "fixture": {
+    "seed": 17,
+    "scene": "attention",
+    "count": 1,
+    "pointer": {
+      "x": 0.9,
+      "y": 0.6
+    },
+    "pointerTick": 1,
+    "dartTick": 321,
+    "endTick": 566
+  },
+  "beforeDartSpeed": 0.023086557552662132,
+  "maximumDartSettleExcursion": 0.6438218831116307,
+  "finalPhase": "hover",
+  "returnError": 0.0005850339874785181,
+  "finalSpeed": 0.00024268415246654238
+}

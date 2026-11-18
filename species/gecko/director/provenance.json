@@ -1,0 +1,56 @@
+{
+  "species": "gecko",
+  "branch": "feat/director-gecko",
+  "base": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "initialInspectedBase": "c06114404900884814bef879a02f1a49a3e7d590",
+  "skill": {
+    "source": "https://github.com/skunkworq/skunkworq-skills/blob/23e078642157a273e2b886222470bd247e5737b5/generate-reactive-ascii-animals/SKILL.md",
+    "reviewedParent": "e721252075a30888198aafba0953a23fd07bd3c6",
+    "authoringTemplate": "assets/authoring-template.md",
+    "application": "Pre-code AUTHORING.md, linked anatomy/glyphs/portable-contract/validation/accessibility-performance/quickstart/examples/cuttlefish-baseline references, bounded critique and evidence."
+  },
+  "originalWork": [
+    "Procedural masonry/moon/cracks/lantern/moth/shadow cells",
+    "Seeded director scenes, routes, motives and reactions",
+    "Species-local TypeScript API, page, tests and evidence"
+  ],
+  "reusedMergedWork": [
+    "species/gecko/src/geometry.ts: unchanged original analytic anatomy",
+    "species/gecko/src/gecko.ts: existing contact model with additive habitat configuration",
+    "species/gecko/src/preview.ts: existing sample/depth/glyph path reused for layers",
+    "src/core/scheduler.js: borrowed unchanged through existing facade"
+  ],
+  "rights": {
+    "repositoryLicense": "UNLICENSED; no new license grant or npm publication",
+    "asciiArt": "No copied ASCII art, sprites or raster images used as animal geometry",
+    "fonts": "System monospace stack only; no font binaries redistributed",
+    "baselineImages": "Actual public deployed pages captured for the requested comparison; separately labelled"
+  },
+  "scopeAudit": {
+    "passed": true,
+    "changedFiles": 108,
+    "sharedEnginePackageRegistryCatalogueOtherSpeciesModified": false,
+    "evidenceWhitespace": "Species-local existing attributes extended to preserve fixed-width ASCII padding and raw log terminal blank lines; source checks remain enabled."
+  },
+  "evidenceSourceHashesMatchCurrentCompiledRuntime": true,
+  "toolchain": {
+    "node": "24.22.1",
+    "typescript": "5.9.3",
+    "nativeCanvas": "0.1.100",
+    "ffmpeg": "7.1.5"
+  },
+  "evidenceKinds": [
+    "source/type/runtime tests",
+    "DOM/Canvas lifecycle bookkeeping stubs",
+    "actual native Canvas",
+    "actual deployed baseline browser comparison"
+  ],
+  "newDirectorBrowser": "unrun: local Chromium failed during startup; no supported cloud preview URL",
+  "unrun": [
+    "new browser and mobile interactions/layout/accessibility",
+    "normal-speed motion quality",
+    "browser frame time/CPU/heap",
+    "esbuild/Rollup/Webpack consumer bundles",
+    "deployed director acceptance"
+  ]
+}

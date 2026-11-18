@@ -3,6 +3,10 @@ export const GECKO_LIMITS = Object.freeze({
     minCols: 112, minRows: 50, maxCols: 192, maxRows: 86,
     rootX: .26, rootY: .13, limbReach: .44,
 });
+export const DEFAULT_GECKO_HABITAT = Object.freeze({
+    extentX: GECKO_LIMITS.rootX, extentY: GECKO_LIMITS.rootY,
+    origin: Object.freeze({ x: .18, y: 0 }),
+});
 export const DEFAULT_GECKO_OPTIONS = Object.freeze({
     creepSpeed: .10, turnRate: .65, stride: .10, stepTicks: 18,
     tailLength: 1, toeSpread: 1, curlStrength: 1, tailSway: .035, breathing: .008,
@@ -50,6 +54,20 @@ export function resolveGeckoOptions(patch = {}, base = DEFAULT_GECKO_OPTIONS) {
     }
     return Object.freeze(next);
 }
+function resolveHabitat(patch, base) {
+    record(patch, ['extentX', 'extentY', 'origin'], 'habitat');
+    const supplied = patch;
+    // Presence matters: an explicitly undefined (even non-enumerable) field is invalid.
+    const extentX = Object.hasOwn(supplied, 'extentX') ? supplied.extentX : base.extentX;
+    const extentY = Object.hasOwn(supplied, 'extentY') ? supplied.extentY : base.extentY;
+    const origin = (Object.hasOwn(supplied, 'origin') ? supplied.origin : base.origin);
+    number(extentX, .26, 3, 'habitat.extentX');
+    number(extentY, .13, 2, 'habitat.extentY');
+    record(origin, ['x', 'y'], 'habitat.origin');
+    number(origin.x, -extentX, extentX, 'habitat.origin.x');
+    number(origin.y, -extentY, extentY, 'habitat.origin.y');
+    return Object.freeze({ extentX, extentY, origin: Object.freeze(copyPoint(origin)) });
+}
 /** Convert a CSS rectangle to normalized input; DPR never participates. */
 export function normalizeGuide(clientX, clientY, rect) {
     if (![clientX, clientY, rect.left, rect.top, rect.width, rect.height].every(Number.isFinite) || rect.width <= 0 || rect.height <= 0)
@@ -69,8 +87,8 @@ function nominalFoot(position, heading, foot) {
 function footAngle(heading, front, side) {
     return heading + side * (front ? .80 : 2.24);
 }
-function initialState(seed, heading, options) {
-    const position = { x: .18, y: 0 };
+function initialState(seed, heading, options, habitat) {
+    const position = copyPoint(habitat.origin);
     const feet = FOOT_NAMES.map((id, i) => {
         const front = i < 2, side = (i % 2 === 0 ? -1 : 1);
         return { id, front, side, position: nominalFoot(position, heading, { front, side }), angle: footAngle(heading, front, side), phase: 'stance', plantedAt: 0 };
@@ -79,11 +97,11 @@ function initialState(seed, heading, options) {
     let mixed = (seed ^ 0x9e3779b9) >>> 0;
     mixed = Math.imul(mixed ^ (mixed >>> 16), 0x85ebca6b) >>> 0;
     const phase = (mixed / 0x1_0000_0000) * TAU;
-    return { version: 1, seed, initialHeading: heading, options, tick: 0, lastSequence: 0, position, heading,
+    return { version: 1, seed, initialHeading: heading, options, habitat, tick: 0, lastSequence: 0, position, heading,
         target: null, behavior: { kind: 'idle', since: 0 }, tailCurl: 0, phase, feet, nextFoot: 0, stepsCompleted: 0 };
 }
 function cloneState(s) {
-    return { ...s, options: { ...s.options }, position: copyPoint(s.position), target: s.target ? copyPoint(s.target) : null,
+    return { ...s, options: { ...s.options }, habitat: { ...s.habitat, origin: copyPoint(s.habitat.origin) }, position: copyPoint(s.position), target: s.target ? copyPoint(s.target) : null,
         behavior: { ...s.behavior }, feet: s.feet.map(f => f.phase === 'stance'
             ? { ...f, position: copyPoint(f.position) }
             : { ...f, position: copyPoint(f.position), from: copyPoint(f.from), to: copyPoint(f.to) }) };
@@ -121,7 +139,7 @@ function advanceState(old, events) {
     for (const event of events) {
         lastSequence = event.seq;
         if (event.type === 'guide')
-            target = { x: event.x * GECKO_LIMITS.rootX, y: event.y * GECKO_LIMITS.rootY };
+            target = { x: event.x * old.habitat.extentX, y: event.y * old.habitat.extentY };
         if (event.type === 'leave')
             target = null;
         if (event.type === 'startle') {
@@ -182,7 +200,7 @@ function advanceState(old, events) {
         return { ...foot, position: { x: foot.from.x + (foot.to.x - foot.from.x) * u, y: foot.from.y + (foot.to.y - foot.from.y) * u },
             angle: foot.fromAngle + angleDelta(foot.fromAngle, foot.toAngle) * u, lift: .035 * Math.sin(Math.PI * t) };
     });
-    const proposed = { x: clamp(old.position.x + dx, -GECKO_LIMITS.rootX, GECKO_LIMITS.rootX), y: clamp(old.position.y + dy, -GECKO_LIMITS.rootY, GECKO_LIMITS.rootY) };
+    const proposed = { x: clamp(old.position.x + dx, -old.habitat.extentX, old.habitat.extentX), y: clamp(old.position.y + dy, -old.habitat.extentY, old.habitat.extentY) };
     if (moving && !feet.some(f => f.phase === 'swing')) {
         const index = ORDER[nextFoot % 4], foot = feet[index];
         const nominal = nominalFoot(proposed, desiredHeading, foot), length = Math.hypot(dx, dy);
@@ -211,11 +229,12 @@ function advanceState(old, events) {
 }
 /** Original deterministic single-gecko model. Rendering and scheduling are host-owned. */
 export function createGecko(config = {}) {
-    record(config, ['seed', 'heading', 'options'], 'config');
+    record(config, ['seed', 'heading', 'options', 'habitat'], 'config');
     const seed = config.seed === undefined ? 37 : config.seed, heading = config.heading === undefined ? -.24 : config.heading;
     number(seed, 0, 0xffff_ffff, 'seed', true);
     number(heading, -Math.PI, Math.PI, 'heading');
-    let state = initialState(seed, heading, resolveGeckoOptions(config.options));
+    const habitat = Object.hasOwn(config, 'habitat') ? resolveHabitat(config.habitat, DEFAULT_GECKO_HABITAT) : DEFAULT_GECKO_HABITAT;
+    let state = initialState(seed, heading, resolveGeckoOptions(config.options), habitat);
     let disposed = false;
     const alive = () => { if (disposed)
         throw new Error('Gecko has been disposed'); };
@@ -236,11 +255,12 @@ export function createGecko(config = {}) {
         },
         reset(options = {}) {
             alive();
-            record(options, ['seed', 'heading'], 'reset');
+            record(options, ['seed', 'heading', 'habitat'], 'reset');
             const nextSeed = options.seed === undefined ? state.seed : options.seed, nextHeading = options.heading === undefined ? state.initialHeading : options.heading;
             number(nextSeed, 0, 0xffff_ffff, 'seed', true);
             number(nextHeading, -Math.PI, Math.PI, 'heading');
-            state = initialState(nextSeed, nextHeading, state.options);
+            const habitat = Object.hasOwn(options, 'habitat') ? resolveHabitat(options.habitat, state.habitat) : state.habitat;
+            state = initialState(nextSeed, nextHeading, state.options, habitat);
             return cloneState(state);
         },
         dispose() { disposed = true; },

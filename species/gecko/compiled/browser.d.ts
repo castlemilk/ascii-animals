@@ -1,3 +1,4 @@
+import type { GeckoDirectorOptions, GeckoDirectorOptionsPatch, GeckoDirectorState, GeckoDirectorCue, GeckoIndividualId, GeckoDirectorRecipe } from './director.js';
 import type { GeckoConfig, GeckoOptions, GeckoOptionsPatch, GeckoReset, GeckoState } from './types.js';
 export interface GeckoViewOptions {
     /** Auto selects 112x50 below 560 CSS px, otherwise 176x78. */
@@ -13,6 +14,8 @@ export interface GeckoFrameSource {
     subscribe(callback: (timestampMs: number) => void): () => void;
 }
 export interface GeckoMountOptions {
+    /** Opt-in wall ensemble. Omit to retain the original single-gecko contract. */
+    readonly director?: GeckoDirectorOptionsPatch;
     readonly frameSource?: GeckoFrameSource;
     readonly config?: GeckoConfig;
     readonly paused?: boolean;
@@ -21,6 +24,13 @@ export interface GeckoMountOptions {
     readonly onStatus?: (status: GeckoControllerStatus) => void;
 }
 export interface GeckoControllerStatus {
+    readonly director: Readonly<{
+        scene: GeckoDirectorOptions['scene'];
+        beat: string;
+        population: number;
+        selectedId: GeckoIndividualId | null;
+    }> | null;
+    readonly directorPoster: 'none' | GeckoDirectorCue['type'];
     readonly tick: number;
     readonly phase: GeckoState['behavior']['kind'];
     readonly paused: boolean;
@@ -52,7 +62,17 @@ export type GeckoActionResult = {
     readonly outcome: 'ignored';
     readonly reason: 'resting';
 };
+/** Richer cue receipt without widening the existing solo action contract. */
+export type GeckoDirectorActionResult = GeckoActionResult | {
+    readonly outcome: 'ignored';
+    readonly reason: 'busy';
+};
 export interface GeckoController {
+    getDirectorSnapshot(): GeckoDirectorState | null;
+    configureDirector(patch: GeckoDirectorOptionsPatch): Readonly<GeckoDirectorOptions>;
+    direct(cue: GeckoDirectorCue): GeckoDirectorActionResult;
+    selectGecko(id: GeckoIndividualId | null): void;
+    exportScene(): GeckoDirectorRecipe | null;
     getSnapshot(): GeckoState;
     /** This remains available after disposal. */
     getStatus(): GeckoControllerStatus;

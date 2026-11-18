@@ -4,41 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="An original reactive ASCII gecko. Guide its careful steps, startle it gently, and watch its tail curl before curiosity returns.">
-  <title>Gecko — A small act of courage</title>
+  <meta name="description" content="A small world after dark. Meet three original ASCII geckos, invite a moth, cast a passing shadow, and watch careful feet find their courage again.">
+  <title>Gecko — A small world after dark</title>
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="runtime/species/gecko/demo.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#gecko">Skip to the wall</a>
   <header class="masthead">
     <a class="wordmark" href="../index.html">ASCII <span>ANIMALS</span><span class="wordmark-mark" aria-hidden="true">✳</span></a>
-    <span class="edition">FIELD STUDY <span class="edition-line"></span> GECKO</span>
+    <span class="edition">AFTER HOURS <span class="edition-line"></span> THE GECKOS</span>
   </header>
   <main id="main">
     <section class="introduction" aria-labelledby="title">
       <div>
-        <p class="eyebrow"><span class="little-dot" aria-hidden="true"></span> A CREATURE MADE OF CHARACTERS</p>
-        <h1 id="title">A small act<br>of <em>courage.</em></h1>
+        <p class="eyebrow"><span class="little-dot" aria-hidden="true"></span> A SMALL ACT OF COURAGE</p>
+        <h1 id="title">A little world <em>after dark.</em></h1>
       </div>
-      <div class="intro-copy">
-        <span class="specimen-label">THE GECKO</span>
-        <p>Four careful feet. A very expressive tail.<br>Let curiosity take the first step.</p>
-        <p class="micro">Original geometry · A stylized dorsal study</p>
+      <p class="intro-copy">Three different temperaments. Twenty careful toes each.<br> A quiet wall with a story of its own.</p>
+    </section>
+
+    <section id="director" class="scene-director" aria-labelledby="scene-selector-title">
+      <h2 id="scene-selector-title" class="visually-hidden">Choose a scene</h2>
+      <div class="scene-cards" role="group" aria-label="Choose a gecko scene">
+        <button id="scene-moonlit-wall" class="scene-card" type="button" data-scene="moonlit-wall" aria-pressed="true">
+          <span class="scene-number">01 <span class="scene-mark" aria-hidden="true">◐</span></span>
+          <span class="scene-card-title">The moonlit wall</span>
+          <span class="scene-description">Arrive. Explore. Find a place to rest.</span>
+        </button>
+        <button id="scene-lantern-hunt" class="scene-card" type="button" data-scene="lantern-hunt" aria-pressed="false">
+          <span class="scene-number">02 <span class="scene-mark lantern-mark" aria-hidden="true">✧</span></span>
+          <span class="scene-card-title">A moth by the lantern</span>
+          <span class="scene-description">A little light. An irresistible distraction.</span>
+        </button>
+        <button id="scene-passing-shadow" class="scene-card" type="button" data-scene="passing-shadow" aria-pressed="false">
+          <span class="scene-number">03 <span class="scene-mark" aria-hidden="true">◒</span></span>
+          <span class="scene-card-title">A passing shadow</span>
+          <span class="scene-description">A pause, a curled tail, then courage.</span>
+        </button>
       </div>
     </section>
 
     <div class="study-layout">
-      <section class="specimen" aria-label="Interactive gecko specimen">
+      <section class="specimen" aria-label="Interactive gecko habitat">
         <div class="specimen-topline">
-          <span class="plate-label">ON THE QUIET WALL</span>
-          <span class="state-pill"><span class="status-dot" aria-hidden="true"></span><span id="phase">Resting</span></span>
+          <div class="plate-heading"><span class="status-dot" aria-hidden="true"></span><span id="scene-title">THE MOONLIT WALL</span></div>
+          <span class="state-pill" id="phase">Resting</span>
         </div>
         <div class="canvas-wrap">
-          <canvas id="gecko" width="720" height="550" tabindex="0" role="img"
-            aria-label="Interactive ASCII gecko with a broad head, four splayed pad-toed feet, and a long attached tapered tail. Move the pointer or use the Guide buttons. When the canvas is focused, use arrow keys to guide and Space to pause."
-            aria-describedby="scene-help">
-            A gecko made from ASCII characters: a broad head, four splayed feet with rounded pads, and a long tapered tail.
+          <canvas id="gecko" width="960" height="600" tabindex="0" role="img"
+            aria-label="Three interactive ASCII geckos on a nighttime wall. Each has a broad head, four splayed pad-toed feet, and a long attached tail. Select a visitor, move the pointer or tap to guide it. When the canvas is focused, arrow keys guide and Space pauses."
+            aria-describedby="scene-help keyboard-help">
+            Three geckos made from characters: broad heads, four splayed feet with rounded pads, and long tapered tails.
           </canvas>
+          <div class="stage-caption" aria-hidden="true"><span id="scene-beat">Arriving quietly</span><span id="cycle-label">A NIGHT ON THE WALL</span></div>
+          <div class="canvas-cue" id="canvas-cue" aria-hidden="true"><span class="cue-cross">+</span> Move gently. Curiosity follows.</div>
           <div id="fallback" class="fallback" hidden>
             <span class="fallback-mark" aria-hidden="true">G.</span>
             <h2>A quiet little visitor.</h2>
@@ -46,64 +66,85 @@
           </div>
           <span class="corner corner-a" aria-hidden="true"></span><span class="corner corner-b" aria-hidden="true"></span>
         </div>
+        <progress id="scene-progress" class="scene-progress" max="1" value="0" aria-label="Progress through this part of the scene"></progress>
         <div class="specimen-bottomline">
-          <p id="scene-help">Move gently to invite a few steps.</p>
-          <div class="playback" aria-label="Playback">
-            <button id="pause" type="button" aria-pressed="false">Pause</button>
+          <p id="scene-help">Select a visitor. Move nearby, or tap the wall to invite a few steps.</p>
+          <div class="playback" role="group" aria-label="Playback">
+            <button id="pause" type="button" aria-pressed="false" aria-label="Pause gecko animation">Pause</button>
             <button id="reset" type="button">Reset</button>
+            <button id="export-png" type="button" aria-label="Save the wall as a PNG image" title="Save PNG">Save image <span aria-hidden="true">↓</span></button>
           </div>
         </div>
+        <p id="keyboard-help" class="keyboard-help"><span>Arrow keys to guide · Space to pause when the wall is focused.</span><span class="close-view-note">On a small screen, follow your selected visitor.</span></p>
       </section>
 
-      <aside class="interaction-panel" aria-label="Gecko controls">
-        <div class="panel-section guide-section">
-          <p class="panel-kicker">01 / INVITE</p>
-          <h2>A little curiosity.</h2>
-          <p class="help">Point nearby, tap the wall, or choose a direction.</p>
-          <div class="direction-pad" role="group" aria-label="Guide the gecko">
-            <button class="north" type="button" data-guide="0,-1" aria-label="Guide up">↑</button>
-            <button class="west" type="button" data-guide="-1,0" aria-label="Guide left">←</button>
-            <button class="rest" type="button" id="rest" aria-label="Clear guidance">Rest</button>
-            <button class="east" type="button" data-guide="1,0" aria-label="Guide right">→</button>
-            <button class="south" type="button" data-guide="0,1" aria-label="Guide down">↓</button>
-          </div>
+      <aside class="interaction-panel" aria-label="Gecko cast and encounters">
+        <div class="cast-heading"><div><p class="panel-kicker">THE NIGHT SHIFT</p><h2>Meet the residents.</h2></div><span id="cast-count" class="cast-count">03</span></div>
+        <div class="cast-list" role="group" aria-label="Choose a gecko and its role">
+          <article id="cast-mica" class="cast-card" data-selected="true">
+            <button id="select-mica" class="cast-select" type="button" aria-pressed="true" aria-label="Select Mica"><span class="cast-initial" aria-hidden="true">M</span><span><strong>Mica</strong><span id="motive-mica" class="cast-motive">Checking the edges</span></span><span class="selection-dot" aria-hidden="true"></span></button>
+            <label class="role-label" for="role-mica"><span>Role</span><select id="role-mica"><option value="scout" selected>Scout</option><option value="hunter">Moth watcher</option><option value="sentry">Lookout</option></select></label>
+          </article>
+          <article id="cast-pip" class="cast-card" data-selected="false">
+            <button id="select-pip" class="cast-select" type="button" aria-pressed="false" aria-label="Select Pip"><span class="cast-initial" aria-hidden="true">P</span><span><strong>Pip</strong><span id="motive-pip" class="cast-motive">Following a small light</span></span><span class="selection-dot" aria-hidden="true"></span></button>
+            <label class="role-label" for="role-pip"><span>Role</span><select id="role-pip"><option value="scout">Scout</option><option value="hunter" selected>Moth watcher</option><option value="sentry">Lookout</option></select></label>
+          </article>
+          <article id="cast-slate" class="cast-card" data-selected="false">
+            <button id="select-slate" class="cast-select" type="button" aria-pressed="false" aria-label="Select Slate"><span class="cast-initial" aria-hidden="true">S</span><span><strong>Slate</strong><span id="motive-slate" class="cast-motive">Keeping a quiet watch</span></span><span class="selection-dot" aria-hidden="true"></span></button>
+            <label class="role-label" for="role-slate"><span>Role</span><select id="role-slate"><option value="scout">Scout</option><option value="hunter">Moth watcher</option><option value="sentry" selected>Lookout</option></select></label>
+          </article>
         </div>
-        <div class="panel-section reaction-section">
-          <p class="panel-kicker">02 / SURPRISE</p>
-          <h2>Then, a small surprise.</h2>
-          <p class="help">A curled tail. A short retreat.<br>Curiosity finds its way back.</p>
-          <button id="startle" class="startle" type="button"><span>Startle gecko</span><span aria-hidden="true">↗</span></button>
-          <p class="tiny">Give it a moment between surprises.</p>
-        </div>
-        <details class="tuning">
-          <summary>Make it your own<span aria-hidden="true">+</span></summary>
-          <div class="tuning-content">
-            <label for="pace">Creeping pace <output id="pace-value" for="pace">Gentle</output></label>
-            <input id="pace" type="range" min="0.02" max="0.18" step="0.01" value="0.10">
-            <label for="curl">Tail curl <output id="curl-value" for="curl">100%</output></label>
-            <input id="curl" type="range" min="0.25" max="1" step="0.05" value="1">
-            <label class="checkbox-label" for="neutral"><input id="neutral" type="checkbox"> Neutral silhouette</label>
+
+        <section class="encounter-section" aria-labelledby="selected-name">
+          <div class="selected-heading"><h3 id="selected-name">Mica</h3><span id="selected-emotion" class="emotion">Curious</span></div>
+          <p id="selected-motive" class="selected-motive">A scout with a soft spot for unexplored corners.</p>
+          <div class="encounter-actions" role="group" aria-label="Offer an encounter">
+            <button id="moth" class="primary-action" type="button"><span aria-hidden="true">✧</span> Offer a moth</button>
+            <button id="startle" type="button" aria-describedby="cooldown-note"><span aria-hidden="true">◒</span> Cast a shadow</button>
+            <button id="return" type="button"><span aria-hidden="true">↶</span> Come back</button>
           </div>
-        </details>
-        <p id="action-status" class="action-status" role="status" aria-live="polite">Ready when you are.</p>
+          <p id="cooldown-note" class="tiny">A small surprise is enough. Give them time to recover.</p>
+          <button id="inspect" class="text-button" type="button">Invite a closer look <span aria-hidden="true">↗</span></button>
+        </section>
+        <p id="action-status" class="action-status" role="status" aria-live="polite">The wall is yours to explore.</p>
       </aside>
     </div>
 
-    <section class="field-notes" aria-label="Field notes">
-      <div><span class="note-number">I.</span><h2>Hold, then step.</h2><p>Three feet hold their place while the fourth reaches forward.</p></div>
-      <div><span class="note-number">II.</span><h2>Always attached.</h2><p>The tail bends into one continuous curl, then slowly lets go.</p></div>
-      <div><span class="note-number">III.</span><h2>Stillness is welcome.</h2><p>Pause at any time. Reduced motion keeps a quiet portrait.</p></div>
+    <section class="direction-desk" aria-labelledby="direction-title">
+      <div class="desk-intro"><p class="panel-kicker">A LITTLE DIRECTION</p><h2 id="direction-title">Set the mood.</h2><p>Let the night unfold, or give one visitor a gentle nudge.</p></div>
+      <div class="director-settings">
+        <div class="range-control"><label for="population">Visitors <output id="population-value" for="population">3</output></label><input id="population" type="range" min="1" max="3" step="1" value="3"><p class="range-ends"><span>A quiet solo</span><span>All three</span></p></div>
+        <div class="range-control"><label for="tempo">Night's pace <output id="tempo-value" for="tempo">1.0×</output></label><input id="tempo" type="range" min="0.4" max="1.6" step="0.1" value="1"><p class="range-ends"><span>Unhurried</span><span>Lively</span></p></div>
+        <div class="range-control"><label for="boldness">Courage <output id="boldness-value" for="boldness">55%</output></label><input id="boldness" type="range" min="0" max="1" step="0.05" value="0.55"><p class="range-ends"><span>Cautious</span><span>Adventurous</span></p></div>
+        <div class="director-switches"><label for="autonomy"><input id="autonomy" type="checkbox" checked> Let them explore</label><label for="show-routes"><input id="show-routes" type="checkbox"> Show their paths</label><label for="reverse"><input id="reverse" type="checkbox"> Reverse the journey</label></div>
+      </div>
+      <div class="manual-guidance"><p class="guide-label">Guide the selected visitor</p><div class="direction-pad" role="group" aria-label="Guide the gecko"><button class="north" type="button" data-guide="0,-1" aria-label="Guide up">↑</button><button class="west" type="button" data-guide="-1,0" aria-label="Guide left">←</button><button class="rest" type="button" id="rest" aria-label="Clear guidance">Rest</button><button class="east" type="button" data-guide="1,0" aria-label="Guide right">→</button><button class="south" type="button" data-guide="0,1" aria-label="Guide down">↓</button></div></div>
     </section>
 
-    <details id="text-details" class="text-export">
-      <summary>A portrait in plain text</summary>
-      <div class="text-export-body">
-        <p>These are the same character cells used to draw the gecko. Select and copy a still moment.</p>
-        <button id="refresh-text" type="button">Refresh portrait</button>
-        <pre id="text-frame" tabindex="0" aria-label="Current gecko ASCII portrait">Loading the gecko's text portrait…</pre>
+    <details class="tuning">
+      <summary>Finer details<span aria-hidden="true">+</span></summary>
+      <div class="tuning-content">
+        <div class="range-control"><label for="pace">Creeping pace <output id="pace-value" for="pace">Gentle</output></label><input id="pace" type="range" min="0.02" max="0.18" step="0.01" value="0.10"></div>
+        <div class="range-control"><label for="curl">Tail curl <output id="curl-value" for="curl">100%</output></label><input id="curl" type="range" min="0.25" max="1" step="0.05" value="1"></div>
+        <label class="checkbox-label" for="neutral"><input id="neutral" type="checkbox"> Neutral silhouette</label>
       </div>
     </details>
-    <noscript><p class="noscript">This interactive study needs JavaScript. The gecko is a stylized lizard with a broad head, four pad-toed feet, and a long tapering tail.</p></noscript>
+
+    <section class="field-notes" aria-label="Field notes">
+      <div><span class="note-number">I.</span><h2>Every step has a foothold.</h2><p>Three feet hold while the fourth reaches. The little toe pads stay planted.</p></div>
+      <div><span class="note-number">II.</span><h2>A tail tells the story.</h2><p>One continuous curl, a short retreat, and the slow return of curiosity.</p></div>
+      <div><span class="note-number">III.</span><h2>Stillness belongs here.</h2><p>Pause whenever you like. Reduced motion offers a quiet, deliberate still scene.</p></div>
+    </section>
+
+    <section class="takeaway" aria-label="Save a moment">
+      <div><p class="panel-kicker">TAKE A LITTLE OF THE NIGHT</p><h2>A moment to keep.</h2></div>
+      <div class="export-actions"><button id="export-text" type="button">Save text <span aria-hidden="true">↓</span></button><button id="export-settings" type="button">Save scene settings <span aria-hidden="true">↓</span></button></div>
+    </section>
+    <details id="text-details" class="text-export">
+      <summary>A portrait in plain text</summary>
+      <div class="text-export-body"><p>The same character cells as the wall, ready to select and copy.</p><button id="refresh-text" type="button">Refresh portrait</button><pre id="text-frame" tabindex="0" aria-label="Current gecko ASCII portrait">Loading the gecko's text portrait…</pre></div>
+    </details>
+    <noscript><p class="noscript">This interactive study needs JavaScript. Each gecko has a broad head, four pad-toed feet, and a long attached tail.</p></noscript>
   </main>
   <footer><span>ASCII ANIMALS / GECKO</span><span>An original local species study.</span><span>Take your time.</span></footer>
 </body>

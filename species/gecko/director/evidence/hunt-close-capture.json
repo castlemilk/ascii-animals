@@ -1,0 +1,559 @@
+{
+  "kind": "actual native Canvas; not browser or motion playback",
+  "seed": 37,
+  "grid": [
+    112,
+    72
+  ],
+  "size": [
+    360,
+    360
+  ],
+  "frames": [
+    {
+      "tick": 720,
+      "state": {
+        "tick": 720,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "poise",
+          "beatIndex": 2,
+          "progress": 0.25,
+          "cycle": 0,
+          "scoreTick": 720
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.7872862352993292,
+            "y": -0.5638865694638551
+          },
+          "visible": true,
+          "caughtBy": null
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.7105509584923029,
+              "y": -0.343643224659341
+            },
+            "scale": 1,
+            "heading": -1.2137122238875115,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.2565740976937792,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -2.0370183970686084,
+                  "y": -0.5126965468944988
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.4624254285255505,
+                  "y": -0.5604097541035191
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9813551283603674,
+                  "y": -0.06768750419928374
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.4516513611342399,
+                  "y": -0.10064729088492946
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.43056922317681834,
+              "y": -0.06281536856245538
+            },
+            "scale": 0.94,
+            "heading": -0.8549190361032322,
+            "motive": "poise",
+            "emotion": "focused",
+            "tailExpression": 0.09999999999999988,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.3823917620705341,
+                  "y": -0.4493110764834521
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.8167455832124466,
+                  "y": -0.05678110398367123
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.09266860325695134,
+                  "y": -0.11948845989493231
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.5170270528333744,
+                  "y": 0.27163285699258555
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.7370167952688433,
+              "y": 0.34258700958727145
+            },
+            "scale": 0.88,
+            "heading": 2.12659218463743,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25988136756357344,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 2.0282518055237473,
+                  "y": 0.522472535614976
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4307760359566382,
+                  "y": 0.5248060544851554
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 2.0790780883142874,
+                  "y": 0.23844739733679915
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.4759693990892637,
+                  "y": 0.0775566343842654
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 9260
+    },
+    {
+      "tick": 820,
+      "state": {
+        "tick": 820,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "strike",
+          "beatIndex": 3,
+          "progress": 0.1111111111111111,
+          "cycle": 0,
+          "scoreTick": 820
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.7590810104786234,
+            "y": -0.5629446723911951
+          },
+          "visible": false,
+          "caughtBy": "pip"
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.5743741786615575,
+              "y": -0.48220399126138075
+            },
+            "scale": 1,
+            "heading": -0.6978208859109051,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.11095542670924634,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.67313683377014,
+                  "y": -0.7912971404933853
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.227123548525261,
+                  "y": -0.39492856591182246
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.9082155354015966,
+                  "y": -0.5807240325218762
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.5930051511945027,
+                  "y": -0.08811118891341063
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.43056922317681834,
+              "y": -0.06281536856245538
+            },
+            "scale": 0.94,
+            "heading": -0.8549190361032322,
+            "motive": "strike",
+            "emotion": "focused",
+            "tailExpression": 0.09999999999999988,
+            "phase": "idle",
+            "catches": 1,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.3823917620705341,
+                  "y": -0.4493110764834521
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.8167455832124466,
+                  "y": -0.05678110398367123
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.09266860325695134,
+                  "y": -0.11948845989493231
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.5170270528333744,
+                  "y": 0.27163285699258555
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.6522407810989397,
+              "y": 0.40367594154896036
+            },
+            "scale": 0.88,
+            "heading": 2.7068137607826763,
+            "motive": "watch",
+            "emotion": "content",
+            "tailExpression": 0.05455918716324496,
+            "phase": "idle",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.8252753318413308,
+                  "y": 0.7257794291172258
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.3225607450843595,
+                  "y": 0.25392441159696916
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.9453542076513584,
+                  "y": 0.5872972071330423
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.655237980255726,
+                  "y": 0.03269675472064007
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 9260
+    },
+    {
+      "tick": 1060,
+      "state": {
+        "tick": 1060,
+        "arc": {
+          "scene": "lantern-hunt",
+          "beat": "return",
+          "beatIndex": 4,
+          "progress": 0.38095238095238093,
+          "cycle": 0,
+          "scoreTick": 1060
+        },
+        "selectedId": "mica",
+        "moth": {
+          "position": {
+            "x": 0.6996403565763016,
+            "y": -0.5201907066732803
+          },
+          "visible": false,
+          "caughtBy": "pip"
+        },
+        "shadow": {
+          "active": false,
+          "progress": 1,
+          "position": {
+            "x": 1.35,
+            "y": -0.3
+          }
+        },
+        "individuals": [
+          {
+            "id": "mica",
+            "role": "scout",
+            "position": {
+              "x": -1.3081919791334495,
+              "y": -0.23483375329522782
+            },
+            "scale": 1,
+            "heading": 1.326583489686994,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.24937965061702638,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": -0.9754159458278842,
+                  "y": -0.09875891485177095
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -1.5563406046727337,
+                  "y": -0.03129380723312246
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": -1.0908719092804562,
+                  "y": -0.5620905137129306
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "swing",
+                "position": {
+                  "x": -1.66543473632878,
+                  "y": -0.46909499943684796
+                }
+              }
+            ]
+          },
+          {
+            "id": "pip",
+            "role": "hunter",
+            "position": {
+              "x": 0.2565095073260329,
+              "y": 0.010405143955030099
+            },
+            "scale": 0.94,
+            "heading": -4.160231847201345,
+            "motive": "return",
+            "emotion": "curious",
+            "tailExpression": 0.25999957621994374,
+            "phase": "approach",
+            "catches": 1,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "swing",
+                "position": {
+                  "x": 0.2095344304702711,
+                  "y": 0.2703412453308613
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": -0.0899471739901629,
+                  "y": -0.06273021559666589
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "stance",
+                "position": {
+                  "x": 0.6188095715109747,
+                  "y": -0.024789507507752946
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 0.31837341192650154,
+                  "y": -0.4179981366603801
+                }
+              }
+            ]
+          },
+          {
+            "id": "slate",
+            "role": "sentry",
+            "position": {
+              "x": 1.6000800076621782,
+              "y": 0.21656809370882898
+            },
+            "scale": 0.88,
+            "heading": 4.899005318103189,
+            "motive": "explore",
+            "emotion": "curious",
+            "tailExpression": 0.25998765543501584,
+            "phase": "approach",
+            "catches": 0,
+            "contacts": [
+              {
+                "id": "front-left",
+                "phase": "stance",
+                "position": {
+                  "x": 1.2722418795772694,
+                  "y": 0.09215533385636884
+                }
+              },
+              {
+                "id": "front-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.9246102746117817,
+                  "y": 0.06082577982586562
+                }
+              },
+              {
+                "id": "rear-left",
+                "phase": "swing",
+                "position": {
+                  "x": 1.3308982188973302,
+                  "y": 0.49902061073814674
+                }
+              },
+              {
+                "id": "rear-right",
+                "phase": "stance",
+                "position": {
+                  "x": 1.8458961512375616,
+                  "y": 0.5145698523353027
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "samples": 9260
+    }
+  ],
+  "directorSha256": "fb9a9a65224cc3547bf2b6ad952c3a2d0653866973231afe75ff49be6d846ac6",
+  "previewSha256": "b9e818d759d411ca08568f89e801652a6e93e4f4b2ceeae09128e04decbab260"
+}

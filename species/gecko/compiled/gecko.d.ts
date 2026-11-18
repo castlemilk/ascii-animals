@@ -1,4 +1,4 @@
-import type { GeckoConfig, GeckoFoot, GeckoModel, GeckoOptions, GeckoOptionsPatch, Vec2 } from './types.js';
+import type { GeckoConfig, GeckoFoot, GeckoHabitat, GeckoModel, GeckoOptions, GeckoOptionsPatch, Vec2 } from './types.js';
 export type * from './types.js';
 export declare const GECKO_LIMITS: Readonly<{
     tickRate: 60;
@@ -13,6 +13,7 @@ export declare const GECKO_LIMITS: Readonly<{
     rootY: 0.13;
     limbReach: 0.44;
 }>;
+export declare const DEFAULT_GECKO_HABITAT: Readonly<GeckoHabitat>;
 export declare const DEFAULT_GECKO_OPTIONS: Readonly<GeckoOptions>;
 export declare function resolveGeckoOptions(patch?: GeckoOptionsPatch, base?: Readonly<GeckoOptions>): Readonly<GeckoOptions>;
 /** Convert a CSS rectangle to normalized input; DPR never participates. */

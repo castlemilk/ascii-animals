@@ -1,0 +1,58 @@
+{
+  "base": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "runtime": "v24.22.1",
+  "commands": [
+    {
+      "name": "package-check",
+      "command": [
+        "node",
+        "scripts/check-package.mjs",
+        "--report",
+        "/workspace/scratch/2b42caa0b4f6/gecko-director-validation/package-check.json"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 29.533,
+      "log": "package-check.log"
+    },
+    {
+      "name": "all-tests",
+      "command": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs species/gecko/test/*.test.mjs species/pufferfish/tests/*.test.mjs species/frog/tests/core.test.mjs species/frog/tests/geometry.test.mjs species/frog/tests/lifecycle.test.mjs species/frog/tests/demo.test.mjs species/owl/tests/*.test.mjs",
+      "exitCode": 0,
+      "durationSeconds": 50.567,
+      "log": "all-tests.log"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 13.06,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "legacy-regression",
+      "command": [
+        "npm",
+        "run",
+        "test:legacy"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 26.789,
+      "log": "legacy-regression.log"
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.105,
+      "log": "whitespace.log"
+    }
+  ]
+}

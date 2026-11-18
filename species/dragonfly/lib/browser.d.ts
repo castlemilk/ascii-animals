@@ -1,3 +1,4 @@
+import type { DragonflyCue, DragonflyDirectorOptions, DragonflyDirectorState } from './director.js';
 import type { DragonflyBehavior, DragonflyState, DragonflyConfigPatch, DragonflyOptions, DragonflyView, MotionMode, Vec2 } from './types.js';
 export interface DragonflyBrowserEnvironment {
     readonly window: Window;
@@ -6,6 +7,7 @@ export interface DragonflyBrowserEnvironment {
     readonly IntersectionObserver: typeof IntersectionObserver | null;
 }
 export interface DragonflyBrowserStatus {
+    readonly director: DragonflyDirectorState | null;
     readonly tick: number;
     readonly behavior: DragonflyBehavior['kind'];
     readonly paused: boolean;
@@ -36,6 +38,8 @@ export interface DragonflyMountOptions {
     /** Borrowed scheduler: release only this subscription. */
     readonly frameSource?: DragonflyFrameSource;
     readonly model?: Partial<DragonflyOptions>;
+    /** Opt in to one directed pond ensemble; omitted retains the original solo host. */
+    readonly director?: Partial<DragonflyDirectorOptions>;
     readonly paused?: boolean;
     readonly view?: DragonflyView;
     readonly neutral?: boolean;
@@ -45,6 +49,12 @@ export interface DragonflyMountOptions {
 export interface DragonflyBrowserController {
     setPaused(value: boolean): void;
     configure(patch: DragonflyConfigPatch): void;
+    configureDirector(patch: Partial<DragonflyDirectorOptions>): void;
+    getDirectorState(): DragonflyDirectorState | null;
+    getDirectorOptions(): Readonly<DragonflyDirectorOptions> | null;
+    /** Active selection is coalesced until the next tick; static selection is immediate. */
+    selectIndividual(id: number): void;
+    cue(cue: DragonflyCue): void;
     setView(view: DragonflyView): void;
     setNeutral(value: boolean): void;
     setTarget(x: number, y: number): void;

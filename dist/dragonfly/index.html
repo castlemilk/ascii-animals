@@ -4,78 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="An original reactive ASCII dragonfly. Guide its hover, invite a short dart, or enjoy a still specimen.">
-  <title>Dragonfly — ASCII Animals</title>
+  <meta name="description" content="Direct an original ASCII dragonfly pond. Choose a patrol, invite a hovering encounter, or follow a relay between the reeds.">
+  <title>The Pond Director — ASCII Animals</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <header class="masthead">
-      <a class="wordmark" href="../index.html">ASCII <span>ANIMALS</span></a>
-      <span class="edition">FIELD STUDY <b>001 / DRAGONFLY</b></span>
-    </header>
+<main>
+  <header class="masthead">
+    <a class="wordmark" href="../index.html">ASCII <span>ANIMALS</span></a>
+    <span class="edition">FIELD STUDY <b>001 / DRAGONFLY</b></span>
+  </header>
 
-    <section class="intro" aria-labelledby="title">
-      <div>
-        <p class="eyebrow"><span class="dot"></span> A SMALL LIFE IN CHARACTERS</p>
-        <h1 id="title">A moment<br><em>in the reeds.</em></h1>
-      </div>
-      <div class="intro-copy">
-        <p>Four delicate wings. A long, segmented body. A quiet hover that follows your curiosity.</p>
-        <p class="secondary">Move your pointer or tap to guide it.<br>Invite a dart, then watch it settle.</p>
-      </div>
-    </section>
+  <section class="intro" aria-labelledby="title">
+    <div><p class="eyebrow"><span class="dot"></span> A SMALL WORLD, IN CHARACTERS</p><h1 id="title">Life above<br> <em>the still water.</em></h1></div>
+    <div class="intro-copy"><p>A few dragonflies. A passing breeze.<br> And a moment for you to direct.</p><p class="secondary">Choose a scene, give each visitor a role,<br> then follow the small stories over the pond.</p></div>
+  </section>
 
-    <section class="specimen" aria-label="Interactive dragonfly specimen">
-      <div class="stage-heading">
-        <div><span class="specimen-no">01</span><strong>Dragonfly</strong><span class="latin">Anisoptera · stylized study</span></div>
-        <span id="phase" class="phase" aria-live="off">Hovering</span>
-      </div>
-      <div class="stage">
-        <div class="coordinate coordinate-top" aria-hidden="true">ODONATA / OBSERVATION FIELD</div>
-        <canvas id="dragonfly" tabindex="0" role="img" aria-label="A dragonfly drawn with ASCII characters, with large paired eyes, a long segmented abdomen, and four narrow attached wings." aria-describedby="canvas-help">
-          A stylized dragonfly with two large eyes, a long segmented abdomen, and four narrow wings extending from the thorax. The controls below select its behavior.
-        </canvas>
-        <div class="coordinate coordinate-bottom" aria-hidden="true"><span>ORIGINAL PROCEDURAL SPECIMEN</span><span id="motion-label">FULL MOTION</span></div>
-        <p id="canvas-fallback" class="fallback" hidden>The character canvas is unavailable. Dragonflies have large eyes, a long segmented abdomen and four narrow wings. The text specimen remains available below.</p>
-      </div>
+  <section class="scene-picker" aria-labelledby="scenes-title">
+    <div class="section-heading"><h2 id="scenes-title">Choose the moment</h2><span>THREE SCENES / ONE POND</span></div>
+    <div class="scene-cards">
+      <button type="button" class="scene-card selected" data-scene="patrol" aria-pressed="true"><span class="scene-number">01 <span aria-hidden="true">↝</span></span><strong>Pond patrol</strong><span class="scene-description">Separate routes and small encounters<br> along the water’s edge.</span><span class="scene-tag">WANDER · WATCH · RETURN</span></button>
+      <button type="button" class="scene-card" data-scene="attention" aria-pressed="false"><span class="scene-number">02 <span aria-hidden="true">⊙</span></span><strong>Hovering attention</strong><span class="scene-description">One visitor comes closer.<br> The others keep their quiet rhythm.</span><span class="scene-tag">APPROACH · HOVER · RELEASE</span></button>
+      <button type="button" class="scene-card" data-scene="relay" aria-pressed="false"><span class="scene-number">03 <span aria-hidden="true">⇄</span></span><strong>Reed relay</strong><span class="scene-description">A staggered sequence of short flights<br> and rests among the reeds.</span><span class="scene-tag">LIFT · CROSS · LAND</span></button>
+    </div>
+  </section>
 
-      <div class="controls">
-        <div class="actions">
-          <button id="dart" class="button primary" type="button"><span aria-hidden="true">↗</span> <span id="dart-label">Invite a dart</span></button>
-          <button id="pause" class="button" type="button" aria-pressed="false">Pause</button>
-          <button id="reset" class="button quiet" type="button">Reset</button>
-        </div>
-        <div class="settings">
-          <label>Motion<select id="motion"><option value="full">Natural</option><option value="slow">Slow</option><option value="static">Still</option></select></label>
-          <label>View<select id="view"><option value="oblique">Oblique</option><option value="dorsal">From above</option></select></label>
-          <label>Guide<select id="guide"><option value="free">Free hover</option><option value="left">Left</option><option value="right">Right</option><option value="up">Up</option><option value="down">Down</option><option value="center">Center</option></select></label>
-        </div>
-      </div>
-      <div class="under-controls">
-        <p id="action-status" role="status" aria-live="polite">Ready to explore.</p>
-        <label class="check"><input id="neutral" type="checkbox"> Neutral silhouette</label>
-      </div>
-    </section>
+  <section class="specimen" aria-label="Dragonfly pond director">
+    <div class="stage-heading"><div><span class="specimen-no">POND / 01</span><strong id="scene-title">Pond patrol</strong><span class="latin">Anisoptera · a stylized study</span></div><span id="phase" class="phase" aria-live="off">Arriving</span></div>
+    <div class="stage">
+      <div class="coordinate coordinate-top" aria-hidden="true"><span>ODONATA / OBSERVATION FIELD</span><span id="population-label">03 VISITORS</span></div>
+      <canvas id="dragonfly" tabindex="0" role="img" aria-label="An ASCII pond with up to four dragonflies. Each has large paired eyes, a long segmented abdomen and four narrow wings. Amber corner marks identify the selected individual." aria-describedby="canvas-help">
+        An original scene of dragonflies over a pond, each with two large eyes, a long segmented abdomen and four narrow wings. The controls below select individuals and direct their flight.
+      </canvas>
+      <div class="coordinate coordinate-bottom" aria-hidden="true"><span>ORIGINAL PROCEDURAL SPECIMENS</span><span id="motion-label">NATURAL MOTION</span></div>
+      <p id="canvas-fallback" class="fallback" hidden>The character canvas is unavailable. Dragonflies have large eyes, a long segmented abdomen and four narrow wings. A still text specimen is available below.</p>
+    </div>
 
-    <section class="field-notes" aria-labelledby="notes-title">
-      <h2 id="notes-title">Notes from the field</h2>
-      <div class="note-grid">
-        <article><span>01 / HOVER</span><h3>A gentle approach</h3><p>Guide the dragonfly with your pointer, a tap, or the Guide selector. It follows with a small, measured acceleration.</p></article>
-        <article><span>02 / DART</span><h3>A brief departure</h3><p>Invite a short flight. The body glides to a new position, steadies itself, then pauses before another dart.</p></article>
-        <article><span>03 / STILLNESS</span><h3>Your own pace</h3><p>Choose Slow or Still, or pause at any moment. Reduced-motion preferences show a static specimen with alternate poses.</p></article>
-      </div>
-      <p id="canvas-help" class="keyboard-note">Keyboard: Tab through the controls. On the focused specimen, arrow keys guide and Space pauses. Enter or Space activates buttons. Touch: tap to guide, then use the dart button. Scrolling stays available.</p>
-    </section>
+    <div class="transport"><div class="transport-play"><button id="pause" class="button" type="button" aria-pressed="false">Pause</button><button id="reset" class="button quiet" type="button">Reset scene</button></div><div class="transport-settings"><label>Visitors<select id="population"><option value="1">1 dragonfly</option><option value="2">2 dragonflies</option><option value="3" selected>3 dragonflies</option><option value="4">4 dragonflies</option></select></label><label>Motion<select id="motion"><option value="full">Natural</option><option value="slow">Slow</option><option value="static">Still</option></select></label><label>View<select id="view"><option value="oblique">Oblique</option><option value="dorsal">From above</option></select></label></div></div>
 
-    <details class="text-panel">
-      <summary>Inspect the character specimen</summary>
-      <div class="text-tools"><p>A still text frame from the same logical character cells.</p><button id="capture" class="button" type="button">Capture text frame</button></div>
-      <pre id="text-frame" tabindex="0" aria-label="Captured ASCII dragonfly"></pre>
-    </details>
+    <section class="cast-section" aria-labelledby="cast-title"><div class="section-heading"><h2 id="cast-title">The visitors</h2><span>SELECT ONE TO DIRECT</span></div><div class="cast-grid">
+      <article class="cast-card selected" data-member="0"><button type="button" class="select-member" data-select="0" aria-pressed="true"><span class="member-number">01</span><span><strong>Visitor 01</strong><small class="member-phase">Patrolling</small></span><span class="selection-dot" aria-hidden="true"></span></button><label>Role<select data-role="0" aria-label="Visitor 01 role"><option value="patroller">Patroller</option><option value="sentinel">Sentinel</option><option value="skimmer">Skimmer</option><option value="wanderer">Wanderer</option></select></label></article>
+      <article class="cast-card" data-member="1"><button type="button" class="select-member" data-select="1" aria-pressed="false"><span class="member-number">02</span><span><strong>Visitor 02</strong><small class="member-phase">Watching</small></span><span class="selection-dot" aria-hidden="true"></span></button><label>Role<select data-role="1" aria-label="Visitor 02 role"><option value="patroller">Patroller</option><option value="sentinel" selected>Sentinel</option><option value="skimmer">Skimmer</option><option value="wanderer">Wanderer</option></select></label></article>
+      <article class="cast-card" data-member="2"><button type="button" class="select-member" data-select="2" aria-pressed="false"><span class="member-number">03</span><span><strong>Visitor 03</strong><small class="member-phase">Skimming</small></span><span class="selection-dot" aria-hidden="true"></span></button><label>Role<select data-role="2" aria-label="Visitor 03 role"><option value="patroller">Patroller</option><option value="sentinel">Sentinel</option><option value="skimmer" selected>Skimmer</option><option value="wanderer">Wanderer</option></select></label></article>
+      <article class="cast-card" data-member="3" hidden><button type="button" class="select-member" data-select="3" aria-pressed="false"><span class="member-number">04</span><span><strong>Visitor 04</strong><small class="member-phase">Wandering</small></span><span class="selection-dot" aria-hidden="true"></span></button><label>Role<select data-role="3" aria-label="Visitor 04 role"><option value="patroller">Patroller</option><option value="sentinel">Sentinel</option><option value="skimmer">Skimmer</option><option value="wanderer" selected>Wanderer</option></select></label></article>
+    </div></section>
 
-    <footer><span>ASCII ANIMALS · DRAGONFLY</span><span>Local species preview · Original geometry · System fonts</span><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/DRAGONFLY-API.md">Authoring &amp; API notes</a></footer>
-  </main>
-  <script type="module" src="runtime/species/dragonfly/demo.js"></script>
+    <section class="direction" aria-labelledby="direction-title"><div class="direction-heading"><h2 id="direction-title">Direct <span id="selected-label">visitor 01</span></h2><p id="selected-state">Following its own route.</p></div><div class="direction-controls"><div class="actions"><button id="dart" class="button primary" type="button"><span aria-hidden="true">↗</span> <span id="dart-label">Dart &amp; return</span></button><button id="perch" class="button" type="button">Land on a reed</button><button id="return" class="button quiet" type="button">Resume route</button></div><label class="guide-label">Guide<select id="guide"><option value="free">Free flight</option><option value="left">Left</option><option value="right">Right</option><option value="up">Up</option><option value="down">Down</option><option value="center">Center</option></select></label></div><p id="action-status" role="status" aria-live="polite">Select a visitor, then invite a small change of course.</p></section>
+
+    <details class="pond-settings"><summary><span>Shape the pond</span><span class="summary-detail">Routes, pace &amp; atmosphere</span></summary><div class="tuning-grid"><label>Flight route<select id="route"><option value="banks">Along the banks</option><option value="figure-eight">Figure eight</option><option value="orbit">Circling the pond</option></select></label><label>Tempo <output id="tempo-value">1.0×</output><input id="tempo" type="range" min="0.4" max="1.6" step="0.1" value="1"></label><label>Spacing <output id="spread-value">1.00</output><input id="spread" type="range" min="0.65" max="1.1" step="0.05" value="1"></label><label>Breeze <output id="breeze-value">0.12</output><input id="breeze" type="range" min="-0.5" max="0.5" step="0.01" value="0.12"></label><label>Specimen size <output id="scale-value">0.40</output><input id="scale" type="range" min="0.28" max="0.48" step="0.01" value="0.4"></label><div class="view-checks"><label class="check"><input id="labels" type="checkbox" checked> Show visitor labels</label><label class="check"><input id="neutral" type="checkbox"> Neutral silhouettes</label></div></div></details>
+  </section>
+
+  <section class="field-notes" aria-labelledby="notes-title"><h2 id="notes-title">Small lives, individual rhythms</h2><div class="note-grid"><article><span>01 / CHARACTER</span><h3>A role for each visitor</h3><p>Patrollers travel the banks. Sentinels hold a lookout. Skimmers keep low, while wanderers take a broader path.</p></article><article><span>02 / DIRECTION</span><h3>Give a gentle cue</h3><p>Guide the selected individual, invite a short dart, or let it settle on a reed. Its neighbours continue their own scene.</p></article><article><span>03 / STILLNESS</span><h3>Watch at your pace</h3><p>Choose Slow or Still, or pause at any moment. Reduced-motion preferences keep the pond still, with alternate poses to explore.</p></article></div><p id="canvas-help" class="keyboard-note">Keyboard: Tab through the controls. On the focused pond, 1–4 selects a visitor, arrow keys guide it, and Space pauses. Touch: select a visitor card, then tap to guide. Flight cues apply to the selected visitor; scrolling stays available.</p></section>
+
+  <details class="text-panel"><summary>Keep a moment from the pond</summary><div class="text-tools"><p>Capture the current character cells or save the actual canvas as an image.</p><div><button id="capture" class="button" type="button">Capture text</button><button id="capture-png" class="button" type="button">Save PNG</button></div></div><pre id="text-frame" tabindex="0" aria-label="Captured ASCII pond"></pre></details>
+  <footer><span>ASCII ANIMALS · THE POND DIRECTOR</span><span>Original geometry · Four independent lives</span><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/DRAGONFLY-API.md">Authoring &amp; API notes</a></footer>
+</main>
+<script type="module" src="runtime/species/dragonfly/demo.js"></script>
 </body>
 </html>

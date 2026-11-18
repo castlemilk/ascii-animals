@@ -4,6 +4,8 @@ import type { DragonflyConfigPatch } from '../species/dragonfly/types.js';
 import { getBrowserScheduler } from '../core/scheduler.js';
 export { createDragonfly, replayDragonfly, validateDragonflyOptions, DRAGONFLY_DEFAULTS, DRAGONFLY_LIMITS } from '../species/dragonfly/model.js';
 export type * from '../species/dragonfly/types.js';
+export { createDragonflyDirector, validateDragonflyDirectorOptions, DRAGONFLY_DIRECTOR_DEFAULTS, DRAGONFLY_DIRECTOR_LIMITS } from '../species/dragonfly/director.js';
+export type * from '../species/dragonfly/director.js';
 export type { DragonflyMountOptions, DragonflyBrowserStatus, DragonflyFrameSource } from '../species/dragonfly/browser.js';
 export interface DragonflyArtwork extends DragonflyBrowserController {
   readonly species: 'dragonfly';
