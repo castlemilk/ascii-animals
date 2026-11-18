@@ -40,10 +40,10 @@ Original research: https://chatgpt.com/c/6afd5a66-c224-83ec-a8e9-fd113a923f48
 
 The images below are original Track 3 **native-Canvas fixture output on the old import-based proposal**, not browser screenshots or new-build performance measurements:
 
-![Original native fixture contact sheet](https://raw.githubusercontent.com/castlemilk/ascii-animals/238015d/docs/species-reference/ascii-animals-track3-frames.png)
+![Original native fixture contact sheet](https://raw.githubusercontent.com/castlemilk/ascii-animals/238015d3ff08bfbb815b14b95345b2543c9ebb09/docs/species-reference/ascii-animals-track3-frames.png)
 
-- [Manta native fixture animation](https://raw.githubusercontent.com/castlemilk/ascii-animals/238015d/docs/species-reference/ascii-manta-runtime.gif)
-- [Octopus native fixture animation](https://raw.githubusercontent.com/castlemilk/ascii-animals/238015d/docs/species-reference/ascii-octopus-runtime.gif)
+- [Manta native fixture animation](https://raw.githubusercontent.com/castlemilk/ascii-animals/238015d3ff08bfbb815b14b95345b2543c9ebb09/docs/species-reference/ascii-manta-runtime.gif)
+- [Octopus native fixture animation](https://raw.githubusercontent.com/castlemilk/ascii-animals/238015d3ff08bfbb815b14b95345b2543c9ebb09/docs/species-reference/ascii-octopus-runtime.gif)
 
 Independently rerun integration checks include geometry bounds/finite samples, LOD, eight fixed-length octopus chains and joint limits, repeated deterministic draw, canonical cuttlefish buffer parity, module/global parity, mixed formations, species-specific ink behavior, atomic typed updates, disposal and package consumers. These checks use Canvas stubs and are not browser FPS, GPU, touch or heap measurements.
 

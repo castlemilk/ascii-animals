@@ -54,7 +54,7 @@ installation claim. Use the local tarball workflow below. Built-in `cuttlefish`,
 `createCuttlefish` exports remain compatible. See [the typed API](docs/TYPESCRIPT-API.md).
 
 
-Procedural animals drawn with moving characters, using a framework-neutral Canvas 2D engine. The current implementation is a cuttlefish: a tapered mantle, rippling skirt fins, raised eyes, eight arms, two longer tentacles, and a beak, directed through a fixed diver's view. A school can mix roles and sizes, follow a shared route, and react to disturbances with a character-based ink plume.
+Procedural animals drawn with moving characters, using a framework-neutral Canvas 2D engine. The original cuttlefish study models a tapered mantle, rippling skirt fins, raised eyes, eight arms, two longer tentacles, and a beak, directed through a fixed diver's view. A school can mix roles and sizes, follow a shared route, and react to disturbances with a character-based ink plume.
 
 **Canvas 2D · zero runtime dependencies · explicit lifecycle · per-animal ESM entry · local review candidate**
 
