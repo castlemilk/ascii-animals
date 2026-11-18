@@ -47,3 +47,26 @@ createCuttlefish(document.createElement('div'));
 createScheduler({ requestFrame: callback => requestAnimationFrame(callback) });
 // @ts-expect-error seconds are numeric
 artwork.advance('one second');
+
+// First-class TypeScript facade, checked from the actual packed tarball.
+import { createArtwork, normalizeOptions, DEFAULT_OPTIONS, type ArtworkOptions } from 'ascii-animals-review';
+const config = { species: 'cuttlefish', count: 3, behaviors: ['hover', 'orbit'], maxFps: 30 } satisfies ArtworkOptions;
+const typedArtwork = createArtwork(document.createElement('canvas'), config);
+typedArtwork.update({ formation: 'vertical', reverse: true });
+typedArtwork.pause(); typedArtwork.restart(); typedArtwork.play(); typedArtwork.pulse();
+typedArtwork.update({ autoStart: false }); typedArtwork.advance(1 / 60);
+const normalized = normalizeOptions(config);
+const size: number = normalized.size;
+typedArtwork.dispose(); typedArtwork.dispose();
+// @ts-expect-error unsupported species are not invented
+createArtwork(document.createElement('canvas'), { species: 'ray' });
+// @ts-expect-error unknown public configuration
+typedArtwork.update({ opacity: 0.5 });
+// @ts-expect-error supported behavior names only
+typedArtwork.update({ behaviors: ['dance'] });
+// @ts-expect-error immutable defaults
+DEFAULT_OPTIONS.count = 9;
+// @ts-expect-error snapshot role lists are immutable
+typedArtwork.getOptions().behaviors.push('hover');
+// @ts-expect-error manual time is numeric
+typedArtwork.advance('0.1');

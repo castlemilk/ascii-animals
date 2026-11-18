@@ -1,10 +1,10 @@
+import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Copy-only ESM build. No transpiler, minifier, bundler, or runtime dependency.
-// Declaration paths mirror src; authored declarations are checked by consumers.
+// Preserve the private renderer; compile the strict TypeScript public facade and declarations.
 const root = fileURLToPath(new URL('..', import.meta.url));
 const output = path.join(root, 'lib');
 await rm(output, { recursive: true, force: true });
@@ -26,6 +26,7 @@ async function copyTree(from, to, suffix) {
 
 await copyTree(path.join(root, 'src'), output, '.js');
 await copyTree(path.join(root, 'types'), output, '.d.ts');
+execFileSync(process.execPath, [path.join(root, 'node_modules/typescript/bin/tsc'), '-p', path.join(root, 'tsconfig.json')], { stdio: 'inherit' });
 const metadata = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 for (const [subpath, conditions] of Object.entries(metadata.exports)) {
   for (const target of new Set(Object.values(conditions))) {
@@ -34,4 +35,4 @@ for (const [subpath, conditions] of Object.entries(metadata.exports)) {
   if (Object.keys(conditions)[0] !== 'types') throw new Error(`Types condition must come first: ${subpath}`);
 }
 const demo = await buildDemo();
-console.log(JSON.stringify({ demo, output: 'lib', modules, declarations, tool: 'copy-only', runtimeDependencies: 0 }));
+console.log(JSON.stringify({ demo, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

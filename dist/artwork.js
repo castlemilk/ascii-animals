@@ -1,5 +1,5 @@
 // GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js. Do not edit.
-// source-sha256: a23ade6e1839375c3bf57e0e05a1a611e6107767ee3ed85a73e89db941a1781f
+// source-sha256: 5c2ad6f6e1c7d10b34bac456ad4728c7db419f4a70e2e466c9be895e37fd4b69
 (function () {
 'use strict';
 /** A framework-neutral, injectable requestAnimationFrame multiplexer. */
@@ -143,6 +143,8 @@ class CuttlefishArtwork {
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d', { alpha: false });
       if (!this.ctx) throw new Error('Canvas 2D is unavailable in this browser.');
+      if (!options || typeof options !== 'object' || Array.isArray(options)) throw new TypeError('Options must be an object.');
+      options = Object.fromEntries(Object.entries(options).filter(([, value]) => value !== undefined));
       this.options = Object.assign({ scene: 'swimby', palette: 'lagoon', speed: 1.05, ripple: 1.3, density: 1.1, motion: 1.2, depthStrength: 1.2, mode: 'ascii', followPointer: false, glow: true, paused: false, count: 4, formation: 'independent', size: .7, sizeVariation: .45, spacing: 1, reverse: false, showLabels: false, behaviors: [], autoStart: true, reducedMotion: 'system', maxDpr: 2, maxPixels: 8294400, maxCells: 65536, maxFps: 60, observeVisibility: true }, options);
       this._normalizeOptions();
       this._motionQuery = this._view.matchMedia?.('(prefers-reduced-motion: reduce)');
@@ -315,8 +317,7 @@ class CuttlefishArtwork {
       }
     }
 
-    _normalizeOptions() {
-      const o = this.options;
+    _normalizeOptions(o = this.options) {
       const number = (key, fallback, low, high) => { const n = Number(o[key]); o[key] = clamp(Number.isFinite(n) ? n : fallback, low, high); };
       if (!['swimby', 'encounter', 'reactive'].includes(o.scene)) o.scene = 'swimby';
       if (!FORMATIONS.includes(o.formation)) o.formation = 'independent';
@@ -381,11 +382,15 @@ class CuttlefishArtwork {
 
     setOptions(patch) {
       if (this.destroyed) return;
+      if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new TypeError('Options patch must be an object.');
+      patch = Object.fromEntries(Object.entries(patch).filter(([, value]) => value !== undefined));
+      const candidate = { ...this.options, ...patch };
+      this._normalizeOptions(candidate);
       const oldDensity = this.options.density, oldPalette = this.options.palette;
       const oldBudget = [this.options.maxDpr, this.options.maxPixels, this.options.maxCells].join(':');
       const oldScene = this.options.scene, oldFormation = this.options.formation;
       const oldBehaviors = this.options.behaviors.slice();
-      Object.assign(this.options, patch); this._normalizeOptions();
+      this.options = candidate;
       const reset = oldScene !== this.options.scene || oldFormation !== this.options.formation;
       const changedRoles = this.options.behaviors.flatMap((behavior, id) => behavior !== oldBehaviors[id] ? [id] : []);
       this._syncFish(reset, changedRoles);

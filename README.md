@@ -1,5 +1,34 @@
 # ASCII Animals
 
+## TypeScript-first artwork API
+
+The compiled, strict TypeScript facade exposes all currently supported cuttlefish
+configuration, validates changes atomically, and keeps ownership explicit:
+
+```ts
+import { createArtwork, type ArtworkOptions } from 'ascii-animals-review';
+
+const options = {
+  species: 'cuttlefish', count: 4, formation: 'horizontal',
+  behaviors: ['hover', 'orbit', 'cruise', 'curious'],
+  maxFps: 30, maxDpr: 2, reducedMotion: 'system',
+} satisfies ArtworkOptions;
+const artwork = createArtwork(canvas, options);
+artwork.update({ formation: 'vertical', reverse: true });
+artwork.pause();
+artwork.restart(); // preserves pause
+artwork.play(); // deliberate playback overrides system-initialized pause
+artwork.pulse(); // scene action, never implicitly resumes
+const config = artwork.getOptions(); // immutable independent snapshot
+artwork.dispose(); // call on unmount; safe to repeat
+```
+
+The package remains a **private, unpublished review candidate**, not an npm
+installation claim. Use the local tarball workflow below. Only `cuttlefish` is
+supported; other species are separate work. Existing `CuttlefishArtwork` and
+`createCuttlefish` exports remain compatible. See [the typed API](docs/TYPESCRIPT-API.md).
+
+
 Procedural animals drawn with moving characters, using a framework-neutral Canvas 2D engine. The current implementation is a cuttlefish: a tapered mantle, rippling skirt fins, raised eyes, eight arms, two longer tentacles, and a beak, directed through a fixed diver's view. A school can mix roles and sizes, follow a shared route, and react to disturbances with a character-based ink plume.
 
 **Canvas 2D · zero runtime dependencies · explicit lifecycle · per-animal ESM entry · local review candidate**
@@ -39,13 +68,14 @@ Serve the imported demo without installing dependencies:
 python3 -m http.server 8000 --directory dist
 ```
 
-Open `http://localhost:8000`. The standalone `dist/cuttlefish.html` opens locally without dependencies. Run `npm run build` after source changes to generate both ESM package output and the browser-global/standalone demos from canonical `src/`. `python3 scripts/build-standalone.py` remains a compatibility command and invokes the same canonical demo generator. Run `node scripts/build-demo.mjs --check` to reject stale committed output.
+Open `http://localhost:8000`. The standalone `dist/cuttlefish.html` opens locally without dependencies. Run `npm ci --ignore-scripts` once, then `npm run build` after source changes to generate both ESM package output and the browser-global/standalone demos from canonical `src/`. `python3 scripts/build-standalone.py` remains a compatibility command and invokes the same canonical demo generator. Run `node scripts/build-demo.mjs --check` to reject stale committed output.
 
 ## Build and try the local library candidate
 
 Use the included source and a local tarball. Do not infer registry availability from these examples.
 
 ```sh
+npm ci --ignore-scripts
 npm run build
 npm run check:package
 npm pack --dry-run --json --ignore-scripts
