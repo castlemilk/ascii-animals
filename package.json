@@ -27,6 +27,11 @@
       "types": "./lib/public/fox.d.ts",
       "import": "./lib/public/fox.js",
       "default": "./lib/public/fox.js"
+    },
+    "./owl": {
+      "types": "./lib/public/owl.d.ts",
+      "import": "./lib/public/owl.js",
+      "default": "./lib/public/owl.js"
     }
   },
   "sideEffects": false,
@@ -41,13 +46,13 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs",
+    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/owl/tests/*.test.mjs",
     "test:legacy": "node scripts/check-engine.cjs",
     "bench:cpu": "node bench/benchmark.cjs --source src/animals/cuttlefish.js --esm --out artifacts/benchmark.json",
     "check:package": "node scripts/check-package.mjs",
     "prepublishOnly": "node -e \"throw new Error('Review candidate: publication is intentionally disabled')\"",
     "pretest": "npm run build",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/owl/tsconfig.types.json",
     "test:fox": "node node_modules/typescript/bin/tsc -p species/fox/tsconfig.types.json && node --test species/fox/tests/*.test.mjs"
   },
   "repository": {

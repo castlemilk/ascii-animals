@@ -88,3 +88,11 @@ fox.advance(.1);
 fox.showStaticPose('dance');
 // @ts-expect-error callback input batches are readonly
 createFoxArtwork(document.createElement('canvas'), { onInputs(batch) { batch.push(input); } });
+
+import {createOwlArtwork} from 'ascii-animals-review/owl';
+const owl=createOwlArtwork(document.createElement('div'),{owl:{headYawLimitDeg:30},paused:true});
+owl.guide(.2,.1);owl.pulse();owl.update({reactionStrength:.5});owl.pause();owl.dispose();
+// @ts-expect-error invalid config
+owl.update({wingSpan:1});
+// @ts-expect-error fixed DOM cell aspect
+createOwlArtwork(document.createElement('div'),{grid:{cellAspect:1}});

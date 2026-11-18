@@ -17,3 +17,6 @@ export type { Artwork, ArtworkOptions, ArtworkConfig, ArtworkStats } from './pub
 
 export { createFoxArtwork } from './public/fox.js';
 export type { FoxArtwork, FoxBrowserOptions, FoxBrowserStatus, FoxOptions, FoxCreateOptions, FoxState, FoxInput } from './public/fox.js';
+
+export {createOwlArtwork} from './public/owl.js';
+export type {OwlArtwork,OwlBrowserOptions,OwlBrowserStatus,OwlOptions,OwlState} from './public/owl.js';

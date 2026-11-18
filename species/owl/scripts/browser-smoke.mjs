@@ -1,0 +1,76 @@
+/** Optional actual-browser acceptance. Requires an existing local Playwright/browser. */
+import { createRequire } from 'node:module';
+import { mkdir, writeFile } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import { fileURLToPath } from 'node:url';
+const require = createRequire(import.meta.url);
+const out = new URL('../evidence/browser/', import.meta.url);
+await mkdir(out, { recursive: true });
+const report = { kind: 'Actual browser smoke; distinct from simulated host tests', node: process.version,
+  url: process.env.OWL_BROWSER_URL || 'http://127.0.0.1:8765/species/owl/demo/', checks: [], status: 'not-started' };
+let browser;
+try {
+  const { chromium } = require(process.env.OWL_PLAYWRIGHT || 'playwright');
+  browser = await chromium.launch({ executablePath: process.env.OWL_CHROMIUM || '/usr/bin/chromium', headless: true });
+  report.browser = browser.version();
+  const context = await browser.newContext({ viewport: { width: 1280, height: 1000 }, reducedMotion: 'no-preference' });
+  const page = await context.newPage();
+  const errors = []; page.on('pageerror', e => errors.push(e.message));
+  await page.goto(report.url, { waitUntil: 'load' });
+  await page.waitForFunction(() => window.owlDemo?.controller.getStatus().running);
+  await page.evaluate(() => document.fonts.ready);
+  await page.locator('#pause').focus(); await page.keyboard.press('Enter');
+  const frozen = await page.evaluate(() => ({ text: window.owlDemo.controller.exportText(), tick: window.owlDemo.controller.getStatus().tick }));
+  await page.waitForTimeout(250);
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getStatus().tick), frozen.tick);
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.exportText()), frozen.text);
+  report.checks.push('Native keyboard Pause freezes tick/text');
+  await page.locator('#react').focus(); await page.keyboard.press('Enter');
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getStatus().tick), frozen.tick);
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getSnapshot().displayed.leftWing > .5), true);
+  report.checks.push('Native keyboard React selects complete static pose');
+  await page.selectOption('#guide', 'right');
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getSnapshot().displayed.headYawDeg > 0), true);
+  await page.click('#reset');
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getStatus().paused), true);
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getStatus().tick), 0);
+  report.checks.push('Guide works by native select; Reset preserves pause');
+  await page.screenshot({ path: fileURLToPath(new URL('desktop.png', out)), fullPage: true });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.click('#pause');
+  await page.mouse.move(350, 450);
+  await page.waitForTimeout(250);
+  const reduced = await page.evaluate(() => window.owlDemo.controller.getStatus());
+  assert.equal(reduced.running, false); assert.equal(reduced.tick, 0); assert.equal(reduced.reducedMotion, true);
+  report.checks.push('Live reduced-motion change remains static despite pointer/Play');
+  const host = await page.locator('#owl-host').boundingBox();
+  assert.ok(host);
+  await page.evaluate(() => { window.owlDemo.host.style.width = '0px'; });
+  await page.waitForFunction(() => window.owlDemo.controller.getStatus().blockedBy.includes('zero-size'));
+  await page.evaluate(() => { window.owlDemo.host.style.width = ''; });
+  await page.waitForFunction(() => !window.owlDemo.controller.getStatus().blockedBy.includes('zero-size'));
+  report.checks.push('Real DOM zero-size/resize policy composes with reduced motion');
+  const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, deviceScaleFactor: 3, reducedMotion: 'reduce' });
+  const mobile = await phone.newPage();
+  await mobile.goto(report.url, { waitUntil: 'load' });
+  await mobile.waitForFunction(() => window.owlDemo?.controller);
+  await mobile.locator('#react').tap();
+  assert.equal(await mobile.evaluate(() => window.owlDemo.controller.getSnapshot().displayed.leftWing > .5), true);
+  await mobile.screenshot({ path: fileURLToPath(new URL('touch-emulation.png', out)), fullPage: true });
+  report.checks.push('Emulated touch React (not real-device acceptance)');
+  await page.evaluate(() => { window.owlDemo.controller.dispose(); window.owlDemo.controller.dispose(); });
+  assert.equal(await page.locator('[data-owl-preview]').count(), 0);
+  assert.equal(await page.evaluate(() => window.owlDemo.controller.getStatus().disposed), true);
+  assert.deepEqual(errors, []);
+  report.checks.push('Owned preview removed on repeated dispose; no observed page errors');
+  report.status = 'passed';
+  report.remaining = ['Real phone', 'screen reader', 'normal-speed human motion critique', 'cross-browser/font review', '30s browser work/paint benchmark', 'heap profiling'];
+} catch (error) {
+  report.status = browser ? 'failed' : 'blocked-before-page';
+  report.error = error instanceof Error ? error.message : String(error);
+  process.exitCode = 1;
+} finally {
+  await browser?.close();
+  await writeFile(new URL('smoke.json', out), JSON.stringify(report, null, 2) + '\n');
+  console.log(JSON.stringify({ status: report.status, checks: report.checks.length, report: new URL('smoke.json', out).pathname }));
+}

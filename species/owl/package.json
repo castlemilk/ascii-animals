@@ -1,0 +1,13 @@
+{
+  "name": "owl-species-local-review",
+  "version": "0.0.0-review.1",
+  "private": true,
+  "type": "module",
+  "description": "Original Owl species review; not a published ascii-animals package or shared contract",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "node scripts/build.mjs --types-only"
+  },
+  "devDependencies": { "typescript": "5.9.3" }
+}

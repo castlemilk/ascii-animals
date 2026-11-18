@@ -232,3 +232,7 @@ This study began with a supplied luminous ASCII jellyfish video credited on scre
 [GitHub Pages demo](https://castlemilk.github.io/ascii-animals/) is deployed **manually**, not on pushes or pull requests. In GitHub Actions, choose **Deploy demo to GitHub Pages** → **Run workflow** on `main`. The workflow validates the committed standalone artifact and publishes only `dist/`; repository research, recordings and source history are not part of the web deployment. The GitHub Actions environment links to the exact deployment.
 
 Updating `main` does not update the live demo until a maintainer deliberately runs the deployment workflow. No npm publication is involved.
+
+## Owl TypeScript artwork
+
+The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. This is not an npm publication or a claim of browser acceptance.

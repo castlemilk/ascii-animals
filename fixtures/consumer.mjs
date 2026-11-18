@@ -28,3 +28,7 @@ for (const specifier of ['ascii-animals-review/package.json', 'ascii-animals-rev
   await assert.rejects(import(specifier), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
 }
 console.log(JSON.stringify({ ssrImport: 'passed', identity: 'passed', declaredMethods: 'present', privateSubpaths: 'blocked', exports: Object.keys(root).sort() }));
+
+const owl=await import('ascii-animals-review/owl');
+assert.equal(root.createOwlArtwork,owl.createOwlArtwork);
+const om=owl.createOwl({seed:7});assert.equal(om.advance(1).state.tick,1);om.dispose();

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "species": "owl",
+  "speciesVersion": 1,
+  "seed": 7,
+  "options": {},
+  "tickRate": 60,
+  "initialTick": 0,
+  "lastSequence": -1,
+  "finalTick": 480,
+  "events": [
+    { "tick": 30, "seq": 0, "type": "attention", "x": 0.8, "y": -0.35 },
+    { "tick": 90, "seq": 1, "type": "react" },
+    { "tick": 91, "seq": 2, "type": "react" },
+    { "tick": 210, "seq": 3, "type": "leave" },
+    { "tick": 330, "seq": 4, "type": "attention", "x": -0.8, "y": 0.2 },
+    { "tick": 390, "seq": 5, "type": "leave" }
+  ]
+}
