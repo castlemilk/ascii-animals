@@ -6,7 +6,7 @@ import {makeHost} from '../species/frog/tests/fake-host.mjs';
 import {fakeBrowser} from './helpers/fake-browser.mjs';
 
 test('frog factory shares one scheduler and unsubscribes paused/disposed controllers independently',()=>{
- const h=makeHost(), a=createFrogArtwork(h.canvas(),{previewFactory:h.previewFactory}),b=createFrogArtwork(h.canvas(),{previewFactory:h.previewFactory});
+ const h=makeHost();assert.throws(()=>createFrogArtwork(h.canvas(),{frameSource:null}));const a=createFrogArtwork(h.canvas(),{previewFactory:h.previewFactory}),b=createFrogArtwork(h.canvas(),{previewFactory:h.previewFactory});
  assert.equal(h.frames.size,1);h.flush(100);h.flush(134);assert.equal(a.getState().tick,2);assert.equal(b.getState().tick,2);
  a.pause();assert.equal(h.frames.size,1);const state=a.getState();a.pulse();h.flush(168);assert.equal(a.getState(),state);assert(b.getState().tick>2);
  b.pause();assert.equal(h.frames.size,0);a.restart();assert.equal(a.getStatus().paused,true);

@@ -8,7 +8,7 @@ export function createFrogArtwork(canvas, options = {}) {
     const view = canvas?.ownerDocument?.defaultView;
     if (!view)
         throw new TypeError('Frog requires a canvas with an owning browser document');
-    const controller = mountFrog(canvas, { ...options, frameSource: options.frameSource ?? getBrowserScheduler(view) });
+    const controller = mountFrog(canvas, { ...options, frameSource: options.frameSource === undefined ? getBrowserScheduler(view) : options.frameSource });
     return Object.freeze({ ...controller, species: 'frog', canvas,
         get disposed() { return controller.getStatus().disposed; },
         update(config) { controller.updateConfig(config); },
