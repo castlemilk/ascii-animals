@@ -104,3 +104,10 @@ horse.update({behavior:'pounce'});
 horse.getOptions().speed=3;
 // @ts-expect-error explicit integer tick API uses numbers
 horseModel.advanceTicks('10');
+
+import {createCrabModel,createCrabArtwork} from 'ascii-animals-review/crab';
+const crabModel=createCrabModel({behavior:'guard',scale:1});
+crabModel.guide(1,0);
+// @ts-expect-error unrelated cuttlefish formation is not a crab option
+createCrabModel({formation:'orbit'});
+void createCrabArtwork;

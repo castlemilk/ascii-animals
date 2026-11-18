@@ -32,3 +32,8 @@ for (const specifier of ['ascii-animals-review/package.json', 'ascii-animals-rev
   await assert.rejects(import(specifier), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
 }
 console.log(JSON.stringify({ ssrImport: 'passed', identity: 'passed', declaredMethods: 'present', privateSubpaths: 'blocked', exports: Object.keys(root).sort() }));
+
+const crab = await import('ascii-animals-review/crab');
+assert.equal(typeof crab.createCrabArtwork,'function');
+assert.equal(crab.createCrabModel().frame().columns,120);
+assert.throws(()=>crab.createCrabModel({speed:NaN}));

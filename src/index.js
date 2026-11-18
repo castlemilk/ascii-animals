@@ -6,3 +6,5 @@ export { createArtwork, DEFAULT_OPTIONS, normalizeOptions } from './public/index
 export { createFoxArtwork } from './public/fox.js';
 
 export { createSeahorseArtwork, createSeahorseModel, normalizeSeahorseOptions, SEAHORSE_DEFAULTS } from './public/seahorse.js';
+
+export {createCrabArtwork,createCrabModel,normalizeCrabOptions,CRAB_DEFAULTS} from './public/crab.js';
