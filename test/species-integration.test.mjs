@@ -31,3 +31,15 @@ test('mixed species preserve finite formations and atomic typed configuration',(
  a.pause();a.update({species:'manta'});assert(a.getOptions().paused);a.pulse();assert.equal(a.getStats().reactionStage,'idle');a.dispose();
  assert.throws(()=>normalizeOptions({speciesByAnimal:new Array(2)}));assert.throws(()=>normalizeOptions({seed:1.5}));
 });
+test('species replay is deterministic for fixed inputs and instance state is isolated',()=>{
+ for(const species of ['manta','octopus']) {
+  const h1=fakeBrowser(),h2=fakeBrowser();
+  const a=new CuttlefishArtwork(h1.canvas(),options(species));
+  const b=new CuttlefishArtwork(h2.canvas(),options(species));
+  assert.notEqual(a.fish[0].speciesState,b.fish[0].speciesState);
+  for(let i=0;i<20;i++){a.advance(1/60);b.advance(1/60);}
+  assert.deepEqual(a.samples,b.samples);assert.deepEqual(a.depth,b.depth);
+  const untouched=b.time;a.advance(.05);assert.equal(b.time,untouched);
+  a.destroy();assert.equal(b.destroyed,false);b.destroy();
+ }
+});
