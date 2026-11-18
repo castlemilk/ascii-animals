@@ -176,4 +176,3 @@ Implemented candidate semantics, from `src/animals/cuttlefish.js` and `docs/API.
 - [Cuttlefish source](https://github.com/castlemilk/ascii-animals/blob/e7c16104a1e90c8650f7d3e09cdb1124d0321308/src/animals/cuttlefish.js)
 - [Extension proposal](https://github.com/castlemilk/ascii-animals/blob/e7c16104a1e90c8650f7d3e09cdb1124d0321308/docs/EXTENDING.md)
 - [Candidate integration limits](https://github.com/castlemilk/ascii-animals/blob/e7c16104a1e90c8650f7d3e09cdb1124d0321308/docs/INTEGRATION-REVIEW.md)
-
