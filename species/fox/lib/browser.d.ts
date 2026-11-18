@@ -39,6 +39,7 @@ export interface FoxBrowserController {
     pounce(): void;
     /** Deliberately pauses playback and displays a static specimen. */
     showStaticPose(pose: FoxStaticPose): void;
+    getOptions(): FoxOptions;
     getState(): FoxState;
     /** Diagnostics remain readable after disposal; other operations reject. */
     getStatus(): FoxBrowserStatus;

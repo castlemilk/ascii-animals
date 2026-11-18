@@ -535,3 +535,10 @@ test('dispose is repeatable and every other model operation rejects use after re
     () => model.isPaused(), () => model.reset(),
   ]) assert.throws(operation, /dispos/i);
 });
+
+// A public supplied base must not bypass strict option validation.
+test('resolveFoxOptions validates externally supplied base options', async () => {
+  const { resolveFoxOptions, FOX_DEFAULTS } = await import('../lib/model.js');
+  assert.throws(() => resolveFoxOptions({}, { ...FOX_DEFAULTS, scale: 100 }));
+  assert.equal(resolveFoxOptions({ tailSway: 0 }, { ...FOX_DEFAULTS, scale: .6 }).scale, .6);
+});

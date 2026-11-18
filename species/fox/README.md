@@ -1,3 +1,8 @@
+> Integration update: the current review branch provides the `./fox` package
+> subpath, `createFoxArtwork`, and generated `dist/fox/` demo. The original
+> prototype/research record below is retained as historical evidence. See
+> [the maintained public contract](../../docs/FOX-API.md) for current usage.
+
 # Fox / Quiet in the Bracken
 
 An original TypeScript fox with pointed ears, a long muzzle, four articulated legs and a broad, pale-tipped tail. Guidance evokes measured stalking and sniffing. A deliberate pounce follows **crouch → airborne → forepaw landing → recovery → cooldown**. Idle breathing and tail motion have independent phases.

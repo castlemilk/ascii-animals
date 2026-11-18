@@ -335,6 +335,7 @@ export function mountFox(canvas, options = {}) {
             poster = value;
             guarded(() => reconcile());
         },
+        getOptions() { assertAlive(); return model.getOptions(); },
         getState() { assertAlive(); return model.getState(); },
         getStatus: status,
         exportText() {

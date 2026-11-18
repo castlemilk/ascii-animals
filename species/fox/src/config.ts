@@ -37,6 +37,8 @@ export const smooth = (n: number): number => { const t = clamp(n, 0, 1); return 
 /** Strict, atomic validation. Unknown fields and explicit undefined are errors. */
 export function resolveFoxOptions(patch: FoxOptionsInput = {}, base: FoxOptions = FOX_DEFAULTS): FoxOptions {
   plain(patch, 'options');
+  // The optional base is public too: validate its full values before merging.
+  if (base !== FOX_DEFAULTS) base = resolveFoxOptions(base);
   for (const key of Object.keys(patch)) {
     if (!Object.hasOwn(FOX_DEFAULTS, key)) throw new TypeError(`Unknown fox option: ${key}`);
     if (key === 'facing') {

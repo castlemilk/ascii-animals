@@ -1,3 +1,8 @@
+> Integration update: the current review branch provides the `./fox` package
+> subpath, `createFoxArtwork`, and generated `dist/fox/` demo. The original
+> prototype/research record below is retained as historical evidence. See
+> [the maintained public contract](../../docs/FOX-API.md) for current usage.
+
 # Fox compatibility review — read only
 
 ## Latest incoming proposal — 18 November 2026
