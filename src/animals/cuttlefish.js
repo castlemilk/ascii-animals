@@ -388,6 +388,7 @@ export class CuttlefishArtwork {
       this.time = 0; this.elapsed = 0; this.last = 0; this.burst = 0; this.ink = [];
       this._resetFrameClock(); this.droppedSeconds = 0; this.frameCount = 0; this.fpsElapsed = 0; this.fps = 0;
       this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
+      this.pointer.active = false; this.pointer.interest = 0;
       this.lastPointer = null; this._syncFish(true); this.render();
     }
 

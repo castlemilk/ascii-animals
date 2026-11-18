@@ -43,3 +43,10 @@ test('species replay is deterministic for fixed inputs and instance state is iso
   a.destroy();assert.equal(b.destroyed,false);b.destroy();
  }
 });
+
+test('restart clears species pointer attention and preserves explicit pause',()=>{
+ const h=fakeBrowser(),a=new CuttlefishArtwork(h.canvas(),options('octopus'));
+ a.pointer.active=true;a.pointer.interest=1;a.pointer.x=.4;
+ a.setPaused(true);a.restart();
+ assert.equal(a.pointer.active,false);assert.equal(a.pointer.interest,0);assert.equal(a.pointer.x,0);assert.equal(a.paused,true);a.destroy();
+});

@@ -250,7 +250,7 @@
   </dialog>
 <script data-artwork-source>
 // GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js, src/animals/manta.js, src/animals/octopus.js. Do not edit.
-// source-sha256: 6b6a20f02159e2b175a1c36715d21d5e043d874b5b83837b767db7bf33ea186e
+// source-sha256: 607a3814f6407501be3e650506de3eeb4fd82d6f4267dffb19c4bb09d4c07f80
 (function () {
 'use strict';
 /** A framework-neutral, injectable requestAnimationFrame multiplexer. */
@@ -1196,6 +1196,7 @@ class CuttlefishArtwork {
       this.time = 0; this.elapsed = 0; this.last = 0; this.burst = 0; this.ink = [];
       this._resetFrameClock(); this.droppedSeconds = 0; this.frameCount = 0; this.fpsElapsed = 0; this.fps = 0;
       this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
+      this.pointer.active = false; this.pointer.interest = 0;
       this.lastPointer = null; this._syncFish(true); this.render();
     }
 
