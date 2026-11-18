@@ -1,0 +1,69 @@
+{
+  "evidenceKind": "native Canvas glyph rendering; not browser/deployed evidence",
+  "runtime": "v24.22.1",
+  "canvasModule": "@napi-rs/canvas",
+  "view": "oblique",
+  "cols": 120,
+  "rows": 64,
+  "seed": 17,
+  "sampleCount": 4348,
+  "replay": "fixtures/replay.json",
+  "renderedFrames": 91,
+  "gifFramesPerSecond": 15,
+  "smallGrid": {
+    "cols": 72,
+    "rows": 44,
+    "width": 360,
+    "height": 286
+  },
+  "shots": [
+    {
+      "name": "frame-000.png",
+      "tick": 0,
+      "phase": "idle",
+      "occupied": 626,
+      "clippedSamples": 0,
+      "stateHash": "2891818c62e05dfc9866febfb750bc17b65dbf7ffe116cbb5cc62bb8cd2851db"
+    },
+    {
+      "name": "frame-090.png",
+      "tick": 90,
+      "phase": "approach",
+      "occupied": 634,
+      "clippedSamples": 0,
+      "stateHash": "a7ab21c52703a1299dff5a27e8d87cd80711ee58bcfe2a204556c49bca4646cc"
+    },
+    {
+      "name": "frame-108.png",
+      "tick": 108,
+      "phase": "dart",
+      "occupied": 628,
+      "clippedSamples": 0,
+      "stateHash": "32e416869b39f8a588e1464fd9347af4470f309aa5b4ba6c1eb6c0aff30700a6"
+    },
+    {
+      "name": "frame-130.png",
+      "tick": 130,
+      "phase": "recover",
+      "occupied": 622,
+      "clippedSamples": 0,
+      "stateHash": "34e6b977dded1d6b4335e6ae5819a74e52fc6cdeb238fb42adc9a9dad6eb27f3"
+    },
+    {
+      "name": "frame-190.png",
+      "tick": 190,
+      "phase": "cooldown",
+      "occupied": 622,
+      "clippedSamples": 0,
+      "stateHash": "7b4922f4f9087a4b58dc0317e5467a97c354042578ae6dfde0993ab5a7b10dfe"
+    },
+    {
+      "name": "frame-320.png",
+      "tick": 320,
+      "phase": "approach",
+      "occupied": 630,
+      "clippedSamples": 0,
+      "stateHash": "bc96222d492f038e0bb52bbe1229556427a8a36e1fb21e62b1dfca18ab6e3e2f"
+    }
+  ]
+}

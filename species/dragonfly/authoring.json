@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "id": "dragonfly-v1",
+  "status": "reference-implemented",
+  "source": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "0e446c47b491b751d484e40db753ec725652b515",
+    "relationship": "original-reference",
+    "inspectedFiles": [
+      "dist/artwork.js",
+      "dist/app.js",
+      "scripts/check-engine.cjs",
+      "README.md",
+      ".github/workflows/pages.yml",
+      "PR2 docs/EXTENDING.md at e7c16104a1e90c8650f7d3e09cdb1124d0321308"
+    ]
+  },
+  "representation": {
+    "kind": "ascii-grid",
+    "glyphs": " .,:;-=+x*oO#@",
+    "fontStrategy": "system",
+    "fonts": [
+      "ui-monospace",
+      "SFMono-Regular",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ],
+    "fontProvenance": "Only family names; no bundled or downloaded font. Same logical cells, environment-specific Canvas pixels."
+  },
+  "anatomy": {
+    "classification": "stylized",
+    "anchors": [
+      "Long tapered segmented abdomen",
+      "Large paired eyes on a short thorax",
+      "Four separate narrow attached wings"
+    ],
+    "views": [
+      "dorsal",
+      "oblique dorsal",
+      "bounded left and right heading"
+    ],
+    "parts": [
+      {
+        "name": "thorax",
+        "parent": "scene",
+        "motion": "Bounded smooth tracking and short dart"
+      },
+      {
+        "name": "head",
+        "parent": "thorax",
+        "motion": "Attached rigid pose"
+      },
+      {
+        "name": "eyes",
+        "parent": "head",
+        "motion": "Two large domes"
+      },
+      {
+        "name": "abdomen",
+        "parent": "thorax",
+        "motion": "Ten tapered segments and bounded curvature"
+      },
+      {
+        "name": "forewings",
+        "parent": "thorax",
+        "motion": "Two independently phased root rotations"
+      },
+      {
+        "name": "hindwings",
+        "parent": "thorax",
+        "motion": "Two independently phased root rotations"
+      },
+      {
+        "name": "legs",
+        "parent": "thorax",
+        "motion": "Three attached pairs folded forward"
+      }
+    ]
+  },
+  "motion": {
+    "tickRate": 60,
+    "seed": 17,
+    "phases": [
+      {
+        "name": "idle",
+        "durationTicks": 0,
+        "transition": "Pointer target begins approach; deliberate dart begins response"
+      },
+      {
+        "name": "approach",
+        "durationTicks": 0,
+        "transition": "Bounded acceleration tracks normalized target; leave returns idle"
+      },
+      {
+        "name": "dart",
+        "durationTicks": 20,
+        "transition": "Continuous short translation into stationary recovery"
+      },
+      {
+        "name": "recover",
+        "durationTicks": 48,
+        "transition": "Stable new hover then cooldown"
+      },
+      {
+        "name": "cooldown",
+        "durationTicks": 90,
+        "transition": "Repeated darts ignored; then idle/approach"
+      }
+    ],
+    "replayGuarantee": "Same species version/runtime, fixed initial options and seed, explicit tick/event log gives identical state, samples and cells. Config/reset/host suspension starts a new log; no cross-engine/font pixel guarantee."
+  },
+  "interaction": {
+    "pointer": "CSS-rect [-1,1], DPR independent. Pointer and taps guide only; explicit Dart button triggers the single specimen.",
+    "keyboard": "Native Dart/Pause/Reset and Guide/Motion/View selectors; focused canvas arrows guide, Space pauses.",
+    "touch": "Tap guides; large native controls trigger action. Page scrolling retained.",
+    "precedence": "Pause/static/visibility policy overrides motion. Events follow strictly increasing seq; first eligible dart wins; cooldown ignores repeats.",
+    "eventsPerTick": 16
+  },
+  "accessibility": {
+    "description": "A dragonfly drawn in characters, with large eyes, a long segmented abdomen and four narrow wings.",
+    "reducedMotion": "Static poster on live OS preference; deliberate alternate pose. Slow mode is available; pointer never opts into animation.",
+    "pause": "Independent user pause composes with static/hidden/offscreen/zero size/disposed. Reset/config preserve pause.",
+    "liveRegion": "Sparse user action status only; never per-frame narration."
+  },
+  "resources": {
+    "scope": "implemented-reference",
+    "animals": 1,
+    "samplesPerAnimal": 6144,
+    "cols": 160,
+    "rows": 88,
+    "dpr": 2,
+    "maxCatchUp": 5,
+    "particles": 0
+  },
+  "provenance": [
+    {
+      "kind": "original",
+      "source": "Species-local original TypeScript parametric dragonfly; no ray core, online ASCII or model copied.",
+      "rights": "Original contribution; project license choice remains with owner.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "Australian Museum Order Odonata and CSIRO Odonata identification, read 18 November 2026. URLs in AUTHORING.md.",
+      "rights": "Factual anatomy reference only; no photographs, prose or diagrams reused.",
+      "copied": false
+    },
+    {
+      "kind": "font",
+      "source": "Host-installed monospace family",
+      "rights": "No font files bundled or redistributed.",
+      "copied": false
+    }
+  ],
+  "acceptance": [
+    {
+      "gate": "Actual source and typed interface audit",
+      "status": "pass",
+      "evidence": "Merged main0e446c47; initial PR2e7c16104 and incoming8c530b10 inspected read-only. No accepted Dragonfly shared API."
+    },
+    {
+      "gate": "Numerical, geometry, input, bounds and mocked lifecycle",
+      "status": "pass",
+      "evidence": "36 Node tests, 18 model +4 preview +14 host bookkeeping; evidence/checks.json. Mocks are not browser proof."
+    },
+    {
+      "gate": "TypeScript build and generated declaration consumers",
+      "status": "pass",
+      "evidence": "TypeScript5.9.3 strict build plus14 negative and positive type cases, exit0."
+    },
+    {
+      "gate": "Native Canvas visuals and bounded independent critique",
+      "status": "pass",
+      "evidence": "Actual native Canvas frames/contactsheet/91frame GIF. Independent seam/paused-pose/eye fixes verified; VALIDATION.md."
+    },
+    {
+      "gate": "Browser, real phone and screen reader",
+      "status": "blocked",
+      "evidence": "Chromium failed before page launch: socket/ptrace Operation not permitted. evidence/browser/report.json has zero executed tests/screenshots."
+    },
+    {
+      "gate": "Browser performance and heap",
+      "status": "untested",
+      "evidence": "Predeclared timing targets unmeasured; source/workload bounds are not FPS evidence."
+    },
+    {
+      "gate": "Shared TS library, package and deployed integration",
+      "status": "proposed",
+      "evidence": "Species-local writer adapter matches documentation sketch only; shared material/time/ownership/API consolidation pending."
+    }
+  ]
+}

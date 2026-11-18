@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="An original reactive ASCII dragonfly. Guide its hover, invite a short dart, or enjoy a still specimen.">
+  <title>Dragonfly — ASCII Animals</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header class="masthead">
+      <a class="wordmark" href="../../">ASCII <span>ANIMALS</span></a>
+      <span class="edition">FIELD STUDY <b>001 / DRAGONFLY</b></span>
+    </header>
+
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <p class="eyebrow"><span class="dot"></span> A SMALL LIFE IN CHARACTERS</p>
+        <h1 id="title">A moment<br><em>in the reeds.</em></h1>
+      </div>
+      <div class="intro-copy">
+        <p>Four delicate wings. A long, segmented body. A quiet hover that follows your curiosity.</p>
+        <p class="secondary">Move your pointer or tap to guide it.<br>Invite a dart, then watch it settle.</p>
+      </div>
+    </section>
+
+    <section class="specimen" aria-label="Interactive dragonfly specimen">
+      <div class="stage-heading">
+        <div><span class="specimen-no">01</span><strong>Dragonfly</strong><span class="latin">Anisoptera · stylized study</span></div>
+        <span id="phase" class="phase" aria-live="off">Hovering</span>
+      </div>
+      <div class="stage">
+        <div class="coordinate coordinate-top" aria-hidden="true">ODONATA / OBSERVATION FIELD</div>
+        <canvas id="dragonfly" tabindex="0" role="img" aria-label="A dragonfly drawn with ASCII characters, with large paired eyes, a long segmented abdomen, and four narrow attached wings." aria-describedby="canvas-help">
+          A stylized dragonfly with two large eyes, a long segmented abdomen, and four narrow wings extending from the thorax. The controls below select its behavior.
+        </canvas>
+        <div class="coordinate coordinate-bottom" aria-hidden="true"><span>ORIGINAL PROCEDURAL SPECIMEN</span><span id="motion-label">FULL MOTION</span></div>
+        <p id="canvas-fallback" class="fallback" hidden>The character canvas is unavailable. Dragonflies have large eyes, a long segmented abdomen and four narrow wings. The text specimen remains available below.</p>
+      </div>
+
+      <div class="controls">
+        <div class="actions">
+          <button id="dart" class="button primary" type="button"><span aria-hidden="true">↗</span> <span id="dart-label">Invite a dart</span></button>
+          <button id="pause" class="button" type="button" aria-pressed="false">Pause</button>
+          <button id="reset" class="button quiet" type="button">Reset</button>
+        </div>
+        <div class="settings">
+          <label>Motion<select id="motion"><option value="full">Natural</option><option value="slow">Slow</option><option value="static">Still</option></select></label>
+          <label>View<select id="view"><option value="oblique">Oblique</option><option value="dorsal">From above</option></select></label>
+          <label>Guide<select id="guide"><option value="free">Free hover</option><option value="left">Left</option><option value="right">Right</option><option value="up">Up</option><option value="down">Down</option><option value="center">Center</option></select></label>
+        </div>
+      </div>
+      <div class="under-controls">
+        <p id="action-status" role="status" aria-live="polite">Ready to explore.</p>
+        <label class="check"><input id="neutral" type="checkbox"> Neutral silhouette</label>
+      </div>
+    </section>
+
+    <section class="field-notes" aria-labelledby="notes-title">
+      <h2 id="notes-title">Notes from the field</h2>
+      <div class="note-grid">
+        <article><span>01 / HOVER</span><h3>A gentle approach</h3><p>Guide the dragonfly with your pointer, a tap, or the Guide selector. It follows with a small, measured acceleration.</p></article>
+        <article><span>02 / DART</span><h3>A brief departure</h3><p>Invite a short flight. The body glides to a new position, steadies itself, then pauses before another dart.</p></article>
+        <article><span>03 / STILLNESS</span><h3>Your own pace</h3><p>Choose Slow or Still, or pause at any moment. Reduced-motion preferences show a static specimen with alternate poses.</p></article>
+      </div>
+      <p id="canvas-help" class="keyboard-note">Keyboard: Tab through the controls. On the focused specimen, arrow keys guide and Space pauses. Enter or Space activates buttons. Touch: tap to guide, then use the dart button. Scrolling stays available.</p>
+    </section>
+
+    <details class="text-panel">
+      <summary>Inspect the character specimen</summary>
+      <div class="text-tools"><p>A still text frame from the same logical character cells.</p><button id="capture" class="button" type="button">Capture text frame</button></div>
+      <pre id="text-frame" tabindex="0" aria-label="Captured ASCII dragonfly"></pre>
+    </details>
+
+    <footer><span>ASCII ANIMALS · DRAGONFLY</span><span>Local species preview · Original geometry · System fonts</span><a href="README.md">Authoring &amp; API notes</a></footer>
+  </main>
+  <script type="module" src="lib/demo.js"></script>
+</body>
+</html>

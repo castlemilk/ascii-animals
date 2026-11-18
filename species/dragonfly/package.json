@@ -1,0 +1,12 @@
+{
+  "name": "dragonfly-species-review",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check:types": "node scripts/build.mjs --check",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": { "typescript": "5.9.3" }
+}

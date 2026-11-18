@@ -1,0 +1,82 @@
+{
+  "runtime": "v24.22.1",
+  "base": "0e446c47b491b751d484e40db753ec725652b515",
+  "status": "pass",
+  "evidenceScope": "Numerical/type/bookkeeping tests; no real browser/phone/performance pass",
+  "checks": [
+    {
+      "name": "TypeScript build",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "species/dragonfly/scripts/build.mjs"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "name": "Positive and negative generated-declaration consumers",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "species/dragonfly/scripts/build.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "name": "Species geometry, state, rendering bounds and mocked lifecycle",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "species/dragonfly/tests/model.test.mjs",
+        "species/dragonfly/tests/preview.test.mjs",
+        "species/dragonfly/tests/browser.test.mjs"
+      ],
+      "exitCode": 0,
+      "output": "✔ CSS pointer normalization is bounded, offset-aware and independent of DPR (2.426181ms)\n✔ one RAF, coalesced pointer flood, taps only guide, deliberate dart (43.709837ms)\n✔ paused reset/configuration/preferences/visibility never clear user pause (52.110928ms)\n✔ reduced motion starts as meaningful static pose; pointer cannot opt into motion (16.492256ms)\n✔ deliberate Change pose remains visibly effective while full motion is user-paused (5.975787ms)\n✔ hidden, offscreen and zero-size causes compose and resume drops elapsed wall time (16.155092ms)\n✔ catch-up cap is five ticks, excess time is measured, pointer cancellation clears target (11.185778ms)\n✔ DPR/canvas/grid budgets hold across huge resize and system font redraw (11.660605ms)\n✔ keyboard handling is canvas-scoped and does not trap Tab or form keys (7.269668ms)\n✔ invalid configuration/view/targets reject without changing prior host state (4.944518ms)\n✔ host exposes immutable snapshots instead of a mutable owned model (13.847927ms)\n✔ dispose is idempotent, mutators reject, saved callbacks do no work (3.488262ms)\n✔ multiple hosts remain independent across disposal and repeated mounting (62.621607ms)\n✔ setup and consumer callback failures roll back owned resources (2.078613ms)\n✔ default configuration is explicit, immutable and rejects coercion/unknown fields (3.371589ms)\n✔ invalid configuration is atomic; seed changes are reset-only (1.240227ms)\n✔ ordered input rejects an entire malformed batch before any state mutation (2.256527ms)\n✔ bounded batches preserve sequence order and only the first eligible dart starts (0.56063ms)\n✔ fixed event replay has identical state, geometry and cells with 1/2/5-tick render grouping (789.80264ms)\n✔ seeds change local wing phases without changing anatomy or another instance (23.158102ms)\n✔ tracking acceleration, speed, heading rate and root bounds survive abrupt targets (6.825393ms)\n✔ dart carries the incoming velocity, ends stationary, then recovers and cools down in order (3.013331ms)\n✔ slow mode stretches dart travel; motion changes preserve pause and cancel a fast response (0.396796ms)\n✔ all four wing roots stay on the thorax and blade lengths stay rigid across changing poses (97.490743ms)\n✔ abdomen has ten tapered bounded segments; geometry returned to callers cannot mutate model state (20.159789ms)\n✔ abdomen curvature stays continuous when the independent wing clock wraps (118.401621ms)\n✔ state and options are deeply frozen snapshots; caller mutation never changes future simulation (0.553691ms)\n✔ pause/static steps validate but consume no tick, event or seq; reset preserves pause/options (15.561619ms)\n✔ clearTarget and disposal have explicit local semantics and leave other instances alive (0.581889ms)\n✔ provisional writer preflights capacity and reports partial rejection without hiding samples (12.578772ms)\n✔ replay rejects stale logs, unsupported versions, missing required metadata and work overflow (1.146527ms)\n✔ core imports and executes without browser globals, host clocks or ambient randomness (100.499435ms)\n✔ minimum and maximum grids export equal-length strictly declared ASCII rows (65.984298ms)\n✔ supported small-grid views contain the entire animal across maximum motion configuration (335.505658ms)\n✔ invalid samples, glyphs, materials and oversized forged grids fail explicitly (8.026805ms)\n✔ painter preserves glyph-cell aspect with centered letterboxing (numeric stub) (13.420226ms)\nℹ tests 36\nℹ suites 0\nℹ pass 36\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1414.612195\n"
+    },
+    {
+      "name": "Unchanged cuttlefish numerical regression (stubbed Canvas)",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "scripts/check-engine.cjs"
+      ],
+      "exitCode": 0,
+      "output": "Geometry passed {\"cases\":60,\"samples\":4663240,\"maxSamples\":23764,\"minNear\":0.6553875562328777}\n{\n  \"geometry\": {\n    \"cases\": 60,\n    \"samples\": 4748048,\n    \"maxSamples\": 23764,\n    \"minNear\": 0.6553875562328777,\n    \"clipped\": 0,\n    \"bad\": 0\n  },\n  \"targetedClick\": {\n    \"id\": 2,\n    \"sequence\": [\n      \"react\",\n      \"spray\",\n      \"escape\",\n      \"recover\",\n      \"idle\"\n    ],\n    \"firstInk\": 0.35000000000000125,\n    \"firstEscape\": 0.9500000000000032,\n    \"maxSprayTravel\": 0.04500000000000011,\n    \"neighborAdvanced\": 9.166666666666561\n  },\n  \"pauseRestart\": \"passed\",\n  \"directions\": [\n    {\n      \"formation\": \"horizontal\",\n      \"reverse\": false,\n      \"delta\": [\n        0.04056251076739059,\n        0,\n        0\n      ]\n    },\n    {\n      \"formation\": \"horizontal\",\n      \"reverse\": true,\n      \"delta\": [\n        -0.04056251076738704,\n        0,\n        0\n      ]\n    },\n    {\n      \"formation\": \"vertical\",\n      \"reverse\": false,\n      \"delta\": [\n        0,\n        -0.040562510767394144,\n        0\n      ]\n    },\n    {\n      \"formation\": \"vertical\",\n      \"reverse\": true,\n      \"delta\": [\n        0,\n        0.04056251076739237,\n        0\n      ]\n    },\n    {\n      \"formation\": \"diagonal\",\n      \"reverse\": false,\n      \"delta\": [\n        0.028682026425576712,\n        -0.028682026425576712,\n        0\n      ]\n    },\n    {\n      \"formation\": \"diagonal\",\n      \"reverse\": true,\n      \"delta\": [\n        -0.02868202642557449,\n        0.02868202642557449,\n        0\n      ]\n    },\n    {\n      \"formation\": \"random\",\n      \"reverse\": false,\n      \"delta\": [\n        0.021855790349431192,\n        0.013345249409940307,\n        0.003877614402798546\n      ]\n    },\n    {\n      \"formation\": \"random\",\n      \"reverse\": true,\n      \"delta\": [\n        -0.021855790349431192,\n        -0.013345249409940307,\n        -0.003877614402798546\n      ]\n    }\n  ],\n  \"encounterHold\": \"passed\"\n}\n"
+    },
+    {
+      "name": "Legacy syntax",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--check",
+        "dist/artwork.js"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "name": "Optional browser runner syntax",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--check",
+        "species/dragonfly/scripts/browser-smoke.mjs"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "name": "Standalone reproducibility",
+      "command": [
+        "python3",
+        "scripts/build-standalone.py"
+      ],
+      "exitCode": 0,
+      "output": "Built dist/cuttlefish.html (145,266 bytes)\n"
+    },
+    {
+      "name": "Standalone checksum unchanged",
+      "exitCode": 0,
+      "sha256": "edd0bc75c960c24e04d94864e750bf8ce5b254ae818d6af74b3a5f001062c5f2"
+    }
+  ]
+}
