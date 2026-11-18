@@ -49,8 +49,8 @@ artwork.dispose(); // call on unmount; safe to repeat
 ```
 
 The package remains a **private, unpublished review candidate**, not an npm
-installation claim. Use the local tarball workflow below. Only `cuttlefish` is
-supported; other species are separate work. Existing `CuttlefishArtwork` and
+installation claim. Use the local tarball workflow below. Built-in `cuttlefish`,
+`manta`, and `octopus` share one bounded marine renderer; see [species configuration and limitations](docs/SPECIES.md). Existing `CuttlefishArtwork` and
 `createCuttlefish` exports remain compatible. See [the typed API](docs/TYPESCRIPT-API.md).
 
 

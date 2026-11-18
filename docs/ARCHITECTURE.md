@@ -31,7 +31,7 @@ The first animal module is framework-neutral but still browser-dependent at cons
 
 ## Public exports and isolation
 
-Use explicit export-map entries for the root and implemented per-animal entry points, with a declaration target for each. The root can re-export the cuttlefish constructor for convenience; examples should prefer the animal subpath. A future second animal must not be imported by the cuttlefish module. Do not export internal source folders or every file through a wildcard. Add a React subpath only when a real adapter and consumer tests exist.
+Use explicit export-map entries for the root and implemented per-animal entry points, with a declaration target for each. The root can re-export the cuttlefish constructor for convenience; examples should prefer the animal subpath. The current marine entry intentionally bundles cuttlefish, manta and octopus to support a shared depth-buffer school. Its measured size tradeoff is recorded in SPECIES.md; future unrelated animals should use isolated adapters rather than expanding this bundle indefinitely. Do not export internal source folders or every file through a wildcard. Add a React subpath only when a real adapter and consumer tests exist.
 
 An ESM-only first release avoids maintaining duplicate CommonJS code paths. This is a deliberate compatibility choice, not universal support. Document dynamic `import()` for Node CommonJS callers if that path is tested. Do not advertise synchronous `require()` as portable merely because a recent Node version can load a particular ESM graph. No runtime transpiler, bundler, UI framework, or canvas polyfill belongs in the default dependency graph.
 

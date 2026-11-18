@@ -50,3 +50,7 @@ Independently rerun integration checks include geometry bounds/finite samples, L
 At approximately 44×25 character cells, eight octopus chains exist numerically but are **not guaranteed to be separately readable**. Prefer density around 1.2 and review the actual viewport; no numerical topology test proves silhouette legibility. Native research described 169 rendered frames, but they were not all regenerated during this integration.
 
 No npm publication, production deployment or merge is included in this review branch. Browser acceptance results, when collected, are recorded in the PR separately from these numerical checks.
+
+## Package-size tradeoff
+
+The historical `./cuttlefish` compatibility entry now includes the two related marine geometry definitions so that the same renderer supports mixed depth-buffer scenes. It is not per-species tree-shaken. With the same esbuild 0.28.2 animal fixture, the preceding TypeScript candidate measured 48,189 minified / 17,881 gzip bytes; this integration measures 61,964 minified / 23,608 gzip bytes (an increase of 13,775 / 5,727 bytes). Core-only remains 884 minified / 476 gzip bytes and excludes animal modules. These are bundler-output sizes, not browser performance measurements. A future explicit lazy-species host split can reduce single-species transfer cost; no such isolation is claimed here.
