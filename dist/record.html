@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Record the procedural ASCII cuttlefish artwork as real canvas animation, ready to convert into a GIF.">
+  <meta name="color-scheme" content="dark">
+  <title>Record a current — ASCII Animals</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#071011;color:#e8eee9;line-height:1.6}
+    *{box-sizing:border-box}body{margin:0;padding:44px 24px 64px}main{max-width:840px;margin:auto}a{color:#a6e9cc;text-underline-offset:4px}.eyebrow{font:11px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#90b7ac;margin-top:36px}h1{font:normal clamp(36px,6vw,58px)/1.12 Georgia,serif;letter-spacing:-.04em;margin:15px 0}p{color:#a7b9b3;max-width:67ch}.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin:28px 0 22px}label{display:grid;gap:7px;font-size:12px;color:#bbccc6}select,button,.download{font:inherit;min-height:44px;border-radius:6px;border:1px solid #35564b;background:#12231e;color:#e8eee9;padding:10px 16px}select{min-width:210px}button{cursor:pointer;background:#c2f2dd;color:#071c14;border-color:#c2f2dd;font-weight:650}button:disabled{opacity:.55;cursor:wait}:focus-visible{outline:3px solid #a6e9cc;outline-offset:4px}.canvas-frame{max-width:720px;border:1px solid #25433b;border-radius:8px;overflow:hidden;background:#03080a}canvas{display:block;width:720px;height:450px;max-width:100%;aspect-ratio:8/5}@media(max-width:770px){canvas{height:auto}}.readout{display:flex;justify-content:space-between;gap:18px;max-width:720px;font:12px ui-monospace,monospace;margin:15px 0 26px}.readout span{color:#bce4d1}#status[data-state=error]{color:#ffb2a3}.download{display:inline-block;text-decoration:none;background:transparent}.download[hidden]{display:none}details{border-top:1px solid #25433b;padding-top:18px;max-width:720px}summary{cursor:pointer;color:#d0e1d9;font-size:14px}code{font:12px ui-monospace,monospace;background:#13221e;padding:3px 5px;border-radius:3px}li{color:#a7b9b3;margin:8px 0}footer{margin-top:40px;font-size:12px;color:#708c81}
+  </style>
+  <script src="artwork.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="index.html">← Back to the artwork</a>
+  <div class="eyebrow">ASCII Animals / recording studio</div>
+  <h1>Record a current.</h1>
+  <p>Capture a short performance straight from the live canvas. Each preset directs the same cuttlefish renderer used in the microsite and downloads a WebM video.</p>
+  <div class="controls">
+    <label for="preset">Performance
+      <select id="preset">
+        <option value="school">Mixed company · 8 seconds</option>
+        <option value="formations">Four directions · 12 seconds</option>
+        <option value="encounter">Close encounter & ink · 12 seconds</option>
+      </select>
+    </label>
+    <button id="record" type="button">Record 8 seconds</button>
+    <a id="download" class="download" hidden>Download recording</a>
+  </div>
+  <div class="canvas-frame"><canvas id="record-canvas" width="720" height="450" aria-label="A live performance of the procedural ASCII cuttlefish artwork"></canvas></div>
+  <div class="readout"><span id="status" role="status" aria-live="polite" data-state="preview">Preview · mixed company</span><span id="elapsed" aria-hidden="true">00.0 / 08.0</span></div>
+  <details>
+    <summary>Recording notes</summary>
+    <ul>
+      <li>Keep this tab visible until the recording finishes. The renderer rests when the tab is hidden.</li>
+      <li>Each recording restarts the performance. The encounter approaches, explores the lens, then reacts, sprays black ASCII ink, and escapes.</li>
+      <li>The four-direction performance changes from horizontal to vertical, diagonal, then random paths every three seconds.</li>
+      <li>To make a GIF, run <code>scripts/make-gifs.sh input.webm output.gif</code> from the repository.</li>
+      <li>Recording requires a browser with Canvas captureStream and MediaRecorder support. The artwork itself needs only Canvas 2D.</li>
+    </ul>
+  </details>
+  <footer>Original procedural geometry. Recorded in your browser. No upload or recording service.</footer>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const canvas = $('record-canvas');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const presets = {
+    school: { duration:8, name:'mixed company', filename:'school.webm', options:{ scene:'reactive', count:5, formation:'independent', size:.63, sizeVariation:.65, spacing:1, speed:1.05, behaviors:['cruise','hover','orbit','curious','cruise'] } },
+    formations: { duration:12, name:'horizontal current', filename:'formations.webm', options:{ scene:'swimby', count:7, formation:'horizontal', size:.48, sizeVariation:.6, spacing:1, speed:1.2, behaviors:[] } },
+    encounter: { duration:12, name:'close encounter', filename:'encounter-ink.webm', options:{ scene:'encounter', count:1, formation:'independent', size:1, sizeVariation:0, spacing:1, speed:1.6, behaviors:['auto'] } }
+  };
+  let renderer, recording = false, recorder, stream, timer, objectURL, began = 0;
+  let lastSegment = -1, startled = false;
+  const base = {palette:'lagoon', ripple:1.3, density:1.2, motion:1.2, depthStrength:1.2, mode:'ascii', followPointer:false, glow:true, reverse:false};
+  const timeText = t => Math.max(0,t).toFixed(1).padStart(4,'0');
+  function configure(animate = !reduceMotion) {
+    const preset = presets[$('preset').value];
+    renderer.setOptions({...base, ...preset.options});
+    renderer.restart();
+    renderer.setPaused(!animate);
+    $('record').textContent = 'Record ' + preset.duration + ' seconds';
+    $('status').dataset.state = 'preview';
+    $('status').textContent = 'Preview · ' + preset.name + (animate ? '' : ' · paused for reduced motion');
+    $('elapsed').textContent = '00.0 / ' + timeText(preset.duration);
+  }
+  function releaseStream() {
+    if (stream) stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+  function finishUI() {
+    clearInterval(timer);
+    recording = false;
+    $('record').disabled = false;
+    $('preset').disabled = false;
+    renderer.setPaused(true);
+    releaseStream();
+  }
+  function fail(error) {
+    finishUI();
+    $('status').dataset.state = 'error';
+    $('status').textContent = error.message || 'The recording could not be completed.';
+  }
+  try {
+    renderer = new window.CuttlefishArtwork(canvas, {...base, ...presets.school.options, paused:reduceMotion});
+    configure();
+  } catch (error) {
+    $('status').dataset.state = 'error';
+    $('status').textContent = 'The artwork could not start: ' + error.message;
+    $('record').disabled = true;
+    return;
+  }
+  if (typeof canvas.captureStream !== 'function' || typeof window.MediaRecorder !== 'function') {
+    $('record').disabled = true;
+    $('status').dataset.state = 'error';
+    $('status').textContent = 'This browser can preview the artwork but does not support canvas recording.';
+    return;
+  }
+  $('preset').addEventListener('change', () => { if (!recording) configure(); });
+  $('record').addEventListener('click', () => {
+    if (recording) return;
+    const key = $('preset').value, preset = presets[key], chunks = [];
+    if (objectURL) { URL.revokeObjectURL(objectURL); objectURL = null; }
+    $('download').hidden = true;
+    try {
+      configure(true);
+      stream = canvas.captureStream(24);
+      const mimeType = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(type => MediaRecorder.isTypeSupported(type));
+      if (!mimeType) throw new Error('This browser does not support WebM recording. Try a current Chromium or Firefox browser.');
+      recorder = new MediaRecorder(stream, {mimeType,videoBitsPerSecond:2000000});
+      recorder.addEventListener('dataavailable', event => { if (event.data.size) chunks.push(event.data); });
+      recorder.addEventListener('error', event => fail(event.error || new Error('Recording failed.')));
+      recorder.addEventListener('stop', () => {
+        if (!recording) return;
+        finishUI();
+        const blob = new Blob(chunks, {type:mimeType});
+        if (!blob.size) { fail(new Error('The recording was empty. Keep the tab visible and try again.')); return; }
+        objectURL = URL.createObjectURL(blob);
+        const link = $('download');
+        link.href = objectURL;
+        link.download = preset.filename;
+        link.hidden = false;
+        $('elapsed').textContent = timeText(preset.duration) + ' / ' + timeText(preset.duration);
+        $('status').dataset.state = 'ready';
+        $('status').textContent = 'Recording ready · ' + preset.filename;
+        link.click();
+      });
+      recording = true; lastSegment = -1; startled = false;
+      $('record').disabled = true;
+      $('preset').disabled = true;
+      $('status').dataset.state = 'recording';
+      $('status').textContent = 'Recording · ' + preset.name;
+      recorder.start(250);
+      began = performance.now();
+      timer = setInterval(() => {
+        const elapsed = (performance.now() - began) / 1000;
+        $('elapsed').textContent = timeText(Math.min(elapsed,preset.duration)) + ' / ' + timeText(preset.duration);
+        if (key === 'formations') {
+          const segment = Math.min(3,Math.floor(elapsed / 3));
+          if (segment !== lastSegment) {
+            const direction = ['horizontal','vertical','diagonal','random'][segment];
+            renderer.setOptions({formation:direction});
+            $('status').textContent = 'Recording · ' + direction + ' current';
+            lastSegment = segment;
+          }
+        }
+        if (key === 'encounter' && elapsed >= 7 && !startled) {
+          renderer.pulse();
+          startled = true;
+          $('status').textContent = 'Recording · react, spray, escape';
+        }
+        if (elapsed >= preset.duration && recorder.state === 'recording') recorder.stop();
+      },50);
+    } catch (error) { fail(error); }
+  });
+  window.addEventListener('pagehide', () => {
+    clearInterval(timer);
+    recording = false;
+    if (recorder && recorder.state === 'recording') recorder.stop();
+    releaseStream();
+    if (objectURL) URL.revokeObjectURL(objectURL);
+    renderer.destroy();
+  });
+});
+</script>
+</body>
+</html>
