@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASCII Animals — local Canvas benchmark</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;background:#0a1216;color:#dcf1ed}body{margin:0 auto;padding:2rem;max-width:1100px}h1{font-size:1.7rem}label{display:inline-flex;flex-direction:column;gap:.3rem;margin:0 .7rem 1rem 0}input,select,button{font:inherit;padding:.5rem;border:1px solid #58736d;border-radius:.3rem;color:inherit;background:#15252a}input{min-width:27rem}button{cursor:pointer}button:disabled{opacity:.55;cursor:default}.warning{border-left:3px solid #d2be75;padding-left:1rem}canvas{display:block;width:947px;height:707px;max-width:none;pointer-events:none;background:#080d0f}.viewport{overflow:auto;max-width:100%;border:1px solid #58736d;margin-top:1rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.8rem}#status{min-height:1.5rem}
+</style>
+</head>
+<body>
+<h1>Local Canvas benchmark</h1>
+<p>Serve the candidate checkout locally, then open this file. This fixture imports only the module you name below and writes results to a JSON download on your device.</p>
+<p class="warning">This fixture has not been executed as part of the review. It measures the synchronous JavaScript duration of <code>advance(1/60)</code> and the intervals between <code>requestAnimationFrame</code> callbacks. Neither measurement waits for GPU completion. It is not an FPS guarantee, battery test, or broad browser compatibility result.</p>
+<label>Candidate module path<input id="module" value="../src/animals/cuttlefish.js" spellcheck="false"></label>
+<label>Population<select id="count"><option>1</option><option selected>4</option><option>12</option></select></label>
+<label>Scenario<select id="scenario"><option value="roaming">Independent roaming</option><option value="encounter">Lens encounter</option><option value="ink">Startle and ink</option></select></label>
+<button id="run">Run 60 warmup + 600 measured frames</button>
+<button id="save" disabled>Download JSON</button>
+<p id="status" role="status" aria-live="polite">Ready. Keep this tab visible during a run; hidden-tab runs abort.</p>
+<div class="viewport"><canvas id="artwork" width="947" height="707" role="img" aria-label="Benchmark animation of ASCII cuttlefish">Benchmark animation. Results appear as text below.</canvas></div>
+<h2>Result</h2><pre id="result">No run yet.</pre>
+<script type="module">
+const canvas=document.querySelector('#artwork'),run=document.querySelector('#run'),save=document.querySelector('#save'),status=document.querySelector('#status'),result=document.querySelector('#result');
+let report=null,artwork=null;
+function describe(values){const sorted=values.slice().sort((a,b)=>a-b),p=q=>sorted[Math.max(0,Math.ceil(q*sorted.length)-1)];return{samples:sorted.length,mean:values.reduce((a,b)=>a+b,0)/values.length,median:p(.5),p95:p(.95),p99:p(.99),min:sorted[0],max:sorted.at(-1)}}
+function nextFrame(){return new Promise(resolve=>requestAnimationFrame(resolve))}
+function snapshot(){return {usedJSHeapSize:performance.memory?.usedJSHeapSize??null,totalJSHeapSize:performance.memory?.totalJSHeapSize??null,jsHeapSizeLimit:performance.memory?.jsHeapSizeLimit??null,caveat:'Optional implementation-specific heap counters; not forced-GC live heap, retained memory, canvas, GPU, or process memory.'}}
+run.addEventListener('click',async()=>{
+ run.disabled=true;save.disabled=true;report=null;result.textContent='Running…';
+ const input=document.querySelector('#module').value.trim(),moduleURL=new URL(input,location.href);
+ const count=Number(document.querySelector('#count').value),scenario=document.querySelector('#scenario').value;
+ const warmup=60,frames=600,dt=1/60,syncMs=[],frameIntervals=[],work=[];let previous=null;
+ try{
+  if(moduleURL.origin!==location.origin)throw new Error('Use a same-origin local module. External module URLs are not accepted.');
+  if(document.hidden)throw new Error('Make this tab visible before starting.');
+  const module=await import(moduleURL.href),Artwork=module.CuttlefishArtwork||module.default;
+  if(typeof Artwork!=='function'||typeof Artwork.prototype.advance!=='function')throw new Error('Expected CuttlefishArtwork with manual advance(seconds).');
+  artwork?.destroy();artwork=new Artwork(canvas,{autoStart:false,reducedMotion:'ignore',paused:false,observeVisibility:false,
+    count,scene:scenario==='encounter'?'encounter':'reactive',formation:'independent',size:.7,sizeVariation:.45,
+    speed:1,density:1.1,depthStrength:1.2,glow:true});
+  const before=snapshot();
+  for(let i=0;i<warmup+frames;i++){
+    const stamp=await nextFrame();
+    if(document.hidden)throw new Error('Run aborted because the tab became hidden. Repeat with the tab visible.');
+    if(i===warmup&&scenario==='ink')artwork.pulse();
+    const start=performance.now();artwork.advance(dt);const elapsed=performance.now()-start;
+    if(i>=warmup){syncMs.push(elapsed);if(previous!==null&&i>warmup)frameIntervals.push(stamp-previous);}
+    if(i%60===0){status.textContent=(i<warmup?'Warming up':'Measuring')+' · '+Math.max(0,i-warmup)+' / '+frames;work.push({frame:i,stats:artwork.getStats()});}
+    previous=stamp;
+  }
+  report={schemaVersion:1,measuredAt:new Date().toISOString(),source:moduleURL.href,
+    environment:{userAgent:navigator.userAgent,hardwareConcurrency:navigator.hardwareConcurrency,devicePixelRatio:devicePixelRatio,
+      cssWidth:canvas.getBoundingClientRect().width,cssHeight:canvas.getBoundingClientRect().height,backingWidth:canvas.width,backingHeight:canvas.height},
+    config:{count,scenario,warmupFrames:warmup,measuredFrames:frames,dtSeconds:dt,autoStart:false},
+    synchronousAdvanceMilliseconds:describe(syncMs),rafIntervalMilliseconds:describe(frameIntervals),
+    raw:{synchronousAdvanceMilliseconds:syncMs,rafIntervalMilliseconds:frameIntervals},work,memoryBefore:before,memoryAfter:snapshot(),
+    limitations:['Synchronous timings do not wait for GPU rasterization or presentation.','rAF intervals reflect both refresh rate and main-thread availability.','One browser and device result is not a library-wide performance guarantee.','No automated visual equivalence, retention, accessibility, input-pressure, or power check is performed.']};
+  result.textContent=JSON.stringify(report,null,2);status.textContent='Run complete. Download the raw JSON and record hardware/browser versions with it.';save.disabled=false;
+ }catch(error){status.textContent=error.message;result.textContent=String(error.stack||error)}
+ finally{artwork?.destroy();artwork=null;run.disabled=false}
+});
+save.addEventListener('click',()=>{if(!report)return;const blob=new Blob([JSON.stringify(report,null,2)+'\n'],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ascii-animals-canvas-benchmark-'+report.config.count+'-'+report.config.scenario+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+</script>
+</body>
+</html>
