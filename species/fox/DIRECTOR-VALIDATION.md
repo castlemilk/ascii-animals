@@ -19,7 +19,7 @@ The authoring template was completed and committed before implementation. The cu
 | `node scripts/check-package.mjs --report species/fox/.test-output/director-package/report.json` | Passed with explicitly unrun optional bundlers | Actual repeatable npm tarball, offline install, SSR/root exports, TypeScript NodeNext/Bundler and ES-only core declarations; [report](evidence/director/package-check.json) |
 | `node species/fox/scripts/check-director-package.mjs species/fox/.test-output/director-package/ascii-animals-review-0.0.0-review.0.tgz` | Passed on the existing local tarball | New `./fox` director runtime/defaults/replay plus strict NodeNext/Bundler positive usage and 14 additional negative assertions; throwing DOM globals during real SSR imports; [report](evidence/director/fox-package-consumer.json) |
 | `node species/fox/scripts/render-director-evidence.mjs` | Completed; stable compiled hashes through capture | Actual native Canvas geometry/glyph rendering, 15 sampled frames/text grids, two contact sheets, 193-frame GIF and preserved before/after |
-| `git diff --check` | Passed | Whitespace sanity only; not semantic acceptance |
+| `git diff --check origin/main HEAD -- . ':(exclude)species/fox/evidence/'` | Passed | Source/doc whitespace sanity. Captured grids/logs preserve literal output, including trailing spaces/blank lines |
 
 The complete runtime suite includes **31 new Fox tests**: 12 pure director cases, 3 routing/rest cases, 6 executable demo cases and 10 integrated browser-controller cases. It includes 72 Fox tests overall. Do not add the separate 25-case pass to 338; it is a targeted rerun of overlapping tests.
 
@@ -52,6 +52,8 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory dist
 ```
 
 Open `http://127.0.0.1:8000/fox/` for the generated public-wrapper demo. Native capture additionally requires already installed Canvas/FFmpeg/Fontconfig; the capture script does not install them. The source ZIP and Git binary patch are intended for the exact recorded base. Apply the patch to a fresh checkout and use the same commands. The source ZIP contains the complete Fox source/tests/demo/evidence, its public wrapper/bridges, required reproduction context, and PR/validation handoff files; it is not an alternate renderer or standalone package release.
+
+Captured `.txt` grids are rectangular and contain intentional trailing spaces. Apply the handoff with `git apply --index --whitespace=nowarn fox-director.patch`; do not use `--whitespace=fix`, which would change the recorded grids. Patch verification reconstructs the exact tree, including those evidence bytes.
 
 ## Acceptance not run
 
