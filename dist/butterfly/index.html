@@ -1,1 +1,76 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Butterfly · ASCII Animals</title><link rel="stylesheet" href="styles.css"></head><body><a class="skip" href="#controls">Skip to controls</a><header><a href="../index.html">← ASCII Animals</a><span>FIELD STUDY / 07</span></header><main><section class="intro"><p class="eyebrow">FOUR WINGS, ONE SMALL WONDER</p><h1>The Butterfly.</h1><p>A pair of tall forewings, two rounded hindwings, and a delicate body between them. Approach gently to reveal the patterned display.</p></section><div class="layout"><section class="stage" aria-label="Butterfly artwork"><div class="stage-top"><span>LEPIDOPTERA / STYLIZED STUDY</span><output id="status" aria-live="off">Still water</output></div><canvas id="animal" role="img" aria-label="An ASCII butterfly with four patterned wings, a segmented body and two clubbed antennae. Use the labelled controls to greet or guide it."></canvas><p class="caption">Meet the garden visitor. Tap to approach. Stillness is always available.</p></section><aside id="controls"><h2>Keep it company.</h2><p>Gentle movement, distinct gestures.</p><div class="buttons"><button id="pause">Pause</button><button id="greet">Approach</button><button id="reset">Reset</button></div><label>Behaviour<select id="behavior"><option value="hover">Hover: soft wingbeat</option><option value="curious">Curious: follow your guide</option><option value="perch">Perch: open-wing rest</option></select></label><label>Colour<select id="palette"><option value="brass">Sunlit brass</option><option value="lagoon">Lagoon glass</option><option value="rose">Rose coral</option></select></label><label>Facing<select id="facing"><option value="left">Left</option><option value="right">Right</option></select></label><label>Pace <output id="speed-value">1.00×</output><input id="speed" type="range" min=".25" max="2" value="1" step=".05"></label><label>Size <output id="scale-value">1.00×</output><input id="scale" type="range" min=".6" max="1.3" value="1" step=".05"></label><div class="buttons guide"><button id="left">Guide left</button><button id="center">Centre</button><button id="right">Guide right</button></div><p id="motion-note" class="note">Reduced-motion preference is respected. Approach changes the still pose without starting playback.</p><button id="capture">Capture ASCII text</button><details><summary>About this study</summary><p>Newly authored procedural geometry, not recovered from the earlier unavailable Pro chat. A stylized rendering, not a biological simulation. ASCII characters and your system monospace font.</p><a href="https://github.com/castlemilk/ascii-animals">Source and typed API</a></details></aside></div><section id="capture-region" hidden><h2>Your current character frame</h2><pre id="text-frame" tabindex="0"></pre></section></main><footer>NO EXTERNAL ASSETS · SHARED SCHEDULER · MADE OF CHARACTERS</footer><script type="module" src="demo.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A living ASCII garden. Direct a small company of butterflies through first light, nectar rounds, a passing breeze and evening roost.">
+  <title>Butterflies — A little wild garden</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#animal">Skip to the garden</a>
+  <header class="site-header">
+    <a class="wordmark" href="../index.html"><span aria-hidden="true">{ i }</span> ascii animals<span class="wordmark-dot">.</span></a>
+    <span class="field-number">A GENERATIVE FIELD STUDY / 013</span>
+    <a class="quiet-link" href="#about">Field notes <span aria-hidden="true">↘</span></a>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <div><p class="eyebrow">A SMALL COMPANY. A WORLD OF THEIR OWN.</p><h1 id="title">A little <em>wild garden.</em></h1></div>
+      <p class="lede">Four patterned wings. A few curious personalities.<br>Offer a little nectar, send a passing breeze, or let the meadow find its own rhythm.</p>
+    </section>
+    <nav class="scene-picker" aria-label="Choose a garden scene">
+      <button class="scene-card" type="button" data-scene="morning" aria-pressed="true"><span class="scene-number">01 / AWAKEN</span><strong>First light</strong><span>Warm the wings. Find the day.</span><span class="scene-indicator" aria-hidden="true"></span></button>
+      <button class="scene-card" type="button" data-scene="nectar" aria-pressed="false"><span class="scene-number">02 / EXPLORE</span><strong>Nectar rounds</strong><span>A flower deserves a closer look.</span><span class="scene-indicator" aria-hidden="true"></span></button>
+      <button class="scene-card" type="button" data-scene="breeze" aria-pressed="false"><span class="scene-number">03 / DRIFT</span><strong>Passing breeze</strong><span>Ride the air. Find a little shelter.</span><span class="scene-indicator" aria-hidden="true"></span></button>
+      <button class="scene-card" type="button" data-scene="roost" aria-pressed="false"><span class="scene-number">04 / REST</span><strong>Evening roost</strong><span>One last visit. A stem for the night.</span><span class="scene-indicator" aria-hidden="true"></span></button>
+    </nav>
+    <div class="garden-layout">
+      <div class="garden-column">
+        <section class="stage" aria-labelledby="garden-title">
+          <div class="stage-heading"><div><span class="status-dot" aria-hidden="true"></span><output id="status" aria-live="off">LIVING GARDEN</output><span class="stage-divider">/</span><span>ASCII FIELD</span></div><span id="garden-count">4 VISITORS</span></div>
+          <h2 id="garden-title" class="sr-only">Butterfly garden</h2>
+          <canvas id="animal" tabindex="0" role="img" aria-label="A small garden of ASCII butterflies with patterned wings and individual habits. Use the adjacent controls to direct the scene." aria-describedby="canvas-help keyboard-help"></canvas>
+          <div id="error" class="error-message" role="alert" hidden><h3>The garden could not open.</h3><p id="error-detail">A browser with Canvas 2D support is required.</p><p>The scene descriptions and field notes remain available.</p></div>
+          <div class="scene-caption"><span id="current-act">Warm the wings</span><span id="cue-state" aria-live="off">Following the meadow</span></div>
+          <ol id="act-timeline" class="act-timeline" aria-label="The four acts" aria-live="off"></ol>
+          <div class="stage-toolbar">
+            <div class="playback"><button id="pause" type="button" class="primary">Pause</button><button id="next-act" type="button">Next act <span aria-hidden="true">→</span></button><button id="reset" type="button" class="subtle">Restart scene</button></div>
+            <div class="exports"><button id="capture-png" type="button" class="subtle">Save image</button><button id="capture" type="button" class="subtle">Read characters</button></div>
+          </div>
+        </section>
+        <p id="canvas-help" class="interaction-hint">Move gently to invite a closer look. Tap to gather the visitors. Leaving the garden lets them return to their own paths.</p>
+        <details class="keyboard-note"><summary>Keyboard in the garden</summary><p id="keyboard-help">Focus the artwork, then use arrow keys to move your invitation. Enter gathers visitors; B sends a breeze; N advances the act; Space pauses or plays; Escape releases your invitation. Tab leaves the artwork normally.</p></details>
+        <section class="company" aria-labelledby="company-title">
+          <div class="section-heading"><div><p class="eyebrow">EACH WITH A LITTLE AGENDA</p><h2 id="company-title">Meet the company.</h2></div><label class="checkbox-label"><input id="show-labels" type="checkbox" checked> Show numbers</label></div>
+          <div id="roles" class="role-grid"></div>
+          <p class="small-note">Roles shape each visitor's habits. The scene brings them together; your invitation interrupts, then releases them.</p>
+        </section>
+      </div>
+      <aside id="controls" class="director" aria-labelledby="director-title">
+        <p class="eyebrow">THE GARDEN DIRECTOR</p><h2 id="director-title">Set the rhythm.</h2><p class="panel-lede">A little direction. Room to wander.</p>
+        <label class="field-label" for="count">Visitors <output id="count-value" for="count">4</output></label><input id="count" type="range" min="1" max="6" value="4" step="1"><div class="range-ends"><span>A private visit</span><span>A meadow of six</span></div>
+        <label class="field-label" for="path">Flight paths</label><select id="path"><option value="meadow">Meadow — independent wanderers</option><option value="ribbon">Ribbon — a winding crossing</option><option value="spiral">Spiral — circling the flowers</option></select>
+        <div class="panel-rule"></div>
+        <label class="field-label" for="pointer-mode">Your presence</label><select id="pointer-mode"><option value="attract">Nectar — invite a closer look</option><option value="breeze">Breeze — gently move the air</option><option value="off">Observe — leave them to it</option></select>
+        <div class="cue-buttons" aria-label="Garden cues"><button id="gather" type="button"><span aria-hidden="true">✳</span> Offer nectar</button><button id="send-breeze" type="button"><span aria-hidden="true">≈</span> Send a breeze</button><button id="rest" type="button"><span aria-hidden="true">☾</span> Invite rest</button></div>
+        <button id="release" type="button" class="release-button subtle">Release invitation <span aria-hidden="true">↗</span></button>
+        <label class="field-label" for="breeze">Meadow breeze <output id="breeze-value" for="breeze">Gentle right</output></label><input id="breeze" type="range" min="-1" max="1" value=".2" step=".05"><div class="range-ends"><span>From the right</span><span>From the left</span></div>
+        <details class="tuning"><summary>Light, pace & composition</summary><div class="tuning-body">
+          <label class="field-label" for="palette">Garden light</label><select id="palette"><option value="brass">Apricot sunlight</option><option value="lagoon">Glasshouse green</option><option value="rose">Rose dusk</option></select>
+          <label class="field-label" for="speed">Flight pace <output id="speed-value" for="speed">1.00×</output></label><input id="speed" type="range" min=".25" max="2" value="1" step=".05">
+          <label class="field-label" for="scene-seconds">Scene length <output id="scene-seconds-value" for="scene-seconds">32s</output></label><input id="scene-seconds" type="range" min="18" max="60" value="32" step="1">
+          <label class="field-label" for="scale">Wing size <output id="scale-value" for="scale">1.00×</output></label><input id="scale" type="range" min=".6" max="1.3" value="1" step=".05">
+          <label class="field-label" for="spread">Room to wander <output id="spread-value" for="spread">1.00×</output></label><input id="spread" type="range" min=".6" max="1.25" value="1" step=".05">
+        </div></details>
+        <div class="motion-policy"><span class="small-label">STILLNESS IS WELCOME</span><p id="motion-note">Pause holds the garden. You can still choose an act, offer nectar, or invite a resting pose.</p></div>
+        <p id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+      </aside>
+    </div>
+    <section id="capture-region" class="character-capture" aria-labelledby="capture-title" hidden><div class="section-heading"><h2 id="capture-title">A moment, made of characters.</h2><button id="close-capture" type="button" class="subtle">Close</button></div><p>This is the garden's current logical character grid. Select and copy it as plain text.</p><pre id="text-frame" tabindex="0" aria-label="Captured ASCII garden"></pre></section>
+    <section id="about" class="field-notes" aria-labelledby="notes-title"><p class="eyebrow">FIELD NOTES</p><div><h2 id="notes-title">Small lives.<br>Deliberate details.</h2><p>Each visitor has four patterned wing lobes, a slender segmented body and clubbed antennae. Flutter gives way to a glide; a flower invites inspection; the garden makes space for a quiet perch.</p><p>This is an original stylized study, drawn from procedural character geometry. The scene arcs are authored choreography, not a biological simulation. No photography, video, external fonts or image assets.</p></div></section>
+  </main>
+  <footer><span>LEPIDOPTERA / A STUDY IN CHARACTERS</span><a href="https://github.com/castlemilk/ascii-animals">Source & typed API <span aria-hidden="true">↗</span></a></footer>
+  <script type="module" src="demo.js"></script>
+</body>
+</html>
