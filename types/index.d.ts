@@ -17,3 +17,6 @@ export type { Artwork, ArtworkOptions, ArtworkConfig, ArtworkStats } from './pub
 
 export { createFoxArtwork } from './public/fox.js';
 export type { FoxArtwork, FoxBrowserOptions, FoxBrowserStatus, FoxOptions, FoxCreateOptions, FoxState, FoxInput } from './public/fox.js';
+
+export { createPufferfishArtwork } from './public/pufferfish.js';
+export type { PufferfishArtwork, PufferfishMountOptions } from './public/pufferfish.js';

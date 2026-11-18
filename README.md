@@ -232,3 +232,7 @@ This study began with a supplied luminous ASCII jellyfish video credited on scre
 [GitHub Pages demo](https://castlemilk.github.io/ascii-animals/) is deployed **manually**, not on pushes or pull requests. In GitHub Actions, choose **Deploy demo to GitHub Pages** → **Run workflow** on `main`. The workflow validates the committed standalone artifact and publishes only `dist/`; repository research, recordings and source history are not part of the web deployment. The GitHub Actions environment links to the exact deployment.
 
 Updating `main` does not update the live demo until a maintainer deliberately runs the deployment workflow. No npm publication is involved.
+
+### Pufferfish review adapter
+
+`createPufferfishArtwork` and `ascii-animals-review/pufferfish` expose the independently configured fixed-tick pufferfish model, staged inflation and deliberate static poses. See [Pufferfish API and provenance](docs/PUFFERFISH-API.md). Local generated demo: `dist/pufferfish/index.html`. Availability remains under review until browser acceptance; no npm release.

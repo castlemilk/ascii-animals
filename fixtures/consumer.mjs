@@ -28,3 +28,7 @@ for (const specifier of ['ascii-animals-review/package.json', 'ascii-animals-rev
   await assert.rejects(import(specifier), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
 }
 console.log(JSON.stringify({ ssrImport: 'passed', identity: 'passed', declaredMethods: 'present', privateSubpaths: 'blocked', exports: Object.keys(root).sort() }));
+const pufferfish = await import('ascii-animals-review/pufferfish');
+assert.equal(root.createPufferfishArtwork,pufferfish.createPufferfishArtwork);
+const pufferState=pufferfish.createPufferfish({seed:17});
+assert.equal(pufferfish.stepPufferfish(pufferState,{tick:1,events:[]}).state.tick,1);

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Pufferfish · A little breathing room</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="./demo.js"></script>
+</head>
+<body>
+  <main>
+    <header class="masthead"><a href="../index.html">ASCII ANIMALS</a><span>FIELD NOTES / PUFFERFISH</span></header>
+    <section class="intro" aria-labelledby="title">
+      <div><p class="eyebrow">A small encounter</p><h1 id="title">A little breathing room.</h1></div>
+      <p class="intro-note">Come closer, gently. Give this little fish a moment to notice you—and a little space to settle.</p>
+    </section>
+    <div class="study">
+      <section class="specimen" aria-label="Interactive pufferfish">
+        <div class="stage">
+          <canvas id="pufferfish" role="img" aria-describedby="description" aria-label="A round ASCII pufferfish with bright eyes, paddle fins and a short tail. Nearby approach makes it inflate with short spines."></canvas>
+          <div class="stage-header" aria-hidden="true"><span>PUFFERFISH</span><span id="motion-label">IN THE CURRENT</span></div>
+          <div class="stage-footer" aria-hidden="true"><span id="phase">Calm waters</span><span>ORIGINAL PROCEDURAL STUDY</span></div>
+          <p id="fallback" hidden>The animation could not start. A small round pufferfish has bright eyes, two little fins and a short fan tail. When approached, it expands into a spiny ball, then slowly settles.</p>
+        </div>
+        <p id="description" class="description">Move near the fish and linger for half a second. It notices, inflates in two stages, then floats. Move away to let it deflate. Its cooldown prevents repeated reactions.</p>
+        <p id="motion-note" class="motion-note" hidden>Still view is active. Approach and Give space show two static poses.</p>
+      </section>
+      <aside class="controls" aria-label="Pufferfish controls">
+        <div class="control-section">
+          <p class="eyebrow">Make an introduction</p>
+          <button id="approach" class="primary" type="button">Approach gently <span aria-hidden="true">↗</span></button>
+          <button id="retreat" type="button">Give some space <span aria-hidden="true">↙</span></button>
+          <p class="small">These controls work with touch, Enter and Space. No hovering required.</p>
+        </div>
+        <div class="control-section">
+          <p class="eyebrow">Take your time</p>
+          <div class="button-row"><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Reset</button></div>
+        </div>
+        <div class="control-section settings">
+          <label for="view">View</label>
+          <select id="view"><option value="right">Right three-quarter</option><option value="front">Face to face</option><option value="left">Left three-quarter</option></select>
+          <label for="quality">Character detail</label>
+          <select id="quality"><option value="small">Small · 72 columns</option><option value="standard" selected>Standard · 120 columns</option><option value="fine">Fine · 160 columns</option></select>
+          <label class="check"><input id="monochrome" type="checkbox"> Neutral tones</label>
+        </div>
+        <details class="control-section settings">
+          <summary>Character settings</summary>
+          <label for="seed">Seed</label><input id="seed" type="number" min="0" max="4294967295" step="1" value="23">
+          <label for="inflation">Maximum size</label><select id="inflation"><option value="1.3">Gentle · 1.30×</option><option value="1.65" selected>Default · 1.65×</option><option value="1.8">Full · 1.80×</option></select>
+          <label class="check"><input id="wobble" type="checkbox" checked> Buoyant wobble</label>
+          <button id="apply" type="button">Apply and reset</button>
+          <p class="small">Changes begin a fresh encounter and preserve your pause setting.</p>
+        </details>
+        <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true">Ready for a quiet encounter.</p>
+      </aside>
+    </div>
+    <details class="text-export"><summary>View the current character frame</summary><button id="capture-text" type="button">Refresh text frame</button><pre id="text-frame" tabindex="0" aria-label="Captured printable ASCII frame"></pre></details>
+    <footer><span>Round body. Small fins. A little courage.</span><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/PUFFERFISH-API.md">Study notes and reproduction</a></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,47 @@
+✔ pointer normalization uses CSS rectangle, handles reflow/outside/zero size, and rejects invalid values (6.404381ms)
+✔ each suspension cause cancels RAF and clearing one cause cannot clear an independent pause (468.01533ms)
+✔ initial reduced/hidden/zero/compact states perform no autonomous scheduling (48.00158ms)
+✔ a compact viewport retains deliberate static touch/keyboard alternatives without a RAF (32.06091ms)
+✔ pause persists through configure/reset/static actions and ordinary pointer movement cannot defeat it (80.079114ms)
+✔ live reduced-motion changes show static alternatives without unpausing or creating autonomous work (160.77078ms)
+✔ pointer/action floods occupy at most two slots; touch does not synthesize hover; hidden input cannot startle on return (158.921929ms)
+✔ a long frame is capped at five ticks and dropped time is accounted, while resume resets its clock (114.133604ms)
+✔ pointer leave, cancel, lost capture and window blur become safe normalized retreat events (253.245574ms)
+✔ pointer coordinates do not depend on backing-store DPR and resizing changes CSS normalization (254.427198ms)
+✔ invalid configuration leaves the running state and render output unchanged (21.722712ms)
+✔ null render patches are rejected as malformed before merging (11.998489ms)
+✔ partial construction failures roll back owned listeners, observers and RAF (19.55326ms)
+✔ throwing onChange disposes a running instance and reports the original failure (73.027731ms)
+✔ destroy is idempotent and stale RAF/observer/font callbacks cannot write after disposal (19.667694ms)
+✔ two instances own independent resources and repeated mounts leave no listeners or observers (252.200286ms)
+✔ a transition callback that pauses stops the same catch-up frame immediately (31.472955ms)
+✔ a transition callback that destroys prevents any further tick in that frame (16.935251ms)
+✔ reset/configure from a transition callback invalidates the old catch-up frame and wall-clock accumulator (158.061128ms)
+✔ bridge dependency is pinned to exact original renderer; no fork or constructor is needed (4.604933ms)
+✔ original anatomy remains finite, bounded and attached through all phases and option extremes (4040.06618ms)
+✔ geometry is observational, repeatable and statically frozen; fin phases are independent and continuous (34.570007ms)
+✔ all supported views at minimum grid preserve finite output inside bounds at largest inflation (87.143308ms)
+✔ DPR, enormous resize, invalid configuration, zero-size and disposal obey hard budgets (39.72418ms)
+✔ identical explicit event log produces identical actual legacy cells across presentation grouping (5259.088021ms)
+✔ defaults, units and documented bounds resolve without retaining caller state (5.432672ms)
+✔ default deliberate approach has exact dwell, belly, spine, hold and recovery durations (7.546497ms)
+✔ passing nearby without dwell cancels interest and produces no inflation (2.777052ms)
+✔ near distance uses CSS aspect and retreat hysteresis does not oscillate at approach boundary (0.630749ms)
+✔ retreat at anticipation, belly, spines and hold cancels or recovers without an inflation discontinuity (11.096957ms)
+✔ cooldown ignores repeated approach, cannot accumulate pulses, and requires retreat before another dwell (6.8357ms)
+✔ retreat has precedence over approach or a near pointer anywhere in a single ordered tick batch (0.25357ms)
+✔ same explicit tick and event log has identical every-tick state for 1/2/5 render grouping (40.260276ms)
+✔ state is deterministic without ambient random/time and other instances stay independent (2.178192ms)
+✔ malformed configuration rejects atomically, including JavaScript inputs TypeScript cannot prevent (5.252405ms)
+✔ tick/sequence/type/coordinate errors and oversized batches reject before any partial update (1.908167ms)
+✔ explicit null event batch is malformed rather than silently treated as no input (0.172439ms)
+✔ configuration and reset create reproducible fresh runs, while originals and immutable snapshots remain unchanged (2.195063ms)
+✔ static alternatives do not advance simulation or leave a latent pointer target (1.325044ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9830.184904
