@@ -3,6 +3,7 @@ import { buildDragonflyPackage, buildDragonflyDemo } from './build-dragonfly.mjs
 import { buildPufferfishPackage, buildPufferfishDemo } from './build-pufferfish.mjs';
 import { buildFrogPackage, buildFrogDemo } from './build-frog.mjs';
 import {buildOwlPackage,buildOwlDemo} from './build-owl.mjs';
+import {buildButterflyDemo} from './build-butterfly.mjs';
 import {buildTurtleDemo} from './build-turtle.mjs';
 import {buildCrabDemo} from './build-crab.mjs';
 import { buildSeahorseDemo } from './build-seahorse.mjs';
@@ -59,4 +60,5 @@ const owl=await buildOwlDemo();
 const seahorse = await buildSeahorseDemo();
 await buildCrabDemo();
 await buildTurtleDemo();
+await buildButterflyDemo();
 console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, seahorse, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

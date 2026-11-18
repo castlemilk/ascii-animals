@@ -67,6 +67,11 @@
       "types": "./lib/public/turtle.d.ts",
       "import": "./lib/public/turtle.js",
       "default": "./lib/public/turtle.js"
+    },
+    "./butterfly": {
+      "types": "./lib/public/butterfly.d.ts",
+      "import": "./lib/public/butterfly.js",
+      "default": "./lib/public/butterfly.js"
     }
   },
   "sideEffects": false,
