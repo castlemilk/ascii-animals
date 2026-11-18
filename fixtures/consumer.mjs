@@ -44,3 +44,7 @@ assert.equal(pufferfish.stepPufferfish(pufferState,{tick:1,events:[]}).state.tic
 const frog = await import('ascii-animals-review/frog');
 assert.equal(root.createFrogArtwork, frog.createFrogArtwork);
 assert.equal(frog.stepFrog(frog.createFrog(), 1).state.tick, 1);
+
+const owl=await import('ascii-animals-review/owl');
+assert.equal(root.createOwlArtwork,owl.createOwlArtwork);
+const om=owl.createOwl({seed:7});assert.equal(om.advance(1).state.tick,1);om.dispose();

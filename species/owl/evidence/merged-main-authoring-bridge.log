@@ -1,0 +1,17 @@
+# Renderer source: /workspace/scratch/cf77d9b29d10/ascii-animals-owl/test/fixtures/legacy-artwork.cjs
+# Renderer SHA-256: 381f4706bc07761e6d1e162c95ceee97c42dd687ea19469ecb4f79885bd34e91
+✔ starts paused even if constructor options request playback; waits for intersection (136.774953ms)
+✔ composes reduced motion, visibility, viewport and zero-size policy (224.133203ms)
+✔ rechecks synchronous policy before pulse even before a change event arrives (168.581386ms)
+✔ setOptions cannot bypass pause policy; valid options and restart use the real API (246.369549ms)
+✔ a consumer state callback failure after mount disposes resources and preserves the original error (86.210363ms)
+✔ multiple instances dispose independently; repeated destroy and delayed callbacks are harmless (144.205783ms)
+✔ missing capabilities fail before construction; partial adapter construction cleans up (13.340032ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1040.880914

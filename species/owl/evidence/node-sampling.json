@@ -1,0 +1,17 @@
+{
+  "evidenceKind": "Node simulation + geometry + logical-grid timing only; not browser frame/paint/FPS",
+  "runtime": "v24.22.1",
+  "host": {
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C"
+  },
+  "cells": 5184,
+  "calls": 481,
+  "discardedWarmupCalls": 120,
+  "p50Ms": 0.7817730000000438,
+  "p95Ms": 2.4631870000000617,
+  "p99Ms": 7.221055999999976,
+  "browserTargetMeasured": false,
+  "browserLaunch": "Blocked before page launch: socket() failed Operation not permitted; no flags/security settings changed."
+}

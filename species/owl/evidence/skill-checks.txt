@@ -1,0 +1,37 @@
+✔ tick-stamped replay is identical under different render cadence grouping (943.934193ms)
+✔ same seed and events reproduce; distinct seeds alter the species pose (3.373807ms)
+✔ instance state is independent, and sampling does not mutate it (1.124843ms)
+✔ malformed input rejects atomically: wrong ticks, types, NaN, sequence, target and flood (0.997727ms)
+✔ creation, grid dimensions, sample count and species emission have hard limits (3.165747ms)
+✔ raster owns nearest cells, resolves cross-owner ties, and clips safely (1.322646ms)
+✔ text representation contains only printable ASCII and exact row lengths (5.850539ms)
+✔ pointer normalization handles offset, CSS size, clipping and zero-size canvas (0.568905ms)
+✔ portable core has no DOM, timer or random-clock dependency (24.316591ms)
+✔ reduced motion schedules zero RAFs and allows a deliberate static response (15.235454ms)
+✔ pause, visibility, offscreen and OS preference changes stop and restart only one RAF (18.740402ms)
+✔ long stalls have bounded catch-up; 1000 pointer events coalesce to one tick input (13.851995ms)
+✔ destroy releases listeners, both observers and frame ownership; a second instance survives (10.769366ms)
+✔ failed count change preserves state and original controller operation (1.394788ms)
+✔ zero-sized canvas stops RAF and releases its backing store until visible size returns (1.677479ms)
+✔ late mount failure rolls back every listener and acquired observer (0.521479ms)
+✔ throwing consumer callback cleans up before surfacing the error (1.15849ms)
+✔ keyboard steering API is equivalent to normalized pointer input and stays static under reduced motion (1.910059ms)
+✔ cancellation and departures during suspension clear pointer without advancing or resuming (16.02164ms)
+✔ saved resize/intersection callbacks cannot notify disposed consumers (1.100629ms)
+✔ host page exposes a usable text specimen when Canvas initialization fails (10.772437ms)
+✔ implemented and proposed examples validate without converting status (40.175796ms)
+✔ typo, incomplete hash and inherited omissions are rejected (4.259658ms)
+✔ ASCII, control and duplicate glyph errors are explicit (1.404363ms)
+✔ unknown/cyclic anatomy attachments fail (2.190898ms)
+✔ numeric and array work limits are enforced (6.683935ms)
+✔ rights and validation outcomes must be explicit, not inferred (3.113338ms)
+✔ optional glyph layers cannot declare characters missing from the repertoire union (1.796446ms)
+✔ bounded file reader rejects oversized and invalid UTF-8 input; CLI fails cleanly (145.409548ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1288.480644

@@ -1,0 +1,17 @@
+Observed launch probe in the authoring environment, 2026-11-18.
+Node v24.22.1, existing Playwright, executable /usr/bin/chromium, headless:true.
+No page opened. Exit status1.
+
+Relevant actual stderr excerpt:
+browserType.launch: Target page, context or browser has been closed
+[FATAL:chrome/browser/process_singleton_posix.cc:297] Check failed: . socket() failed: Operation not permitted (1)
+[ERROR:third_party/crashpad/crashpad/util/linux/scoped_ptrace_attach.cc:27] ptrace: Operation not permitted (1)
+
+The first invocation used an ESM package import which could not resolve this
+environment's installed Playwright. A CommonJS createRequire/require resolution
+then reached the Chromium executable and produced the launch denial above.
+No alternate security flags, sandbox escalation, credentials or browser settings
+were attempted. This is an observed failure excerpt, not a browser pass.
+
+scripts/browser-smoke.mjs is supplied for a supported machine; that complete
+browser interaction script was not run here after this launch denial.

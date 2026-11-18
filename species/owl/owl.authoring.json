@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "id": "owl-night-watch-v1",
+  "status": "reference-implemented",
+  "source": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+    "relationship": "original-reference",
+    "inspectedFiles": [
+      "dist/artwork.js",
+      "dist/app.js",
+      "scripts/check-engine.cjs",
+      "README.md",
+      "PR2@e7c16104a1e90c8650f7d3e09cdb1124d0321308/docs/EXTENDING.md",
+      "PR2@8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1/src/public/index.ts",
+      "src/public/index.ts",
+      "src/core/scheduler.js",
+      "docs/EXTENDING.md",
+      "docs/catalogue-maintenance.md",
+      "package.json"
+    ]
+  },
+  "representation": {
+    "kind": "ascii-grid",
+    "glyphs": " .,:;+=ox%#@-v",
+    "fontStrategy": "system",
+    "fonts": [
+      "ui-monospace",
+      "SFMono-Regular",
+      "Menlo",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ],
+    "fontProvenance": "No font binary bundled or fetched. Browser uses installed monospace fallbacks. Evidence rasterization uses installed DejaVu Sans Mono; its exact hash is in evidence/raster-provenance.json. System pixels are not promised identical.",
+    "layers": [
+      {
+        "name": "plumage",
+        "glyphs": " .,:;+=ox%#@",
+        "purpose": "Owl-local analytic surface tone ramp."
+      },
+      {
+        "name": "eyes-beak",
+        "glyphs": " @-v",
+        "purpose": "Empty dark pupil cells, fixed highlight, closed-lid line and beak tip."
+      }
+    ]
+  },
+  "anatomy": {
+    "classification": "stylized",
+    "anchors": [
+      "Broad rounded facial disk",
+      "Two separated forward-facing eyes with central beak",
+      "Rounded perched body with folded wings and two feet"
+    ],
+    "views": [
+      "Front",
+      "Modest left/right head turns, default \u00b134 degrees, hard cap45; pitch hard cap20; no profile/back"
+    ],
+    "parts": [
+      {
+        "name": "body",
+        "parent": "scene",
+        "motion": "Root fixed; tiny breathing/feather envelope."
+      },
+      {
+        "name": "head",
+        "parent": "body",
+        "motion": "Bounded yaw/pitch with eyes carried by the head."
+      },
+      {
+        "name": "eyes",
+        "parent": "head",
+        "motion": "Fixed eyes; eyelid blink."
+      },
+      {
+        "name": "beak",
+        "parent": "head",
+        "motion": "Fixed in face."
+      },
+      {
+        "name": "wings",
+        "parent": "body",
+        "motion": "Two fixed shoulders; independent lag; constant length .69."
+      },
+      {
+        "name": "feet",
+        "parent": "body",
+        "motion": "Remain planted on branch."
+      },
+      {
+        "name": "tail",
+        "parent": "body",
+        "motion": "Short fixed rear tail."
+      }
+    ]
+  },
+  "motion": {
+    "tickRate": 60,
+    "seed": 7,
+    "phases": [
+      {
+        "name": "idle",
+        "durationTicks": 0,
+        "transition": "Seeded gentle local motion until target/react."
+      },
+      {
+        "name": "approach",
+        "durationTicks": 0,
+        "transition": "Head eases toward finite normalized target."
+      },
+      {
+        "name": "blink",
+        "durationTicks": 18,
+        "transition": "Close/reopen then ruffle."
+      },
+      {
+        "name": "ruffle",
+        "durationTicks": 36,
+        "transition": "Fine plumage envelope then stretch."
+      },
+      {
+        "name": "stretch",
+        "durationTicks": 60,
+        "transition": "Paired wing extension with six-tick phase offset then recovery."
+      },
+      {
+        "name": "recovery",
+        "durationTicks": 48,
+        "transition": "Smoothly fold wings then cooldown."
+      },
+      {
+        "name": "cooldown",
+        "durationTicks": 120,
+        "transition": "React ignored until complete; attention may resume."
+      }
+    ],
+    "replayGuarantee": "Same version/config/seed, explicit consecutive ticks and strictly ordered normalized event log => identical state/cells in the tested JS runtime, independent of render grouping. No cross-engine pixel promise. fixtures/replay.json records the actual scenario. State restore unsupported."
+  },
+  "interaction": {
+    "pointer": "CSS rectangle normalized to [-1,1], finite values required; motion is attention only. No click reaction on empty background.",
+    "keyboard": "Native React, Pause/Play, Reset and Guide select; no global shortcut interception.",
+    "touch": "Native >=44px buttons/selects; no hover dependence or touch-action:none. Real touch device acceptance unrun.",
+    "precedence": "Last attention/leave wins in ordered batch; at most one react accepted; reaction/recovery/cooldown repeats ignored. Browser coalesces <=2 actions. Pause/reduced/hidden/offscreen/zero-size compose.",
+    "eventsPerTick": 16
+  },
+  "accessibility": {
+    "description": "A round-faced owl perched on a branch, with two forward-facing eyes, folded wings and planted feet.",
+    "reducedMotion": "Initial static poster; deliberate Guide/React changes one static pose without ticks/RAF. Pointer cannot override. Live change freezes displayed pose.",
+    "pause": "User pause freezes exact displayed pose and survives reset/options. Scope includes zero-size/offscreen/hidden. Disposal idempotent.",
+    "liveRegion": "Only deliberate control/policy announcements. Glyph block and frame telemetry never continuously announced."
+  },
+  "resources": {
+    "scope": "implemented-reference",
+    "animals": 1,
+    "samplesPerAnimal": 14400,
+    "cols": 160,
+    "rows": 90,
+    "dpr": 1,
+    "maxCatchUp": 5,
+    "particles": 0
+  },
+  "provenance": [
+    {
+      "kind": "original",
+      "source": "species/owl/src/*.ts in this branch; independently authored analytic geometry and behavior.",
+      "rights": "New contribution; no existing ASCII drawing, ray implementation, model or font binary copied. Project owner retains license/release decision.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "https://www.nationalzoo.si.edu/animals/barred-owl",
+      "rights": "Anatomical reference only; no photographs/diagrams/passages copied.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "https://www.allaboutbirds.org/guide/Barred_Owl/id",
+      "rights": "Anatomy/proportions reference only; original stylized geometry.",
+      "copied": false
+    },
+    {
+      "kind": "font",
+      "source": "Host system monospace; evidence locally uses /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+      "rights": "Installed font use, no font binary redistributed. See raster-provenance.json exact font hash.",
+      "copied": false
+    }
+  ],
+  "acceptance": [
+    {
+      "gate": "pure geometry/replay/input/bounds",
+      "status": "pass",
+      "evidence": "Executed Node tests and strict TypeScript fixtures; see final VALIDATION.md and evidence/tests.tap."
+    },
+    {
+      "gate": "minimum-grid sampled recognition",
+      "status": "pass",
+      "evidence": "Independent agent inspected actual sampled contact sheets and confirmed anchors at64x36; it is not a human study."
+    },
+    {
+      "gate": "mock host lifecycle",
+      "status": "pass",
+      "evidence": "Mock host assertions; exact test report in evidence. Separate from browser runtime evidence."
+    },
+    {
+      "gate": "actual browser/normal-speed/phone/screen-reader",
+      "status": "blocked",
+      "evidence": "Chromium socket() Operation not permitted before page launch. No security workaround. Runnable smoke supplied; normal-speed human/real device checks remain pending."
+    },
+    {
+      "gate": "browser p95/p99 target",
+      "status": "untested",
+      "evidence": "No browser perf result. Node sampling timings are separately labeled and not used as browser/FPS pass."
+    },
+    {
+      "gate": "central package integration",
+      "status": "proposed",
+      "evidence": "PR2 is merged; facade only accepts cuttlefish. Owl uses the implemented scheduler through injection and tests. The non-exported geometry writer mapping remains a local proposal."
+    }
+  ]
+}

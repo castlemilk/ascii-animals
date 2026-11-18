@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: global and standalone artifacts are generated from the canonical modules
+ok 1 - global and standalone artifacts are generated from the canonical modules
+  ---
+  duration_ms: 23.525838
+  type: 'test'
+  ...
+# Subtest: classic global build preserves module simulation and lifecycle
+ok 2 - classic global build preserves module simulation and lifecycle
+  ---
+  duration_ms: 3045.657085
+  type: 'test'
+  ...
+# Subtest: instances share scheduling; paused/hidden/offscreen scenes have no subscriptions
+ok 3 - instances share scheduling; paused/hidden/offscreen scenes have no subscriptions
+  ---
+  duration_ms: 268.358029
+  type: 'test'
+  ...
+# Subtest: system reduced motion pauses by default and never resumes automatically
+ok 4 - system reduced motion pauses by default and never resumes automatically
+  ---
+  duration_ms: 119.408
+  type: 'test'
+  ...
+# Subtest: resize is idempotent; zero-sized elements suspend and resource caps hold
+ok 5 - resize is idempotent; zero-sized elements suspend and resource caps hold
+  ---
+  duration_ms: 76.970905
+  type: 'test'
+  ...
+# Subtest: destroy is idempotent, frees internal buffers and makes mutators inert
+ok 6 - destroy is idempotent, frees internal buffers and makes mutators inert
+  ---
+  duration_ms: 26.010315
+  type: 'test'
+  ...
+# Subtest: failed observer construction rolls back all installed handlers
+ok 7 - failed observer construction rolls back all installed handlers
+  ---
+  duration_ms: 32.085855
+  type: 'test'
+  ...
+# Subtest: manual stepping is explicit, bounded and does not start scheduling
+ok 8 - manual stepping is explicit, bounded and does not start scheduling
+  ---
+  duration_ms: 40.168896
+  type: 'test'
+  ...
+# Subtest: frame cap uses elapsed time and reports discarded stall time
+ok 9 - frame cap uses elapsed time and reports discarded stall time
+  ---
+  duration_ms: 60.647998
+  type: 'test'
+  ...
+# Subtest: coarse grids cannot inflate glyph or ink atlases
+ok 10 - coarse grids cannot inflate glyph or ink atlases
+  ---
+  duration_ms: 35.74547
+  type: 'test'
+  ...
+# Subtest: long thin boxes respect auxiliary canvas dimension limits
+ok 11 - long thin boxes respect auxiliary canvas dimension limits
+  ---
+  duration_ms: 15.478492
+  type: 'test'
+  ...
+# Subtest: lowest supported frame cap advances real elapsed time without routine dropping
+ok 12 - lowest supported frame cap advances real elapsed time without routine dropping
+  ---
+  duration_ms: 268.334351
+  type: 'test'
+  ...
+# Subtest: live option, size and redundant play updates do not reset simulation time
+ok 13 - live option, size and redundant play updates do not reset simulation time
+  ---
+  duration_ms: 864.494878
+  type: 'test'
+  ...
+# Subtest: missing ResizeObserver falls back to window resize without a polyfill
+ok 14 - missing ResizeObserver falls back to window resize without a polyfill
+  ---
+  duration_ms: 27.710547
+  type: 'test'
+  ...
+# Subtest: invalid host fails clearly and separate documents retain their own scheduler
+ok 15 - invalid host fails clearly and separate documents retain their own scheduler
+  ---
+  duration_ms: 48.604869
+  type: 'test'
+  ...
+# Subtest: non-finite pointer positions do not poison scene state
+ok 16 - non-finite pointer positions do not poison scene state
+  ---
+  duration_ms: 42.907916
+  type: 'test'
+  ...
+# Subtest: fixed input/time sequences preserve imported geometry, ownership and ink state
+ok 17 - fixed input/time sequences preserve imported geometry, ownership and ink state
+  ---
+  duration_ms: 35685.261838
+  type: 'test'
+  ...
+# Subtest: manual replay repeats the same reaction and particle state for the same step sequence
+ok 18 - manual replay repeats the same reaction and particle state for the same step sequence
+  ---
+  duration_ms: 267.405451
+  type: 'test'
+  ...
+# Subtest: strict config rejects unknown/invalid fields atomically and copies role arrays
+ok 19 - strict config rejects unknown/invalid fields atomically and copies role arrays
+  ---
+  duration_ms: 4.385672
+  type: 'test'
+  ...
+# Subtest: facade system pause, controls, atomic update, manual drive and disposal
+ok 20 - facade system pause, controls, atomic update, manual drive and disposal
+  ---
+  duration_ms: 127.272598
+  type: 'test'
+  ...
+# Subtest: raw API undefined pause respects OS and invalid patches cannot poison state
+ok 21 - raw API undefined pause respects OS and invalid patches cannot poison state
+  ---
+  duration_ms: 19.464276
+  type: 'test'
+  ...
+# Subtest: scheduler shares one frame and removes each subscription independently
+ok 22 - scheduler shares one frame and removes each subscription independently
+  ---
+  duration_ms: 4.809071
+  type: 'test'
+  ...
+# Subtest: subscriptions added during dispatch wait until the next frame
+ok 23 - subscriptions added during dispatch wait until the next frame
+  ---
+  duration_ms: 1.447219
+  type: 'test'
+  ...
+# Subtest: one failing callback does not strand peers or a pending frame
+ok 24 - one failing callback does not strand peers or a pending frame
+  ---
+  duration_ms: 0.503431
+  type: 'test'
+  ...
+# Subtest: a rejected frame request rolls back a new subscription
+ok 25 - a rejected frame request rolls back a new subscription
+  ---
+  duration_ms: 1.178888
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 36129.085202
