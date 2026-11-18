@@ -243,9 +243,9 @@ export function mountPufferfish(canvas, legacy, options = {}) {
     function action(inflated) {
         alive();
         posterInvitation = null;
-        if (blocked())
+        if (hidden || zeroSized || destroyed)
             return Object.freeze({ kind: 'suspended', phase: shown().phase.kind });
-        if (paused || reduced || compact) {
+        if (paused || reduced || compact || offscreen) {
             poster = inflated;
             pendingPointer = pendingAction = null;
             guarded(() => { draw(); notify(); });
@@ -305,9 +305,9 @@ export function mountPufferfish(canvas, legacy, options = {}) {
                 throw new Error('Enable director before inviting an actor');
             finite(x, -1, 1, 'invite x');
             finite(y, -1, 1, 'invite y');
-            if (blocked())
+            if (hidden || zeroSized || destroyed)
                 return Object.freeze({ kind: 'suspended', phase: shown().phase.kind });
-            if (paused || reduced || compact) {
+            if (paused || reduced || compact || offscreen) {
                 poster = false;
                 posterInvitation = { x, y };
                 pendingPointer = pendingAction = null;

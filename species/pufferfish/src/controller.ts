@@ -225,8 +225,8 @@ export function mountPufferfish(canvas: HTMLCanvasElement, legacy: PufferfishLeg
   function action(inflated: boolean): PufferfishActionResult {
     alive();
     posterInvitation = null;
-    if (blocked()) return Object.freeze({ kind: 'suspended', phase: shown().phase.kind });
-    if (paused || reduced || compact) {
+    if (hidden || zeroSized || destroyed) return Object.freeze({ kind: 'suspended', phase: shown().phase.kind });
+    if (paused || reduced || compact || offscreen) {
       poster = inflated; pendingPointer = pendingAction = null; guarded(() => { draw(); notify(); });
       return Object.freeze({ kind: 'static-poster', phase: shown().phase.kind });
     }
@@ -263,8 +263,8 @@ export function mountPufferfish(canvas: HTMLCanvasElement, legacy: PufferfishLeg
     invite(x = 0, y = -0.25) {
       alive(); if (!director) throw new Error('Enable director before inviting an actor');
       finite(x, -1, 1, 'invite x'); finite(y, -1, 1, 'invite y');
-      if (blocked()) return Object.freeze({ kind: 'suspended', phase: shown().phase.kind });
-      if (paused || reduced || compact) {
+      if (hidden || zeroSized || destroyed) return Object.freeze({ kind: 'suspended', phase: shown().phase.kind });
+      if (paused || reduced || compact || offscreen) {
         poster = false; posterInvitation = { x, y }; pendingPointer = pendingAction = null;
         guarded(() => { draw(); notify(); });
         return Object.freeze({ kind: 'static-poster', phase: shown().phase.kind });

@@ -358,3 +358,20 @@ test('narrow trios keep every inflated selection pickable with bounded geometry 
   assert.equal(painter.draw(initial.actors[0].state, true).sceneScale, 1, 'original solo geometry is unaffected');
   painter.dispose();
 });
+
+ test('explicit below-canvas controls compose offscreen stills without advancing time', () => {
+ const env = fakeBrowser(), controller = mount(env, {paused:true});
+ env.intersect(env.canvas, false);
+ const tick = controller.getDirectorSnapshot().tick;
+ assert.equal(controller.approach().kind, 'static-poster');
+ assert.equal(controller.getStatus().phase, 'holding');
+ assert.equal(env.rafs.size, 0);
+ env.intersect(env.canvas, true);
+ assert.equal(controller.getStatus().phase, 'holding');
+ assert.equal(controller.getDirectorSnapshot().tick, tick);
+ env.intersect(env.canvas, false);
+ assert.equal(controller.invite().kind, 'static-poster');
+ assert.equal(controller.getStatus().director.actors[0].motive, 'invited');
+ assert.equal(env.rafs.size, 0);
+ controller.destroy();
+});
