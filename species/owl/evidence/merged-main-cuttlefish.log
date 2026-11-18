@@ -1,0 +1,101 @@
+Geometry passed {"cases":60,"samples":4663240,"maxSamples":23764,"minNear":0.6553875562328777}
+{
+  "geometry": {
+    "cases": 60,
+    "samples": 4748048,
+    "maxSamples": 23764,
+    "minNear": 0.6553875562328777,
+    "clipped": 0,
+    "bad": 0
+  },
+  "targetedClick": {
+    "id": 2,
+    "sequence": [
+      "react",
+      "spray",
+      "escape",
+      "recover",
+      "idle"
+    ],
+    "firstInk": 0.35000000000000125,
+    "firstEscape": 0.9500000000000032,
+    "maxSprayTravel": 0.04500000000000011,
+    "neighborAdvanced": 9.166666666666561
+  },
+  "pauseRestart": "passed",
+  "directions": [
+    {
+      "formation": "horizontal",
+      "reverse": false,
+      "delta": [
+        0.04056251076739059,
+        0,
+        0
+      ]
+    },
+    {
+      "formation": "horizontal",
+      "reverse": true,
+      "delta": [
+        -0.04056251076738704,
+        0,
+        0
+      ]
+    },
+    {
+      "formation": "vertical",
+      "reverse": false,
+      "delta": [
+        0,
+        -0.040562510767394144,
+        0
+      ]
+    },
+    {
+      "formation": "vertical",
+      "reverse": true,
+      "delta": [
+        0,
+        0.04056251076739237,
+        0
+      ]
+    },
+    {
+      "formation": "diagonal",
+      "reverse": false,
+      "delta": [
+        0.028682026425576712,
+        -0.028682026425576712,
+        0
+      ]
+    },
+    {
+      "formation": "diagonal",
+      "reverse": true,
+      "delta": [
+        -0.02868202642557449,
+        0.02868202642557449,
+        0
+      ]
+    },
+    {
+      "formation": "random",
+      "reverse": false,
+      "delta": [
+        0.021855790349431192,
+        0.013345249409940307,
+        0.003877614402798546
+      ]
+    },
+    {
+      "formation": "random",
+      "reverse": true,
+      "delta": [
+        -0.021855790349431192,
+        -0.013345249409940307,
+        -0.003877614402798546
+      ]
+    }
+  ],
+  "encounterHold": "passed"
+}

@@ -4,7 +4,7 @@
 
 The local library candidate keeps the existing cuttlefish's Canvas 2D implementation and exposes its constructor/factory through a per-animal subpath. It does not yet define a universal animal plugin API. `./core` contains scheduling support; its existence does not imply a DOM-free simulation model. The import base is `7e5984d34a139b8de4643f1ed0607897a42d88dc`, whose imported blobs match the local snapshot inspected at `afcce9941c5fa13ca5c658564e73388e603dff14`. It is newer than accessible saved site version 4. See [API.md](API.md) for exact source and candidate distinctions.
 
-Adding the next animal should help discover the smallest reusable contract. Avoid forcing a radically different creature into cuttlefish-specific fields such as `encounterGrip`, beak geometry, fin roles, or ink response. Likewise, do not import a registry of every species merely to construct one cuttlefish.
+Adding the next animal should help discover the smallest reusable contract. Avoid forcing a radically different creature into cuttlefish-specific fields such as `encounterGrip`, beak geometry, fin roles, or ink response. The accepted marine integration currently bundles three related geometries in the shared renderer for coherent mixed-species occlusion. This bounded tradeoff is measured in [SPECIES.md](SPECIES.md); do not generalize it into an unbounded all-species registry.
 
 ## Suggested addition workflow
 
@@ -14,7 +14,7 @@ Adding the next animal should help discover the smallest reusable contract. Avoi
 4. Reuse lifecycle behavior through a documented host or tested utility. Do not copy the old self-rescheduling RAF loop into every species.
 5. Test import without DOM globals, independent instances, deterministic controlled stepping, disposal, hidden/zero-size suspension, bounds, and pointer normalization.
 6. Review visual anatomy and motion in the browser at low/default/high density, small/large viewports, supported palettes, and relevant reactions. Numerical finiteness does not establish appearance or biological plausibility.
-7. Pack and consume from the tarball. Demonstrate that importing cuttlefish does not pull the new species or React into its bundle. Add one parameterized benchmark scenario for the new animal, rather than duplicate a benchmark framework.
+7. Pack and consume from the tarball. Record exactly which implementations each entry imports. The current marine entry includes its three built-ins; unrelated species/adapters should have isolated entries. Core-only imports must exclude animal code and React. Add one parameterized benchmark scenario for the new animal, rather than duplicate a benchmark framework.
 8. Update the root catalog and guide only when those files and tests exist. Avoid README claims about unimplemented animals.
 
 The reusable authoring skill (Track 1) should own creative/anatomical validation. The library workstream owns runtime contracts, packaging, resource limits, tests, and compatibility. The new-animal workstream should consume those contracts. This division avoids three overlapping tickets for the same integration task.

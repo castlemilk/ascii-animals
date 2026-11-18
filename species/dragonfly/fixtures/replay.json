@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "speciesVersion": "dragonfly-v1",
+  "options": { "seed": 17, "motion": "full" },
+  "ticks": 360,
+  "events": [
+    { "type": "pointer", "tick": 45, "seq": 0, "x": 0.7, "y": -0.3 },
+    { "type": "dart", "tick": 100, "seq": 1 },
+    { "type": "leave", "tick": 180, "seq": 2 },
+    { "type": "pointer", "tick": 280, "seq": 3, "x": -0.6, "y": 0.4 },
+    { "type": "dart", "tick": 330, "seq": 4 }
+  ]
+}

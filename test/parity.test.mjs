@@ -17,7 +17,7 @@ function legacy(host) {
 }
 const digest = buffer => createHash('sha256').update(new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength)).digest('hex');
 const snapshot = a => JSON.parse(JSON.stringify({ time: a.time, elapsed: a.elapsed,
-  fish: a.fish, ink: a.ink, sampleCount: a.sampleCount,
+  fish: a.fish.map(({species, definition, moduleSeed, speciesState, ...state}) => state), ink: a.ink, sampleCount: a.sampleCount,
   sampleHash: digest(a.samples), depthHash: digest(a.depth), ownersHash: digest(a.owners), glyphHash: digest(a.glyphs) }));
 
 test('fixed input/time sequences preserve imported geometry, ownership and ink state', () => {

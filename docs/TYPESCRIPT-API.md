@@ -8,7 +8,7 @@ export declarations. TypeScript is a pinned development dependency, never runtim
 ## Configuration
 
 `ArtworkOptions` covers every implemented cuttlefish option in `docs/API.md`, plus
-`species: 'cuttlefish'`. `DEFAULT_OPTIONS` is an immutable default snapshot.
+`species: 'cuttlefish' | 'manta' | 'octopus'`, immutable `speciesByAnimal` overrides and an integer `seed`. See [SPECIES.md](SPECIES.md) for mixed-school behavior. `DEFAULT_OPTIONS` is an immutable default snapshot.
 `normalizeOptions(options)` validates and copies without reading a DOM.
 `getOptions()` returns a fresh immutable snapshot with the actual pause state.
 
@@ -23,7 +23,7 @@ Scene and formation changes reset choreography and ink; changed roles reset thei
 animal. Size, shading and performance changes preserve existing simulation time.
 The full normalized snapshot is provided by `getOptions`; do not mutate legacy
 renderer internals. Palette names, font stack, glyph repertoire and background are
-currently renderer-defined: arbitrary fonts/colors/species are not claimed.
+currently renderer-defined: arbitrary fonts/colors or third-party species plugins are not claimed.
 
 ## Ownership and lifecycle
 

@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/castlemilk/ascii-animals",
+  "branch": "feat/animal-frog",
+  "baseCommit": "0e446c47b491b751d484e40db753ec725652b515",
+  "authoringLocalCommit": "a7c4b789ccd441a12bf0c62ac9efafa4e6bfbfef",
+  "skillReviewedCommit": "e721252075a30888198aafba0953a23fd07bd3c6",
+  "pr2ReadOnlyHead": "8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1",
+  "baseFileSha256": {
+    "dist/artwork.js": "381f4706bc07761e6d1e162c95ceee97c42dd687ea19469ecb4f79885bd34e91",
+    "dist/app.js": "91b2677b43b51a3b6fc36c2c21c98f376ae83f9f70d78aaca3aceb30996a4669",
+    "dist/cuttlefish.html": "edd0bc75c960c24e04d94864e750bf8ce5b254ae818d6af74b3a5f001062c5f2",
+    "scripts/check-engine.cjs": "6b2ffa522510786d691be45c60214c25c074df5de30163fff011e8c1b1890db3",
+    "README.md": "2d090ab6084d41e3aacce65f6153529fc84f72c820d7b764296b063126b18489"
+  },
+  "files": [
+    {
+      "path": "species/frog/.gitattributes",
+      "bytes": 118,
+      "sha256": "a5544530c423eed7da6ff621cf2ede5802da8f53ac9bd7bd1013f0825c9d5a90"
+    },
+    {
+      "path": "species/frog/.gitignore",
+      "bytes": 126,
+      "sha256": "0e3febf180b104ed209fb9830fafa80c409781992298bb3b9d6e7c6b2a44393a"
+    },
+    {
+      "path": "species/frog/AUTHORING.md",
+      "bytes": 15095,
+      "sha256": "66e2130661bb4cf9c45760bed982830d86e5494cbbeb0cdf3ef89dd4ef2b2d27"
+    },
+    {
+      "path": "species/frog/EVIDENCE.md",
+      "bytes": 13363,
+      "sha256": "82e009add433e0f0538969e05b9a8cc3ae46e5cd31dc3b115eec96193ee8ea9d"
+    },
+    {
+      "path": "species/frog/INTEGRATION.md",
+      "bytes": 8918,
+      "sha256": "5f15ab090cd26659890dfd5396beba3d3fc1dce6b82d8fc2ebe08ef3c9230168"
+    },
+    {
+      "path": "species/frog/PR.md",
+      "bytes": 6704,
+      "sha256": "1a4a3775d4869669ccf7e9d36078dae005d5e9b456711eed7231e9034a038824"
+    },
+    {
+      "path": "species/frog/README.md",
+      "bytes": 9649,
+      "sha256": "52a99728b46a3a25f7f4cc35275665b482397b0324db4e8dba1a4ce0d897d991"
+    },
+    {
+      "path": "species/frog/authoring.json",
+      "bytes": 8387,
+      "sha256": "2cba149f12a0b94fe6616ea6af435208706845202a3961c7e38c0fa7e8cf0e40"
+    },
+    {
+      "path": "species/frog/demo/index.html",
+      "bytes": 4532,
+      "sha256": "5e92fc8a6d23d656780f4c3015bec5db81f3a8fe13c2fc84a8eef5105fbb1f0b"
+    },
+    {
+      "path": "species/frog/demo/styles.css",
+      "bytes": 4438,
+      "sha256": "cb43294d6bf808f62cf48ddc01998d2aad0b8db4de6a7b59fa8363a8aa9ac9a5"
+    },
+    {
+      "path": "species/frog/evidence/authoring-validation.json",
+      "bytes": 169,
+      "sha256": "95dbaef752a37bd077a01ad89c56a694077c7ff744efdc9d5988c647c8b64448"
+    },
+    {
+      "path": "species/frog/evidence/browser-attempt.json",
+      "bytes": 5018,
+      "sha256": "1c6a7202ca5ca884f454ee0677efaf51f70fb4b6dfc52fa47d09da708be0eccc"
+    },
+    {
+      "path": "species/frog/evidence/critique-before/contact-sheet.png",
+      "bytes": 206410,
+      "sha256": "c6693871c438e603c9c818394134e6f1738c205d9d66cb20cd92056686a883f9"
+    },
+    {
+      "path": "species/frog/evidence/critique-before/poster.png",
+      "bytes": 50639,
+      "sha256": "a09f4e5c51dcc655abe3102c5b995f1e3badda6d1f1f7a57bcc3151ad808ef2d"
+    },
+    {
+      "path": "species/frog/evidence/critique-before/silhouette-front.png",
+      "bytes": 4008,
+      "sha256": "ffbdd0217aec6892410d0af897c2749d9a34b025cbe880f6c902a67bf84eac8f"
+    },
+    {
+      "path": "species/frog/evidence/frog-contact-sheet.png",
+      "bytes": 204167,
+      "sha256": "209c98240c547347b9a0b594b023aa01d6b7446d03debcd3c90127cc48ff1183"
+    },
+    {
+      "path": "species/frog/evidence/frog-leap.gif",
+      "bytes": 1159748,
+      "sha256": "7173791510e40679a68ebf7b438615e7f1185e467fcf2c2f805a68fad457650f"
+    },
+    {
+      "path": "species/frog/evidence/frog-poster.png",
+      "bytes": 49417,
+      "sha256": "08659c4ed55f829911ffcba1a424df1ecf0e066c07296dfa8a1793ae625dcca0"
+    },
+    {
+      "path": "species/frog/evidence/frog-specimen.txt",
+      "bytes": 11600,
+      "sha256": "0fdf42316f9949feb789dd9180d050229d95756c98e533525e9d5e5872b80bb0"
+    },
+    {
+      "path": "species/frog/evidence/legacy-regression.log",
+      "bytes": 1895,
+      "sha256": "7b8639033b4dda19e45dadb4585cce2e43b9e3d3cbe0d206ce4701cd96611ebb"
+    },
+    {
+      "path": "species/frog/evidence/native-capture.json",
+      "bytes": 14231,
+      "sha256": "89d4be0ffefd469fbb1abbdae0131337012e50f0b7383277ab8941a43bd2d6ea"
+    },
+    {
+      "path": "species/frog/evidence/replay.json",
+      "bytes": 809,
+      "sha256": "4a8b4681b2207c64b66f8cdb7cae6d3465dd38de54c90b766a2a77b8e0ff74ca"
+    },
+    {
+      "path": "species/frog/evidence/silhouette-front.png",
+      "bytes": 3957,
+      "sha256": "96bf3cdbc993c9007b328e1bb8824eb4c17f472f930928df6f9f46d6543bb2ca"
+    },
+    {
+      "path": "species/frog/evidence/silhouette-left.png",
+      "bytes": 3821,
+      "sha256": "1bba75452dd3f6cf2d72aa1496fb01c2b968f345d0f9bc42f9124dd92342f3ab"
+    },
+    {
+      "path": "species/frog/evidence/silhouette-profile.png",
+      "bytes": 3805,
+      "sha256": "e2bf8c2a4648813cc9e1b41676c481f6339cbda0343ede8744771816c1462dc3"
+    },
+    {
+      "path": "species/frog/evidence/silhouette-right.png",
+      "bytes": 3776,
+      "sha256": "6b3ac0ce56994a5d9c1e3e54438b17de5eec64931ecf311f5f3de2e0311a1c49"
+    },
+    {
+      "path": "species/frog/evidence/tests-demo.log",
+      "bytes": 296,
+      "sha256": "747def0bb1133eaddadf85e9fc905fb0c6d62f6fe99885798121b8b4c92fe6ce"
+    },
+    {
+      "path": "species/frog/evidence/tests-native.log",
+      "bytes": 684,
+      "sha256": "86d339bed4c5d2a5c9cbf44bc2f26b3744abd82829a9d63c6b2451a481623b01"
+    },
+    {
+      "path": "species/frog/evidence/tests-node.log",
+      "bytes": 3348,
+      "sha256": "c66549fe8573c38612624721c9f409356c8ab3583f72e697b5af8e693c1e28c0"
+    },
+    {
+      "path": "species/frog/evidence/types.log",
+      "bytes": 65,
+      "sha256": "6496a540e3db1ff8a0e84f99ccbae69a404b7ebfbface5c475ec38b921fcbaf0"
+    },
+    {
+      "path": "species/frog/generated/controller.d.mts",
+      "bytes": 257,
+      "sha256": "5dc239e187eecb2d39b9c8f5d8ccc38f20c3d08350f94c4e6a3e522936981013"
+    },
+    {
+      "path": "species/frog/generated/controller.mjs",
+      "bytes": 13924,
+      "sha256": "20188317666a5bf0a11f80f76a328c4dba5b33c258ed7619304e684b6f0c3e2e"
+    },
+    {
+      "path": "species/frog/generated/demo.d.mts",
+      "bytes": 11,
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "species/frog/generated/demo.mjs",
+      "bytes": 3109,
+      "sha256": "ee922dbc0f866b6f4c2899f2babfaa2381c44f0929bfd8de33dc48e0c296c369"
+    },
+    {
+      "path": "species/frog/generated/frog.d.mts",
+      "bytes": 2423,
+      "sha256": "dc4322e60d4203168d1ce402ccbbdd1ee52f90a86f91125a7284c7d7866a5d26"
+    },
+    {
+      "path": "species/frog/generated/frog.mjs",
+      "bytes": 10800,
+      "sha256": "3ce29526ef220de0ffd3dd933cba165dea4427804ecc5f4b19f57ad93b2c49b6"
+    },
+    {
+      "path": "species/frog/generated/geometry.d.mts",
+      "bytes": 648,
+      "sha256": "402a1811e0b6532714cada945852e16e6b20af32c4e33916967418d318196423"
+    },
+    {
+      "path": "species/frog/generated/geometry.mjs",
+      "bytes": 11482,
+      "sha256": "b848ae3043aa22b7fc16cc40aa562cc6a4d203e2430e8d3c9be4d6838f3c5d35"
+    },
+    {
+      "path": "species/frog/generated/index.d.mts",
+      "bytes": 426,
+      "sha256": "e0b70f4873b3f9d79dfdefbda701933f308d86823f88ce971fb45369c12ae876"
+    },
+    {
+      "path": "species/frog/generated/index.mjs",
+      "bytes": 493,
+      "sha256": "56f551c77087571bae56c5b6ff03ada96f08c822d15517ff03d842f4e11e3614"
+    },
+    {
+      "path": "species/frog/generated/legacy-preview.d.mts",
+      "bytes": 605,
+      "sha256": "6ce98e8055557bd8ffa98d8137002fd1755115def7cd10eb8b49abd2c45c30ef"
+    },
+    {
+      "path": "species/frog/generated/legacy-preview.mjs",
+      "bytes": 8772,
+      "sha256": "277980ec184a420a256398e4afd48e43799ab7645ea5454cfc4b83b411169f40"
+    },
+    {
+      "path": "species/frog/generated/types.d.mts",
+      "bytes": 6409,
+      "sha256": "d0f7ccb79caec0a2d7bf646cd14c3a097247c864b52e35f9696281d19707fc7b"
+    },
+    {
+      "path": "species/frog/generated/types.mjs",
+      "bytes": 11,
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "species/frog/scripts/browser-smoke.mjs",
+      "bytes": 4979,
+      "sha256": "fdbaebcd2bf3677f62093a887f0ba53dd86ce9354e55db0946cc4d93ccb5ff51"
+    },
+    {
+      "path": "species/frog/scripts/build.mjs",
+      "bytes": 976,
+      "sha256": "831d030846765183e9ab7c673a0360dc5b71b48471c08e3d729aaae2570526fb"
+    },
+    {
+      "path": "species/frog/scripts/native-host.mjs",
+      "bytes": 1989,
+      "sha256": "cb6effffe16fe372c7527ad9a76f8af32f05fc55dc7a856d4e37b9f429f7f033"
+    },
+    {
+      "path": "species/frog/scripts/render-evidence.mjs",
+      "bytes": 4133,
+      "sha256": "8c7f3feda32fe612e02568a469ce2146acf6661abc9a7a3d57d18a67514f86a2"
+    },
+    {
+      "path": "species/frog/src/controller.mts",
+      "bytes": 12535,
+      "sha256": "5cdf50377a026527c4983ae4894f182e5b449ad943db27dc12bb455828f7f88b"
+    },
+    {
+      "path": "species/frog/src/demo.mts",
+      "bytes": 3488,
+      "sha256": "e8c1cc96d9c3e25d0d9c220592dd89631f7f9977a929ec956050e365380e5c05"
+    },
+    {
+      "path": "species/frog/src/frog.mts",
+      "bytes": 11202,
+      "sha256": "4d7bb680eb38cb349997a9229dae1c7e6a115f047acffb5e9d084755c14e0772"
+    },
+    {
+      "path": "species/frog/src/geometry.mts",
+      "bytes": 11764,
+      "sha256": "bb4976f20f4e3433b1a57697e273b3a48e73d7ced7709d4fb0ad568d94d4f262"
+    },
+    {
+      "path": "species/frog/src/index.mts",
+      "bytes": 673,
+      "sha256": "8c65003bbbbde53d8c5d972b9346dec5a629dd6b59ab00d6e4c2ef231fe7a98a"
+    },
+    {
+      "path": "species/frog/src/legacy-preview.mts",
+      "bytes": 9726,
+      "sha256": "58c835ec208d96eab5fc6dbbf2dcac7649bc86a408aa5a7fa6248f04e1b6dfe3"
+    },
+    {
+      "path": "species/frog/src/types.mts",
+      "bytes": 6036,
+      "sha256": "d7c7dd6fcff43036e36b2d797528b0c66cc1e855bfb318b12eb0e8d6e265d1d9"
+    },
+    {
+      "path": "species/frog/tests/core.test.mjs",
+      "bytes": 19225,
+      "sha256": "296f59115da0949a112bad5a3e37b8d8ebd4d2d095891fd4682f4cfdf600de61"
+    },
+    {
+      "path": "species/frog/tests/demo.test.mjs",
+      "bytes": 1754,
+      "sha256": "5545da63818f15fad2afcb99a139c65a7aa931be2ffc7a0b3b3ffe4175b4d452"
+    },
+    {
+      "path": "species/frog/tests/fake-host.mjs",
+      "bytes": 4506,
+      "sha256": "a8395f8b6231065c7ff7c0f9727e5e588c52c30a00184b58e1bd58884a0b8236"
+    },
+    {
+      "path": "species/frog/tests/geometry.test.mjs",
+      "bytes": 5096,
+      "sha256": "9862b38d8857ac4098a783f7fcaabd8929491b7e75533802ee6c28f1b997f0eb"
+    },
+    {
+      "path": "species/frog/tests/lifecycle.test.mjs",
+      "bytes": 13117,
+      "sha256": "37fde82370fa97bfa40544a70783422880e4bbf54e53f46af940069c32807988"
+    },
+    {
+      "path": "species/frog/tests/native-preview.test.mjs",
+      "bytes": 4789,
+      "sha256": "76e37638e5011fb88dfaa1752553763947d81a3a5b45a8d00bb8dec34835c1dc"
+    },
+    {
+      "path": "species/frog/tests/tsconfig.json",
+      "bytes": 204,
+      "sha256": "ce1ec4cb33721c7debdc91bbe92e7279588d8245af1959d567a7bba8445988cd"
+    },
+    {
+      "path": "species/frog/tests/types.mts",
+      "bytes": 7060,
+      "sha256": "ca4f832ef2297c180153f2d9792dec2c8a8501be5e88ac494390e50a182f2755"
+    },
+    {
+      "path": "species/frog/tsconfig.json",
+      "bytes": 449,
+      "sha256": "6dae65b6d5f2be5eb387cca623fa577b6ce43d495a4ebb0c60a4c145c249a9a8"
+    }
+  ],
+  "excluded": [
+    "source-manifest.json self hash",
+    "regenerable evidence/frames/*.png"
+  ],
+  "evidenceClasses": [
+    "pure numerics",
+    "injected lifecycle doubles",
+    "static demo source checks",
+    "actual native Canvas",
+    "browser blocked at launch"
+  ],
+  "license": "No new license grant; owner decision",
+  "pr4ReadOnlyHead": "5015dbcffb75b1036b21b4b8e3e65bf0697a46f1"
+}

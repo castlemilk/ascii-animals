@@ -16,6 +16,10 @@ test('global and standalone artifacts are generated from the canonical modules',
   assert(!standalone.includes('<script src="app.js"'));
   assert(standalone.includes('<style>\n:root{'));
   assert(!standalone.includes('fonts.googleapis.com'));
+  const animals = await readFile(new URL('../dist/animals-standalone.html', import.meta.url), 'utf8');
+  assert(animals.includes(global.replaceAll('</script', '<\\/script')));
+  assert(!animals.includes('<script src='));
+  assert(!animals.includes('<link rel="stylesheet"'));
   assert(standalone.includes('body{margin:0;background:var(--bg)'));
   const source = await readFile(new URL('../dist/app.js', import.meta.url), 'utf8');
   assert(source.includes("fetch('artwork.js')"));

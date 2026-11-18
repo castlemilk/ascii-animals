@@ -1,0 +1,2 @@
+# Butterfly provenance
+New original procedural geometry; unavailable Pro-chat source was not recovered. Lifecycle follows validated local species pattern. Four independently defined wing lobes, ornamental eyespots/veins/edge markings, thorax/segmented abdomen, six legs and clubbed antennae. Projection remains at least38% open for small-grid recognition. A stylized butterfly, not a named species or biological simulation.

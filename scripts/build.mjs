@@ -1,3 +1,12 @@
+import { buildGeckoPackage, buildGeckoDemo } from './build-gecko.mjs';
+import { buildDragonflyPackage, buildDragonflyDemo } from './build-dragonfly.mjs';
+import { buildPufferfishPackage, buildPufferfishDemo } from './build-pufferfish.mjs';
+import { buildFrogPackage, buildFrogDemo } from './build-frog.mjs';
+import {buildOwlPackage,buildOwlDemo} from './build-owl.mjs';
+import {buildButterflyDemo} from './build-butterfly.mjs';
+import {buildTurtleDemo} from './build-turtle.mjs';
+import {buildCrabDemo} from './build-crab.mjs';
+import { buildSeahorseDemo } from './build-seahorse.mjs';
 import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
 import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
@@ -28,6 +37,11 @@ async function copyTree(from, to, suffix) {
 await copyTree(path.join(root, 'src'), output, '.js');
 await copyTree(path.join(root, 'types'), output, '.d.ts');
 await buildFoxPackage();
+await buildDragonflyPackage();
+await buildGeckoPackage();
+await buildPufferfishPackage();
+await buildFrogPackage();
+await buildOwlPackage();
 execFileSync(process.execPath, [path.join(root, 'node_modules/typescript/bin/tsc'), '-p', path.join(root, 'tsconfig.json')], { stdio: 'inherit' });
 const metadata = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 for (const [subpath, conditions] of Object.entries(metadata.exports)) {
@@ -38,4 +52,13 @@ for (const [subpath, conditions] of Object.entries(metadata.exports)) {
 }
 const demo = await buildDemo();
 const fox = await buildFoxDemo();
-console.log(JSON.stringify({ demo, fox, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
+const dragonfly = await buildDragonflyDemo();
+const gecko = await buildGeckoDemo();
+const pufferfish = await buildPufferfishDemo();
+const frog = await buildFrogDemo();
+const owl=await buildOwlDemo();
+const seahorse = await buildSeahorseDemo();
+await buildCrabDemo();
+await buildTurtleDemo();
+await buildButterflyDemo();
+console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, seahorse, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

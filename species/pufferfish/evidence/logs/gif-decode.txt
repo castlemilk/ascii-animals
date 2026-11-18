@@ -1,0 +1,1 @@
+GIF decoded: 278 frames, 18500ms; intended simulation cadence, not rendering throughput

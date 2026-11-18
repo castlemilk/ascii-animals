@@ -71,6 +71,15 @@ typedArtwork.getOptions().behaviors.push('hover');
 // @ts-expect-error manual time is numeric
 typedArtwork.advance('0.1');
 
+const mantaConfig: ArtworkOptions = {species:'manta', speciesByAnimal:['manta','octopus','cuttlefish'],seed:17};
+createArtwork(document.createElement('canvas'),mantaConfig);
+createArtwork(document.createElement('canvas'),{species:'octopus'});
+// @ts-expect-error only implemented species are valid
+createArtwork(document.createElement('canvas'),{speciesByAnimal:['dragon']});
+
+import type {Species} from 'ascii-animals-review';
+const species: Species = 'octopus';
+void species;
 import { createFoxArtwork as rootFox } from 'ascii-animals-review';
 import { createFoxArtwork, createFox, type FoxArtwork, type FoxInput } from 'ascii-animals-review/fox';
 const fox: FoxArtwork = createFoxArtwork(document.createElement('canvas'), { fox: { seed: 17, tailSway: .1 } });
@@ -88,3 +97,92 @@ fox.advance(.1);
 fox.showStaticPose('dance');
 // @ts-expect-error callback input batches are readonly
 createFoxArtwork(document.createElement('canvas'), { onInputs(batch) { batch.push(input); } });
+
+import { createDragonflyArtwork, createDragonfly, type DragonflyInput } from 'ascii-animals-review/dragonfly';
+const dragonfly = createDragonflyArtwork(document.createElement('canvas'), { model: { seed: 17, motion: 'slow' }, view: 'dorsal' });
+dragonfly.update({ wingAmplitude: .3 }); dragonfly.setTarget(.5, .1); dragonfly.dart();
+dragonfly.pause(); dragonfly.restart(); dragonfly.play(); dragonfly.setNeutral(true);
+dragonfly.setView('oblique'); dragonfly.exportText(); dragonfly.dispose();
+const dragonflyModel = createDragonfly({ seed: 17 });
+const dragonflyInput: DragonflyInput = { type: 'dart', tick: 1, seq: 0 };
+dragonflyModel.step(1, [dragonflyInput]); dragonflyModel.dispose();
+// @ts-expect-error seed changes use reset, not configure
+dragonfly.update({ seed: 4 });
+// @ts-expect-error unsupported species-specific interaction
+dragonfly.pounce();
+// @ts-expect-error unsupported projection
+dragonfly.setView('front');
+// @ts-expect-error motion mode is a finite named union
+dragonfly.update({ motion: 'hyper' });
+
+import { createGeckoArtwork, createGecko } from 'ascii-animals-review/gecko';
+const gecko = createGeckoArtwork(document.createElement('canvas'), { config: { seed: 7, options: { creepSpeed: .1 } }, view: { neutral: true } });
+gecko.guide(.3, .2); gecko.startle(); gecko.update({ curlStrength: .8 }); gecko.pause(); gecko.restart(); gecko.play(); gecko.dispose();
+const geckoModel = createGecko({ seed: 7 }); geckoModel.step([]); geckoModel.dispose();
+// @ts-expect-error seed changes use reset
+gecko.update({ seed: 9 });
+// @ts-expect-error wrong species interaction
+gecko.dart();
+// @ts-expect-error grid is structured, not a named preset
+gecko.setView({ grid: 'small' });
+import {createPufferfishArtwork as rootPufferfish} from 'ascii-animals-review';
+import {createPufferfishArtwork,createPufferfish,stepPufferfish,type PufferfishArtwork} from 'ascii-animals-review/pufferfish';
+const puff:PufferfishArtwork=createPufferfishArtwork(document.createElement('canvas'),{species:{seed:17,inflationScale:1.6},render:{view:'front',quality:'fine'},paused:true});
+puff.update({wobble:.2});puff.configureRender({view:'left'});puff.pause();puff.play();puff.restart();puff.pulse();puff.retreat();puff.getOptions();puff.exportText();puff.dispose();
+const samePuffer:typeof createPufferfishArtwork=rootPufferfish;
+const pufferState=stepPufferfish(createPufferfish({seed:17}),{tick:1,events:[]});
+// @ts-expect-error no marine formation support
+puff.update({formation:'diagonal'});
+// @ts-expect-error explicit puffer quality enum
+puff.configureRender({quality:'ultra'});
+// @ts-expect-error readonly configuration snapshot
+puff.getOptions().seed=3;
+// @ts-expect-error fixed-tick model is not an elapsed-seconds artwork API
+puff.advance(.1);
+import { createFrogArtwork, createFrog, stepFrog } from 'ascii-animals-review/frog';
+const frog = createFrogArtwork(document.createElement('canvas'), {config:{jumpHeight:.7}, paused:true});
+frog.target({x:.4,y:.1}); frog.pulse(); frog.update({flightTicks:42}); frog.pause(); frog.dispose();
+stepFrog(createFrog({seed:23}),1);
+// @ts-expect-error invalid view
+createFrogArtwork(document.createElement('canvas'), {preview:{view:'orbit'}});
+// @ts-expect-error invalid config property
+frog.update({wingSpan:1});
+import {createOwlArtwork} from 'ascii-animals-review/owl';
+const owl=createOwlArtwork(document.createElement('div'),{owl:{headYawLimitDeg:30},paused:true});
+owl.guide(.2,.1);owl.pulse();owl.update({reactionStrength:.5});owl.pause();owl.dispose();
+// @ts-expect-error invalid config
+owl.update({wingSpan:1});
+// @ts-expect-error fixed DOM cell aspect
+createOwlArtwork(document.createElement('div'),{grid:{cellAspect:1}});
+import {createSeahorseArtwork,createSeahorseModel,type SeahorseOptions} from 'ascii-animals-review/seahorse';
+import {createSeahorseArtwork as rootSeahorse} from 'ascii-animals-review';
+const horseOptions={behavior:'holdfast',palette:'brass',columns:100} satisfies SeahorseOptions;
+const horse=createSeahorseArtwork(document.createElement('canvas'),horseOptions);
+const sameHorse:typeof createSeahorseArtwork=rootSeahorse;
+horse.update({facing:'right',scale:1.1});horse.pause();horse.play();horse.restart();horse.pulse();horse.guide(0,.3);horse.getFrame();horse.dispose();
+const horseModel=createSeahorseModel();horseModel.advanceTicks(10);horseModel.greet();
+// @ts-expect-error seahorse does not pretend to support marine ink or formations
+horse.update({formation:'diagonal'});
+// @ts-expect-error only supported behavior values
+horse.update({behavior:'pounce'});
+// @ts-expect-error snapshots immutable
+horse.getOptions().speed=3;
+// @ts-expect-error explicit integer tick API uses numbers
+horseModel.advanceTicks('10');
+
+import {createCrabModel,createCrabArtwork} from 'ascii-animals-review/crab';
+const crabModel=createCrabModel({behavior:'guard',scale:1});
+crabModel.guide(1,0);
+// @ts-expect-error unrelated cuttlefish formation is not a crab option
+createCrabModel({formation:'orbit'});
+void createCrabArtwork;
+
+import {createTurtleModel} from 'ascii-animals-review/turtle';
+createTurtleModel({behavior:'glide'}).greet();
+// @ts-expect-error turtle does not accept crab behavior
+createTurtleModel({behavior:'scuttle'});
+
+import {createButterflyModel} from 'ascii-animals-review/butterfly';
+createButterflyModel({behavior:'perch'}).greet();
+// @ts-expect-error butterfly does not accept turtle behavior
+createButterflyModel({behavior:'glide'});

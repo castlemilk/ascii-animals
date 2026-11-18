@@ -27,6 +27,51 @@
       "types": "./lib/public/fox.d.ts",
       "import": "./lib/public/fox.js",
       "default": "./lib/public/fox.js"
+    },
+    "./dragonfly": {
+      "types": "./lib/public/dragonfly.d.ts",
+      "import": "./lib/public/dragonfly.js",
+      "default": "./lib/public/dragonfly.js"
+    },
+    "./gecko": {
+      "types": "./lib/public/gecko.d.ts",
+      "import": "./lib/public/gecko.js",
+      "default": "./lib/public/gecko.js"
+    },
+    "./pufferfish": {
+      "types": "./lib/public/pufferfish.d.ts",
+      "import": "./lib/public/pufferfish.js",
+      "default": "./lib/public/pufferfish.js"
+    },
+    "./frog": {
+      "types": "./lib/public/frog.d.ts",
+      "import": "./lib/public/frog.js",
+      "default": "./lib/public/frog.js"
+    },
+    "./owl": {
+      "types": "./lib/public/owl.d.ts",
+      "import": "./lib/public/owl.js",
+      "default": "./lib/public/owl.js"
+    },
+    "./seahorse": {
+      "types": "./lib/public/seahorse.d.ts",
+      "import": "./lib/public/seahorse.js",
+      "default": "./lib/public/seahorse.js"
+    },
+    "./crab": {
+      "types": "./lib/public/crab.d.ts",
+      "import": "./lib/public/crab.js",
+      "default": "./lib/public/crab.js"
+    },
+    "./turtle": {
+      "types": "./lib/public/turtle.d.ts",
+      "import": "./lib/public/turtle.js",
+      "default": "./lib/public/turtle.js"
+    },
+    "./butterfly": {
+      "types": "./lib/public/butterfly.d.ts",
+      "import": "./lib/public/butterfly.js",
+      "default": "./lib/public/butterfly.js"
     }
   },
   "sideEffects": false,
@@ -41,13 +86,13 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs",
+    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs species/gecko/test/*.test.mjs species/pufferfish/tests/*.test.mjs species/frog/tests/core.test.mjs species/frog/tests/geometry.test.mjs species/frog/tests/lifecycle.test.mjs species/frog/tests/demo.test.mjs species/owl/tests/*.test.mjs",
     "test:legacy": "node scripts/check-engine.cjs",
     "bench:cpu": "node bench/benchmark.cjs --source src/animals/cuttlefish.js --esm --out artifacts/benchmark.json",
     "check:package": "node scripts/check-package.mjs",
     "prepublishOnly": "node -e \"throw new Error('Review candidate: publication is intentionally disabled')\"",
     "pretest": "npm run build",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/dragonfly/tsconfig.types.json && tsc -p species/gecko/test/tsconfig.json && tsc -p species/frog/tests/tsconfig.json && tsc -p species/owl/tsconfig.types.json",
     "test:fox": "node node_modules/typescript/bin/tsc -p species/fox/tsconfig.types.json && node --test species/fox/tests/*.test.mjs"
   },
   "repository": {

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="An original perched owl made of moving text. A local TypeScript species study with bounded attention and accessible controls.">
+  <title>Owl — The night watch</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <header class="masthead">
+      <a class="wordmark" href="../../../README.md">ASCII ANIMALS <span>/ FIELD NOTES</span></a>
+      <span class="edition">OWL STUDY <span class="dot" aria-hidden="true"></span> 01</span>
+    </header>
+
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">A quiet observer</p>
+        <h1 id="title">The night watch<span>.</span></h1>
+      </div>
+      <p class="intro-copy">Move gently through its field of view. The head attends;<br class="wide-only"> the feet stay planted. Invite a reaction, then let it settle.</p>
+    </section>
+
+    <section class="study" aria-label="Interactive owl study">
+      <div class="stage-panel">
+        <div class="stage-heading">
+          <span><span class="status-dot" aria-hidden="true"></span> <span id="mode">Preparing the study</span></span>
+          <span id="behavior" aria-live="off">Resting</span>
+        </div>
+        <div id="owl-host" class="owl-host" aria-describedby="interaction-help">
+          <p id="fallback" class="fallback">A broad-faced owl with two eyes, folded wings and two feet rests on a branch. The text preview loads here. If scripting is unavailable, this description remains.</p>
+        </div>
+        <div class="stage-footer">
+          <span>ORIGINAL PROCEDURAL TEXT</span>
+          <span id="grid-label">96 × 54 CELLS</span>
+        </div>
+      </div>
+
+      <aside class="director" aria-labelledby="director-title">
+        <p class="eyebrow">One animal, your attention</p>
+        <h2 id="director-title">Meet the owl.</h2>
+        <p id="interaction-help" class="help">Pointer movement guides the head. Use the controls for the same experience with a keyboard or touch.</p>
+
+        <div class="main-actions">
+          <button id="react" class="primary" type="button">Invite a reaction <span aria-hidden="true">↗</span></button>
+          <div class="playback">
+            <button id="pause" type="button" aria-pressed="false">Pause</button>
+            <button id="reset" type="button">Reset</button>
+          </div>
+        </div>
+
+        <div class="control">
+          <label for="guide">Guide its attention</label>
+          <select id="guide">
+            <option value="rest">Return to rest</option>
+            <option value="left">Look left</option>
+            <option value="right">Look right</option>
+            <option value="up">Look up</option>
+            <option value="down">Look down</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="detail">Text detail</label>
+          <select id="detail">
+            <option value="64">Small · 64 × 36</option>
+            <option value="96" selected>Standard · 96 × 54</option>
+            <option value="128">Fine · 128 × 72</option>
+            <option value="160">Maximum · 160 × 90</option>
+          </select>
+        </div>
+        <div class="control range-control">
+          <label for="head-limit">Head movement <output for="head-limit" id="head-value">34°</output></label>
+          <input id="head-limit" type="range" min="12" max="45" value="34" step="1">
+        </div>
+        <div class="control range-control">
+          <label for="reaction">Reaction strength <output for="reaction" id="reaction-value">80%</output></label>
+          <input id="reaction" type="range" min="0" max="100" value="80" step="5">
+        </div>
+
+        <p id="policy" class="policy">The wings stay folded between reactions.</p>
+        <button id="download" class="text-button" type="button">Download this text frame <span aria-hidden="true">↓</span></button>
+        <p id="announcement" class="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+      </aside>
+    </section>
+
+    <section class="notes" aria-label="About this owl">
+      <article><span class="note-number">01</span><h3>Anchored attention</h3><p>A broad facial disk turns within a restrained range. Both feet remain on the branch.</p></article>
+      <article><span class="note-number">02</span><h3>A complete gesture</h3><p>Blink, ruffle, a small paired wing stretch, then a measured return to rest.</p></article>
+      <article><span class="note-number">03</span><h3>Quiet when you need it</h3><p>Reduced motion uses still poses. Guide and React remain available without animation.</p></article>
+    </section>
+
+    <details class="text-frame" id="text-frame">
+      <summary>Inspect the selectable text frame</summary>
+      <textarea id="text-output" aria-label="Current owl text frame" readonly spellcheck="false"></textarea>
+      <button id="refresh-text" type="button">Refresh text frame</button>
+    </details>
+
+    <footer class="footer">
+      <p>Species-local review preview · TypeScript source · Seed 7</p>
+      <p>Integrated typed Owl artwork. The local package remains private and unpublished to npm.</p>
+    </footer>
+  </main>
+  <script type="module" src="./demo.mjs"></script>
+</body>
+</html>

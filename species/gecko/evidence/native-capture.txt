@@ -1,0 +1,55 @@
+{
+  "evidenceKind": "native Canvas (@napi-rs/canvas), not browser or deployed",
+  "frames": [
+    {
+      "name": "idle",
+      "tick": 0,
+      "phase": "idle",
+      "cells": 924,
+      "samples": 9260
+    },
+    {
+      "name": "approach",
+      "tick": 72,
+      "phase": "approach",
+      "cells": 835,
+      "samples": 9260
+    },
+    {
+      "name": "curl",
+      "tick": 197,
+      "phase": "startle",
+      "cells": 866,
+      "samples": 9260
+    },
+    {
+      "name": "retreat",
+      "tick": 226,
+      "phase": "retreat",
+      "cells": 871,
+      "samples": 9260
+    },
+    {
+      "name": "recovery",
+      "tick": 302,
+      "phase": "recover",
+      "cells": 870,
+      "samples": 9260
+    },
+    {
+      "name": "cooldown",
+      "tick": 410,
+      "phase": "cooldown",
+      "cells": 902,
+      "samples": 9260
+    },
+    {
+      "name": "settled",
+      "tick": 600,
+      "phase": "idle",
+      "cells": 938,
+      "samples": 9260
+    }
+  ],
+  "gif": "201 actual native Canvas frames, explicit 0..600 ticks at 20fps. Replay has a deliberate reset cut."
+}

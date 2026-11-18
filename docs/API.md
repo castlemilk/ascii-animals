@@ -1,5 +1,7 @@
 # Cuttlefish API: inspected contract and candidate boundary
 
+**Current canonical integration:** browser and package builds derive from `src/`. Supported marine species/configuration are documented in [SPECIES.md](SPECIES.md); the import provenance below describes the historical baseline, not a separate maintained renderer.
+
 This guide separates the **imported microsite engine** from the **local library candidate**. The patch base is GitHub import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`, branch `feat/cuttlefish-microsite-import`, draft PR #1. Its imported files match the inspected local snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; hosting metadata is excluded. The engine is `dist/artwork.js`, consumed by `dist/app.js` and `dist/record.html`. This source is newer than accessible saved site version 4 (`6214a09171fa328beec984edd6533c33e83ce9f1`). Site metadata links the project to the supplied conversation, but the full conversation and live runtime were not accessible. Initial main `84bd1f84fab0f5f5dec053c0d10562c10be8c188` held only `.gitignore`. Do not attribute the import's API to main or the saved site version.
 
 ## Inspected constructor

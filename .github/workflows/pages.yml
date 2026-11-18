@@ -35,6 +35,8 @@ jobs:
           python3 scripts/check-catalogue.py
           npm ci --ignore-scripts --no-audit --no-fund
           npm test
+          npm run typecheck
+          ASCII_TSC="$PWD/node_modules/typescript/lib/tsc.js" npm run check:package
           node scripts/check-authoring-bridge.mjs
           node scripts/check-engine.cjs
           python3 scripts/build-standalone.py

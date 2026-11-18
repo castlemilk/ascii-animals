@@ -1,0 +1,184 @@
+export const PUFFERFISH_LIMITS = Object.freeze({ tickRate: 60, maxTick: 2147483647,
+    maxSamples: 16000, eventsPerTick: 16, maxCatchUp: 5, spines: 42 });
+export const PUFFERFISH_DEFAULTS = Object.freeze({
+    seed: 23, approachRadius: 0.30, retreatRadius: 0.42, dwellTicks: 30,
+    bellyTicks: 42, spineTicks: 36, holdTicks: 180, recoveryTicks: 150,
+    cooldownTicks: 180, inflationScale: 1.65, wobble: 1,
+});
+const keys = Object.keys(PUFFERFISH_DEFAULTS);
+const calmPointer = Object.freeze({ active: false, x: 0, y: 0, aspect: 1 });
+const smooth = (t) => t * t * (3 - 2 * t);
+export function finite(value, low, high, name) {
+    if (typeof value !== 'number' || !Number.isFinite(value))
+        throw new TypeError(`${name} must be a finite number`);
+    if (value < low || value > high)
+        throw new RangeError(`${name} must be ${low}..${high}`);
+    return value;
+}
+export function integer(value, low, high, name) {
+    const result = finite(value, low, high, name);
+    if (!Number.isSafeInteger(result))
+        throw new RangeError(`${name} must be an integer`);
+    return result;
+}
+export function record(value, allowed, name) {
+    if (!value || typeof value !== 'object' || Array.isArray(value))
+        throw new TypeError(`${name} must be an object`);
+    for (const key of Object.keys(value))
+        if (!allowed.includes(key))
+            throw new TypeError(`${name}: unknown key ${key}`);
+}
+/** Reject, never coerce or partially apply, invalid config. Units are ticks / normalized distance. */
+export function resolvePufferfishOptions(options = {}) {
+    record(options, keys, 'options');
+    for (const key of Object.keys(options))
+        if (options[key] === undefined)
+            throw new TypeError(`${key} cannot be undefined`);
+    const result = { ...PUFFERFISH_DEFAULTS, ...options };
+    integer(result.seed, 0, 0xffffffff, 'seed');
+    finite(result.approachRadius, 0.1, 0.6, 'approachRadius');
+    finite(result.retreatRadius, 0.15, 0.9, 'retreatRadius');
+    if (result.retreatRadius <= result.approachRadius)
+        throw new RangeError('retreatRadius must exceed approachRadius');
+    for (const key of ['dwellTicks', 'bellyTicks', 'spineTicks', 'holdTicks', 'recoveryTicks', 'cooldownTicks'])
+        integer(result[key], 6, 3600, key);
+    finite(result.inflationScale, 1.3, 1.8, 'inflationScale');
+    finite(result.wobble, 0, 1, 'wobble');
+    return Object.freeze(result);
+}
+function freezeState(state) {
+    return Object.freeze({ ...state, phase: Object.freeze(state.phase), pointer: Object.freeze(state.pointer) });
+}
+export function createPufferfish(options = {}) {
+    const config = resolvePufferfishOptions(options);
+    // One stable integer-derived phase, not a mutable random stream.
+    const variation = ((Math.imul(config.seed, 1664525) + 1013904223) >>> 0) / 4294967296 * Math.PI * 2;
+    return freezeState({ version: 'pufferfish-v1', config, tick: 0, lastSequence: -1,
+        phase: { kind: 'idle' }, pointer: calmPointer, inflation: 0, variation, reactions: 0 });
+}
+/** Configuration is a new deterministic run. The browser controller preserves its pause policy. */
+export function configurePufferfish(state, patch) {
+    record(patch, keys, 'patch');
+    return createPufferfish({ ...state.config, ...patch });
+}
+export function resetPufferfish(state, seed = state.config.seed) {
+    return createPufferfish({ ...state.config, seed });
+}
+function eventsForTick(state, input) {
+    record(input, ['tick', 'events'], 'tick input');
+    integer(state.tick, 0, PUFFERFISH_LIMITS.maxTick - 1, 'state tick');
+    if (input.tick !== state.tick + 1)
+        throw new RangeError('tick must be exactly state.tick + 1');
+    const events = input.events === undefined ? [] : input.events;
+    if (!Array.isArray(events) || events.length > PUFFERFISH_LIMITS.eventsPerTick)
+        throw new RangeError('at most 16 events per tick');
+    let pointer = state.pointer, sequence = state.lastSequence, retreat = false, approaches = 0;
+    for (const event of events) {
+        record(event, event?.type === 'pointer' ? ['type', 'tick', 'seq', 'x', 'y', 'aspect'] : ['type', 'tick', 'seq'], 'event');
+        if (event.tick !== input.tick)
+            throw new RangeError('event tick must match the next tick');
+        const seq = integer(event.seq, 0, PUFFERFISH_LIMITS.maxTick, 'event seq');
+        if (seq <= sequence)
+            throw new RangeError('event seq must strictly increase');
+        sequence = seq;
+        switch (event.type) {
+            case 'pointer':
+                pointer = { active: true, x: finite(event.x, -1, 1, 'pointer x'), y: finite(event.y, -1, 1, 'pointer y'),
+                    aspect: finite(event.aspect, 0.1, 10, 'pointer aspect') };
+                break;
+            case 'approach':
+                pointer = { active: true, x: 0, y: 0, aspect: 1 };
+                approaches++;
+                break;
+            case 'retreat':
+                retreat = true;
+                break;
+            default: throw new TypeError('unknown pufferfish event type');
+        }
+    }
+    return { pointer: retreat ? calmPointer : pointer, sequence, retreat, approaches };
+}
+/** Pure one-tick update. The complete batch validates before any new state is produced. */
+export function stepPufferfish(state, input) {
+    if (state.version !== 'pufferfish-v1')
+        throw new TypeError('unsupported species version');
+    const batch = eventsForTick(state, input), c = state.config;
+    const distance = batch.pointer.active ? Math.hypot(batch.pointer.x * batch.pointer.aspect, batch.pointer.y) : Infinity;
+    const near = distance <= c.approachRadius, far = distance >= c.retreatRadius;
+    let phase = state.phase, inflation = state.inflation, reactions = state.reactions;
+    const recover = () => { phase = { kind: 'recovering', age: 0, from: inflation }; };
+    switch (phase.kind) {
+        case 'idle':
+            if (near)
+                phase = { kind: 'approach', age: 1 };
+            break;
+        case 'approach':
+            if (!near)
+                phase = { kind: 'idle' };
+            else if (phase.age + 1 >= c.dwellTicks) {
+                phase = { kind: 'inflating', stage: 'belly', age: 0 };
+                reactions++;
+            }
+            else
+                phase = { ...phase, age: phase.age + 1 };
+            break;
+        case 'inflating': {
+            if (far) {
+                recover();
+                break;
+            }
+            const age = phase.age + 1, duration = phase.stage === 'belly' ? c.bellyTicks : c.spineTicks;
+            const amount = smooth(Math.min(1, age / duration));
+            inflation = phase.stage === 'belly' ? amount * 0.55 : 0.55 + amount * 0.45;
+            phase = age >= duration
+                ? phase.stage === 'belly' ? { kind: 'inflating', stage: 'spines', age: 0 } : { kind: 'holding', age: 0 }
+                : { ...phase, age };
+            break;
+        }
+        case 'holding':
+            if (far || phase.age + 1 >= c.holdTicks)
+                recover();
+            else
+                phase = { kind: 'holding', age: phase.age + 1 };
+            break;
+        case 'recovering': {
+            const age = phase.age + 1;
+            inflation = phase.from * (1 - smooth(Math.min(1, age / c.recoveryTicks)));
+            phase = age >= c.recoveryTicks
+                ? { kind: 'cooldown', remaining: c.cooldownTicks, retreated: far }
+                : { ...phase, age };
+            break;
+        }
+        case 'cooldown': {
+            const remaining = Math.max(0, phase.remaining - 1), retreated = phase.retreated || far;
+            phase = remaining === 0 && retreated ? { kind: 'idle' } : { kind: 'cooldown', remaining, retreated };
+            break;
+        }
+    }
+    const result = freezeState({ ...state, tick: input.tick, pointer: batch.pointer, lastSequence: batch.sequence, phase, inflation, reactions });
+    return Object.freeze({ state: result, transition: phase.kind === state.phase.kind ? null : phase.kind,
+        ignoredApproaches: ['recovering', 'cooldown', 'inflating', 'holding'].includes(state.phase.kind) ? batch.approaches : 0 });
+}
+/** A deliberate static alternative, not an advancement of the running simulation. */
+export function pufferfishPoster(state, inflated) {
+    return freezeState({ ...state, inflation: inflated ? 1 : 0,
+        phase: inflated ? { kind: 'holding', age: 0 } : { kind: 'idle' }, pointer: calmPointer });
+}
+export function describePufferfish(state) {
+    const details = {
+        idle: 'A small round pufferfish with two bright eyes, paddle fins and a short fan tail.',
+        approach: 'The pufferfish notices the nearby visitor and pauses before swelling.',
+        inflating: 'The pufferfish grows rounder in stages as short radial spines extend.',
+        holding: 'An inflated pufferfish floats with short spines and a gentle buoyant wobble.',
+        recovering: 'The pufferfish smoothly deflates while its fins keep moving.',
+        cooldown: 'The small pufferfish rests; give it space before approaching again.',
+    };
+    return details[state.phase.kind];
+}
+export const PUFFERFISH_REPLAY = Object.freeze([
+    { tick: 1, seq: 0, type: 'pointer', x: 0.85, y: 0.5, aspect: 16 / 9 },
+    { tick: 61, seq: 1, type: 'pointer', x: 0.04, y: 0, aspect: 16 / 9 },
+    { tick: 220, seq: 2, type: 'retreat' },
+    { tick: 610, seq: 3, type: 'approach' },
+    { tick: 780, seq: 4, type: 'retreat' },
+].map(event => Object.freeze(event)));

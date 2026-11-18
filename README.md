@@ -8,22 +8,28 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 
 | Animal | Status |
 | --- | --- |
-| Cuttlefish | Available: interactive Cuttlefish study |
-| Manta ray | In development: no released demo yet |
-| Octopus | In development: no released demo yet |
-| Seahorse | In development: no released demo yet |
-| Crab | In development: no released demo yet |
-| Sea turtle | In development: no released demo yet |
-| Pufferfish | In development: no released demo yet |
-| Frog | In development: no released demo yet |
-| Butterfly | In development: no released demo yet |
-| Dragonfly | In development: no released demo yet |
-| Gecko | In development: no released demo yet |
-| Owl | In development: no released demo yet |
-| Fox | Available: [reactive Fox study](https://castlemilk.github.io/ascii-animals/fox/) |
+| Cuttlefish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) |
+| Manta ray | Available: [interactive study](https://castlemilk.github.io/ascii-animals/animals.html?species=manta) |
+| Octopus | Available: [interactive study](https://castlemilk.github.io/ascii-animals/animals.html?species=octopus) |
+| Seahorse | Available: [interactive study](https://castlemilk.github.io/ascii-animals/seahorse/index.html) |
+| Crab | Available: [interactive study](https://castlemilk.github.io/ascii-animals/crab/index.html) |
+| Sea turtle | Available: [interactive study](https://castlemilk.github.io/ascii-animals/turtle/index.html) |
+| Pufferfish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/pufferfish/index.html) |
+| Frog | Available: [interactive study](https://castlemilk.github.io/ascii-animals/frog/index.html) |
+| Butterfly | Available: [interactive study](https://castlemilk.github.io/ascii-animals/butterfly/index.html) |
+| Dragonfly | Available: [interactive study](https://castlemilk.github.io/ascii-animals/dragonfly/index.html) |
+| Gecko | Available: [interactive study](https://castlemilk.github.io/ascii-animals/gecko/index.html) |
+| Owl | Available: [interactive study](https://castlemilk.github.io/ascii-animals/owl/index.html) |
+| Fox | Available: [interactive study](https://castlemilk.github.io/ascii-animals/fox/index.html) |
 
-The roster is a development plan, not a list of package exports. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
+All thirteen studies have passed bounded independent Chrome visual acceptance. Typed APIs and configuration are documented in the API map below; species intentionally preserve their own interaction contracts. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
 
+
+## Dragonfly artwork
+
+Use the [dedicated Dragonfly adapter](docs/DRAGONFLY-API.md) and `./dragonfly` package
+subpath for hover/tracking, deliberate dart and full/slow/static motion. The
+generated browser demo lives in `dist/dragonfly/`; publication remains disabled.
 
 ## Fox artwork
 
@@ -31,6 +37,21 @@ The original reactive fox is available through a dedicated typed adapter and
 [`./fox` package subpath](docs/FOX-API.md), with [a runnable demo](./dist/fox/index.html).
 It preserves its own fixed-tick behavior model rather than pretending to accept
 cuttlefish formations or ink controls. Package publication remains disabled.
+
+## Seahorse artwork candidate
+
+A newly authored, original Seahorse study has a dedicated [typed API](docs/SEAHORSE-API.md)
+and [local demo](dist/seahorse/index.html). It adds hovering, curiosity and a curled
+holdfast pose; reduced motion and pause always remain authoritative. This review
+candidate is not yet advertised as deployed in the catalogue.
+
+## Crab artwork candidate
+
+The newly authored [Crab API](docs/CRAB-API.md) and [local demo](dist/crab/index.html)
+add sideways scuttling, a broad shell, eight articulated walking legs and paired
+claws with a defensive gesture. Independent browser acceptance is pending.
+
+[Complete typed API map and configuration guides](docs/ANIMAL-APIS.md)
 
 ## TypeScript-first artwork API
 
@@ -56,12 +77,12 @@ artwork.dispose(); // call on unmount; safe to repeat
 ```
 
 The package remains a **private, unpublished review candidate**, not an npm
-installation claim. Use the local tarball workflow below. Only `cuttlefish` is
-supported; other species are separate work. Existing `CuttlefishArtwork` and
+installation claim. Use the local tarball workflow below. Built-in `cuttlefish`,
+`manta`, and `octopus` share one bounded marine renderer; see [species configuration and limitations](docs/SPECIES.md). Existing `CuttlefishArtwork` and
 `createCuttlefish` exports remain compatible. See [the typed API](docs/TYPESCRIPT-API.md).
 
 
-Procedural animals drawn with moving characters, using a framework-neutral Canvas 2D engine. The current implementation is a cuttlefish: a tapered mantle, rippling skirt fins, raised eyes, eight arms, two longer tentacles, and a beak, directed through a fixed diver's view. A school can mix roles and sizes, follow a shared route, and react to disturbances with a character-based ink plume.
+Procedural animals drawn with moving characters, using a framework-neutral Canvas 2D engine. The original cuttlefish study models a tapered mantle, rippling skirt fins, raised eyes, eight arms, two longer tentacles, and a beak, directed through a fixed diver's view. A school can mix roles and sizes, follow a shared route, and react to disturbances with a character-based ink plume.
 
 **Canvas 2D · zero runtime dependencies · explicit lifecycle · per-animal ESM entry · local review candidate**
 
@@ -232,3 +253,16 @@ This study began with a supplied luminous ASCII jellyfish video credited on scre
 [GitHub Pages demo](https://castlemilk.github.io/ascii-animals/) is deployed **manually**, not on pushes or pull requests. In GitHub Actions, choose **Deploy demo to GitHub Pages** → **Run workflow** on `main`. The workflow validates the committed standalone artifact and publishes only `dist/`; repository research, recordings and source history are not part of the web deployment. The GitHub Actions environment links to the exact deployment.
 
 Updating `main` does not update the live demo until a maintainer deliberately runs the deployment workflow. No npm publication is involved.
+
+### Gecko
+
+The original reactive Gecko is available through the typed `createGeckoArtwork` named export and `ascii-animals-review/gecko`. Its dedicated [API guide](docs/GECKO-API.md) documents fixed-tick gait, guide/startle/curl behavior and lifecycle. The generated demo is `dist/gecko/index.html`; catalogue/deployment status is tracked separately.
+### Pufferfish review adapter
+
+`createPufferfishArtwork` and `ascii-animals-review/pufferfish` expose the independently configured fixed-tick pufferfish model, staged inflation and deliberate static poses. See [Pufferfish API and provenance](docs/PUFFERFISH-API.md). Local generated demo: `dist/pufferfish/index.html`. Availability remains under review until browser acceptance; no npm release.
+## Frog adapter
+
+The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick leap study with shared scheduling, validated settings and reduced-motion static poses. Its generated demo lives at `dist/frog/`; catalogue availability follows reviewed deployment.
+## Owl TypeScript artwork
+
+The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals-review/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. This is not an npm publication or a claim of browser acceptance.

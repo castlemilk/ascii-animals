@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: proposal bridge requires explicit host mapping and preserves finite sample positions/tone
+ok 1 - proposal bridge requires explicit host mapping and preserves finite sample positions/tone
+  ---
+  duration_ms: 24.670181
+  type: 'test'
+  ...
+# Subtest: capacity, malformed sample tail and absent material mapping reject before any write
+ok 2 - capacity, malformed sample tail and absent material mapping reject before any write
+  ---
+  duration_ms: 2.434457
+  type: 'test'
+  ...
+# Subtest: unexpected destination refusal is explicit; no silent truncation or rollback claim
+ok 3 - unexpected destination refusal is explicit; no silent truncation or rollback claim
+  ---
+  duration_ms: 7.043198
+  type: 'test'
+  ...
+# Subtest: SSR-safe import, semantic text preview and initial intersection gate
+ok 4 - SSR-safe import, semantic text preview and initial intersection gate
+  ---
+  duration_ms: 45.572308
+  type: 'test'
+  ...
+# Subtest: independent playback, hidden, reduced-motion, size and viewport blockers compose
+ok 5 - independent playback, hidden, reduced-motion, size and viewport blockers compose
+  ---
+  duration_ms: 61.258042
+  type: 'test'
+  ...
+# Subtest: pointer flooding and repeat react retain at most two next-tick actions
+ok 6 - pointer flooding and repeat react retain at most two next-tick actions
+  ---
+  duration_ms: 29.408467
+  type: 'test'
+  ...
+# Subtest: fixed-step catch-up is capped at five; time loss is reported; backward clocks do not rewind
+ok 7 - fixed-step catch-up is capped at five; time loss is reported; backward clocks do not rewind
+  ---
+  duration_ms: 8.729474
+  type: 'test'
+  ...
+# Subtest: reduced motion provides intentional still poses with an unchanged simulation
+ok 8 - reduced motion provides intentional still poses with an unchanged simulation
+  ---
+  duration_ms: 9.515909
+  type: 'test'
+  ...
+# Subtest: evidence-led pause correction freezes an in-progress wing stretch exactly
+ok 9 - evidence-led pause correction freezes an in-progress wing stretch exactly
+  ---
+  duration_ms: 76.44754
+  type: 'test'
+  ...
+# Subtest: suspension clears stale inputs and the first resumed tick clears old attention
+ok 10 - suspension clears stale inputs and the first resumed tick clears old attention
+  ---
+  duration_ms: 7.443011
+  type: 'test'
+  ...
+# Subtest: pointer cancellation clears attention; no background pointerdown starts a reaction
+ok 11 - pointer cancellation clears attention; no background pointerdown starts a reaction
+  ---
+  duration_ms: 6.051867
+  type: 'test'
+  ...
+# Subtest: malformed options and static controls fail atomically
+ok 12 - malformed options and static controls fail atomically
+  ---
+  duration_ms: 6.162032
+  type: 'test'
+  ...
+# Subtest: small hosts remain static and scale a usable poster; explicit detail is validated
+ok 13 - small hosts remain static and scale a usable poster; explicit detail is validated
+  ---
+  duration_ms: 9.742992
+  type: 'test'
+  ...
+# Subtest: disposal is idempotent, late callbacks do nothing, all other actions reject
+ok 14 - disposal is idempotent, late callbacks do nothing, all other actions reject
+  ---
+  duration_ms: 8.436584
+  type: 'test'
+  ...
+# Subtest: setup and status-callback failures roll back all acquired host resources
+ok 15 - setup and status-callback failures roll back all acquired host resources
+  ---
+  duration_ms: 8.695601
+  type: 'test'
+  ...
+# Subtest: injected shared scheduler loses only this instance subscription
+ok 16 - injected shared scheduler loses only this instance subscription
+  ---
+  duration_ms: 11.561515
+  type: 'test'
+  ...
+# Subtest: merged shared scheduler drives two Owls and stops only at zero subscribers
+ok 17 - merged shared scheduler drives two Owls and stops only at zero subscribers
+  ---
+  duration_ms: 19.109092
+  type: 'test'
+  ...
+# Subtest: missing optional APIs have static or window-event fallbacks and clean up
+ok 18 - missing optional APIs have static or window-event fallbacks and clean up
+  ---
+  duration_ms: 2.297074
+  type: 'test'
+  ...
+# Subtest: invalid frame time disposes and prevents an unowned animation loop
+ok 19 - invalid frame time disposes and prevents an unowned animation loop
+  ---
+  duration_ms: 2.411843
+  type: 'test'
+  ...
+# Subtest: explicit event log replays identically under 1/2/5-tick render grouping
+ok 20 - explicit event log replays identically under 1/2/5-tick render grouping
+  ---
+  duration_ms: 438.577768
+  type: 'test'
+  ...
+# Subtest: different seeds change identity while equal seeds and reset repeat exactly
+ok 21 - different seeds change identity while equal seeds and reset repeat exactly
+  ---
+  duration_ms: 0.790052
+  type: 'test'
+  ...
+# Subtest: ordered reaction completes once, repeated triggers are ignored through recovery/cooldown
+ok 22 - ordered reaction completes once, repeated triggers are ignored through recovery/cooldown
+  ---
+  duration_ms: 1.026507
+  type: 'test'
+  ...
+# Subtest: response timings and local wing envelopes meet the declared seam
+ok 23 - response timings and local wing envelopes meet the declared seam
+  ---
+  duration_ms: 1.437805
+  type: 'test'
+  ...
+# Subtest: attention clamps normalized input, head limits hold, and root/feet remain perched
+ok 24 - attention clamps normalized input, head limits hold, and root/feet remain perched
+  ---
+  duration_ms: 3.123085
+  type: 'test'
+  ...
+# Subtest: every malformed batch rejects atomically, including invalid tail after valid first event
+ok 25 - every malformed batch rejects atomically, including invalid tail after valid first event
+  ---
+  duration_ms: 1.223396
+  type: 'test'
+  ...
+# Subtest: last attention/leave in a tick wins and only one same-tick reaction starts
+ok 26 - last attention/leave in a tick wins and only one same-tick reaction starts
+  ---
+  duration_ms: 0.256492
+  type: 'test'
+  ...
+# Subtest: options validate all boundaries and unknown keys without coercion or allocation changes
+ok 27 - options validate all boundaries and unknown keys without coercion or allocation changes
+  ---
+  duration_ms: 0.543026
+  type: 'test'
+  ...
+# Subtest: public option resolver has no externally injectable unvalidated base
+ok 28 - public option resolver has no externally injectable unvalidated base
+  ---
+  duration_ms: 0.333085
+  type: 'test'
+  ...
+# Subtest: update preserves tick, sequence, cycle and seed; reset is explicit; snapshots are deeply immutable
+ok 29 - update preserves tick, sequence, cycle and seed; reset is explicit; snapshots are deeply immutable
+  ---
+  duration_ms: 0.475996
+  type: 'test'
+  ...
+# Subtest: static posters are deliberate complete poses and never advance core state
+ok 30 - static posters are deliberate complete poses and never advance core state
+  ---
+  duration_ms: 0.391667
+  type: 'test'
+  ...
+# Subtest: CSS pointer normalization ignores backing/DPR, rejects nonfinite rects and handles zero size
+ok 31 - CSS pointer normalization ignores backing/DPR, rejects nonfinite rects and handles zero size
+  ---
+  duration_ms: 0.242484
+  type: 'test'
+  ...
+# Subtest: disposal is idempotent, all mutations/snapshots reject, and another instance continues
+ok 32 - disposal is idempotent, all mutations/snapshots reject, and another instance continues
+  ---
+  duration_ms: 0.314612
+  type: 'test'
+  ...
+# Subtest: owl geometry keeps planted roots and constant shoulder-to-tip length across accepted poses
+ok 33 - owl geometry keeps planted roots and constant shoulder-to-tip length across accepted poses
+  ---
+  duration_ms: 40.011391
+  type: 'test'
+  ...
+# Subtest: minimum grid preserves both eye apertures, dark pupils, beak, wings, feet and body at extreme head poses
+ok 34 - minimum grid preserves both eye apertures, dark pupils, beak, wings, feet and body at extreme head poses
+  ---
+  duration_ms: 26.459007
+  type: 'test'
+  ...
+# Subtest: actual glyph text is equal-width printable ASCII with an explicit union repertoire
+ok 35 - actual glyph text is equal-width printable ASCII with an explicit union repertoire
+  ---
+  duration_ms: 66.863869
+  type: 'test'
+  ...
+# Subtest: fixed framing leaves a clear border through ruffle, stretch and extreme supported turns
+ok 36 - fixed framing leaves a clear border through ruffle, stretch and extreme supported turns
+  ---
+  duration_ms: 21.484558
+  type: 'test'
+  ...
+# Subtest: sampling is deterministic, immutable and does not modify original state
+ok 37 - sampling is deterministic, immutable and does not modify original state
+  ---
+  duration_ms: 17.998063
+  type: 'test'
+  ...
+# Subtest: closed eyes are an actual alternate glyph pose and do not remove the orbital landmarks
+ok 38 - closed eyes are an actual alternate glyph pose and do not remove the orbital landmarks
+  ---
+  duration_ms: 2.647443
+  type: 'test'
+  ...
+# Subtest: full maximum-amplitude behavior sequence retains geometry bounds and perch attachment
+ok 39 - full maximum-amplitude behavior sequence retains geometry bounds and perch attachment
+  ---
+  duration_ms: 163.192472
+  type: 'test'
+  ...
+# Subtest: invalid grid sizes, aspect, unknown keys and nonfinite anatomy reject before output allocation
+ok 40 - invalid grid sizes, aspect, unknown keys and nonfinite anatomy reject before output allocation
+  ---
+  duration_ms: 1.519267
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 702.327815
