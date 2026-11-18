@@ -20,7 +20,7 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 | Dragonfly | In development: no released demo yet |
 | Gecko | In development: no released demo yet |
 | Owl | In development: no released demo yet |
-| Fox | In development: no released demo yet |
+| Fox | Available: [reactive Fox study](https://castlemilk.github.io/ascii-animals/fox/) |
 
 The roster is a development plan, not a list of package exports. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
 
