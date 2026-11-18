@@ -1,9 +1,11 @@
 import { mountGecko } from '../species/gecko/browser.js';
 import type { GeckoController, GeckoMountOptions, GeckoActionResult } from '../species/gecko/browser.js';
 import { getBrowserScheduler } from '../core/scheduler.js';
-export { createGecko, resolveGeckoOptions, DEFAULT_GECKO_OPTIONS, GECKO_LIMITS } from '../species/gecko/gecko.js';
+export { createGecko, resolveGeckoOptions, DEFAULT_GECKO_OPTIONS, DEFAULT_GECKO_HABITAT, GECKO_LIMITS } from '../species/gecko/gecko.js';
+export { createGeckoDirector, resolveGeckoDirectorOptions, DEFAULT_GECKO_DIRECTOR_OPTIONS, GECKO_DIRECTOR_LIMITS, GECKO_SCENES } from '../species/gecko/director.js';
+export type * from '../species/gecko/director.js';
 export type * from '../species/gecko/types.js';
-export type { GeckoMountOptions, GeckoControllerStatus, GeckoViewOptions, GeckoActionResult, GeckoFrameSource } from '../species/gecko/browser.js';
+export type { GeckoMountOptions, GeckoControllerStatus, GeckoViewOptions, GeckoActionResult, GeckoDirectorActionResult, GeckoFrameSource } from '../species/gecko/browser.js';
 export interface GeckoArtwork extends GeckoController {
   readonly species: 'gecko';
   readonly canvas: HTMLCanvasElement;

@@ -269,8 +269,8 @@ test('reentrant status callback can pause during a five-tick catch-up without an
   scene.dispose(); assert.equal(env.resources(), 0);
 });
 
-function demoEnvironment() {
-  const env = environment();
+function demoEnvironment(director = false, options = {}) {
+  const env = environment(options);
   const ids = ['phase', 'pause', 'scene-help', 'action-status', 'fallback', 'fallback-message', 'text-frame',
     'reset', 'startle', 'rest', 'pace', 'pace-value', 'curl', 'curl-value', 'neutral', 'refresh-text', 'text-details'];
   const nodes = new Map([['gecko', env.canvas]]);
@@ -280,6 +280,13 @@ function demoEnvironment() {
     return value;
   }
   for (const id of ids) nodes.set(id, node(id));
+  if(director){
+    const directorIds=['director','scene-moonlit-wall','scene-lantern-hunt','scene-passing-shadow','population','tempo','boldness','reverse','show-routes','autonomy',
+      'moth','return','inspect','scene-title','scene-beat','scene-progress','selected-name','selected-motive','selected-emotion','cooldown-note',
+      'cast-mica','cast-pip','cast-slate','select-mica','select-pip','select-slate','role-mica','role-pip','role-slate'];
+    for(const id of directorIds)nodes.set(id,node(id));
+    env.canvas.attributes=new Map();env.canvas.setAttribute=(key,value)=>env.canvas.attributes.set(key,value);
+  }
   const guides = [[0, -1], [-1, 0], [1, 0], [0, 1]].map((coords, i) => {
     const value = node(`guide-${i}`); value.dataset.guide = coords.join(','); return value;
   });
@@ -348,4 +355,123 @@ test('actual demo bfcache freeze cancels work before visibility changes and resu
   assert.equal(scene.getStatus().disposed, true); assert.equal(env.resources(), 0);
   assert.equal(env.controls.reduce((total, node) => total + node.listenerCount, 0), 0);
   env.host.emit('pageshow', { persisted: false }); assert.equal(env.resources(), 0);
+});
+
+test('opt-in director coalesces bounded cues and advances all residents through one host clock', () => {
+  const env=environment(), scene=mountGecko(env.canvas,{director:{}});
+  assert.equal(scene.getDirectorSnapshot().individuals.length,3);
+  assert.equal(env.frames.size,1);
+  for(let i=0;i<1000;i++){scene.guide(i%2?1:-1,.1);scene.direct({type:'moth'});}
+  assert.equal(scene.getStatus().pendingInputs,2);
+  env.frame(0);env.frame(1000/60);
+  const state=scene.getDirectorSnapshot();
+  assert.equal(state.tick,1);assert.equal(state.lastSequence,2);
+  assert.deepEqual(state.individuals.map(a=>a.body.tick),[1,1,1]);
+  assert.equal(state.lastAction.type,'moth');assert.equal(env.frames.size,1);
+  scene.dispose();assert.equal(env.resources(),0);
+});
+
+test('director mobile pointer mapping follows the focused letterbox and freezes cue ownership', () => {
+  const env=environment({width:400,height:400,dpr:3}),scene=mountGecko(env.canvas,{director:{}});
+  const initial=scene.getDirectorSnapshot(),mica=initial.individuals[0];
+  env.canvas.emit('pointerdown',{clientX:230,clientY:270,pointerType:'touch',buttons:1});
+  env.frame(0);env.frame(1000/60);
+  const pointer=scene.getDirectorSnapshot().pointer;
+  assert(Math.abs(pointer.x-mica.body.position.x*mica.scale)<1e-12);
+  assert(Math.abs(pointer.y-mica.body.position.y*mica.scale)<1e-12);
+  assert.equal(scene.getStatus().dimensions.dpr,2);
+  scene.reset();env.canvas.emit('pointerdown',{clientX:230,clientY:75,pointerType:'touch',buttons:1});
+  assert.equal(scene.getStatus().pendingInputs,0,'letterbox margin is not wall guidance');
+  scene.selectGecko(null);scene.guide(.05/3.3,.32/2.2);scene.selectGecko('mica');
+  env.frame(0);env.frame(1000/60);
+  assert.equal(scene.getDirectorSnapshot().lastAction.id,'pip','selection changes cannot retarget an already queued cue');
+  scene.selectGecko(null);scene.direct({type:'moth',x:1.62/3.3,y:-.28/2.2});scene.selectGecko('mica');
+  env.frame(2000/60);assert.equal(scene.getDirectorSnapshot().lastAction.id,'slate');
+  scene.dispose();assert.equal(env.resources(),0);
+});
+
+test('director hidden/zero-size/bfcache suspension drops pending cues and clears non-lead guidance on resume', () => {
+  const env=environment(),scene=mountGecko(env.canvas,{director:{autonomy:false}});
+  scene.selectGecko('pip');scene.guide(.4,-.3);env.frame(0);env.frame(1000/60);
+  assert(scene.getDirectorSnapshot().pointer);assert.equal(scene.getSnapshot().target,null);
+  scene.direct({type:'shadow'});env.host.emit('pagehide',{persisted:true});env.hide(true);
+  assert.equal(scene.getStatus().pendingInputs,0);assert.equal(env.frames.size,0);
+  env.canvas.rect.width=0;env.resize();env.hide(false);env.host.emit('pageshow',{persisted:true});
+  assert.equal(env.frames.size,0);const frozen=scene.getStatus().tick;
+  env.canvas.rect.width=720;env.resize();env.frame(100_000);assert.equal(scene.getStatus().tick,frozen);
+  env.frame(100_000+1000/60);
+  const resumed=scene.getDirectorSnapshot();assert.equal(resumed.pointer,null);
+  assert.equal(resumed.individuals[1].body.target,null);assert.equal(resumed.shadow.active,false);
+  assert.equal(scene.getStatus().droppedMilliseconds,0);
+  scene.dispose();assert.equal(env.resources(),0);
+});
+
+test('every reduced-motion director cue is a deliberate still, without scene/body ticks or hidden scheduling', () => {
+  const env=environment({reduced:true}),scene=mountGecko(env.canvas,{director:{}});
+  const before=scene.getDirectorSnapshot(),original=scene.exportText();
+  for(const type of ['moth','shadow','inspect','return']){
+    assert.deepEqual(scene.direct({type}),{outcome:'static'});
+    assert.equal(scene.getStatus().directorPoster,type);
+    assert.deepEqual(scene.getDirectorSnapshot(),before);assert.equal(env.frames.size,0);
+  }
+  scene.direct({type:'shadow'});assert.notEqual(scene.exportText(),original);
+  scene.setPaused(true);scene.configureDirector({scene:'lantern-hunt',population:2,tempo:1.2});scene.reset({seed:71});
+  assert.equal(scene.getDirectorSnapshot().tick,0);assert.equal(scene.getDirectorSnapshot().individuals.length,2);
+  assert.equal(scene.getStatus().paused,true);assert.equal(env.frames.size,0);
+  env.reduce(false);assert.equal(env.frames.size,0);scene.setPaused(false);assert.equal(env.frames.size,1);
+  assert.equal(scene.getStatus().directorPoster,'none');
+  scene.dispose();assert.equal(env.resources(),0);
+});
+
+test('contextual shadow reports busy and invalid director updates leave ownership and snapshots intact', () => {
+  const env=environment(),scene=mountGecko(env.canvas,{director:{}});
+  scene.direct({type:'shadow',id:'mica'});env.frame(0);env.frame(1000/60);
+  assert.deepEqual(scene.direct({type:'shadow',id:'mica'}),{outcome:'ignored',reason:'busy'});
+  const before=scene.getDirectorSnapshot(),resources=env.resources();
+  for(const mutate of [()=>scene.configureDirector({population:4}),()=>scene.direct({type:'moth',x:.4}),
+    ()=>scene.direct({type:'shadow',id:'other'}),()=>scene.direct({type:'return',x:2,y:0}),()=>scene.selectGecko('other')]){
+    assert.throws(mutate);assert.deepEqual(scene.getDirectorSnapshot(),before);assert.equal(env.resources(),resources);
+  }
+  scene.selectGecko('slate');scene.direct({type:'moth'});scene.configureDirector({population:1});
+  assert.equal(scene.getStatus().pendingInputs,0);env.frame(2000/60);
+  assert.equal(scene.getDirectorSnapshot().selectedId,'mica');
+  scene.dispose();
+  for(const readOrMutate of [()=>scene.getDirectorSnapshot(),()=>scene.configureDirector({}),()=>scene.direct({type:'moth'}),()=>scene.selectGecko(null),()=>scene.exportScene()])assert.throws(readOrMutate,/disposed/);
+  assert.equal(env.resources(),0);
+});
+
+test('director width floor and injected frame subscription retain bounded lifecycle ownership', () => {
+  const env=environment({width:320,height:360});let subscriptions=0,releases=0,callback;
+  const source={subscribe(fn){subscriptions++;callback=fn;return()=>{releases++;};}};
+  const scene=mountGecko(env.canvas,{director:{},frameSource:source});
+  assert.equal(scene.getStatus().tooSmall,false);assert.equal(subscriptions,1);assert.equal(env.frames.size,0);
+  callback(0);callback(1000/60);assert.equal(scene.getDirectorSnapshot().tick,1);assert.equal(subscriptions,1);
+  env.canvas.rect.width=319;env.resize();assert.equal(scene.getStatus().tooSmall,true);assert.equal(releases,1);
+  env.canvas.rect.width=320;env.resize();assert.equal(subscriptions,2);
+  scene.dispose();scene.dispose();assert.equal(releases,2);assert.equal(env.resources(),0);
+});
+
+test('actual director demo handlers select scenes and roles, report cooldown, and preserve controls across bfcache', async()=>{
+  const env=demoEnvironment(true),demo=await loadDemo(env),scene=demo.geckoDemo;
+  assert(scene);assert.equal(scene.getDirectorSnapshot().individuals.length,3);
+  env.nodes.get('scene-lantern-hunt').emit('click');assert.equal(scene.getDirectorSnapshot().arc.scene,'lantern-hunt');
+  env.nodes.get('select-pip').emit('click');assert.equal(scene.getDirectorSnapshot().selectedId,'pip');
+  env.nodes.get('moth').emit('click');env.frame(0);env.frame(1000/60);
+  assert.equal(scene.getDirectorSnapshot().lastAction.type,'moth');assert.equal(scene.getDirectorSnapshot().lastAction.id,'pip');
+  env.nodes.get('startle').emit('click');env.frame(2000/60);
+  assert.equal(env.nodes.get('startle').disabled,true);assert.equal(env.nodes.get('startle').textContent,'Taking a moment');
+  env.nodes.get('role-slate').value='hunter';env.nodes.get('role-slate').emit('change');
+  env.nodes.get('population').value='1';env.nodes.get('population').emit('input');
+  env.nodes.get('role-mica').value='sentry';env.nodes.get('role-mica').emit('change');
+  env.nodes.get('population').value='3';env.nodes.get('population').emit('input');
+  assert.deepEqual(scene.getDirectorSnapshot().individuals.map(a=>a.role),['sentry','hunter','hunter']);
+  env.nodes.get('pause').emit('click');const frozen=scene.getDirectorSnapshot();
+  env.nodes.get('return').emit('click');assert.deepEqual(scene.getDirectorSnapshot(),frozen);
+  assert.equal(scene.getStatus().directorPoster,'return');
+  const listeners=env.controls.reduce((sum,n)=>sum+n.listenerCount,0);
+  env.host.emit('pagehide',{persisted:true});env.host.emit('pageshow',{persisted:true});
+  assert.equal(scene.getStatus().paused,true);assert.equal(env.controls.reduce((sum,n)=>sum+n.listenerCount,0),listeners);
+  env.nodes.get('reset').emit('click');assert.equal(scene.getStatus().tick,0);assert.equal(env.frames.size,0);
+  env.host.emit('pagehide',{persisted:false});assert.equal(env.resources(),0);
+  assert.equal(env.controls.reduce((sum,n)=>sum+n.listenerCount,0),0);
 });

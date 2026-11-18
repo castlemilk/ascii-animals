@@ -1,2 +1,7 @@
 # Fixed-width ASCII evidence includes meaningful blank cells and empty grid rows.
 evidence/frames/*.txt whitespace=-blank-at-eol,-blank-at-eof
+# Director captures use the same fixed-width grid export, including blank cells.
+director/evidence/frames/*.txt whitespace=-blank-at-eol,-blank-at-eof
+director/evidence/minimum-*.txt whitespace=-blank-at-eol,-blank-at-eof
+# Raw tool output retains its terminal blank lines for reproducible evidence.
+director/evidence/*.log whitespace=-blank-at-eof

@@ -35,15 +35,28 @@ export interface GeckoOptions {
     readonly cooldownTicks: number;
 }
 export type GeckoOptionsPatch = Partial<GeckoOptions>;
+/** Root travel bounds in world units; feet and the attached tail may extend beyond them. */
+export interface GeckoHabitat {
+    /** Symmetric horizontal root extent; [.26, 3]. Default .26. */
+    readonly extentX: number;
+    /** Symmetric vertical root extent; [.13, 2]. Default .13. */
+    readonly extentY: number;
+    /** Reset position, inside the extents. Both coordinates are required when supplied. */
+    readonly origin: Vec2;
+}
 export interface GeckoConfig {
     readonly seed?: number;
     /** Initial heading, [-PI, PI]; default -.24. Reset-only. */
     readonly heading?: number;
     readonly options?: GeckoOptionsPatch;
+    /** Reset-only travel domain. Omitted fields use the single-gecko defaults. */
+    readonly habitat?: Partial<GeckoHabitat>;
 }
 export interface GeckoReset {
     readonly seed?: number;
     readonly heading?: number;
+    /** Patch the current resolved habitat; contacts are recreated at its origin. */
+    readonly habitat?: Partial<GeckoHabitat>;
 }
 export type GeckoBehavior = {
     readonly kind: 'idle';
@@ -92,6 +105,7 @@ export interface GeckoState {
     readonly seed: number;
     readonly initialHeading: number;
     readonly options: Readonly<GeckoOptions>;
+    readonly habitat: Readonly<GeckoHabitat>;
     readonly tick: number;
     readonly lastSequence: number;
     readonly position: Vec2;
@@ -137,7 +151,7 @@ export interface GeckoModel {
     getSnapshot(): GeckoState;
     /** Atomic update; preserves seed, time, contacts and behavior. */
     update(patch: GeckoOptionsPatch): Readonly<GeckoOptions>;
-    /** Reset time and inputs, retaining resolved options. */
+    /** Reset time and inputs, retaining resolved options and unpatched habitat fields. */
     reset(options?: GeckoReset): GeckoState;
     /** Idempotent; all later methods except disposed/dispose reject. */
     dispose(): void;
@@ -189,6 +203,12 @@ export interface GeckoPreviewOptions {
     readonly rows?: number;
     readonly neutral?: boolean;
 }
+export interface GeckoViewport {
+    readonly width: number;
+    readonly height: number;
+    readonly centerX: number;
+    readonly centerY: number;
+}
 export interface GeckoGrid {
     readonly cols: number;
     readonly rows: number;
@@ -198,4 +218,7 @@ export interface GeckoGrid {
     readonly materials: Uint8Array;
     readonly occupied: number;
     readonly samples: number;
+    /** Optional scene projection metadata; absent on the original single-gecko grid. */
+    readonly viewport?: GeckoViewport;
+    readonly theme?: 'moonlight';
 }

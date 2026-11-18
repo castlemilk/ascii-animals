@@ -1,3 +1,3 @@
 import type { GeckoController } from './browser.js';
-/** Exported for deliberate local inspection; no window singleton is installed. */
+/** The page uses the same typed controller as a library consumer. No window singleton. */
 export declare let geckoDemo: GeckoController | null;
