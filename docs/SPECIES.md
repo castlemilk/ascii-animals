@@ -1,5 +1,13 @@
 # Manta ray and octopus integration review
 
+## Combined marine director follow-on
+
+The additive [combined marine director](MARINE-DIRECTOR.md) builds on the current canonical `src/animals/` integration for cuttlefish, manta, and octopus. It supplies Reef rendezvous, Upwelling ballet, and Tidepool investigation, each with coordinated arrival, engagement, exploration, and departure chapters; stable individual motives; persistent invitation cues; selected reactions; and deliberate paused chapter stills.
+
+Use `createMarineDirector(canvas, directorOptions?, artworkOptions?)` through the **existing `ascii-animals-review/cuttlefish` entry**, or opt in with `CuttlefishArtwork.setDirector`. The returned object is the established marine class with `setOptions`, `setPaused`, and `destroy`; the strict root `createArtwork` facade is unchanged. `setDirector(null)` restores its existing scene/formation/behavior presentation. No species registry, package/core rewrite, or independent scheduler is introduced.
+
+The new API and compatibility boundaries, configuration ranges, role semantics, still alternatives, generation commands, and acceptance gates are documented in [MARINE-DIRECTOR.md](MARINE-DIRECTOR.md). Existing evidence below describes the earlier integration and must not be relabelled as new-director browser or performance evidence. Consult the follow-on validation manifest and actual captured output for the implemented revision.
+
 ## Supported configuration
 
 The typed `createArtwork` facade and compatibility renderer now support three built-in species: `cuttlefish`, `manta`, and `octopus`. There is no arbitrary species-registration or plugin API in this change. Geometry modules have no DOM, timer or browser-global side effects; the existing canonical engine owns scheduling, input, raster buffers and resource limits.

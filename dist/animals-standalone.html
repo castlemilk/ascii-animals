@@ -4,87 +4,115 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#081114">
-  <meta name="description" content="A local interactive study of original ASCII manta ray and octopus geometry, sharing the Cuttlefish renderer.">
-  <title>New currents — ASCII Animals</title>
+  <meta name="description" content="Direct three original ASCII marine lives: a cuttlefish, a manta ray and an octopus. Compose a reef encounter, an upwelling ballet, or an arm-led tidepool investigation.">
+  <title>Shared waters — ASCII Animals</title>
   <style>
-:root{color-scheme:dark;--paper:#081114;--panel:#0b1619;--line:#233438;--text:#e9f1ed;--muted:#92aaa8;--accent:#b7e9ce;--accent-ink:#10251d;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.5;background:var(--paper);color:var(--text)}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 64% 0%,#10212155,transparent 50%),var(--paper)}body[data-palette=ultraviolet]{--accent:#d5c1f6;--accent-ink:#281c40}body[data-palette=ember]{--accent:#f0c39e;--accent-ink:#352219}button,input,select{font:inherit}button,select,input[type=range]{touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}a{color:inherit;text-decoration:none}a:hover{color:var(--accent)}:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button:focus-visible,input:focus-visible,select:focus-visible{outline-offset:4px}.skip-link{position:fixed;z-index:10;left:16px;top:-80px;background:var(--accent);color:var(--accent-ink);padding:12px 18px}.skip-link:focus{top:16px}.page-shell{max-width:1512px;margin:auto;padding:0 64px}.page-header{height:104px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.wordmark{font-size:20px;font-weight:650;letter-spacing:-.7px;display:flex;align-items:center;gap:11px}.wordmark-dot{color:var(--accent);margin-left:-9px}.wordmark-symbol{position:relative;color:var(--accent);font:italic 29px Georgia,serif;width:31px;letter-spacing:-8px;line-height:1}.wordmark-symbol span{font-size:26px;vertical-align:5px}.back-link{font-size:12px;color:var(--muted)}.back-link span{font-size:19px;margin-left:12px}.study-heading{display:flex;justify-content:space-between;align-items:flex-end;padding:55px 0 42px}.eyebrow,.edition,.medium,.specimen-index,.canvas-topbar,.canvas-bottomline,.readout,.note-number,.page-footer{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}.eyebrow{display:flex;gap:12px;align-items:center;font-size:10px;font-weight:500;letter-spacing:.15em;margin:0 0 17px;color:var(--muted)}.eyebrow-line{display:block;width:27px;height:1px;background:var(--accent)}.edition{color:#637f7e;margin-left:9px}h1{font-size:clamp(42px,5vw,69px);font-weight:400;line-height:1;letter-spacing:-3.2px;margin:0}h1 em{font-family:Georgia,"Times New Roman",serif;color:var(--accent);font-weight:400}h2,h3,p{margin-top:0}.introduction{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 3px 28px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 298px;gap:38px}.art-column{min-width:0}.scene-topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px;min-height:26px}.scene-topline>div{display:flex;align-items:baseline;gap:14px}.scene-topline h2{font-size:15px;font-weight:500;margin:0;letter-spacing:-.2px}.specimen-index{font-size:10px;color:var(--accent)}.medium{font-size:8px;letter-spacing:.10em;color:#819b99}.canvas-frame{position:relative;border:1px solid var(--line);border-radius:2px;background:#080d0f;overflow:hidden;isolation:isolate}.canvas-frame canvas{display:block;width:100%;height:clamp(380px,42vw,640px);min-height:1px;outline-offset:-6px;touch-action:pan-y}.canvas-topbar,.canvas-bottomline{position:absolute;left:24px;right:24px;pointer-events:none;z-index:1;display:flex;align-items:center;justify-content:space-between;font-size:9px;letter-spacing:.09em;color:#76918d}.canvas-topbar{top:20px}.canvas-bottomline{bottom:20px;letter-spacing:.03em;font-size:8px}.canvas-tag{color:#4f726d;font-size:8px;letter-spacing:.14em}.playback-state{display:flex;align-items:center;gap:8px;color:#aac5bb}.live-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px #b7e9ce33}.live-dot.paused{background:#78918b;box-shadow:none}.scene-corner{position:absolute;width:12px;height:12px;pointer-events:none;border-color:#6f958855;border-style:solid;z-index:2}.corner-top-left{left:8px;top:8px;border-width:1px 0 0 1px}.corner-top-right{right:8px;top:8px;border-width:1px 1px 0 0}.corner-bottom-left{left:8px;bottom:8px;border-width:0 0 1px 1px}.corner-bottom-right{right:8px;bottom:8px;border-width:0 1px 1px 0}.playback-bar{display:flex;align-items:center;gap:9px;padding:17px 0}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid #314640;border-radius:4px;padding:9px 16px;background:#0d1b1b;color:#d1e0d8;font-size:11px}.button:hover{border-color:#638c78;background:#152721}.button-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);min-width:92px}.button-primary:hover{background:var(--accent);filter:brightness(1.06);border-color:var(--accent)}.button-quiet{border-color:transparent;background:none;color:var(--muted);padding-left:12px;padding-right:12px}.button-quiet:hover{border-color:var(--line);background:#101e1d}.button span[aria-hidden]{font-size:16px;line-height:1}.capture-button{margin-left:auto}.readout{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:12px 0 15px;font-size:9px;letter-spacing:.06em;color:#779690}.interaction-note{font-size:12px;color:#a7bdb5;line-height:1.7;margin:3px 0 10px;max-width:70ch}.motion-note{font-size:11px;color:var(--accent);padding-left:12px;border-left:1px solid #6b9883;margin:10px 0}.action-status{min-height:18px;font-size:11px;color:var(--accent);margin-bottom:0}.action-status.error{color:#eeb1a5}.controls{border-left:1px solid var(--line);padding:4px 0 0 28px}.controls-heading{display:flex;justify-content:space-between;align-items:baseline;color:#56746e}.controls-heading .eyebrow{font-size:9px;margin-bottom:15px;letter-spacing:.12em}.controls h2{font-size:24px;font-weight:400;line-height:1.22;letter-spacing:-.7px;margin-bottom:27px}.controls h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#9bb8ab}.select-control{display:grid;gap:8px;margin-bottom:17px}.select-control label,legend,.range-control label{font-size:11px;color:#c0d0ca}.select-control select{width:100%;min-width:0;padding:11px 12px;border:1px solid #2c4240;border-radius:4px;background:#0d1a1c;color:#d4e5da;font-size:11px;min-height:40px}.palette-control{padding:1px 0 18px;margin:4px 0 20px;border:0;border-bottom:1px solid var(--line)}.palette-control legend{margin-bottom:11px;padding:0}.palette-options{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.palette{display:flex;flex-direction:column;align-items:center;gap:7px;color:#7f9d91;background:none;border:1px solid transparent;border-radius:4px;padding:8px 2px;font-size:9px}.palette:hover{background:#12231e}.palette.selected{border-color:#36594a;background:#12221e;color:#d3e7d7}.swatch{width:21px;height:21px;border-radius:50%;border:1px solid #b1d8c044}.swatch-lagoon{background:linear-gradient(145deg,#ccebd4,#329b9f 55%,#21477f)}.swatch-ultraviolet{background:linear-gradient(145deg,#e8ccf4,#a376dc 55%,#314379)}.swatch-ember{background:linear-gradient(145deg,#f4d3a4,#c15c62 55%,#613e52)}.range-control{margin-bottom:18px}.range-control label{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:5px}.range-control output{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent);font-size:10px}.range-control input{display:block;width:100%;height:20px;margin:0;accent-color:var(--accent);cursor:pointer;background:transparent}.range-control input::-webkit-slider-runnable-track{height:2px;background:linear-gradient(to right,var(--accent) 0%,var(--accent) var(--fill,50%),#2b4440 var(--fill,50%),#2b4440 100%);border-radius:1px}.range-control input::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid #122820;margin-top:-4px}.range-control input{-webkit-appearance:none;appearance:none}.range-control input::-moz-range-track{height:2px;background:#2b4440}.range-control input::-moz-range-progress{height:2px;background:var(--accent)}.range-control input::-moz-range-thumb{width:8px;height:8px;border-radius:50%;background:var(--accent);border:2px solid #122820}.range-ends{display:flex;justify-content:space-between;font-size:8px;color:#627f77;margin-top:3px}.controls-footnote{font-size:10px;line-height:1.8;color:#78958b;margin:24px 0 0}kbd{font:9px ui-monospace,SFMono-Regular,Consolas,monospace;background:#14231f;border:1px solid #2c4038;border-radius:3px;padding:1px 4px;color:#a9c5b4;margin-right:3px}.study-notes{display:grid;grid-template-columns:1fr 1fr 1.05fr;gap:48px;margin-top:55px;padding:33px 0 42px;border-top:1px solid var(--line)}.note-number{font-size:9px;letter-spacing:.09em;color:#71938a;margin-bottom:14px}.study-notes h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:21px;letter-spacing:-.4px;margin:0 0 11px}.study-notes article>p:not(.note-number){font-size:11px;line-height:1.8;color:#92aaa0;max-width:40ch;margin-bottom:0}.review-note{border-left:1px solid var(--line);padding-left:27px}.study-notes .publication-note{color:#607f75!important;margin-top:10px!important;font-size:10px!important}.page-footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding:23px 0 30px;font-size:8px;letter-spacing:.04em;color:#5d7b73}#canvas-frame.error canvas{opacity:.3}
-@media(min-width:1400px){.workspace{grid-template-columns:minmax(0,1fr) 320px;gap:44px}.controls{padding-left:34px}.canvas-frame canvas{height:620px}.controls h2{font-size:26px}.range-control{margin-bottom:21px}}
-@media(max-width:1100px){.page-shell{padding:0 34px}.workspace{grid-template-columns:minmax(0,1fr) 258px;gap:25px}.controls{padding-left:22px}.canvas-frame canvas{height:500px}.study-notes{gap:28px}.controls h2{font-size:22px}.study-heading{padding-top:43px}.introduction{font-size:12px}.medium{display:none}}
-@media(max-width:800px){.page-shell{padding:0 24px}.page-header{height:82px}.wordmark{font-size:18px}.back-link{font-size:10px}.study-heading{padding:37px 0 30px;align-items:flex-start;gap:20px}.introduction{max-width:170px;font-size:11px;margin-top:29px}.eyebrow{font-size:8px}.edition{margin-left:0}.workspace{grid-template-columns:minmax(0,1fr);gap:30px}.canvas-frame canvas{height:clamp(360px,70vw,550px)}.controls{border-left:0;border-top:1px solid var(--line);padding:25px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:26px}.controls-heading{grid-column:1/-1}.controls h2{grid-column:1/-1;font-size:25px;margin-bottom:23px}.controls h2 br{display:none}.palette-control{grid-column:1/-1;margin-top:3px}.palette-options{grid-template-columns:repeat(3,minmax(0,90px))}.palette{flex-direction:row;gap:8px;padding:8px}.swatch{width:19px;height:19px}.controls-footnote{margin:14px 0 0;grid-column:1/-1}.range-control{margin-bottom:17px}.study-notes{grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}.review-note{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);padding:23px 0 0}.review-note p{max-width:none!important}.scene-topline{margin-bottom:13px}.scene-topline h2{font-size:14px}}
-@media(max-width:480px){.page-shell{padding:0 17px}.page-header{height:72px}.back-link{max-width:106px;text-align:right;font-size:9px;line-height:1.5}.back-link span{margin-left:5px}.wordmark{font-size:17px;gap:8px}.wordmark-symbol{font-size:25px;width:26px}.study-heading{display:block;padding:30px 0 26px}.study-heading h1{font-size:48px;letter-spacing:-2px}.introduction{font-size:11px;max-width:none;margin:18px 0 0}.introduction br{display:none}.eyebrow{margin-bottom:14px}.canvas-frame canvas{height:380px}.canvas-topbar,.canvas-bottomline{left:18px;right:18px}.canvas-tag{font-size:7px}.canvas-bottomline>span:last-child{display:none}.playback-bar{gap:3px;padding:14px 0}.button{min-height:42px;padding:8px 12px;font-size:10px}.button-quiet{padding:8px}.button-primary{min-width:82px}.button span[aria-hidden]{font-size:13px}.readout{font-size:8px}.interaction-note{font-size:11px}.controls{column-gap:18px}.controls h2{font-size:24px}.study-notes{gap:24px}.study-notes h3{font-size:18px}.study-notes article>p:not(.note-number){font-size:10px}.page-footer{font-size:7px}.page-footer>span:last-child{max-width:137px;text-align:right}.canvas-frame{margin-left:-1px;margin-right:-1px}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.live-dot{box-shadow:none}}
-.follow-control{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding:16px 0 0;margin-top:3px;font-size:11px;color:#c0d0ca;cursor:pointer}.follow-control small{display:block;font-size:9px;color:#78958b;margin-top:4px}.follow-control input{width:19px;height:19px;accent-color:var(--accent);cursor:pointer}@media(max-width:800px){.follow-control{grid-column:1/-1;padding-top:17px}}
+:root{color-scheme:dark;--paper:#081114;--panel:#0b171b;--line:#243b3c;--text:#e1ede5;--muted:#92aaa5;--accent:#bbe7cf;--ink:#10281d;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);color:var(--text)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 68% 0%,#164c4326,transparent 50%),var(--paper)}body[data-palette=ultraviolet]{--accent:#d5c4f5;--ink:#271e3b}body[data-palette=ember]{--accent:#f0c6a5;--ink:#38231c}[hidden]{display:none!important}button,input,select{font:inherit}button,select{touch-action:manipulation}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}a{color:inherit;text-decoration:none}a:hover{color:var(--accent)}button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible,canvas:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.skip-link{position:fixed;z-index:20;top:-70px;left:16px;padding:12px 18px;color:var(--ink);background:var(--accent)}.skip-link:focus{top:16px}.page-shell{max-width:1512px;margin:auto;padding:0 52px}.page-header{height:88px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:24px}.wordmark{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:650;letter-spacing:-.6px}.wordmark-symbol{font:italic 28px Georgia,serif;letter-spacing:-7px;width:32px;color:var(--accent)}.wordmark>span:last-child{color:var(--accent);margin-left:-5px}.page-header nav{display:flex;gap:27px;font-size:11px;color:var(--muted)}.study-heading{display:flex;justify-content:space-between;align-items:flex-end;padding:46px 0 38px}.eyebrow,.scene-number,.scene-cast,.specimen-index,.medium,.canvas-topbar,.canvas-bottomline,.chapter-label,.chapter-stops,.range-control output,.capture-row,.note-number,.page-footer{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}.eyebrow{font-size:9px;letter-spacing:.13em;color:var(--muted);margin:0 0 16px}.eyebrow span{color:#637d75;margin-left:18px}h1{font-size:clamp(42px,5vw,68px);line-height:1;letter-spacing:-3px;font-weight:400;margin:0}h1 em,.controls h2 em{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:var(--accent)}h2,h3,p{margin-top:0}.introduction{color:var(--muted);font-size:12px;line-height:1.75;margin:0 0 3px 20px}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:12px}.section-heading h2{font-size:12px;font-weight:500;margin:0;color:#c3d5cc}.text-button{border:0;background:none;color:var(--muted);font-size:10px;min-height:36px;padding:6px 0;display:inline-flex;align-items:center;gap:6px;justify-content:center}.text-button:hover,.text-button[aria-pressed=true]{color:var(--accent)}.scene-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.scene-card{position:relative;display:flex;flex-direction:column;text-align:left;padding:20px 21px 16px;border:1px solid var(--line);border-radius:5px;background:linear-gradient(145deg,#10251e66,#0b151899);color:var(--text);min-height:164px;transition:background .2s,border-color .2s}.scene-card:hover{border-color:#5e8173;background:#122620}.scene-card.selected{border-color:#91b8a3;background:linear-gradient(145deg,#1e3c3066,#0e211d)}.scene-card.selected:before{content:"";width:4px;height:4px;background:var(--accent);border-radius:50%;position:absolute;right:17px;top:20px}.scene-number{font-size:8px;letter-spacing:.1em;color:#839d91}.scene-name{font:25px/1.3 Georgia,"Times New Roman",serif;letter-spacing:-.5px;margin:10px 0 6px}.scene-copy{font-size:11px;line-height:1.7;color:#9db4a7;max-width:36ch}.scene-cast{font-size:7px;letter-spacing:.08em;color:#78988a;display:flex;justify-content:space-between;gap:12px;margin-top:18px}.scene-cast>span{font:16px system-ui;line-height:12px;color:var(--accent)}.library-note{font-size:10px;color:#6e8b80;margin:10px 0 33px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:34px}.art-column{min-width:0}.scene-topline{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px;min-height:27px}.scene-topline>div{display:flex;align-items:center;gap:15px}.scene-topline h2{font-size:15px;font-weight:500;margin:0;letter-spacing:-.2px}.specimen-index{font-size:9px;color:var(--accent)}.medium{font-size:7px;letter-spacing:.08em;color:#75948b}.canvas-frame{position:relative;isolation:isolate;background:#080d0f;border:1px solid var(--line);border-radius:3px;overflow:hidden}.canvas-frame canvas{display:block;width:100%;height:clamp(430px,42vw,620px);touch-action:pan-y;outline-offset:-6px}.canvas-topbar,.canvas-bottomline{position:absolute;z-index:1;left:22px;right:22px;pointer-events:none;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:8px;letter-spacing:.08em;color:#829e91}.canvas-topbar{top:19px}.canvas-bottomline{bottom:19px;font-size:8px;letter-spacing:.01em}.canvas-bottomline>span:first-child{max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.playback-state{display:flex;gap:8px;align-items:center;color:#b0c7ba}.live-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px #bde9ce44}.live-dot.paused{background:#6c8a7d;box-shadow:none}#focus-badge{font-size:7px;color:#799c8c}.scene-corner{position:absolute;width:11px;height:11px;pointer-events:none;border-style:solid;border-color:#7aa78e55;z-index:2}.corner-top-left{left:7px;top:7px;border-width:1px 0 0 1px}.corner-top-right{right:7px;top:7px;border-width:1px 1px 0 0}.corner-bottom-left{left:7px;bottom:7px;border-width:0 0 1px 1px}.corner-bottom-right{right:7px;bottom:7px;border-width:0 1px 1px 0}.chapter-strip{padding:13px 0 0}.chapter-label{display:flex;justify-content:space-between;font-size:9px;color:#a9c1b2}.chapter-label>output{font-size:8px;color:#78988a}.chapter-track{height:2px;background:#233b31;margin:9px 0 7px;overflow:hidden}.chapter-track>span{display:block;height:100%;width:0;background:var(--accent)}.chapter-stops{display:grid;grid-template-columns:repeat(4,1fr);font-size:7px;color:#6c897d}.chapter-stops>span.active{color:var(--accent)}.chapter-stops>span:last-child{text-align:right}.playback-bar{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:19px 0 12px}.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:9px 13px;border:1px solid #314a3e;border-radius:4px;background:#0c1d17;color:#d1e4d6;font-size:10px}.button:hover{background:#173124;border-color:#668e74}.button-primary{background:var(--accent);border-color:var(--accent);color:var(--ink);min-width:82px}.button-primary:hover{background:var(--accent);border-color:var(--accent);filter:brightness(1.08)}.button-quiet{background:transparent;border-color:transparent;color:var(--muted);padding-left:8px;padding-right:8px}.button-quiet:hover{background:#11251c;border-color:var(--line)}.interaction-note{font-size:11px;line-height:1.75;color:#a7bdad;margin:1px 0 5px;max-width:76ch}.focus-note{font-size:10px;line-height:1.75;color:#6f9482;margin-bottom:14px}.motion-note{padding-left:12px;border-left:1px solid #6f9a80;color:var(--accent);font-size:11px;line-height:1.7;margin:13px 0}.still-controls{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:13px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.still-controls>span{font-size:10px;color:#8fae9b}.still-controls>div{display:flex;gap:5px}.still-controls button{min-height:36px;border:1px solid transparent;border-radius:3px;background:none;color:#91b39f;padding:7px 9px;font-size:9px}.still-controls button:hover{background:#11281c}.still-controls button[aria-pressed=true]{background:#1c3b29;border-color:#47795a;color:var(--accent)}.keyboard-help{font-size:9px;line-height:1.9;color:#6f8c7e;margin:13px 0 12px}kbd{display:inline-block;font:8px ui-monospace,SFMono-Regular,Consolas,monospace;min-width:15px;text-align:center;border:1px solid #30483a;border-radius:2px;padding:0 2px;color:#a3bfae;background:#0e2017;margin-right:2px}.capture-row{display:flex;justify-content:space-between;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:5px}.capture-row>output{font-size:8px;color:#6f9380}.capture-row>div{display:flex;gap:17px}.capture-row .text-button{font:9px system-ui}.action-status{font-size:11px;line-height:1.6;min-height:18px;color:var(--accent);margin:9px 0 0}.action-status.error{color:#edb3a0}.controls{border-left:1px solid var(--line);padding:3px 0 0 27px}.controls>.eyebrow{font-size:8px;margin-bottom:10px}.controls h2{font-size:25px;line-height:1.2;letter-spacing:-.7px;font-weight:400;margin:0 0 23px}.select-control{display:grid;gap:7px;margin-bottom:17px}.select-control label,fieldset legend,.range-control label{font-size:10px;color:#bfd2c4}.select-control select,.cast-row select{width:100%;min-width:0;min-height:40px;padding:9px 10px;border:1px solid #2b4536;border-radius:3px;background:#0c1c16;color:#d1e3d5;font-size:10px}.range-control{margin-bottom:17px}.range-control label{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:5px}.range-control output{font-size:9px;color:var(--accent)}.range-control input{display:block;width:100%;height:24px;margin:0;accent-color:var(--accent);cursor:pointer;appearance:none;background:transparent}.range-control input::-webkit-slider-runnable-track{height:2px;border-radius:1px;background:linear-gradient(to right,var(--accent) 0%,var(--accent) var(--fill,50%),#2c4938 var(--fill,50%),#2c4938 100%)}.range-control input::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid #11281a;margin-top:-5px}.range-control input::-moz-range-track{height:2px;background:#2c4938}.range-control input::-moz-range-progress{height:2px;background:var(--accent)}.range-control input::-moz-range-thumb{width:9px;height:9px;border-radius:50%;border:2px solid #11281a;background:var(--accent)}.range-ends{display:flex;justify-content:space-between;font-size:8px;color:#688874}.control-panel{border-top:1px solid var(--line);padding:0;margin-top:18px}.control-panel summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:49px;font-size:11px;color:#c4d7c8}.control-panel summary::-webkit-details-marker{display:none}.control-panel summary>span{font-size:8px;color:#6e907b}.control-panel summary>span:after{content:"+";font-size:14px;color:#91b99e;margin-left:9px}.control-panel[open] summary>span:after{content:"−"}.panel-content{padding:3px 0 6px}.field-note{font-size:9px;line-height:1.8;color:#739681;margin-bottom:13px}.cast-rows{display:grid;gap:10px}.cast-row{display:grid;grid-template-columns:23px minmax(0,1fr) minmax(0,1fr);column-gap:6px;row-gap:4px;padding:9px 0;border-bottom:1px solid #1b3426}.cast-row.focused{border-bottom-color:#4b795c}.member-number{font:10px ui-monospace,SFMono-Regular,Consolas,monospace;color:#789c85;padding-top:12px}.cast-row.focused .member-number{color:var(--accent)}.cast-row label{display:block;font-size:8px;color:#6e947d}.cast-row select{font-size:9px;padding:6px;min-height:38px}.member-motive{grid-column:2/-1;color:#70967d;font-size:8px;line-height:1.6;margin-top:3px;min-height:13px}.switch-control{display:flex;justify-content:space-between;align-items:center;gap:18px;font-size:10px;color:#b6cfbb;min-height:41px;margin-top:8px}.switch-control input{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}.palette-control{border:0;padding:0;margin:0 0 16px}.palette-control legend{padding:0;margin-bottom:9px}.palette-options{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.palette{display:flex;flex-direction:column;align-items:center;gap:6px;color:#7d9e87;border:1px solid transparent;border-radius:4px;background:none;padding:9px 3px;font-size:8px;min-height:58px}.palette.selected{background:#142c1e;border-color:#365a42;color:#d5e8d8}.palette:hover{background:#14291c}.swatch{width:20px;height:20px;border-radius:50%;border:1px solid #b9d8bd55}.swatch-lagoon{background:linear-gradient(145deg,#d0efd5,#36a49c 55%,#284e88)}.swatch-ultraviolet{background:linear-gradient(145deg,#e9d4f9,#9e78d7 55%,#34477b)}.swatch-ember{background:linear-gradient(145deg,#f3d3a6,#c86e5b 55%,#62394e)}.reset-score{margin-top:17px;color:#6f997d}.study-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:55px;margin-top:45px;padding:31px 0 39px;border-top:1px solid var(--line)}.note-number{font-size:8px;letter-spacing:.1em;color:#6f967c;margin-bottom:13px}.study-notes h3{font:23px/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.4px;font-weight:400;margin-bottom:12px}.study-notes article>p:last-child{font-size:11px;line-height:1.8;color:#8da996;max-width:42ch;margin:0}.page-footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding:22px 0 29px;font-size:8px;color:#5f846c}.canvas-frame.error canvas{opacity:.2}
+@media(min-width:1450px){.workspace{grid-template-columns:minmax(0,1fr) 315px;gap:42px}.controls{padding-left:33px}.canvas-frame canvas{height:620px}.scene-card{min-height:172px}.controls h2{font-size:27px}}
+@media(max-width:1100px){.page-shell{padding:0 30px}.workspace{grid-template-columns:minmax(0,1fr) 260px;gap:25px}.controls{padding-left:21px}.canvas-frame canvas{height:520px}.scene-name{font-size:23px}.scene-card{padding:16px}.scene-cast{font-size:6px}.medium{display:none}.still-controls{display:block}.still-controls>div{justify-content:space-between;margin-top:7px}.capture-row{align-items:flex-start;flex-direction:column;gap:0}.capture-row>output{padding-top:9px}.study-notes{gap:30px}}
+@media(max-width:800px){.page-shell{padding:0 23px}.page-header{height:74px}.page-header nav{font-size:10px;gap:16px}.study-heading{padding:35px 0 29px}.study-heading h1{font-size:55px}.introduction{font-size:10px;max-width:180px}.eyebrow{font-size:8px}.eyebrow span{margin-left:10px}.scene-cards{gap:8px}.scene-card{padding:14px 13px;min-height:179px}.scene-name{font-size:22px;line-height:1.15;margin-top:12px}.scene-copy{font-size:10px}.scene-number{font-size:6px}.scene-cast{margin-top:auto;padding-top:15px;font-size:6px;line-height:1.7}.workspace{grid-template-columns:minmax(0,1fr);gap:32px}.canvas-frame canvas{height:clamp(410px,73vw,620px)}.controls{border-left:0;border-top:1px solid var(--line);padding:26px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 27px}.controls>.eyebrow,.controls>h2,.controls>.select-control{grid-column:1/-1}.controls h2 br{display:none}.controls h2{font-size:27px}.controls>.select-control{max-width:360px}.controls>#director-controls,.controls>#classic-controls{grid-column:1}.control-panel{margin-top:0}.controls>#cast-panel{grid-column:2;grid-row:4 / span 2}.controls>.control-panel:not(#cast-panel){grid-column:1/-1}.controls>.control-panel:not(#cast-panel)>.panel-content{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.controls>.reset-score{grid-column:1/-1;justify-self:start}.still-controls{display:flex}.still-controls>div{margin-top:0}.capture-row{flex-direction:row;align-items:center}.capture-row>output{padding:0}.study-notes{gap:24px}.study-notes h3{font-size:20px}.page-footer{font-size:7px}.page-footer>span:nth-child(2){display:none}}
+@media(max-width:520px){.page-shell{padding:0 16px}.page-header{height:68px;gap:18px}.wordmark{font-size:16px}.wordmark-symbol{font-size:24px;width:29px}.page-header nav>a:first-child{display:none}.page-header nav{font-size:9px;text-align:right;max-width:135px}.study-heading{display:block;padding:28px 0 26px}.study-heading h1{font-size:53px}.introduction{margin:17px 0 0;max-width:none;font-size:11px}.introduction br{display:none}.eyebrow span{font-size:7px}.scene-cards{display:flex;overflow-x:auto;gap:8px;padding-bottom:5px;scroll-snap-type:x proximity}.scene-card{flex:0 0 80%;min-height:158px;scroll-snap-align:start}.scene-name{font-size:26px}.scene-copy{font-size:11px}.scene-number{font-size:8px}.scene-cast{font-size:7px}.library-note{font-size:9px;margin-bottom:26px}.section-heading h2{font-size:11px}.section-heading>.text-button{font-size:9px}.scene-topline h2{font-size:13px}.scene-topline>div{gap:10px}.canvas-frame canvas{height:440px}.canvas-topbar,.canvas-bottomline{left:15px;right:15px;font-size:7px}.canvas-bottomline>span:first-child{max-width:61%}#focus-badge{font-size:6px}.chapter-stops{font-size:6px}.button{padding:9px 11px;font-size:9px;min-height:44px}.button-primary{min-width:74px}.playback-bar{gap:4px}.button-quiet{padding:9px 6px}.interaction-note{font-size:10px}.focus-note{font-size:9px}.still-controls{display:block}.still-controls>div{margin-top:8px}.still-controls button{font-size:9px;min-height:42px;padding:7px 9px}.keyboard-help{font-size:8px}.capture-row{display:block}.capture-row>output{display:block;padding-top:10px}.capture-row>div{gap:20px}.capture-row .text-button{min-height:42px}.controls{display:block}.controls h2{font-size:26px}.controls>.select-control{max-width:none}.controls>#director-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}.controls>#classic-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}.controls>#classic-controls>.select-control:first-child{grid-column:1/-1}.control-panel{margin-top:9px}.control-panel summary{min-height:54px}.controls>.control-panel:not(#cast-panel)>.panel-content{gap:0 20px}.cast-row{grid-template-columns:26px minmax(0,1.2fr) minmax(0,1fr)}.cast-row select{font-size:11px;min-height:44px}.cast-row label{font-size:9px}.member-motive{font-size:9px}.range-control label{font-size:10px}.select-control select{min-height:44px}.switch-control{min-height:44px}.study-notes{grid-template-columns:1fr;gap:25px;margin-top:31px;padding-top:27px}.study-notes article{display:grid;grid-template-columns:86px 1fr;column-gap:15px}.note-number{font-size:7px;grid-row:1 / span 2;padding-top:5px}.study-notes h3{font-size:21px}.study-notes article>p:last-child{font-size:10px;max-width:none}.page-footer{font-size:7px;gap:16px}.page-footer>a{text-align:right}}
+.interaction-note,.focus-note,.field-note,.keyboard-help,.member-motive{font-size:11px;line-height:1.75}.select-control label,.range-control label,.switch-control,fieldset legend,.control-panel summary{font-size:12px}.select-control select,.cast-row select{font-size:11px}.cast-row label{font-size:10px}.button,.still-controls button{font-size:11px}.range-ends{font-size:9px}.chapter-stops,.canvas-bottomline,#focus-badge{font-size:9px}
+@media(pointer:coarse){.button,.text-button,.still-controls button,.select-control select,.cast-row select{min-height:44px}.range-control input{height:44px}.range-control input::-webkit-slider-thumb{width:18px;height:18px;margin-top:-8px}.range-control input::-moz-range-thumb{width:15px;height:15px}.switch-control{min-height:44px}.switch-control input{width:22px;height:22px}.capture-row>div{flex-wrap:wrap;column-gap:16px;row-gap:0}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.live-dot{box-shadow:none}}
 
 </style>
   
   
 </head>
 <body data-palette="lagoon">
-  <a class="skip-link" href="#animal-controls">Skip to the controls</a>
+  <a class="skip-link" href="#animal-controls">Skip to director controls</a>
   <div class="page-shell">
     <header class="page-header">
-      <a class="wordmark" href="index.html"><span class="wordmark-symbol" aria-hidden="true">a<span>∿</span></span>ASCII Animals<span class="wordmark-dot" aria-hidden="true">.</span></a>
-      <a class="back-link" href="cuttlefish-demo.html">Original cuttlefish study <span aria-hidden="true">↗</span></a>
+      <a class="wordmark" href="index.html"><span class="wordmark-symbol" aria-hidden="true">a∿</span>ASCII Animals<span aria-hidden="true">.</span></a>
+      <nav aria-label="Study navigation"><a href="index.html">All animals</a><a href="cuttlefish-demo.html">Original cuttlefish study <span aria-hidden="true">↗</span></a></nav>
     </header>
-
     <main>
-      <section class="study" aria-labelledby="study-title">
-        <div class="study-heading">
-          <div>
-            <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>FIELD STUDIES <span class="edition">002—003</span></p>
-            <h1 id="study-title">New <em>currents.</em></h1>
-          </div>
-          <p class="introduction">Two new silhouettes, written in light. <br>Move closer. See what moves with you.</p>
+      <div class="study-heading">
+        <div><p class="eyebrow">FIELD STUDIES / 01—03 <span>THE MARINE DIRECTOR</span></p><h1 id="study-title">Shared <em>waters.</em></h1></div>
+        <p class="introduction">Three lives. A place to meet.<br>Give the current a story, then become part of it.</p>
+      </div>
+      <section class="scene-library" aria-labelledby="scene-library-title">
+        <div class="section-heading"><h2 id="scene-library-title">Choose a little world</h2><button id="classic-mode" class="text-button" type="button" aria-pressed="false">Classic current <span aria-hidden="true">↗</span></button></div>
+        <div class="scene-cards" role="group" aria-label="Authored marine scenes">
+          <button class="scene-card selected" type="button" data-scene="reef-rendezvous" aria-pressed="true"><span class="scene-number">01 / AN ENCOUNTER</span><span class="scene-name">Reef rendezvous</span><span class="scene-copy">Arrive in layers. Exchange a glance. Explore together.</span><span class="scene-cast">MANTA · OCTOPUS · CUTTLEFISH <span aria-hidden="true">↗</span></span></button>
+          <button class="scene-card" type="button" data-scene="upwelling-ballet" aria-pressed="false"><span class="scene-number">02 / A SHARED FLIGHT</span><span class="scene-name">Upwelling ballet</span><span class="scene-copy">Broad wings ride a rising current. Quiet companions watch.</span><span class="scene-cast">THREE MANTAS + TWO COMPANIONS <span aria-hidden="true">↗</span></span></button>
+          <button class="scene-card" type="button" data-scene="tidepool-investigation" aria-pressed="false"><span class="scene-number">03 / A SMALL DISCOVERY</span><span class="scene-name">Tidepool investigation</span><span class="scene-copy">Arms search ahead. Curiosity becomes a careful approach.</span><span class="scene-cast">TWO OCTOPUSES + A SENTINEL <span aria-hidden="true">↗</span></span></button>
         </div>
-
-        <div class="workspace">
-          <div class="art-column">
-            <div class="scene-topline"><div><span class="specimen-index" id="specimen-index">02</span><h2 id="animal-title">Manta ray</h2></div><span class="medium">CHARACTERS / IN MOTION</span></div>
-            <div class="canvas-frame" id="canvas-frame">
-              <div class="canvas-topbar"><span class="playback-state"><span class="live-dot" id="live-dot" aria-hidden="true"></span><span id="playback-label">PREPARING</span></span><span class="canvas-tag" aria-hidden="true">IN THE CURRENT</span></div>
-              <canvas id="animal-canvas" role="img" tabindex="0" aria-label="A procedural ASCII manta ray with broad moving wings and a long tail. Move the pointer nearby to invite a turn, or use the React control."></canvas>
-              <div class="canvas-bottomline" aria-hidden="true"><span>+ <span id="phase-label">Finding the current</span></span><span>ASCII / 2D CANVAS</span></div>
-              <div class="scene-corner corner-top-left" aria-hidden="true"></div><div class="scene-corner corner-top-right" aria-hidden="true"></div><div class="scene-corner corner-bottom-left" aria-hidden="true"></div><div class="scene-corner corner-bottom-right" aria-hidden="true"></div>
-            </div>
-            <div class="playback-bar" role="group" aria-label="Artwork playback and capture">
-              <button class="button button-primary" id="play-pause" type="button" aria-label="Pause animation"><span id="play-symbol" aria-hidden="true">Ⅱ</span><span id="play-text">Pause</span></button>
-              <button class="button" id="react" type="button"><span aria-hidden="true">✳</span>React</button>
-              <button class="button button-quiet" id="reset" type="button" title="Reset this subject’s settings and restart its performance"><span aria-hidden="true">↻</span>Reset</button>
-              <button class="button button-quiet capture-button" id="save-png" type="button"><span aria-hidden="true">↓</span>Save PNG</button>
-            </div>
-            <div class="readout" aria-live="off"><span id="view-count">1 IN THE CURRENT</span><output id="render-stats">PREPARING THE ARTWORK</output></div>
-            <p class="interaction-note" id="animal-description">Move nearby to invite a turn. Click the animal to make it bank away.</p>
-            <p class="motion-note" id="motion-note" hidden></p>
-            <p class="action-status" id="action-status" role="status" aria-live="polite"></p>
-          </div>
-
-          <aside class="controls" id="animal-controls" aria-labelledby="controls-title">
-            <div class="controls-heading"><p class="eyebrow">DIRECT THE STUDY</p><span aria-hidden="true">+</span></div>
-            <h2 id="controls-title">Make a little<br><em>room for wonder.</em></h2>
-            <div class="select-control"><label for="species">Who is visiting?</label><select id="species"><option value="manta">Manta ray</option><option value="octopus">Octopus</option><option value="cuttlefish">Cuttlefish</option><option value="mixed">Mixed marine company</option></select></div>
-            <div class="select-control"><label for="formation">Current</label><select id="formation"><option value="independent">Independent</option><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option><option value="diagonal">Diagonal</option><option value="random">Wandering</option></select></div>
-
-            <fieldset class="palette-control"><legend>Color story</legend><div class="palette-options" role="group" aria-label="Color story"><button class="palette selected" data-palette="lagoon" type="button" aria-pressed="true"><span class="swatch swatch-lagoon" aria-hidden="true"></span>Lagoon</button><button class="palette" data-palette="ultraviolet" type="button" aria-pressed="false"><span class="swatch swatch-ultraviolet" aria-hidden="true"></span>Violet</button><button class="palette" data-palette="ember" type="button" aria-pressed="false"><span class="swatch swatch-ember" aria-hidden="true"></span>Ember</button></div></fieldset>
-
-            <div class="range-control"><label for="count">Visitors <output id="count-value" for="count">1</output></label><input id="count" type="range" min="1" max="12" step="1" value="1"><div class="range-ends"><span>A quiet visit</span><span>A small school</span></div></div>
-            <div class="range-control"><label for="size">Animal size <output id="size-value" for="size">110%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="1.1"></div>
-            <div class="range-control"><label for="speed">Tempo <output id="speed-value" for="speed">1.05×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1.05"></div>
-            <div class="range-control"><label for="ripple">Undulation <output id="ripple-value" for="ripple">1.30×</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.05" value="1.3"></div>
-            <div class="range-control"><label for="density">Character detail <output id="density-value" for="density">1.20×</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.05" value="1.2"><div class="range-ends"><span>Open water</span><span>Fine detail</span></div></div>
-            <label class="follow-control" for="follow-pointer"><span>Follow the pointer<small>A little shared curiosity.</small></span><input id="follow-pointer" type="checkbox" role="switch" checked></label>
-            <p class="controls-footnote">Every animal keeps its own rhythm.<br><kbd>Space</kbd> pauses or resumes the current.</p>
-          </aside>
-        </div>
-
-        <div class="study-notes" aria-label="About the new animals"><article><p class="note-number">02 / MANTA</p><h3>A wide, quiet flight.</h3><p>A traveling wave moves through broad wings. A slender tail trails the turn; the body banks toward a nearby pointer.</p></article><article><p class="note-number">03 / OCTOPUS</p><h3>Eight arms. One intention.</h3><p>A distinct mantle and eight articulated arms share a coherent response: explore, gather, then settle back into the current.</p></article><article class="review-note"><p class="note-number">A WORKING LOCAL STUDY</p><p>Local review: original procedural geometry. Uses the shared canonical ASCII Animals renderer.</p><p class="publication-note">Review build. No npm release or performance guarantee.</p></article></div>
+        <p class="library-note">A scene chooses its cast and choreography. Color and drawing preferences stay yours.</p>
       </section>
+      <section class="workspace" aria-labelledby="animal-title">
+        <div class="art-column">
+          <div class="scene-topline"><div><span class="specimen-index" id="specimen-index">01—03</span><h2 id="animal-title">Reef rendezvous</h2></div><span class="medium" id="medium-label">CHARACTERS / SHARED WATER</span></div>
+          <div class="canvas-frame" id="canvas-frame">
+            <div class="canvas-topbar"><span class="playback-state"><span class="live-dot" id="live-dot" aria-hidden="true"></span><span id="playback-label">PREPARING</span></span><span id="focus-badge">FOCUS 01 / MANTA</span></div>
+            <canvas id="animal-canvas" role="img" tabindex="0" aria-label="Three procedural ASCII marine animals meet in a shared reef scene. Use the adjacent director controls to choose a scene, focus an animal, or view still chapters." aria-describedby="stage-help keyboard-help"></canvas>
+            <div class="canvas-bottomline"><span id="phase-label">Finding each other</span><span id="view-count">3 IN THE CURRENT</span></div>
+            <span class="scene-corner corner-top-left" aria-hidden="true"></span><span class="scene-corner corner-top-right" aria-hidden="true"></span><span class="scene-corner corner-bottom-left" aria-hidden="true"></span><span class="scene-corner corner-bottom-right" aria-hidden="true"></span>
+          </div>
+          <div class="chapter-strip" id="chapter-strip" aria-label="Current scene chapter">
+            <div class="chapter-label"><span id="chapter-name">Meeting</span><output id="chapter-time">00 / 40 s</output></div>
+            <div class="chapter-track" aria-hidden="true"><span id="chapter-progress"></span></div>
+            <div class="chapter-stops" aria-hidden="true"><span data-chapter="arrive">01 Arrive</span><span data-chapter="engage">02 Engage</span><span data-chapter="explore">03 Explore</span><span data-chapter="depart">04 Depart</span></div>
+          </div>
+          <div class="playback-bar" role="group" aria-label="Playback and scene cues">
+            <button class="button button-primary" id="play-pause" type="button"><span id="play-symbol" aria-hidden="true">Ⅱ</span><span id="play-text">Pause</span></button>
+            <button class="button" id="invite" type="button">Place an invitation</button><button class="button" id="react" type="button">Startle focus</button>
+            <button class="button button-quiet" id="release" type="button">Release</button><button class="button button-quiet" id="replay" type="button">Replay arrival</button>
+          </div>
+          <p class="interaction-note" id="stage-help">Move gently to invite curiosity. Tap empty water to leave a point of interest; tap a visitor for its own response.</p>
+          <p class="focus-note" id="focus-note">Manta · guide — holding a place in the current.</p><p class="motion-note" id="motion-note" hidden></p>
+          <div class="still-controls" id="still-controls"><span>Pause on a chapter</span><div role="group" aria-label="Deliberate still compositions"><button type="button" data-still="arrive" aria-pressed="false">Arrival</button><button type="button" data-still="engage" aria-pressed="false">Meeting</button><button type="button" data-still="explore" aria-pressed="false">Exploration</button><button type="button" data-still="depart" aria-pressed="false">Departure</button></div></div>
+          <p class="keyboard-help" id="keyboard-help"><span id="keyboard-director">Focus the artwork: <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> place interest · <kbd>I</kbd> invite · <kbd>Home</kbd> center · <kbd>Enter</kbd> startle focus · <kbd>R</kbd> release · <kbd>1–8</kbd> focus · <kbd>Space</kbd> pause.</span><span id="keyboard-classic" hidden>Focus the artwork: <kbd>Enter</kbd> invite a response or replay a passage · <kbd>1–8</kbd> inspect a visitor · <kbd>Space</kbd> pause. Use the focus selector for visitors 9–12.</span></p>
+          <div class="capture-row"><output id="render-stats" aria-live="off">PREPARING THE ARTWORK</output><div><button class="text-button" id="save-png" type="button">Save PNG ↓</button><button class="text-button" id="save-score" type="button">Export score ↓</button><a class="text-button" href="animals-standalone.html" download>Offline HTML ↗</a></div></div>
+          <p class="action-status" id="action-status" role="status" aria-live="polite"></p>
+        </div>
+        <aside class="controls" id="animal-controls" aria-labelledby="controls-title">
+          <p class="eyebrow">COMPOSE THE ENCOUNTER</p><h2 id="controls-title">A current.<br><em>A few intentions.</em></h2>
+          <div class="select-control"><label for="focus">Whose story are you following?</label><select id="focus"><option value="1">01 · Manta ray</option></select></div>
+          <div id="director-controls">
+            <div class="range-control"><label for="current">Current <output id="current-value" for="current">+35%</output></label><input id="current" type="range" min="-1" max="1" step="0.05" value="0.35"><div class="range-ends"><span>Against the tide</span><span>With the tide</span></div></div>
+            <div class="range-control"><label for="duration">Scene length <output id="duration-value" for="duration">40 s</output></label><input id="duration" type="range" min="20" max="80" step="2" value="40"></div>
+            <div class="range-control"><label for="autonomy">Independent spirit <output id="autonomy-value" for="autonomy">100%</output></label><input id="autonomy" type="range" min="0" max="1.5" step="0.05" value="1"></div>
+            <div class="range-control"><label for="intimacy">Willingness to approach <output id="intimacy-value" for="intimacy">100%</output></label><input id="intimacy" type="range" min="0" max="1.5" step="0.05" value="1"></div>
+          </div>
+          <div id="classic-controls" hidden>
+            <div class="select-control"><label for="legacy-scene">Original scene</label><select id="legacy-scene"><option value="swimby">Swim-by · arrive, linger, depart</option><option value="encounter">Close encounter · approach the lens</option><option value="reactive" selected>Reactive · curiosity and disturbance</option></select></div>
+            <div class="select-control"><label for="formation">Formation path</label><select id="formation"><option value="independent">Independent roles</option><option value="horizontal">Horizontal procession</option><option value="vertical">Vertical current</option><option value="diagonal">Diagonal drift</option><option value="random">Wandering</option></select></div>
+            <div class="range-control"><label for="spacing">Path spacing <output id="spacing-value" for="spacing">1.00×</output></label><input id="spacing" type="range" min="0.65" max="1.6" step="0.05" value="1"></div>
+            <label class="switch-control" for="reverse"><span>Reverse the paths</span><input id="reverse" type="checkbox" role="switch"></label>
+          </div>
+          <details class="control-panel" id="cast-panel" open><summary>The company <span id="cast-summary">3 visitors</span></summary><div class="panel-content">
+            <div class="range-control"><label for="count">Visitors <output id="count-value" for="count">3</output></label><input id="count" type="range" min="1" max="8" step="1" value="3"></div>
+            <p class="field-note" id="cast-help">Each visitor keeps its motive when you adjust the scene. Three to five leave room for readable encounters.</p><div class="cast-rows" id="cast-rows"></div><label class="switch-control" for="showLabels"><span>Show visitor numbers</span><input id="showLabels" type="checkbox" role="switch"></label>
+          </div></details>
+          <details class="control-panel"><summary>Scale &amp; movement <span>Fine tune</span></summary><div class="panel-content">
+            <div class="range-control"><label for="size">Animal size <output id="size-value" for="size">80%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="0.8"></div>
+            <div class="range-control"><label for="sizeVariation">Size variation <output id="sizeVariation-value" for="sizeVariation">20%</output></label><input id="sizeVariation" type="range" min="0" max="1" step="0.05" value="0.2"></div>
+            <div class="range-control" id="spread-row"><label for="spread">Space to explore <output id="spread-value" for="spread">1.00×</output></label><input id="spread" type="range" min="0.65" max="1.5" step="0.05" value="1"></div>
+            <div class="range-control"><label for="speed">Tempo <output id="speed-value" for="speed">1.00×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1"></div>
+            <div class="range-control"><label for="motion">Travel range <output id="motion-value" for="motion">1.20×</output></label><input id="motion" type="range" min="0" max="2" step="0.05" value="1.2"></div>
+            <div class="range-control"><label for="ripple">Undulation <output id="ripple-value" for="ripple">1.30×</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.05" value="1.3"></div>
+            <label class="switch-control" for="follow-pointer"><span>Respond to nearby movement</span><input id="follow-pointer" type="checkbox" role="switch" checked></label>
+          </div></details>
+          <details class="control-panel"><summary>Light &amp; characters <span>Drawing</span></summary><div class="panel-content">
+            <fieldset class="palette-control"><legend>Color story</legend><div class="palette-options"><button class="palette selected" data-palette="lagoon" type="button" aria-pressed="true"><span class="swatch swatch-lagoon" aria-hidden="true"></span>Lagoon</button><button class="palette" data-palette="ultraviolet" type="button" aria-pressed="false"><span class="swatch swatch-ultraviolet" aria-hidden="true"></span>Violet</button><button class="palette" data-palette="ember" type="button" aria-pressed="false"><span class="swatch swatch-ember" aria-hidden="true"></span>Ember</button></div></fieldset>
+            <div class="select-control"><label for="render-mode">Render as</label><select id="render-mode"><option value="ascii">ASCII characters</option><option value="points">Particles</option></select></div>
+            <div class="range-control"><label for="density">Character detail <output id="density-value" for="density">1.20×</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.05" value="1.2"></div>
+            <div class="range-control"><label for="depthStrength">Depth <output id="depthStrength-value" for="depthStrength">1.20×</output></label><input id="depthStrength" type="range" min="0" max="2" step="0.05" value="1.2"></div>
+            <label class="switch-control" for="glow"><span>A little glow</span><input id="glow" type="checkbox" role="switch" checked></label><label class="switch-control" id="backdrop-row" for="backdrop"><span>Show the scene’s habitat</span><input id="backdrop" type="checkbox" role="switch" checked></label>
+          </div></details>
+          <button class="text-button reset-score" id="reset" type="button">Restore this scene’s score ↺</button>
+        </aside>
+      </section>
+      <section class="study-notes" aria-label="Three different lives"><article><p class="note-number">01 / CUTTLEFISH</p><h3>A quick change of mind.</h3><p>Hold a station, investigate a visitor, flash a changing pattern, then gather and retreat through ink. The original scene tools remain a click away.</p></article><article><p class="note-number">02 / MANTA</p><h3>Make room for a wingbeat.</h3><p>A guide takes the long arc. Companions share a current, banking through depth and gliding past their neighbors without borrowing a cuttlefish’s ink.</p></article><article><p class="note-number">03 / OCTOPUS</p><h3>Let the arms lead.</h3><p>Search a reef edge, inspect a point of interest, then gather into a cup when startled. Eight bounded arm chains share one intention.</p></article></section>
     </main>
-    <footer class="page-footer"><span>ASCII Animals / New currents</span><span>Original geometry · shared renderer · 2026</span></footer>
+    <footer class="page-footer"><span>ASCII Animals / Shared waters</span><span>Original procedural geometry · one shared renderer</span><a href="record.html">Original recording studio ↗</a></footer>
   </div>
 <script>
 // GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js, src/animals/manta.js, src/animals/octopus.js. Do not edit.
-// source-sha256: 26c9c778714e45cd3259248461fc1fff650fd80639d21cfc55e0b0c9c08805d9
+// source-sha256: ddfd49f8aff727a2e4b87d8d68a4e047e77a5c3fea63d23b6ce417f623eaf3ed
 (function () {
 'use strict';
 /** A framework-neutral, injectable requestAnimationFrame multiplexer. */
@@ -231,7 +259,12 @@ const mantaDefinition = (() => {
     const tension = clamp(finite(host.startleTension, 0), 0, 1);
     const escape = clamp(finite(host.escapeAmount, 0), 0, 1);
     const phase = time * (2.05 + .07 * state.seed) + state.seed * TAU;
-    const amplitude = .29 * ripple * (1 - .25 * tension + .12 * escape);
+    const intent = host.marineIntent;
+    if (intent) state.turn = clamp(intent.bank * .85, -.38, .38);
+    // The director varies propulsion energy without changing the phase clock
+    // at a chapter boundary. Preserve the existing analytic geometry envelope.
+    const energy = intent ? clamp(intent.wingEnergy, .65, 1.10) : 1;
+    const amplitude = .29 * ripple * (1 - .25 * tension + .12 * escape) * energy;
     const d = state.diagnostics, measured = d.bounds;
     d.sampleCount = 0; d.maxWingDisplacement = 0;
     measured.minX = measured.minY = measured.minZ = Infinity;
@@ -438,8 +471,8 @@ const octopusDefinition = (() => {
   }
 
   function attentionTarget(host, state, tension, escape) {
-    const o = host.options || {}, pointer = host.pointer || {}, fish = host.activeFish || {};
-    const watching = o.followPointer || fish.behavior === 'curious';
+    const o = host.options || {}, pointer = host.marineIntent?.attention || host.pointer || {}, fish = host.activeFish || {};
+    const watching = Boolean(host.marineIntent) || o.followPointer || fish.behavior === 'curious';
     let attention = watching ? clamp(finite(pointer.interest), 0, 1) : 0;
     const scale = Math.max(.0001, finite(host.scale, 100));
     const objectScale = Math.max(.0001, finite(host.objectScale, 1));
@@ -704,7 +737,292 @@ const SPECIES = new Map([['manta', mantaDefinition], ['octopus', octopusDefiniti
     ember: { low: [103, 40, 42], middle: [218, 105, 66], high: [255, 231, 175], fin: [190, 80, 124], ink: [246, 152, 97], atmosphere: [179, 83, 47] }
   };
 
+// Marine-only choreography. Pure data and poses; the canonical host owns input,
+// drawing, reactions and the existing shared scheduler. No private frame loop.
+const MARINE_DIRECTOR = (() => {
+  'use strict';
+  const TAU = Math.PI * 2;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const mix = (a, b, q) => a + (b - a) * q;
+  const smooth = (a, b, n) => { const q = clamp((n - a) / (b - a), 0, 1); return q * q * (3 - 2 * q); };
+  const unit = v => { const d = Math.hypot(...v); return d > .000001 ? v.map(n => n / d) : [0, -1, .12].map(n => n / Math.hypot(1, .12)); };
+  const wrap = n => ((n % 1) + 1) % 1;
+  const roles = Object.freeze(['auto', 'guide', 'forager', 'sentinel', 'companion']);
+  const chapterIds = Object.freeze(['arrive', 'engage', 'explore', 'depart']);
+  const scenes = Object.freeze([
+    Object.freeze({ id: 'reef-rendezvous', title: 'Reef rendezvous',
+      description: 'A glider, a watcher and an arm-led explorer arrive at a shared reef, exchange attention, then drift apart.',
+      chapters: Object.freeze(['Gather at the reef', 'Exchange a glance', 'Follow separate curiosities', 'Dissolve into the current']) }),
+    Object.freeze({ id: 'upwelling-ballet', title: 'Upwelling ballet',
+      description: 'Mantas ride a rising current in banked loops while companions hold different stations around the flow.',
+      chapters: Object.freeze(['Find the rising water', 'Trace the spiral', 'Glide across the light', 'Release the turn']) }),
+    Object.freeze({ id: 'tidepool-investigation', title: 'Tidepool investigation',
+      description: 'An octopus searches a ledge with its arms, inspects an invitation, and retreats while its neighbors give it room.',
+      chapters: Object.freeze(['Approach the ledge', 'Inspect a small discovery', 'Probe the next crevice', 'Return to shelter']) })
+  ]);
+  const defaults = Object.freeze({ scene: 'reef-rendezvous', duration: 40, current: .35,
+    spread: 1, intimacy: 1, autonomy: 1, focus: 1, roles: Object.freeze([]), backdrop: true });
+  const ranges = Object.freeze({ duration: [20, 80], current: [-1, 1], spread: [.65, 1.5], intimacy: [0, 1.5], autonomy: [0, 1.5], focus: [1, 12] });
+
+  function normalize(patch = {}, base = defaults) {
+    if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new TypeError('Marine director options must be an object.');
+    for (const key of Object.keys(patch)) if (!Object.hasOwn(defaults, key)) throw new TypeError(`Unknown marine director option: ${key}`);
+    const next = { ...base };
+    for (const key of Object.keys(defaults)) {
+      const value = patch[key];
+      if (value === undefined) continue;
+      if (key === 'scene') {
+        if (!scenes.some(scene => scene.id === value)) throw new TypeError('Unknown marine director scene.');
+      } else if (key === 'roles') {
+        if (!Array.isArray(value) || value.length > 12 || !Array.from(value).every(role => roles.includes(role))) throw new TypeError('Director roles must contain at most 12 supported motives.');
+      } else if (key === 'backdrop') {
+        if (typeof value !== 'boolean') throw new TypeError('Director backdrop must be Boolean.');
+      } else {
+        const [low, high] = ranges[key];
+        if (typeof value !== 'number' || !Number.isFinite(value) || value < low || value > high || (key === 'focus' && !Number.isInteger(value))) throw new RangeError(`Director ${key} must be ${low}..${high}${key === 'focus' ? ' and an integer' : ''}.`);
+      }
+      next[key] = value;
+    }
+    next.roles = Object.freeze([...next.roles]);
+    return Object.freeze(next);
+  }
+
+  function create(config) {
+    return { time: config.duration * .25, cycle: 0, cue: { x: 0, y: 0, active: false, interest: 0 } };
+  }
+
+  function step(state, config, dt, cueDt = dt) {
+    if (!Number.isFinite(dt) || dt < 0 || dt > .1) throw new RangeError('Director step must be 0..0.1 seconds.');
+    if (!Number.isFinite(cueDt) || cueDt < 0 || cueDt > .1) throw new RangeError('Director cue step must be 0..0.1 seconds.');
+    const total = state.time + dt;
+    const cycles = Math.floor(total / config.duration);
+    state.time = total - cycles * config.duration;
+    state.cycle = (state.cycle + cycles) % 4294967296;
+    if (!state.cue.active) state.cue.interest *= Math.exp(-cueDt * 3.5);
+  }
+
+  function seek(state, config, chapter) {
+    const index = chapterIds.indexOf(chapter);
+    if (index < 0) throw new TypeError('Unknown marine director chapter.');
+    state.time = config.duration * [.10, .34, .63, .88][index];
+    state.cycle = 0;
+    state.cue = { x: 0, y: 0, active: false, interest: 0 };
+  }
+
+  function cue(state, config, input) {
+    if (!input || typeof input !== 'object' || Array.isArray(input)) throw new TypeError('Director cue must be an object.');
+    if (input.type === 'release') {
+      if (Object.keys(input).some(key => key !== 'type')) throw new TypeError('Release has no coordinate fields.');
+      state.cue.active = false;
+      return;
+    }
+    if (input.type !== 'invite' || Object.keys(input).some(key => !['type', 'x', 'y'].includes(key))) throw new TypeError('Expected an invite or release cue.');
+    if (![input.x, input.y].every(n => typeof n === 'number' && Number.isFinite(n) && n >= -.5 && n <= .5)) throw new RangeError('Invitation coordinates must be normalized -0.5..0.5.');
+    // A deliberate cue also composes a still; it never advances time or starts
+    // scheduling. Continuous pointer easing stays with the canonical host.
+    state.cue.x = input.x; state.cue.y = input.y; state.cue.active = true; state.cue.interest = 1;
+  }
+
+  function chapterAt(progress) {
+    return progress < .20 ? 0 : progress < .48 ? 1 : progress < .78 ? 2 : 3;
+  }
+
+  function roleFor(config, member) {
+    const selected = config.roles[member.id];
+    if (selected && selected !== 'auto') return selected;
+    if (member.role && member.role !== 'auto' && roles.includes(member.role)) return member.role;
+    if (member.species === 'octopus') return 'forager';
+    if (member.species === 'manta') return member.id > 2 ? 'companion' : 'guide';
+    return member.id > 2 ? 'companion' : 'sentinel';
+  }
+
+  function layout(member, context, config) {
+    const count = clamp(Math.round(member.count || 1), 1, 12);
+    const width = context.width || 900, height = context.height || 620;
+    const aspect = Math.max(.2, width / Math.max(1, height)), portrait = aspect < .85;
+    const viewHeight = height / Math.min(width / 9.8, height / 6.8);
+    let anchor, crowd;
+    if (count === 1) {
+      anchor = [0, member.species === 'octopus' ? .15 : -.55]; crowd = 1.04;
+    } else if (portrait && count <= 3) {
+      // Full-height stations preserve room for the mantle and trailing arms;
+      // no scene subsequently compresses these anchors back toward the centre.
+      const step = clamp(viewHeight * .29, 3.5, 6.1);
+      anchor = [count === 2 ? (member.id ? .45 : -.45) : [-.35, .55, -.30][member.id],
+        (member.id - (count - 1) / 2) * (count === 2 ? step * 1.2 : step)];
+      crowd = .84;
+    } else if (count === 2) {
+      anchor = [member.id ? 2.65 : -2.65, -.60]; crowd = .94;
+    } else if (count === 3) {
+      const spots = config.scene === 'tidepool-investigation'
+        ? [[-2.65, .50], [0, -1.80], [2.65, .60]]
+        : [[-2.65, -.60], [2.55, 1.05], [2.55, -1.75]];
+      anchor = spots[member.id].slice(); crowd = .88;
+    } else {
+      const columns = portrait ? 2 : Math.min(4, Math.ceil(Math.sqrt(count * 1.3)));
+      const rows = Math.ceil(count / columns), row = Math.floor(member.id / columns), col = member.id % columns;
+      const used = Math.min(columns, count - row * columns);
+      const xStep = portrait ? 5.0 : columns === 2 ? 5.2 : columns === 3 ? 3.2 : 2.5;
+      const yRange = portrait ? clamp(viewHeight * .30, 3.6, 6.2) : rows > 2 ? 2.15 : 1.60;
+      anchor = [(col - (used - 1) / 2) * xStep, (row - (rows - 1) / 2) * (2 * yRange / Math.max(1, rows - 1))];
+      crowd = clamp(Math.sqrt(3 / count) * .96, .60, .82);
+    }
+    // Tight spacing also reduces envelopes. Portrait spread primarily changes
+    // horizontal breathing room; vertical stations remain safely in the view.
+    anchor[0] *= config.spread;
+    anchor[1] *= portrait ? clamp(config.spread, .88, 1.10) : config.spread;
+    crowd *= Math.min(1, Math.max(.76, config.spread));
+    return { count, portrait, anchor, crowd, lane: count > 3 ? .64 : 1 };
+  }
+
+  function pointAt(p, config, member, info, role) {
+    const seed = Number.isFinite(member.seed) ? member.seed : .5;
+    const phase = seed * TAU, u = p * TAU, id = member.id;
+    const a = info.anchor, direction = config.current < 0 ? -1 : 1;
+    const current = .75 + Math.abs(config.current) * .45;
+    const freedom = config.autonomy * (role === 'sentinel' ? .25 : role === 'forager' ? .78 : role === 'companion' ? .64 : 1);
+    const travel = freedom * info.lane * clamp(config.spread, .75, 1.10);
+    let x = a[0], y = a[1], z = -1.05 - (id % 3) * .16;
+    if (config.scene === 'reef-rendezvous') {
+      if (member.species === 'manta') {
+        x += .24 * travel * Math.sin(u * direction + phase);
+        y += (.48 - p) * 1.30 * travel * direction + .06 * travel * Math.sin(u * 2 + phase);
+        z += -.20 + .25 * Math.cos(u + phase);
+      } else if (member.species === 'octopus') {
+        x += .26 * travel * Math.sin(u * 2 + phase);
+        y += .10 * travel * Math.cos(u * 2 + phase);
+        z += .12 * Math.sin(u + phase);
+      } else {
+        x += .16 * travel * Math.sin(u + phase);
+        y += .16 * travel * Math.sin(u * 2 + phase);
+        z += .15 * config.intimacy * Math.sin(Math.PI * p) ** 2;
+      }
+    } else if (config.scene === 'upwelling-ballet') {
+      if (member.species === 'manta') {
+        // Each glider owns a separate narrow rising spiral. Their depth and
+        // beat differ, but no orbit silently replaces the allocated station.
+        const theta = u * direction + phase;
+        x += .44 * travel * Math.cos(theta) * (info.portrait ? .65 : 1);
+        y += (.50 - p) * 2.0 * travel * current * direction + .10 * travel * Math.sin(theta * 2);
+        z += -.35 + .50 * Math.sin(theta + .5);
+      } else if (member.species === 'octopus') {
+        x += .12 * travel * Math.sin(u * 2 + phase);
+        y += .08 * travel * Math.sin(u * 2);
+        z -= .20;
+      } else {
+        x += .22 * travel * Math.cos(u * direction + phase);
+        y += .14 * travel * Math.sin(u * direction + phase);
+        z += -.50 + .20 * Math.sin(u + phase);
+      }
+    } else {
+      if (member.species === 'octopus') {
+        x += .35 * travel * Math.sin(u - .8 + phase * .25);
+        y += .10 * travel * Math.sin(u * 2 + phase);
+        z += -.25 + .18 * config.intimacy * smooth(.18, .32, p) * (1 - smooth(.55, .75, p));
+      } else if (member.species === 'manta') {
+        x += .25 * travel * Math.sin(u * direction + phase);
+        y += -.15 + (.50 - p) * travel * direction;
+        z += -1.30 - .30 * Math.cos(u + phase);
+      } else {
+        x += .22 * travel * Math.sin(u + phase);
+        y += -.10 + .10 * travel * Math.cos(u * 2 + phase);
+        z += -.35 + .15 * Math.sin(u + phase);
+      }
+    }
+    // Arrival/departure retain each animal's lane at depth. Both the blend
+    // and its derivative vanish at the seam; no central pile-up or teleport.
+    const presence = smooth(0, .18, p) * (1 - smooth(.78, 1, p));
+    const side = Math.sign(a[0] || (id % 2 ? 1 : -1));
+    const originX = a[0] + side * .90 + .05 * Math.sin(phase), originY = a[1] - .12;
+    return [mix(originX, x, presence), mix(originY, y, presence), mix(-6.2 - seed, z, presence)];
+  }
+
+  function sample(state, config, member, context = {}) {
+    const id = member.id, seed = Number.isFinite(member.seed) ? member.seed : .5;
+    const info = layout(member, context, config), role = roleFor(config, member);
+    const p = wrap(state.time / config.duration + id * .018);
+    const ci = chapterAt(p), scene = scenes.find(s => s.id === config.scene);
+    const position = pointAt(p, config, member, info, role);
+    const h = .001, before = pointAt(wrap(p - h), config, member, info, role), after = pointAt(wrap(p + h), config, member, info, role);
+    const velocity = after.map((n, j) => (n - before[j]) / (2 * h));
+    const acceleration = after.map((n, j) => (n - 2 * position[j] + before[j]) / (h * h));
+    const presence = smooth(0, .18, p) * (1 - smooth(.78, 1, p));
+    const pointer = context.pointer || {}, cue = state.cue;
+    const pointerInterest = context.pointerEnabled ? clamp(Number.isFinite(pointer.interest) ? pointer.interest : 0, 0, 1) : 0;
+    const cueInterest = clamp(cue.interest, 0, 1), focused = config.focus === id + 1;
+    const explicit = Math.max(cueInterest, pointerInterest);
+    const destination = cueInterest > pointerInterest ? cue : pointer;
+    const weight = explicit * config.intimacy * presence * (focused ? 1 : role === 'forager' ? .28 : .14);
+    // A point of interest changes the blocking as well as a decorative label.
+    // Companions make room; only the selected animal fully investigates it.
+    const px = clamp(Number.isFinite(destination.x) ? destination.x : 0, -.5, .5);
+    const py = clamp(Number.isFinite(destination.y) ? destination.y : 0, -.5, .5);
+    position[0] += clamp(px * 6.8 - position[0], -.85, .85) * weight * (member.species === 'octopus' ? .30 : .42);
+    position[1] += clamp(py * (info.portrait ? 11 : 5.4) - position[1], -.70, .70) * weight * .22;
+    if (!focused && cueInterest > .05 && info.count > 1) position[0] += Math.sign(position[0] || (id % 2 ? 1 : -1)) * .12 * cueInterest;
+    let forward, bank;
+    const angle = p * TAU + seed * TAU;
+    if (member.species === 'manta') {
+      // Derive steering from the route tangent, then limit its presentation
+      // angle: an overhead glider can bank without turning its broad wing span
+      // into a vertical needle at a slow turn or a depth-only arrival.
+      const steering = Math.atan2(velocity[0], Math.abs(velocity[1]) + .65);
+      const heading = clamp(steering * .60 + .055 * Math.sin(angle) + px * weight * .30, -.55, .55);
+      forward = unit([Math.sin(heading), -Math.cos(heading), .14 + .035 * Math.sin(angle)]);
+      const curvature = (velocity[0] * acceleration[1] - velocity[1] * acceleration[0]) / (velocity[0] ** 2 + velocity[1] ** 2 + 4);
+      bank = clamp(Math.tanh(curvature * .04) * .08 + heading * .20 + px * weight * .22, -.24, .24);
+    } else if (member.species === 'octopus') {
+      forward = unit([.14 * Math.sin(angle * 2) + px * weight * .38, 1, .09]);
+      bank = clamp(.035 * Math.sin(angle * 2) + px * weight * .09, -.16, .16);
+    } else {
+      const display = .5 + .5 * Math.sin(angle * 2);
+      forward = unit([.8 - display * .28 + px * weight * .3, -.08 + .12 * Math.cos(angle), .38 + display * .25 + weight * .15]);
+      bank = .09 * Math.sin(angle * 2) + px * weight * .10;
+    }
+    // Autonomous foraging supplies a slowly moving screen-space attention cue
+    // even when nobody touches the page. Explicit input takes priority smoothly.
+    const scale = Math.min((context.width || 900) / 9.8, (context.height || 620) / 6.8);
+    const width = context.width || 900, height = context.height || 620;
+    const denominator = 1 - position[2] * .2;
+    const autoX = clamp((position[0] + .65 * Math.sin(angle * 2)) * scale / denominator / width, -.42, .42);
+    const autoY = clamp((position[1] + (member.species === 'octopus' ? .8 : .25)) * scale / denominator / height - .02, -.40, .43);
+    const exploring = ci === 2 || role === 'forager';
+    const autoInterest = config.autonomy * (exploring ? .72 : .24) * presence;
+    const attention = { x: mix(autoX, px, explicit), y: mix(autoY, py, explicit), interest: clamp(Math.max(autoInterest, weight), 0, 1) };
+    const motifs = member.species === 'manta'
+      ? ['Riding in from deep water', role === 'sentinel' ? 'Holding the outer current' : 'Guiding a banked pass', config.scene === 'upwelling-ballet' ? 'Gliding through the rising spiral' : 'Tracing the reef edge', 'Releasing into deeper water']
+      : member.species === 'octopus'
+        ? ['Feeling for a safe ledge', 'Inspecting with neighboring arms', 'Searching the next crevice', 'Gathering back toward shelter']
+        : ['Arriving with the current', role === 'guide' ? 'Leading the exchange' : 'Watching and changing display', role === 'forager' ? 'Investigating a nearby patch' : 'Turning toward a companion', 'Fading into open water'];
+    const motive = explicit > .18 && focused && presence > .5 ? member.species === 'octopus' ? 'Investigating your invitation' : member.species === 'manta' ? 'Banking toward your invitation' : 'Answering your invitation' : motifs[ci];
+    return {
+      position, forward, bank, reference: [0, 0, 1], visibility: .28 + .72 * presence,
+      scale: clamp(info.crowd * (focused ? 1.04 : .96) * (config.scene === 'tidepool-investigation' && member.species === 'manta' ? .94 : 1), .60, 1.15),
+      chapter: chapterIds[ci], chapterLabel: scene.chapters[ci], progress: p, role, motive,
+      label: `${String(id + 1).padStart(2, '0')} · ${role}`,
+      attention, armBias: explicit > .18 && focused ? 'inspect' : exploring ? 'search' : 'rest',
+      wingEnergy: clamp(.78 + Math.abs(config.current) * .40 + (ci === 0 ? .14 : ci === 3 ? -.12 : 0), .65, 1.35)
+    };
+  }
+
+  function describe(state, config, members = []) {
+    const progress = wrap(state.time / config.duration), index = chapterAt(progress);
+    const scene = scenes.find(s => s.id === config.scene);
+    return Object.freeze({ scene: config.scene, title: scene.title,
+      chapter: chapterIds[index], chapterLabel: scene.chapters[index], progress,
+      time: state.time, cycle: state.cycle,
+      cue: Object.freeze({ ...state.cue }),
+      members: Object.freeze(members.slice(0, 12).map(member => Object.freeze({
+        id: member.id + 1, species: member.species, role: roleFor(config, member),
+        focused: config.focus === member.id + 1,
+        motive: member.directorIntent?.motive || sample(state, config, { ...member, count: members.length }, {}).motive
+      }))) });
+  }
+  return Object.freeze({ scenes, defaults, roles, chapters: chapterIds, normalize, create, step, seek, cue, sample, describe });
+})();
+
 class CuttlefishArtwork {
+    static get directorScenes() { return MARINE_DIRECTOR.scenes; }
     constructor(canvas, options = {}) {
       if (!canvas || typeof canvas.getContext !== 'function' || !canvas.ownerDocument?.defaultView) {
         throw new TypeError('CuttlefishArtwork requires an HTML canvas in a browser document. Importing the module is SSR-safe; construct it after mount.');
@@ -726,6 +1044,7 @@ class CuttlefishArtwork {
       this._inView = true; this._ready = false; this.droppedSeconds = 0;
       this.time = 0; this.sceneTime = 0; this.elapsed = 0; this.last = 0; this.fps = 0; this.frameCount = 0; this.fpsElapsed = 0; this.glyphCount = 0;
       this.pointer = { x: 0, y: 0, tx: 0, ty: 0, active: false, interest: 0 };
+      this._director = null; this._directorConfig = null; this.marineIntent = null;
       this.burst = 0; this.ink = []; this.destroyed = false;
       this.reaction = this._newReaction();
       this.agitation = 0; this.movingTime = 0; this.startleTension = 0; this.escapeAmount = 0;
@@ -757,6 +1076,14 @@ class CuttlefishArtwork {
         const r = this.canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
         if (r.width <= 0 || r.height <= 0) return;
         this.pointer.tx = clamp(x / r.width - .5, -.5, .5); this.pointer.ty = clamp(y / r.height - .5, -.5, .5);
+        if (this._director) {
+          const owner = this._hitFish(x, y);
+          if (owner >= 0) {
+            this.setDirector({ focus: owner + 1 });
+            this.cueDirector({ type: 'disturb', id: owner + 1 });
+          } else this.cueDirector({ type: 'invite', x: this.pointer.tx, y: this.pointer.ty });
+          return;
+        }
         if (this.paused) return;
         const hit = this._hitFish(x, y);
         const lensFish = this.options.scene === 'encounter' ? this.fish.find(f => f.behavior === 'encounter' || this._legacySingle()) : null;
@@ -961,6 +1288,7 @@ class CuttlefishArtwork {
       this.activeFish = f;
       for (const key of FISH_STATE) this[key] = f[key];
       this.objectScale = f.size;
+      this.marineIntent = this._director ? f.directorIntent || null : null;
     }
 
     _saveFish() {
@@ -983,6 +1311,9 @@ class CuttlefishArtwork {
       const reset = oldScene !== this.options.scene || oldFormation !== this.options.formation;
       const changedRoles = this.options.behaviors.flatMap((behavior, id) => behavior !== oldBehaviors[id] ? [id] : []);
       this._syncFish(reset, changedRoles);
+      if (this._directorConfig && this._directorConfig.focus > this.fish.length) {
+        this._directorConfig = MARINE_DIRECTOR.normalize({ focus: this.fish.length }, this._directorConfig);
+      }
       if (reset || oldSpecies !== this.options.species || oldChoices !== this.options.speciesByAnimal.join() || oldSeed !== this.options.seed) { this.ink = []; this.lastPointer = null; }
       if (patch.paused !== undefined) this.paused = Boolean(patch.paused);
       else if (patch.reducedMotion === 'system' && this._motionQuery?.matches) this.paused = true;
@@ -991,6 +1322,70 @@ class CuttlefishArtwork {
       if (oldDensity !== this.options.density || oldBudget !== [this.options.maxDpr, this.options.maxPixels, this.options.maxCells].join(':')) this.resize();
       else this.render();
       this._syncLoop();
+    }
+
+    /** Additive marine choreography; the inherited options remain available
+     * when disabled. No new scheduler or package-wide contract is introduced. */
+    setDirector(patch) {
+      if (this.destroyed) return;
+      if (patch === null) {
+        this._director = null; this._directorConfig = null; this.marineIntent = null;
+        for (const fish of this.fish) delete fish.directorIntent;
+        this.render(); return;
+      }
+      const before = this._directorConfig;
+      const next = MARINE_DIRECTOR.normalize(patch, before || MARINE_DIRECTOR.defaults);
+      if (next.focus > this.fish.length) throw new RangeError('Director focus must name an existing cast member.');
+      if (!before || next.scene !== before.scene) {
+        this._director = MARINE_DIRECTOR.create(next);
+        this.ink.length = 0;
+        for (const fish of this.fish) { fish.reaction = this._newReaction(); fish.agitation = 0; }
+      } else this._director.time = this._director.time / before.duration * next.duration;
+      this._directorConfig = next;
+      this.render();
+    }
+
+    getDirector() {
+      if (!this._director) return Object.freeze({ enabled: false, config: null,
+        scene: null, title: 'Classic current', chapter: null, chapterLabel: 'Original scene and formation',
+        progress: 0, time: this.time, cycle: 0, focused: 1,
+        cue: Object.freeze({ x: 0, y: 0, active: false, interest: 0 }), members: Object.freeze([]) });
+      const summary = MARINE_DIRECTOR.describe(this._director, this._directorConfig, this.fish);
+      return Object.freeze({ ...summary, enabled: true, config: this._directorConfig, focused: this._directorConfig.focus,
+        members: Object.freeze(summary.members.map((member, i) => Object.freeze({ ...member,
+          visible: this.fish[i].visible, phase: this.fish[i].phase }))) });
+    }
+
+    cueDirector(input) {
+      if (this.destroyed || !this._director) return false;
+      if (!input || typeof input !== 'object' || Array.isArray(input)) throw new TypeError('Director cue must be an object.');
+      if (input.type === 'disturb') {
+        if (Object.keys(input).some(key => !['type', 'id'].includes(key))) throw new TypeError('Disturb accepts only an optional cast ID.');
+        const id = input.id === undefined ? this._directorConfig.focus : input.id;
+        if (!Number.isInteger(id) || id < 1 || id > this.fish.length) throw new RangeError('Disturb must name an existing cast member.');
+        if (this.paused) return false;
+        return this._startle('director', id - 1);
+      }
+      MARINE_DIRECTOR.cue(this._director, this._directorConfig, input);
+      if (input.type === 'release' && this.paused) this._director.cue.interest = 0;
+      // Explicit cues may compose a paused still. Pointer movement cannot.
+      this.render(); return true;
+    }
+
+    showDirectorStill(chapter) {
+      if (this.destroyed || !this._director) return false;
+      const still = MARINE_DIRECTOR.create(this._directorConfig);
+      MARINE_DIRECTOR.seek(still, this._directorConfig, chapter); // validate before mutation
+      this.setPaused(true); this._director = still;
+      this.time = still.time; this.elapsed = 0; this.ink.length = 0;
+      this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
+      this.pointer.active = false; this.pointer.interest = 0; this.lastPointer = null;
+      for (const fish of this.fish) {
+        fish.reaction = this._newReaction(); fish.sceneTime = still.time;
+        fish.agitation = fish.movingTime = fish.motionTravel = fish.motionTurns = 0;
+        fish.motionVector = null;
+      }
+      this.render(); return true;
     }
 
     setPaused(value) {
@@ -1035,6 +1430,7 @@ class CuttlefishArtwork {
       this._resetFrameClock(); this.droppedSeconds = 0; this.frameCount = 0; this.fpsElapsed = 0; this.fps = 0;
       this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
       this.pointer.active = false; this.pointer.interest = 0;
+      if (this._director) { this._director = MARINE_DIRECTOR.create(this._directorConfig); this._director.time = 0; }
       this.lastPointer = null; this._syncFish(true); this.render();
     }
 
@@ -1054,7 +1450,7 @@ class CuttlefishArtwork {
     }
 
     _hitTest(x, y) { return this._hitFish(x, y) >= 0; }
-    _canReact(f) { return !f.reaction.active && (!this._legacySingle() || this.options.scene !== 'swimby'); }
+    _canReact(f) { return !f.reaction.active && Boolean(this._director || !this._legacySingle() || this.options.scene !== 'swimby'); }
 
     _nearestFish(x, y) {
       let selected = null, nearest = Infinity;
@@ -1103,6 +1499,7 @@ class CuttlefishArtwork {
 
     pulse() {
       if (this.destroyed || this.paused || !this.width || !this.height) return;
+      if (this._director) { this.cueDirector({ type: 'disturb' }); return; }
       if (this.options.scene === 'swimby') { this.restart(); return; }
       this._startle('button');
     }
@@ -1135,6 +1532,7 @@ class CuttlefishArtwork {
         rotation: [this.r00, this.r01, this.r02, this.r10, this.r11, this.r12, this.r20, this.r21, this.r22] };
       this.agitation = 0; this.movingTime = 0; this.lastPointer = null;
       this.motionTravel = 0; this.motionTurns = 0; this.motionVector = null;
+      if (this._director) this._director.response = { id: this.activeFish.id, age: 0, x: this.worldX, y: this.worldY };
       // No particles and no travel impulse here: first the animal notices.
       return true;
     }
@@ -1146,6 +1544,10 @@ class CuttlefishArtwork {
         : peak * ramp * .5 + peak / drag * (1 - Math.exp(-drag * (e - ramp)));
       const offset = r.escapeDir.map(v => v * distance);
       offset[0] += r.side * 2.6 * smooth(.35, 2.1, e);
+      if (this._director) {
+        const reach = this.activeFish.species === 'octopus' ? .36 : this.activeFish.species === 'manta' ? .72 : .55;
+        return offset.map(value => value * reach);
+      }
       return offset;
     }
 
@@ -1158,11 +1560,16 @@ class CuttlefishArtwork {
         const i = r.emitted++, seed = i + this.elapsed * 31;
         const angle = hash(seed + 3) * TAU, cone = .13 + hash(seed + 14) * .38;
         const radial = radialA.map((v, k) => v * Math.cos(angle) + radialB[k] * Math.sin(angle));
-        const speed = 3.0 + 1.6 * Math.sin(Math.PI * sprayProgress) + hash(seed + 70) * .55;
+        // A composed encounter keeps the plume near its owner and clears it
+        // before the return. Classic lens-facing ink retains its original arc.
+        const speed = (3.0 + 1.6 * Math.sin(Math.PI * sprayProgress) + hash(seed + 70) * .55) * (this._director ? .60 : 1);
         this.ink.push({ x: origin[0] + radial[0] * .027, y: origin[1] + radial[1] * .027, z: origin[2] + radial[2] * .027,
           vx: aim[0] * speed + radial[0] * cone, vy: aim[1] * speed + radial[1] * cone, vz: aim[2] * speed + radial[2] * cone,
           radius: .029 + hash(seed + 110) * .028, mass: .38 + hash(seed + 52) * .22,
-          life: 6.7 + hash(seed + 90) * 2.7, age: 0, phase: angle, axis: aim, ...(this.activeFish.species === 'octopus' ? { lightInk: true } : {}) });
+          life: this._director ? 3.0 + hash(seed + 90) : 6.7 + hash(seed + 90) * 2.7,
+          age: 0, phase: angle, axis: aim,
+          ...(this._director ? { directorInk: true } : {}),
+          ...(this.activeFish.species === 'octopus' ? { lightInk: true } : {}) });
       }
       if (this.ink.length > 1150) this.ink.splice(0, this.ink.length - 1150);
     }
@@ -1262,6 +1669,13 @@ class CuttlefishArtwork {
 
     _simulate(dt) {
         this.elapsed += dt; this.time += dt * this.options.speed;
+        if (this._director) {
+          MARINE_DIRECTOR.step(this._director, this._directorConfig, dt * Math.min(1, this.options.motion / 1.2), dt);
+          if (this._director.response) {
+            this._director.response.age += dt;
+            if (this._director.response.age >= REACTION.recover) delete this._director.response;
+          }
+        }
 
         this.frameCount++; this.fpsElapsed += dt;
         if (this.fpsElapsed > .6) { this.fps = this.frameCount / this.fpsElapsed; this.frameCount = 0; this.fpsElapsed = 0; }
@@ -1518,6 +1932,25 @@ class CuttlefishArtwork {
         const pose = definition.pose(this, t, this.activeFish.speciesState, { position, forward, bank, reference });
         position = pose.position; forward = unit(pose.forward); bank = pose.bank; reference = pose.reference;
       }
+      if (this._director) {
+        const fish = this.activeFish;
+        const intent = MARINE_DIRECTOR.sample(this._director, this._directorConfig,
+          { id: fish.id, species: fish.species, seed: hash(fish.id + 910 + this.options.seed * .123), size: fish.size,
+            behavior: fish.behavior, count: this.fish.length },
+          { width: this.width, height: this.height, pointer: this.pointer, pointerEnabled: this.options.followPointer });
+        position = intent.position; forward = intent.forward; bank = intent.bank; reference = intent.reference;
+        this.objectScale = fish.size * intent.scale;
+        this.subjectVisibility = intent.visibility; this.phase = intent.motive; this.progress = intent.progress;
+        this.encounterGrip = this.encounterFront = 0;
+        const response = this._director.response;
+        if (response && response.id !== fish.id) {
+          const distance = Math.hypot(position[0] - response.x, position[1] - response.y);
+          const space = smooth(0, .9, response.age) * (1 - smooth(2, 5.5, response.age)) * Math.exp(-distance * .28);
+          position[0] += Math.sign(position[0] - response.x || fish.id - response.id) * space * .60;
+          position[2] -= space * .30;
+        }
+        fish.directorIntent = intent; this.marineIntent = intent;
+      } else this.marineIntent = null;
       if (r.active) {
         this.subjectVisibility = 1;
         const age = r.age, amount = Math.min(1, motion);
@@ -1550,7 +1983,7 @@ class CuttlefishArtwork {
       if (motion < .001) { this.phase = r.active ? this.phase : 'Holding position'; this.subjectVisibility = 1; }
       let dorsal = unit(reference.map((v, j) => v - forward[j] * dot(reference, forward)), [0, -1, 0]);
       let lateral = unit(cross(dorsal, forward), [0, 1, 0]);
-      if (!definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
+      if (!this._director && !definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
       bank *= (1 - this.encounterFront) * Math.min(1, motion);
       const cb = Math.cos(bank), sb = Math.sin(bank), l = lateral.slice(), z = dorsal.slice();
       lateral = l.map((v, j) => v * cb - z[j] * sb); dorsal = z.map((v, j) => v * cb + l[j] * sb);
@@ -1607,7 +2040,9 @@ class CuttlefishArtwork {
           const mottling = Math.sin(u * 79 + phi * 13) * Math.cos(phi * 19 - u * 25 + t * .3);
           const relief = 1 + .013 * stripe;
           const ni = (i * nv + j) * 3, bn = this.bodyNormals;
-          const light = this._shade(bn[ni], bn[ni + 1], bn[ni + 2], .11 * stripe + .045 * mottling, false, true);
+          const display = this.marineIntent ? .09 * Math.sin(u * 18 - t * 2.4 + this.activeFish.seed * TAU)
+            * (this.marineIntent.chapter === 'engage' ? 1 : .35) : 0;
+          const light = this._shade(bn[ni], bn[ni + 1], bn[ni + 2], .11 * stripe + .045 * mottling + display, false, true);
           this._put(x, ry * c * relief, rz * sn * relief + flex, light, 0, i * 101 + j);
         }
       }
@@ -1920,7 +2355,7 @@ class CuttlefishArtwork {
         if (Boolean(p.lightInk) !== lightInk) continue;
         const perspective = 1 / Math.max(.24, 1 - p.z * this.perspectiveStrength);
         const q = this._projectWorld(p.x, p.y, p.z);
-        const radius = (p.radius + Math.sqrt(p.age) * .105) * this.scale * perspective;
+        const radius = (p.radius + Math.sqrt(p.age) * (p.directorInk ? .073 : .105)) * this.scale * perspective;
         const cx = q[0] / this.inkCellW, cy = q[1] / this.inkCellH;
         const rx = clamp(radius / this.inkCellW, .75, 9), ry = clamp(radius / this.inkCellH, .65, 8);
         const fade = 1 - smooth(p.life * .28, p.life, p.age);
@@ -1948,6 +2383,52 @@ class CuttlefishArtwork {
       return glyphCount;
     }
 
+    _drawMarineBackdrop() {
+      if (!this._directorConfig.backdrop) return;
+      const c = this.ctx, w = this.width, h = this.height, config = this._directorConfig;
+      const t = this._director.time, color = this.palette.middle.join(',');
+      c.save(); c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.font = `${Math.max(7, Math.min(11, this.cellH * .85))}px monospace`;
+      if (config.scene === 'upwelling-ballet') {
+        // Three bounded strands describe the water column, behind the animals.
+        for (let strand = 0; strand < 3; strand++) for (let j = 0; j < 44; j++) {
+          const u = j / 43, phase = u * TAU * 1.4 + strand * TAU / 3 + t * config.current * .15;
+          const x = w * (.43 + Math.sin(phase) * (.08 + u * .06));
+          const y = h * (.91 - u * .81);
+          c.fillStyle = `rgba(${color},${.10 + .14 * (1 - Math.abs(u - .5) * 2)})`;
+          c.fillText(j % 4 ? '.' : ':', x, y);
+        }
+      } else {
+        // Sparse ASCII contour shelves give the octopus a legible place to
+        // investigate. No filled mesh, texture, extra canvas or physics loop.
+        for (let ridge = 0; ridge < 3; ridge++) for (let j = 0; j < 88; j++) {
+          const u = j / 87;
+          const rise = .035 * Math.sin(u * 13 + ridge * .9) + .018 * Math.sin(u * 31 + ridge);
+          const y = h * ((config.scene === 'tidepool-investigation' ? .73 : .84) + ridge * .045 + rise);
+          c.fillStyle = `rgba(${color},${.20 - ridge * .045})`;
+          c.fillText(j % 6 === 0 ? ':' : '.', w * (.03 + u * .94), y);
+        }
+      }
+      // The signed current changes visible drift without growing a trail list.
+      for (let i = 0; i < 28; i++) {
+        const x = ((hash(i + 17) + t * config.current * .008) % 1 + 1) % 1 * w;
+        const y = (.12 + hash(i + 22) * .68) * h;
+        c.fillStyle = `rgba(${color},.22)`; c.fillText(config.current < 0 ? '<' : config.current > 0 ? '>' : '.', x, y);
+      }
+      c.restore();
+    }
+
+    _drawMarineInvitation() {
+      const cue = this._director.cue;
+      if (cue.interest < .03) return;
+      const c = this.ctx, x = (cue.x + .5) * this.width, y = (cue.y + .5) * this.height;
+      c.save(); c.globalAlpha = cue.interest * .72;
+      c.strokeStyle = '#d4ead5'; c.lineWidth = 1;
+      c.beginPath(); c.arc(x, y, 13, 0, TAU); c.stroke();
+      c.beginPath(); c.moveTo(x - 4, y); c.lineTo(x + 4, y); c.moveTo(x, y - 4); c.lineTo(x, y + 4); c.stroke();
+      c.restore();
+    }
+
     render() {
       if (!this.width || this.destroyed) return;
       const c = this.ctx, w = this.width, h = this.height, t = this.time;
@@ -1958,6 +2439,7 @@ class CuttlefishArtwork {
       const g = c.createRadialGradient(w * .48, h * .44, 0, w * .48, h * .44, Math.max(w, h) * .66);
       g.addColorStop(0, `rgba(${atmosphere.join(',')},${this.options.scene === 'swimby' ? .10 : .23})`); g.addColorStop(1, `rgba(${atmosphere.join(',')},0)`);
       c.fillStyle = g; c.fillRect(0, 0, w, h);
+      if (this._director) this._drawMarineBackdrop();
       c.font = '10px monospace'; c.textAlign = 'center'; c.textBaseline = 'middle';
       for (let i = 0; i < this.plankton.length; i++) {
         const p = this.plankton[i];
@@ -2028,12 +2510,15 @@ class CuttlefishArtwork {
         for (const fish of this.fish) {
           if (!fish.visible) continue;
           const q = this._projectWorld(fish.worldX, fish.worldY, fish.worldZ);
-          const x = clamp(q[0], 20, w - 20), y = clamp(q[1] - 26, 18, h - 18);
-          c.fillStyle = 'rgba(5,14,16,.82)'; c.fillRect(x - 14, y - 10, 28, 20);
-          c.fillStyle = '#c8f8e8'; c.fillText(String(fish.id + 1).padStart(2, '0'), x, y);
+          const label = this._director ? fish.directorIntent.label : String(fish.id + 1).padStart(2, '0');
+          const halfWidth = this._director ? 57 : 14;
+          const x = clamp(q[0], halfWidth + 6, w - halfWidth - 6), y = clamp(q[1] - 26, 18, h - 18);
+          c.fillStyle = 'rgba(5,14,16,.82)'; c.fillRect(x - halfWidth, y - 10, halfWidth * 2, 20);
+          c.fillStyle = this._directorConfig?.focus === fish.id + 1 ? '#f4edc6' : '#c8f8e8'; c.fillText(label, x, y);
         }
       }
       this._drawInk();
+      if (this._director) this._drawMarineInvitation();
       this.glyphCount = count;
       this._activateFish(this.fish[0]);
     }
@@ -2062,194 +2547,385 @@ class CuttlefishArtwork {
 
 function createCuttlefish(canvas, options) { return new CuttlefishArtwork(canvas, options); }
 
+/** Marine-only opt-in on the existing /cuttlefish entry. Import is SSR-safe. */
+function normalizeMarineDirector(options = {}) { return MARINE_DIRECTOR.normalize(options); }
+
+function createMarineDirector(canvas, director = {}, artwork = {}) {
+  const config = normalizeMarineDirector(director); // Fail before allocating browser resources.
+  const options = { scene: 'reactive', species: 'manta', count: 3, speciesByAnimal: ['manta', 'octopus', 'cuttlefish'],
+    behaviors: ['hover', 'hover', 'curious'], size: .76, sizeVariation: .20, followPointer: true, ...artwork };
+  const requestedCount = Number(options.count);
+  const count = clamp(Math.round(Number.isFinite(requestedCount) ? requestedCount : 4), 1, 12);
+  if (config.focus > count) throw new RangeError('Director focus must name an existing cast member.');
+  const engine = new CuttlefishArtwork(canvas, options);
+  try { engine.setDirector(config); } catch (error) { engine.destroy(); throw error; }
+  return engine;
+}
+
 window.CuttlefishArtwork = CuttlefishArtwork;
 window.createCuttlefish = createCuttlefish;
 })();
 
 </script>
 <script>
-/* Local review controls. All animal pixels come from CuttlefishArtwork. */
+/* Marine director controls. All animal pixels and scheduling belong to the
+ * canonical CuttlefishArtwork engine. This page owns only its UI lifecycle. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
   const canvas = $('animal-canvas');
-  const names = { manta: 'Manta ray', octopus: 'Octopus', cuttlefish: 'Cuttlefish', mixed: 'Marine company' };
-  const descriptions = {
-    manta: 'Move nearby to invite a turn. Click the animal to make it bank away.',
-    octopus: 'Move nearby to invite a reach. Click the animal to make it gather its arms and retreat.',
-    cuttlefish: 'Gentle movement invites curiosity. Click a visible animal for ink and escape.',
-    mixed: 'Meet three silhouettes in a shared current. Click an animal to trigger its own response.'
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const names = { manta: 'Manta ray', octopus: 'Octopus', cuttlefish: 'Cuttlefish' };
+  const motives = { auto: 'Scene choice', guide: 'Guide', forager: 'Forager', sentinel: 'Sentinel', companion: 'Companion' };
+  const behaviors = { auto: 'Scene choice', cruise: 'Pass through', hover: 'Hold station', orbit: 'Orbit', curious: 'Curious', encounter: 'Meet the lens' };
+  const chapters = ['arrive', 'engage', 'explore', 'depart'];
+  const presets = {
+    'reef-rendezvous': { title: 'Reef rendezvous', cast: ['manta', 'octopus', 'cuttlefish'], roles: ['guide', 'forager', 'sentinel'], size: .8, variation: .2,
+      duration: 40, current: .35, spread: 1, intimacy: 1, autonomy: 1,
+      description: 'Staggered arrivals, a shared encounter, a little exploration, then room for the next visitors.' },
+    'upwelling-ballet': { title: 'Upwelling ballet', cast: ['manta', 'manta', 'manta', 'cuttlefish', 'octopus'], roles: ['guide', 'companion', 'guide', 'sentinel', 'forager'], size: .65, variation: .25,
+      duration: 44, current: .65, spread: 1.15, intimacy: .75, autonomy: 1.2,
+      description: 'Mantas bank through layered gliding passes while their companions keep quieter stations below.' },
+    'tidepool-investigation': { title: 'Tidepool investigation', cast: ['octopus', 'cuttlefish', 'octopus'], roles: ['forager', 'sentinel', 'companion'], size: .8, variation: .18,
+      duration: 48, current: .15, spread: 1, intimacy: 1.25, autonomy: 1,
+      description: 'Arms lead the search. A held invitation gives the visitors something to inspect and a reason to return.' }
   };
-  const defaults = () => ({ scene: 'reactive', species: 'manta', speciesByAnimal: [], seed: 20261118,
-    count: 1, behaviors: ['hover'], formation: 'independent', size: 1.1, sizeVariation: 0,
-    spacing: 1, density: 1.2, ripple: 1.3, speed: 1.05, motion: 1.2, depthStrength: 1.2,
-    palette: 'lagoon', mode: 'ascii', glow: true, followPointer: true, showLabels: false });
+  const baseOptions = () => ({ scene: 'reactive', species: 'manta', speciesByAnimal: [], seed: 20261118,
+    count: 3, behaviors: ['auto', 'auto', 'auto'], formation: 'independent', size: .8, sizeVariation: .2,
+    spacing: 1, density: 1.2, ripple: 1.3, speed: 1, motion: 1.2, depthStrength: 1.2,
+    palette: 'lagoon', mode: 'ascii', glow: true, followPointer: true, showLabels: false, reverse: false });
   const requestedSpecies = new URLSearchParams(window.location.search).get('species');
-  const initialSpecies = ['manta', 'octopus', 'cuttlefish'].includes(requestedSpecies) ? requestedSpecies : 'manta';
-  let settings = defaults(), selection = initialSpecies, renderer = null;
-  let interval = null, disposers = [], savedPaused = undefined, downloadURL = null, mounted = false, generation = 0;
+  const solo = Object.hasOwn(names, requestedSpecies) ? requestedSpecies : null;
+  let scene = solo === 'manta' ? 'upwelling-ballet' : solo === 'octopus' ? 'tidepool-investigation' : 'reef-rendezvous';
+  let classic = false, settings = baseOptions(), director = {}, cast = [], legacyRoles = [];
+  let renderer = null, interval = null, removers = [], savedPaused, mounted = false, generation = 0;
+  let downloadURL = null, beacon = { x: .12, y: .12 }, stillChapter = null;
+  const optionRanges = ['size', 'sizeVariation', 'speed', 'motion', 'ripple', 'density', 'depthStrength', 'spacing'];
+  const directorRanges = ['current', 'duration', 'autonomy', 'intimacy', 'spread'];
 
-  function listen(target, type, handler) {
-    target.addEventListener(type, handler);
-    disposers.push(() => target.removeEventListener(type, handler));
+  function listen(target, type, handler, options) {
+    target.addEventListener(type, handler, options);
+    removers.push(() => target.removeEventListener(type, handler, options));
   }
   function announce(message, error = false) {
     $('action-status').textContent = message;
     $('action-status').classList.toggle('error', error);
   }
-  function arrangeAnimals() {
-    const count = settings.count;
-    settings.species = selection === 'mixed' ? 'manta' : selection;
-    settings.speciesByAnimal = selection === 'mixed'
-      ? Array.from({ length: count }, (_, i) => ['manta', 'octopus', 'cuttlefish'][i % 3]) : [];
-    settings.behaviors = Array.from({ length: count }, (_, i) => {
-      const species = settings.speciesByAnimal[i] || settings.species;
-      return species === 'cuttlefish' ? 'curious' : 'hover';
-    });
+  function guard(action) {
+    try { syncDirectorInput(); action(); } catch (error) { announce('That change could not be applied. ' + error.message, true); }
   }
-  function format(id, value) {
-    return id === 'count' ? String(value) : id === 'size' ? Math.round(value * 100) + '%' : value.toFixed(2) + '×';
+  function syncDirectorInput(snapshot) {
+    if (!renderer || !mounted || classic) return;
+    const view = snapshot || renderer.getDirector();
+    // A canvas tap can change focus or invitation between UI telemetry ticks.
+    // Read it before each action, without changing native form values that
+    // the pending action still needs to read (especially the focus select).
+    if (Number.isInteger(view.focused) && view.focused >= 1 && view.focused <= cast.length) director.focus = view.focused;
+    if (view.cue?.active && Number.isFinite(view.cue.x) && Number.isFinite(view.cue.y)) beacon = { x: view.cue.x, y: view.cue.y };
+  }
+  function scoreFor(id, single = null) {
+    const preset = presets[id];
+    scene = id; classic = false;
+    cast = single ? [single] : preset.cast.slice();
+    legacyRoles = cast.map(() => 'auto');
+    director = { scene: id, duration: preset.duration, current: preset.current, spread: preset.spread,
+      intimacy: preset.intimacy, autonomy: preset.autonomy, focus: 1,
+      roles: single ? [single === 'manta' ? 'guide' : single === 'octopus' ? 'forager' : 'sentinel'] : preset.roles.slice(), backdrop: true };
+    settings = { ...settings, scene: 'reactive', formation: 'independent', reverse: false,
+      size: single ? 1.05 : preset.size, sizeVariation: single ? 0 : preset.variation, spacing: 1 };
+  }
+  scoreFor(scene, solo);
+
+  function artworkOptions() {
+    return { ...settings, count: cast.length, species: cast[0], speciesByAnimal: cast.slice(), behaviors: legacyRoles.slice() };
+  }
+  function applyArtwork(patch = {}) {
+    Object.assign(settings, patch);
+    renderer.setOptions(artworkOptions());
+    refreshControls(); refreshTelemetry();
+  }
+  function applyDirector(patch = {}) {
+    const next = { ...director, ...patch, roles: [...(patch.roles || director.roles)] };
+    if (!classic) renderer.setDirector(next);
+    director = next;
+    refreshControls(); refreshTelemetry();
+  }
+  function chooseScene(id, preserveSolo = false) {
+    if (!Object.hasOwn(presets, id)) return;
+    scoreFor(id, preserveSolo && cast.length === 1 ? cast[0] : null);
+    stillChapter = null;
+    renderer.setOptions(artworkOptions()); renderer.setDirector(director); renderer.restart();
+    if (renderer.getStats().paused) { renderer.showDirectorStill('engage'); stillChapter = 'engage'; }
+    renderCast(); refreshControls(); refreshTelemetry();
+    announce(presets[id].title + '. ' + presets[id].description);
+  }
+  function chooseClassic() {
+    classic = true; stillChapter = null; renderer.setDirector(null);
+    renderer.setOptions(artworkOptions());
+    renderCast(); refreshControls(); refreshTelemetry();
+    announce('Classic current. Choose an original scene, formation, and individual role.');
+  }
+  function setCount(count) {
+    if (!Number.isInteger(count) || count < 1 || count > (classic ? 12 : 8)) return;
+    const source = presets[scene].cast;
+    cast = Array.from({ length: count }, (_, i) => cast[i] || source[i % source.length]);
+    legacyRoles = Array.from({ length: count }, (_, i) => legacyRoles[i] || 'auto');
+    director.roles = Array.from({ length: count }, (_, i) => director.roles[i] || 'auto');
+    director.focus = Math.min(count, director.focus);
+    renderer.setOptions(artworkOptions()); if (!classic) renderer.setDirector(director);
+    renderCast(); refreshControls(); refreshTelemetry();
+  }
+  function createSelect(id, options, value, field, member) {
+    const select = document.createElement('select'); select.id = id;
+    select.dataset.field = field; select.dataset.member = String(member);
+    for (const [key, label] of Object.entries(options)) {
+      const option = document.createElement('option'); option.value = key; option.textContent = label; select.appendChild(option);
+    }
+    select.value = value;
+    return select;
+  }
+  function renderCast() {
+    const rows = $('cast-rows'); rows.replaceChildren();
+    const focus = $('focus'); focus.replaceChildren();
+    cast.forEach((species, i) => {
+      const row = document.createElement('div'); row.className = 'cast-row'; row.id = 'member-' + i;
+      const number = document.createElement('span'); number.className = 'member-number'; number.textContent = String(i + 1).padStart(2, '0'); row.appendChild(number);
+      for (const field of ['species', 'role']) {
+        const label = document.createElement('label'); label.textContent = field === 'species' ? 'Visitor' : classic ? 'Original role' : 'Motive';
+        const select = createSelect(field + '-' + i, field === 'species' ? names : classic ? behaviors : motives,
+          field === 'species' ? species : classic ? legacyRoles[i] : director.roles[i], field, i);
+        label.htmlFor = select.id; label.appendChild(select); row.appendChild(label);
+      }
+      const motive = document.createElement('span'); motive.className = 'member-motive'; motive.id = 'motive-' + i;
+      motive.textContent = 'Finding a place in the current'; row.appendChild(motive); rows.appendChild(row);
+      const option = document.createElement('option'); option.value = String(i + 1); option.textContent = String(i + 1).padStart(2, '0') + ' · ' + names[species]; focus.appendChild(option);
+    });
+    focus.value = String(director.focus);
+  }
+  function format(key, value) {
+    if (key === 'count') return String(value);
+    if (key === 'duration') return value + ' s';
+    if (key === 'current') return (value > 0 ? '+' : '') + Math.round(value * 100) + '%';
+    if (['size', 'sizeVariation', 'autonomy', 'intimacy'].includes(key)) return Math.round(value * 100) + '%';
+    return value.toFixed(2) + '×';
   }
   function refreshControls() {
-    $('species').value = selection;
-    $('formation').value = settings.formation;
+    const title = classic ? 'Classic current' : presets[scene].title;
+    $('animal-title').textContent = title;
+    $('specimen-index').textContent = cast.length === 1 ? { cuttlefish: '01', manta: '02', octopus: '03' }[cast[0]] : '01—03';
+    $('classic-mode').setAttribute('aria-pressed', String(classic));
+    $('director-controls').hidden = classic; $('classic-controls').hidden = !classic;
+    $('chapter-strip').hidden = classic; $('still-controls').hidden = classic;
+    $('keyboard-director').hidden = classic; $('keyboard-classic').hidden = !classic;
+    $('spread-row').hidden = classic; $('backdrop-row').hidden = classic;
+    $('invite').disabled = classic; $('release').disabled = classic;
+    $('legacy-scene').value = settings.scene; $('formation').value = settings.formation;
+    $('render-mode').value = settings.mode; $('focus').value = String(director.focus);
+    $('count').max = String(classic ? 12 : 8);
+    $('cast-summary').textContent = cast.length + (cast.length === 1 ? ' visitor' : ' visitors');
+    $('cast-help').textContent = classic
+      ? 'Independent formation honors each original role. Other paths choreograph the group. Up to twelve visitors are available.'
+      : 'Each visitor keeps its motive when you adjust the scene. Three to five leave room for readable encounters.';
+    $('stage-help').textContent = classic
+      ? 'Explore the original scene and formation tools. Gentle movement invites curiosity; click a visible animal for its response.'
+      : 'Move gently to invite curiosity. Tap empty water to leave a point of interest; tap a visitor for its own response.';
+    $('medium-label').textContent = settings.mode === 'points' ? 'PARTICLES / SHARED WATER' : 'CHARACTERS / SHARED WATER';
     $('follow-pointer').checked = settings.followPointer;
-    $('animal-title').textContent = names[selection];
-    $('specimen-index').textContent = selection === 'manta' ? '02' : selection === 'octopus' ? '03' : selection === 'cuttlefish' ? '01' : '01—03';
-    $('animal-description').textContent = descriptions[selection];
-    const subject = selection === 'mixed' ? 'manta rays, octopuses, and cuttlefish' : names[selection].toLowerCase();
-    canvas.setAttribute('aria-label', `${settings.count} procedural ASCII ${subject} in a ${settings.formation} current. ${descriptions[selection]} Use the Play or Pause, React, and Reset controls as keyboard alternatives.`);
+    for (const key of ['reverse', 'showLabels', 'glow']) $(key).checked = settings[key];
+    $('backdrop').checked = director.backdrop;
     document.body.dataset.palette = settings.palette;
-    document.querySelectorAll('button[data-palette]').forEach(button => {
-      const selected = button.dataset.palette === settings.palette;
-      button.classList.toggle('selected', selected);
-      button.setAttribute('aria-pressed', String(selected));
+    document.querySelectorAll('[data-scene]').forEach(button => {
+      const selected = !classic && button.dataset.scene === scene;
+      button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', String(selected));
     });
-    for (const id of ['count', 'size', 'speed', 'ripple', 'density']) {
-      const input = $(id), value = settings[id];
-      input.value = String(value);
-      $(id + '-value').textContent = format(id, value);
+    document.querySelectorAll('[data-palette]').forEach(button => {
+      const selected = button.dataset.palette === settings.palette;
+      button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', String(selected));
+    });
+    for (const key of ['count', ...optionRanges, ...directorRanges]) {
+      const input = $(key), value = key === 'count' ? cast.length : directorRanges.includes(key) ? director[key] : settings[key];
+      input.value = String(value); $(key + '-value').textContent = format(key, value);
       input.style.setProperty('--fill', ((value - Number(input.min)) / (Number(input.max) - Number(input.min)) * 100) + '%');
     }
+    canvas.setAttribute('aria-label', `${title}. ${cast.length} procedural ASCII marine ${cast.length === 1 ? 'visitor' : 'visitors'}: ${cast.map(id => names[id]).join(', ')}. Use the director controls for focus, invitations, reactions, and still chapters.`);
   }
   function refreshTelemetry() {
     if (!renderer || !mounted) return;
     const stats = renderer.getStats(), paused = stats.paused;
-    $('play-text').textContent = paused ? 'Play' : 'Pause';
-    $('play-symbol').textContent = paused ? '▷' : 'Ⅱ';
+    const view = renderer.getDirector() || {};
+    syncDirectorInput(view); $('focus').value = String(director.focus);
+    if (!paused) stillChapter = null;
+    $('play-text').textContent = paused ? 'Play' : 'Pause'; $('play-symbol').textContent = paused ? '▷' : 'Ⅱ';
     $('play-pause').setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation');
-    $('playback-label').textContent = paused ? 'PAUSED' : document.hidden ? 'RESTING' : 'LIVE';
+    $('playback-label').textContent = paused ? 'STILL' : document.hidden ? 'RESTING' : 'LIVE';
     $('live-dot').classList.toggle('paused', paused || document.hidden);
     $('react').disabled = paused;
-    $('react').title = paused ? 'Press Play before inviting a reaction.' : 'Invite a response from a visible animal.';
-    $('view-count').textContent = `${stats.visibleCount} IN VIEW / ${stats.count} IN THE CURRENT`;
-    $('render-stats').textContent = `${Number(stats.glyphs || 0).toLocaleString()} GLYPHS · ${paused ? 'STILL' : Math.round(stats.fps || 0) + ' FPS'}`;
-    const leader = stats.fish?.find(f => f.reactionStage !== 'idle') || stats.fish?.[0];
-    $('phase-label').textContent = leader?.phase || stats.phase || 'In the current';
-    $('motion-note').hidden = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    $('motion-note').textContent = paused
-      ? 'Reduced motion is on. Press Play if you would like to animate.'
-      : 'Playing by your choice. Pause at any time.';
-  }
-  function apply(patch) {
-    if (!renderer) return;
-    Object.assign(settings, patch);
-    arrangeAnimals();
-    // Changing a subject or a control never changes the current pause state.
-    renderer.setOptions({ ...settings, speciesByAnimal: settings.speciesByAnimal.slice(), behaviors: settings.behaviors.slice() });
-    refreshControls(); refreshTelemetry();
-  }
-  function chooseSpecies(value) {
-    selection = value;
-    if (value === 'mixed') {
-      settings.count = 3; settings.size = .76; settings.sizeVariation = .35;
+    $('react').title = paused ? 'Press Play before inviting a startle.' : classic ? 'An available visitor responds; a swim-by replays its passage.' : 'The focused animal reacts in its own way.';
+    $('react').textContent = classic ? settings.scene === 'swimby' ? 'Replay passage' : 'Invite a response' : 'Startle focus';
+    $('view-count').textContent = `${stats.visibleCount} IN VIEW / ${stats.count} VISITORS`;
+    $('render-stats').textContent = `${Number(stats.glyphs || 0).toLocaleString()} ${settings.mode === 'points' ? 'POINTS' : 'GLYPHS'} · ${paused ? 'STILL' : Math.round(stats.fps || 0) + ' FPS'}`;
+    const focusIndex = director.focus - 1, fish = stats.fish?.[focusIndex], member = view.members?.[focusIndex];
+    $('focus-badge').textContent = 'FOCUS ' + String(director.focus).padStart(2, '0') + ' / ' + names[cast[focusIndex]].toUpperCase();
+    const motive = member?.motive || fish?.phase || 'Finding the current';
+    $('focus-note').textContent = names[cast[focusIndex]] + ' · ' + (classic ? behaviors[legacyRoles[focusIndex]] : motives[member?.role || director.roles[focusIndex]]) + ' — ' + motive;
+    $('phase-label').textContent = fish?.reactionStage !== 'idle' ? fish?.phase || motive : view.chapterLabel || motive;
+    if (!classic) {
+      const progress = Math.max(0, Math.min(1, Number(view.progress) || 0));
+      $('chapter-name').textContent = view.chapterLabel || 'Meeting';
+      $('chapter-time').textContent = String(Math.floor(Number(view.time) % director.duration || 0)).padStart(2, '0') + ' / ' + director.duration + ' s';
+      $('chapter-progress').style.width = (progress * 100) + '%';
+      document.querySelectorAll('[data-chapter]').forEach(label => label.classList.toggle('active', label.dataset.chapter === view.chapter));
     }
-    apply({});
-    announce(names[value] + ', in the current.');
+    document.querySelectorAll('[data-still]').forEach(button => button.setAttribute('aria-pressed', String(paused && stillChapter === button.dataset.still)));
+    cast.forEach((_, i) => {
+      $('member-' + i)?.classList.toggle('focused', i === focusIndex);
+      const label = $('motive-' + i); if (label) label.textContent = view.members?.[i]?.motive || stats.fish?.[i]?.phase || 'Finding the current';
+    });
+    $('motion-note').hidden = !motionPreference.matches;
+    $('motion-note').textContent = paused
+      ? 'Reduced motion is on. Explore the four still chapters, or press Play to animate by choice.'
+      : 'Playing by your choice with reduced motion enabled. Pause at any time; the still chapters remain available.';
   }
   function togglePause() {
-    if (!renderer) return;
-    renderer.setPaused(!renderer.getStats().paused);
-    refreshTelemetry();
-    announce(renderer.getStats().paused ? 'The current is paused.' : 'The current is moving.');
+    renderer.setPaused(!renderer.getStats().paused); refreshTelemetry();
+    announce(renderer.getStats().paused ? 'The current is still. You can inspect a chapter without starting time.' : 'The scene is moving.');
   }
-  function reset() {
-    if (!renderer) return;
-    settings = defaults();
-    if (selection === 'mixed') { settings.count = 3; settings.size = .76; settings.sizeVariation = .35; }
-    apply({}); renderer.restart(); refreshTelemetry();
-    announce(names[selection] + ', from the beginning. Playback state is preserved.');
+  function invite() {
+    if (classic) return;
+    renderer.cueDirector({ type: 'invite', x: beacon.x, y: beacon.y }); refreshTelemetry();
+    announce('A point of interest is waiting. The visitors choose how to approach. Release clears it.');
+  }
+  function react() {
+    if (renderer.getStats().paused) return;
+    if (classic) {
+      renderer.pulse(); refreshTelemetry();
+      announce(settings.scene === 'swimby' ? 'The passage begins again.' : 'An available visitor responds to the disturbance.');
+    } else {
+      const reacted = renderer.cueDirector({ type: 'disturb', id: director.focus }); refreshTelemetry();
+      announce(reacted ? names[cast[director.focus - 1]] + (cast[director.focus - 1] === 'manta' ? ' banks away without ink.' : ' gathers, releases ink, and retreats.') : 'This visitor is recovering. Give it a moment before another startle.');
+    }
+  }
+  function release() {
+    if (classic) return;
+    renderer.cueDirector({ type: 'release' }); refreshTelemetry(); announce('The invitation is released. Let the visitors return to their own intentions.');
+  }
+  function showStill(chapter) {
+    if (classic || !chapters.includes(chapter)) return;
+    renderer.showDirectorStill(chapter); stillChapter = chapter; refreshTelemetry();
+    announce('A still composition of ' + chapter + '. Press Play when you want time to move again.');
+  }
+  function download(blob, filename) {
+    if (downloadURL) URL.revokeObjectURL(downloadURL);
+    downloadURL = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href = downloadURL; link.download = filename;
+    document.body.appendChild(link); link.click(); link.remove();
   }
   function capture() {
-    if (!renderer) return;
     const captureGeneration = generation;
-    // Capture the actual canvas frame; no illustration or second renderer.
     canvas.toBlob(blob => {
       if (!mounted || captureGeneration !== generation) return;
       if (!blob) { announce('The frame could not be captured. Please try again.', true); return; }
-      if (downloadURL) URL.revokeObjectURL(downloadURL);
-      downloadURL = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = downloadURL; link.download = `ascii-${selection}-${settings.palette}.png`;
-      document.body.appendChild(link); link.click(); link.remove();
-      announce('The current frame is ready as a PNG.');
+      download(blob, `marine-${classic ? 'classic' : scene}-${settings.palette}.png`);
+      announce('The actual canvas frame is ready as a PNG.');
     }, 'image/png');
+  }
+  function exportScore() {
+    const state = renderer.getDirector();
+    const score = { schema: 'ascii-animals/marine-director-score/v1', artwork: artworkOptions(), director: classic ? null : { ...director, roles: director.roles.slice() },
+      observation: { paused: renderer.getStats().paused, chapter: state?.chapter || null, time: state?.time || 0 },
+      note: 'Reusable configuration. Observation time is descriptive; this is not an ink replay file.' };
+    download(new Blob([JSON.stringify(score, null, 2) + '\n'], { type: 'application/json' }), 'marine-scene-score.json');
+    announce('The scene configuration is ready as JSON. It preserves the cast, motives, and drawing settings.');
   }
   function dispose() {
     if (!mounted) return;
     savedPaused = renderer ? renderer.getStats().paused : savedPaused;
     mounted = false; generation++;
-    if (interval !== null) clearInterval(interval);
-    interval = null;
-    for (const remove of disposers) remove();
-    disposers = [];
+    if (interval !== null) clearInterval(interval); interval = null;
+    for (const remove of removers) remove(); removers = [];
     renderer?.destroy(); renderer = null;
-    if (downloadURL) URL.revokeObjectURL(downloadURL);
-    downloadURL = null;
+    if (downloadURL) URL.revokeObjectURL(downloadURL); downloadURL = null;
   }
   function mount() {
     if (mounted) return;
     mounted = true; generation++;
     try {
-      arrangeAnimals();
-      renderer = new window.CuttlefishArtwork(canvas, { ...settings, speciesByAnimal: settings.speciesByAnimal.slice(),
-        behaviors: settings.behaviors.slice(), paused: savedPaused, reducedMotion: 'system' });
+      renderer = new window.CuttlefishArtwork(canvas, { ...artworkOptions(), paused: savedPaused, reducedMotion: 'system' });
+      if (typeof renderer.setDirector !== 'function') throw new Error('Rebuild the canonical marine renderer.');
+      renderer.setDirector(classic ? null : director);
+      if (!classic && renderer.getStats().paused) { renderer.showDirectorStill(stillChapter || 'engage'); stillChapter ||= 'engage'; }
       $('canvas-frame').classList.remove('error');
-      listen($('species'), 'change', event => chooseSpecies(event.target.value));
-      listen($('formation'), 'change', event => apply({ formation: event.target.value }));
-      listen($('follow-pointer'), 'change', event => apply({ followPointer: event.target.checked }));
-      for (const id of ['count', 'size', 'speed', 'ripple', 'density']) {
-        listen($(id), 'input', event => apply({ [id]: Number(event.target.value) }));
-      }
-      document.querySelectorAll('button[data-palette]').forEach(button => listen(button, 'click', () => apply({ palette: button.dataset.palette })));
-      listen($('play-pause'), 'click', togglePause);
-      listen($('react'), 'click', () => {
-        if (renderer.getStats().paused) return;
-        const started = renderer.pulse(); refreshTelemetry();
-        announce(started ? 'Watch the animal respond, then settle.' : 'Let the current response finish, then invite another.');
-      });
-      listen($('reset'), 'click', reset);
-      listen($('save-png'), 'click', capture);
-      listen(document, 'keydown', event => {
-        if (event.code !== 'Space' || event.repeat || /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(event.target.tagName) || event.target.isContentEditable) return;
-        event.preventDefault(); togglePause();
+      renderCast(); refreshControls(); refreshTelemetry();
+      document.querySelectorAll('[data-scene]').forEach(button => listen(button, 'click', () => guard(() => chooseScene(button.dataset.scene))));
+      document.querySelectorAll('[data-still]').forEach(button => listen(button, 'click', () => guard(() => showStill(button.dataset.still))));
+      document.querySelectorAll('[data-palette]').forEach(button => listen(button, 'click', () => guard(() => applyArtwork({ palette: button.dataset.palette }))));
+      listen($('classic-mode'), 'click', () => guard(chooseClassic));
+      listen($('count'), 'input', event => guard(() => setCount(Number(event.target.value))));
+      for (const key of optionRanges) listen($(key), 'input', event => guard(() => applyArtwork({ [key]: Number(event.target.value) })));
+      for (const key of directorRanges) listen($(key), 'input', event => guard(() => applyDirector({ [key]: Number(event.target.value) })));
+      for (const key of ['reverse', 'showLabels', 'glow']) listen($(key), 'change', event => guard(() => applyArtwork({ [key]: event.target.checked })));
+      listen($('follow-pointer'), 'change', event => guard(() => applyArtwork({ followPointer: event.target.checked })));
+      listen($('backdrop'), 'change', event => guard(() => applyDirector({ backdrop: event.target.checked })));
+      listen($('render-mode'), 'change', event => guard(() => applyArtwork({ mode: event.target.value })));
+      listen($('legacy-scene'), 'change', event => guard(() => applyArtwork({ scene: event.target.value })));
+      listen($('formation'), 'change', event => guard(() => applyArtwork({ formation: event.target.value })));
+      listen($('focus'), 'change', event => guard(() => applyDirector({ focus: Number(event.target.value) })));
+      listen($('cast-rows'), 'change', event => guard(() => {
+        const index = Number(event.target.dataset.member), field = event.target.dataset.field, value = event.target.value;
+        if (!Number.isInteger(index) || index < 0 || index >= cast.length) return;
+        if (field === 'species' && Object.hasOwn(names, value)) { cast[index] = value; applyArtwork(); renderCast(); refreshTelemetry(); }
+        else if (field === 'role' && Object.hasOwn(classic ? behaviors : motives, value)) {
+          if (classic) { legacyRoles[index] = value; applyArtwork(); }
+          else { const roles = director.roles.slice(); roles[index] = value; applyDirector({ roles }); }
+        }
+      }));
+      listen($('play-pause'), 'click', () => guard(togglePause));
+      listen($('invite'), 'click', () => guard(invite)); listen($('react'), 'click', () => guard(react));
+      listen($('release'), 'click', () => guard(release));
+      listen($('replay'), 'click', () => guard(() => { renderer.restart(); stillChapter = null; refreshTelemetry(); announce('The arrival is reset. Playback state is preserved.'); }));
+      listen($('reset'), 'click', () => guard(() => {
+        const palette = settings.palette, mode = settings.mode;
+        settings = { ...baseOptions(), palette, mode };
+        if (classic) {
+          legacyRoles = cast.map(() => 'auto'); renderer.setOptions(artworkOptions()); renderer.restart();
+          renderCast(); refreshControls(); refreshTelemetry();
+          announce('Classic settings are restored for this cast. Playback state is preserved.');
+        } else {
+          chooseScene(scene, Boolean(solo)); announce('This scene’s cast and score are restored. Playback state is preserved.');
+        }
+      }));
+      listen($('save-png'), 'click', () => guard(capture)); listen($('save-score'), 'click', () => guard(exportScore));
+      listen(canvas, 'keydown', event => {
+        if (event.target !== canvas || event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+        const key = event.key, code = event.code;
+        if (!(code === 'Space' || ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'Enter', 'i', 'I', 'r', 'R'].includes(key) || /^[1-8]$/.test(key))) return;
+        event.preventDefault();
+        guard(() => {
+          if (code === 'Space') togglePause();
+          else if (key === 'Enter') react();
+          else if (/^[1-8]$/.test(key)) { if (Number(key) <= cast.length) applyDirector({ focus: Number(key) }); }
+          else if (key === 'r' || key === 'R') release();
+          else if (!classic) {
+            if (key === 'Home') beacon = { x: 0, y: 0 };
+            else { beacon.x = Math.max(-.42, Math.min(.42, beacon.x + (key === 'ArrowLeft' ? -.06 : key === 'ArrowRight' ? .06 : 0)));
+              beacon.y = Math.max(-.36, Math.min(.36, beacon.y + (key === 'ArrowUp' ? -.06 : key === 'ArrowDown' ? .06 : 0))); }
+            invite();
+          }
+        });
       });
       listen(document, 'visibilitychange', refreshTelemetry);
-      listen(window, 'pagehide', () => {
+      listen(motionPreference, 'change', refreshTelemetry);
+      listen(window, 'pagehide', event => {
         dispose();
-        // UI/input handlers and renderer are gone. This single-use restoration
-        // listener is the only surviving lifecycle hook in the back/forward cache.
-        window.addEventListener('pageshow', event => { if (event.persisted) mount(); }, { once: true });
+        if (event.persisted) window.addEventListener('pageshow', restored => { if (restored.persisted) mount(); }, { once: true });
       });
-      refreshControls(); refreshTelemetry();
-      interval = setInterval(refreshTelemetry, 250);
+      const telemetryGeneration = generation;
+      interval = setInterval(() => { if (telemetryGeneration === generation) refreshTelemetry(); }, 250);
     } catch (error) {
-      dispose();
-      $('canvas-frame').classList.add('error');
-      $('playback-label').textContent = 'UNAVAILABLE';
+      dispose(); $('canvas-frame').classList.add('error'); $('playback-label').textContent = 'UNAVAILABLE';
       $('render-stats').textContent = 'ARTWORK COULD NOT START';
-      for (const id of ['play-pause', 'react', 'reset', 'save-png']) $(id).disabled = true;
-      announce('The local artwork could not start. Keep the renderer, species modules, and demo files together, then reload.', true);
+      for (const id of ['play-pause', 'invite', 'react', 'release', 'replay', 'reset', 'save-png', 'save-score']) $(id).disabled = true;
+      announce('The marine artwork could not start. Rebuild artwork.js from the canonical source and keep the demo files together. ' + error.message, true);
     }
   }
   mount();

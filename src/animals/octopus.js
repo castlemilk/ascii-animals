@@ -75,8 +75,8 @@ export const octopusDefinition = (() => {
   }
 
   function attentionTarget(host, state, tension, escape) {
-    const o = host.options || {}, pointer = host.pointer || {}, fish = host.activeFish || {};
-    const watching = o.followPointer || fish.behavior === 'curious';
+    const o = host.options || {}, pointer = host.marineIntent?.attention || host.pointer || {}, fish = host.activeFish || {};
+    const watching = Boolean(host.marineIntent) || o.followPointer || fish.behavior === 'curious';
     let attention = watching ? clamp(finite(pointer.interest), 0, 1) : 0;
     const scale = Math.max(.0001, finite(host.scale, 100));
     const objectScale = Math.max(.0001, finite(host.objectScale, 1));

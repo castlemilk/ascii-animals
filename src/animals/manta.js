@@ -72,7 +72,12 @@ export const mantaDefinition = (() => {
     const tension = clamp(finite(host.startleTension, 0), 0, 1);
     const escape = clamp(finite(host.escapeAmount, 0), 0, 1);
     const phase = time * (2.05 + .07 * state.seed) + state.seed * TAU;
-    const amplitude = .29 * ripple * (1 - .25 * tension + .12 * escape);
+    const intent = host.marineIntent;
+    if (intent) state.turn = clamp(intent.bank * .85, -.38, .38);
+    // The director varies propulsion energy without changing the phase clock
+    // at a chapter boundary. Preserve the existing analytic geometry envelope.
+    const energy = intent ? clamp(intent.wingEnergy, .65, 1.10) : 1;
+    const amplitude = .29 * ripple * (1 - .25 * tension + .12 * escape) * energy;
     const d = state.diagnostics, measured = d.bounds;
     d.sampleCount = 0; d.maxWingDisplacement = 0;
     measured.minX = measured.minY = measured.minZ = Infinity;

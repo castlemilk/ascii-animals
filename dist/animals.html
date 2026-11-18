@@ -4,73 +4,100 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#081114">
-  <meta name="description" content="A local interactive study of original ASCII manta ray and octopus geometry, sharing the Cuttlefish renderer.">
-  <title>New currents — ASCII Animals</title>
+  <meta name="description" content="Direct three original ASCII marine lives: a cuttlefish, a manta ray and an octopus. Compose a reef encounter, an upwelling ballet, or an arm-led tidepool investigation.">
+  <title>Shared waters — ASCII Animals</title>
   <link rel="stylesheet" href="animals-demo.css">
   <script src="artwork.js" defer></script>
   <script src="animals-demo.js" defer></script>
 </head>
 <body data-palette="lagoon">
-  <a class="skip-link" href="#animal-controls">Skip to the controls</a>
+  <a class="skip-link" href="#animal-controls">Skip to director controls</a>
   <div class="page-shell">
     <header class="page-header">
-      <a class="wordmark" href="index.html"><span class="wordmark-symbol" aria-hidden="true">a<span>∿</span></span>ASCII Animals<span class="wordmark-dot" aria-hidden="true">.</span></a>
-      <a class="back-link" href="cuttlefish-demo.html">Original cuttlefish study <span aria-hidden="true">↗</span></a>
+      <a class="wordmark" href="index.html"><span class="wordmark-symbol" aria-hidden="true">a∿</span>ASCII Animals<span aria-hidden="true">.</span></a>
+      <nav aria-label="Study navigation"><a href="index.html">All animals</a><a href="cuttlefish-demo.html">Original cuttlefish study <span aria-hidden="true">↗</span></a></nav>
     </header>
-
     <main>
-      <section class="study" aria-labelledby="study-title">
-        <div class="study-heading">
-          <div>
-            <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>FIELD STUDIES <span class="edition">002—003</span></p>
-            <h1 id="study-title">New <em>currents.</em></h1>
-          </div>
-          <p class="introduction">Two new silhouettes, written in light. <br>Move closer. See what moves with you.</p>
+      <div class="study-heading">
+        <div><p class="eyebrow">FIELD STUDIES / 01—03 <span>THE MARINE DIRECTOR</span></p><h1 id="study-title">Shared <em>waters.</em></h1></div>
+        <p class="introduction">Three lives. A place to meet.<br>Give the current a story, then become part of it.</p>
+      </div>
+      <section class="scene-library" aria-labelledby="scene-library-title">
+        <div class="section-heading"><h2 id="scene-library-title">Choose a little world</h2><button id="classic-mode" class="text-button" type="button" aria-pressed="false">Classic current <span aria-hidden="true">↗</span></button></div>
+        <div class="scene-cards" role="group" aria-label="Authored marine scenes">
+          <button class="scene-card selected" type="button" data-scene="reef-rendezvous" aria-pressed="true"><span class="scene-number">01 / AN ENCOUNTER</span><span class="scene-name">Reef rendezvous</span><span class="scene-copy">Arrive in layers. Exchange a glance. Explore together.</span><span class="scene-cast">MANTA · OCTOPUS · CUTTLEFISH <span aria-hidden="true">↗</span></span></button>
+          <button class="scene-card" type="button" data-scene="upwelling-ballet" aria-pressed="false"><span class="scene-number">02 / A SHARED FLIGHT</span><span class="scene-name">Upwelling ballet</span><span class="scene-copy">Broad wings ride a rising current. Quiet companions watch.</span><span class="scene-cast">THREE MANTAS + TWO COMPANIONS <span aria-hidden="true">↗</span></span></button>
+          <button class="scene-card" type="button" data-scene="tidepool-investigation" aria-pressed="false"><span class="scene-number">03 / A SMALL DISCOVERY</span><span class="scene-name">Tidepool investigation</span><span class="scene-copy">Arms search ahead. Curiosity becomes a careful approach.</span><span class="scene-cast">TWO OCTOPUSES + A SENTINEL <span aria-hidden="true">↗</span></span></button>
         </div>
-
-        <div class="workspace">
-          <div class="art-column">
-            <div class="scene-topline"><div><span class="specimen-index" id="specimen-index">02</span><h2 id="animal-title">Manta ray</h2></div><span class="medium">CHARACTERS / IN MOTION</span></div>
-            <div class="canvas-frame" id="canvas-frame">
-              <div class="canvas-topbar"><span class="playback-state"><span class="live-dot" id="live-dot" aria-hidden="true"></span><span id="playback-label">PREPARING</span></span><span class="canvas-tag" aria-hidden="true">IN THE CURRENT</span></div>
-              <canvas id="animal-canvas" role="img" tabindex="0" aria-label="A procedural ASCII manta ray with broad moving wings and a long tail. Move the pointer nearby to invite a turn, or use the React control."></canvas>
-              <div class="canvas-bottomline" aria-hidden="true"><span>+ <span id="phase-label">Finding the current</span></span><span>ASCII / 2D CANVAS</span></div>
-              <div class="scene-corner corner-top-left" aria-hidden="true"></div><div class="scene-corner corner-top-right" aria-hidden="true"></div><div class="scene-corner corner-bottom-left" aria-hidden="true"></div><div class="scene-corner corner-bottom-right" aria-hidden="true"></div>
-            </div>
-            <div class="playback-bar" role="group" aria-label="Artwork playback and capture">
-              <button class="button button-primary" id="play-pause" type="button" aria-label="Pause animation"><span id="play-symbol" aria-hidden="true">Ⅱ</span><span id="play-text">Pause</span></button>
-              <button class="button" id="react" type="button"><span aria-hidden="true">✳</span>React</button>
-              <button class="button button-quiet" id="reset" type="button" title="Reset this subject’s settings and restart its performance"><span aria-hidden="true">↻</span>Reset</button>
-              <button class="button button-quiet capture-button" id="save-png" type="button"><span aria-hidden="true">↓</span>Save PNG</button>
-            </div>
-            <div class="readout" aria-live="off"><span id="view-count">1 IN THE CURRENT</span><output id="render-stats">PREPARING THE ARTWORK</output></div>
-            <p class="interaction-note" id="animal-description">Move nearby to invite a turn. Click the animal to make it bank away.</p>
-            <p class="motion-note" id="motion-note" hidden></p>
-            <p class="action-status" id="action-status" role="status" aria-live="polite"></p>
-          </div>
-
-          <aside class="controls" id="animal-controls" aria-labelledby="controls-title">
-            <div class="controls-heading"><p class="eyebrow">DIRECT THE STUDY</p><span aria-hidden="true">+</span></div>
-            <h2 id="controls-title">Make a little<br><em>room for wonder.</em></h2>
-            <div class="select-control"><label for="species">Who is visiting?</label><select id="species"><option value="manta">Manta ray</option><option value="octopus">Octopus</option><option value="cuttlefish">Cuttlefish</option><option value="mixed">Mixed marine company</option></select></div>
-            <div class="select-control"><label for="formation">Current</label><select id="formation"><option value="independent">Independent</option><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option><option value="diagonal">Diagonal</option><option value="random">Wandering</option></select></div>
-
-            <fieldset class="palette-control"><legend>Color story</legend><div class="palette-options" role="group" aria-label="Color story"><button class="palette selected" data-palette="lagoon" type="button" aria-pressed="true"><span class="swatch swatch-lagoon" aria-hidden="true"></span>Lagoon</button><button class="palette" data-palette="ultraviolet" type="button" aria-pressed="false"><span class="swatch swatch-ultraviolet" aria-hidden="true"></span>Violet</button><button class="palette" data-palette="ember" type="button" aria-pressed="false"><span class="swatch swatch-ember" aria-hidden="true"></span>Ember</button></div></fieldset>
-
-            <div class="range-control"><label for="count">Visitors <output id="count-value" for="count">1</output></label><input id="count" type="range" min="1" max="12" step="1" value="1"><div class="range-ends"><span>A quiet visit</span><span>A small school</span></div></div>
-            <div class="range-control"><label for="size">Animal size <output id="size-value" for="size">110%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="1.1"></div>
-            <div class="range-control"><label for="speed">Tempo <output id="speed-value" for="speed">1.05×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1.05"></div>
-            <div class="range-control"><label for="ripple">Undulation <output id="ripple-value" for="ripple">1.30×</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.05" value="1.3"></div>
-            <div class="range-control"><label for="density">Character detail <output id="density-value" for="density">1.20×</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.05" value="1.2"><div class="range-ends"><span>Open water</span><span>Fine detail</span></div></div>
-            <label class="follow-control" for="follow-pointer"><span>Follow the pointer<small>A little shared curiosity.</small></span><input id="follow-pointer" type="checkbox" role="switch" checked></label>
-            <p class="controls-footnote">Every animal keeps its own rhythm.<br><kbd>Space</kbd> pauses or resumes the current.</p>
-          </aside>
-        </div>
-
-        <div class="study-notes" aria-label="About the new animals"><article><p class="note-number">02 / MANTA</p><h3>A wide, quiet flight.</h3><p>A traveling wave moves through broad wings. A slender tail trails the turn; the body banks toward a nearby pointer.</p></article><article><p class="note-number">03 / OCTOPUS</p><h3>Eight arms. One intention.</h3><p>A distinct mantle and eight articulated arms share a coherent response: explore, gather, then settle back into the current.</p></article><article class="review-note"><p class="note-number">A WORKING LOCAL STUDY</p><p>Local review: original procedural geometry. Uses the shared canonical ASCII Animals renderer.</p><p class="publication-note">Review build. No npm release or performance guarantee.</p></article></div>
+        <p class="library-note">A scene chooses its cast and choreography. Color and drawing preferences stay yours.</p>
       </section>
+      <section class="workspace" aria-labelledby="animal-title">
+        <div class="art-column">
+          <div class="scene-topline"><div><span class="specimen-index" id="specimen-index">01—03</span><h2 id="animal-title">Reef rendezvous</h2></div><span class="medium" id="medium-label">CHARACTERS / SHARED WATER</span></div>
+          <div class="canvas-frame" id="canvas-frame">
+            <div class="canvas-topbar"><span class="playback-state"><span class="live-dot" id="live-dot" aria-hidden="true"></span><span id="playback-label">PREPARING</span></span><span id="focus-badge">FOCUS 01 / MANTA</span></div>
+            <canvas id="animal-canvas" role="img" tabindex="0" aria-label="Three procedural ASCII marine animals meet in a shared reef scene. Use the adjacent director controls to choose a scene, focus an animal, or view still chapters." aria-describedby="stage-help keyboard-help"></canvas>
+            <div class="canvas-bottomline"><span id="phase-label">Finding each other</span><span id="view-count">3 IN THE CURRENT</span></div>
+            <span class="scene-corner corner-top-left" aria-hidden="true"></span><span class="scene-corner corner-top-right" aria-hidden="true"></span><span class="scene-corner corner-bottom-left" aria-hidden="true"></span><span class="scene-corner corner-bottom-right" aria-hidden="true"></span>
+          </div>
+          <div class="chapter-strip" id="chapter-strip" aria-label="Current scene chapter">
+            <div class="chapter-label"><span id="chapter-name">Meeting</span><output id="chapter-time">00 / 40 s</output></div>
+            <div class="chapter-track" aria-hidden="true"><span id="chapter-progress"></span></div>
+            <div class="chapter-stops" aria-hidden="true"><span data-chapter="arrive">01 Arrive</span><span data-chapter="engage">02 Engage</span><span data-chapter="explore">03 Explore</span><span data-chapter="depart">04 Depart</span></div>
+          </div>
+          <div class="playback-bar" role="group" aria-label="Playback and scene cues">
+            <button class="button button-primary" id="play-pause" type="button"><span id="play-symbol" aria-hidden="true">Ⅱ</span><span id="play-text">Pause</span></button>
+            <button class="button" id="invite" type="button">Place an invitation</button><button class="button" id="react" type="button">Startle focus</button>
+            <button class="button button-quiet" id="release" type="button">Release</button><button class="button button-quiet" id="replay" type="button">Replay arrival</button>
+          </div>
+          <p class="interaction-note" id="stage-help">Move gently to invite curiosity. Tap empty water to leave a point of interest; tap a visitor for its own response.</p>
+          <p class="focus-note" id="focus-note">Manta · guide — holding a place in the current.</p><p class="motion-note" id="motion-note" hidden></p>
+          <div class="still-controls" id="still-controls"><span>Pause on a chapter</span><div role="group" aria-label="Deliberate still compositions"><button type="button" data-still="arrive" aria-pressed="false">Arrival</button><button type="button" data-still="engage" aria-pressed="false">Meeting</button><button type="button" data-still="explore" aria-pressed="false">Exploration</button><button type="button" data-still="depart" aria-pressed="false">Departure</button></div></div>
+          <p class="keyboard-help" id="keyboard-help"><span id="keyboard-director">Focus the artwork: <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> place interest · <kbd>I</kbd> invite · <kbd>Home</kbd> center · <kbd>Enter</kbd> startle focus · <kbd>R</kbd> release · <kbd>1–8</kbd> focus · <kbd>Space</kbd> pause.</span><span id="keyboard-classic" hidden>Focus the artwork: <kbd>Enter</kbd> invite a response or replay a passage · <kbd>1–8</kbd> inspect a visitor · <kbd>Space</kbd> pause. Use the focus selector for visitors 9–12.</span></p>
+          <div class="capture-row"><output id="render-stats" aria-live="off">PREPARING THE ARTWORK</output><div><button class="text-button" id="save-png" type="button">Save PNG ↓</button><button class="text-button" id="save-score" type="button">Export score ↓</button><a class="text-button" href="animals-standalone.html" download>Offline HTML ↗</a></div></div>
+          <p class="action-status" id="action-status" role="status" aria-live="polite"></p>
+        </div>
+        <aside class="controls" id="animal-controls" aria-labelledby="controls-title">
+          <p class="eyebrow">COMPOSE THE ENCOUNTER</p><h2 id="controls-title">A current.<br><em>A few intentions.</em></h2>
+          <div class="select-control"><label for="focus">Whose story are you following?</label><select id="focus"><option value="1">01 · Manta ray</option></select></div>
+          <div id="director-controls">
+            <div class="range-control"><label for="current">Current <output id="current-value" for="current">+35%</output></label><input id="current" type="range" min="-1" max="1" step="0.05" value="0.35"><div class="range-ends"><span>Against the tide</span><span>With the tide</span></div></div>
+            <div class="range-control"><label for="duration">Scene length <output id="duration-value" for="duration">40 s</output></label><input id="duration" type="range" min="20" max="80" step="2" value="40"></div>
+            <div class="range-control"><label for="autonomy">Independent spirit <output id="autonomy-value" for="autonomy">100%</output></label><input id="autonomy" type="range" min="0" max="1.5" step="0.05" value="1"></div>
+            <div class="range-control"><label for="intimacy">Willingness to approach <output id="intimacy-value" for="intimacy">100%</output></label><input id="intimacy" type="range" min="0" max="1.5" step="0.05" value="1"></div>
+          </div>
+          <div id="classic-controls" hidden>
+            <div class="select-control"><label for="legacy-scene">Original scene</label><select id="legacy-scene"><option value="swimby">Swim-by · arrive, linger, depart</option><option value="encounter">Close encounter · approach the lens</option><option value="reactive" selected>Reactive · curiosity and disturbance</option></select></div>
+            <div class="select-control"><label for="formation">Formation path</label><select id="formation"><option value="independent">Independent roles</option><option value="horizontal">Horizontal procession</option><option value="vertical">Vertical current</option><option value="diagonal">Diagonal drift</option><option value="random">Wandering</option></select></div>
+            <div class="range-control"><label for="spacing">Path spacing <output id="spacing-value" for="spacing">1.00×</output></label><input id="spacing" type="range" min="0.65" max="1.6" step="0.05" value="1"></div>
+            <label class="switch-control" for="reverse"><span>Reverse the paths</span><input id="reverse" type="checkbox" role="switch"></label>
+          </div>
+          <details class="control-panel" id="cast-panel" open><summary>The company <span id="cast-summary">3 visitors</span></summary><div class="panel-content">
+            <div class="range-control"><label for="count">Visitors <output id="count-value" for="count">3</output></label><input id="count" type="range" min="1" max="8" step="1" value="3"></div>
+            <p class="field-note" id="cast-help">Each visitor keeps its motive when you adjust the scene. Three to five leave room for readable encounters.</p><div class="cast-rows" id="cast-rows"></div><label class="switch-control" for="showLabels"><span>Show visitor numbers</span><input id="showLabels" type="checkbox" role="switch"></label>
+          </div></details>
+          <details class="control-panel"><summary>Scale &amp; movement <span>Fine tune</span></summary><div class="panel-content">
+            <div class="range-control"><label for="size">Animal size <output id="size-value" for="size">80%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="0.8"></div>
+            <div class="range-control"><label for="sizeVariation">Size variation <output id="sizeVariation-value" for="sizeVariation">20%</output></label><input id="sizeVariation" type="range" min="0" max="1" step="0.05" value="0.2"></div>
+            <div class="range-control" id="spread-row"><label for="spread">Space to explore <output id="spread-value" for="spread">1.00×</output></label><input id="spread" type="range" min="0.65" max="1.5" step="0.05" value="1"></div>
+            <div class="range-control"><label for="speed">Tempo <output id="speed-value" for="speed">1.00×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1"></div>
+            <div class="range-control"><label for="motion">Travel range <output id="motion-value" for="motion">1.20×</output></label><input id="motion" type="range" min="0" max="2" step="0.05" value="1.2"></div>
+            <div class="range-control"><label for="ripple">Undulation <output id="ripple-value" for="ripple">1.30×</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.05" value="1.3"></div>
+            <label class="switch-control" for="follow-pointer"><span>Respond to nearby movement</span><input id="follow-pointer" type="checkbox" role="switch" checked></label>
+          </div></details>
+          <details class="control-panel"><summary>Light &amp; characters <span>Drawing</span></summary><div class="panel-content">
+            <fieldset class="palette-control"><legend>Color story</legend><div class="palette-options"><button class="palette selected" data-palette="lagoon" type="button" aria-pressed="true"><span class="swatch swatch-lagoon" aria-hidden="true"></span>Lagoon</button><button class="palette" data-palette="ultraviolet" type="button" aria-pressed="false"><span class="swatch swatch-ultraviolet" aria-hidden="true"></span>Violet</button><button class="palette" data-palette="ember" type="button" aria-pressed="false"><span class="swatch swatch-ember" aria-hidden="true"></span>Ember</button></div></fieldset>
+            <div class="select-control"><label for="render-mode">Render as</label><select id="render-mode"><option value="ascii">ASCII characters</option><option value="points">Particles</option></select></div>
+            <div class="range-control"><label for="density">Character detail <output id="density-value" for="density">1.20×</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.05" value="1.2"></div>
+            <div class="range-control"><label for="depthStrength">Depth <output id="depthStrength-value" for="depthStrength">1.20×</output></label><input id="depthStrength" type="range" min="0" max="2" step="0.05" value="1.2"></div>
+            <label class="switch-control" for="glow"><span>A little glow</span><input id="glow" type="checkbox" role="switch" checked></label><label class="switch-control" id="backdrop-row" for="backdrop"><span>Show the scene’s habitat</span><input id="backdrop" type="checkbox" role="switch" checked></label>
+          </div></details>
+          <button class="text-button reset-score" id="reset" type="button">Restore this scene’s score ↺</button>
+        </aside>
+      </section>
+      <section class="study-notes" aria-label="Three different lives"><article><p class="note-number">01 / CUTTLEFISH</p><h3>A quick change of mind.</h3><p>Hold a station, investigate a visitor, flash a changing pattern, then gather and retreat through ink. The original scene tools remain a click away.</p></article><article><p class="note-number">02 / MANTA</p><h3>Make room for a wingbeat.</h3><p>A guide takes the long arc. Companions share a current, banking through depth and gliding past their neighbors without borrowing a cuttlefish’s ink.</p></article><article><p class="note-number">03 / OCTOPUS</p><h3>Let the arms lead.</h3><p>Search a reef edge, inspect a point of interest, then gather into a cup when startled. Eight bounded arm chains share one intention.</p></article></section>
     </main>
-    <footer class="page-footer"><span>ASCII Animals / New currents</span><span>Original geometry · shared renderer · 2026</span></footer>
+    <footer class="page-footer"><span>ASCII Animals / Shared waters</span><span>Original procedural geometry · one shared renderer</span><a href="record.html">Original recording studio ↗</a></footer>
   </div>
 </body>
 </html>

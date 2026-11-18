@@ -62,7 +62,292 @@ const SPECIES = new Map([['manta', mantaDefinition], ['octopus', octopusDefiniti
     ember: { low: [103, 40, 42], middle: [218, 105, 66], high: [255, 231, 175], fin: [190, 80, 124], ink: [246, 152, 97], atmosphere: [179, 83, 47] }
   };
 
+// Marine-only choreography. Pure data and poses; the canonical host owns input,
+// drawing, reactions and the existing shared scheduler. No private frame loop.
+const MARINE_DIRECTOR = (() => {
+  'use strict';
+  const TAU = Math.PI * 2;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const mix = (a, b, q) => a + (b - a) * q;
+  const smooth = (a, b, n) => { const q = clamp((n - a) / (b - a), 0, 1); return q * q * (3 - 2 * q); };
+  const unit = v => { const d = Math.hypot(...v); return d > .000001 ? v.map(n => n / d) : [0, -1, .12].map(n => n / Math.hypot(1, .12)); };
+  const wrap = n => ((n % 1) + 1) % 1;
+  const roles = Object.freeze(['auto', 'guide', 'forager', 'sentinel', 'companion']);
+  const chapterIds = Object.freeze(['arrive', 'engage', 'explore', 'depart']);
+  const scenes = Object.freeze([
+    Object.freeze({ id: 'reef-rendezvous', title: 'Reef rendezvous',
+      description: 'A glider, a watcher and an arm-led explorer arrive at a shared reef, exchange attention, then drift apart.',
+      chapters: Object.freeze(['Gather at the reef', 'Exchange a glance', 'Follow separate curiosities', 'Dissolve into the current']) }),
+    Object.freeze({ id: 'upwelling-ballet', title: 'Upwelling ballet',
+      description: 'Mantas ride a rising current in banked loops while companions hold different stations around the flow.',
+      chapters: Object.freeze(['Find the rising water', 'Trace the spiral', 'Glide across the light', 'Release the turn']) }),
+    Object.freeze({ id: 'tidepool-investigation', title: 'Tidepool investigation',
+      description: 'An octopus searches a ledge with its arms, inspects an invitation, and retreats while its neighbors give it room.',
+      chapters: Object.freeze(['Approach the ledge', 'Inspect a small discovery', 'Probe the next crevice', 'Return to shelter']) })
+  ]);
+  const defaults = Object.freeze({ scene: 'reef-rendezvous', duration: 40, current: .35,
+    spread: 1, intimacy: 1, autonomy: 1, focus: 1, roles: Object.freeze([]), backdrop: true });
+  const ranges = Object.freeze({ duration: [20, 80], current: [-1, 1], spread: [.65, 1.5], intimacy: [0, 1.5], autonomy: [0, 1.5], focus: [1, 12] });
+
+  function normalize(patch = {}, base = defaults) {
+    if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new TypeError('Marine director options must be an object.');
+    for (const key of Object.keys(patch)) if (!Object.hasOwn(defaults, key)) throw new TypeError(`Unknown marine director option: ${key}`);
+    const next = { ...base };
+    for (const key of Object.keys(defaults)) {
+      const value = patch[key];
+      if (value === undefined) continue;
+      if (key === 'scene') {
+        if (!scenes.some(scene => scene.id === value)) throw new TypeError('Unknown marine director scene.');
+      } else if (key === 'roles') {
+        if (!Array.isArray(value) || value.length > 12 || !Array.from(value).every(role => roles.includes(role))) throw new TypeError('Director roles must contain at most 12 supported motives.');
+      } else if (key === 'backdrop') {
+        if (typeof value !== 'boolean') throw new TypeError('Director backdrop must be Boolean.');
+      } else {
+        const [low, high] = ranges[key];
+        if (typeof value !== 'number' || !Number.isFinite(value) || value < low || value > high || (key === 'focus' && !Number.isInteger(value))) throw new RangeError(`Director ${key} must be ${low}..${high}${key === 'focus' ? ' and an integer' : ''}.`);
+      }
+      next[key] = value;
+    }
+    next.roles = Object.freeze([...next.roles]);
+    return Object.freeze(next);
+  }
+
+  function create(config) {
+    return { time: config.duration * .25, cycle: 0, cue: { x: 0, y: 0, active: false, interest: 0 } };
+  }
+
+  function step(state, config, dt, cueDt = dt) {
+    if (!Number.isFinite(dt) || dt < 0 || dt > .1) throw new RangeError('Director step must be 0..0.1 seconds.');
+    if (!Number.isFinite(cueDt) || cueDt < 0 || cueDt > .1) throw new RangeError('Director cue step must be 0..0.1 seconds.');
+    const total = state.time + dt;
+    const cycles = Math.floor(total / config.duration);
+    state.time = total - cycles * config.duration;
+    state.cycle = (state.cycle + cycles) % 4294967296;
+    if (!state.cue.active) state.cue.interest *= Math.exp(-cueDt * 3.5);
+  }
+
+  function seek(state, config, chapter) {
+    const index = chapterIds.indexOf(chapter);
+    if (index < 0) throw new TypeError('Unknown marine director chapter.');
+    state.time = config.duration * [.10, .34, .63, .88][index];
+    state.cycle = 0;
+    state.cue = { x: 0, y: 0, active: false, interest: 0 };
+  }
+
+  function cue(state, config, input) {
+    if (!input || typeof input !== 'object' || Array.isArray(input)) throw new TypeError('Director cue must be an object.');
+    if (input.type === 'release') {
+      if (Object.keys(input).some(key => key !== 'type')) throw new TypeError('Release has no coordinate fields.');
+      state.cue.active = false;
+      return;
+    }
+    if (input.type !== 'invite' || Object.keys(input).some(key => !['type', 'x', 'y'].includes(key))) throw new TypeError('Expected an invite or release cue.');
+    if (![input.x, input.y].every(n => typeof n === 'number' && Number.isFinite(n) && n >= -.5 && n <= .5)) throw new RangeError('Invitation coordinates must be normalized -0.5..0.5.');
+    // A deliberate cue also composes a still; it never advances time or starts
+    // scheduling. Continuous pointer easing stays with the canonical host.
+    state.cue.x = input.x; state.cue.y = input.y; state.cue.active = true; state.cue.interest = 1;
+  }
+
+  function chapterAt(progress) {
+    return progress < .20 ? 0 : progress < .48 ? 1 : progress < .78 ? 2 : 3;
+  }
+
+  function roleFor(config, member) {
+    const selected = config.roles[member.id];
+    if (selected && selected !== 'auto') return selected;
+    if (member.role && member.role !== 'auto' && roles.includes(member.role)) return member.role;
+    if (member.species === 'octopus') return 'forager';
+    if (member.species === 'manta') return member.id > 2 ? 'companion' : 'guide';
+    return member.id > 2 ? 'companion' : 'sentinel';
+  }
+
+  function layout(member, context, config) {
+    const count = clamp(Math.round(member.count || 1), 1, 12);
+    const width = context.width || 900, height = context.height || 620;
+    const aspect = Math.max(.2, width / Math.max(1, height)), portrait = aspect < .85;
+    const viewHeight = height / Math.min(width / 9.8, height / 6.8);
+    let anchor, crowd;
+    if (count === 1) {
+      anchor = [0, member.species === 'octopus' ? .15 : -.55]; crowd = 1.04;
+    } else if (portrait && count <= 3) {
+      // Full-height stations preserve room for the mantle and trailing arms;
+      // no scene subsequently compresses these anchors back toward the centre.
+      const step = clamp(viewHeight * .29, 3.5, 6.1);
+      anchor = [count === 2 ? (member.id ? .45 : -.45) : [-.35, .55, -.30][member.id],
+        (member.id - (count - 1) / 2) * (count === 2 ? step * 1.2 : step)];
+      crowd = .84;
+    } else if (count === 2) {
+      anchor = [member.id ? 2.65 : -2.65, -.60]; crowd = .94;
+    } else if (count === 3) {
+      const spots = config.scene === 'tidepool-investigation'
+        ? [[-2.65, .50], [0, -1.80], [2.65, .60]]
+        : [[-2.65, -.60], [2.55, 1.05], [2.55, -1.75]];
+      anchor = spots[member.id].slice(); crowd = .88;
+    } else {
+      const columns = portrait ? 2 : Math.min(4, Math.ceil(Math.sqrt(count * 1.3)));
+      const rows = Math.ceil(count / columns), row = Math.floor(member.id / columns), col = member.id % columns;
+      const used = Math.min(columns, count - row * columns);
+      const xStep = portrait ? 5.0 : columns === 2 ? 5.2 : columns === 3 ? 3.2 : 2.5;
+      const yRange = portrait ? clamp(viewHeight * .30, 3.6, 6.2) : rows > 2 ? 2.15 : 1.60;
+      anchor = [(col - (used - 1) / 2) * xStep, (row - (rows - 1) / 2) * (2 * yRange / Math.max(1, rows - 1))];
+      crowd = clamp(Math.sqrt(3 / count) * .96, .60, .82);
+    }
+    // Tight spacing also reduces envelopes. Portrait spread primarily changes
+    // horizontal breathing room; vertical stations remain safely in the view.
+    anchor[0] *= config.spread;
+    anchor[1] *= portrait ? clamp(config.spread, .88, 1.10) : config.spread;
+    crowd *= Math.min(1, Math.max(.76, config.spread));
+    return { count, portrait, anchor, crowd, lane: count > 3 ? .64 : 1 };
+  }
+
+  function pointAt(p, config, member, info, role) {
+    const seed = Number.isFinite(member.seed) ? member.seed : .5;
+    const phase = seed * TAU, u = p * TAU, id = member.id;
+    const a = info.anchor, direction = config.current < 0 ? -1 : 1;
+    const current = .75 + Math.abs(config.current) * .45;
+    const freedom = config.autonomy * (role === 'sentinel' ? .25 : role === 'forager' ? .78 : role === 'companion' ? .64 : 1);
+    const travel = freedom * info.lane * clamp(config.spread, .75, 1.10);
+    let x = a[0], y = a[1], z = -1.05 - (id % 3) * .16;
+    if (config.scene === 'reef-rendezvous') {
+      if (member.species === 'manta') {
+        x += .24 * travel * Math.sin(u * direction + phase);
+        y += (.48 - p) * 1.30 * travel * direction + .06 * travel * Math.sin(u * 2 + phase);
+        z += -.20 + .25 * Math.cos(u + phase);
+      } else if (member.species === 'octopus') {
+        x += .26 * travel * Math.sin(u * 2 + phase);
+        y += .10 * travel * Math.cos(u * 2 + phase);
+        z += .12 * Math.sin(u + phase);
+      } else {
+        x += .16 * travel * Math.sin(u + phase);
+        y += .16 * travel * Math.sin(u * 2 + phase);
+        z += .15 * config.intimacy * Math.sin(Math.PI * p) ** 2;
+      }
+    } else if (config.scene === 'upwelling-ballet') {
+      if (member.species === 'manta') {
+        // Each glider owns a separate narrow rising spiral. Their depth and
+        // beat differ, but no orbit silently replaces the allocated station.
+        const theta = u * direction + phase;
+        x += .44 * travel * Math.cos(theta) * (info.portrait ? .65 : 1);
+        y += (.50 - p) * 2.0 * travel * current * direction + .10 * travel * Math.sin(theta * 2);
+        z += -.35 + .50 * Math.sin(theta + .5);
+      } else if (member.species === 'octopus') {
+        x += .12 * travel * Math.sin(u * 2 + phase);
+        y += .08 * travel * Math.sin(u * 2);
+        z -= .20;
+      } else {
+        x += .22 * travel * Math.cos(u * direction + phase);
+        y += .14 * travel * Math.sin(u * direction + phase);
+        z += -.50 + .20 * Math.sin(u + phase);
+      }
+    } else {
+      if (member.species === 'octopus') {
+        x += .35 * travel * Math.sin(u - .8 + phase * .25);
+        y += .10 * travel * Math.sin(u * 2 + phase);
+        z += -.25 + .18 * config.intimacy * smooth(.18, .32, p) * (1 - smooth(.55, .75, p));
+      } else if (member.species === 'manta') {
+        x += .25 * travel * Math.sin(u * direction + phase);
+        y += -.15 + (.50 - p) * travel * direction;
+        z += -1.30 - .30 * Math.cos(u + phase);
+      } else {
+        x += .22 * travel * Math.sin(u + phase);
+        y += -.10 + .10 * travel * Math.cos(u * 2 + phase);
+        z += -.35 + .15 * Math.sin(u + phase);
+      }
+    }
+    // Arrival/departure retain each animal's lane at depth. Both the blend
+    // and its derivative vanish at the seam; no central pile-up or teleport.
+    const presence = smooth(0, .18, p) * (1 - smooth(.78, 1, p));
+    const side = Math.sign(a[0] || (id % 2 ? 1 : -1));
+    const originX = a[0] + side * .90 + .05 * Math.sin(phase), originY = a[1] - .12;
+    return [mix(originX, x, presence), mix(originY, y, presence), mix(-6.2 - seed, z, presence)];
+  }
+
+  function sample(state, config, member, context = {}) {
+    const id = member.id, seed = Number.isFinite(member.seed) ? member.seed : .5;
+    const info = layout(member, context, config), role = roleFor(config, member);
+    const p = wrap(state.time / config.duration + id * .018);
+    const ci = chapterAt(p), scene = scenes.find(s => s.id === config.scene);
+    const position = pointAt(p, config, member, info, role);
+    const h = .001, before = pointAt(wrap(p - h), config, member, info, role), after = pointAt(wrap(p + h), config, member, info, role);
+    const velocity = after.map((n, j) => (n - before[j]) / (2 * h));
+    const acceleration = after.map((n, j) => (n - 2 * position[j] + before[j]) / (h * h));
+    const presence = smooth(0, .18, p) * (1 - smooth(.78, 1, p));
+    const pointer = context.pointer || {}, cue = state.cue;
+    const pointerInterest = context.pointerEnabled ? clamp(Number.isFinite(pointer.interest) ? pointer.interest : 0, 0, 1) : 0;
+    const cueInterest = clamp(cue.interest, 0, 1), focused = config.focus === id + 1;
+    const explicit = Math.max(cueInterest, pointerInterest);
+    const destination = cueInterest > pointerInterest ? cue : pointer;
+    const weight = explicit * config.intimacy * presence * (focused ? 1 : role === 'forager' ? .28 : .14);
+    // A point of interest changes the blocking as well as a decorative label.
+    // Companions make room; only the selected animal fully investigates it.
+    const px = clamp(Number.isFinite(destination.x) ? destination.x : 0, -.5, .5);
+    const py = clamp(Number.isFinite(destination.y) ? destination.y : 0, -.5, .5);
+    position[0] += clamp(px * 6.8 - position[0], -.85, .85) * weight * (member.species === 'octopus' ? .30 : .42);
+    position[1] += clamp(py * (info.portrait ? 11 : 5.4) - position[1], -.70, .70) * weight * .22;
+    if (!focused && cueInterest > .05 && info.count > 1) position[0] += Math.sign(position[0] || (id % 2 ? 1 : -1)) * .12 * cueInterest;
+    let forward, bank;
+    const angle = p * TAU + seed * TAU;
+    if (member.species === 'manta') {
+      // Derive steering from the route tangent, then limit its presentation
+      // angle: an overhead glider can bank without turning its broad wing span
+      // into a vertical needle at a slow turn or a depth-only arrival.
+      const steering = Math.atan2(velocity[0], Math.abs(velocity[1]) + .65);
+      const heading = clamp(steering * .60 + .055 * Math.sin(angle) + px * weight * .30, -.55, .55);
+      forward = unit([Math.sin(heading), -Math.cos(heading), .14 + .035 * Math.sin(angle)]);
+      const curvature = (velocity[0] * acceleration[1] - velocity[1] * acceleration[0]) / (velocity[0] ** 2 + velocity[1] ** 2 + 4);
+      bank = clamp(Math.tanh(curvature * .04) * .08 + heading * .20 + px * weight * .22, -.24, .24);
+    } else if (member.species === 'octopus') {
+      forward = unit([.14 * Math.sin(angle * 2) + px * weight * .38, 1, .09]);
+      bank = clamp(.035 * Math.sin(angle * 2) + px * weight * .09, -.16, .16);
+    } else {
+      const display = .5 + .5 * Math.sin(angle * 2);
+      forward = unit([.8 - display * .28 + px * weight * .3, -.08 + .12 * Math.cos(angle), .38 + display * .25 + weight * .15]);
+      bank = .09 * Math.sin(angle * 2) + px * weight * .10;
+    }
+    // Autonomous foraging supplies a slowly moving screen-space attention cue
+    // even when nobody touches the page. Explicit input takes priority smoothly.
+    const scale = Math.min((context.width || 900) / 9.8, (context.height || 620) / 6.8);
+    const width = context.width || 900, height = context.height || 620;
+    const denominator = 1 - position[2] * .2;
+    const autoX = clamp((position[0] + .65 * Math.sin(angle * 2)) * scale / denominator / width, -.42, .42);
+    const autoY = clamp((position[1] + (member.species === 'octopus' ? .8 : .25)) * scale / denominator / height - .02, -.40, .43);
+    const exploring = ci === 2 || role === 'forager';
+    const autoInterest = config.autonomy * (exploring ? .72 : .24) * presence;
+    const attention = { x: mix(autoX, px, explicit), y: mix(autoY, py, explicit), interest: clamp(Math.max(autoInterest, weight), 0, 1) };
+    const motifs = member.species === 'manta'
+      ? ['Riding in from deep water', role === 'sentinel' ? 'Holding the outer current' : 'Guiding a banked pass', config.scene === 'upwelling-ballet' ? 'Gliding through the rising spiral' : 'Tracing the reef edge', 'Releasing into deeper water']
+      : member.species === 'octopus'
+        ? ['Feeling for a safe ledge', 'Inspecting with neighboring arms', 'Searching the next crevice', 'Gathering back toward shelter']
+        : ['Arriving with the current', role === 'guide' ? 'Leading the exchange' : 'Watching and changing display', role === 'forager' ? 'Investigating a nearby patch' : 'Turning toward a companion', 'Fading into open water'];
+    const motive = explicit > .18 && focused && presence > .5 ? member.species === 'octopus' ? 'Investigating your invitation' : member.species === 'manta' ? 'Banking toward your invitation' : 'Answering your invitation' : motifs[ci];
+    return {
+      position, forward, bank, reference: [0, 0, 1], visibility: .28 + .72 * presence,
+      scale: clamp(info.crowd * (focused ? 1.04 : .96) * (config.scene === 'tidepool-investigation' && member.species === 'manta' ? .94 : 1), .60, 1.15),
+      chapter: chapterIds[ci], chapterLabel: scene.chapters[ci], progress: p, role, motive,
+      label: `${String(id + 1).padStart(2, '0')} · ${role}`,
+      attention, armBias: explicit > .18 && focused ? 'inspect' : exploring ? 'search' : 'rest',
+      wingEnergy: clamp(.78 + Math.abs(config.current) * .40 + (ci === 0 ? .14 : ci === 3 ? -.12 : 0), .65, 1.35)
+    };
+  }
+
+  function describe(state, config, members = []) {
+    const progress = wrap(state.time / config.duration), index = chapterAt(progress);
+    const scene = scenes.find(s => s.id === config.scene);
+    return Object.freeze({ scene: config.scene, title: scene.title,
+      chapter: chapterIds[index], chapterLabel: scene.chapters[index], progress,
+      time: state.time, cycle: state.cycle,
+      cue: Object.freeze({ ...state.cue }),
+      members: Object.freeze(members.slice(0, 12).map(member => Object.freeze({
+        id: member.id + 1, species: member.species, role: roleFor(config, member),
+        focused: config.focus === member.id + 1,
+        motive: member.directorIntent?.motive || sample(state, config, { ...member, count: members.length }, {}).motive
+      }))) });
+  }
+  return Object.freeze({ scenes, defaults, roles, chapters: chapterIds, normalize, create, step, seek, cue, sample, describe });
+})();
+
 export class CuttlefishArtwork {
+    static get directorScenes() { return MARINE_DIRECTOR.scenes; }
     constructor(canvas, options = {}) {
       if (!canvas || typeof canvas.getContext !== 'function' || !canvas.ownerDocument?.defaultView) {
         throw new TypeError('CuttlefishArtwork requires an HTML canvas in a browser document. Importing the module is SSR-safe; construct it after mount.');
@@ -84,6 +369,7 @@ export class CuttlefishArtwork {
       this._inView = true; this._ready = false; this.droppedSeconds = 0;
       this.time = 0; this.sceneTime = 0; this.elapsed = 0; this.last = 0; this.fps = 0; this.frameCount = 0; this.fpsElapsed = 0; this.glyphCount = 0;
       this.pointer = { x: 0, y: 0, tx: 0, ty: 0, active: false, interest: 0 };
+      this._director = null; this._directorConfig = null; this.marineIntent = null;
       this.burst = 0; this.ink = []; this.destroyed = false;
       this.reaction = this._newReaction();
       this.agitation = 0; this.movingTime = 0; this.startleTension = 0; this.escapeAmount = 0;
@@ -115,6 +401,14 @@ export class CuttlefishArtwork {
         const r = this.canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
         if (r.width <= 0 || r.height <= 0) return;
         this.pointer.tx = clamp(x / r.width - .5, -.5, .5); this.pointer.ty = clamp(y / r.height - .5, -.5, .5);
+        if (this._director) {
+          const owner = this._hitFish(x, y);
+          if (owner >= 0) {
+            this.setDirector({ focus: owner + 1 });
+            this.cueDirector({ type: 'disturb', id: owner + 1 });
+          } else this.cueDirector({ type: 'invite', x: this.pointer.tx, y: this.pointer.ty });
+          return;
+        }
         if (this.paused) return;
         const hit = this._hitFish(x, y);
         const lensFish = this.options.scene === 'encounter' ? this.fish.find(f => f.behavior === 'encounter' || this._legacySingle()) : null;
@@ -319,6 +613,7 @@ export class CuttlefishArtwork {
       this.activeFish = f;
       for (const key of FISH_STATE) this[key] = f[key];
       this.objectScale = f.size;
+      this.marineIntent = this._director ? f.directorIntent || null : null;
     }
 
     _saveFish() {
@@ -341,6 +636,9 @@ export class CuttlefishArtwork {
       const reset = oldScene !== this.options.scene || oldFormation !== this.options.formation;
       const changedRoles = this.options.behaviors.flatMap((behavior, id) => behavior !== oldBehaviors[id] ? [id] : []);
       this._syncFish(reset, changedRoles);
+      if (this._directorConfig && this._directorConfig.focus > this.fish.length) {
+        this._directorConfig = MARINE_DIRECTOR.normalize({ focus: this.fish.length }, this._directorConfig);
+      }
       if (reset || oldSpecies !== this.options.species || oldChoices !== this.options.speciesByAnimal.join() || oldSeed !== this.options.seed) { this.ink = []; this.lastPointer = null; }
       if (patch.paused !== undefined) this.paused = Boolean(patch.paused);
       else if (patch.reducedMotion === 'system' && this._motionQuery?.matches) this.paused = true;
@@ -349,6 +647,70 @@ export class CuttlefishArtwork {
       if (oldDensity !== this.options.density || oldBudget !== [this.options.maxDpr, this.options.maxPixels, this.options.maxCells].join(':')) this.resize();
       else this.render();
       this._syncLoop();
+    }
+
+    /** Additive marine choreography; the inherited options remain available
+     * when disabled. No new scheduler or package-wide contract is introduced. */
+    setDirector(patch) {
+      if (this.destroyed) return;
+      if (patch === null) {
+        this._director = null; this._directorConfig = null; this.marineIntent = null;
+        for (const fish of this.fish) delete fish.directorIntent;
+        this.render(); return;
+      }
+      const before = this._directorConfig;
+      const next = MARINE_DIRECTOR.normalize(patch, before || MARINE_DIRECTOR.defaults);
+      if (next.focus > this.fish.length) throw new RangeError('Director focus must name an existing cast member.');
+      if (!before || next.scene !== before.scene) {
+        this._director = MARINE_DIRECTOR.create(next);
+        this.ink.length = 0;
+        for (const fish of this.fish) { fish.reaction = this._newReaction(); fish.agitation = 0; }
+      } else this._director.time = this._director.time / before.duration * next.duration;
+      this._directorConfig = next;
+      this.render();
+    }
+
+    getDirector() {
+      if (!this._director) return Object.freeze({ enabled: false, config: null,
+        scene: null, title: 'Classic current', chapter: null, chapterLabel: 'Original scene and formation',
+        progress: 0, time: this.time, cycle: 0, focused: 1,
+        cue: Object.freeze({ x: 0, y: 0, active: false, interest: 0 }), members: Object.freeze([]) });
+      const summary = MARINE_DIRECTOR.describe(this._director, this._directorConfig, this.fish);
+      return Object.freeze({ ...summary, enabled: true, config: this._directorConfig, focused: this._directorConfig.focus,
+        members: Object.freeze(summary.members.map((member, i) => Object.freeze({ ...member,
+          visible: this.fish[i].visible, phase: this.fish[i].phase }))) });
+    }
+
+    cueDirector(input) {
+      if (this.destroyed || !this._director) return false;
+      if (!input || typeof input !== 'object' || Array.isArray(input)) throw new TypeError('Director cue must be an object.');
+      if (input.type === 'disturb') {
+        if (Object.keys(input).some(key => !['type', 'id'].includes(key))) throw new TypeError('Disturb accepts only an optional cast ID.');
+        const id = input.id === undefined ? this._directorConfig.focus : input.id;
+        if (!Number.isInteger(id) || id < 1 || id > this.fish.length) throw new RangeError('Disturb must name an existing cast member.');
+        if (this.paused) return false;
+        return this._startle('director', id - 1);
+      }
+      MARINE_DIRECTOR.cue(this._director, this._directorConfig, input);
+      if (input.type === 'release' && this.paused) this._director.cue.interest = 0;
+      // Explicit cues may compose a paused still. Pointer movement cannot.
+      this.render(); return true;
+    }
+
+    showDirectorStill(chapter) {
+      if (this.destroyed || !this._director) return false;
+      const still = MARINE_DIRECTOR.create(this._directorConfig);
+      MARINE_DIRECTOR.seek(still, this._directorConfig, chapter); // validate before mutation
+      this.setPaused(true); this._director = still;
+      this.time = still.time; this.elapsed = 0; this.ink.length = 0;
+      this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
+      this.pointer.active = false; this.pointer.interest = 0; this.lastPointer = null;
+      for (const fish of this.fish) {
+        fish.reaction = this._newReaction(); fish.sceneTime = still.time;
+        fish.agitation = fish.movingTime = fish.motionTravel = fish.motionTurns = 0;
+        fish.motionVector = null;
+      }
+      this.render(); return true;
     }
 
     setPaused(value) {
@@ -393,6 +755,7 @@ export class CuttlefishArtwork {
       this._resetFrameClock(); this.droppedSeconds = 0; this.frameCount = 0; this.fpsElapsed = 0; this.fps = 0;
       this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
       this.pointer.active = false; this.pointer.interest = 0;
+      if (this._director) { this._director = MARINE_DIRECTOR.create(this._directorConfig); this._director.time = 0; }
       this.lastPointer = null; this._syncFish(true); this.render();
     }
 
@@ -412,7 +775,7 @@ export class CuttlefishArtwork {
     }
 
     _hitTest(x, y) { return this._hitFish(x, y) >= 0; }
-    _canReact(f) { return !f.reaction.active && (!this._legacySingle() || this.options.scene !== 'swimby'); }
+    _canReact(f) { return !f.reaction.active && Boolean(this._director || !this._legacySingle() || this.options.scene !== 'swimby'); }
 
     _nearestFish(x, y) {
       let selected = null, nearest = Infinity;
@@ -461,6 +824,7 @@ export class CuttlefishArtwork {
 
     pulse() {
       if (this.destroyed || this.paused || !this.width || !this.height) return;
+      if (this._director) { this.cueDirector({ type: 'disturb' }); return; }
       if (this.options.scene === 'swimby') { this.restart(); return; }
       this._startle('button');
     }
@@ -493,6 +857,7 @@ export class CuttlefishArtwork {
         rotation: [this.r00, this.r01, this.r02, this.r10, this.r11, this.r12, this.r20, this.r21, this.r22] };
       this.agitation = 0; this.movingTime = 0; this.lastPointer = null;
       this.motionTravel = 0; this.motionTurns = 0; this.motionVector = null;
+      if (this._director) this._director.response = { id: this.activeFish.id, age: 0, x: this.worldX, y: this.worldY };
       // No particles and no travel impulse here: first the animal notices.
       return true;
     }
@@ -504,6 +869,10 @@ export class CuttlefishArtwork {
         : peak * ramp * .5 + peak / drag * (1 - Math.exp(-drag * (e - ramp)));
       const offset = r.escapeDir.map(v => v * distance);
       offset[0] += r.side * 2.6 * smooth(.35, 2.1, e);
+      if (this._director) {
+        const reach = this.activeFish.species === 'octopus' ? .36 : this.activeFish.species === 'manta' ? .72 : .55;
+        return offset.map(value => value * reach);
+      }
       return offset;
     }
 
@@ -516,11 +885,16 @@ export class CuttlefishArtwork {
         const i = r.emitted++, seed = i + this.elapsed * 31;
         const angle = hash(seed + 3) * TAU, cone = .13 + hash(seed + 14) * .38;
         const radial = radialA.map((v, k) => v * Math.cos(angle) + radialB[k] * Math.sin(angle));
-        const speed = 3.0 + 1.6 * Math.sin(Math.PI * sprayProgress) + hash(seed + 70) * .55;
+        // A composed encounter keeps the plume near its owner and clears it
+        // before the return. Classic lens-facing ink retains its original arc.
+        const speed = (3.0 + 1.6 * Math.sin(Math.PI * sprayProgress) + hash(seed + 70) * .55) * (this._director ? .60 : 1);
         this.ink.push({ x: origin[0] + radial[0] * .027, y: origin[1] + radial[1] * .027, z: origin[2] + radial[2] * .027,
           vx: aim[0] * speed + radial[0] * cone, vy: aim[1] * speed + radial[1] * cone, vz: aim[2] * speed + radial[2] * cone,
           radius: .029 + hash(seed + 110) * .028, mass: .38 + hash(seed + 52) * .22,
-          life: 6.7 + hash(seed + 90) * 2.7, age: 0, phase: angle, axis: aim, ...(this.activeFish.species === 'octopus' ? { lightInk: true } : {}) });
+          life: this._director ? 3.0 + hash(seed + 90) : 6.7 + hash(seed + 90) * 2.7,
+          age: 0, phase: angle, axis: aim,
+          ...(this._director ? { directorInk: true } : {}),
+          ...(this.activeFish.species === 'octopus' ? { lightInk: true } : {}) });
       }
       if (this.ink.length > 1150) this.ink.splice(0, this.ink.length - 1150);
     }
@@ -620,6 +994,13 @@ export class CuttlefishArtwork {
 
     _simulate(dt) {
         this.elapsed += dt; this.time += dt * this.options.speed;
+        if (this._director) {
+          MARINE_DIRECTOR.step(this._director, this._directorConfig, dt * Math.min(1, this.options.motion / 1.2), dt);
+          if (this._director.response) {
+            this._director.response.age += dt;
+            if (this._director.response.age >= REACTION.recover) delete this._director.response;
+          }
+        }
 
         this.frameCount++; this.fpsElapsed += dt;
         if (this.fpsElapsed > .6) { this.fps = this.frameCount / this.fpsElapsed; this.frameCount = 0; this.fpsElapsed = 0; }
@@ -876,6 +1257,25 @@ export class CuttlefishArtwork {
         const pose = definition.pose(this, t, this.activeFish.speciesState, { position, forward, bank, reference });
         position = pose.position; forward = unit(pose.forward); bank = pose.bank; reference = pose.reference;
       }
+      if (this._director) {
+        const fish = this.activeFish;
+        const intent = MARINE_DIRECTOR.sample(this._director, this._directorConfig,
+          { id: fish.id, species: fish.species, seed: hash(fish.id + 910 + this.options.seed * .123), size: fish.size,
+            behavior: fish.behavior, count: this.fish.length },
+          { width: this.width, height: this.height, pointer: this.pointer, pointerEnabled: this.options.followPointer });
+        position = intent.position; forward = intent.forward; bank = intent.bank; reference = intent.reference;
+        this.objectScale = fish.size * intent.scale;
+        this.subjectVisibility = intent.visibility; this.phase = intent.motive; this.progress = intent.progress;
+        this.encounterGrip = this.encounterFront = 0;
+        const response = this._director.response;
+        if (response && response.id !== fish.id) {
+          const distance = Math.hypot(position[0] - response.x, position[1] - response.y);
+          const space = smooth(0, .9, response.age) * (1 - smooth(2, 5.5, response.age)) * Math.exp(-distance * .28);
+          position[0] += Math.sign(position[0] - response.x || fish.id - response.id) * space * .60;
+          position[2] -= space * .30;
+        }
+        fish.directorIntent = intent; this.marineIntent = intent;
+      } else this.marineIntent = null;
       if (r.active) {
         this.subjectVisibility = 1;
         const age = r.age, amount = Math.min(1, motion);
@@ -908,7 +1308,7 @@ export class CuttlefishArtwork {
       if (motion < .001) { this.phase = r.active ? this.phase : 'Holding position'; this.subjectVisibility = 1; }
       let dorsal = unit(reference.map((v, j) => v - forward[j] * dot(reference, forward)), [0, -1, 0]);
       let lateral = unit(cross(dorsal, forward), [0, 1, 0]);
-      if (!definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
+      if (!this._director && !definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
       bank *= (1 - this.encounterFront) * Math.min(1, motion);
       const cb = Math.cos(bank), sb = Math.sin(bank), l = lateral.slice(), z = dorsal.slice();
       lateral = l.map((v, j) => v * cb - z[j] * sb); dorsal = z.map((v, j) => v * cb + l[j] * sb);
@@ -965,7 +1365,9 @@ export class CuttlefishArtwork {
           const mottling = Math.sin(u * 79 + phi * 13) * Math.cos(phi * 19 - u * 25 + t * .3);
           const relief = 1 + .013 * stripe;
           const ni = (i * nv + j) * 3, bn = this.bodyNormals;
-          const light = this._shade(bn[ni], bn[ni + 1], bn[ni + 2], .11 * stripe + .045 * mottling, false, true);
+          const display = this.marineIntent ? .09 * Math.sin(u * 18 - t * 2.4 + this.activeFish.seed * TAU)
+            * (this.marineIntent.chapter === 'engage' ? 1 : .35) : 0;
+          const light = this._shade(bn[ni], bn[ni + 1], bn[ni + 2], .11 * stripe + .045 * mottling + display, false, true);
           this._put(x, ry * c * relief, rz * sn * relief + flex, light, 0, i * 101 + j);
         }
       }
@@ -1278,7 +1680,7 @@ export class CuttlefishArtwork {
         if (Boolean(p.lightInk) !== lightInk) continue;
         const perspective = 1 / Math.max(.24, 1 - p.z * this.perspectiveStrength);
         const q = this._projectWorld(p.x, p.y, p.z);
-        const radius = (p.radius + Math.sqrt(p.age) * .105) * this.scale * perspective;
+        const radius = (p.radius + Math.sqrt(p.age) * (p.directorInk ? .073 : .105)) * this.scale * perspective;
         const cx = q[0] / this.inkCellW, cy = q[1] / this.inkCellH;
         const rx = clamp(radius / this.inkCellW, .75, 9), ry = clamp(radius / this.inkCellH, .65, 8);
         const fade = 1 - smooth(p.life * .28, p.life, p.age);
@@ -1306,6 +1708,52 @@ export class CuttlefishArtwork {
       return glyphCount;
     }
 
+    _drawMarineBackdrop() {
+      if (!this._directorConfig.backdrop) return;
+      const c = this.ctx, w = this.width, h = this.height, config = this._directorConfig;
+      const t = this._director.time, color = this.palette.middle.join(',');
+      c.save(); c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.font = `${Math.max(7, Math.min(11, this.cellH * .85))}px monospace`;
+      if (config.scene === 'upwelling-ballet') {
+        // Three bounded strands describe the water column, behind the animals.
+        for (let strand = 0; strand < 3; strand++) for (let j = 0; j < 44; j++) {
+          const u = j / 43, phase = u * TAU * 1.4 + strand * TAU / 3 + t * config.current * .15;
+          const x = w * (.43 + Math.sin(phase) * (.08 + u * .06));
+          const y = h * (.91 - u * .81);
+          c.fillStyle = `rgba(${color},${.10 + .14 * (1 - Math.abs(u - .5) * 2)})`;
+          c.fillText(j % 4 ? '.' : ':', x, y);
+        }
+      } else {
+        // Sparse ASCII contour shelves give the octopus a legible place to
+        // investigate. No filled mesh, texture, extra canvas or physics loop.
+        for (let ridge = 0; ridge < 3; ridge++) for (let j = 0; j < 88; j++) {
+          const u = j / 87;
+          const rise = .035 * Math.sin(u * 13 + ridge * .9) + .018 * Math.sin(u * 31 + ridge);
+          const y = h * ((config.scene === 'tidepool-investigation' ? .73 : .84) + ridge * .045 + rise);
+          c.fillStyle = `rgba(${color},${.20 - ridge * .045})`;
+          c.fillText(j % 6 === 0 ? ':' : '.', w * (.03 + u * .94), y);
+        }
+      }
+      // The signed current changes visible drift without growing a trail list.
+      for (let i = 0; i < 28; i++) {
+        const x = ((hash(i + 17) + t * config.current * .008) % 1 + 1) % 1 * w;
+        const y = (.12 + hash(i + 22) * .68) * h;
+        c.fillStyle = `rgba(${color},.22)`; c.fillText(config.current < 0 ? '<' : config.current > 0 ? '>' : '.', x, y);
+      }
+      c.restore();
+    }
+
+    _drawMarineInvitation() {
+      const cue = this._director.cue;
+      if (cue.interest < .03) return;
+      const c = this.ctx, x = (cue.x + .5) * this.width, y = (cue.y + .5) * this.height;
+      c.save(); c.globalAlpha = cue.interest * .72;
+      c.strokeStyle = '#d4ead5'; c.lineWidth = 1;
+      c.beginPath(); c.arc(x, y, 13, 0, TAU); c.stroke();
+      c.beginPath(); c.moveTo(x - 4, y); c.lineTo(x + 4, y); c.moveTo(x, y - 4); c.lineTo(x, y + 4); c.stroke();
+      c.restore();
+    }
+
     render() {
       if (!this.width || this.destroyed) return;
       const c = this.ctx, w = this.width, h = this.height, t = this.time;
@@ -1316,6 +1764,7 @@ export class CuttlefishArtwork {
       const g = c.createRadialGradient(w * .48, h * .44, 0, w * .48, h * .44, Math.max(w, h) * .66);
       g.addColorStop(0, `rgba(${atmosphere.join(',')},${this.options.scene === 'swimby' ? .10 : .23})`); g.addColorStop(1, `rgba(${atmosphere.join(',')},0)`);
       c.fillStyle = g; c.fillRect(0, 0, w, h);
+      if (this._director) this._drawMarineBackdrop();
       c.font = '10px monospace'; c.textAlign = 'center'; c.textBaseline = 'middle';
       for (let i = 0; i < this.plankton.length; i++) {
         const p = this.plankton[i];
@@ -1386,12 +1835,15 @@ export class CuttlefishArtwork {
         for (const fish of this.fish) {
           if (!fish.visible) continue;
           const q = this._projectWorld(fish.worldX, fish.worldY, fish.worldZ);
-          const x = clamp(q[0], 20, w - 20), y = clamp(q[1] - 26, 18, h - 18);
-          c.fillStyle = 'rgba(5,14,16,.82)'; c.fillRect(x - 14, y - 10, 28, 20);
-          c.fillStyle = '#c8f8e8'; c.fillText(String(fish.id + 1).padStart(2, '0'), x, y);
+          const label = this._director ? fish.directorIntent.label : String(fish.id + 1).padStart(2, '0');
+          const halfWidth = this._director ? 57 : 14;
+          const x = clamp(q[0], halfWidth + 6, w - halfWidth - 6), y = clamp(q[1] - 26, 18, h - 18);
+          c.fillStyle = 'rgba(5,14,16,.82)'; c.fillRect(x - halfWidth, y - 10, halfWidth * 2, 20);
+          c.fillStyle = this._directorConfig?.focus === fish.id + 1 ? '#f4edc6' : '#c8f8e8'; c.fillText(label, x, y);
         }
       }
       this._drawInk();
+      if (this._director) this._drawMarineInvitation();
       this.glyphCount = count;
       this._activateFish(this.fish[0]);
     }
@@ -1419,3 +1871,18 @@ export class CuttlefishArtwork {
   }
 
 export function createCuttlefish(canvas, options) { return new CuttlefishArtwork(canvas, options); }
+
+/** Marine-only opt-in on the existing /cuttlefish entry. Import is SSR-safe. */
+export function normalizeMarineDirector(options = {}) { return MARINE_DIRECTOR.normalize(options); }
+
+export function createMarineDirector(canvas, director = {}, artwork = {}) {
+  const config = normalizeMarineDirector(director); // Fail before allocating browser resources.
+  const options = { scene: 'reactive', species: 'manta', count: 3, speciesByAnimal: ['manta', 'octopus', 'cuttlefish'],
+    behaviors: ['hover', 'hover', 'curious'], size: .76, sizeVariation: .20, followPointer: true, ...artwork };
+  const requestedCount = Number(options.count);
+  const count = clamp(Math.round(Number.isFinite(requestedCount) ? requestedCount : 4), 1, 12);
+  if (config.focus > count) throw new RangeError('Director focus must name an existing cast member.');
+  const engine = new CuttlefishArtwork(canvas, options);
+  try { engine.setDirector(config); } catch (error) { engine.destroy(); throw error; }
+  return engine;
+}
