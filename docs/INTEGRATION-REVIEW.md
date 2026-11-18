@@ -7,7 +7,7 @@ This branch combines the npm-library Pro candidate and additive legacy authoring
 - [Authoring research](https://chatgpt.com/c/6afd5a39-3804-83ec-933a-23f5c94958ad)
 - [Library research](https://chatgpt.com/c/6afd5a4e-a820-83ec-8c6e-54516f270e1d)
 
-The original `dist/` files and imported GIFs remain byte-identical. The package candidate lives in `src/`, with generated `lib/` ignored. Neither is silently represented as the other. No npm publishing, production deployment or merge was performed.
+The package engine is canonical in `src/`. `npm run build` generates `lib/`, the browser-global `dist/artwork.js`, and offline `dist/cuttlefish.html`. The recorder and source viewer consume this same generated browser script. A source hash and reproducibility tests reject stale output. Imported GIFs remain historical recordings, not new-browser evidence. The exact original renderer is frozen under `test/fixtures/` only as a regression oracle.
 
 ## Independently rerun acceptance
 
@@ -25,10 +25,10 @@ Test commands: `npm run build`, `npm test`, `node scripts/check-authoring-bridge
 
 ## Merge and release blockers
 
-1. Consolidate the package and microsite/recorder/source-viewer/offline export into one canonical source with generated compatibility output. Until then this is an experimental extraction, not an accepted replacement renderer.
+1. Canonical-source migration is implemented: bounded dependency-free global generation, the same source hash, offline bundling, module/global state parity and frozen legacy comparisons. Browser acceptance remains separate below.
 2. Perform visible browser acceptance for lifecycle transitions, exports, recording, pointer ownership, responsive layouts and old/new visual parity. Recapture demonstration media only after acceptance.
 3. Measure browser timing on representative devices. Shared-host stub-Canvas CPU results do **not** show a speedup and must not be described as improved FPS or power efficiency.
 4. Final npm name, license and publication authorization remain unresolved. `private: true`, `UNLICENSED` and the publish-blocking script remain in place.
 5. Track 3 animal definitions and Track 1 teaching core are separate proposed contracts. Reconcile them before integrating species into the public package.
 
-The legacy controller intentionally wraps the unchanged baseline; its policy suspension does not fix the baseline engine’s retained RAF subscription. Use the new package lifecycle directly for the extraction experiment, not both wrappers on one canvas.
+The legacy controller remains an optional historical integration example and is regression-tested against the frozen baseline. The main microsite uses the canonical engine directly, not two controllers on one canvas.

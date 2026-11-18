@@ -342,7 +342,10 @@
     updatePlayback();
     refreshControls();
     refreshTelemetry();
-    setInterval(refreshTelemetry, 200);
+    const telemetryTimer = setInterval(refreshTelemetry, 200);
+    window.addEventListener('pagehide', event => {
+      if (!event.persisted) { clearInterval(telemetryTimer); renderer?.destroy(); }
+    });
   } catch (error) {
     console.error('Artwork could not initialize:', error);
     scene.classList.add('error');

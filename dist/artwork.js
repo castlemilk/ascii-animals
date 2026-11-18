@@ -1,10 +1,84 @@
+// GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js. Do not edit.
+// source-sha256: a23ade6e1839375c3bf57e0e05a1a611e6107767ee3ed85a73e89db941a1781f
+(function () {
+'use strict';
+/** A framework-neutral, injectable requestAnimationFrame multiplexer. */
+function createScheduler({ requestFrame, cancelFrame, onError = error => { throw error; } }) {
+  if (typeof requestFrame !== 'function' || typeof cancelFrame !== 'function') {
+    throw new TypeError('createScheduler requires requestFrame and cancelFrame functions.');
+  }
+  const listeners = new Set();
+  const batch = [];
+  let pending = null, dispatching = false, disposed = false;
+  const schedule = () => {
+    if (!disposed && !dispatching && listeners.size && pending === null) pending = requestFrame(frame);
+  };
+  function frame(timestamp) {
+    pending = null;
+    if (disposed) return;
+    dispatching = true;
+    let firstError;
+    try {
+      // Reuse one snapshot buffer. New subscriptions start on the next frame;
+      // removals still take effect immediately during the current dispatch.
+      for (const listener of listeners) batch.push(listener);
+      for (const listener of batch) {
+        if (!listeners.has(listener)) continue;
+        try { listener(timestamp); } catch (error) {
+          try { onError(error); } catch (reported) { firstError ??= reported; }
+        }
+      }
+    } finally { batch.length = 0; dispatching = false; schedule(); }
+    if (firstError !== undefined) throw firstError;
+  }
+  return {
+    subscribe(listener) {
+      if (disposed) throw new Error('Cannot subscribe to a disposed scheduler.');
+      if (typeof listener !== 'function') throw new TypeError('Subscriber must be a function.');
+      // Each subscription owns its removal even when callbacks are identical.
+      const entry = timestamp => listener(timestamp);
+      listeners.add(entry);
+      try { schedule(); } catch (error) { listeners.delete(entry); throw error; }
+      let active = true;
+      return () => {
+        if (!active) return;
+        active = false; listeners.delete(entry);
+        if (!listeners.size && pending !== null) { cancelFrame(pending); pending = null; }
+      };
+    },
+    dispose() {
+      if (disposed) return;
+      disposed = true; listeners.clear();
+      if (pending !== null) cancelFrame(pending);
+      pending = null;
+    },
+    get size() { return listeners.size; }
+  };
+}
+
+// Weak keys allow detached browsing contexts to be collected. No browser globals
+// are accessed while importing this module, including on a server.
+const browserSchedulers = new WeakMap();
+function getBrowserScheduler(view) {
+  let scheduler = browserSchedulers.get(view);
+  if (!scheduler) {
+    scheduler = createScheduler({
+      requestFrame: callback => view.requestAnimationFrame(callback),
+      cancelFrame: handle => view.cancelAnimationFrame(handle),
+      onError: error => view.setTimeout(() => { throw error; }, 0)
+    });
+    browserSchedulers.set(view, scheduler);
+  }
+  return scheduler;
+}
+
 /*
  * Cuttlefish / Field study
  * Original procedural artwork. Canvas 2D, projected parametric surfaces,
  * a character-cell depth buffer, and traveling waves. No models or assets.
  */
-(() => {
-  'use strict';
+
+
   const TAU = Math.PI * 2;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const mix = (a, b, t) => a + (b - a) * t;
@@ -59,14 +133,24 @@
     ember: { low: [103, 40, 42], middle: [218, 105, 66], high: [255, 231, 175], fin: [190, 80, 124], ink: [246, 152, 97], atmosphere: [179, 83, 47] }
   };
 
-  class CuttlefishArtwork {
+class CuttlefishArtwork {
     constructor(canvas, options = {}) {
+      if (!canvas || typeof canvas.getContext !== 'function' || !canvas.ownerDocument?.defaultView) {
+        throw new TypeError('CuttlefishArtwork requires an HTML canvas in a browser document. Importing the module is SSR-safe; construct it after mount.');
+      }
+      this._document = canvas.ownerDocument;
+      this._view = this._document.defaultView;
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d', { alpha: false });
       if (!this.ctx) throw new Error('Canvas 2D is unavailable in this browser.');
-      this.options = Object.assign({ scene: 'swimby', palette: 'lagoon', speed: 1.05, ripple: 1.3, density: 1.1, motion: 1.2, depthStrength: 1.2, mode: 'ascii', followPointer: false, glow: true, paused: false, count: 4, formation: 'independent', size: .7, sizeVariation: .45, spacing: 1, reverse: false, showLabels: false, behaviors: [] }, options);
+      this.options = Object.assign({ scene: 'swimby', palette: 'lagoon', speed: 1.05, ripple: 1.3, density: 1.1, motion: 1.2, depthStrength: 1.2, mode: 'ascii', followPointer: false, glow: true, paused: false, count: 4, formation: 'independent', size: .7, sizeVariation: .45, spacing: 1, reverse: false, showLabels: false, behaviors: [], autoStart: true, reducedMotion: 'system', maxDpr: 2, maxPixels: 8294400, maxCells: 65536, maxFps: 60, observeVisibility: true }, options);
       this._normalizeOptions();
-      this.paused = Boolean(this.options.paused);
+      this._motionQuery = this._view.matchMedia?.('(prefers-reduced-motion: reduce)');
+      this.paused = Object.hasOwn(options, 'paused') ? Boolean(options.paused)
+        : this.options.reducedMotion === 'system' && Boolean(this._motionQuery?.matches);
+      this.options.paused = this.paused;
+      this._unsubscribe = null; this._lastFrame = null; this._accumulated = 0;
+      this._inView = true; this._ready = false; this.droppedSeconds = 0;
       this.time = 0; this.sceneTime = 0; this.elapsed = 0; this.last = 0; this.fps = 0; this.frameCount = 0; this.fpsElapsed = 0; this.glyphCount = 0;
       this.pointer = { x: 0, y: 0, tx: 0, ty: 0 };
       this.burst = 0; this.ink = []; this.destroyed = false;
@@ -75,13 +159,16 @@
       this.motionTravel = 0; this.motionTurns = 0; this.motionVector = null; this.lastMotionAt = 0;
       this.phase = 'Approaching'; this.progress = 0;
       this.encounterGrip = 0; this.encounterFront = 0;
-      this.glowCanvas = document.createElement('canvas');
+      this.glowCanvas = this._document.createElement('canvas');
       this.glowCtx = this.glowCanvas.getContext('2d');
-      this.haloCanvas = document.createElement('canvas');
+      this.haloCanvas = this._document.createElement('canvas');
       this.haloCtx = this.haloCanvas.getContext('2d');
-      this.atlas = document.createElement('canvas');
+      this.atlas = this._document.createElement('canvas');
       this.atlasCtx = this.atlas.getContext('2d');
-      this.inkAtlas = document.createElement('canvas');
+      this.inkAtlas = this._document.createElement('canvas');
+      if (!this.glowCtx || !this.haloCtx || !this.atlasCtx || !this.inkAtlas.getContext('2d')) {
+        throw new Error('Canvas 2D is unavailable for an offscreen buffer.');
+      }
       this.palette = PALETTES[this.options.palette] || PALETTES.lagoon;
       this.motionAmount = 1.2; this.depthAmount = 1.2;
       this.samples = new Float32Array(36000 * 6); this.sampleCount = 0;
@@ -92,7 +179,10 @@
       this._move = e => this._pointerMove(e);
       this._leave = () => { this.pointer.tx = 0; this.pointer.ty = 0; this.lastPointer = null; };
       this._touch = e => {
+        if (this.destroyed || !this.width || !this.height) return;
+        if (!Number.isFinite(e.clientX) || !Number.isFinite(e.clientY)) return;
         const r = this.canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+        if (r.width <= 0 || r.height <= 0) return;
         this.pointer.tx = clamp(x / r.width - .5, -.5, .5); this.pointer.ty = clamp(y / r.height - .5, -.5, .5);
         if (this.paused) return;
         const hit = this._hitFish(x, y);
@@ -100,53 +190,117 @@
         const target = hit >= 0 ? this.fish[hit] : lensFish;
         if (target && this._canReact(target)) this._startle('touch', target.id);
       };
-      this._visibility = () => { this.last = 0; if (!document.hidden) this.render(); };
-      this.canvas.addEventListener('pointermove', this._move, { passive: true });
-      this.canvas.addEventListener('pointerleave', this._leave, { passive: true });
-      this.canvas.addEventListener('pointerdown', this._touch, { passive: true });
-      document.addEventListener('visibilitychange', this._visibility);
-      this.observer = new ResizeObserver(() => this.resize());
-      this.observer.observe(canvas);
-      this.resize();
       this._tick = this._tick.bind(this);
-      this.raf = requestAnimationFrame(this._tick);
+      this._visibility = () => {
+        this._resetFrameClock();
+        if (!this._document.hidden) this.render();
+        this._syncLoop();
+      };
+      this._windowResize = () => this.resize();
+      this._motionChange = event => {
+        if (this.options.reducedMotion === 'system' && event.matches) this.setPaused(true);
+      };
+      // Register only after initial allocation succeeds; roll back if an observer
+      // or subscription throws. Construction must not leak on a failed mount.
+      try {
+        this.resize();
+        this.canvas.addEventListener('pointermove', this._move, { passive: true });
+        this.canvas.addEventListener('pointerleave', this._leave, { passive: true });
+        this.canvas.addEventListener('pointerdown', this._touch, { passive: true });
+        this._document.addEventListener('visibilitychange', this._visibility);
+        this._view.addEventListener('resize', this._windowResize, { passive: true });
+        this._motionQuery?.addEventListener?.('change', this._motionChange);
+        if (typeof this._view.ResizeObserver === 'function') {
+          this.observer = new this._view.ResizeObserver(() => this.resize());
+          this.observer.observe(canvas);
+        }
+        if (typeof this._view.IntersectionObserver === 'function') {
+          this.intersectionObserver = new this._view.IntersectionObserver(entries => {
+            if (this.destroyed) return;
+            for (const entry of entries) if (entry.target === canvas) this._inView = entry.isIntersecting;
+            this._syncLoop();
+          });
+          this.intersectionObserver.observe(canvas);
+        }
+        this._ready = true; this._syncLoop();
+      } catch (error) { this.destroy(); throw error; }
     }
 
     resize() {
+      if (this.destroyed) return;
       const r = this.canvas.getBoundingClientRect();
-      this.width = Math.max(1, r.width || 900); this.height = Math.max(1, r.height || 620);
-      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
-      this.canvas.width = Math.round(this.width * this.dpr); this.canvas.height = Math.round(this.height * this.dpr);
-      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-      const density = clamp(Number(this.options.density) || 1, .6, 1.5);
-      this.cellW = (this.width < 520 ? 4.4 : 5.8) / density;
-      this.cellH = this.cellW * 1.35;
-      this.cols = Math.ceil(this.width / this.cellW); this.rows = Math.ceil(this.height / this.cellH);
+      const width = Number.isFinite(r.width) ? Math.max(0, r.width) : 0;
+      const height = Number.isFinite(r.height) ? Math.max(0, r.height) : 0;
+      if (!width || !height) {
+        this.width = 0; this.height = 0; this.dpr = 1; this._sizeKey = null;
+        this.canvas.width = this.canvas.height = 0;
+        this._releaseGrid(); this._syncLoop(); return;
+      }
+      const deviceDpr = Number(this._view.devicePixelRatio) || 1;
+      // Backing-store limits are independent of CSS dimensions and grid density.
+      // The per-axis bound also prevents an exceptionally long strip canvas.
+      const dpr = Math.min(Math.max(.5, deviceDpr), this.options.maxDpr,
+        Math.sqrt(this.options.maxPixels / (width * height)), 8192 / width, 8192 / height);
+      const key = [width, height, dpr, this.options.density, this.options.maxCells].join(':');
+      if (key === this._sizeKey) return;
+      this._sizeKey = key; this.width = width; this.height = height; this.dpr = dpr;
+      this.canvas.width = Math.max(1, Math.floor(width * dpr));
+      this.canvas.height = Math.max(1, Math.floor(height * dpr));
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const grid = (cell, ratio) => {
+        let cols = Math.ceil(width / cell), rows = Math.ceil(height / (cell * ratio));
+        while (cols * rows > this.options.maxCells || cols > 8192 || rows > 8192) {
+          cell *= Math.max(1.001, Math.sqrt(cols * rows / this.options.maxCells), cols / 8192, rows / 8192);
+          cols = Math.ceil(width / cell); rows = Math.ceil(height / (cell * ratio));
+        }
+        return { cell, cols, rows };
+      };
+      const main = grid((width < 520 ? 4.4 : 5.8) / this.options.density, 1.35);
+      this.cellW = main.cell; this.cellH = main.cell * 1.35; this.cols = main.cols; this.rows = main.rows;
       const n = this.cols * this.rows;
       this.depth = new Float32Array(n); this.tones = new Uint8Array(n); this.glyphs = new Uint8Array(n); this.kinds = new Uint8Array(n);
       this.owners = new Int16Array(n); this.visibility = new Float32Array(n);
-      this.inkCellW = this.width < 520 ? 6.2 : 8.2; this.inkCellH = this.inkCellW * 1.25;
-      this.inkCols = Math.ceil(this.width / this.inkCellW); this.inkRows = Math.ceil(this.height / this.inkCellH);
+      const inkGrid = grid(width < 520 ? 6.2 : 8.2, 1.25);
+      this.inkCellW = inkGrid.cell; this.inkCellH = inkGrid.cell * 1.25;
+      this.inkCols = inkGrid.cols; this.inkRows = inkGrid.rows;
       this.inkDensity = new Float32Array(this.inkCols * this.inkRows);
-      this.inkSprite = Math.ceil(this.inkCellH * 1.5 * this.dpr);
+      const inkNaturalSize = Math.max(1, Math.ceil(this.inkCellH * 1.5 * dpr));
+      this.inkSprite = Math.min(64, inkNaturalSize);
+      this.inkDrawSize = inkNaturalSize / dpr;
       this.inkAtlas.width = this.inkSprite * INK_GLYPHS.length; this.inkAtlas.height = this.inkSprite;
       const ink = this.inkAtlas.getContext('2d');
-      ink.font = `600 ${this.inkCellH * .96 * this.dpr}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
+      ink.font = `600 ${this.inkCellH * .96 * dpr * this.inkSprite / inkNaturalSize}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
       ink.textAlign = 'center'; ink.textBaseline = 'middle'; ink.fillStyle = '#010304';
       for (let i = 0; i < INK_GLYPHS.length; i++) ink.fillText(INK_GLYPHS[i], (i + .5) * this.inkSprite, this.inkSprite * .5);
       this.glowCanvas.width = this.cols; this.glowCanvas.height = this.rows;
       this.haloCanvas.width = this.cols; this.haloCanvas.height = this.rows;
       this.glowPixels = this.glowCtx.createImageData(this.cols, this.rows);
-      this.makeAtlas(); this.render();
+      this.makeAtlas(); this.render(); this._syncLoop();
+    }
+
+    _releaseGrid() {
+      this.depth = new Float32Array(0); this.tones = new Uint8Array(0);
+      this.glyphs = new Uint8Array(0); this.kinds = new Uint8Array(0);
+      this.owners = new Int16Array(0); this.visibility = new Float32Array(0);
+      this.inkDensity = new Float32Array(0); this.glowPixels = null;
+      this.cols = this.rows = this.inkCols = this.inkRows = 0;
+      for (const buffer of [this.glowCanvas, this.haloCanvas, this.atlas, this.inkAtlas]) {
+        if (buffer) buffer.width = buffer.height = 0;
+      }
     }
 
     makeAtlas() {
-      const sz = Math.ceil(this.cellH * 1.6 * this.dpr);
+      if (this.destroyed || !this.width || !this.height) return;
+      const naturalSize = Math.max(1, Math.ceil(this.cellH * 1.6 * this.dpr));
+      // A coarser grid makes larger logical glyphs, not larger atlas allocations.
+      // Each raster sprite is capped independently of CSS size and DPR.
+      const sz = Math.min(64, naturalSize);
+      this.spriteDrawSize = naturalSize / this.dpr;
       this.sprite = sz;
       this.atlas.width = GLYPHS.length * sz; this.atlas.height = 72 * sz;
       const a = this.atlasCtx;
       a.clearRect(0, 0, this.atlas.width, this.atlas.height);
-      a.font = `${Math.max(6, this.cellH * .94) * this.dpr}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
+      a.font = `${Math.max(6, this.cellH * .94) * this.dpr * sz / naturalSize}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
       a.textAlign = 'center'; a.textBaseline = 'middle';
       this.colors = []; this.colorBytes = [];
       for (let k = 0; k < 3; k++) {
@@ -156,7 +310,7 @@
           const rgb = p.low.map((v, j) => Math.round(t < .49 ? mix(v, mid[j], t / .49) : mix(mid[j], p.high[j], (t - .49) / .51)));
           const color = `rgb(${rgb.join(',')})`;
           this.colors.push(color); this.colorBytes.push(rgb); a.fillStyle = color;
-          for (let g = 0; g < GLYPHS.length; g++) a.fillText(GLYPHS[g], (g + .5) * sz, (k * 24 + i + .5) * sz + this.dpr * .25);
+          for (let g = 0; g < GLYPHS.length; g++) a.fillText(GLYPHS[g], (g + .5) * sz, (k * 24 + i + .5) * sz + this.dpr * .25 * sz / naturalSize);
         }
       }
     }
@@ -171,6 +325,13 @@
       number('count', 4, 1, 12); o.count = Math.round(o.count);
       number('size', .7, .35, 1.4); number('sizeVariation', .45, 0, 1); number('spacing', 1, .65, 1.6);
       o.reverse = Boolean(o.reverse); o.showLabels = Boolean(o.showLabels);
+      for (const key of ['paused', 'followPointer', 'glow', 'autoStart', 'observeVisibility']) o[key] = Boolean(o[key]);
+      if (!Object.hasOwn(PALETTES, o.palette)) o.palette = 'lagoon';
+      if (!['ascii', 'points'].includes(o.mode)) o.mode = 'ascii';
+      if (!['system', 'ignore'].includes(o.reducedMotion)) o.reducedMotion = 'system';
+      number('maxDpr', 2, .5, 2); number('maxPixels', 8294400, 65536, 16777216);
+      number('maxCells', 65536, 1024, 262144); number('maxFps', 60, 10, 120);
+      o.maxPixels = Math.floor(o.maxPixels); o.maxCells = Math.floor(o.maxCells);
       o.behaviors = Array.from({ length: 12 }, (_, i) => BEHAVIORS.includes(o.behaviors?.[i]) ? o.behaviors[i] : 'auto');
     }
 
@@ -219,7 +380,9 @@
     }
 
     setOptions(patch) {
+      if (this.destroyed) return;
       const oldDensity = this.options.density, oldPalette = this.options.palette;
+      const oldBudget = [this.options.maxDpr, this.options.maxPixels, this.options.maxCells].join(':');
       const oldScene = this.options.scene, oldFormation = this.options.formation;
       const oldBehaviors = this.options.behaviors.slice();
       Object.assign(this.options, patch); this._normalizeOptions();
@@ -227,12 +390,22 @@
       const changedRoles = this.options.behaviors.flatMap((behavior, id) => behavior !== oldBehaviors[id] ? [id] : []);
       this._syncFish(reset, changedRoles);
       if (reset) { this.ink = []; this.lastPointer = null; }
-      if (patch.paused !== undefined) { this.paused = Boolean(patch.paused); this.last = 0; }
+      if (patch.paused !== undefined) this.paused = Boolean(patch.paused);
+      else if (patch.reducedMotion === 'system' && this._motionQuery?.matches) this.paused = true;
+      this.options.paused = this.paused;
       if (oldPalette !== this.options.palette) { this.palette = PALETTES[this.options.palette] || PALETTES.lagoon; this.makeAtlas(); }
-      if (oldDensity !== this.options.density) this.resize(); else this.render();
+      if (oldDensity !== this.options.density || oldBudget !== [this.options.maxDpr, this.options.maxPixels, this.options.maxCells].join(':')) this.resize();
+      else this.render();
+      this._syncLoop();
     }
 
-    setPaused(value) { this.paused = Boolean(value); this.last = 0; if (this.paused) this.fps = 0; this.render(); }
+    setPaused(value) {
+      if (this.destroyed) return;
+      if (this.paused === Boolean(value)) { this.options.paused = this.paused; return; }
+      this.paused = Boolean(value); this.options.paused = this.paused;
+      this._resetFrameClock(); if (this.paused) this.fps = 0;
+      this.render(); this._syncLoop();
+    }
     getStats() {
       const reacting = this.fish.find(f => f.reaction.active && f.reaction.age < REACTION.escape) || this.fish.find(f => f.reaction.active);
       const leader = reacting || this.fish[0];
@@ -241,7 +414,9 @@
       const visibleCount = this.fish.filter(f => f.visible).length;
       const phase = reacting || this._legacySingle() ? leader.phase : formation === 'independent' ? 'Independent lives in the current'
         : formation === 'random' ? 'Wandering through open water' : `${formation[0].toUpperCase() + formation.slice(1)} current${this.options.reverse ? ' · reversed' : ''}`;
-      return { fps: this.paused || document.hidden ? 0 : Math.round(this.fps), glyphs: this.glyphCount,
+      return { fps: this._unsubscribe ? Math.round(this.fps) : 0, glyphs: this.glyphCount,
+        paused: this.paused, running: Boolean(this._unsubscribe), destroyed: this.destroyed,
+        droppedSeconds: this.droppedSeconds, width: this.width, height: this.height, dpr: this.dpr, cells: this.depth?.length || 0,
         time: this.time, phase, progress: leader.progress, agitation: Math.max(0, ...this.fish.map(f => clamp(f.agitation, 0, 1))),
         reactionStage: stage, inkGlyphs: this.inkGlyphCount || 0, count: this.fish.length, visibleCount, formation,
         fish: this.fish.map(f => ({ id: f.id + 1, behavior: f.behavior, phase: f.phase,
@@ -261,7 +436,9 @@
     }
 
     restart() {
+      if (this.destroyed) return;
       this.time = 0; this.elapsed = 0; this.last = 0; this.burst = 0; this.ink = [];
+      this._resetFrameClock(); this.droppedSeconds = 0; this.frameCount = 0; this.fpsElapsed = 0; this.fps = 0;
       this.pointer.x = this.pointer.y = this.pointer.tx = this.pointer.ty = 0;
       this.lastPointer = null; this._syncFish(true); this.render();
     }
@@ -296,7 +473,10 @@
     }
 
     _pointerMove(e) {
-      const r = this.canvas.getBoundingClientRect(), now = performance.now();
+      if (this.destroyed || this.paused || this._document.hidden || !this.width || !this.height) return;
+      if (!Number.isFinite(e.clientX) || !Number.isFinite(e.clientY)) return;
+      const r = this.canvas.getBoundingClientRect(), now = this._view.performance.now();
+      if (r.width <= 0 || r.height <= 0) return;
       const x = clamp((e.clientX - r.left) / r.width - .5, -.5, .5);
       const y = clamp((e.clientY - r.top) / r.height - .5, -.5, .5);
       this.pointer.tx = x; this.pointer.ty = y;
@@ -327,8 +507,8 @@
     }
 
     pulse() {
+      if (this.destroyed || this.paused || !this.width || !this.height) return;
       if (this.options.scene === 'swimby') { this.restart(); return; }
-      if (this.paused) { this.setPaused(false); this.canvas.dispatchEvent(new CustomEvent('artwork:resume')); }
       this._startle('button');
     }
 
@@ -433,14 +613,58 @@
           p.vx += Math.cos(p.phase) * dt * .45; p.vy += Math.sin(p.phase) * dt * .45;
         }
       }
-      this.ink = this.ink.filter(p => p.age < p.life);
+      // Stable in-place compaction retains survivor order without a new array.
+      let alive = 0;
+      for (let i = 0; i < this.ink.length; i++) {
+        const particle = this.ink[i];
+        if (particle.age < particle.life) this.ink[alive++] = particle;
+      }
+      this.ink.length = alive;
+    }
+
+    _resetFrameClock() { this.last = 0; this._lastFrame = null; this._accumulated = 0; }
+
+    _shouldRun() {
+      return this._ready && !this.destroyed && this.options.autoStart && !this.paused && !this._document.hidden
+        && (!this.options.observeVisibility || this._inView) && this.width > 0 && this.height > 0;
+    }
+
+    _syncLoop() {
+      if (this._shouldRun()) {
+        if (!this._unsubscribe) {
+          this._resetFrameClock();
+          this._unsubscribe = getBrowserScheduler(this._view).subscribe(this._tick);
+        }
+      } else if (this._unsubscribe) {
+        this._unsubscribe(); this._unsubscribe = null; this._resetFrameClock(); this.fps = 0;
+      }
     }
 
     _tick(now) {
+      if (!this._shouldRun()) { this._syncLoop(); return; }
+      if (this._lastFrame === null) { this._lastFrame = now; return; }
+      this._accumulated += Math.max(0, (now - this._lastFrame) / 1000);
+      this._lastFrame = now;
+      if (this._accumulated + 1e-9 < 1 / this.options.maxFps) return;
+      const dt = Math.min(this._accumulated, .1);
+      this.droppedSeconds += Math.max(0, this._accumulated - dt);
+      this._accumulated = 0; this._simulate(dt);
+    }
+
+    // Explicit fixed-step control for tests, recording and host schedulers.
+    // Repeat the same dt + input sequence for reproducible state. This is not
+    // an analytic seek or a promise of identical ink at different frame rates.
+    advance(dtSeconds) {
       if (this.destroyed) return;
-      const dt = this.last ? Math.min((now - this.last) / 1000, .1) : 0;
-      this.last = now;
-      if (!this.paused && !document.hidden) {
+      if (this.options.autoStart) throw new Error('advance() requires autoStart: false.');
+      if (!Number.isFinite(dtSeconds) || dtSeconds < 0 || dtSeconds > .1) {
+        throw new RangeError('advance() expects seconds between 0 and 0.1.');
+      }
+      if (!this.width || !this.height) return;
+      this._simulate(dtSeconds);
+    }
+
+    _simulate(dt) {
         this.elapsed += dt; this.time += dt * this.options.speed;
 
         this.frameCount++; this.fpsElapsed += dt;
@@ -458,8 +682,6 @@
         }
         this._advanceInk(dt);
         this.render();
-      }
-      this.raf = requestAnimationFrame(this._tick);
     }
 
     _world(x, y, z) {
@@ -1095,7 +1317,7 @@
           if (rr < 1) density[row * this.inkCols + col] += mass * (1 - rr) * (1 - rr);
         }
       }
-      const sz = this.inkSprite, drawSize = sz / this.dpr;
+      const sz = this.inkSprite, drawSize = this.inkDrawSize;
       let glyphCount = 0;
       for (let i = 0; i < density.length; i++) {
         if (density[i] < .065) continue;
@@ -1165,7 +1387,7 @@
       }
       c.globalAlpha = 1;
       const points = this.options.mode === 'points';
-      const sz = this.sprite, drawSize = sz / this.dpr;
+      const sz = this.sprite, drawSize = this.spriteDrawSize;
       for (let i = 0; i < this.depth.length; i++) {
         if (this.depth[i] === -Infinity) continue;
         if (!this.options.glow) count++;
@@ -1198,11 +1420,27 @@
     }
 
     destroy() {
-      this.destroyed = true; cancelAnimationFrame(this.raf); this.observer.disconnect();
-      this.canvas.removeEventListener('pointermove', this._move); this.canvas.removeEventListener('pointerleave', this._leave);
+      if (this.destroyed) return;
+      this.destroyed = true; this._ready = false;
+      this._unsubscribe?.(); this._unsubscribe = null; this._resetFrameClock();
+      this.observer?.disconnect(); this.intersectionObserver?.disconnect();
+      this.canvas.removeEventListener('pointermove', this._move);
+      this.canvas.removeEventListener('pointerleave', this._leave);
       this.canvas.removeEventListener('pointerdown', this._touch);
-      document.removeEventListener('visibilitychange', this._visibility);
+      this._document.removeEventListener('visibilitychange', this._visibility);
+      this._view.removeEventListener('resize', this._windowResize);
+      this._motionQuery?.removeEventListener?.('change', this._motionChange);
+      this._releaseGrid(); this.samples = new Float32Array(0);
+      this.ink.length = 0; this.plankton.length = 0; this.lastPointer = null;
+      this._rings = {}; this.colors = []; this.colorBytes = []; this.fps = 0;
+      this.bodyNormals = null; this.headNormals = null; this._gripPoints = null;
+      // Keep the caller's visible canvas and its last frame. Ownership stays
+      // with the host; only internal buffers and subscriptions are released.
     }
   }
-  window.CuttlefishArtwork = CuttlefishArtwork;
+
+function createCuttlefish(canvas, options) { return new CuttlefishArtwork(canvas, options); }
+
+window.CuttlefishArtwork = CuttlefishArtwork;
+window.createCuttlefish = createCuttlefish;
 })();

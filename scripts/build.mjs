@@ -1,3 +1,4 @@
+import { buildDemo } from './build-demo.mjs';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,4 +33,5 @@ for (const [subpath, conditions] of Object.entries(metadata.exports)) {
   }
   if (Object.keys(conditions)[0] !== 'types') throw new Error(`Types condition must come first: ${subpath}`);
 }
-console.log(JSON.stringify({ output: 'lib', modules, declarations, tool: 'copy-only', runtimeDependencies: 0 }));
+const demo = await buildDemo();
+console.log(JSON.stringify({ demo, output: 'lib', modules, declarations, tool: 'copy-only', runtimeDependencies: 0 }));

@@ -12,7 +12,7 @@ This README accompanies a local package candidate based on [PR #1's import commi
 
 The accessible saved microsite version 4 points to the older source commit `6214a09171fa328beec984edd6533c33e83ce9f1`. Site metadata links it to the supplied [Cuttlefish conversation](https://chatgpt.com/c/6afd2c72-71ec-83ec-b182-835c5e7f86b1), but this review could not read the full conversation or inspect the live runtime. Do not assume the saved site, import branch, and candidate are identical.
 
-The local package is named `ascii-animals-review@0.0.0-review.0`, with `private: true` and `license: "UNLICENSED"`. It has not been published. A final package name, license, browser support matrix, and visual/performance acceptance remain owner decisions. The old demo is retained for comparison; it has not automatically been switched to the candidate.
+The local package is named `ascii-animals-review@0.0.0-review.0`, with `private: true` and `license: "UNLICENSED"`. It has not been published. A final package name, license, browser support matrix, and visual/performance acceptance remain owner decisions. The microsite, recorder and standalone now use a generated browser-global build of the same canonical `src/` engine. A frozen legacy renderer remains only under `test/fixtures/` for compatibility checks.
 
 [API guide](docs/API.md) · [Architecture](docs/ARCHITECTURE.md) · [Extension guide](docs/EXTENDING.md) · [Release checks](docs/RELEASE.md) · [Backlog drafts](docs/BACKLOG.md)
 
@@ -38,7 +38,7 @@ Serve the imported demo without installing dependencies:
 python3 -m http.server 8000 --directory dist
 ```
 
-Open `http://localhost:8000`. The imported standalone `dist/cuttlefish.html` can be opened locally; regenerate it with `python3 scripts/build-standalone.py` when the imported page sources change. That builder currently combines `dist/` sources, not `src/`; switching it to candidate-derived code is an explicit integration task.
+Open `http://localhost:8000`. The standalone `dist/cuttlefish.html` opens locally without dependencies. Run `npm run build` after source changes to generate both ESM package output and the browser-global/standalone demos from canonical `src/`. `python3 scripts/build-standalone.py` remains a compatibility command and invokes the same canonical demo generator. Run `node scripts/build-demo.mjs --check` to reject stale committed output.
 
 ## Build and try the local library candidate
 
@@ -155,7 +155,7 @@ That test uses a stubbed Canvas context. It checks numerical/behavioral conditio
 | `types/` | Public declarations, mirrored into the built package |
 | `lib/` | Generated package files |
 | `fixtures/` | Package consumer, bundler, and type-check inputs |
-| `dist/` | Imported microsite and standalone demo, retained for comparison |
+| `dist/` | Microsite; generated canonical browser engine and standalone demo |
 | `scripts/` | Build, package checks, original numerical checks, standalone/GIF utilities |
 | `docs/` | API, architecture, extension, release, source references, and backlog drafts |
 

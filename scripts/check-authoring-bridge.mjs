@@ -10,7 +10,7 @@ import vm from 'node:vm';
 import {test} from 'node:test';
 import {createLegacyCuttlefishController} from '../examples/authoring/legacy-controller.mjs';
 
-const rendererPath = process.argv[2] || fileURLToPath(new URL('../dist/artwork.js', import.meta.url));
+const rendererPath = process.argv[2] || fileURLToPath(new URL('../test/fixtures/legacy-artwork.cjs', import.meta.url));
 const source = readFileSync(rendererPath, 'utf8');
 console.log('# Renderer source:', rendererPath);
 console.log('# Renderer SHA-256:', createHash('sha256').update(source).digest('hex'));

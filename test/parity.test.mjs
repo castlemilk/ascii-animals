@@ -7,7 +7,7 @@ import { CuttlefishArtwork } from '../src/animals/cuttlefish.js';
 import { fakeBrowser } from './helpers/fake-browser.mjs';
 
 // The imported classic script remains unmodified as the numeric/artwork oracle.
-const legacyText = readFileSync(new URL('../dist/artwork.js', import.meta.url), 'utf8');
+const legacyText = readFileSync(new URL('./fixtures/legacy-artwork.cjs', import.meta.url), 'utf8');
 function legacy(host) {
   const scope = { window: host.view, document: host.document, performance: host.view.performance,
     ResizeObserver: host.view.ResizeObserver, requestAnimationFrame: host.view.requestAnimationFrame,

@@ -42,7 +42,9 @@ These are local drafts, not published issues. Deduplication is thematic within t
 
 **Acceptance:** The demo and package derive from the same canonical engine hash; offline standalone works; recorder starts/stops and releases media tracks; dynamic source viewer shows the actual executing engine; visual comparison covers the imported school behavior and solo sequences; no old/new duplicate RAF loop. Existing GIFs are labeled historical until recaptured from the accepted build.
 
-**Dependencies:** T2-02 and T2-03. Coordinate with PR #1 owner; do not overwrite their import.
+**Implementation update:** Canonical browser-global and standalone generation now shares `src/` with the ESM package, with source-hash and module/global tests. Browser visual/export/recorder acceptance still requires independent review.
+
+**Dependencies:** T2-02 and T2-03.
 
 ## P1 — Performance, input, and compatibility acceptance
 

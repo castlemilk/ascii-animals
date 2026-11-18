@@ -16,7 +16,7 @@ Fish own independent state and stable variation. They share the camera, output c
 
 ## Recommended first package boundary
 
-Keep Canvas 2D, geometry, appearance, and legacy control semantics recognizable. Extract one framework-neutral ES module and its declaration file. Put compatibility code and page code outside that module. Build or copy a browser-global compatibility artifact for existing script-tag consumers only when the release gate verifies that it is derived from the same canonical module.
+Keep Canvas 2D, geometry, appearance, and legacy control semantics recognizable. Extract one framework-neutral ES module and its declaration file. Put compatibility code and page code outside that module. `scripts/build-demo.mjs` now generates the browser-global compatibility artifact from the canonical modules. Its bounded transform rejects unrecognized module declarations. A source digest and generated-artifact parity tests verify the global and standalone outputs.
 
 | Layer | Responsibility | Must not own |
 | --- | --- | --- |
