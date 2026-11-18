@@ -31,6 +31,8 @@ jobs:
         run: |
           node --check dist/artwork.js
           node --check dist/app.js
+          npm test
+          node scripts/check-authoring-bridge.mjs
           node scripts/check-engine.cjs
           python3 scripts/build-standalone.py
           git diff --exit-code -- dist/
