@@ -70,3 +70,13 @@ DEFAULT_OPTIONS.count = 9;
 typedArtwork.getOptions().behaviors.push('hover');
 // @ts-expect-error manual time is numeric
 typedArtwork.advance('0.1');
+
+const mantaConfig: ArtworkOptions = {species:'manta', speciesByAnimal:['manta','octopus','cuttlefish'],seed:17};
+createArtwork(document.createElement('canvas'),mantaConfig);
+createArtwork(document.createElement('canvas'),{species:'octopus'});
+// @ts-expect-error only implemented species are valid
+createArtwork(document.createElement('canvas'),{speciesByAnimal:['dragon']});
+
+import type {Species} from 'ascii-animals-review';
+const species: Species = 'octopus';
+void species;

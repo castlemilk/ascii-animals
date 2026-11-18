@@ -3,6 +3,7 @@ export type {
   CuttlefishOptions,
   CuttlefishStats,
   FishStats,
+  Species,
   Scene,
   Palette,
   Formation,

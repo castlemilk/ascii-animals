@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081114">
+  <meta name="description" content="A local interactive study of original ASCII manta ray and octopus geometry, sharing the Cuttlefish renderer.">
+  <title>New currents — ASCII Animals</title>
+  <link rel="stylesheet" href="animals-demo.css">
+  <script src="artwork.js" defer></script>
+  <script src="animals-demo.js" defer></script>
+</head>
+<body data-palette="lagoon">
+  <a class="skip-link" href="#animal-controls">Skip to the controls</a>
+  <div class="page-shell">
+    <header class="page-header">
+      <a class="wordmark" href="index.html"><span class="wordmark-symbol" aria-hidden="true">a<span>∿</span></span>ASCII Animals<span class="wordmark-dot" aria-hidden="true">.</span></a>
+      <a class="back-link" href="index.html">Original cuttlefish study <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="study" aria-labelledby="study-title">
+        <div class="study-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>FIELD STUDIES <span class="edition">002—003</span></p>
+            <h1 id="study-title">New <em>currents.</em></h1>
+          </div>
+          <p class="introduction">Two new silhouettes, written in light.<br>Move closer. See what moves with you.</p>
+        </div>
+
+        <div class="workspace">
+          <div class="art-column">
+            <div class="scene-topline"><div><span class="specimen-index" id="specimen-index">02</span><h2 id="animal-title">Manta ray</h2></div><span class="medium">CHARACTERS / IN MOTION</span></div>
+            <div class="canvas-frame" id="canvas-frame">
+              <div class="canvas-topbar"><span class="playback-state"><span class="live-dot" id="live-dot" aria-hidden="true"></span><span id="playback-label">PREPARING</span></span><span class="canvas-tag" aria-hidden="true">IN THE CURRENT</span></div>
+              <canvas id="animal-canvas" role="img" tabindex="0" aria-label="A procedural ASCII manta ray with broad moving wings and a long tail. Move the pointer nearby to invite a turn, or use the React control."></canvas>
+              <div class="canvas-bottomline" aria-hidden="true"><span>+ <span id="phase-label">Finding the current</span></span><span>ASCII / 2D CANVAS</span></div>
+              <div class="scene-corner corner-top-left" aria-hidden="true"></div><div class="scene-corner corner-top-right" aria-hidden="true"></div><div class="scene-corner corner-bottom-left" aria-hidden="true"></div><div class="scene-corner corner-bottom-right" aria-hidden="true"></div>
+            </div>
+            <div class="playback-bar" role="group" aria-label="Artwork playback and capture">
+              <button class="button button-primary" id="play-pause" type="button" aria-label="Pause animation"><span id="play-symbol" aria-hidden="true">Ⅱ</span><span id="play-text">Pause</span></button>
+              <button class="button" id="react" type="button"><span aria-hidden="true">✳</span>React</button>
+              <button class="button button-quiet" id="reset" type="button" title="Reset this subject’s settings and restart its performance"><span aria-hidden="true">↻</span>Reset</button>
+              <button class="button button-quiet capture-button" id="save-png" type="button"><span aria-hidden="true">↓</span>Save PNG</button>
+            </div>
+            <div class="readout" aria-live="off"><span id="view-count">1 IN THE CURRENT</span><output id="render-stats">PREPARING THE ARTWORK</output></div>
+            <p class="interaction-note" id="animal-description">Move nearby to invite a turn. Click the animal to make it bank away.</p>
+            <p class="motion-note" id="motion-note" hidden></p>
+            <p class="action-status" id="action-status" role="status" aria-live="polite"></p>
+          </div>
+
+          <aside class="controls" id="animal-controls" aria-labelledby="controls-title">
+            <div class="controls-heading"><p class="eyebrow">DIRECT THE STUDY</p><span aria-hidden="true">+</span></div>
+            <h2 id="controls-title">Make a little<br><em>room for wonder.</em></h2>
+            <div class="select-control"><label for="species">Who is visiting?</label><select id="species"><option value="manta">Manta ray</option><option value="octopus">Octopus</option><option value="cuttlefish">Cuttlefish</option><option value="mixed">Mixed marine company</option></select></div>
+            <div class="select-control"><label for="formation">Current</label><select id="formation"><option value="independent">Independent</option><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option><option value="diagonal">Diagonal</option><option value="random">Wandering</option></select></div>
+
+            <fieldset class="palette-control"><legend>Color story</legend><div class="palette-options" role="group" aria-label="Color story"><button class="palette selected" data-palette="lagoon" type="button" aria-pressed="true"><span class="swatch swatch-lagoon" aria-hidden="true"></span>Lagoon</button><button class="palette" data-palette="ultraviolet" type="button" aria-pressed="false"><span class="swatch swatch-ultraviolet" aria-hidden="true"></span>Violet</button><button class="palette" data-palette="ember" type="button" aria-pressed="false"><span class="swatch swatch-ember" aria-hidden="true"></span>Ember</button></div></fieldset>
+
+            <div class="range-control"><label for="count">Visitors <output id="count-value" for="count">1</output></label><input id="count" type="range" min="1" max="12" step="1" value="1"><div class="range-ends"><span>A quiet visit</span><span>A small school</span></div></div>
+            <div class="range-control"><label for="size">Animal size <output id="size-value" for="size">110%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="1.1"></div>
+            <div class="range-control"><label for="speed">Tempo <output id="speed-value" for="speed">1.05×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1.05"></div>
+            <div class="range-control"><label for="ripple">Undulation <output id="ripple-value" for="ripple">1.30×</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.05" value="1.3"></div>
+            <div class="range-control"><label for="density">Character detail <output id="density-value" for="density">1.20×</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.05" value="1.2"><div class="range-ends"><span>Open water</span><span>Fine detail</span></div></div>
+            <label class="follow-control" for="follow-pointer"><span>Follow the pointer<small>A little shared curiosity.</small></span><input id="follow-pointer" type="checkbox" role="switch" checked></label>
+            <p class="controls-footnote">Every animal keeps its own rhythm.<br><kbd>Space</kbd> pauses or resumes the current.</p>
+          </aside>
+        </div>
+
+        <div class="study-notes" aria-label="About the new animals"><article><p class="note-number">02 / MANTA</p><h3>A wide, quiet flight.</h3><p>A traveling wave moves through broad wings. A slender tail trails the turn; the body banks toward a nearby pointer.</p></article><article><p class="note-number">03 / OCTOPUS</p><h3>Eight arms. One intention.</h3><p>A distinct mantle and eight articulated arms share a coherent response: explore, gather, then settle back into the current.</p></article><article class="review-note"><p class="note-number">A WORKING LOCAL STUDY</p><p>Local review: original procedural geometry. Uses the imported Cuttlefish renderer.</p><p class="publication-note">This review artifact has not been published.</p></article></div>
+      </section>
+    </main>
+    <footer class="page-footer"><span>ASCII Animals / New currents</span><span>Original geometry · shared renderer · 2026</span></footer>
+  </div>
+</body>
+</html>

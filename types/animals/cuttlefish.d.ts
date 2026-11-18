@@ -1,3 +1,4 @@
+export type Species = 'cuttlefish' | 'manta' | 'octopus';
 export type Scene = 'swimby' | 'encounter' | 'reactive';
 export type Palette = 'lagoon' | 'ultraviolet' | 'ember';
 export type Formation = 'independent' | 'horizontal' | 'vertical' | 'diagonal' | 'random';
@@ -6,6 +7,9 @@ export type ReactionStage = 'idle' | 'react' | 'spray' | 'escape' | 'recover';
 
 /** Values are normalized to the limits described in docs/API.md. */
 export interface CuttlefishOptions {
+  species?: Species;
+  speciesByAnimal?: readonly Species[];
+  seed?: number;
   scene?: Scene;
   palette?: Palette;
   speed?: number;
@@ -37,6 +41,7 @@ export interface CuttlefishOptions {
 export interface FishStats {
   /** One-based display identifier; do not confuse with internal zero-based IDs. */
   id: number;
+  species: Species;
   behavior: Exclude<Behavior, 'auto'>;
   phase: string;
   reactionStage: ReactionStage;
@@ -45,6 +50,7 @@ export interface FishStats {
 }
 
 export interface CuttlefishStats {
+  species: Species;
   fps: number;
   glyphs: number;
   time: number;

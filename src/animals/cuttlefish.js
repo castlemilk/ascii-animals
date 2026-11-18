@@ -4,6 +4,9 @@
  * a character-cell depth buffer, and traveling waves. No models or assets.
  */
 import { getBrowserScheduler } from '../core/scheduler.js';
+import { mantaDefinition } from './manta.js';
+import { octopusDefinition } from './octopus.js';
+const SPECIES = new Map([['manta', mantaDefinition], ['octopus', octopusDefinition]]);
 
   const TAU = Math.PI * 2;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -71,7 +74,7 @@ export class CuttlefishArtwork {
       if (!this.ctx) throw new Error('Canvas 2D is unavailable in this browser.');
       if (!options || typeof options !== 'object' || Array.isArray(options)) throw new TypeError('Options must be an object.');
       options = Object.fromEntries(Object.entries(options).filter(([, value]) => value !== undefined));
-      this.options = Object.assign({ scene: 'swimby', palette: 'lagoon', speed: 1.05, ripple: 1.3, density: 1.1, motion: 1.2, depthStrength: 1.2, mode: 'ascii', followPointer: false, glow: true, paused: false, count: 4, formation: 'independent', size: .7, sizeVariation: .45, spacing: 1, reverse: false, showLabels: false, behaviors: [], autoStart: true, reducedMotion: 'system', maxDpr: 2, maxPixels: 8294400, maxCells: 65536, maxFps: 60, observeVisibility: true }, options);
+      this.options = Object.assign({ scene: 'swimby', palette: 'lagoon', speed: 1.05, ripple: 1.3, density: 1.1, motion: 1.2, depthStrength: 1.2, mode: 'ascii', followPointer: false, glow: true, paused: false, count: 4, formation: 'independent', size: .7, sizeVariation: .45, spacing: 1, reverse: false, showLabels: false, behaviors: [], species: 'cuttlefish', speciesByAnimal: [], seed: 0, autoStart: true, reducedMotion: 'system', maxDpr: 2, maxPixels: 8294400, maxCells: 65536, maxFps: 60, observeVisibility: true }, options);
       this._normalizeOptions();
       this._motionQuery = this._view.matchMedia?.('(prefers-reduced-motion: reduce)');
       this.paused = Object.hasOwn(options, 'paused') ? Boolean(options.paused)
@@ -80,7 +83,7 @@ export class CuttlefishArtwork {
       this._unsubscribe = null; this._lastFrame = null; this._accumulated = 0;
       this._inView = true; this._ready = false; this.droppedSeconds = 0;
       this.time = 0; this.sceneTime = 0; this.elapsed = 0; this.last = 0; this.fps = 0; this.frameCount = 0; this.fpsElapsed = 0; this.glyphCount = 0;
-      this.pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+      this.pointer = { x: 0, y: 0, tx: 0, ty: 0, active: false, interest: 0 };
       this.burst = 0; this.ink = []; this.destroyed = false;
       this.reaction = this._newReaction();
       this.agitation = 0; this.movingTime = 0; this.startleTension = 0; this.escapeAmount = 0;
@@ -105,7 +108,7 @@ export class CuttlefishArtwork {
       this.plankton = Array.from({ length: 95 }, (_, i) => ({ x: hash(i + 2), y: hash(i + 170), phase: hash(i + 410) * TAU, size: hash(i + 810), char: '.·+*'[i % 4] }));
       this.fish = []; this._syncFish(true);
       this._move = e => this._pointerMove(e);
-      this._leave = () => { this.pointer.tx = 0; this.pointer.ty = 0; this.lastPointer = null; };
+      this._leave = () => { this.pointer.tx = 0; this.pointer.ty = 0; this.pointer.active = false; this.lastPointer = null; };
       this._touch = e => {
         if (this.destroyed || !this.width || !this.height) return;
         if (!Number.isFinite(e.clientX) || !Number.isFinite(e.clientY)) return;
@@ -134,6 +137,7 @@ export class CuttlefishArtwork {
         this.resize();
         this.canvas.addEventListener('pointermove', this._move, { passive: true });
         this.canvas.addEventListener('pointerleave', this._leave, { passive: true });
+        this.canvas.addEventListener('pointercancel', this._leave, { passive: true });
         this.canvas.addEventListener('pointerdown', this._touch, { passive: true });
         this._document.addEventListener('visibilitychange', this._visibility);
         this._view.addEventListener('resize', this._windowResize, { passive: true });
@@ -259,6 +263,10 @@ export class CuttlefishArtwork {
       number('maxDpr', 2, .5, 2); number('maxPixels', 8294400, 65536, 16777216);
       number('maxCells', 65536, 1024, 262144); number('maxFps', 60, 10, 120);
       o.maxPixels = Math.floor(o.maxPixels); o.maxCells = Math.floor(o.maxCells);
+      if (!['cuttlefish', ...SPECIES.keys()].includes(o.species)) throw new RangeError('Unknown species.');
+      if (!Array.isArray(o.speciesByAnimal) || o.speciesByAnimal.length > 12 || !Array.from(o.speciesByAnimal).every(id => ['cuttlefish', ...SPECIES.keys()].includes(id))) throw new TypeError('Invalid speciesByAnimal.');
+      o.speciesByAnimal = o.speciesByAnimal.slice();
+      number('seed', 0, 0, 4294967295); o.seed = Math.floor(o.seed);
       o.behaviors = Array.from({ length: 12 }, (_, i) => BEHAVIORS.includes(o.behaviors?.[i]) ? o.behaviors[i] : 'auto');
     }
 
@@ -274,15 +282,22 @@ export class CuttlefishArtwork {
     }
 
     _syncFish(reset = false, changedRoles = []) {
-      const old = reset ? [] : this.fish || [];
+      const previous = this.fish || [];
+      const old = reset ? [] : previous;
       this.fish = Array.from({ length: this.options.count }, (_, id) => {
-        const f = (!changedRoles.includes(id) && old[id]) || { id, sceneTime: 0, reaction: this._newReaction(), agitation: 0, movingTime: 0,
+        const species = this.options.speciesByAnimal[id] || this.options.species;
+        const previousFish = old[id];
+        const reusable = !changedRoles.includes(id) && previousFish?.species === species && previousFish?.moduleSeed === this.options.seed;
+        const f = (reusable && previousFish) || { id, sceneTime: 0, reaction: this._newReaction(), agitation: 0, movingTime: 0,
           motionTravel: 0, motionTurns: 0, motionVector: null, lastMotionAt: 0, startleTension: 0, escapeAmount: 0,
           encounterGrip: 0, encounterFront: 0, phase: 'Finding the current', progress: 0, subjectVisibility: 1,
           visible: false, worldX: 0, worldY: 0, worldZ: -1,
           r00: 1, r01: 0, r02: 0, r10: 0, r11: 1, r12: 0, r20: 0, r21: 0, r22: 1 };
         f.behavior = this._behaviorFor(id);
         f.seed = hash(id + 910); f.offset = id * 2.37; f.pace = .84 + hash(id + 501) * .31;
+        f.species = species; f.definition = SPECIES.get(species) || null;
+        f.moduleSeed = this.options.seed;
+        if (!reusable) f.speciesState = f.definition ? f.definition.create(hash(id + 910 + this.options.seed * .123)) : null;
         // Stable variation: moving a control never randomly changes an animal.
         f.size = this.options.size * (1 + (hash(id + 602) * 2 - 1) * this.options.sizeVariation * .55);
         const columns = Math.ceil(Math.sqrt(this.options.count * 1.3)), rows = Math.ceil(this.options.count / columns);
@@ -292,6 +307,7 @@ export class CuttlefishArtwork {
         if (this.options.count === 1) f.anchor = [0, 0, -.8];
         return f;
       });
+      for (const f of previous) if (!this.fish.includes(f)) f.definition?.dispose?.(f.speciesState);
       this._activateFish(this.fish[0]);
     }
 
@@ -316,11 +332,12 @@ export class CuttlefishArtwork {
       const oldBudget = [this.options.maxDpr, this.options.maxPixels, this.options.maxCells].join(':');
       const oldScene = this.options.scene, oldFormation = this.options.formation;
       const oldBehaviors = this.options.behaviors.slice();
+      const oldSpecies = this.options.species, oldChoices = this.options.speciesByAnimal.join(), oldSeed = this.options.seed;
       this.options = candidate;
       const reset = oldScene !== this.options.scene || oldFormation !== this.options.formation;
       const changedRoles = this.options.behaviors.flatMap((behavior, id) => behavior !== oldBehaviors[id] ? [id] : []);
       this._syncFish(reset, changedRoles);
-      if (reset) { this.ink = []; this.lastPointer = null; }
+      if (reset || oldSpecies !== this.options.species || oldChoices !== this.options.speciesByAnimal.join() || oldSeed !== this.options.seed) { this.ink = []; this.lastPointer = null; }
       if (patch.paused !== undefined) this.paused = Boolean(patch.paused);
       else if (patch.reducedMotion === 'system' && this._motionQuery?.matches) this.paused = true;
       this.options.paused = this.paused;
@@ -350,7 +367,7 @@ export class CuttlefishArtwork {
         droppedSeconds: this.droppedSeconds, width: this.width, height: this.height, dpr: this.dpr, cells: this.depth?.length || 0,
         time: this.time, phase, progress: leader.progress, agitation: Math.max(0, ...this.fish.map(f => clamp(f.agitation, 0, 1))),
         reactionStage: stage, inkGlyphs: this.inkGlyphCount || 0, count: this.fish.length, visibleCount, formation,
-        fish: this.fish.map(f => ({ id: f.id + 1, behavior: f.behavior, phase: f.phase,
+        species: this.options.species, fish: this.fish.map(f => ({ id: f.id + 1, species: f.species, behavior: f.behavior, phase: f.phase,
           reactionStage: this._stageOf(f.reaction), visible: f.visible, size: f.size })) };
     }
 
@@ -410,7 +427,7 @@ export class CuttlefishArtwork {
       if (r.width <= 0 || r.height <= 0) return;
       const x = clamp((e.clientX - r.left) / r.width - .5, -.5, .5);
       const y = clamp((e.clientY - r.top) / r.height - .5, -.5, .5);
-      this.pointer.tx = x; this.pointer.ty = y;
+      this.pointer.tx = x; this.pointer.ty = y; this.pointer.active = true;
       const prev = this.lastPointer;
       this.lastPointer = { x, y, time: now };
       if (!prev || this.paused || e.pointerType === 'touch' || (this._legacySingle() && this.options.scene !== 'reactive')) return;
@@ -462,7 +479,7 @@ export class CuttlefishArtwork {
 
     _startleFish(reason) {
       if (this.paused || this.reaction.active) return false;
-      const origin = this._world(.93, .02, -.10), aim = this._aimAtPointer(origin);
+      const origin = this._world(...(this.activeFish.definition?.inkOrigin || [.93, .02, -.10])), aim = this._aimAtPointer(origin);
       const side = Math.abs(aim[0]) > .12 ? -Math.sign(aim[0]) : (Math.sin(this.time + 1.2) > 0 ? -1 : 1);
       this.reaction = { active: true, age: 0, emitted: 0, remainder: 0, reason,
         start: [this.worldX, this.worldY, this.worldZ], forward: [this.r00, this.r10, this.r20],
@@ -486,7 +503,8 @@ export class CuttlefishArtwork {
     }
 
     _emitInk(count, sprayProgress) {
-      const r = this.reaction, origin = this._world(.93, .02, -.10), aim = r.aim;
+      if (this.activeFish.definition?.ink === false) return;
+      const r = this.reaction, origin = this._world(...(this.activeFish.definition?.inkOrigin || [.93, .02, -.10])), aim = r.aim;
       const radialA = unit(cross(aim, Math.abs(aim[1]) > .85 ? [1, 0, 0] : [0, 1, 0]));
       const radialB = cross(aim, radialA);
       for (let j = 0; j < count; j++) {
@@ -507,7 +525,7 @@ export class CuttlefishArtwork {
       if (!r.active) return;
       const previousAge = r.age; r.age += dt;
       if (previousAge < REACTION.react) {
-        r.aim = this._aimAtPointer(this._world(.93, .02, -.10));
+        r.aim = this._aimAtPointer(this._world(...(this.activeFish.definition?.inkOrigin || [.93, .02, -.10])));
         if (Math.abs(r.aim[0]) > .16) r.side = -Math.sign(r.aim[0]);
         r.escapeDir = unit([-r.aim[0] * 1.15 + r.side * .52, -r.aim[1] * .58, -.83]);
       }
@@ -602,6 +620,7 @@ export class CuttlefishArtwork {
         if (this.fpsElapsed > .6) { this.fps = this.frameCount / this.fpsElapsed; this.frameCount = 0; this.fpsElapsed = 0; }
         const ease = 1 - Math.exp(-dt * 3);
         this.pointer.x += (this.pointer.tx - this.pointer.x) * ease; this.pointer.y += (this.pointer.ty - this.pointer.y) * ease;
+        this.pointer.interest += ((this.pointer.active ? 1 : 0) - this.pointer.interest) * ease;
         for (const fish of this.fish) {
           this._activateFish(fish);
           if (!this.reaction.active) this.sceneTime += dt * this.options.speed;
@@ -846,6 +865,12 @@ export class CuttlefishArtwork {
         const curiosity = follow * (1 - this.encounterFront) * .45;
         position[0] += this.pointer.x * curiosity; position[1] += this.pointer.y * curiosity * .6;
       }
+      const definition = this.activeFish.definition;
+      let reference = [0, -.70710678, .70710678];
+      if (definition?.pose) {
+        const pose = definition.pose(this, t, this.activeFish.speciesState, { position, forward, bank, reference });
+        position = pose.position; forward = unit(pose.forward); bank = pose.bank; reference = pose.reference;
+      }
       if (r.active) {
         this.subjectVisibility = 1;
         const age = r.age, amount = Math.min(1, motion);
@@ -854,7 +879,9 @@ export class CuttlefishArtwork {
         this.encounterGrip = r.grip * (1 - smooth(REACTION.spray, 1.5, age));
         this.encounterFront = r.front * (1 - smooth(.94, 2.15, age));
         const escape = this._escapeOffset(age).map(v => v * amount);
-        const facingThreat = unit(r.forward.map((v, j) => mix(v, r.aim[j], smooth(REACTION.spray, 1.8, age) * .72)));
+        const facingThreat = definition?.ink === false
+          ? unit(r.forward.map((v, j) => mix(v, r.escapeDir[j], smooth(REACTION.react, 1.35, age))))
+          : unit(r.forward.map((v, j) => mix(v, r.aim[j], smooth(REACTION.spray, 1.8, age) * .72)));
         if (stage === 'recover') {
           const u = smooth(REACTION.escape, REACTION.recover, age);
           const far = r.start.map((v, j) => v + escape[j]);
@@ -867,23 +894,23 @@ export class CuttlefishArtwork {
           // stationary, then accelerate away with the arms streaming behind.
           position = r.start.map((v, j) => v + escape[j] - r.forward[j] * .045 * this.startleTension * amount);
           forward = facingThreat;
-          bank = -r.side * .24 * smooth(REACTION.spray, 1.55, age);
+          bank = -r.side * .24 * smooth(definition?.ink === false ? REACTION.react : REACTION.spray, 1.55, age);
         }
         this.phase = stage === 'react' ? 'Reacting · gathering arms' : stage === 'spray' ? 'Spraying ASCII ink' : stage === 'escape' ? 'Jetting away' : scene === 'encounter' ? 'Circling back' : 'Returning quietly';
+        if (definition?.ink === false) this.phase = stage === 'react' ? 'Alert · wings drawing in' : stage === 'spray' ? 'Preparing to bank away' : stage === 'escape' ? 'Gliding away' : 'Returning to the current';
         this.progress = age / REACTION.recover;
       }
       if (motion < .001) { this.phase = r.active ? this.phase : 'Holding position'; this.subjectVisibility = 1; }
-      const reference = [0, -.70710678, .70710678];
       let dorsal = unit(reference.map((v, j) => v - forward[j] * dot(reference, forward)), [0, -1, 0]);
       let lateral = unit(cross(dorsal, forward), [0, 1, 0]);
-      if (this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
+      if (!definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
       bank *= (1 - this.encounterFront) * Math.min(1, motion);
       const cb = Math.cos(bank), sb = Math.sin(bank), l = lateral.slice(), z = dorsal.slice();
       lateral = l.map((v, j) => v * cb - z[j] * sb); dorsal = z.map((v, j) => v * cb + l[j] * sb);
       this.r00 = forward[0]; this.r10 = forward[1]; this.r20 = forward[2];
       this.r01 = lateral[0]; this.r11 = lateral[1]; this.r21 = lateral[2];
       this.r02 = dorsal[0]; this.r12 = dorsal[1]; this.r22 = dorsal[2];
-      if (r.active && r.age <= REACTION.spray && r.rotation) {
+      if (r.active && r.age <= (definition?.ink === false ? REACTION.react : REACTION.spray) && r.rotation) {
         // A stationary warning and spray, including at the largest body size.
         // Turning starts with the escape, so near-plane protection cannot pull
         // the animal backward before its ink jet has finished.
@@ -899,15 +926,19 @@ export class CuttlefishArtwork {
         // when a large wanderer turns its feeding arms straight at the diver.
         const grip = clamp(this.encounterGrip, 0, 1);
         const maxX = mix(2.78, 2.02, grip), maxY = mix(1.8, 3.25, grip), maxZ = mix(1.4, 2.5, grip);
-        const frontExtent = (Math.max(-2.15 * this.r20, maxX * this.r20) + maxY * Math.abs(this.r21) + maxZ * Math.abs(this.r22)) * this.objectScale;
+        const b = definition?.bounds;
+        const frontExtent = b
+          ? (Math.max((b.minX - .30) * this.r20, (b.maxX - .30) * this.r20) + b.maxY * Math.abs(this.r21) + b.maxZ * Math.abs(this.r22)) * this.objectScale
+          : (Math.max(-2.15 * this.r20, maxX * this.r20) + maxY * Math.abs(this.r21) + maxZ * Math.abs(this.r22)) * this.objectScale;
         position[2] = Math.min(position[2], .72 / this.perspectiveStrength - frontExtent);
       }
       this.worldX = position[0]; this.worldY = position[1]; this.worldZ = position[2];
       this.cx = this.width * .5; this.cyScreen = this.height * .48;
       this.scale = this._legacySingle() ? Math.min(this.width / 7.4, this.height / 4.6) : Math.min(this.width / 9.8, this.height / 6.8);
+      if (definition && this.options.count === 1) this.scale = Math.min(this.width / 8, this.height / 6.8);
       const projectedRadius = this.objectScale * this.scale / Math.max(.24, 1 - this.worldZ * this.perspectiveStrength);
       this.geometryStep = projectedRadius > 105 || this.encounterGrip > .3 ? 1 : projectedRadius > 46 ? 2 : 3;
-      this._cacheNormals();
+      if (!definition) this._cacheNormals();
     }
 
     _body(t) {
@@ -1289,7 +1320,11 @@ export class CuttlefishArtwork {
         const localTime = t + fish.offset;
         this._camera(localTime);
         this.sampleCount = 0; this.minX = Infinity; this.maxX = -Infinity; this.minY = Infinity; this.maxY = -Infinity;
-        if (this.subjectVisibility > .005) { this._body(localTime); this._arms(localTime); this._beak(localTime); this._rasterize(); }
+        if (this.subjectVisibility > .005) {
+          if (fish.definition) fish.definition.draw(this, localTime, fish.speciesState);
+          else { this._body(localTime); this._arms(localTime); this._beak(localTime); }
+          this._rasterize();
+        }
         fish.visible = false; this._saveFish();
       }
       for (let i = 0; i < this.owners.length; i++) if (this.owners[i] >= 0) this.fish[this.owners[i]].visible = true;
@@ -1357,11 +1392,13 @@ export class CuttlefishArtwork {
       this.observer?.disconnect(); this.intersectionObserver?.disconnect();
       this.canvas.removeEventListener('pointermove', this._move);
       this.canvas.removeEventListener('pointerleave', this._leave);
+      this.canvas.removeEventListener('pointercancel', this._leave);
       this.canvas.removeEventListener('pointerdown', this._touch);
       this._document.removeEventListener('visibilitychange', this._visibility);
       this._view.removeEventListener('resize', this._windowResize);
       this._motionQuery?.removeEventListener?.('change', this._motionChange);
       this._releaseGrid(); this.samples = new Float32Array(0);
+      for (const f of this.fish) f.definition?.dispose?.(f.speciesState);
       this.ink.length = 0; this.plankton.length = 0; this.lastPointer = null;
       this._rings = {}; this.colors = []; this.colorBytes = []; this.fps = 0;
       this.bodyNormals = null; this.headNormals = null; this._gripPoints = null;

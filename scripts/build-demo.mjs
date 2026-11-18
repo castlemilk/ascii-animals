@@ -5,15 +5,16 @@ import path from 'node:path';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 export async function buildDemo({ check = false } = {}) {
-  const inputs = ['src/core/scheduler.js', 'src/animals/cuttlefish.js'];
+  const inputs = ['src/core/scheduler.js', 'src/animals/cuttlefish.js', 'src/animals/manta.js', 'src/animals/octopus.js'];
   const source = await Promise.all(inputs.map(file => readFile(path.join(root, file), 'utf8')));
   const hash = createHash('sha256').update(inputs.map((file, i) => file + '\0' + source[i]).join('\0')).digest('hex');
   // This bounded compatibility build accepts exactly the declared import and
   // named declarations, not arbitrary ESM. New dependency shapes must fail.
   const scheduler = source[0].replace(/^export (?=function )/gm, '');
-  const animal = source[1].replace("import { getBrowserScheduler } from '../core/scheduler.js';", '').replace(/^export (?=(?:class|function) )/gm, '');
-  if (/^\s*(?:import|export)\s/m.test(scheduler + animal)) throw new Error('Unsupported module shape in classic compatibility build');
-  const engine = `// GENERATED from ${inputs.join(', ')}. Do not edit.\n// source-sha256: ${hash}\n(function () {\n'use strict';\n${scheduler}\n${animal}\nwindow.CuttlefishArtwork = CuttlefishArtwork;\nwindow.createCuttlefish = createCuttlefish;\n})();\n`;
+  const animal = source[1].replace("import { getBrowserScheduler } from '../core/scheduler.js';", '').replace("import { mantaDefinition } from './manta.js';", '').replace("import { octopusDefinition } from './octopus.js';", '').replace(/^export (?=(?:class|function) )/gm, '');
+  const species = source.slice(2).map(text => text.replace(/^export (?=const )/gm, '')).join('\n');
+  if (/^\s*(?:import|export)\s/m.test(scheduler + species + animal)) throw new Error('Unsupported module shape in classic compatibility build');
+  const engine = `// GENERATED from ${inputs.join(', ')}. Do not edit.\n// source-sha256: ${hash}\n(function () {\n'use strict';\n${scheduler}\n${species}\n${animal}\nwindow.CuttlefishArtwork = CuttlefishArtwork;\nwindow.createCuttlefish = createCuttlefish;\n})();\n`;
   let html = await readFile(path.join(root, 'dist/index.html'), 'utf8');
   let css = await readFile(path.join(root, 'dist/styles.css'), 'utf8');
   const app = await readFile(path.join(root, 'dist/app.js'), 'utf8');
@@ -23,7 +24,14 @@ export async function buildDemo({ check = false } = {}) {
     .replace('  <script src="artwork.js" defer></script>\n', '')
     .replace('  <script src="app.js" defer></script>\n', '')
     .replace('</body>', '<script data-artwork-source>\n' + engine.replaceAll('</script', '<\\/script') + '\n</script>\n<script>\n' + app.replaceAll('</script', '<\\/script') + '\n</script>\n</body>');
-  for (const [file, content] of [['dist/artwork.js', engine], ['dist/cuttlefish.html', html]]) {
+  let animals = await readFile(path.join(root, 'dist/animals.html'), 'utf8');
+  const animalCss = await readFile(path.join(root, 'dist/animals-demo.css'), 'utf8');
+  const animalApp = await readFile(path.join(root, 'dist/animals-demo.js'), 'utf8');
+  animals = animals.replace('<link rel="stylesheet" href="animals-demo.css">', () => '<style>\n' + animalCss + '\n</style>')
+    .replace('<script src="artwork.js" defer></script>', '')
+    .replace('<script src="animals-demo.js" defer></script>', '')
+    .replace('</body>', () => '<script>\n' + engine.replaceAll('</script', '<\\/script') + '\n</script>\n<script>\n' + animalApp.replaceAll('</script', '<\\/script') + '\n</script>\n</body>');
+  for (const [file, content] of [['dist/artwork.js', engine], ['dist/cuttlefish.html', html], ['dist/animals-standalone.html', animals]]) {
     if (check) { if (await readFile(path.join(root, file), 'utf8') !== content) throw new Error(`${file} is stale; run npm run build`); }
     else await writeFile(path.join(root, file), content);
   }
