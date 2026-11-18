@@ -1,1 +1,89 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Turtle · ASCII Animals</title><link rel="stylesheet" href="styles.css"></head><body><a class="skip" href="#controls">Skip to controls</a><header><a href="../index.html">← ASCII Animals</a><span>FIELD STUDY / 06</span></header><main><section class="intro"><p class="eyebrow">A LONG WAY, TAKEN SLOWLY</p><h1>The Turtle.</h1><p>A vaulted shell and four patient flippers. Watch the slow stroke, the patterned scutes, and the quieter shape of a streamlined turn.</p></section><div class="layout"><section class="stage" aria-label="Turtle artwork"><div class="stage-top"><span>CHELONIOIDEA / STYLIZED STUDY</span><output id="status" aria-live="off">Still water</output></div><canvas id="animal" role="img" aria-label="An ASCII sea turtle viewed from above with a domed patterned shell, beaked head, four tapered flippers and small tail. Use the labelled controls to greet or guide it."></canvas><p class="caption">Drift alongside. Tap to approach. Stillness is always available.</p></section><aside id="controls"><h2>Keep it company.</h2><p>Gentle movement, distinct gestures.</p><div class="buttons"><button id="pause">Pause</button><button id="greet">Approach</button><button id="reset">Reset</button></div><label>Behaviour<select id="behavior"><option value="glide">Unhurried glide</option><option value="curious">Curious: follow your guide</option><option value="rest">Rest: still flippers</option></select></label><label>Colour<select id="palette"><option value="brass">Sunlit brass</option><option value="lagoon">Lagoon glass</option><option value="rose">Rose coral</option></select></label><label>Facing<select id="facing"><option value="left">Left</option><option value="right">Right</option></select></label><label>Pace <output id="speed-value">1.00×</output><input id="speed" type="range" min=".25" max="2" value="1" step=".05"></label><label>Size <output id="scale-value">1.00×</output><input id="scale" type="range" min=".6" max="1.3" value="1" step=".05"></label><div class="buttons guide"><button id="left">Guide left</button><button id="center">Centre</button><button id="right">Guide right</button></div><p id="motion-note" class="note">Reduced-motion preference is respected. Approach changes the still pose without starting playback.</p><button id="capture">Capture ASCII text</button><details><summary>About this study</summary><p>Newly authored procedural geometry, not recovered from the earlier unavailable Pro chat. A stylized rendering, not a biological simulation. ASCII characters and your system monospace font.</p><a href="https://github.com/castlemilk/ascii-animals">Source and typed API</a></details></aside></div><section id="capture-region" hidden><h2>Your current character frame</h2><pre id="text-frame" tabindex="0"></pre></section></main><footer>NO EXTERNAL ASSETS · SHARED SCHEDULER · MADE OF CHARACTERS</footer><script type="module" src="demo.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07171d">
+  <title>The long way home · Sea Turtle · ASCII Animals</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#controls">Skip to director controls</a>
+  <header class="site-header"><a href="../index.html">← ASCII Animals</a><span>FIELD NOTES / SEA TURTLE</span></header>
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <div><p class="eyebrow">SLOW TRAVEL. SMALL DISCOVERIES.</p><h1 id="title">The long way home<span>.</span></h1></div>
+      <p class="intro-note">A reef passage in characters. Give each turtle a reason to linger, then let the current carry the story.</p>
+    </section>
+    <section class="scenes" aria-label="Authored scenes">
+      <button class="scene-card" data-scene="reef-passage" aria-pressed="true"><span class="scene-number">01 / TRAVEL</span><strong>Reef passage</strong><span>A staggered arrival. A shared crossing. Different reasons to pause.</span></button>
+      <button class="scene-card" data-scene="seagrass-stop" aria-pressed="false"><span class="scene-number">02 / DISCOVERY</span><strong>Seagrass stop</strong><span>Inspect the meadow, bank around a landmark, and find the route again.</span></button>
+      <button class="scene-card" data-scene="blue-drift" aria-pressed="false"><span class="scene-number">03 / STILL WATER</span><strong>Blue drift</strong><span>Long quiet glides, small course corrections, and room to breathe.</span></button>
+    </section>
+    <div class="layout">
+        <section class="stage" aria-labelledby="scene-title">
+          <div class="stage-top"><div><span class="eyebrow">NOW OBSERVING</span><h2 id="scene-title">Reef passage</h2></div><output id="status" aria-live="off">ARRIVING</output></div>
+          <canvas id="animal" tabindex="0" role="img" aria-label="A directed ASCII sea turtle scene: domed patterned shells, projecting heads, and four tapered flippers. Focus this canvas to guide with arrow keys and inspect with Enter." aria-describedby="interaction-help motion-note"></canvas>
+          <div class="stage-caption"><span id="scene-description">Three travelers trace the shelf at different depths.</span><span id="current-caption">CURRENT / WEST</span></div>
+          <div class="timeline" aria-label="Choose a scene act">
+            <div class="timeline-heading"><span>SCENE ARC</span><output id="cycle-label" aria-live="off">PASSAGE 01</output></div>
+            <div class="act-buttons"><button data-act="arrival" aria-pressed="true"><span>01</span> Arrive</button><button data-act="linger" aria-pressed="false"><span>02</span> Linger</button><button data-act="departure" aria-pressed="false"><span>03</span> Depart</button></div>
+            <progress id="act-progress" max="1" value="0" aria-label="Progress through the current act"></progress>
+            <p id="act-note">Choose an act to compose its moment. Your pause choice stays in place.</p>
+          </div>
+        </section>
+      <aside id="controls" aria-labelledby="director-title">
+        <div class="section-heading"><h2 id="director-title">The director</h2><span>YOUR REEF</span></div>
+        <div class="transport"><button id="pause">Pause passage</button><button id="reset">Start again</button></div>
+        <p id="motion-note" class="note">Pause to compose a still. Scene acts and inspections stay available.</p>
+        <fieldset class="control-group">
+          <legend>The passage</legend>
+          <label for="count">Travelers <output id="count-value" for="count">3</output></label><input id="count" type="range" min="1" max="5" step="1" value="3">
+          <p class="note">On a small screen, choose fewer travelers for a closer look at each silhouette.</p>
+          <div class="control-pair"><div><label for="route">Route</label><select id="route"><option value="shelf">Along the shelf</option><option value="channel">Through the channel</option><option value="arc">Around the reef</option></select></div><div><label for="director">Choreography</label><select id="director"><option value="loop">Repeat passage</option><option value="once">One passage</option><option value="hold">Hold this act</option></select></div></div>
+          <label for="current">Current <output id="current-value" for="current">West · 25%</output></label><input id="current" type="range" min="-1" max="1" step=".05" value="-.25"><div class="range-ends"><span>West</span><span>Still</span><span>East</span></div>
+          <label for="depth">Water depth <output id="depth-value" for="depth">50%</output></label><input id="depth" type="range" min="0" max="1" step=".05" value=".5">
+          <label for="spacing">Room between turtles <output id="spacing-value" for="spacing">1.00×</output></label><input id="spacing" type="range" min=".6" max="1.6" step=".05" value="1">
+          <label for="speed">Pace <output id="speed-value" for="speed">1.00×</output></label><input id="speed" type="range" min=".25" max="2" step=".05" value="1">
+          <div class="checks"><label><input id="showLabels" type="checkbox" checked> Turtle names</label><label><input id="showRoute" type="checkbox"> Route guide</label></div>
+        </fieldset>
+        <fieldset class="control-group individual">
+          <legend id="individual-title">One traveler</legend>
+          <p id="individual-status" class="individual-status">Select a traveler to change its motive.</p>
+          <label for="individual-role">Motive</label><select id="individual-role"><option value="navigator">Navigator · keep the passage</option><option value="forager">Forager · inspect the meadow</option><option value="drifter">Drifter · glide on the current</option><option value="lookout">Lookout · rise toward the light</option><option value="explorer">Explorer · investigate a guide</option></select>
+          <label for="individual-size">Relative size <output id="individual-size-value" for="individual-size">1.00×</output></label><input id="individual-size" type="range" min=".7" max="1.25" step=".05" value="1">
+          <label for="individual-interest">Curiosity <output id="individual-interest-value" for="individual-interest">50%</output></label><input id="individual-interest" type="range" min="0" max="1" step=".05" value=".5">
+          <div class="individual-actions"><button id="inspect">Invite inspection</button><button id="clear-guide">Clear guide</button></div>
+          <p class="note">Only the selected traveler responds to a deliberate invitation. The others continue their own passage.</p>
+        </fieldset>
+        <details class="fine-tuning"><summary>Composition &amp; scene timing</summary>
+          <label for="palette">Water &amp; shell color</label><select id="palette"><option value="brass">Sunlit brass</option><option value="lagoon">Lagoon glass</option><option value="rose">Rose coral</option></select>
+          <div class="control-pair"><div><label for="facing">Travel direction</label><select id="facing"><option value="left">Toward the west</option><option value="right">Toward the east</option></select></div><div><label for="behavior">Underlying movement</label><select id="behavior"><option value="glide">Glide</option><option value="curious">Curious</option><option value="rest">Quiet flippers</option></select></div></div>
+          <label for="scale">Overall size <output id="scale-value" for="scale">1.00×</output></label><input id="scale" type="range" min=".6" max="1.3" step=".05" value="1">
+          <label for="arrivalSeconds">Arrival <output id="arrivalSeconds-value" for="arrivalSeconds">8s</output></label><input id="arrivalSeconds" type="range" min="4" max="20" step="1" value="8">
+          <label for="lingerSeconds">Linger <output id="lingerSeconds-value" for="lingerSeconds">18s</output></label><input id="lingerSeconds" type="range" min="6" max="45" step="1" value="18">
+          <label for="departureSeconds">Departure <output id="departureSeconds-value" for="departureSeconds">10s</output></label><input id="departureSeconds" type="range" min="4" max="20" step="1" value="10">
+          <p class="note">Timings are scene seconds. Pace changes how quickly the passage unfolds. Holding an act keeps its composition while allowing local movement.</p>
+        </details>
+        <details class="fine-tuning"><summary>About this character artwork</summary><p>Printable ASCII characters on Canvas, using your system monospace font. No external imagery or font downloads. Each traveler keeps its own motive while following the scene’s arrival, stay, and departure.</p><a href="https://github.com/castlemilk/ascii-animals/blob/main/docs/TURTLE-API.md">Turtle source &amp; typed API</a></details>
+      </aside>
+        <section class="cast" aria-labelledby="cast-title">
+          <div class="section-heading"><h2 id="cast-title">Traveling companions</h2><span>SELECT A TURTLE</span></div>
+          <div id="roster" class="roster" aria-label="Turtles in this scene"></div>
+          <p id="interaction-help" class="interaction-help">Move gently near the selected turtle to invite curiosity. Tap a turtle to select it; tap open water to offer an inspection point. On the focused canvas, use arrow keys to place a guide, Enter to inspect, and Escape to clear it.</p>
+        </section>
+        <section class="field-note" aria-labelledby="field-note-title">
+          <p class="eyebrow">A NOTE ON THE MOVEMENT</p><h2 id="field-note-title">A flipper stroke has an aftermath.</h2>
+          <p>Watch for the quieter glide between efforts: a slight bank, an inspection, a measured return to the passage. Roles change the intention; depth and spacing change how the group reads.</p>
+          <div class="export-actions"><button id="capture">Capture ASCII text</button><button id="download-png">Save canvas PNG</button><button id="classic">Open the original solo study</button></div>
+          <p class="fine-print">Original procedural geometry, built on the integrated turtle study. Stylized behavior and scene timing; this is an artwork, not a biological simulation.</p>
+        </section>
+    </div>
+    <section id="capture-region" hidden aria-labelledby="capture-title"><div class="section-heading"><h2 id="capture-title">A moment, in characters</h2><button id="close-capture">Close capture</button></div><p class="note">A logical character frame. Its spacing depends on your monospace font.</p><pre id="text-frame" tabindex="0" aria-label="Captured ASCII sea turtle scene"></pre></section>
+    <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+    <p id="error" class="error" role="alert" hidden></p>
+  </main>
+  <footer><span>MADE OF CHARACTERS. GIVEN TIME TO WANDER.</span><span>CHELONIOIDEA / A STYLIZED STUDY</span></footer>
+  <script type="module" src="demo.js"></script>
+</body>
+</html>

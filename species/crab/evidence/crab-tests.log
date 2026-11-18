@@ -1,0 +1,40 @@
+✔ authored scenes visit every advertised beat in order and start a new bounded cycle (217.141962ms)
+✔ rising tide produces retreat, shelter and a complete return to individual patches (55.157159ms)
+✔ manual direction holds scene transitions while signals and retreat-return stages still perform (21.156326ms)
+✔ pointer proximity produces distinct shy, curious and territorial motives (59.121462ms)
+✔ unprompted foraging includes sifting, grooming and inspection without an input event (6.510132ms)
+✔ explicit shelter cue has retreat, hiding, checking and recovery stages; repeats do not restart it (60.835247ms)
+✔ a targeted claw call earns staggered replies which finish instead of creating a permanent queue (63.832297ms)
+✔ a sand lure causes approach, claw-sifting and return after guidance is released (2.052809ms)
+✔ equal ordered events replay identically regardless of advanceTicks batching (149.390481ms)
+✔ director and cast validation is atomic for configuration, actors, selection and frame (934.652272ms)
+✔ caller cast mutations cannot alter configuration and snapshots are deeply immutable (8.505818ms)
+✔ ensemble counts stay bounded and every visible owner belongs to the active cast (204.544645ms)
+✔ feet stay planted in world space during stance while the crab moves (4.567904ms)
+✔ palette, label and no-op configuration preserve planted feet and movement state (0.866532ms)
+✔ current reverses retreat displacement and tide changes the rendered waterline (48.23062ms)
+✔ injected frame source remains caller-owned through suspension, recovery and disposal (206.48492ms)
+✔ status subscriptions follow actions and are bounded during playback, with no second scheduler (1157.619788ms)
+✔ an initial subscriber failure rolls back that subscription (207.249004ms)
+✔ identical callback subscriptions each own only their own removal (74.781505ms)
+✔ visible crab glyph hits target that resident before the guide overlay is drawn (126.588105ms)
+✔ touch cancellation clears guidance, nonprimary pointers are ignored and keyboard has equivalent cues (119.198784ms)
+✔ system reduced motion exposes distinct still cues and scene poses without advancing or resuming (85.680423ms)
+✔ crab options reject unknown/nonfinite/invalid values without partial mutations (89.620892ms)
+✔ integer tick/event replay produces equal logical frames and restart clears inputs (93.400594ms)
+✔ response orders notice, defend, settle, idle and does not restart while active (0.674876ms)
+✔ all boundary grids produce bounded printable ASCII with distinct anchored poses (394.684788ms)
+✔ browser pause and all visibility causes stop shared subscriptions; resume does not catch up (243.026538ms)
+✔ system reduced motion is authoritative across playback, pointer, reset and options (140.974932ms)
+✔ disposal removes owned resources, is idempotent and does not affect other instances (84.729237ms)
+✔ zero-sized containers allocate no backing pixels and resize is bounded (37.348986ms)
+✔ construction failure rolls back observers and listeners (7.260289ms)
+✔ crab demo is generated from actual compiled module (97.021712ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4596.848818

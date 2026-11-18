@@ -1,0 +1,2400 @@
+{
+  "kind": "native-canvas-with-mocked-window",
+  "notVerified": [
+    "browser DOM",
+    "real pointer/touch delivery",
+    "responsive CSS",
+    "real-device performance"
+  ],
+  "node": "v24.22.1",
+  "backend": "0.1.100",
+  "font": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+  "fontSHA256": "54bf827eb99404e8f430c330ad30f063334f637eba0109b6a18d4f566a8e9dd8",
+  "sourceSHA256": "ef36976cb7acf42bee4abdb1d6c6634cbbda67c65e472cd94bac7805d2e091a6",
+  "fixtures": [
+    {
+      "name": "00-baseline",
+      "title": "CURRENT MAIN / the original single-crab study",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0
+      },
+      "options": {
+        "columns": 120,
+        "rows": 50,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system"
+      },
+      "scene": null,
+      "logicalSHA256": "d5b1c9c0e1ded31d1379ee67b93e30ff40e9efeee314e36eea103da53476664e"
+    },
+    {
+      "name": "01-breakfast",
+      "title": "LOW TIDE / three residents, three instincts",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "forage",
+        "beat": "forage",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 140,
+        "rows": 56,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "forage",
+        "count": 3,
+        "formation": "arc",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.2,
+        "current": 0.35,
+        "labels": true
+      },
+      "scene": {
+        "scene": "forage",
+        "beats": [
+          "arrive",
+          "forage",
+          "signal",
+          "return"
+        ],
+        "beat": "forage",
+        "beatIndex": 1,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.2,
+        "current": 0.35,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.5399999999999999,
+            "y": 0.34,
+            "home": {
+              "x": -0.6499999999999999,
+              "y": 0.24000000000000002
+            },
+            "patch": {
+              "x": -0.5399999999999999,
+              "y": 0.34
+            },
+            "behavior": {
+              "kind": "forage",
+              "progress": 0.43333333333333335
+            },
+            "leftClaw": -0.5271486652311758,
+            "rightClaw": 0.12,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.7505599999999999,
+                "y": 0.34313600000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7382399999999999,
+                "y": 0.38076800000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7259199999999999,
+                "y": 0.41840000000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7135999999999999,
+                "y": 0.45603200000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.32943999999999996,
+                "y": 0.34313600000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.34175999999999995,
+                "y": 0.38076800000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.35407999999999995,
+                "y": 0.41840000000000005,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.36639999999999995,
+                "y": 0.45603200000000005,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": 0.014975256477471707,
+            "y": -0.02,
+            "home": {
+              "x": -0.08,
+              "y": -0.12000000000000001
+            },
+            "patch": {
+              "x": 0,
+              "y": -0.02
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.8095238095238095
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.17452874352252828,
+                "y": -0.0171776,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.1634407435225283,
+                "y": 0.016691200000000007,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.1523527435225283,
+                "y": 0.05056000000000001,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.14126474352252827,
+                "y": 0.08442880000000001,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.20447925647747167,
+                "y": -0.0171776,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.19339125647747168,
+                "y": 0.016691200000000007,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1823032564774717,
+                "y": 0.05056000000000001,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1712152564774717,
+                "y": 0.08442880000000001,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": 0.5399999999999999,
+            "y": 0.34,
+            "home": {
+              "x": 0.6499999999999999,
+              "y": 0.24000000000000002
+            },
+            "patch": {
+              "x": 0.5399999999999999,
+              "y": 0.34
+            },
+            "behavior": {
+              "kind": "forage",
+              "progress": 0.18571428571428572
+            },
+            "leftClaw": -0.525307371858836,
+            "rightClaw": 0.12,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.31680639999999993,
+                "y": 0.34332416000000004,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.3298655999999999,
+                "y": 0.38321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.3429247999999999,
+                "y": 0.42310400000000004,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.35598399999999997,
+                "y": 0.46299392000000006,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7631935999999999,
+                "y": 0.34332416000000004,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7501343999999999,
+                "y": 0.38321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7370751999999999,
+                "y": 0.42310400000000004,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7240159999999999,
+                "y": 0.46299392000000006,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "d55b463bddecc76df42b6e8a8b7968cbe8420363087882e8a7385ac547c3f634"
+    },
+    {
+      "name": "02-council",
+      "title": "CLAW COUNCIL / a call, then an answer",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "signals",
+        "beat": "signal",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 140,
+        "rows": 56,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "signals",
+        "count": 3,
+        "formation": "terraces",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.2,
+        "current": 0.35,
+        "labels": true
+      },
+      "scene": {
+        "scene": "signals",
+        "beats": [
+          "arrive",
+          "signal",
+          "challenge",
+          "return"
+        ],
+        "beat": "signal",
+        "beatIndex": 1,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.2,
+        "current": 0.35,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.5,
+            "y": -0.22,
+            "home": {
+              "x": -0.6100000000000001,
+              "y": -0.32
+            },
+            "patch": {
+              "x": -0.5,
+              "y": -0.22
+            },
+            "behavior": {
+              "kind": "signal",
+              "progress": 0.5
+            },
+            "leftClaw": 1,
+            "rightClaw": 0.35,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.71056,
+                "y": -0.216864,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.69824,
+                "y": -0.179232,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.68592,
+                "y": -0.1416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.6736,
+                "y": -0.10396799999999999,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.28944000000000003,
+                "y": -0.216864,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.30176000000000003,
+                "y": -0.179232,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.31408,
+                "y": -0.1416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.3264,
+                "y": -0.10396799999999999,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": 0.55,
+            "y": -0.14,
+            "home": {
+              "x": 0.55,
+              "y": -0.14
+            },
+            "patch": {
+              "x": 0.44,
+              "y": -0.04
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.5
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.36049600000000004,
+                "y": -0.1371776,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.371584,
+                "y": -0.1033088,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.382672,
+                "y": -0.06944,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.39376000000000005,
+                "y": -0.0355712,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.739504,
+                "y": -0.1371776,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7284160000000001,
+                "y": -0.1033088,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7173280000000001,
+                "y": -0.06944,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.70624,
+                "y": -0.0355712,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": -0.07999999999999999,
+            "y": 0.45,
+            "home": {
+              "x": -0.19,
+              "y": 0.35
+            },
+            "patch": {
+              "x": -0.07999999999999999,
+              "y": 0.45
+            },
+            "behavior": {
+              "kind": "rest",
+              "progress": 0.5
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.30319359999999995,
+                "y": 0.45332416000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.2901344,
+                "y": 0.49321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.27707519999999997,
+                "y": 0.533104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.264016,
+                "y": 0.57299392,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1431936,
+                "y": 0.45332416000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1301344,
+                "y": 0.49321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.11707520000000002,
+                "y": 0.533104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.104016,
+                "y": 0.57299392,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "1b67d0393a2028faea4ca2d38ac8b59739c561a939b54085d1262c18a0b7335e"
+    },
+    {
+      "name": "03-challenge",
+      "title": "CLAW COUNCIL / a proud patch of sand",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "signals",
+        "beat": "challenge",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 140,
+        "rows": 56,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "signals",
+        "count": 3,
+        "formation": "terraces",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.2,
+        "current": 0.35,
+        "labels": true
+      },
+      "scene": {
+        "scene": "signals",
+        "beats": [
+          "arrive",
+          "signal",
+          "challenge",
+          "return"
+        ],
+        "beat": "challenge",
+        "beatIndex": 2,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.2,
+        "current": 0.35,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.445,
+            "y": -0.22,
+            "home": {
+              "x": -0.6100000000000001,
+              "y": -0.32
+            },
+            "patch": {
+              "x": -0.5,
+              "y": -0.22
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.5
+            },
+            "leftClaw": 0.25,
+            "rightClaw": 0,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.65556,
+                "y": -0.216864,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.64324,
+                "y": -0.179232,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.63092,
+                "y": -0.1416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.6186,
+                "y": -0.10396799999999999,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.23444,
+                "y": -0.216864,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.24676000000000003,
+                "y": -0.179232,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.25908,
+                "y": -0.1416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.27140000000000003,
+                "y": -0.10396799999999999,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": 0.55,
+            "y": -0.14,
+            "home": {
+              "x": 0.55,
+              "y": -0.14
+            },
+            "patch": {
+              "x": 0.44,
+              "y": -0.04
+            },
+            "behavior": {
+              "kind": "retreat",
+              "progress": 0.5
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 0.45,
+            "feet": [
+              {
+                "x": 0.36049600000000004,
+                "y": -0.1371776,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.371584,
+                "y": -0.1033088,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.382672,
+                "y": -0.06944,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.39376000000000005,
+                "y": -0.0355712,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.739504,
+                "y": -0.1371776,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7284160000000001,
+                "y": -0.1033088,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7173280000000001,
+                "y": -0.06944,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.70624,
+                "y": -0.0355712,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": -0.07999999999999999,
+            "y": 0.45,
+            "home": {
+              "x": -0.19,
+              "y": 0.35
+            },
+            "patch": {
+              "x": -0.07999999999999999,
+              "y": 0.45
+            },
+            "behavior": {
+              "kind": "signal",
+              "progress": 0.5
+            },
+            "leftClaw": 0.85,
+            "rightClaw": 0.45,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.30319359999999995,
+                "y": 0.45332416000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.2901344,
+                "y": 0.49321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.27707519999999997,
+                "y": 0.533104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.264016,
+                "y": 0.57299392,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1431936,
+                "y": 0.45332416000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1301344,
+                "y": 0.49321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.11707520000000002,
+                "y": 0.533104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.104016,
+                "y": 0.57299392,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "ad8730b239c4557be778c86ce02e02fb7244f239d78671fb6d55cd009b67d013"
+    },
+    {
+      "name": "04-shelter",
+      "title": "RETURNING WASH / shelter and patient eyes",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "tide",
+        "beat": "shelter",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 140,
+        "rows": 56,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "tide",
+        "count": 3,
+        "formation": "shoreline",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.6,
+        "current": 0.65,
+        "labels": true
+      },
+      "scene": {
+        "scene": "tide",
+        "beats": [
+          "forage",
+          "retreat",
+          "shelter",
+          "return"
+        ],
+        "beat": "shelter",
+        "beatIndex": 2,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.95,
+        "current": 0.65,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.6499999999999999,
+            "y": 0.15,
+            "home": {
+              "x": -0.6499999999999999,
+              "y": 0.15
+            },
+            "patch": {
+              "x": -0.5399999999999999,
+              "y": 0.25
+            },
+            "behavior": {
+              "kind": "shelter",
+              "progress": 0.5
+            },
+            "leftClaw": -0.3,
+            "rightClaw": -0.3,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 1,
+            "feet": [
+              {
+                "x": -0.8605599999999999,
+                "y": 0.153136,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.8482399999999999,
+                "y": 0.190768,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.8359199999999999,
+                "y": 0.2284,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.8235999999999999,
+                "y": 0.266032,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.43943999999999994,
+                "y": 0.153136,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.45175999999999994,
+                "y": 0.190768,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.46407999999999994,
+                "y": 0.2284,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.47639999999999993,
+                "y": 0.266032,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": -0.08,
+            "y": 0.15,
+            "home": {
+              "x": -0.08,
+              "y": 0.15
+            },
+            "patch": {
+              "x": 0,
+              "y": 0.25
+            },
+            "behavior": {
+              "kind": "shelter",
+              "progress": 0.5
+            },
+            "leftClaw": -0.3,
+            "rightClaw": -0.3,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 1,
+            "feet": [
+              {
+                "x": -0.26950399999999997,
+                "y": 0.1528224,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.258416,
+                "y": 0.1866912,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.247328,
+                "y": 0.22056,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.23624,
+                "y": 0.2544288,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.10950399999999998,
+                "y": 0.1528224,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.09841599999999999,
+                "y": 0.1866912,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.087328,
+                "y": 0.22056,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.07623999999999999,
+                "y": 0.2544288,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": 0.6499999999999999,
+            "y": 0.15,
+            "home": {
+              "x": 0.6499999999999999,
+              "y": 0.15
+            },
+            "patch": {
+              "x": 0.5399999999999999,
+              "y": 0.25
+            },
+            "behavior": {
+              "kind": "shelter",
+              "progress": 0.5
+            },
+            "leftClaw": -0.3,
+            "rightClaw": -0.3,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 1,
+            "feet": [
+              {
+                "x": 0.4268063999999999,
+                "y": 0.15332416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.4398655999999999,
+                "y": 0.19321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.4529247999999999,
+                "y": 0.233104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.46598399999999995,
+                "y": 0.27299392,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.8731935999999999,
+                "y": 0.15332416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.8601344,
+                "y": 0.19321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.8470751999999999,
+                "y": 0.233104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.8340159999999999,
+                "y": 0.27299392,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "f8dc20577c4271402c6d6c28f2b776dc400386cd82ceb3f6daaa7b4fb3db8fc6"
+    },
+    {
+      "name": "05-return",
+      "title": "RETURNING WASH / staggered steps back out",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "tide",
+        "beat": "return",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 140,
+        "rows": 56,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "tide",
+        "count": 3,
+        "formation": "shoreline",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.6,
+        "current": -0.65,
+        "labels": true
+      },
+      "scene": {
+        "scene": "tide",
+        "beats": [
+          "forage",
+          "retreat",
+          "shelter",
+          "return"
+        ],
+        "beat": "return",
+        "beatIndex": 3,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.625,
+        "current": -0.65,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.5399999999999999,
+            "y": 0.25,
+            "home": {
+              "x": -0.6499999999999999,
+              "y": 0.15
+            },
+            "patch": {
+              "x": -0.5399999999999999,
+              "y": 0.25
+            },
+            "behavior": {
+              "kind": "groom",
+              "progress": 0.5
+            },
+            "leftClaw": 0.25,
+            "rightClaw": 0.08,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.7505599999999999,
+                "y": 0.253136,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7382399999999999,
+                "y": 0.290768,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7259199999999999,
+                "y": 0.3284,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7135999999999999,
+                "y": 0.366032,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.32943999999999996,
+                "y": 0.253136,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.34175999999999995,
+                "y": 0.290768,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.35407999999999995,
+                "y": 0.3284,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.36639999999999995,
+                "y": 0.366032,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": 0,
+            "y": 0.25,
+            "home": {
+              "x": -0.08,
+              "y": 0.15
+            },
+            "patch": {
+              "x": 0,
+              "y": 0.25
+            },
+            "behavior": {
+              "kind": "return",
+              "progress": 0.5
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.18950399999999998,
+                "y": 0.2528224,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.178416,
+                "y": 0.28669120000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.167328,
+                "y": 0.32056,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.15624,
+                "y": 0.3544288,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.18950399999999998,
+                "y": 0.2528224,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.178416,
+                "y": 0.28669120000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.167328,
+                "y": 0.32056,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.15624,
+                "y": 0.3544288,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": 0.5399999999999999,
+            "y": 0.25,
+            "home": {
+              "x": 0.6499999999999999,
+              "y": 0.15
+            },
+            "patch": {
+              "x": 0.5399999999999999,
+              "y": 0.25
+            },
+            "behavior": {
+              "kind": "rest",
+              "progress": 0.5
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.31680639999999993,
+                "y": 0.25332416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.3298655999999999,
+                "y": 0.29321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.3429247999999999,
+                "y": 0.333104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.35598399999999997,
+                "y": 0.37299392000000003,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7631935999999999,
+                "y": 0.25332416,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7501343999999999,
+                "y": 0.29321408,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7370751999999999,
+                "y": 0.333104,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7240159999999999,
+                "y": 0.37299392000000003,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "65e25a7cd628fcedf11e9aa6fc6ab3c881310dd3689e7e9669927d3a3e2c60d2"
+    },
+    {
+      "name": "06-five-residents",
+      "title": "ENSEMBLE CAP / five legible residents",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "forage",
+        "beat": "forage",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 140,
+        "rows": 56,
+        "seed": 7,
+        "speed": 1,
+        "scale": 1,
+        "sway": 0.18,
+        "facing": "left",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "forage",
+        "count": 5,
+        "formation": "arc",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.2,
+        "current": 0.35,
+        "labels": true
+      },
+      "scene": {
+        "scene": "forage",
+        "beats": [
+          "arrive",
+          "forage",
+          "signal",
+          "return"
+        ],
+        "beat": "forage",
+        "beatIndex": 1,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.2,
+        "current": 0.35,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.5399999999999999,
+            "y": -0.16,
+            "home": {
+              "x": -0.6499999999999999,
+              "y": -0.26
+            },
+            "patch": {
+              "x": -0.5399999999999999,
+              "y": -0.16
+            },
+            "behavior": {
+              "kind": "forage",
+              "progress": 0.43333333333333335
+            },
+            "leftClaw": -0.5271486652311758,
+            "rightClaw": 0.12,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.7167199999999999,
+                "y": -0.157368,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7063799999999999,
+                "y": -0.125784,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.6960399999999999,
+                "y": -0.09419999999999999,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.6857,
+                "y": -0.062616,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.36327999999999994,
+                "y": -0.157368,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.37361999999999995,
+                "y": -0.125784,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.38395999999999997,
+                "y": -0.09419999999999999,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.39429999999999993,
+                "y": -0.062616,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": 0.014975256477471707,
+            "y": -0.24,
+            "home": {
+              "x": -0.08,
+              "y": -0.33999999999999997
+            },
+            "patch": {
+              "x": 0,
+              "y": -0.24
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.8095238095238095
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.1440727435225283,
+                "y": -0.2376312,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.13476674352252827,
+                "y": -0.2092056,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.12546074352252828,
+                "y": -0.18078,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.11615474352252829,
+                "y": -0.15235439999999997,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1740232564774717,
+                "y": -0.2376312,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1647172564774717,
+                "y": -0.2092056,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.15541125647747173,
+                "y": -0.18078,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1461052564774717,
+                "y": -0.15235439999999997,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": 0.5399999999999999,
+            "y": -0.16,
+            "home": {
+              "x": 0.6499999999999999,
+              "y": -0.26
+            },
+            "patch": {
+              "x": 0.5399999999999999,
+              "y": -0.16
+            },
+            "behavior": {
+              "kind": "forage",
+              "progress": 0.18571428571428572
+            },
+            "leftClaw": -0.525307371858836,
+            "rightClaw": 0.12,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.3526767999999999,
+                "y": -0.15721008,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.36363719999999994,
+                "y": -0.12373103999999999,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.3745975999999999,
+                "y": -0.090252,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.38555799999999996,
+                "y": -0.05677295999999998,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7273232,
+                "y": -0.15721008,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7163628,
+                "y": -0.12373103999999999,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7054023999999999,
+                "y": -0.090252,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.6944419999999999,
+                "y": -0.05677295999999998,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "label": "Dot",
+            "role": "curious",
+            "size": 1,
+            "x": -0.31,
+            "y": 0.48,
+            "home": {
+              "x": -0.42,
+              "y": 0.38
+            },
+            "patch": {
+              "x": -0.31,
+              "y": 0.48
+            },
+            "behavior": {
+              "kind": "forage",
+              "progress": 0.5619047619047619
+            },
+            "leftClaw": -0.18859123498484154,
+            "rightClaw": 0.12,
+            "gazeX": -0.44885379994686136,
+            "gazeY": -0.07516604505910247,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.48672,
+                "y": 0.482632,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.47637999999999997,
+                "y": 0.514216,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.46604,
+                "y": 0.5458,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.4557,
+                "y": 0.577384,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.13328,
+                "y": 0.482632,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.14362000000000003,
+                "y": 0.514216,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.15396,
+                "y": 0.5458,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.1643,
+                "y": 0.577384,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "label": "Flint",
+            "role": "territorial",
+            "size": 1,
+            "x": 0.26737790029568914,
+            "y": 0.48,
+            "home": {
+              "x": 0.42,
+              "y": 0.38
+            },
+            "patch": {
+              "x": 0.31,
+              "y": 0.48
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.9380952380952381
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": -0.042768737376526395,
+            "gazeY": 0.22955978780207467,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.09065790029568915,
+                "y": 0.482632,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.10099790029568917,
+                "y": 0.514216,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.11133790029568916,
+                "y": 0.5458,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.12167790029568915,
+                "y": 0.577384,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.44409790029568913,
+                "y": 0.482632,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.4337579002956891,
+                "y": 0.514216,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.42341790029568915,
+                "y": 0.5458,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.41307790029568914,
+                "y": 0.577384,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "c185795c1493029c695615f0b66b1b7d89d0caabf7458f2467f86f2bd06b0bdc"
+    },
+    {
+      "name": "07-minimum-grid",
+      "title": "BOUNDARY / 80 x 32 cells, five residents, size .6",
+      "width": 980,
+      "height": 700,
+      "status": {
+        "paused": true,
+        "reducedMotion": false,
+        "hidden": false,
+        "inViewport": true,
+        "disposed": false,
+        "phase": "idle",
+        "tick": 0,
+        "droppedSeconds": 0,
+        "scene": "signals",
+        "beat": "challenge",
+        "selectedId": 0
+      },
+      "options": {
+        "columns": 80,
+        "rows": 32,
+        "seed": 7,
+        "speed": 1,
+        "scale": 0.6,
+        "sway": 0.18,
+        "facing": "right",
+        "behavior": "scuttle",
+        "palette": "brass",
+        "paused": true,
+        "reducedMotion": "system",
+        "scene": "signals",
+        "count": 5,
+        "formation": "arc",
+        "cast": [],
+        "director": "auto",
+        "actDuration": 240,
+        "tide": 0.2,
+        "current": 0.35,
+        "labels": true
+      },
+      "scene": {
+        "scene": "signals",
+        "beats": [
+          "arrive",
+          "signal",
+          "challenge",
+          "return"
+        ],
+        "beat": "challenge",
+        "beatIndex": 2,
+        "progress": 0.5,
+        "cycle": 0,
+        "tideLevel": 0.2,
+        "current": 0.35,
+        "selectedId": 0,
+        "guide": {
+          "active": false,
+          "x": 0,
+          "y": 0
+        },
+        "actors": [
+          {
+            "id": 0,
+            "label": "Pip",
+            "role": "curious",
+            "size": 1,
+            "x": -0.48499999999999993,
+            "y": -0.16,
+            "home": {
+              "x": -0.6499999999999999,
+              "y": -0.26
+            },
+            "patch": {
+              "x": -0.5399999999999999,
+              "y": -0.16
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.5
+            },
+            "leftClaw": 0.25,
+            "rightClaw": 0,
+            "gazeX": 0,
+            "gazeY": 0.25,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.737253164556962,
+                "y": -0.15624303797468356,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7224936708860759,
+                "y": -0.11115949367088607,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.7077341772151897,
+                "y": -0.0660759493670886,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.6929746835443037,
+                "y": -0.020992405063291142,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.23274683544303792,
+                "y": -0.15624303797468356,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.24750632911392403,
+                "y": -0.11115949367088607,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.2622658227848101,
+                "y": -0.0660759493670886,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.27702531645569617,
+                "y": -0.020992405063291142,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "label": "Moss",
+            "role": "shy",
+            "size": 0.9,
+            "x": -0.08,
+            "y": -0.33999999999999997,
+            "home": {
+              "x": -0.08,
+              "y": -0.33999999999999997
+            },
+            "patch": {
+              "x": 0,
+              "y": -0.24
+            },
+            "behavior": {
+              "kind": "retreat",
+              "progress": 0.5
+            },
+            "leftClaw": 0,
+            "rightClaw": 0,
+            "gazeX": 0.4498725963491819,
+            "gazeY": 0.02540515181450655,
+            "crouch": 0.45,
+            "feet": [
+              {
+                "x": -0.332253164556962,
+                "y": -0.3362430379746835,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.3174936708860759,
+                "y": -0.29115949367088606,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.30273417721518986,
+                "y": -0.24607594936708857,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.2879746835443038,
+                "y": -0.2009924050632911,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.172253164556962,
+                "y": -0.3362430379746835,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.1574936708860759,
+                "y": -0.29115949367088606,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.14273417721518983,
+                "y": -0.24607594936708857,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.12797468354430375,
+                "y": -0.2009924050632911,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "label": "Brine",
+            "role": "territorial",
+            "size": 1.06,
+            "x": 0.5399999999999999,
+            "y": -0.16,
+            "home": {
+              "x": 0.6499999999999999,
+              "y": -0.26
+            },
+            "patch": {
+              "x": 0.5399999999999999,
+              "y": -0.16
+            },
+            "behavior": {
+              "kind": "signal",
+              "progress": 0.5
+            },
+            "leftClaw": 0.85,
+            "rightClaw": 0.45,
+            "gazeX": 0.021408610012402875,
+            "gazeY": -0.244836626090255,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.2877468354430379,
+                "y": -0.15624303797468356,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.30250632911392406,
+                "y": -0.11115949367088607,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.3172658227848101,
+                "y": -0.0660759493670886,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.33202531645569616,
+                "y": -0.020992405063291142,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7922531645569619,
+                "y": -0.15624303797468356,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7774936708860758,
+                "y": -0.11115949367088607,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7627341772151898,
+                "y": -0.0660759493670886,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.7479746835443037,
+                "y": -0.020992405063291142,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "label": "Dot",
+            "role": "curious",
+            "size": 1,
+            "x": -0.255,
+            "y": 0.48,
+            "home": {
+              "x": -0.42,
+              "y": 0.38
+            },
+            "patch": {
+              "x": -0.31,
+              "y": 0.48
+            },
+            "behavior": {
+              "kind": "inspect",
+              "progress": 0.5
+            },
+            "leftClaw": 0.25,
+            "rightClaw": 0,
+            "gazeX": -0.44885379994686136,
+            "gazeY": -0.07516604505910247,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": -0.507253164556962,
+                "y": 0.48375696202531643,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.4924936708860759,
+                "y": 0.528840506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.47773417721518985,
+                "y": 0.5739240506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.46297468354430377,
+                "y": 0.6190075949367089,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.002746835443037998,
+                "y": 0.48375696202531643,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.017506329113924107,
+                "y": 0.528840506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.03226582278481016,
+                "y": 0.5739240506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": -0.04702531645569624,
+                "y": 0.6190075949367089,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "label": "Flint",
+            "role": "territorial",
+            "size": 1,
+            "x": 0.31,
+            "y": 0.48,
+            "home": {
+              "x": 0.42,
+              "y": 0.38
+            },
+            "patch": {
+              "x": 0.31,
+              "y": 0.48
+            },
+            "behavior": {
+              "kind": "signal",
+              "progress": 0.5
+            },
+            "leftClaw": 0.85,
+            "rightClaw": 0.45,
+            "gazeX": -0.042768737376526395,
+            "gazeY": 0.22955978780207467,
+            "crouch": 0,
+            "feet": [
+              {
+                "x": 0.05774683544303799,
+                "y": 0.48375696202531643,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.0725063291139241,
+                "y": 0.528840506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.08726582278481015,
+                "y": 0.5739240506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.10202531645569624,
+                "y": 0.6190075949367089,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.562253164556962,
+                "y": 0.48375696202531643,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.5474936708860759,
+                "y": 0.528840506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.5327341772151899,
+                "y": 0.5739240506329114,
+                "planted": true,
+                "lift": 0
+              },
+              {
+                "x": 0.5179746835443038,
+                "y": 0.6190075949367089,
+                "planted": true,
+                "lift": 0
+              }
+            ]
+          }
+        ]
+      },
+      "logicalSHA256": "7bdf363535b47e13757353aaaa34ecd8159a348d200e1c3c4fb08dea1bb2bad8"
+    }
+  ],
+  "sequence": {
+    "scene": "tide",
+    "sampledFrames": 160,
+    "sampledIntervalMilliseconds": 100,
+    "firstCue": {
+      "atFrame": 12,
+      "action": "signal",
+      "id": 2
+    },
+    "status": {
+      "paused": false,
+      "reducedMotion": false,
+      "hidden": false,
+      "inViewport": true,
+      "disposed": false,
+      "phase": "idle",
+      "tick": 960,
+      "droppedSeconds": 0,
+      "scene": "tide",
+      "beat": "forage",
+      "selectedId": 0
+    }
+  }
+}
