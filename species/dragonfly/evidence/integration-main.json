@@ -1,0 +1,187 @@
+{
+  "scope": "Temporary detached current-main checkout plus copied Dragonfly directory; no merge or other-author branch change",
+  "currentMain": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+  "implementationBase": "0e446c47b491b751d484e40db753ec725652b515",
+  "speciesCodeHead": "32d653de9bf85581d90c42fce72229d5dbaa54fc",
+  "environmentNote": "A previous workspace compiler disappeared before this optional follow-up. The first two setup failures are retained. TypeScript 5.9.3 was then installed in this task's own temporary tools directory with lifecycle scripts disabled and connected only to the temporary checkout. No shared source was changed.",
+  "initialSetupAttempts": [
+    {
+      "command": [
+        "node",
+        "scripts/build.mjs"
+      ],
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "node:internal/modules/cjs/loader:1568\n  throw err;\n  ^\n\nError: Cannot find module '/workspace/scratch/14e681deb57b/integration-check/node_modules/typescript/bin/tsc'\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)\n    at Module._load (node:internal/modules/cjs/loader:1341:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47 {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: []\n}\n\nNode.js v24.22.1\nnode:internal/errors:986\n  const err = new Error(message);\n              ^\n\nError: Command failed: /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/scratch/14e681deb57b/integration-check/node_modules/typescript/bin/tsc -p /workspace/scratch/14e681deb57b/integration-check/tsconfig.json\n    at genericNodeError (node:internal/errors:986:15)\n    at wrappedFn (node:internal/errors:540:14)\n    at checkExecSyncError (node:child_process:943:11)\n    at execFileSync (node:child_process:979:15)\n    at file:///workspace/scratch/14e681deb57b/integration-check/scripts/build.mjs:29:1 {\n  status: 1,\n  signal: null,\n  output: [ null, null, null ],\n  pid: 18,\n  stdout: null,\n  stderr: null\n}\n\nNode.js v24.22.1\n"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/build.mjs"
+      ],
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "node:internal/modules/cjs/loader:1568\n  throw err;\n  ^\n\nError: Cannot find module '/workspace/scratch/55fc7020b622/token-horizon-stageshow/node_modules/typescript/lib/tsc.js'\nRequire stack:\n- /workspace/scratch/14e681deb57b/integration-check/node_modules/typescript/bin/tsc\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)\n    at Module._load (node:internal/modules/cjs/loader:1341:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.require (node:internal/modules/cjs/loader:1674:12)\n    at require (node:internal/modules/helpers:157:16)\n    at Object.<anonymous> (/workspace/scratch/14e681deb57b/integration-check/node_modules/typescript/bin/tsc:1:1)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/workspace/scratch/14e681deb57b/integration-check/node_modules/typescript/bin/tsc'\n  ]\n}\n\nNode.js v24.22.1\nnode:internal/errors:986\n  const err = new Error(message);\n              ^\n\nError: Command failed: /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/scratch/14e681deb57b/integration-check/node_modules/typescript/bin/tsc -p /workspace/scratch/14e681deb57b/integration-check/tsconfig.json\n    at genericNodeError (node:internal/errors:986:15)\n    at wrappedFn (node:internal/errors:540:14)\n    at checkExecSyncError (node:child_process:943:11)\n    at execFileSync (node:child_process:979:15)\n    at file:///workspace/scratch/14e681deb57b/integration-check/scripts/build.mjs:29:1 {\n  status: 1,\n  signal: null,\n  output: [ null, null, null ],\n  pid: 18,\n  stdout: null,\n  stderr: null\n}\n\nNode.js v24.22.1\n"
+    }
+  ],
+  "status": "pass",
+  "checks": [
+    {
+      "name": "Merged TypeScript facade build",
+      "command": [
+        "node",
+        "scripts/build.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.965,
+      "stdout": "{\"demo\":{\"sourceSha256\":\"5c2ad6f6e1c7d10b34bac456ad4728c7db419f4a70e2e466c9be895e37fd4b69\",\"global\":\"dist/artwork.js\",\"standalone\":\"dist/cuttlefish.html\"},\"output\":\"lib\",\"modules\":4,\"declarations\":3,\"tool\":\"tsc + private-renderer copy\",\"runtimeDependencies\":0}\n",
+      "stderr": ""
+    },
+    {
+      "name": "Merged library regressions",
+      "command": [
+        "node",
+        "--test",
+        "test/generated-demo.test.mjs",
+        "test/lifecycle.test.mjs",
+        "test/parity.test.mjs",
+        "test/public-api.test.mjs",
+        "test/scheduler.test.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 27.329,
+      "stdout": "\u2714 global and standalone artifacts are generated from the canonical modules (20.689268ms)\n\u2714 classic global build preserves module simulation and lifecycle (2704.296269ms)\n\u2714 instances share scheduling; paused/hidden/offscreen scenes have no subscriptions (214.589038ms)\n\u2714 system reduced motion pauses by default and never resumes automatically (74.675185ms)\n\u2714 resize is idempotent; zero-sized elements suspend and resource caps hold (56.389896ms)\n\u2714 destroy is idempotent, frees internal buffers and makes mutators inert (35.074717ms)\n\u2714 failed observer construction rolls back all installed handlers (11.536793ms)\n\u2714 manual stepping is explicit, bounded and does not start scheduling (38.724299ms)\n\u2714 frame cap uses elapsed time and reports discarded stall time (53.277212ms)\n\u2714 coarse grids cannot inflate glyph or ink atlases (26.336166ms)\n\u2714 long thin boxes respect auxiliary canvas dimension limits (14.804533ms)\n\u2714 lowest supported frame cap advances real elapsed time without routine dropping (195.183482ms)\n\u2714 live option, size and redundant play updates do not reset simulation time (677.921844ms)\n\u2714 missing ResizeObserver falls back to window resize without a polyfill (28.276362ms)\n\u2714 invalid host fails clearly and separate documents retain their own scheduler (34.663865ms)\n\u2714 non-finite pointer positions do not poison scene state (38.022025ms)\n\u2714 fixed input/time sequences preserve imported geometry, ownership and ink state (26314.838697ms)\n\u2714 manual replay repeats the same reaction and particle state for the same step sequence (692.988029ms)\n\u2714 strict config rejects unknown/invalid fields atomically and copies role arrays (2.840974ms)\n\u2714 facade system pause, controls, atomic update, manual drive and disposal (102.250264ms)\n\u2714 raw API undefined pause respects OS and invalid patches cannot poison state (18.826051ms)\n\u2714 scheduler shares one frame and removes each subscription independently (2.776375ms)\n\u2714 subscriptions added during dispatch wait until the next frame (1.99749ms)\n\u2714 one failing callback does not strand peers or a pending frame (0.436438ms)\n\u2714 a rejected frame request rolls back a new subscription (0.483007ms)\n\u2139 tests 25\n\u2139 suites 0\n\u2139 pass 25\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 27199.179349\n",
+      "stderr": ""
+    },
+    {
+      "name": "Merged catalogue check",
+      "command": [
+        "python3",
+        "scripts/check-catalogue.py"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.064,
+      "stdout": "Catalogue passed: 13 unique species, honest status, local links, anchors, study and standalone preserved.\n",
+      "stderr": ""
+    },
+    {
+      "name": "Merged authoring bridge stubs",
+      "command": [
+        "node",
+        "scripts/check-authoring-bridge.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.906,
+      "stdout": "# Renderer source: /workspace/scratch/14e681deb57b/integration-check/test/fixtures/legacy-artwork.cjs\n# Renderer SHA-256: 381f4706bc07761e6d1e162c95ceee97c42dd687ea19469ecb4f79885bd34e91\n\u2714 starts paused even if constructor options request playback; waits for intersection (151.124607ms)\n\u2714 composes reduced motion, visibility, viewport and zero-size policy (164.028683ms)\n\u2714 rechecks synchronous policy before pulse even before a change event arrives (112.348415ms)\n\u2714 setOptions cannot bypass pause policy; valid options and restart use the real API (182.859973ms)\n\u2714 a consumer state callback failure after mount disposes resources and preserves the original error (69.126058ms)\n\u2714 multiple instances dispose independently; repeated destroy and delayed callbacks are harmless (78.205727ms)\n\u2714 missing capabilities fail before construction; partial adapter construction cleans up (10.641766ms)\n\u2139 tests 7\n\u2139 suites 0\n\u2139 pass 7\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 777.687806\n",
+      "stderr": ""
+    },
+    {
+      "name": "Dragonfly type, numerical, lifecycle and legacy checks",
+      "command": [
+        "node",
+        "species/dragonfly/scripts/check.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 25.612,
+      "stdout": "{\n  \"status\": \"pass\",\n  \"checks\": [\n    {\n      \"name\": \"TypeScript build\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Positive and negative generated-declaration consumers\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Species geometry, state, rendering bounds and mocked lifecycle\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Unchanged cuttlefish numerical regression (stubbed Canvas)\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Legacy syntax\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Optional browser runner syntax\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Standalone reproducibility\",\n      \"exitCode\": 0\n    },\n    {\n      \"name\": \"Standalone checksum unchanged\",\n      \"exitCode\": 0,\n      \"sha256\": \"56e0752721b76efa7805f359c7164631d9dea944715072a046c5bedb1438bdc4\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "Shared generated dist unchanged",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "dist"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.088,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "dragonflyChecks": {
+    "runtime": "v24.22.1",
+    "implementationBase": "0e446c47b491b751d484e40db753ec725652b515",
+    "checkedCheckoutHead": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+    "status": "pass",
+    "evidenceScope": "Numerical/type/bookkeeping tests; no real browser/phone/performance pass",
+    "checks": [
+      {
+        "name": "TypeScript build",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "species/dragonfly/scripts/build.mjs"
+        ],
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "Positive and negative generated-declaration consumers",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "species/dragonfly/scripts/build.mjs",
+          "--check"
+        ],
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "Species geometry, state, rendering bounds and mocked lifecycle",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "--test",
+          "species/dragonfly/tests/model.test.mjs",
+          "species/dragonfly/tests/preview.test.mjs",
+          "species/dragonfly/tests/browser.test.mjs"
+        ],
+        "exitCode": 0,
+        "output": "\u2714 CSS pointer normalization is bounded, offset-aware and independent of DPR (3.563732ms)\n\u2714 one RAF, coalesced pointer flood, taps only guide, deliberate dart (73.69863ms)\n\u2714 paused reset/configuration/preferences/visibility never clear user pause (81.031339ms)\n\u2714 reduced motion starts as meaningful static pose; pointer cannot opt into motion (25.38446ms)\n\u2714 deliberate Change pose remains visibly effective while full motion is user-paused (12.092088ms)\n\u2714 hidden, offscreen and zero-size causes compose and resume drops elapsed wall time (32.469189ms)\n\u2714 catch-up cap is five ticks, excess time is measured, pointer cancellation clears target (14.827268ms)\n\u2714 DPR/canvas/grid budgets hold across huge resize and system font redraw (10.658071ms)\n\u2714 keyboard handling is canvas-scoped and does not trap Tab or form keys (10.338693ms)\n\u2714 invalid configuration/view/targets reject without changing prior host state (4.285174ms)\n\u2714 host exposes immutable snapshots instead of a mutable owned model (13.294281ms)\n\u2714 dispose is idempotent, mutators reject, saved callbacks do no work (3.068957ms)\n\u2714 multiple hosts remain independent across disposal and repeated mounting (102.080309ms)\n\u2714 setup and consumer callback failures roll back owned resources (4.381695ms)\n\u2714 default configuration is explicit, immutable and rejects coercion/unknown fields (3.883862ms)\n\u2714 invalid configuration is atomic; seed changes are reset-only (1.168498ms)\n\u2714 ordered input rejects an entire malformed batch before any state mutation (2.757775ms)\n\u2714 bounded batches preserve sequence order and only the first eligible dart starts (0.667495ms)\n\u2714 fixed event replay has identical state, geometry and cells with 1/2/5-tick render grouping (626.582505ms)\n\u2714 seeds change local wing phases without changing anatomy or another instance (17.441556ms)\n\u2714 tracking acceleration, speed, heading rate and root bounds survive abrupt targets (7.950647ms)\n\u2714 dart carries the incoming velocity, ends stationary, then recovers and cools down in order (1.774292ms)\n\u2714 slow mode stretches dart travel; motion changes preserve pause and cancel a fast response (0.392197ms)\n\u2714 all four wing roots stay on the thorax and blade lengths stay rigid across changing poses (112.528782ms)\n\u2714 abdomen has ten tapered bounded segments; geometry returned to callers cannot mutate model state (18.011111ms)\n\u2714 abdomen curvature stays continuous when the independent wing clock wraps (83.352128ms)\n\u2714 state and options are deeply frozen snapshots; caller mutation never changes future simulation (0.548847ms)\n\u2714 pause/static steps validate but consume no tick, event or seq; reset preserves pause/options (14.937199ms)\n\u2714 clearTarget and disposal have explicit local semantics and leave other instances alive (0.508133ms)\n\u2714 provisional writer preflights capacity and reports partial rejection without hiding samples (9.615067ms)\n\u2714 replay rejects stale logs, unsupported versions, missing required metadata and work overflow (1.023779ms)\n\u2714 core imports and executes without browser globals, host clocks or ambient randomness (99.603591ms)\n\u2714 minimum and maximum grids export equal-length strictly declared ASCII rows (52.368654ms)\n\u2714 supported small-grid views contain the entire animal across maximum motion configuration (250.627376ms)\n\u2714 invalid samples, glyphs, materials and oversized forged grids fail explicitly (5.165484ms)\n\u2714 painter preserves glyph-cell aspect with centered letterboxing (numeric stub) (8.607533ms)\n\u2139 tests 36\n\u2139 suites 0\n\u2139 pass 36\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1167.336149\n"
+      },
+      {
+        "name": "Unchanged cuttlefish numerical regression (stubbed Canvas)",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "scripts/check-engine.cjs"
+        ],
+        "exitCode": 0,
+        "output": "Geometry passed {\"cases\":60,\"samples\":4663240,\"maxSamples\":23764,\"minNear\":0.6553875562328777}\n{\n  \"geometry\": {\n    \"cases\": 60,\n    \"samples\": 4748048,\n    \"maxSamples\": 23764,\n    \"minNear\": 0.6553875562328777,\n    \"clipped\": 0,\n    \"bad\": 0\n  },\n  \"targetedClick\": {\n    \"id\": 2,\n    \"sequence\": [\n      \"react\",\n      \"spray\",\n      \"escape\",\n      \"recover\",\n      \"idle\"\n    ],\n    \"firstInk\": 0.35000000000000125,\n    \"firstEscape\": 0.9500000000000032,\n    \"maxSprayTravel\": 0.04500000000000011,\n    \"neighborAdvanced\": 9.166666666666561\n  },\n  \"pauseRestart\": \"passed\",\n  \"directions\": [\n    {\n      \"formation\": \"horizontal\",\n      \"reverse\": false,\n      \"delta\": [\n        0.04056251076739059,\n        0,\n        0\n      ]\n    },\n    {\n      \"formation\": \"horizontal\",\n      \"reverse\": true,\n      \"delta\": [\n        -0.04056251076738704,\n        0,\n        0\n      ]\n    },\n    {\n      \"formation\": \"vertical\",\n      \"reverse\": false,\n      \"delta\": [\n        0,\n        -0.040562510767394144,\n        0\n      ]\n    },\n    {\n      \"formation\": \"vertical\",\n      \"reverse\": true,\n      \"delta\": [\n        0,\n        0.04056251076739237,\n        0\n      ]\n    },\n    {\n      \"formation\": \"diagonal\",\n      \"reverse\": false,\n      \"delta\": [\n        0.028682026425576712,\n        -0.028682026425576712,\n        0\n      ]\n    },\n    {\n      \"formation\": \"diagonal\",\n      \"reverse\": true,\n      \"delta\": [\n        -0.02868202642557449,\n        0.02868202642557449,\n        0\n      ]\n    },\n    {\n      \"formation\": \"random\",\n      \"reverse\": false,\n      \"delta\": [\n        0.021855790349431192,\n        0.013345249409940307,\n        0.003877614402798546\n      ]\n    },\n    {\n      \"formation\": \"random\",\n      \"reverse\": true,\n      \"delta\": [\n        -0.021855790349431192,\n        -0.013345249409940307,\n        -0.003877614402798546\n      ]\n    }\n  ],\n  \"encounterHold\": \"passed\"\n}\n"
+      },
+      {
+        "name": "Legacy syntax",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "--check",
+          "dist/artwork.js"
+        ],
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "Optional browser runner syntax",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "--check",
+          "species/dragonfly/scripts/browser-smoke.mjs"
+        ],
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "name": "Standalone reproducibility",
+        "command": [
+          "python3",
+          "scripts/build-standalone.py"
+        ],
+        "exitCode": 0,
+        "output": "{\"sourceSha256\":\"5c2ad6f6e1c7d10b34bac456ad4728c7db419f4a70e2e466c9be895e37fd4b69\",\"global\":\"dist/artwork.js\",\"standalone\":\"dist/cuttlefish.html\"}\n"
+      },
+      {
+        "name": "Standalone checksum unchanged",
+        "exitCode": 0,
+        "sha256": "56e0752721b76efa7805f359c7164631d9dea944715072a046c5bedb1438bdc4"
+      }
+    ]
+  }
+}

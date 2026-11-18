@@ -2,7 +2,7 @@
 
 An original **TypeScript-first reactive ASCII dragonfly** with a long segmented abdomen, two large eyes, four independently phased attached wings, pointer-guided hover and a deliberate short dart into stabilized hover.
 
-**Draft species integration.** All implementation and evidence are local to this directory. Main has no public species hook; the small preview is replaceable when the coordinator accepts a shared renderer. [Exact compatibility and base](INTEGRATION.md) · [Typed API/defaults/validation](API.md) · [Authoring record](AUTHORING.md) · [Validation and critique](VALIDATION.md)
+**Draft species integration.** All implementation and evidence are local to this directory. The merged TypeScript facade supports Cuttlefish; a public shared species hook is still proposed. The small preview is replaceable when the coordinator accepts that renderer contract. [Exact compatibility and base](INTEGRATION.md) · [Typed API/defaults/validation](API.md) · [Authoring record](AUTHORING.md) · [Validation and critique](VALIDATION.md)
 
 ![Actual native Canvas glyph animation of the Dragonfly](evidence/dragonfly.gif)
 

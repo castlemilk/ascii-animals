@@ -157,7 +157,7 @@
     {
       "gate": "Actual source and typed interface audit",
       "status": "pass",
-      "evidence": "Merged main0e446c47; initial PR2e7c16104 and incoming8c530b10 inspected read-only. No accepted Dragonfly shared API."
+      "evidence": "Implementation base main0e446c47; initial PR2e7c16104, later8c530b10 and coordinator-merged main074b90a9 inspected read-only. Current-main coexistence checks pass; no accepted Dragonfly shared API."
     },
     {
       "gate": "Numerical, geometry, input, bounds and mocked lifecycle",

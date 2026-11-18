@@ -8,28 +8,28 @@
   "scope": "Only species/dragonfly; manifest excludes itself",
   "files": {
     "API.md": {
-      "sha256": "5be7617dbd890915b4d7ba1844dd0c78001622d8c70dd2f91fdceb9a87c8aee0",
-      "bytes": 9554
+      "sha256": "fca13ff8286f487714928abd9af60003ee89279f11faeb7cd79a3482a75069db",
+      "bytes": 9692
     },
     "AUTHORING.md": {
-      "sha256": "0d50104d2dbe532929d1c0a4f7b2d1ba2a8903da70084cf705a2f9b64462c1ab",
-      "bytes": 15123
+      "sha256": "f643c0258d2b953a9f0bdd5f983e46525614070911b4066fc7483aaf5e88889e",
+      "bytes": 15476
     },
     "INTEGRATION.md": {
-      "sha256": "2e4ef8ec39c6c2dc1d0fed0ccff6e04b1bf31f5f0f791544e7aa5c459573a7a4",
-      "bytes": 6417
+      "sha256": "9bfaf547a906b05f76f2a4aaaf3fceb2dc8fe06d8d19e6c1878da8710f3a60dd",
+      "bytes": 7988
     },
     "README.md": {
-      "sha256": "e11633ff1fe4643441541a25d7d51cee00987bcb33b97a148fdbf8f0244eb92e",
-      "bytes": 5889
+      "sha256": "599f4e47a3db0d1692495a44337b51cf4fd284016720a13bdfa8ed246eff1d85",
+      "bytes": 5959
     },
     "VALIDATION.md": {
-      "sha256": "617c2af4af31f438527bc4e5fe9397878d9c53eb7e0d6b1a2fd8f7e0a32b8bc0",
-      "bytes": 11542
+      "sha256": "eca34500038ce3a605fe37aff61ce3b62a8169875fed385542ab1ddcfde03848",
+      "bytes": 13825
     },
     "authoring.json": {
-      "sha256": "426962f81d38513d758ef04d1120259be0ecc13d2e7a20c5e6d6aa8347e4f9b9",
-      "bytes": 6756
+      "sha256": "1cf9c527c594b93eaf799af00c20f3abd2fb2cfbbeb700f166b1a78ed68772ac",
+      "bytes": 6837
     },
     "evidence/before-eye-separation.png": {
       "sha256": "02a5830b920a07cb93d6db00673f98945e0fc9c086208d3251cf826f9839f9b5",
@@ -74,6 +74,10 @@
     "evidence/frame-320.png": {
       "sha256": "ee7c2a920496b8a1c424630f4672a8f1aa11011cae17ea5975a5c0863085e3d1",
       "bytes": 35425
+    },
+    "evidence/integration-main.json": {
+      "sha256": "3349de02d7843f454bf74d81bac06e21e12b5e89613f11ca15c6c7218a8e178f",
+      "bytes": 19605
     },
     "evidence/render-metadata.json": {
       "sha256": "58c2d494af2e4f584f5a095b4d6afafb5e800c280c55f61ea3a86638a10df680",
@@ -180,8 +184,8 @@
       "bytes": 895
     },
     "scripts/check.mjs": {
-      "sha256": "0367b02f9914840d4101a531b03235c65ad86bd6ee643179b84cc40e91f84ed3",
-      "bytes": 2632
+      "sha256": "b6f70b6f8a9ad1ec6dc22fdda91c8c13c0cc913a4910c7c1a591907798767ff6",
+      "bytes": 2786
     },
     "scripts/render-evidence.mjs": {
       "sha256": "598afa960d351dd818ed1fe5be7422182f5689ed73de9cc7c7b01e9979a1ea6e",
@@ -247,5 +251,7 @@
       "sha256": "62e41362b9c03347f26bf31f2b3ebd178d1019fb48e42aa198e610fda2344540",
       "bytes": 165
     }
-  }
+  },
+  "coexistenceCheckedMain": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+  "initialPublishedSpeciesHead": "32d653de9bf85581d90c42fce72229d5dbaa54fc"
 }

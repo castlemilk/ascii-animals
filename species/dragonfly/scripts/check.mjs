@@ -32,7 +32,9 @@ try {
   if(before!==after) throw new Error('Legacy standalone changed on rebuild');
   checks.push({name:'Standalone checksum unchanged',exitCode:0,sha256:after});
 } catch(error){failure=String(error);process.exitCode=1;}
-const report={runtime:process.version,base:'0e446c47b491b751d484e40db753ec725652b515',
+const head=spawnSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'});
+const report={runtime:process.version,implementationBase:'0e446c47b491b751d484e40db753ec725652b515',
+  checkedCheckoutHead:head.status===0?head.stdout.trim():null,
   status:failure?'fail':'pass',evidenceScope:'Numerical/type/bookkeeping tests; no real browser/phone/performance pass',checks,...(failure?{failure}:{})};
 await writeFile(resolve(evidence,'checks.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({status:report.status,checks:checks.map(({name,exitCode,sha256})=>({name,exitCode,sha256})),failure},null,2));

@@ -4,7 +4,24 @@
 
 **36 species tests pass**, the strict TypeScript build and generated-declaration consumers pass, and the unchanged cuttlefish regression and standalone rebuild pass. Native Canvas glyph frames, a contact sheet, a smallest-grid poster and a 91-frame GIF were produced and independently inspected. **Real-browser acceptance is blocked before page launch.** Nothing is merged, published to npm or deployed by this work.
 
-Source base: `0e446c47b491b751d484e40db753ec725652b515`, branch `feat/animal-dragonfly`. The entire proposed change is under `species/dragonfly/`. Main was rechecked at the same hash before publication preparation. Incoming PR #2 was read again at `8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1`; its new TS facade remains cuttlefish-only and the generic writer sketch is unchanged. See INTEGRATION.md.
+Implementation base: `0e446c47b491b751d484e40db753ec725652b515`, branch `feat/animal-dragonfly`. The entire proposed change is under `species/dragonfly/`. Main was rechecked at the same hash before publication preparation. The coordinator then merged PR #2 and PR #4 during publication. A separate detached checkout at newer main `074b90a94bd3a747a68feed554e33a3ab0720f41` plus the copied Dragonfly directory passed the additional checks below. The merged TS facade remains cuttlefish-only and the generic writer sketch is unchanged. See INTEGRATION.md.
+
+## New-main coexistence check
+
+The exact record is [integration-main.json](evidence/integration-main.json). It combines current main `074b90a94bd3a747a68feed554e33a3ab0720f41` with Dragonfly implementation commit `32d653de9bf85581d90c42fce72229d5dbaa54fc`. The only executed species-code change afterward is check-runner metadata: it now records the actual checked checkout HEAD separately from the fixed original implementation base.
+
+| Check on newer main | Observed result |
+| --- | --- |
+| `node scripts/build.mjs` | TypeScript facade and canonical demo generation pass |
+| `node --test test/*.test.mjs` | **25/25** library regression tests pass; numerical/server and stubbed lifecycle evidence |
+| `python3 scripts/check-catalogue.py` | Pass; 13 unique catalogue entries, local links/anchors and preserved study/standalone |
+| `node scripts/check-authoring-bridge.mjs` | **7/7** stubbed authoring-bridge tests pass |
+| `node species/dragonfly/scripts/check.mjs` | Strict build/type consumers, **36/36** species tests, cuttlefish numerical regression, syntax and standalone reproducibility all pass again |
+| `git diff --exit-code -- dist` | Exit 0; no shared generated output changed |
+
+The newer-main standalone checksum is `56e0752721b76efa7805f359c7164631d9dea944715072a046c5bedb1438bdc4`, unchanged by rebuilding that checkout. It differs from the original-base checksum recorded below because the coordinator's intervening canonical generation changed main. These checks establish coexistence, not generic species-renderer integration, browser acceptance, package publication or deployment.
+
+The initially reused compiler was no longer present when this optional follow-up began; both setup failures are retained in the raw record. TypeScript 5.9.3 was then installed in this task's own temporary tools directory with lifecycle scripts disabled. No source or dependency configuration in another checkout was edited. No other-author branch was changed, and no merge or rebase was performed.
 
 ## Evidence categories
 
@@ -35,7 +52,7 @@ node --check species/dragonfly/scripts/browser-smoke.mjs
 python3 scripts/build-standalone.py
 ```
 
-All above commands exited 0. TypeScript was already installed in the workspace and selected through `DRAGONFLY_TSC`; no package installation or paid service was used. The standalone checksum stayed exactly `edd0bc75c960c24e04d94864e750bf8ce5b254ae818d6af74b3a5f001062c5f2`. No root/dist files changed.
+All above commands exited 0 in the original-base recording. TypeScript was already installed in the workspace and selected through `DRAGONFLY_TSC`; that initial recording required no package installation. The standalone checksum stayed exactly `edd0bc75c960c24e04d94864e750bf8ce5b254ae818d6af74b3a5f001062c5f2`. No root/dist files changed. The later temporary compiler installation is described above; no paid service was used.
 
 The actual skill's bounded JSON validator accepted `authoring.json`. Its own 8 tests passed after the required cuttlefish example fixture was fetched; the first local run had 7/8 with an ENOENT because that reference fixture had not yet been downloaded. No validator behavior or threshold was changed. The teaching ray implementation was read as a reference and was not copied into this species.
 
