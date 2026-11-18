@@ -18,7 +18,7 @@ test('manta reacts without ink; octopus cups then escapes with ink',()=>{
   const h=fakeBrowser(),a=new CuttlefishArtwork(h.canvas(),options(species));a.advance(0);a.pulse();
   for(let i=0;i<40;i++)a.advance(1/60);
   assert.equal(a.getStats().reactionStage,'spray');
-  if(species==='manta')assert.equal(a.ink.length,0);else {assert(a.ink.length>0);assert.equal(a.fish[0].speciesState.arms.length,8);assert.equal(a.fish[0].speciesState.diagnostics.mode,'cup');}
+  if(species==='manta'){assert.equal(a.ink.length,0);assert.equal(a.getStats().inkGlyphs,0);}else {assert(a.ink.length>0);assert(a.getStats().inkGlyphs>0);assert.equal(a.fish[0].speciesState.arms.length,8);assert.equal(a.fish[0].speciesState.diagnostics.mode,'cup');}
   for(let i=0;i<45;i++)a.advance(1/60);
   assert.equal(a.getStats().reactionStage,'escape');a.destroy();
  }

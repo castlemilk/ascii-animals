@@ -49,7 +49,7 @@ Independently rerun integration checks include geometry bounds/finite samples, L
 
 At approximately 44×25 character cells, eight octopus chains exist numerically but are **not guaranteed to be separately readable**. Prefer density around 1.2 and review the actual viewport; no numerical topology test proves silhouette legibility. Native research described 169 rendered frames, but they were not all regenerated during this integration.
 
-No npm publication, production deployment or merge is included in this review branch. Browser acceptance results, when collected, are recorded in the PR separately from these numerical checks.
+No npm publication, production deployment or merge is included in this review branch. Independent Chrome acceptance on canonical source SHA-256 `607a3814f6407501be3e650506de3eeb4fd82d6f4267dffb19c4bb09d4c07f80` confirmed distinct manta/octopus silhouettes, mixed three-species diagonal scenes, pause-safe React and Reset, reduced-motion startup, mobile 390×844 layout, pointer interaction and the HTTP standalone dark theme, with no observed console errors. The octopus gathering response was visible; the narrow ink-emission window was not captured in that initial browser review. Numerical renderer tests separately verify ink particles and rendered ink glyphs for octopus and zero for manta. Neither eight separately readable arms at low resolution nor a complete visual manta no-ink invariant is claimed. File-protocol offline execution and browser performance measurements were not run.
 
 ## Package-size tradeoff
 
