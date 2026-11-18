@@ -17,8 +17,8 @@ class Page(HTMLParser):
 p=Page(root/'dist/index.html')
 assert len(p.ids)==len(set(p.ids)), 'Duplicate HTML IDs'
 assert len(p.animals)==13
-assert [a['id'] for a in p.animals if a['data-status']=='available']==['cuttlefish']
-assert len([a for a in p.animals if a['data-status']=='planned'])==12
+assert [a['id'] for a in p.animals if a['data-status']=='available']==['cuttlefish','fox']
+assert len([a for a in p.animals if a['data-status']=='planned'])==11
 for link in p.links:
     u=urlsplit(link)
     if u.scheme or u.netloc: continue
