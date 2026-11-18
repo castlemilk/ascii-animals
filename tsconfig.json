@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "lib/public",
+    "rootDir": "src/public",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "skipLibCheck": false,
+    "inlineSources": true
+  },
+  "include": [
+    "src/public/**/*.ts"
+  ]
+}

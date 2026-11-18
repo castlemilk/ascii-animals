@@ -7,3 +7,6 @@ node_modules/
 !.env.example
 .recordings/
 *.webm
+/lib/
+/artifacts/
+*.tgz

@@ -22,216 +22,202 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 | Owl | In development: no released demo yet |
 | Fox | In development: no released demo yet |
 
-The roster is a development plan, not a list of package exports. The TypeScript library is under review in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2), not published to npm. Availability changes only when a reviewed demo is merged and deployed.
+The roster is a development plan, not a list of package exports. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
 
-## Cuttlefish / In the Current
 
-An interactive cuttlefish study built from moving characters. Direct one animal or a small school, send them through the diver’s field of view, let them investigate the lens, and disturb the water to watch them react, spray black ASCII ink, and escape.
+## TypeScript-first artwork API
 
-**Original procedural geometry · Canvas 2D · Perspective depth · No JavaScript dependencies**
+The compiled, strict TypeScript facade exposes all currently supported cuttlefish
+configuration, validates changes atomically, and keeps ownership explicit:
 
+```ts
+import { createArtwork, type ArtworkOptions } from 'ascii-animals-review';
+
+const options = {
+  species: 'cuttlefish', count: 4, formation: 'horizontal',
+  behaviors: ['hover', 'orbit', 'cruise', 'curious'],
+  maxFps: 30, maxDpr: 2, reducedMotion: 'system',
+} satisfies ArtworkOptions;
+const artwork = createArtwork(canvas, options);
+artwork.update({ formation: 'vertical', reverse: true });
+artwork.pause();
+artwork.restart(); // preserves pause
+artwork.play(); // deliberate playback overrides system-initialized pause
+artwork.pulse(); // scene action, never implicitly resumes
+const config = artwork.getOptions(); // immutable independent snapshot
+artwork.dispose(); // call on unmount; safe to repeat
+```
+
+The package remains a **private, unpublished review candidate**, not an npm
+installation claim. Use the local tarball workflow below. Only `cuttlefish` is
+supported; other species are separate work. Existing `CuttlefishArtwork` and
+`createCuttlefish` exports remain compatible. See [the typed API](docs/TYPESCRIPT-API.md).
+
+
+Procedural animals drawn with moving characters, using a framework-neutral Canvas 2D engine. The current implementation is a cuttlefish: a tapered mantle, rippling skirt fins, raised eyes, eight arms, two longer tentacles, and a beak, directed through a fixed diver's view. A school can mix roles and sizes, follow a shared route, and react to disturbances with a character-based ink plume.
+
+**Canvas 2D · zero runtime dependencies · explicit lifecycle · per-animal ESM entry · local review candidate**
+
+## Review status and source
+
+Integration review: see [independently rerun checks and remaining blockers](docs/INTEGRATION-REVIEW.md). The TypeScript foundation is merged. It remains private and is not a released npm package.
 [Open the Cuttlefish study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
-The hosted microsite may require its owner’s ChatGPT sign-in. The source and standalone demo in this repository can be run locally without an account.
+This README accompanies a local package candidate based on [PR #1's import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`](https://github.com/castlemilk/ascii-animals/commit/7e5984d34a139b8de4643f1ed0607897a42d88dc), branch `feat/cuttlefish-microsite-import`. Its imported files match the inspected local site snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; local hosting metadata is excluded from the import. The original `main` read contained only `.gitignore` at `84bd1f84fab0f5f5dec053c0d10562c10be8c188`.
 
-## A little company in the current
+The accessible saved microsite version 4 points to the older source commit `6214a09171fa328beec984edd6533c33e83ce9f1`. Site metadata links it to the supplied [Cuttlefish conversation](https://chatgpt.com/c/6afd2c72-71ec-83ec-b182-835c5e7f86b1), but this review could not read the full conversation or inspect the live runtime. Do not assume the saved site, import branch, and candidate are identical.
 
-![Five ASCII cuttlefish swimming with different sizes and independent behaviors](docs/gifs/school.gif)
+The local package is named `ascii-animals-review@0.0.0-review.0`, with `private: true` and `license: "UNLICENSED"`. It has not been published. A final package name, license, browser support matrix, and visual/performance acceptance remain owner decisions. The microsite, recorder and standalone now use a generated browser-global build of the same canonical `src/` engine. A frozen legacy renderer remains only under `test/fixtures/` for compatibility checks.
 
-Choose **1–12 cuttlefish**, adjust their overall size and size variation, and give individual animals different roles. One can hover while another circles, another crosses the view, and another watches the pointer. Their fins and arms keep their own rhythms.
+[API guide](docs/API.md) · [Architecture](docs/ARCHITECTURE.md) · [Extension guide](docs/EXTENDING.md) · [Release checks](docs/RELEASE.md) · [Backlog drafts](docs/BACKLOG.md)
 
-## Direct the school
+## See the existing cuttlefish
 
-![Cuttlefish following horizontal, vertical, diagonal, and random paths](docs/gifs/formations.gif)
+The imported demo supports a school of 1–12 animals, individual roles, horizontal/vertical/diagonal/random routes, stable size variation, three palettes, glyph/point rendering, and pointer or button-triggered reactions. These GIF assets are retained from the import, whose README describes them as recordings. They are not evidence that the hardened candidate has passed new browser QA.
 
-| Direction | Performance |
+![Imported recording of five cuttlefish with independent behavior](https://raw.githubusercontent.com/castlemilk/ascii-animals/7e5984d34a139b8de4643f1ed0607897a42d88dc/docs/gifs/school.gif)
+
+| Scene / direction | Behavior |
 | --- | --- |
-| Independent | Each animal performs its assigned role. |
-| Horizontal | A procession crosses from left to right. |
-| Vertical | The school travels upward through the view. |
-| Diagonal | The animals cross from bottom left to top right. |
-| Random | Smooth individual routes explore the water. |
+| Swim-by | The original single animal enters quickly, lingers, then leaves. |
+| Close encounter | The original single animal approaches the lens and continues asymmetric arm movement during its hold. |
+| Startle & ink | Eligible animals react, spray, then move away. |
+| Independent school | Each animal uses its assigned or scene-derived role. |
+| Horizontal / vertical / diagonal / random | The selected formation takes precedence over individual roles. |
 
-Reverse the shared direction, spread the animals out, mix small and large bodies, and adjust their pace. Coordinated paths take precedence over individual roles; return to **Independent** to bring those roles back.
+The original solo scenes require one animal, independent formation, and the `'auto'` role. A school has different composition and role selection; increasing population does not reproduce twelve identical solo performances.
 
-## Come closer. Then disturb the water.
-
-![A cuttlefish approaching the lens, moving its arms independently, spraying black ASCII ink, and escaping](docs/gifs/encounter-ink.gif)
-
-With **one cuttlefish**, **Independent** movement, and its role set to **Auto**, the three scenes perform these complete sequences:
-
-| Scene | Behavior |
-| --- | --- |
-| **01 · Swim-by** | A quick entrance, a pause in the current, then a departure. |
-| **02 · Close encounter** | A turn toward the diver, a centered beak, and asymmetric arms that continue reaching, curling, and crawling around the lens. A click starts its escape response. |
-| **03 · Startle & ink** | Nearby repeated mouse movement builds agitation. A click on an animal also triggers its response; empty water stays quiet. |
-
-With a school, **Auto** gives the visitors a mix of scene-appropriate roles. Close encounter sends the lead animal toward the lens while its neighbors continue their own activities; Swim-by mixes passing, hovering, circling, and curious animals. Individual role selections override those automatic assignments. A coordinated formation directs the whole school along its selected paths.
-
-The escape is ordered: **react → spray → move away**. Ink appears as black characters carried by a directional jet, then spreads and drifts in the current. The initial warning lasts 0.34 seconds and emission takes the next 0.60 seconds; these are animation timings, not biological measurements. A deliberate **Startle cuttlefish** control provides a keyboard alternative to pointer interaction.
-
-The GIFs above are recordings of the running renderer. They are captured through the browser’s canvas recording API and converted with FFmpeg.
-
-## Run it
-
-No package installation is needed.
-
-### Open a single file
-
-Download [dist/cuttlefish.html](dist/cuttlefish.html) and open it in a modern browser. It contains the complete artwork, controls, styles, and source viewer. The standalone file works offline with system fonts.
-
-### Work on the source
+Serve the imported demo without installing dependencies:
 
 ```sh
-git clone https://github.com/castlemilk/ascii-animals.git
-cd ascii-animals
 python3 -m http.server 8000 --directory dist
 ```
 
-Open **http://localhost:8000** for the catalogue, or **http://localhost:8000/cuttlefish-demo.html** for the interactive study. Edit the files in `dist/` and refresh the page.
+Open `http://localhost:8000`. The standalone `dist/cuttlefish.html` opens locally without dependencies. Run `npm ci --ignore-scripts` once, then `npm run build` after source changes to generate both ESM package output and the browser-global/standalone demos from canonical `src/`. `python3 scripts/build-standalone.py` remains a compatibility command and invokes the same canonical demo generator. Run `node scripts/build-demo.mjs --check` to reject stale committed output.
 
-After changes to the page, styles, or JavaScript, rebuild the standalone version:
+## Build and try the local library candidate
+
+Use the included source and a local tarball. Do not infer registry availability from these examples.
 
 ```sh
-python3 scripts/build-standalone.py
+npm ci --ignore-scripts
+npm run build
+npm run check:package
+npm pack --dry-run --json --ignore-scripts
+npm pack --json --ignore-scripts
 ```
 
-The hosted page optionally uses Google Fonts, with system fallbacks. The animation itself does not fetch models, images, libraries, or external services.
+After inspecting the tarball, install that local file in a temporary consumer with scripts disabled:
 
-## Controls
+```sh
+npm install --offline --ignore-scripts --no-audit --no-fund \
+  /absolute/path/to/ascii-animals-review-0.0.0-review.0.tgz
+```
 
-![School director with population, size, formation, and artwork controls](docs/cuttlefish-director-preview.jpg)
+An application can import the animal entry:
 
-- **School direction:** population, route, size, size variation, spacing, and reverse direction. Optional labels identify individual animals as **01–12**.
-- **Individual roles:** automatic, cruising, hovering, orbiting, curious, or a close encounter.
-- **Art direction:** Lagoon, Ultraviolet, or Ember; ASCII characters or points; tempo, swimming range, perspective depth, fin ripple, and glyph density.
-- **Interaction:** optional pointer following, per-animal clicks, agitation feedback, and deliberate startle.
-- **Playback and export:** pause/resume, restart, fullscreen, PNG frame capture, actual renderer source, and a complete HTML download.
+```js
+import { createCuttlefish } from 'ascii-animals-review/cuttlefish';
 
-Press **Space** to pause or resume when you are not using a form control. The microsite starts paused when the browser requests reduced motion; press Play to animate. Rendering rests while the tab is hidden. All simulation and interaction run locally in the browser.
+const canvas = document.querySelector('#cuttlefish');
+const artwork = createCuttlefish(canvas, {
+  count: 4,
+  scene: 'reactive',
+  formation: 'independent',
+  behaviors: ['hover', 'orbit', 'cruise', 'curious'],
+  size: 0.7,
+  density: 1.1,
+  paused: true
+});
 
-## Embed the artwork
+document.querySelector('#play').addEventListener('click', () => {
+  artwork.setPaused(false); // Deliberate Play action.
+});
+document.querySelector('#pause').addEventListener('click', () => {
+  artwork.setPaused(true);
+});
+document.querySelector('#startle').addEventListener('click', () => {
+  artwork.pulse(); // Does not silently resume a paused candidate.
+});
 
-Include the renderer and give the canvas an explicit display size:
+// Update an existing instance; preserve ownership of its canvas.
+artwork.setOptions({ formation: 'vertical', reverse: false });
+
+// On component/page teardown:
+// artwork.destroy();
+// Also remove the application's button listeners or use AbortController.
+```
+
+The matching host markup needs an explicit CSS size and an accessible description:
 
 ```html
-<canvas id="cuttlefish" style="width:100%;height:560px"></canvas>
-<script src="artwork.js"></script>
-<script>
-  const artwork = new CuttlefishArtwork(
-    document.getElementById('cuttlefish'),
-    {
-      scene: 'reactive',
-      count: 5,
-      formation: 'independent',
-      size: 0.7,
-      sizeVariation: 0.5,
-      behaviors: ['hover', 'orbit', 'cruise', 'curious', 'cruise'],
-      palette: 'lagoon',
-      speed: 1.05,
-      paused: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    }
-  );
-
-  // Send the whole school upward.
-  artwork.setOptions({ formation: 'vertical', reverse: false });
-
-  // Restore each animal’s individual direction.
-  artwork.setOptions({ formation: 'independent' });
-
-  // Lifecycle and playback.
-  artwork.setPaused(true);
-  artwork.setPaused(false);
-  artwork.restart();
-  // artwork.destroy(); // Remove listeners when unmounting the canvas.
-</script>
+<canvas id="cuttlefish" role="img"
+  aria-label="A school of cuttlefish drawn with luminous characters"
+  style="display:block;width:100%;height:480px"></canvas>
+<button id="play" type="button">Play</button>
+<button id="pause" type="button">Pause</button>
+<button id="startle" type="button">Startle cuttlefish</button>
 ```
 
-### School options
+The engine does not create the application's controls. Decorative use should hide the canvas from assistive technology and avoid pointer/focus obligations. Meaningful artwork needs text explaining its behavior. The visible characters are rasterized glyphs, not selectable terminal text.
 
-| Option | Values | Default |
-| --- | --- | --- |
-| `count` | Integer, `1`–`12` | `4` |
-| `formation` | `independent`, `horizontal`, `vertical`, `diagonal`, `random` | `independent` |
-| `size` | `0.35`–`1.4` | `0.7` |
-| `sizeVariation` | `0`–`1` | `0.45` |
-| `spacing` | `0.65`–`1.6` | `1` |
-| `reverse` | Boolean | `false` |
-| `showLabels` | Boolean; display the animal’s number | `false` |
-| `behaviors` | Per-animal array: `auto`, `cruise`, `hover`, `orbit`, `curious`, `encounter` | Automatic roles |
+## Imports, SSR, and ownership
 
-Other options include `scene` (`swimby`, `encounter`, `reactive`), `palette` (`lagoon`, `ultraviolet`, `ember`), `mode` (`ascii`, `points`), `speed`, `ripple`, `density`, `motion`, `depthStrength`, `followPointer`, `glow`, and `paused`.
+| Import | Contents |
+| --- | --- |
+| `ascii-animals-review/cuttlefish` | `CuttlefishArtwork`, `createCuttlefish`, and cuttlefish types |
+| `ascii-animals-review/core` | `createScheduler` and scheduling types |
+| `ascii-animals-review` | Convenience entry; see its declaration file for exports |
 
-`getStats()` provides frame rate, rendered glyph count, phase, progress, agitation, reaction stage, population, visible population, and per-animal status. `pulse()` provides the same deliberate replay/startle action used by the microsite. `restart()` resets the performance; changing a scene or restarting preserves pause state.
+ESM import is designed to be safe during SSR: importing does not create canvases or access browser globals. Construct an animal only after a browser canvas exists. The candidate does not claim server-side image rendering. There is no React runtime dependency or published React adapter; [the extension guide](docs/EXTENDING.md) includes an explicit draft integration example.
 
-## How it works
+TypeScript root/animal consumers need the `DOM` library for `HTMLCanvasElement`.
+The `./core` declarations also work in a DOM-free TypeScript project.
 
-The cuttlefish is modeled with sampled parametric surfaces: a tapered mantle, rippling fins, a separate head and eyes, eight arms, two longer tentacles, and a two-jaw beak. Traveling waves deform the fins and arms. Close to the lens, each arm follows its own reach, contact, creep, and peel cycle, with curled tips and raised suction cups.
+Eligible automatic instances share a per-window scheduler. Paused, hidden, offscreen, zero-sized, and destroyed instances contribute no automatic frames. `destroy()` is idempotent and removes owned work; host controls and polling remain the host's responsibility. The candidate follows reduced motion by default. An explicitly supplied `paused: false` or a later `setPaused(false)` is deliberate playback intent; choose it with care in host code.
 
-The scene uses a fixed diver’s viewpoint. World-space movement, perspective projection, banking, a fixed light, and distance haze establish volume. A depth buffer keeps the nearest surface sample in each character cell; that sample chooses the glyph, brightness, and material color. A cached glyph atlas and a small glow buffer render the luminous character field.
+The package includes explicit resource limits: default DPR ceiling 2, main-canvas backing-store ceiling 8,294,400 pixels, per-grid ceiling 65,536 cells, and automatic cadence ceiling 60 fps (configurable from 10 to 120). Glyph atlas resolution is bounded separately. These are individual bounds and requested cadence, not a total-memory bound or a promise of 60 fps on every device. Effective quality can be lower on oversized canvases. See [API.md](docs/API.md) for the full option contract and compatibility changes.
 
-The school shares the rendering surface. Each animal has its own position, rhythm, size, role, and reaction state. Clicking an animal targets its visible silhouette. Its neighbors can continue swimming as it reacts and leaves.
+## Controlled stepping
 
-Ink is also made from characters. A timed particle jet aims toward the disturbance, slows, curls into the current, spreads, and fades. Its density determines which black glyphs occupy the ink grid. This is a stylized underwater motion model, not a scientific fluid or anatomical simulation.
+For numerical tests or a controlled browser capture, create with `autoStart: false` and call `advance(dtSeconds)` with a finite duration from 0 to 0.1 seconds:
 
-Performance depends on population, glyph density, viewport, browser, and hardware. Use the visible FPS counter to tune a scene for the device running it.
+```js
+const artwork = createCuttlefish(canvas, { autoStart: false, paused: true });
+artwork.restart();
+for (let frame = 0; frame < 120; frame++) artwork.advance(1 / 60);
+```
 
-## Check the simulation
+An explicit manual step advances while paused. It is not an arbitrary-time seek operation. Repeatability requires the same options, viewport, input sequence, and step sequence. Pixels may differ across browser fonts and rasterizers, and ink integration is not promised to be independent of frame partition.
 
-Run the dependency-free numerical checks with Node.js 18 or newer:
+## Performance and validation
+
+The existing renderer already reuses a geometry buffer, depth-buffer arrays, cached glyph atlases, and grid-sized glow surfaces. The candidate concentrates on lifecycle, bounded resources, packaging, and repeatable measurements. No GPU renderer rewrite is required for this stage.
+
+The imported numerical check remains available:
 
 ```sh
 node scripts/check-engine.cjs
 ```
 
-The checks cover population and size limits, finite projected geometry, per-animal click targeting, ordered reactions, neighboring movement, pause/reset, direction reversal, and the original lens encounter. The GIFs and responsive controls are also checked in a real browser; the numerical harness does not replace visual review.
-
-## Record your own GIFs
-
-With the local server running, open **http://localhost:8000/record.html**. Choose a performance and select **Record**. Keep the tab visible until it downloads its WebM file.
-
-| Preset | Duration | Recorded direction |
-| --- | --- | --- |
-| Mixed company | 8 seconds | Five animals with mixed sizes and roles. |
-| Four directions | 12 seconds | Horizontal, vertical, diagonal, then random, three seconds each. |
-| Close encounter & ink | 12 seconds | Approach, lens exploration, then a startle seven seconds into the recording. |
-
-Install FFmpeg separately, then convert the downloaded clips:
-
-```sh
-bash scripts/make-gifs.sh school.webm docs/gifs/school.gif
-bash scripts/make-gifs.sh formations.webm docs/gifs/formations.gif
-bash scripts/make-gifs.sh encounter-ink.webm docs/gifs/encounter-ink.gif
-```
-
-The script defaults to a 560-pixel-wide, 10 fps looping GIF. Optional third and fourth arguments set width and frame rate:
-
-```sh
-bash scripts/make-gifs.sh school.webm school-small.gif 480 10
-```
-
-WebM capture uses `canvas.captureStream()` and `MediaRecorder`. If those APIs are unavailable, the recording page explains the limitation; they are not required to view the artwork.
+That test uses a stubbed Canvas context. It checks numerical/behavioral conditions; it does not establish visual correctness, real Canvas speed, browser compatibility, or accessibility. The review's verification log records tests actually run, source hashes, fixture/bundler versions, benchmark samples, and acceptance still open. Proposed budgets and calculated memory capacities are labeled separately from measurements. The release guide contains the complete consumer and browser matrix.
 
 ## Project layout
 
-```text
-dist/
-  index.html           Microsite and accessible controls
-  styles.css           Responsive layout and visual design
-  artwork.js           Procedural cuttlefish renderer and simulation
-  app.js               School director, interactions, and exports
-  cuttlefish.html       Generated standalone offline version
-  record.html           Live canvas recording utility
-scripts/
-  build-standalone.py   Rebuild the single-file version
-  make-gifs.sh         Convert actual WebM captures to GIFs
-  check-engine.cjs     Numerical simulation regression checks
-docs/
-  gifs/                Animation recordings used in this README
-```
+| Path | Purpose |
+| --- | --- |
+| `src/animals/cuttlefish.js` | Candidate ESM implementation derived from imported renderer |
+| `src/core/` | Injectable shared scheduling support |
+| `types/` | Public declarations, mirrored into the built package |
+| `lib/` | Generated package files |
+| `fixtures/` | Package consumer, bundler, and type-check inputs |
+| `dist/` | Animal catalogue, hosted Cuttlefish study, generated canonical browser engine and standalone demo |
+| `scripts/` | Build, package checks, original numerical checks, standalone/GIF utilities |
+| `docs/` | API, architecture, extension, release, source references, and backlog drafts |
 
-## Origin
+## Origin and license status
 
+The imported README describes the geometry, motion, renderer, and microsite as original procedural JavaScript inspired by a supplied luminous ASCII jellyfish reference. This review inspected code and provenance metadata, not the original video's licensing chain, and did not copy code or artwork from that video. No LICENSE was present in the inspected import. The candidate retains source attribution and stays `UNLICENSED` until the owner chooses and supplies an appropriate license. No external animal assets, models, or runtime libraries have been introduced.
 This study began with a supplied luminous ASCII jellyfish video credited on screen to **@dwcminh.ascii**. It showed excerpts of a Python file, not a complete source distribution. The cuttlefish geometry, movement, interaction, renderer, and microsite here are independently implemented in JavaScript. The reference video is not included in this repository.
 
 ## Deploy the public demo

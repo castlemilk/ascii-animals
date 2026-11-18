@@ -33,6 +33,9 @@ jobs:
           node --check dist/app.js
           node --check dist/catalogue.js
           python3 scripts/check-catalogue.py
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm test
+          node scripts/check-authoring-bridge.mjs
           node scripts/check-engine.cjs
           python3 scripts/build-standalone.py
           git diff --exit-code -- dist/

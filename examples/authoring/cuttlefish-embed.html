@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cuttlefish authoring example</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #14231e; background: #f3f7f4; }
+    body { max-width: 64rem; margin: auto; padding: 1.5rem; line-height: 1.55; }
+    h1 { line-height: 1.15; }
+    canvas { display: block; width: 100%; height: clamp(18rem, 60vh, 36rem); background: #080d0f; border: 1px solid #4c6256; border-radius: .5rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin: 1rem 0; }
+    button, select { font: inherit; padding: .6rem .9rem; border: 1px solid #506357; border-radius: .3rem; color: inherit; background: white; }
+    button:disabled { opacity: .55; }
+    :focus-visible { outline: 3px solid #065dce; outline-offset: 3px; }
+    #state { min-height: 1.6rem; }
+    code { overflow-wrap: anywhere; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Embed the existing cuttlefish</h1>
+    <p id="description">A procedural cuttlefish swims and reacts in a canvas. The artwork starts still. Use Play to request animation, Pause to stop, or Startle for a deliberate reaction while it is running.</p>
+    <canvas id="animal" role="img" aria-label="A procedural ASCII cuttlefish in underwater light" aria-describedby="description motion-policy">Your browser needs Canvas 2D to display the artwork. The controls below describe its playback state.</canvas>
+    <div class="controls" role="group" aria-label="Animation controls">
+      <button id="play" type="button">Play</button>
+      <button id="pause" type="button" disabled>Pause</button>
+      <button id="restart" type="button">Restart</button>
+      <button id="pulse" type="button" disabled>Startle</button>
+      <label for="formation">Movement</label>
+      <select id="formation">
+        <option value="independent">Independent</option>
+        <option value="horizontal">Horizontal</option>
+        <option value="vertical">Vertical</option>
+        <option value="diagonal">Diagonal</option>
+        <option value="random">Random</option>
+      </select>
+      <button id="inspect" type="button">Inspect current status</button>
+    </div>
+    <p id="state" role="status" aria-live="polite">Preparing the still artwork…</p>
+    <p id="inspection" aria-live="polite"></p>
+    <p id="motion-policy">Animation stays paused while reduced motion is requested, the page is hidden, the canvas is outside the viewport, or its display size is zero. A Play request remains remembered until Pause; it resumes when all those conditions clear.</p>
+    <p>This review example uses the existing browser renderer. Its internal frame callback remains scheduled while paused. The adapter adds no animation loop or status polling. Browser and assistive-technology acceptance are still required.</p>
+  </main>
+  <script src="../../dist/artwork.js"></script>
+  <script type="module">
+    import {createLegacyCuttlefishController} from './legacy-controller.mjs';
+    const $ = id => document.getElementById(id);
+    const listeners = new AbortController();
+    const reasonNames = {
+      'user-paused': 'you have paused', 'reduced-motion': 'reduced motion is requested',
+      hidden: 'the page is hidden', offscreen: 'the canvas is outside the viewport or awaiting observation',
+      'zero-size': 'the canvas has no display size', destroyed: 'the example has been closed',
+    };
+    let controller;
+    try {
+      controller = createLegacyCuttlefishController($('animal'), {
+        Artwork: window.CuttlefishArtwork,
+        options: {scene: 'reactive', count: 1, formation: 'independent', size: .85, palette: 'lagoon'},
+        onStateChange(state) {
+          $('play').disabled = state.requestedPlay || state.disposed;
+          $('pause').disabled = !state.requestedPlay || state.disposed;
+          $('pulse').disabled = !state.running;
+          $('state').textContent = state.running ? 'Animation is running.'
+            : 'Still artwork: ' + state.blockedBy.map(reason => reasonNames[reason]).join('; ') + '.';
+        },
+      });
+      const on = (target, event, listener) => target.addEventListener(event, listener, {signal: listeners.signal});
+      on($('play'), 'click', () => controller.play());
+      on($('pause'), 'click', () => controller.pause());
+      on($('restart'), 'click', () => {controller.restart(); $('inspection').textContent = 'The scene was restarted; playback policy is unchanged.';});
+      on($('pulse'), 'click', () => {controller.pulse();});
+      on($('formation'), 'change', event => controller.setOptions({formation: event.target.value}));
+      on($('inspect'), 'click', () => {
+        const stats = controller.getStats();
+        $('inspection').textContent = `${stats.count} in the school; ${stats.visibleCount} visible. Phase: ${stats.phase}. Reaction stage: ${stats.reactionStage}.`;
+      });
+      on(window, 'pagehide', event => {
+        // A bfcache page stays mounted; visibility policy handles its suspension.
+        if (event.persisted) return;
+        listeners.abort();
+        controller.destroy();
+      });
+    } catch (error) {
+      listeners.abort();
+      controller?.destroy();
+      for (const control of document.querySelectorAll('button, select')) control.disabled = true;
+      $('state').textContent = 'This example could not start: ' + error.message;
+    }
+  </script>
+</body>
+</html>

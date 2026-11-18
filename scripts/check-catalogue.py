@@ -26,7 +26,7 @@ for link in p.links:
         if u.fragment: assert u.fragment in p.ids, link
     else: assert (root/'dist'/u.path).is_file(), link
 assert 'artwork.js' not in p.links, 'Catalogue must not initialize a species renderer'
-assert 'cuttlefish-demo.html' in (root/'scripts/build-standalone.py').read_text()
+assert 'cuttlefish-demo.html' in (root/'scripts/build-demo.mjs').read_text()
 assert 'id="school-director"' in (root/'dist/cuttlefish-demo.html').read_text()
 assert 'data-standalone="true"' in (root/'dist/cuttlefish.html').read_text()
 assert '<script src=' not in (root/'dist/cuttlefish.html').read_text()
