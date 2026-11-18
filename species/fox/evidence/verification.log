@@ -1,0 +1,207 @@
+Fox verification / Node v24.22.1
+Base 0e446c47b491b751d484e40db753ec725652b515
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/typescript/bin/tsc -p tsconfig.json
+
+
+exit 0
+Generated JS/declarations match source rebuild.
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/typescript/bin/tsc -p tsconfig.types.json
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node --test tests/browser.test.mjs tests/model.test.mjs tests/preview.test.mjs
+✔ SSR import and one live mount own one bounded frame loop; dispose twice releases all mock resources (47.70146ms)
+✔ pointer storms coalesce to latest CSS-normalized guide plus one pounce, independent of DPR (15.621258ms)
+✔ pause drops pending actions, reset/configuration preserve pause, resume records a policy leave (21.545037ms)
+✔ reduced motion keeps a static specimen: deliberate guide/pounce work without ticks or RAF (24.975376ms)
+✔ hidden, offscreen and zero-size causes compose; old callbacks do not advance after resubscription (10.181243ms)
+✔ long stalls are bounded to five ticks and discarded elapsed time is reported (6.504812ms)
+✔ leave, cancel and lost capture discard queued pounces and clear active guidance (16.902946ms)
+✔ invalid configuration/input is atomic and does not dispose a working controller (2.609236ms)
+✔ failed setup and unsupported Canvas roll back all owned listeners and observers (0.661948ms)
+✔ consumer callback errors stop the instance and release resources (2.394104ms)
+✔ multiple mounts share a borrowed scheduler without disposing it or each other (9.357514ms)
+✔ repeated mount/dispose and bounded DPR/size preserve output and do not retain mock resources (36.780764ms)
+✔ species descriptor, documented defaults and neutral state are explicit (9.66648ms)
+✔ all finite configuration limits accept endpoints and reject excess atomically (4.324611ms)
+✔ seed is uint32 and playback policy is a boolean (1.13913ms)
+✔ tick is exactly the next safe integer; failed steps leave state untouched (1.374376ms)
+✔ a whole input batch is validated before guide or pounce can take effect (2.574288ms)
+✔ normalized guidance clamps finite coordinates and honors ordered leave/guide (0.490873ms)
+✔ pointer normalization uses CSS bounds, handles edges, and rejects unusable input (0.819743ms)
+✔ paused steps validate but consume neither ticks nor events, and reset preserves pause (0.50056ms)
+✔ pounce completes every authored phase and rejects repeated requests until cooldown ends (35.560952ms)
+✔ active response captures configuration; updates cannot redirect or retime the leap (1.58286ms)
+✔ morphology updated during a response takes effect without leaving old facing/scale paws (2.564687ms)
+✔ forepaws reach the ground before hindpaws during the landing pose (0.423525ms)
+✔ stance feet stay planted while the root stalks; four legs have independent swing times (2.016174ms)
+✔ idle appendages move independently while the root and planted paws stay still (1.828587ms)
+✔ same seed/options/event log survive presentation grouping at 1, 2 and 5 ticks (1222.183788ms)
+✔ seeds and instances are independent, and reset reproduces its own initial replay (1.454408ms)
+✔ pose sampling is pure and public snapshots cannot corrupt later simulation (5.29817ms)
+✔ all behavior phases and extreme supported configurations retain bounded attached geometry (854.759666ms)
+✔ prolonged guide reversals retain bounded connected legs without stale foot growth (569.453176ms)
+✔ static alternatives are reproducible and left/right poses preserve the silhouette anchors (4.094835ms)
+✔ ASCII grids obey exact declared cell limits and work at minimum/default/maximum sizes (23.592884ms)
+✔ dispose is repeatable and every other model operation rejects use after release (0.855749ms)
+✔ small visible landmarks stay single cells across supported profiles and response phases (573.802458ms)
+✔ arbitrary Canvas rectangles fit a 1:2 cell grid without stretching or clipping (6.906689ms)
+✔ raster bounds reject invalid geometry before allocating output (1.60967ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2962.574168
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node --check demo/demo.js
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node --check scripts/render-evidence.mjs
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node --check scripts/browser-smoke.mjs
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/check-engine.cjs
+Geometry passed {"cases":60,"samples":4663240,"maxSamples":23764,"minNear":0.6553875562328777}
+{
+  "geometry": {
+    "cases": 60,
+    "samples": 4748048,
+    "maxSamples": 23764,
+    "minNear": 0.6553875562328777,
+    "clipped": 0,
+    "bad": 0
+  },
+  "targetedClick": {
+    "id": 2,
+    "sequence": [
+      "react",
+      "spray",
+      "escape",
+      "recover",
+      "idle"
+    ],
+    "firstInk": 0.35000000000000125,
+    "firstEscape": 0.9500000000000032,
+    "maxSprayTravel": 0.04500000000000011,
+    "neighborAdvanced": 9.166666666666561
+  },
+  "pauseRestart": "passed",
+  "directions": [
+    {
+      "formation": "horizontal",
+      "reverse": false,
+      "delta": [
+        0.04056251076739059,
+        0,
+        0
+      ]
+    },
+    {
+      "formation": "horizontal",
+      "reverse": true,
+      "delta": [
+        -0.04056251076738704,
+        0,
+        0
+      ]
+    },
+    {
+      "formation": "vertical",
+      "reverse": false,
+      "delta": [
+        0,
+        -0.040562510767394144,
+        0
+      ]
+    },
+    {
+      "formation": "vertical",
+      "reverse": true,
+      "delta": [
+        0,
+        0.04056251076739237,
+        0
+      ]
+    },
+    {
+      "formation": "diagonal",
+      "reverse": false,
+      "delta": [
+        0.028682026425576712,
+        -0.028682026425576712,
+        0
+      ]
+    },
+    {
+      "formation": "diagonal",
+      "reverse": true,
+      "delta": [
+        -0.02868202642557449,
+        0.02868202642557449,
+        0
+      ]
+    },
+    {
+      "formation": "random",
+      "reverse": false,
+      "delta": [
+        0.021855790349431192,
+        0.013345249409940307,
+        0.003877614402798546
+      ]
+    },
+    {
+      "formation": "random",
+      "reverse": true,
+      "delta": [
+        -0.021855790349431192,
+        -0.013345249409940307,
+        -0.003877614402798546
+      ]
+    }
+  ],
+  "encounterHold": "passed"
+}
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node --check dist/artwork.js
+
+
+exit 0
+
+$ /opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node --check dist/app.js
+
+
+exit 0
+
+$ python3 scripts/build-standalone.py
+Built dist/cuttlefish.html (145,266 bytes)
+
+
+exit 0
+
+$ git diff --exit-code -- dist/
+
+
+exit 0
+
+PASS: fox/core/type/mock/preview checks and applicable existing regressions. Browser gate is separate.

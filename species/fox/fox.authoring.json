@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "id": "fox-v1",
+  "status": "reference-implemented",
+  "source": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "0e446c47b491b751d484e40db753ec725652b515",
+    "relationship": "original-reference",
+    "inspectedFiles": [
+      "dist/artwork.js",
+      "dist/app.js",
+      "scripts/check-engine.cjs",
+      "README.md"
+    ]
+  },
+  "representation": {
+    "kind": "ascii-grid",
+    "glyphs": " .:-=+*#%@o",
+    "fontStrategy": "system",
+    "fonts": [
+      "ui-monospace",
+      "SFMono-Regular",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ],
+    "fontProvenance": "Host-installed faces only; no bundled font. Logical cells deterministic, pixels/font metrics environment-specific."
+  },
+  "anatomy": {
+    "classification": "stylized",
+    "anchors": [
+      "Two pointed ears and long wedge muzzle",
+      "Four articulated legs with separately planted paws",
+      "Broad bushy tail with tapered light tip"
+    ],
+    "parts": [
+      {
+        "name": "body",
+        "parent": "scene",
+        "motion": "Bounded root stalk and short arcing pounce, independent breathing"
+      },
+      {
+        "name": "head",
+        "parent": "body",
+        "motion": "Bounded sniff, shoulder overlap"
+      },
+      {
+        "name": "ears",
+        "parent": "head",
+        "motion": "Two original triangles with controlled asymmetry"
+      },
+      {
+        "name": "muzzle",
+        "parent": "head",
+        "motion": "Attached long wedge and pointed nose"
+      },
+      {
+        "name": "legs",
+        "parent": "body",
+        "motion": "Four attached joint chains, independent swing phases, forepaw-first landing"
+      },
+      {
+        "name": "tail",
+        "parent": "body",
+        "motion": "Attached tapered curve, independent idle wave and counterbalance"
+      }
+    ],
+    "views": [
+      "Right side profile",
+      "Left side profile; front and continuous yaw unsupported"
+    ]
+  },
+  "motion": {
+    "tickRate": 60,
+    "seed": 17,
+    "phases": [
+      {
+        "name": "idle",
+        "durationTicks": 0,
+        "transition": "Guide or deliberate pounce"
+      },
+      {
+        "name": "stalk",
+        "durationTicks": 0,
+        "transition": "Approach finite target; close distance enters sniff"
+      },
+      {
+        "name": "sniff",
+        "durationTicks": 0,
+        "transition": "Hold target with bounded muzzle dip"
+      },
+      {
+        "name": "crouch",
+        "durationTicks": 24,
+        "transition": "Capture plan; compress before leap"
+      },
+      {
+        "name": "airborne",
+        "durationTicks": 36,
+        "transition": "Short eased horizontal travel and parabolic arc"
+      },
+      {
+        "name": "landing",
+        "durationTicks": 12,
+        "transition": "Forepaws contact before hindfeet"
+      },
+      {
+        "name": "recover",
+        "durationTicks": 36,
+        "transition": "Ease back to neutral"
+      },
+      {
+        "name": "cooldown",
+        "durationTicks": 72,
+        "transition": "Ignore repeated reaction, then idle/approach"
+      }
+    ],
+    "replayGuarantee": "Same implementation/runtime/options/seed and ordered integer tick log gives identical state and logical cells regardless of render grouping. No cross-font/cross-engine pixels claim."
+  },
+  "interaction": {
+    "pointer": "CSS rect normalized to [-1,1], finite coordinates clamp, zero-size returns null, guide coalesces; tap guides rather than implicit hit-target pounce.",
+    "keyboard": "Native Guide select/buttons plus Pounce, Pause, Reset; no global key interception.",
+    "touch": "Native controls; no hover dependence or touch scrolling suppression.",
+    "precedence": "Motion policy wins. Ordered guide/leave inputs; at most one pounce per tick. Busy/cooldown triggers ignored, never queued; reduced-motion explicit action selects one static pose.",
+    "eventsPerTick": 16
+  },
+  "accessibility": {
+    "description": "A side-profile fox with pointed ears, long muzzle, four narrow legs and a bushy tail. It stalks, sniffs and makes a deliberate short pounce.",
+    "reducedMotion": "Static poster; deliberate guide/pounce chooses a single static pose. No automatic tick or pointer-driven playback.",
+    "pause": "User pause persists across reset/configuration. Hidden, offscreen, zero-size and reduced-motion causes compose.",
+    "liveRegion": "User action summaries only; no per-frame/glyph announcements."
+  },
+  "resources": {
+    "scope": "implemented-reference",
+    "animals": 1,
+    "samplesPerAnimal": 1024,
+    "cols": 160,
+    "rows": 64,
+    "dpr": 2,
+    "maxCatchUp": 5,
+    "particles": 0
+  },
+  "provenance": [
+    {
+      "kind": "original",
+      "source": "Original fox polygons, articulated chains and simulation authored in species/fox; user supplied anatomical anchors.",
+      "rights": "No copied ASCII art, animal geometry, ray engine or third-party implementation. Owner retains repository licensing decision.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "Main 0e446c47b491b751d484e40db753ec725652b515 and draft PR2 e7c16104a1e90c8650f7d3e09cdb1124d0321308.",
+      "rights": "Read for actual API boundaries; no shared files modified.",
+      "copied": false
+    },
+    {
+      "kind": "font",
+      "source": "Host system monospace fallback.",
+      "rights": "No font binary redistributed.",
+      "copied": false
+    }
+  ],
+  "acceptance": [
+    {
+      "gate": "Authoring structure",
+      "status": "pass",
+      "evidence": "Pinned skill validator accepts this record; checker regressions 8/8. Meaning/rights are separately reviewed."
+    },
+    {
+      "gate": "Core model and TypeScript API",
+      "status": "pass",
+      "evidence": "22 model tests and strict TypeScript positive/16 expected-error probes pass; see evidence/verification.log."
+    },
+    {
+      "gate": "Browser lifecycle bookkeeping",
+      "status": "pass",
+      "evidence": "12 DOM/Canvas/RAF/observer mock tests pass. These are not real-browser checks."
+    },
+    {
+      "gate": "Grid landmarks and aspect",
+      "status": "pass",
+      "evidence": "3 preview tests pass, including single landmarks, identical color/neutral occupancy and fixed 1:2 cells."
+    },
+    {
+      "gate": "Native rendered recognition/pose critique",
+      "status": "pass",
+      "evidence": "Actual native PNGs/contact sheet reviewed independently before and after facial correction. Minimum-grid hind joints remain compressed; four paws/anchors readable. See REVIEW.md."
+    },
+    {
+      "gate": "Real browser",
+      "status": "blocked",
+      "evidence": "Existing Chromium aborted before page launch with socket()/ptrace Operation not permitted. scripts/browser-smoke.mjs exit1; evidence/browser-smoke.log."
+    },
+    {
+      "gate": "Normal-speed playback and target-device timing/heap",
+      "status": "untested",
+      "evidence": "GIF rendered from actual frames; stills and ordered contact sheet inspected. Playback/device/accessibility/heap gates not run."
+    },
+    {
+      "gate": "Existing Cuttlefish regressions",
+      "status": "pass",
+      "evidence": "Unchanged numerical harness, artwork/page syntax and standalone regeneration pass; dist diff clean."
+    },
+    {
+      "gate": "Central renderer/package/catalogue integration",
+      "status": "proposed",
+      "evidence": "PR2 at 8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1 still has only a cuttlefish facade; scheduler structural compatibility verified. Coordinator owns shared extension and exports."
+    }
+  ]
+}
