@@ -2,7 +2,23 @@
 
 An original perched owl built from analytic geometry and printable characters. Move the pointer or use **Guide** for bounded head attention. **Invite a reaction** gives a blink, a fine feather ruffle, a controlled wing stretch, recovery and cooldown. The feet stay planted.
 
-**TypeScript source first. Integrated private review candidate.** The explicit `ascii-animals/owl` package factory and generated `dist/owl/` demo now wrap this original source. See [current integration API/evidence](../../docs/OWL-API.md). Historical authoring evidence below remains separately labelled. The shared Cuttlefish renderer is unchanged.
+**TypeScript source first. Integrated private review candidate.** The explicit `ascii-animals-review/owl` package factory and generated `dist/owl/` demo wrap this original source. See [current integration API/evidence](../../docs/OWL-API.md). Historical authoring evidence below remains separately labelled. The shared Cuttlefish renderer is unchanged.
+
+## Twilight director / The night shift
+
+The current demo adds three authored scenes, one or two stable Owl identities,
+perch composition, different dispositions, targeted cues and deliberate still
+poses. Existing consumers retain the original solo behavior unless they supply
+the optional `director` configuration. The renderer remains DOM text over this
+same original Owl geometry.
+
+Read the [director API and typed example](../../docs/OWL-API.md#optional-twilight-director),
+[pre-code brief](DIRECTOR-BRIEF.md), [independent closing review](DIRECTOR-REVIEW.md),
+and [current validation and remaining gates](DIRECTOR-VALIDATION.md).
+The [new scene contact sheet](evidence/director/director-contact-sheet.png) and
+[Last light replay](evidence/director/roost.gif) show executed ASCII output,
+rasterized with Pillow. They are not native-browser recordings. The original
+single-Owl evidence below is retained as historical provenance.
 
 ![Executed owl glyph replay, rasterized with Pillow; not a browser recording](evidence/owl-replay.gif)
 

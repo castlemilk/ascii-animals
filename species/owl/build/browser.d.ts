@@ -1,3 +1,4 @@
+import type { OwlDirectorOptions, OwlDirectorState, OwlDirectorCue } from './director.js';
 import type { OwlGrid, OwlGridOptions, OwlOptions, OwlOptionsPatch, OwlPoster, OwlState } from './types.js';
 /** Structural subset of the merged scheduler; the host retains source ownership. */
 export interface OwlFrameSource {
@@ -18,6 +19,8 @@ export type OwlBrowserStatus = Readonly<{
     frames: number;
     cols: number;
     rows: number;
+    /** Displayed scene, including deliberate still poses; null for the original solo host. */
+    director: OwlDirectorState | null;
     /** Optional observers have window-event fallbacks, not per-frame polling. */
     capabilities: Readonly<{
         resizeObserver: boolean;
@@ -40,6 +43,8 @@ export type OwlBrowserGridOptions = Readonly<Omit<OwlGridOptions, 'cellAspect'> 
 }>;
 export type OwlBrowserOptions = Readonly<{
     owl?: OwlOptions;
+    /** Opt in to authored scene direction; omission preserves the original solo contract. */
+    director?: OwlDirectorOptions;
     /** Omitted: 64×36 in a narrow host, 96×54 otherwise. Explicit grids are retained. */
     grid?: OwlBrowserGridOptions;
     paused?: boolean;
@@ -59,11 +64,17 @@ export type OwlBrowserSnapshot = Readonly<{
     /** State used for the visible grid; may be a display-only reduced-motion pose. */
     displayed: OwlState;
     grid: OwlGrid;
+    /** Displayed director scene; getDirectorSnapshot() separately returns its simulation. */
+    director: OwlDirectorState | null;
 }>;
 export interface OwlBrowserController {
     setPaused(paused: boolean): void;
     react(): OwlActionResult;
-    guide(x: number, y: number): OwlActionResult;
+    /** Actor-local [-1,1] attention; the director's omitted target is Ash (0). */
+    guide(x: number, y: number, target?: 0 | 1): OwlActionResult;
+    cue(cue: OwlDirectorCue): OwlActionResult;
+    updateDirector(patch: OwlDirectorOptions): void;
+    getDirectorSnapshot(): OwlDirectorState | null;
     leave(): void;
     reset(seed?: number): void;
     update(patch: OwlOptionsPatch): void;
@@ -74,8 +85,8 @@ export interface OwlBrowserController {
     dispose(): void;
 }
 /**
- * Owl-only DOM-text preview. This is a local integration proposal, not a package
- * renderer. It owns its element/listeners/subscription and never a shared clock.
+ * Integrated Owl DOM-text host. Optional direction keeps its composition inside
+ * the same owned element/subscription; it never owns a borrowed shared clock.
  * Missing matchMedia/RAF yields a useful static preview. Observer fallbacks use
  * window resize/scroll plus measurements on explicit actions.
  */

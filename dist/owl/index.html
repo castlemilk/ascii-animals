@@ -4,103 +4,126 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="An original perched owl made of moving text. A local TypeScript species study with bounded attention and accessible controls.">
-  <title>Owl — The night watch</title>
+  <meta name="description" content="Direct a twilight owl scene in living text. Two distinct personalities, a listening duet, and a quiet return to the roost.">
+  <title>Owl — The night shift</title>
   <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body data-scene="lookout">
   <main>
     <header class="masthead">
       <a class="wordmark" href="../index.html">ASCII ANIMALS <span>/ FIELD NOTES</span></a>
-      <span class="edition">OWL STUDY <span class="dot" aria-hidden="true"></span> 01</span>
+      <span class="edition">OWL <span class="edition-mark" aria-hidden="true"></span> AFTER HOURS</span>
     </header>
 
     <section class="intro" aria-labelledby="title">
-      <div>
-        <p class="eyebrow">A quiet observer</p>
-        <h1 id="title">The night watch<span>.</span></h1>
-      </div>
-      <p class="intro-copy">Move gently through its field of view. The head attends;<br class="wide-only"> the feet stay planted. Invite a reaction, then let it settle.</p>
+      <div><p class="eyebrow">A study in shared attention</p><h1 id="title">The night shift<span>.</span></h1></div>
+      <p class="intro-copy">A rustle below. An answer across the branch.<br class="wide-only"> Give two small lives a scene, then let it unfold.</p>
     </section>
 
-    <section class="study" aria-label="Interactive owl study">
-      <div class="stage-panel">
-        <div class="stage-heading">
-          <span><span class="status-dot" aria-hidden="true"></span> <span id="mode">Preparing the study</span></span>
-          <span id="behavior" aria-live="off">Resting</span>
-        </div>
-        <div id="owl-host" class="owl-host" aria-describedby="interaction-help">
-          <p id="fallback" class="fallback">A broad-faced owl with two eyes, folded wings and two feet rests on a branch. The text preview loads here. If scripting is unavailable, this description remains.</p>
-        </div>
-        <div class="stage-footer">
-          <span>ORIGINAL PROCEDURAL TEXT</span>
-          <span id="grid-label">96 × 54 CELLS</span>
-        </div>
-      </div>
+    <div class="scene-choices" role="group" aria-label="Choose an authored owl scene">
+      <button class="scene-choice selected" data-scene="lookout" type="button" aria-pressed="true">
+        <span class="scene-kicker"><span>01 / WATCH</span><span class="scene-mark watch-mark" aria-hidden="true"></span></span>
+        <span class="scene-title">Twilight lookout</span>
+        <span class="scene-copy">Survey the treeline. Notice a sound. Settle together.</span>
+        <span class="scene-cast">Ash, the sentinel · Ember, the curious one</span>
+      </button>
+      <button class="scene-choice" data-scene="duet" type="button" aria-pressed="false">
+        <span class="scene-kicker"><span>02 / ANSWER</span><span class="scene-mark duet-mark" aria-hidden="true"></span></span>
+        <span class="scene-title">Call &amp; answer</span>
+        <span class="scene-copy">One turns. The other answers. Attention crosses the perch.</span>
+        <span class="scene-cast">Two voices · A little distance between them</span>
+      </button>
+      <button class="scene-choice" data-scene="roost" type="button" aria-pressed="false">
+        <span class="scene-kicker"><span>03 / REST</span><span class="scene-mark roost-mark" aria-hidden="true"></span></span>
+        <span class="scene-title">Last light</span>
+        <span class="scene-copy">A last look, a feather stretch, then heavy eyelids.</span>
+        <span class="scene-cast">A drowsy companion · Someone keeps watch</span>
+      </button>
+    </div>
 
-      <aside class="director" aria-labelledby="director-title">
-        <p class="eyebrow">One animal, your attention</p>
-        <h2 id="director-title">Meet the owl.</h2>
-        <p id="interaction-help" class="help">Pointer movement guides the head. Use the controls for the same experience with a keyboard or touch.</p>
-
-        <div class="main-actions">
-          <button id="react" class="primary" type="button">Invite a reaction <span aria-hidden="true">↗</span></button>
-          <div class="playback">
-            <button id="pause" type="button" aria-pressed="false">Pause</button>
-            <button id="reset" type="button">Reset</button>
+    <section class="study" aria-label="Interactive twilight owl scene">
+      <div class="scene-column">
+        <div class="stage-panel">
+          <div class="stage-heading">
+            <span class="stage-mode"><span class="status-dot" id="status-dot" aria-hidden="true"></span><span id="mode">PREPARING</span><span class="heading-separator" aria-hidden="true">/</span><span id="cast-label">TWO OWLS</span></span>
+            <span id="behavior" aria-live="off">Surveying the treeline</span>
+          </div>
+          <div id="owl-host" class="owl-host" tabindex="0" aria-label="Interactive owl scene" aria-describedby="interaction-help keyboard-help">
+            <p id="fallback" class="fallback">Ash and Ember are round-faced owls with folded wings and planted feet. One watches the treeline while the other listens. Their live text scene appears here.</p>
+          </div>
+          <div class="stage-caption">
+            <span class="caption-symbol" aria-hidden="true">+</span>
+            <p id="scene-hint">Move gently to meet a gaze. Tap an owl to rustle its perch.</p>
+          </div>
+          <div class="stage-footer">
+            <div class="playback">
+              <button id="pause" type="button" aria-pressed="false"><span id="pause-symbol" aria-hidden="true">Ⅱ</span><span id="pause-label">Pause</span></button>
+              <button id="reset" type="button"><span aria-hidden="true">↺</span> Restart scene</button>
+            </div>
+            <span id="grid-label">LIVE TEXT</span>
           </div>
         </div>
 
-        <div class="control">
-          <label for="guide">Guide its attention</label>
-          <select id="guide">
-            <option value="rest">Return to rest</option>
-            <option value="left">Look left</option>
-            <option value="right">Look right</option>
-            <option value="up">Look up</option>
-            <option value="down">Look down</option>
-          </select>
-        </div>
-        <div class="control">
-          <label for="detail">Text detail</label>
-          <select id="detail">
-            <option value="64">Small · 64 × 36</option>
-            <option value="96" selected>Standard · 96 × 54</option>
-            <option value="128">Fine · 128 × 72</option>
-            <option value="160">Maximum · 160 × 90</option>
-          </select>
-        </div>
-        <div class="control range-control">
-          <label for="head-limit">Head movement <output for="head-limit" id="head-value">34°</output></label>
-          <input id="head-limit" type="range" min="12" max="45" value="34" step="1">
-        </div>
-        <div class="control range-control">
-          <label for="reaction">Reaction strength <output for="reaction" id="reaction-value">80%</output></label>
-          <input id="reaction" type="range" min="0" max="100" value="80" step="5">
+        <div class="arc-heading"><span class="eyebrow">The scene unfolds</span><span id="phase-counter">01 / 04</span></div>
+        <ol class="scene-arc" id="scene-arc" aria-label="Current scene phases" aria-live="off">
+          <li class="current" data-phase-index="0" aria-current="step"><span class="arc-number">01</span><span class="arc-label">Survey</span></li>
+          <li data-phase-index="1"><span class="arc-number">02</span><span class="arc-label">Listen</span></li>
+          <li data-phase-index="2"><span class="arc-number">03</span><span class="arc-label">Alert</span></li>
+          <li data-phase-index="3"><span class="arc-number">04</span><span class="arc-label">Settle</span></li>
+        </ol>
+        <p id="scene-description" class="scene-description">Ash scans the horizon. Ember is quicker to follow a small sound. Their attention gathers, then opens out again.</p>
+
+        <section class="cast-panel" aria-labelledby="cast-title">
+          <div class="section-heading"><div><p class="eyebrow">Different lives, one perch</p><h2 id="cast-title">The company.</h2></div><div class="cast-count" role="group" aria-label="Number of owls"><button type="button" data-count="1" aria-pressed="false">Solo</button><button type="button" data-count="2" aria-pressed="true" class="selected">Duet</button></div></div>
+          <div class="cast-cards">
+            <article class="role-card" id="ash-card"><div class="role-heading"><span class="member-index">01</span><h3>Ash</h3><span class="member-position">FIRST PERCH</span></div><label for="role-0">Disposition</label><select id="role-0" data-role="0"><option value="sentinel">Sentinel · keeps watch</option><option value="curious">Curious · follows a sound</option><option value="dreamer">Dreamer · slow to stir</option></select><p class="member-intent" id="intent-0" aria-live="off">Surveying the treeline</p></article>
+            <article class="role-card" id="ember-card"><div class="role-heading"><span class="member-index">02</span><h3>Ember</h3><span class="member-position">SECOND PERCH</span></div><label for="role-1">Disposition</label><select id="role-1" data-role="1"><option value="sentinel">Sentinel · keeps watch</option><option value="curious" selected>Curious · follows a sound</option><option value="dreamer">Dreamer · slow to stir</option></select><p class="member-intent" id="intent-1" aria-live="off">Listening nearby</p></article>
+          </div>
+          <p id="cast-note" class="field-note">Changing a disposition changes who notices, who follows, and who takes their time.</p>
+        </section>
+      </div>
+
+      <aside class="director" aria-labelledby="director-title">
+        <p class="eyebrow">The twilight director</p><h2 id="director-title">Give them a reason<br>to look.</h2>
+        <p id="interaction-help" class="help">Gentle movement holds a gaze. A rustle invites listening; a call invites an answer. Each owl keeps its own pace.</p>
+
+        <div class="control"><label for="target">Speak to</label><select id="target"><option value="0">Ash · first perch</option><option id="target-ember" value="1">Ember · second perch</option></select></div>
+        <div class="cue-actions" role="group" aria-label="Give the selected owl a cue">
+          <button id="rustle" class="primary" type="button"><span><strong>Rustle the leaves</strong><small>A focused listen, then recovery</small></span><span class="button-symbol" aria-hidden="true">↗</span></button>
+          <button id="call" type="button"><span class="cue-symbol" aria-hidden="true">⌁</span><span>Call across the perch</span></button>
+          <button id="stretch" type="button"><span class="cue-symbol" aria-hidden="true">↔</span><span>Invite a wing stretch</span></button>
         </div>
 
-        <p id="policy" class="policy">The wings stay folded between reactions.</p>
-        <button id="download" class="text-button" type="button">Download this text frame <span aria-hidden="true">↓</span></button>
+        <fieldset class="guide-control"><legend>Guide a gaze <span>or use the arrow keys</span></legend><div class="guide-pad"><button data-guide="left" type="button" aria-label="Guide gaze left">←</button><button data-guide="up" type="button" aria-label="Guide gaze up">↑</button><button data-guide="down" type="button" aria-label="Guide gaze down">↓</button><button data-guide="right" type="button" aria-label="Guide gaze right">→</button></div><button id="release" class="release-button" type="button">Let attention wander</button></fieldset>
+        <p id="keyboard-help" class="keyboard-help">Focus the scene: arrows guide · Enter rustles · C calls · S stretches · Space pauses · Esc releases.</p>
+
+        <div class="director-divider"></div>
+        <div class="control"><label for="layout">Perch composition</label><select id="layout"><option value="bough">Shared bough · a broad view</option><option value="split">Split branches · call &amp; answer</option><option value="close">Close company · a quiet roost</option></select><p id="layout-help" class="control-note">Where they sit changes how their attention meets.</p></div>
+        <div class="control range-control"><label for="tempo">Scene tempo <output for="tempo" id="tempo-value">1.00×</output></label><input id="tempo" type="range" min="0.5" max="1.5" value="1" step="0.05"><div class="range-ends"><span>Unhurried</span><span>Attentive</span></div></div>
+        <label class="switch-row" for="autonomous"><span>Let the night unfold<small>Autonomous scene direction</small></span><input id="autonomous" type="checkbox" checked><span class="switch-track" aria-hidden="true"></span></label>
+
+        <details class="fine-controls"><summary>Temperament &amp; atmosphere <span aria-hidden="true">+</span></summary><div class="fine-control-content">
+          <div class="control range-control"><label for="alertness">Alertness <output for="alertness" id="alertness-value">72%</output></label><input id="alertness" type="range" min="0" max="1" value="0.72" step="0.01"></div>
+          <div class="control range-control"><label for="sociability">Companion response <output for="sociability" id="sociability-value">45%</output></label><input id="sociability" type="range" min="0" max="1" value="0.45" step="0.01"></div>
+          <div class="control range-control"><label for="breeze">Evening breeze <output for="breeze" id="breeze-value">25%</output></label><input id="breeze" type="range" min="0" max="1" value="0.25" step="0.01"></div>
+          <div class="control range-control"><label for="head-limit">Head movement <output for="head-limit" id="head-value">34°</output></label><input id="head-limit" type="range" min="12" max="45" value="34" step="1"></div>
+          <div class="control range-control"><label for="reaction">Wing expression <output for="reaction" id="reaction-value">85%</output></label><input id="reaction" type="range" min="0" max="100" value="85" step="5"></div>
+        </div></details>
+        <p id="policy" class="policy">Pause holds this moment. Your cues remain available as deliberate still poses.</p>
         <p id="announcement" class="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
       </aside>
     </section>
 
-    <section class="notes" aria-label="About this owl">
-      <article><span class="note-number">01</span><h3>Anchored attention</h3><p>A broad facial disk turns within a restrained range. Both feet remain on the branch.</p></article>
-      <article><span class="note-number">02</span><h3>A complete gesture</h3><p>Blink, ruffle, a small paired wing stretch, then a measured return to rest.</p></article>
-      <article><span class="note-number">03</span><h3>Quiet when you need it</h3><p>Reduced motion uses still poses. Guide and React remain available without animation.</p></article>
+    <section class="field-notes" aria-label="What to notice">
+      <article><span class="note-number">01</span><h3>Someone notices first.</h3><p>A sentinel surveys. A curious owl follows. A dreamer takes a little longer to join the world.</p></article>
+      <article><span class="note-number">02</span><h3>Attention travels.</h3><p>A rustle has a place. A call has a listener. The pair responds in sequence, then finds its own quiet.</p></article>
+      <article><span class="note-number">03</span><h3>The perch is their anchor.</h3><p>The heads turn and the wings unfold. Feet stay planted; reduced motion keeps the scene in still poses.</p></article>
     </section>
 
-    <details class="text-frame" id="text-frame">
-      <summary>Inspect the selectable text frame</summary>
-      <textarea id="text-output" aria-label="Current owl text frame" readonly spellcheck="false"></textarea>
-      <button id="refresh-text" type="button">Refresh text frame</button>
-    </details>
+    <section class="keep-frame" aria-labelledby="keep-title"><div><p class="eyebrow">A moment worth keeping</p><h2 id="keep-title">Take the text with you.</h2><p>Save the exact displayed characters or the director settings behind this scene.</p></div><div class="export-actions"><button id="download" type="button">Download text frame <span aria-hidden="true">↓</span></button><button id="download-setup" type="button">Save director setup <span aria-hidden="true">↓</span></button></div></section>
+    <details class="text-frame" id="text-frame"><summary>Inspect the selectable text frame</summary><textarea id="text-output" aria-label="Current owl scene as plain text" readonly spellcheck="false"></textarea><button id="refresh-text" type="button">Refresh text frame</button></details>
 
-    <footer class="footer">
-      <p>Species-local review preview · TypeScript source · Seed 7</p>
-      <p>Integrated typed Owl artwork. The local package remains private and unpublished to npm.</p>
-    </footer>
+    <footer class="footer"><p>OWL / An original study in attention.</p><p>One or two owls. A shared night. Seed 7.</p></footer>
   </main>
   <script type="module" src="./demo.mjs"></script>
 </body>

@@ -1,0 +1,14 @@
+{
+  "evidenceKind": "Pillow rasterization of actual composed ASCII cells; not browser screenshots",
+  "font": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+  "fontSha256": "54bf827eb99404e8f430c330ad30f063334f637eba0109b6a18d4f566a8e9dd8",
+  "fontBundled": false,
+  "simulationTickRate": 60,
+  "sampledFrameRate": 12,
+  "gifDurationPatternMs": [
+    80,
+    80,
+    90
+  ],
+  "repeat": "Each full recorded scene resets its fixture on repeat; no seamless-loop claim"
+}
