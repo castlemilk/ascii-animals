@@ -17,6 +17,7 @@ export function mountFrog(canvas: HTMLCanvasElement, options: FrogMountOptions =
   let state = createFrog(modelOptions);
   let pond: FrogPondState | null = options.director === undefined ? null : createFrogPond({ ...modelOptions, director: options.director });
   let publishedPond: FrogPondState | null = null;
+  let pendingResize: readonly [number, number, number] | null = null;
   let paused = options.paused ?? false, disposed = false, offscreen = false, zeroSize = true, undersized = false;
   let unsubscribe: (() => void) | null = null;
   let raf: number | null = null, lastTime: number | null = null, lastRenderTime: number | null = null, remainder = 0, nextSeq = 0;
@@ -50,14 +51,27 @@ export function mountFrog(canvas: HTMLCanvasElement, options: FrogMountOptions =
   }
   function announce(message: string): void { if (disposed) return; try { options.onAction?.(message); } catch (error) { dispose(); throw error; } }
   function draw(): void {
+    // State observers drive controls outside the canvas and must not depend on
+    // whether the canvas intersects the viewport. Rendering still remains gated.
+    if (pond && publishedPond !== pond) {
+      publishedPond = pond;
+      try { options.onPondChange?.(pond); } catch (error) { dispose(); throw error; }
+    }
+    // IntersectionObserver delivery can lag a viewport resize. A requested
+    // draw may reconcile that stale flag, but never starts offscreen frames.
+    if (offscreen && !doc.hidden && !zeroSize) {
+      const bounds = canvas.getBoundingClientRect();
+      if ([bounds.top, bounds.bottom, bounds.left, bounds.right, win!.innerWidth, win!.innerHeight].every(Number.isFinite)
+        && bounds.bottom > 0 && bounds.right > 0 && bounds.top < win!.innerHeight && bounds.left < win!.innerWidth) offscreen = false;
+    }
     if (!visible()) return;
     // Pause retains the exact current pose. Explicit stills never advance any actor.
     const geometry: GeometryOptions = { motion: !media.matches && !undersized && !poseSelected && !pondStill,
       ...(media.matches || undersized || poseSelected || pondStill ? { staticPose } : {}), ...(pondStill ? { pondStill } : {}) };
     try {
+      if (pendingResize) { preview.resize(...pendingResize); pendingResize = null; }
       if (pond) {
         preview.drawPond!(pond, geometry);
-        if (publishedPond !== pond) { publishedPond = pond; options.onPondChange?.(pond); }
       } else preview.draw(state, geometry);
     } catch (error) { dispose(); throw error; }
   }
@@ -114,22 +128,24 @@ export function mountFrog(canvas: HTMLCanvasElement, options: FrogMountOptions =
     else { if (pond) pond = previewPondTarget(pond, valid); else state = previewFrogTarget(state, valid); draw(); }
   }
   function queuePond(action: FrogPondAction, still: GeometryOptions['pondStill']): void {
-    requirePond(); if (!visible()) return;
+    requirePond();
     if (media.matches || undersized || (paused && still)) {
       clearPending(); pondStill = still; staticPose = 'rest';
       if (action.type === 'hunt' || action.type === 'ripple') pond = previewPondTarget(pond!, { x: action.x, y: action.y });
       draw(); announce(`Static ${still ?? 'rest'} study. Motion stays off.`);
-    } else if (paused) announce('Paused. Resume the pond to direct an action, or choose a static pose.');
+    } else if (!visible()) return;
+    else if (paused) announce('Paused. Resume the pond to direct an action, or choose a static pose.');
     else { if (pendingPondAction) coalescedInputs++; pendingPondAction = action; pondStill = undefined; }
   }
   function leap(): void {
-    alive(); if (!visible()) return;
+    alive();
     if (media.matches || undersized) {
       clearPending(); pondStill = undefined;
       const poses: readonly StaticPose[] = ['rest', 'crouch', 'airborne', 'landed'];
       staticPose = poses[(poses.indexOf(staticPose) + 1) % poses.length]!;
       draw(); announce(`Static ${staticPose} pose. Motion stays off.`);
-    } else if (paused) announce('Paused. Resume to leap, or choose a static pose.');
+    } else if (!visible()) return;
+    else if (paused) announce('Paused. Resume to leap, or choose a static pose.');
     else if (pond) {
       const aimed = pendingTarget === undefined ? pond : previewPondTarget(pond, pendingTarget);
       const actor = aimed.actors.find(item => item.id === aimed.selectedId)!;
@@ -167,7 +183,9 @@ export function mountFrog(canvas: HTMLCanvasElement, options: FrogMountOptions =
     if (zeroSize) { cancel(); suspendTransient(); canvas.width = canvas.height = 1; return; }
     try {
       if (wasSuspended && !undersized && !media.matches && !paused && !poseSelected) pondStill = undefined;
-      preview.resize(r.width, r.height, Number.isFinite(win!.devicePixelRatio) && win!.devicePixelRatio > 0 ? win!.devicePixelRatio : 1);
+      // Canvas dimension writes erase its bitmap. Defer them while offscreen,
+      // then resize and redraw atomically when visibility returns.
+      pendingResize = [r.width, r.height, Number.isFinite(win!.devicePixelRatio) && win!.devicePixelRatio > 0 ? win!.devicePixelRatio : 1];
       if (undersized || wasSuspended) { cancel(); suspendTransient(); }
       draw(); schedule();
     } catch (error) { dispose(); throw error; }

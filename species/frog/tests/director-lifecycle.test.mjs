@@ -289,3 +289,55 @@ test('pond saved callbacks are inert after disposal and new methods reject post-
   for (const call of [() => controller.getPondState(), () => controller.updateDirector({ count: 1 }), () => controller.selectFrog(0), () => controller.setRole(0, 'caller'), () => controller.call(), () => controller.hunt(), () => controller.ripple()]) assert.throws(call, /disposed/);
   noResources(host);
 });
+
+test('offscreen direction publishes state and defers destructive resize until visible', () => {
+  const snapshots = [];
+  const {host, canvas, controller, preview} = mount(undefined, {paused:true, onPondChange:s=>snapshots.push(s)});
+  host.intersect(canvas, false);
+  const draws = preview.pondDraws.length, resizes = preview.resizes.length;
+  canvas.rect.width=390; canvas.rect.height=480; host.resize(canvas);
+  controller.updateDirector({scene:'stillwater', count:2});
+  assert.equal(snapshots.at(-1).config.scene,'stillwater');
+  assert.equal(snapshots.at(-1).actors.length,2);
+  assert.equal(preview.resizes.length,resizes);
+  assert.equal(preview.pondDraws.length,draws);
+  controller.call();
+  host.intersect(canvas,true);
+  assert.equal(preview.resizes.length,resizes+1);
+  assert.equal(preview.pondDraws.at(-1).options.pondStill,'call');
+  assert.equal(host.frames.size,0);
+  assert.equal(controller.getPondState().tick,0);
+  controller.dispose(); noResources(host);
+});
+
+test('offscreen reduced motion cue selects a still without scheduling animation', () => {
+  const {host, canvas, controller, preview}=mount();
+  host.reduced(true); host.intersect(canvas,false);
+  controller.leap();
+  assert.equal(controller.getStatus().staticPose,'crouch');
+  assert.equal(host.frames.size,0);
+  host.intersect(canvas,true);
+  assert.equal(preview.pondDraws.at(-1).options.staticPose,'crouch');
+  assert.equal(controller.getPondState().tick,0);
+  controller.dispose(); noResources(host);
+});
+
+test('requested draw reconciles lagging intersection after viewport resize, not actual offscreen canvas', () => {
+  const {host, canvas, controller, preview}=mount(undefined,{paused:true});
+  host.window.innerWidth=1000; host.window.innerHeight=800;
+  let top=900;
+  canvas.getBoundingClientRect=()=>({width:900,height:600,top,bottom:top+600,left:0,right:900});
+  host.intersect(canvas,false);
+  const draws=preview.pondDraws.length;
+  host.resize(canvas); controller.updateDirector({scene:'stillwater'});
+  assert.equal(preview.pondDraws.length,draws);
+  assert.equal(host.frames.size,0);
+  top=100; // viewport layout updated before IntersectionObserver delivery
+  host.resize(canvas);
+  assert.equal(controller.getStatus().offscreen,false);
+  assert.equal(preview.pondDraws.at(-1).state.config.scene,'stillwater');
+  assert.equal(preview.resizes.at(-1)[0],900);
+  assert.equal(host.frames.size,0);
+  assert.equal(controller.getPondState().tick,0);
+  controller.dispose(); noResources(host);
+});

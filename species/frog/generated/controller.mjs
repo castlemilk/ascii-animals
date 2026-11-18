@@ -19,6 +19,7 @@ export function mountFrog(canvas, options = {}) {
     let state = createFrog(modelOptions);
     let pond = options.director === undefined ? null : createFrogPond({ ...modelOptions, director: options.director });
     let publishedPond = null;
+    let pendingResize = null;
     let paused = options.paused ?? false, disposed = false, offscreen = false, zeroSize = true, undersized = false;
     let unsubscribe = null;
     let raf = null, lastTime = null, lastRenderTime = null, remainder = 0, nextSeq = 0;
@@ -76,18 +77,38 @@ export function mountFrog(canvas, options = {}) {
         throw error;
     } }
     function draw() {
+        // State observers drive controls outside the canvas and must not depend on
+        // whether the canvas intersects the viewport. Rendering still remains gated.
+        if (pond && publishedPond !== pond) {
+            publishedPond = pond;
+            try {
+                options.onPondChange?.(pond);
+            }
+            catch (error) {
+                dispose();
+                throw error;
+            }
+        }
+        // IntersectionObserver delivery can lag a viewport resize. A requested
+        // draw may reconcile that stale flag, but never starts offscreen frames.
+        if (offscreen && !doc.hidden && !zeroSize) {
+            const bounds = canvas.getBoundingClientRect();
+            if ([bounds.top, bounds.bottom, bounds.left, bounds.right, win.innerWidth, win.innerHeight].every(Number.isFinite)
+                && bounds.bottom > 0 && bounds.right > 0 && bounds.top < win.innerHeight && bounds.left < win.innerWidth)
+                offscreen = false;
+        }
         if (!visible())
             return;
         // Pause retains the exact current pose. Explicit stills never advance any actor.
         const geometry = { motion: !media.matches && !undersized && !poseSelected && !pondStill,
             ...(media.matches || undersized || poseSelected || pondStill ? { staticPose } : {}), ...(pondStill ? { pondStill } : {}) };
         try {
+            if (pendingResize) {
+                preview.resize(...pendingResize);
+                pendingResize = null;
+            }
             if (pond) {
                 preview.drawPond(pond, geometry);
-                if (publishedPond !== pond) {
-                    publishedPond = pond;
-                    options.onPondChange?.(pond);
-                }
             }
             else
                 preview.draw(state, geometry);
@@ -205,8 +226,6 @@ export function mountFrog(canvas, options = {}) {
     }
     function queuePond(action, still) {
         requirePond();
-        if (!visible())
-            return;
         if (media.matches || undersized || (paused && still)) {
             clearPending();
             pondStill = still;
@@ -216,6 +235,8 @@ export function mountFrog(canvas, options = {}) {
             draw();
             announce(`Static ${still ?? 'rest'} study. Motion stays off.`);
         }
+        else if (!visible())
+            return;
         else if (paused)
             announce('Paused. Resume the pond to direct an action, or choose a static pose.');
         else {
@@ -227,8 +248,6 @@ export function mountFrog(canvas, options = {}) {
     }
     function leap() {
         alive();
-        if (!visible())
-            return;
         if (media.matches || undersized) {
             clearPending();
             pondStill = undefined;
@@ -237,6 +256,8 @@ export function mountFrog(canvas, options = {}) {
             draw();
             announce(`Static ${staticPose} pose. Motion stays off.`);
         }
+        else if (!visible())
+            return;
         else if (paused)
             announce('Paused. Resume to leap, or choose a static pose.');
         else if (pond) {
@@ -303,7 +324,9 @@ export function mountFrog(canvas, options = {}) {
         try {
             if (wasSuspended && !undersized && !media.matches && !paused && !poseSelected)
                 pondStill = undefined;
-            preview.resize(r.width, r.height, Number.isFinite(win.devicePixelRatio) && win.devicePixelRatio > 0 ? win.devicePixelRatio : 1);
+            // Canvas dimension writes erase its bitmap. Defer them while offscreen,
+            // then resize and redraw atomically when visibility returns.
+            pendingResize = [r.width, r.height, Number.isFinite(win.devicePixelRatio) && win.devicePixelRatio > 0 ? win.devicePixelRatio : 1];
             if (undersized || wasSuspended) {
                 cancel();
                 suspendTransient();
