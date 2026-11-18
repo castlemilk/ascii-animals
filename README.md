@@ -7,6 +7,7 @@ Procedural animals drawn with moving characters, using a framework-neutral Canva
 ## Review status and source
 
 Integration review: see [independently rerun checks and remaining blockers](docs/INTEGRATION-REVIEW.md). This is a draft review branch, not a released npm package.
+[Open the public demo](https://castlemilk.github.io/ascii-animals/) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
 This README accompanies a local package candidate based on [PR #1's import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`](https://github.com/castlemilk/ascii-animals/commit/7e5984d34a139b8de4643f1ed0607897a42d88dc), branch `feat/cuttlefish-microsite-import`. Its imported files match the inspected local site snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; local hosting metadata is excluded from the import. The original `main` read contained only `.gitignore` at `84bd1f84fab0f5f5dec053c0d10562c10be8c188`.
 
@@ -162,3 +163,10 @@ That test uses a stubbed Canvas context. It checks numerical/behavioral conditio
 ## Origin and license status
 
 The imported README describes the geometry, motion, renderer, and microsite as original procedural JavaScript inspired by a supplied luminous ASCII jellyfish reference. This review inspected code and provenance metadata, not the original video's licensing chain, and did not copy code or artwork from that video. No LICENSE was present in the inspected import. The candidate retains source attribution and stays `UNLICENSED` until the owner chooses and supplies an appropriate license. No external animal assets, models, or runtime libraries have been introduced.
+This study began with a supplied luminous ASCII jellyfish video credited on screen to **@dwcminh.ascii**. It showed excerpts of a Python file, not a complete source distribution. The cuttlefish geometry, movement, interaction, renderer, and microsite here are independently implemented in JavaScript. The reference video is not included in this repository.
+
+## Deploy the public demo
+
+[GitHub Pages demo](https://castlemilk.github.io/ascii-animals/) is deployed **manually**, not on pushes or pull requests. In GitHub Actions, choose **Deploy demo to GitHub Pages** → **Run workflow** on `main`. The workflow validates the committed standalone artifact and publishes only `dist/`; repository research, recordings and source history are not part of the web deployment. The GitHub Actions environment links to the exact deployment.
+
+Updating `main` does not update the live demo until a maintainer deliberately runs the deployment workflow. No npm publication is involved.
