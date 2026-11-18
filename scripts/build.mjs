@@ -1,3 +1,4 @@
+import {buildTurtleDemo} from './build-turtle.mjs';
 import {buildCrabDemo} from './build-crab.mjs';
 import { buildSeahorseDemo } from './build-seahorse.mjs';
 import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
@@ -42,4 +43,5 @@ const demo = await buildDemo();
 const fox = await buildFoxDemo();
 const seahorse = await buildSeahorseDemo();
 await buildCrabDemo();
+await buildTurtleDemo();
 console.log(JSON.stringify({ demo, fox, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

@@ -21,3 +21,5 @@ export type { FoxArtwork, FoxBrowserOptions, FoxBrowserStatus, FoxOptions, FoxCr
 export * from './public/seahorse.js';
 
 export * from './public/crab.js';
+
+export * from './public/turtle.js';
