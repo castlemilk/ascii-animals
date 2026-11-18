@@ -1,9 +1,9 @@
 # Owl integration
 
-The recovered Pro implementation is now integrated through the explicit `ascii-animals/owl` subpath and root named exports. The package remains private and unpublished. Owl is a semantic DOM-text artwork, not a canvas implementation of the marine `Artwork` interface.
+The recovered Pro implementation is now integrated through the explicit `ascii-animals-review/owl` subpath and root named exports. The package remains private and unpublished. Owl is a semantic DOM-text artwork, not a canvas implementation of the marine `Artwork` interface.
 
 ```ts
-import { createOwlArtwork } from 'ascii-animals/owl';
+import { createOwlArtwork } from 'ascii-animals-review/owl';
 const owl = createOwlArtwork(document.querySelector<HTMLElement>('#owl')!, {
   owl: { seed: 7, headYawLimitDeg: 28, reactionStrength: 0.8 },
   grid: { cols: 96, rows: 54 },

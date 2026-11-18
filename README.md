@@ -51,6 +51,8 @@ The newly authored [Crab API](docs/CRAB-API.md) and [local demo](dist/crab/index
 add sideways scuttling, a broad shell, eight articulated walking legs and paired
 claws with a defensive gesture. Independent browser acceptance is pending.
 
+[Complete typed API map and configuration guides](docs/ANIMAL-APIS.md)
+
 ## TypeScript-first artwork API
 
 The compiled, strict TypeScript facade exposes all currently supported cuttlefish
@@ -263,4 +265,4 @@ The original reactive Gecko is available through the typed `createGeckoArtwork` 
 The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick leap study with shared scheduling, validated settings and reduced-motion static poses. Its generated demo lives at `dist/frog/`; catalogue availability follows reviewed deployment.
 ## Owl TypeScript artwork
 
-The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. This is not an npm publication or a claim of browser acceptance.
+The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals-review/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. This is not an npm publication or a claim of browser acceptance.
