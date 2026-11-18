@@ -1,5 +1,30 @@
 # ASCII Animals
 
+A growing collection of reactive creatures made of characters. **ASCII Animals** is the product; each animal has its own study, behaviour and release status.
+
+[Browse the animal catalogue](https://castlemilk.github.io/ascii-animals/) · [Open Cuttlefish](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html)
+
+## Animal catalogue
+
+| Animal | Status |
+| --- | --- |
+| Cuttlefish | Available: interactive Cuttlefish study |
+| Manta ray | In development: no released demo yet |
+| Octopus | In development: no released demo yet |
+| Seahorse | In development: no released demo yet |
+| Crab | In development: no released demo yet |
+| Sea turtle | In development: no released demo yet |
+| Pufferfish | In development: no released demo yet |
+| Frog | In development: no released demo yet |
+| Butterfly | In development: no released demo yet |
+| Dragonfly | In development: no released demo yet |
+| Gecko | In development: no released demo yet |
+| Owl | In development: no released demo yet |
+| Fox | In development: no released demo yet |
+
+The roster is a development plan, not a list of package exports. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
+
+
 ## TypeScript-first artwork API
 
 The compiled, strict TypeScript facade exposes all currently supported cuttlefish
@@ -35,8 +60,8 @@ Procedural animals drawn with moving characters, using a framework-neutral Canva
 
 ## Review status and source
 
-Integration review: see [independently rerun checks and remaining blockers](docs/INTEGRATION-REVIEW.md). This is a draft review branch, not a released npm package.
-[Open the public demo](https://castlemilk.github.io/ascii-animals/) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
+Integration review: see [independently rerun checks and remaining blockers](docs/INTEGRATION-REVIEW.md). The TypeScript foundation is merged. It remains private and is not a released npm package.
+[Open the Cuttlefish study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
 This README accompanies a local package candidate based on [PR #1's import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`](https://github.com/castlemilk/ascii-animals/commit/7e5984d34a139b8de4643f1ed0607897a42d88dc), branch `feat/cuttlefish-microsite-import`. Its imported files match the inspected local site snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; local hosting metadata is excluded from the import. The original `main` read contained only `.gitignore` at `84bd1f84fab0f5f5dec053c0d10562c10be8c188`.
 
@@ -186,7 +211,7 @@ That test uses a stubbed Canvas context. It checks numerical/behavioral conditio
 | `types/` | Public declarations, mirrored into the built package |
 | `lib/` | Generated package files |
 | `fixtures/` | Package consumer, bundler, and type-check inputs |
-| `dist/` | Microsite; generated canonical browser engine and standalone demo |
+| `dist/` | Animal catalogue, hosted Cuttlefish study, generated canonical browser engine and standalone demo |
 | `scripts/` | Build, package checks, original numerical checks, standalone/GIF utilities |
 | `docs/` | API, architecture, extension, release, source references, and backlog drafts |
 
