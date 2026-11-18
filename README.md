@@ -6,7 +6,7 @@ An interactive cuttlefish study built from moving characters. Direct one animal 
 
 **Original procedural geometry · Canvas 2D · Perspective depth · No JavaScript dependencies**
 
-[Open the microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
+[Open the public demo](https://castlemilk.github.io/ascii-animals/) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
 The hosted microsite may require its owner’s ChatGPT sign-in. The source and standalone demo in this repository can be run locally without an account.
 
@@ -209,3 +209,9 @@ docs/
 ## Origin
 
 This study began with a supplied luminous ASCII jellyfish video credited on screen to **@dwcminh.ascii**. It showed excerpts of a Python file, not a complete source distribution. The cuttlefish geometry, movement, interaction, renderer, and microsite here are independently implemented in JavaScript. The reference video is not included in this repository.
+
+## Deploy the public demo
+
+[GitHub Pages demo](https://castlemilk.github.io/ascii-animals/) is deployed **manually**, not on pushes or pull requests. In GitHub Actions, choose **Deploy demo to GitHub Pages** → **Run workflow** on `main`. The workflow validates the committed standalone artifact and publishes only `dist/`; repository research, recordings and source history are not part of the web deployment. The GitHub Actions environment links to the exact deployment.
+
+Updating `main` does not update the live demo until a maintainer deliberately runs the deployment workflow. No npm publication is involved.
