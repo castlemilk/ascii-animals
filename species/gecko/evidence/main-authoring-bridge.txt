@@ -1,0 +1,26 @@
+Command: node scripts/check-authoring-bridge.mjs
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:55.561115+00:00
+Exit code: 0
+Duration seconds: 1.522890
+
+STDOUT
+# Renderer source: /workspace/scratch/2b42caa0b4f6/gecko-work/test/fixtures/legacy-artwork.cjs
+# Renderer SHA-256: 381f4706bc07761e6d1e162c95ceee97c42dd687ea19469ecb4f79885bd34e91
+✔ starts paused even if constructor options request playback; waits for intersection (188.321092ms)
+✔ composes reduced motion, visibility, viewport and zero-size policy (359.89845ms)
+✔ rechecks synchronous policy before pulse even before a change event arrives (313.265648ms)
+✔ setOptions cannot bypass pause policy; valid options and restart use the real API (240.443796ms)
+✔ a consumer state callback failure after mount disposes resources and preserves the original error (53.850874ms)
+✔ multiple instances dispose independently; repeated destroy and delayed callbacks are harmless (138.789786ms)
+✔ missing capabilities fail before construction; partial adapter construction cleans up (22.311868ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1329.255943
+
+STDERR

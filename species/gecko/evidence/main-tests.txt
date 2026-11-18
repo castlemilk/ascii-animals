@@ -1,0 +1,42 @@
+Command: node --test test/generated-demo.test.mjs test/lifecycle.test.mjs test/parity.test.mjs test/public-api.test.mjs test/scheduler.test.mjs
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:55.414199+00:00
+Exit code: 0
+Duration seconds: 41.352364
+
+STDOUT
+✔ global and standalone artifacts are generated from the canonical modules (32.788074ms)
+✔ classic global build preserves module simulation and lifecycle (3680.936188ms)
+✔ instances share scheduling; paused/hidden/offscreen scenes have no subscriptions (397.927858ms)
+✔ system reduced motion pauses by default and never resumes automatically (163.079798ms)
+✔ resize is idempotent; zero-sized elements suspend and resource caps hold (89.464106ms)
+✔ destroy is idempotent, frees internal buffers and makes mutators inert (56.251386ms)
+✔ failed observer construction rolls back all installed handlers (12.6605ms)
+✔ manual stepping is explicit, bounded and does not start scheduling (47.071174ms)
+✔ frame cap uses elapsed time and reports discarded stall time (65.140561ms)
+✔ coarse grids cannot inflate glyph or ink atlases (67.739418ms)
+✔ long thin boxes respect auxiliary canvas dimension limits (41.558772ms)
+✔ lowest supported frame cap advances real elapsed time without routine dropping (270.081157ms)
+✔ live option, size and redundant play updates do not reset simulation time (745.458873ms)
+✔ missing ResizeObserver falls back to window resize without a polyfill (18.676734ms)
+✔ invalid host fails clearly and separate documents retain their own scheduler (43.461383ms)
+✔ non-finite pointer positions do not poison scene state (47.27688ms)
+✔ fixed input/time sequences preserve imported geometry, ownership and ink state (40271.677435ms)
+✔ manual replay repeats the same reaction and particle state for the same step sequence (759.540256ms)
+✔ strict config rejects unknown/invalid fields atomically and copies role arrays (8.955578ms)
+✔ facade system pause, controls, atomic update, manual drive and disposal (218.319896ms)
+✔ raw API undefined pause respects OS and invalid patches cannot poison state (40.183285ms)
+✔ scheduler shares one frame and removes each subscription independently (2.18579ms)
+✔ subscriptions added during dispatch wait until the next frame (1.893212ms)
+✔ one failing callback does not strand peers or a pending frame (0.525179ms)
+✔ a rejected frame request rolls back a new subscription (0.340332ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41230.08712
+
+STDERR

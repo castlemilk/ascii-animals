@@ -114,3 +114,14 @@ dragonfly.pounce();
 dragonfly.setView('front');
 // @ts-expect-error motion mode is a finite named union
 dragonfly.update({ motion: 'hyper' });
+
+import { createGeckoArtwork, createGecko } from 'ascii-animals-review/gecko';
+const gecko = createGeckoArtwork(document.createElement('canvas'), { config: { seed: 7, options: { creepSpeed: .1 } }, view: { neutral: true } });
+gecko.guide(.3, .2); gecko.startle(); gecko.update({ curlStrength: .8 }); gecko.pause(); gecko.restart(); gecko.play(); gecko.dispose();
+const geckoModel = createGecko({ seed: 7 }); geckoModel.step([]); geckoModel.dispose();
+// @ts-expect-error seed changes use reset
+gecko.update({ seed: 9 });
+// @ts-expect-error wrong species interaction
+gecko.dart();
+// @ts-expect-error grid is structured, not a named preset
+gecko.setView({ grid: 'small' });

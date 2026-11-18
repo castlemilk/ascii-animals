@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="An original reactive ASCII gecko. Guide its careful steps, startle it gently, and watch its tail curl before curiosity returns.">
+  <title>Gecko — A small act of courage</title>
+  <style>
+:root{color-scheme:dark;--background:#101c19;--panel:#14231e;--line:#34463d;--line-soft:#26392f;--text:#f1ecdd;--muted:#b4bcae;--soft:#95a390;--sage:#c3d8ab;--accent:#d5dfb5;--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-family:Arial,Helvetica,sans-serif;background:var(--background);color:var(--text)}
+*{box-sizing:border-box}body{margin:0;min-width:320px}button,input,summary,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}a{color:inherit}button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible,canvas:focus-visible,pre:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button:disabled{cursor:default;opacity:.5}button{touch-action:manipulation}button,input{min-height:44px}button:hover{border-color:var(--sage);color:white}button:active{transform:translateY(1px)}[hidden]{display:none!important}
+.masthead{max-width:1200px;margin:0 auto;padding:30px 32px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.wordmark{font-size:12px;letter-spacing:.18em;text-decoration:none;font-weight:700;display:flex;gap:5px;align-items:center}.wordmark span:first-child{font-weight:400}.wordmark-mark{font-size:23px;margin-left:14px;color:var(--sage);font-weight:400}.edition{font:10px var(--mono);letter-spacing:.11em;color:var(--muted);display:flex;align-items:center;gap:14px}.edition-line{width:34px;height:1px;background:var(--line)}
+main{max-width:1200px;margin:auto;padding:0 32px}.introduction{display:flex;justify-content:space-between;gap:48px;align-items:flex-end;padding:40px 0 38px}.eyebrow{font:9px var(--mono);letter-spacing:.17em;color:var(--muted);display:flex;gap:8px;align-items:center;margin:0 0 20px}.little-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--sage)}h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(42px,5vw,64px);line-height:1.03;letter-spacing:-.045em;font-weight:400;margin:0}h1 em{color:var(--sage);font-weight:400}.intro-copy{padding-bottom:3px;max-width:340px}.specimen-label{font:10px var(--mono);letter-spacing:.16em;color:var(--sage)}.intro-copy p{font-size:14px;line-height:1.65;margin:12px 0 0;color:var(--text)}.intro-copy .micro{font:10px var(--mono);color:var(--soft);margin-top:19px;line-height:1.6}
+.study-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:24px}.specimen{border:1px solid var(--line);position:relative;align-self:start;background:var(--background);min-width:0}.specimen-topline{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line-soft);height:53px}.plate-label{font:9px var(--mono);letter-spacing:.15em;color:var(--soft)}.state-pill{display:flex;gap:7px;align-items:center;font:10px var(--mono);color:var(--sage);text-transform:uppercase;letter-spacing:.06em}.status-dot{width:5px;height:5px;background:var(--sage);border-radius:50%}.canvas-wrap{position:relative;isolation:isolate}canvas{display:block;width:100%;height:auto;aspect-ratio:3.4/2.6;touch-action:pan-y;position:relative;z-index:1}canvas:focus-visible{outline-offset:-8px}.corner{position:absolute;z-index:2;pointer-events:none;width:10px;height:10px;border-color:#52634e;border-style:solid}.corner-a{top:17px;left:17px;border-width:1px 0 0 1px}.corner-b{bottom:17px;right:17px;border-width:0 1px 1px 0}.specimen-bottomline{border-top:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 18px}.specimen-bottomline p{font-size:11px;line-height:1.5;color:var(--muted);margin:0;max-width:285px}.playback{display:flex;gap:6px}.playback button,.text-export button{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:3px;padding:0 14px;font-size:11px;min-height:40px}.fallback{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:var(--background)}.fallback-mark{font:64px Georgia,serif;color:var(--sage);opacity:.8}.fallback h2{font:24px Georgia,serif;font-weight:400}.fallback p{font-size:12px;line-height:1.7;max-width:330px;color:var(--muted)}
+.interaction-panel{border-top:1px solid var(--line);padding-top:22px;min-width:0}.panel-kicker{font:9px var(--mono);letter-spacing:.13em;color:var(--soft);margin:0 0 13px}.panel-section h2{font:23px/1.2 Georgia,"Times New Roman",serif;letter-spacing:-.015em;font-weight:400;margin:0 0 11px}.help{color:var(--muted);font-size:12px;line-height:1.65;margin:0}.direction-pad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:5px;margin:22px auto 25px;width:max-content}.direction-pad button{border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--sage);font-size:20px}.direction-pad .north{grid-area:1/2}.direction-pad .west{grid-area:2/1}.direction-pad .rest{grid-area:2/2;font:9px var(--mono);color:var(--muted);background:var(--panel)}.direction-pad .east{grid-area:2/3}.direction-pad .south{grid-area:3/2}.reaction-section{border-top:1px solid var(--line);padding:24px 0 20px}.startle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 15px;min-height:46px;margin-top:18px;border:1px solid var(--accent);background:var(--accent);color:#18251c;border-radius:3px;font-size:12px;font-weight:600}.startle:hover{background:#e6edce;border-color:#e6edce;color:#18251c}.startle span:last-child{font-size:19px;font-weight:400}.tiny{font:9px/1.5 var(--mono);color:var(--soft);margin:10px 0 0}.tuning{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}summary{cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:space-between;list-style:none;font-size:11px;color:var(--muted)}summary::-webkit-details-marker{display:none}.tuning summary span{font-size:20px;color:var(--sage);font-weight:200}.tuning[open] summary span{transform:rotate(45deg)}.tuning-content{padding:5px 0 15px}.tuning label{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}.tuning output{font:10px var(--mono);color:var(--sage)}input[type=range]{display:block;width:100%;accent-color:var(--sage);margin:0 0 6px;cursor:pointer}.tuning .checkbox-label{justify-content:flex-start;gap:9px;min-height:44px}input[type=checkbox]{accent-color:var(--sage);width:15px;height:15px;min-height:15px}.action-status{font:10px/1.6 var(--mono);color:var(--soft);min-height:32px;margin:14px 0 0}
+.field-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;border-bottom:1px solid var(--line);padding:30px 0 27px;margin-top:4px}.field-notes>div{display:grid;grid-template-columns:21px 1fr;column-gap:10px;align-content:start}.note-number{font:10px var(--mono);color:var(--soft);padding-top:2px;grid-row:1/3}.field-notes h2{font:15px Georgia,serif;font-weight:400;margin:0 0 8px;color:var(--sage)}.field-notes p{font-size:11px;line-height:1.65;color:var(--muted);margin:0;max-width:230px}.text-export{border-bottom:1px solid var(--line);margin-bottom:34px}.text-export summary{font-size:11px;min-height:52px}.text-export summary::after{content:'+';font-size:18px;color:var(--sage)}.text-export[open] summary::after{content:'−'}.text-export-body{padding-bottom:20px;min-width:0}.text-export-body p{font-size:12px;line-height:1.6;color:var(--muted);margin-top:0}.text-export pre{overflow:auto;max-height:440px;background:#0d1714;border:1px solid var(--line-soft);padding:18px;font:9px/1.15 var(--mono);color:var(--sage);white-space:pre;max-width:100%;margin:16px 0 0}.noscript{padding:20px;border:1px solid var(--line);font-size:12px;line-height:1.6}footer{max-width:1200px;padding:0 32px 30px;margin:auto;display:flex;justify-content:space-between;gap:20px;font:9px var(--mono);letter-spacing:.04em;color:var(--soft)}
+@media(min-width:1250px){.introduction{padding-top:45px}.study-layout{grid-template-columns:minmax(0,1fr) 270px;gap:30px}}
+@media(max-width:940px){.study-layout{grid-template-columns:minmax(0,1fr) 220px;gap:18px}.masthead,main{padding-left:22px;padding-right:22px}.intro-copy{max-width:270px}.panel-section h2{font-size:21px}.specimen-bottomline{align-items:flex-start;flex-direction:column;padding:10px 14px}.specimen-bottomline p{max-width:100%}.playback{align-self:flex-end;margin-top:-5px}.introduction{gap:25px}.intro-copy p{font-size:13px}footer{padding-left:22px;padding-right:22px}}
+@media(max-width:760px){.study-layout{grid-template-columns:1fr}.specimen-bottomline{flex-direction:row;align-items:center}.playback{align-self:auto;margin-top:0}.interaction-panel{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:0;padding-top:6px}.panel-section{padding-top:20px;border-top:1px solid var(--line)}.reaction-section{padding-bottom:0}.tuning{grid-column:1/3}.action-status{grid-column:1/3;margin:0;min-height:16px}.direction-pad{margin:20px 0 0}.intro-copy{max-width:260px}.field-notes{gap:20px}.introduction{padding-top:30px;padding-bottom:30px}h1{font-size:51px}}
+@media(max-width:600px){.masthead{padding:24px 17px 19px;margin:0 16px;padding-left:0;padding-right:0}.edition{font-size:8px;gap:7px}.edition-line{width:15px}.wordmark{font-size:10px;letter-spacing:.11em}.wordmark-mark{font-size:19px;margin-left:6px}main{padding:0}.introduction{padding:28px 17px 27px;align-items:flex-start;gap:24px;flex-direction:column}.eyebrow{font-size:8px;margin-bottom:17px}h1{font-size:50px}.intro-copy{max-width:none}.intro-copy p{font-size:13px;margin-top:8px}.intro-copy .micro{font-size:9px;margin-top:13px}.specimen{border-left:0;border-right:0}.specimen-topline{padding:14px 17px;height:48px}.plate-label{font-size:8px}.state-pill{font-size:9px}.specimen-bottomline{padding:9px 12px 9px 17px}.specimen-bottomline p{font-size:10px;max-width:190px}.playback button{min-height:44px;padding:0 11px}.corner-a{top:12px;left:12px}.corner-b{bottom:12px;right:12px}.interaction-panel{margin:0 17px;gap:18px}.panel-section h2{font-size:21px}.panel-kicker{font-size:8px}.help{font-size:11px}.direction-pad{grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:4px}.tiny{font-size:8px}.startle{font-size:11px;padding:0 10px}.field-notes{margin:5px 17px 0;gap:19px;grid-template-columns:1fr;padding-top:27px;padding-bottom:25px}.field-notes>div{grid-template-columns:22px 1fr}.field-notes h2{font-size:16px;margin-bottom:5px}.field-notes p{font-size:11px;max-width:100%}.text-export{margin:0 17px 27px}.text-export summary{font-size:10px}.text-export pre{font-size:8px;padding:10px}.text-export-body p{font-size:11px}footer{padding:0 17px 25px;font-size:8px;line-height:1.8;flex-wrap:wrap;gap:6px 20px}footer span:last-child{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+</style>
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="#main">ASCII <span>ANIMALS</span><span class="wordmark-mark" aria-hidden="true">✳</span></a>
+    <span class="edition">FIELD STUDY <span class="edition-line"></span> GECKO</span>
+  </header>
+  <main id="main">
+    <section class="introduction" aria-labelledby="title">
+      <div>
+        <p class="eyebrow"><span class="little-dot" aria-hidden="true"></span> A CREATURE MADE OF CHARACTERS</p>
+        <h1 id="title">A small act<br>of <em>courage.</em></h1>
+      </div>
+      <div class="intro-copy">
+        <span class="specimen-label">THE GECKO</span>
+        <p>Four careful feet. A very expressive tail.<br>Let curiosity take the first step.</p>
+        <p class="micro">Original geometry · A stylized dorsal study</p>
+      </div>
+    </section>
+
+    <div class="study-layout">
+      <section class="specimen" aria-label="Interactive gecko specimen">
+        <div class="specimen-topline">
+          <span class="plate-label">ON THE QUIET WALL</span>
+          <span class="state-pill"><span class="status-dot" aria-hidden="true"></span><span id="phase">Resting</span></span>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="gecko" width="720" height="550" tabindex="0" role="img"
+            aria-label="Interactive ASCII gecko with a broad head, four splayed pad-toed feet, and a long attached tapered tail. Move the pointer or use the Guide buttons. When the canvas is focused, use arrow keys to guide and Space to pause."
+            aria-describedby="scene-help">
+            A gecko made from ASCII characters: a broad head, four splayed feet with rounded pads, and a long tapered tail.
+          </canvas>
+          <div id="fallback" class="fallback" hidden>
+            <span class="fallback-mark" aria-hidden="true">G.</span>
+            <h2>A quiet little visitor.</h2>
+            <p id="fallback-message">The gecko has a broad head, four splayed pad-toed feet, and a long tapered tail. Its text portrait is available below.</p>
+          </div>
+          <span class="corner corner-a" aria-hidden="true"></span><span class="corner corner-b" aria-hidden="true"></span>
+        </div>
+        <div class="specimen-bottomline">
+          <p id="scene-help">Move gently to invite a few steps.</p>
+          <div class="playback" aria-label="Playback">
+            <button id="pause" type="button" aria-pressed="false">Pause</button>
+            <button id="reset" type="button">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="interaction-panel" aria-label="Gecko controls">
+        <div class="panel-section guide-section">
+          <p class="panel-kicker">01 / INVITE</p>
+          <h2>A little curiosity.</h2>
+          <p class="help">Point nearby, tap the wall, or choose a direction.</p>
+          <div class="direction-pad" role="group" aria-label="Guide the gecko">
+            <button class="north" type="button" data-guide="0,-1" aria-label="Guide up">↑</button>
+            <button class="west" type="button" data-guide="-1,0" aria-label="Guide left">←</button>
+            <button class="rest" type="button" id="rest" aria-label="Clear guidance">Rest</button>
+            <button class="east" type="button" data-guide="1,0" aria-label="Guide right">→</button>
+            <button class="south" type="button" data-guide="0,1" aria-label="Guide down">↓</button>
+          </div>
+        </div>
+        <div class="panel-section reaction-section">
+          <p class="panel-kicker">02 / SURPRISE</p>
+          <h2>Then, a small surprise.</h2>
+          <p class="help">A curled tail. A short retreat.<br>Curiosity finds its way back.</p>
+          <button id="startle" class="startle" type="button"><span>Startle gecko</span><span aria-hidden="true">↗</span></button>
+          <p class="tiny">Give it a moment between surprises.</p>
+        </div>
+        <details class="tuning">
+          <summary>Make it your own<span aria-hidden="true">+</span></summary>
+          <div class="tuning-content">
+            <label for="pace">Creeping pace <output id="pace-value" for="pace">Gentle</output></label>
+            <input id="pace" type="range" min="0.02" max="0.18" step="0.01" value="0.10">
+            <label for="curl">Tail curl <output id="curl-value" for="curl">100%</output></label>
+            <input id="curl" type="range" min="0.25" max="1" step="0.05" value="1">
+            <label class="checkbox-label" for="neutral"><input id="neutral" type="checkbox"> Neutral silhouette</label>
+          </div>
+        </details>
+        <p id="action-status" class="action-status" role="status" aria-live="polite">Ready when you are.</p>
+      </aside>
+    </div>
+
+    <section class="field-notes" aria-label="Field notes">
+      <div><span class="note-number">I.</span><h2>Hold, then step.</h2><p>Three feet hold their place while the fourth reaches forward.</p></div>
+      <div><span class="note-number">II.</span><h2>Always attached.</h2><p>The tail bends into one continuous curl, then slowly lets go.</p></div>
+      <div><span class="note-number">III.</span><h2>Stillness is welcome.</h2><p>Pause at any time. Reduced motion keeps a quiet portrait.</p></div>
+    </section>
+
+    <details id="text-details" class="text-export">
+      <summary>A portrait in plain text</summary>
+      <div class="text-export-body">
+        <p>These are the same character cells used to draw the gecko. Select and copy a still moment.</p>
+        <button id="refresh-text" type="button">Refresh portrait</button>
+        <pre id="text-frame" tabindex="0" aria-label="Current gecko ASCII portrait">Loading the gecko's text portrait…</pre>
+      </div>
+    </details>
+    <noscript><p class="noscript">This interactive study needs JavaScript. The gecko is a stylized lizard with a broad head, four pad-toed feet, and a long tapering tail.</p></noscript>
+  </main>
+  <footer><span>ASCII ANIMALS / GECKO</span><span>An original local species study.</span><span>Take your time.</span></footer>
+<!-- Generated from this species only; esbuild 0.25.12. -->
+<script>
+"use strict";
+(() => {
+  // species/gecko/compiled/gecko.js
+  var GECKO_LIMITS = Object.freeze({
+    tickRate: 60,
+    eventsPerTick: 32,
+    samples: 12288,
+    maxTick: 2147483646,
+    minCols: 112,
+    minRows: 50,
+    maxCols: 192,
+    maxRows: 86,
+    rootX: 0.26,
+    rootY: 0.13,
+    limbReach: 0.44
+  });
+  var DEFAULT_GECKO_OPTIONS = Object.freeze({
+    creepSpeed: 0.1,
+    turnRate: 0.65,
+    stride: 0.1,
+    stepTicks: 18,
+    tailLength: 1,
+    toeSpread: 1,
+    curlStrength: 1,
+    tailSway: 0.035,
+    breathing: 8e-3,
+    startleTicks: 18,
+    retreatTicks: 48,
+    retreatDistance: 0.14,
+    recoveryTicks: 120,
+    cooldownTicks: 120
+  });
+  var RANGES = {
+    creepSpeed: [0.02, 0.18],
+    turnRate: [0.15, 1.2],
+    stride: [0.04, 0.16],
+    stepTicks: [12, 30, true],
+    tailLength: [0.75, 1.05],
+    toeSpread: [0.9, 1.15],
+    curlStrength: [0.25, 1],
+    tailSway: [0, 0.08],
+    breathing: [0, 0.018],
+    startleTicks: [6, 60, true],
+    retreatTicks: [24, 90, true],
+    retreatDistance: [0.05, 0.18],
+    recoveryTicks: [60, 240, true],
+    cooldownTicks: [30, 300, true]
+  };
+  var FOOT_NAMES = ["front-left", "front-right", "rear-left", "rear-right"];
+  var ORDER = [0, 3, 1, 2];
+  var TAU = Math.PI * 2;
+  var clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
+  var ease = (x) => {
+    const t = clamp(x, 0, 1);
+    return t * t * (3 - 2 * t);
+  };
+  var angleDelta = (a, b) => Math.atan2(Math.sin(b - a), Math.cos(b - a));
+  var copyPoint = (p) => ({ x: p.x, y: p.y });
+  function record(value, allowed, name) {
+    if (!value || typeof value !== "object" || Array.isArray(value) || Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null) {
+      throw new TypeError(`${name} must be a plain object`);
+    }
+    for (const key of Reflect.ownKeys(value)) {
+      if (typeof key !== "string" || !allowed.includes(key))
+        throw new TypeError(`${name}: unknown field ${String(key)}`);
+    }
+  }
+  function number(value, low, high, name, integer = false) {
+    if (typeof value !== "number" || !Number.isFinite(value))
+      throw new TypeError(`${name} must be finite`);
+    if (value < low || value > high || integer && !Number.isSafeInteger(value)) {
+      throw new RangeError(`${name} must be ${integer ? "an integer " : ""}in [${low}, ${high}]`);
+    }
+  }
+  function resolveGeckoOptions(patch = {}, base = DEFAULT_GECKO_OPTIONS) {
+    record(patch, Object.keys(RANGES), "options");
+    const next = { ...base };
+    for (const key of Object.keys(patch)) {
+      const range = RANGES[key], value = patch[key];
+      number(value, range[0], range[1], `options.${key}`, range[2] ?? false);
+      next[key] = value;
+    }
+    return Object.freeze(next);
+  }
+  function normalizeGuide(clientX, clientY, rect) {
+    if (![clientX, clientY, rect.left, rect.top, rect.width, rect.height].every(Number.isFinite) || rect.width <= 0 || rect.height <= 0)
+      return null;
+    return { x: clamp((clientX - rect.left) / rect.width * 2 - 1, -1, 1), y: clamp((clientY - rect.top) / rect.height * 2 - 1, -1, 1) };
+  }
+  function transformGeckoPoint(position, heading, x, y) {
+    const c = Math.cos(heading), s = Math.sin(heading);
+    return { x: position.x + x * c - y * s, y: position.y + x * s + y * c };
+  }
+  function geckoShoulder(position, heading, foot) {
+    return transformGeckoPoint(position, heading, foot.front ? 0.13 : -0.14, foot.side * (foot.front ? 0.075 : 0.08));
+  }
+  function nominalFoot(position, heading, foot) {
+    return transformGeckoPoint(position, heading, foot.front ? 0.22 : -0.22, foot.side * 0.29);
+  }
+  function footAngle(heading, front, side) {
+    return heading + side * (front ? 0.8 : 2.24);
+  }
+  function initialState(seed, heading, options) {
+    const position = { x: 0.18, y: 0 };
+    const feet = FOOT_NAMES.map((id, i) => {
+      const front = i < 2, side = i % 2 === 0 ? -1 : 1;
+      return { id, front, side, position: nominalFoot(position, heading, { front, side }), angle: footAngle(heading, front, side), phase: "stance", plantedAt: 0 };
+    });
+    let mixed = (seed ^ 2654435769) >>> 0;
+    mixed = Math.imul(mixed ^ mixed >>> 16, 2246822507) >>> 0;
+    const phase2 = mixed / 4294967296 * TAU;
+    return {
+      version: 1,
+      seed,
+      initialHeading: heading,
+      options,
+      tick: 0,
+      lastSequence: 0,
+      position,
+      heading,
+      target: null,
+      behavior: { kind: "idle", since: 0 },
+      tailCurl: 0,
+      phase: phase2,
+      feet,
+      nextFoot: 0,
+      stepsCompleted: 0
+    };
+  }
+  function cloneState(s) {
+    return {
+      ...s,
+      options: { ...s.options },
+      position: copyPoint(s.position),
+      target: s.target ? copyPoint(s.target) : null,
+      behavior: { ...s.behavior },
+      feet: s.feet.map((f) => f.phase === "stance" ? { ...f, position: copyPoint(f.position) } : { ...f, position: copyPoint(f.position), from: copyPoint(f.from), to: copyPoint(f.to) })
+    };
+  }
+  function validateEvents(events, state) {
+    if (!Array.isArray(events))
+      throw new TypeError("events must be an array");
+    if (events.length > GECKO_LIMITS.eventsPerTick)
+      throw new RangeError("at most 32 events per tick");
+    let seq = state.lastSequence;
+    for (const e of events) {
+      if (!e || typeof e !== "object")
+        throw new TypeError("event must be an object");
+      const keys = e.type === "guide" ? ["tick", "seq", "type", "x", "y"] : ["tick", "seq", "type"];
+      record(e, keys, "event");
+      if (!["guide", "leave", "startle"].includes(e.type))
+        throw new TypeError("unknown event type");
+      number(e.tick, state.tick + 1, state.tick + 1, "event.tick", true);
+      number(e.seq, seq + 1, Number.MAX_SAFE_INTEGER, "event.seq", true);
+      if (e.type === "guide") {
+        number(e.x, -1, 1, "event.x");
+        number(e.y, -1, 1, "event.y");
+      }
+      seq = e.seq;
+    }
+  }
+  function advanceState(old, events) {
+    if (old.tick >= GECKO_LIMITS.maxTick)
+      throw new RangeError("maximum tick reached; reset before continuing");
+    validateEvents(events, old);
+    const tick = old.tick + 1, o = old.options;
+    let target = old.target, behavior = old.behavior, lastSequence = old.lastSequence;
+    const inputs = [];
+    for (const event of events) {
+      lastSequence = event.seq;
+      if (event.type === "guide")
+        target = { x: event.x * GECKO_LIMITS.rootX, y: event.y * GECKO_LIMITS.rootY };
+      if (event.type === "leave")
+        target = null;
+      if (event.type === "startle") {
+        if (behavior.kind === "idle" || behavior.kind === "approach") {
+          behavior = { kind: "startle", since: tick, heading: old.heading };
+          inputs.push({ seq: event.seq, type: event.type, outcome: "applied" });
+        } else
+          inputs.push({ seq: event.seq, type: event.type, outcome: "ignored", reason: "busy" });
+      } else
+        inputs.push({ seq: event.seq, type: event.type, outcome: "applied" });
+    }
+    const age = tick - behavior.since;
+    if (behavior.kind === "startle" && age >= o.startleTicks)
+      behavior = { kind: "retreat", since: tick, heading: behavior.heading, traveled: 0 };
+    else if (behavior.kind === "retreat" && age >= o.retreatTicks)
+      behavior = { kind: "recover", since: tick };
+    else if (behavior.kind === "recover" && age >= o.recoveryTicks)
+      behavior = { kind: "cooldown", since: tick };
+    else if (behavior.kind === "cooldown" && age >= o.cooldownTicks)
+      behavior = { kind: "idle", since: tick };
+    let desiredHeading = old.heading, dx = 0, dy = 0, moving = false;
+    if (behavior.kind === "retreat") {
+      const t = (tick - behavior.since) / o.retreatTicks;
+      const distance = o.retreatDistance * (ease(t + 1 / o.retreatTicks) - ease(t));
+      dx = -Math.cos(behavior.heading) * distance;
+      dy = -Math.sin(behavior.heading) * distance;
+      moving = true;
+    } else if (behavior.kind !== "startle") {
+      const vx = target ? target.x - old.position.x : 0, vy = target ? target.y - old.position.y : 0;
+      const distance = Math.hypot(vx, vy), active = target !== null && distance > 0.013;
+      if (behavior.kind === "idle" || behavior.kind === "approach") {
+        const kind = active ? "approach" : "idle";
+        if (kind !== behavior.kind)
+          behavior = { kind, since: tick };
+      }
+      if (active) {
+        const recovery = behavior.kind === "recover" ? 0.36 : 1;
+        const desired = Math.atan2(vy, vx), turn = angleDelta(old.heading, desired);
+        desiredHeading = old.heading + clamp(turn, -o.turnRate / 60 * recovery, o.turnRate / 60 * recovery);
+        const distanceStep = Math.min(distance, o.creepSpeed / 60 * recovery * Math.min(1, distance / 0.045) * Math.max(0.12, Math.cos(turn)));
+        dx = Math.cos(desiredHeading) * distanceStep;
+        dy = Math.sin(desiredHeading) * distanceStep;
+        moving = true;
+      }
+    }
+    let completed = old.stepsCompleted, nextFoot = old.nextFoot;
+    let feet = old.feet.map((foot) => {
+      if (foot.phase === "stance")
+        return foot;
+      const t = clamp((tick - foot.since) / foot.duration, 0, 1), u = ease(t);
+      if (t >= 1) {
+        completed++;
+        return { id: foot.id, side: foot.side, front: foot.front, position: foot.to, angle: foot.toAngle, phase: "stance", plantedAt: tick };
+      }
+      return {
+        ...foot,
+        position: { x: foot.from.x + (foot.to.x - foot.from.x) * u, y: foot.from.y + (foot.to.y - foot.from.y) * u },
+        angle: foot.fromAngle + angleDelta(foot.fromAngle, foot.toAngle) * u,
+        lift: 0.035 * Math.sin(Math.PI * t)
+      };
+    });
+    const proposed = { x: clamp(old.position.x + dx, -GECKO_LIMITS.rootX, GECKO_LIMITS.rootX), y: clamp(old.position.y + dy, -GECKO_LIMITS.rootY, GECKO_LIMITS.rootY) };
+    if (moving && !feet.some((f) => f.phase === "swing")) {
+      const index = ORDER[nextFoot % 4], foot = feet[index];
+      const nominal = nominalFoot(proposed, desiredHeading, foot), length = Math.hypot(dx, dy);
+      const lead = length > 0 ? o.stride * 0.4 : 0;
+      const to = { x: nominal.x + (length > 0 ? dx / length * lead : 0), y: nominal.y + (length > 0 ? dy / length * lead : 0) };
+      feet = feet.map((f, i) => i === index ? {
+        id: f.id,
+        front: f.front,
+        side: f.side,
+        position: f.position,
+        angle: f.angle,
+        phase: "swing",
+        since: tick,
+        duration: o.stepTicks,
+        from: f.position,
+        to,
+        fromAngle: f.angle,
+        toAngle: footAngle(desiredHeading, f.front, f.side),
+        lift: 0
+      } : f);
+      nextFoot = (nextFoot + 1) % 4;
+    }
+    const safe = feet.every((foot) => {
+      const shoulder = geckoShoulder(proposed, desiredHeading, foot);
+      const distance = Math.hypot(shoulder.x - foot.position.x, shoulder.y - foot.position.y);
+      return distance >= 0.063 && distance <= 0.425;
+    });
+    const position = safe ? proposed : old.position, heading = safe ? desiredHeading : old.heading;
+    if (behavior.kind === "retreat")
+      behavior = { ...behavior, traveled: behavior.traveled + Math.hypot(position.x - old.position.x, position.y - old.position.y) };
+    const curlTarget = behavior.kind === "startle" || behavior.kind === "retreat" ? o.curlStrength : 0;
+    const state = {
+      ...old,
+      tick,
+      lastSequence,
+      target,
+      behavior,
+      position,
+      heading,
+      feet,
+      nextFoot,
+      stepsCompleted: completed,
+      tailCurl: old.tailCurl + (curlTarget - old.tailCurl) * 0.12,
+      phase: old.phase + 1 / 60
+    };
+    return { state, inputs };
+  }
+  function createGecko(config = {}) {
+    record(config, ["seed", "heading", "options"], "config");
+    const seed = config.seed === void 0 ? 37 : config.seed, heading = config.heading === void 0 ? -0.24 : config.heading;
+    number(seed, 0, 4294967295, "seed", true);
+    number(heading, -Math.PI, Math.PI, "heading");
+    let state = initialState(seed, heading, resolveGeckoOptions(config.options));
+    let disposed = false;
+    const alive = () => {
+      if (disposed)
+        throw new Error("Gecko has been disposed");
+    };
+    return {
+      get disposed() {
+        return disposed;
+      },
+      step(events = []) {
+        alive();
+        const result = advanceState(state, events);
+        state = result.state;
+        return { state: cloneState(state), inputs: result.inputs.map((x) => ({ ...x })) };
+      },
+      getSnapshot() {
+        alive();
+        return cloneState(state);
+      },
+      update(patch) {
+        alive();
+        const options = resolveGeckoOptions(patch, state.options);
+        state = { ...state, options };
+        return { ...options };
+      },
+      reset(options = {}) {
+        alive();
+        record(options, ["seed", "heading"], "reset");
+        const nextSeed = options.seed === void 0 ? state.seed : options.seed, nextHeading = options.heading === void 0 ? state.initialHeading : options.heading;
+        number(nextSeed, 0, 4294967295, "seed", true);
+        number(nextHeading, -Math.PI, Math.PI, "heading");
+        state = initialState(nextSeed, nextHeading, state.options);
+        return cloneState(state);
+      },
+      dispose() {
+        disposed = true;
+      }
+    };
+  }
+
+  // species/gecko/compiled/geometry.js
+  var clamp2 = (v, a, b) => Math.max(a, Math.min(b, v));
+  var TAU2 = Math.PI * 2;
+  function getGeckoAnatomy(state) {
+    if (state.feet.length !== 4 || ![state.position.x, state.position.y, state.heading, state.phase, state.tailCurl, state.options.tailLength, state.options.toeSpread].every(Number.isFinite)) {
+      throw new TypeError("Expected a finite four-foot GeckoState snapshot");
+    }
+    const tail = [];
+    let x = -0.23, y = 0;
+    const curlSign = state.seed & 1 ? 1 : -1, segments = 72, length = 0.85 * state.options.tailLength;
+    for (let i = 0; i <= segments; i++) {
+      const u = i / segments;
+      if (i > 0) {
+        const mid = (i - 0.5) / segments;
+        const bend = mid * mid * (3 - 2 * mid);
+        const a = Math.PI + curlSign * 5.2 * state.tailCurl * bend + Math.sin(state.phase * 1.1 - mid * 4) * state.options.tailSway * mid;
+        x += Math.cos(a) * length / segments;
+        y += Math.sin(a) * length / segments;
+      }
+      tail.push({ ...transformGeckoPoint(state.position, state.heading, x, y), radius: 4e-3 + 0.074 * Math.pow(1 - u, 0.9) });
+    }
+    const limbs = state.feet.map((foot) => {
+      const shoulder = geckoShoulder(state.position, state.heading, foot), palm = foot.position;
+      const dx = palm.x - shoulder.x, dy = palm.y - shoulder.y, d = Math.hypot(dx, dy);
+      if (!Number.isFinite(d) || d < 1e-6 || d > GECKO_LIMITS.limbReach + 1e-6)
+        throw new RangeError("Foot exceeds declared limb reach");
+      const ux = dx / d, uy = dy / d, upper = 0.19, lower = 0.25;
+      const along = (upper * upper - lower * lower + d * d) / (2 * d), height = Math.sqrt(Math.max(0, upper * upper - along * along));
+      const bend = foot.side * (foot.front ? 1 : -1);
+      const elbow = { x: shoulder.x + ux * along - uy * height * bend, y: shoulder.y + uy * along + ux * height * bend };
+      const pads = Array.from({ length: 5 }, (_, i) => {
+        const a = foot.angle + (i - 2) * 0.66 * state.options.toeSpread;
+        const reach = (0.16 + 0.022 * (1 - Math.abs(i - 2) / 2)) * state.options.toeSpread;
+        return { x: palm.x + Math.cos(a) * reach, y: palm.y + Math.sin(a) * reach };
+      });
+      return { id: foot.id, shoulder, elbow, palm: { ...palm }, angle: foot.angle, lift: foot.phase === "swing" ? foot.lift : 0, pads };
+    });
+    return { tail, limbs };
+  }
+  function sampleGecko(state, emit) {
+    if (typeof emit !== "function")
+      throw new TypeError("emit must be a function");
+    const anatomy = getGeckoAnatomy(state);
+    let count = 0;
+    const put = (p, z, tone, material, part) => {
+      if (++count > GECKO_LIMITS.samples)
+        throw new RangeError("Gecko sample capacity exceeded");
+      if (![p.x, p.y, z, tone].every(Number.isFinite))
+        throw new TypeError("Non-finite gecko sample");
+      emit({ x: p.x, y: p.y, z, tone: clamp2(tone, 0, 1), material, part, stableId: count - 1 });
+    };
+    const disk = (center, rx, ry, angle, rings, z, material, part, tone = 0.7, head = false) => {
+      const c = Math.cos(angle), s = Math.sin(angle);
+      for (let ir = 0; ir <= rings; ir++) {
+        const radius = ir / rings, steps = ir === 0 ? 1 : ir * 8;
+        for (let j = 0; j < steps; j++) {
+          const theta = j / steps * TAU2, u = Math.cos(theta) * radius, v = Math.sin(theta) * radius;
+          const lx = u * rx, ly = v * ry * (head ? 1 - 0.23 * Math.max(0, u) : 1);
+          const p = { x: center.x + lx * c - ly * s, y: center.y + lx * s + ly * c };
+          const dome = Math.sqrt(Math.max(0, 1 - radius * radius));
+          const texture = material === "skin" ? 0.045 * Math.sin((u + state.seed * 1e-3) * 29) * Math.cos(v * 23) : 0;
+          put(p, z + dome * (material === "skin" ? 0.055 : 0.012), tone + 0.17 * dome - 0.1 * v + texture, material, part);
+        }
+      }
+    };
+    const strip = (a, b, ra, rb, segments, widthSamples, z, part) => {
+      const dx = b.x - a.x, dy = b.y - a.y, length = Math.hypot(dx, dy), nx = length > 0 ? -dy / length : 0, ny = length > 0 ? dx / length : 1;
+      for (let i = 0; i <= segments; i++) {
+        const t = i / segments, r = ra + (rb - ra) * t;
+        for (let j = 0; j < widthSamples; j++) {
+          const v = j / (widthSamples - 1) * 2 - 1;
+          put({ x: a.x + dx * t + nx * r * v, y: a.y + dy * t + ny * r * v }, z + 0.018 * (1 - v * v), 0.55 + 0.23 * (1 - Math.abs(v)), "skin", part);
+        }
+      }
+    };
+    for (let i = 0; i < anatomy.tail.length; i++) {
+      const p = anatomy.tail[i], prev = anatomy.tail[Math.max(0, i - 1)], next = anatomy.tail[Math.min(anatomy.tail.length - 1, i + 1)];
+      const dx = next.x - prev.x, dy = next.y - prev.y, length = Math.hypot(dx, dy), nx = -dy / length, ny = dx / length;
+      for (let j = 0; j < 9; j++) {
+        const v = j / 4 - 1;
+        put({ x: p.x + nx * p.radius * v, y: p.y + ny * p.radius * v }, 0.018 + 0.025 * (1 - v * v), 0.5 + 0.22 * (1 - Math.abs(v)), "skin", "tail");
+      }
+    }
+    for (const limb of anatomy.limbs) {
+      strip(limb.shoulder, limb.elbow, 0.04, 0.029, 18, 7, 0.026 + limb.lift * 0.3, "limb");
+      strip(limb.elbow, limb.palm, 0.029, 0.02, 18, 7, 0.024 + limb.lift * 0.7, "limb");
+      disk(limb.palm, 0.031, 0.028, limb.angle, 4, 0.025 + limb.lift, "skin", "limb", 0.64);
+      for (const pad of limb.pads) {
+        strip(limb.palm, pad, 8e-3, 6e-3, 12, 3, 0.025 + limb.lift, "digit");
+        disk(pad, 0.026, 0.023, limb.angle, 6, 0.032 + limb.lift, "pad", "pad", 0.72);
+      }
+    }
+    const breathing = 1 + state.options.breathing * Math.sin(state.phase * 1.45);
+    disk(state.position, 0.25, 0.115 * breathing, state.heading, 18, 0.061, "skin", "body", 0.55);
+    disk(transformGeckoPoint(state.position, state.heading, 0.205, 0), 0.115, 0.077, state.heading, 8, 0.068, "skin", "neck", 0.58);
+    disk(transformGeckoPoint(state.position, state.heading, 0.35, 0), 0.2, 0.155, state.heading, 15, 0.076, "skin", "head", 0.59, true);
+    for (const side of [-1, 1]) {
+      const eye = transformGeckoPoint(state.position, state.heading, 0.415, side * 0.105);
+      disk(eye, 0.04, 0.03, state.heading, 6, 0.142, "eye", "eye", 0.8);
+      disk(eye, 0.01, 0.021, state.heading, 3, 0.159, "pupil", "eye", 0.25);
+    }
+    return { samples: count, capacity: GECKO_LIMITS.samples };
+  }
+
+  // species/gecko/compiled/preview.js
+  var GECKO_VIEW = Object.freeze({ width: 3.4, height: 2.6 });
+  var RAMP = ".:-=+*#%@";
+  var MATERIALS = { skin: 0, pad: 1, eye: 2, pupil: 3 };
+  function renderGeckoGrid(state, options = {}) {
+    if (!options || typeof options !== "object" || Array.isArray(options) || Object.getPrototypeOf(options) !== Object.prototype && Object.getPrototypeOf(options) !== null)
+      throw new TypeError("view must be a plain object");
+    for (const key of Reflect.ownKeys(options))
+      if (typeof key !== "string" || !["cols", "rows", "neutral"].includes(key))
+        throw new TypeError(`Unknown view option: ${String(key)}`);
+    const cols = options.cols === void 0 ? 176 : options.cols, rows = options.rows === void 0 ? 78 : options.rows;
+    if (!Number.isSafeInteger(cols) || cols < GECKO_LIMITS.minCols || cols > GECKO_LIMITS.maxCols || !Number.isSafeInteger(rows) || rows < GECKO_LIMITS.minRows || rows > GECKO_LIMITS.maxRows)
+      throw new RangeError("Grid must be 112..192 columns and 50..86 rows");
+    if (options.neutral !== void 0 && typeof options.neutral !== "boolean")
+      throw new TypeError("neutral must be boolean");
+    const count = cols * rows, glyphs = new Uint8Array(count).fill(32), tones = new Float32Array(count), materials = new Uint8Array(count), depth = new Float64Array(count).fill(-Infinity);
+    let occupied = 0;
+    const result = sampleGecko(state, (p) => {
+      const col = Math.floor((p.x / GECKO_VIEW.width + 0.5) * cols), row = Math.floor((p.y / GECKO_VIEW.height + 0.5) * rows);
+      if (col < 0 || row < 0 || col >= cols || row >= rows)
+        return;
+      const index = row * cols + col;
+      if (p.z <= depth[index])
+        return;
+      if (depth[index] === -Infinity)
+        occupied++;
+      depth[index] = p.z;
+      tones[index] = options.neutral ? 1 : p.tone;
+      materials[index] = options.neutral ? 0 : MATERIALS[p.material];
+      const glyph = options.neutral ? "#" : p.material === "pad" ? "o" : p.material === "eye" ? "O" : p.material === "pupil" ? "." : RAMP[Math.min(RAMP.length - 1, Math.floor(p.tone * RAMP.length))];
+      glyphs[index] = glyph.charCodeAt(0);
+    });
+    const lines = [];
+    for (let row = 0; row < rows; row++)
+      lines.push(String.fromCharCode(...glyphs.subarray(row * cols, (row + 1) * cols)));
+    return { cols, rows, text: lines.join("\n"), glyphs, tones, materials, occupied, samples: result.samples };
+  }
+  function drawGeckoGrid(ctx, grid, width, height) {
+    if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0 || width > 1e3 || height > 780)
+      throw new RangeError("Preview size must be positive, at most 1000x780");
+    const aspect = GECKO_VIEW.width / GECKO_VIEW.height;
+    const w = Math.min(width, height * aspect), h = w / aspect, left = (width - w) / 2, top = (height - h) / 2;
+    const cw = w / grid.cols, ch = h / grid.rows, fontSize = Math.min(cw / 0.6, ch) * 0.98;
+    ctx.fillStyle = "#101c19";
+    ctx.fillRect(0, 0, width, height);
+    ctx.font = `${fontSize}px ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const palette = Array.from({ length: 24 }, (_, i) => {
+      const t = i / 23;
+      return `rgb(${Math.round(85 + 120 * t)},${Math.round(119 + 105 * t)},${Math.round(98 + 100 * t)})`;
+    });
+    for (let i = 0; i < grid.glyphs.length; i++) {
+      const char = grid.glyphs[i];
+      if (char === 32)
+        continue;
+      const material = grid.materials[i];
+      ctx.fillStyle = material === 1 ? "#ead5a6" : material === 2 ? "#f4edcf" : material === 3 ? "#263e32" : palette[Math.min(23, Math.floor(grid.tones[i] * 23))];
+      ctx.fillText(String.fromCharCode(char), left + (i % grid.cols + 0.5) * cw, top + (Math.floor(i / grid.cols) + 0.5) * ch);
+    }
+  }
+
+  // species/gecko/compiled/browser.js
+  var DEFAULT_VIEW = Object.freeze({ grid: "auto", neutral: false, maxDpr: 2 });
+  var TICK_MS = 1e3 / 60;
+  var MAX_CATCH_UP = 5;
+  var MAX_WIDTH = 1e3;
+  var MAX_HEIGHT = 780;
+  var MIN_WIDTH = 360;
+  function record2(value, keys, label) {
+    if (!value || typeof value !== "object" || Array.isArray(value) || Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null) {
+      throw new TypeError(`${label} must be a plain object`);
+    }
+    for (const key of Reflect.ownKeys(value)) {
+      if (typeof key !== "string" || !keys.includes(key))
+        throw new TypeError(`Unknown ${label} key: ${String(key)}`);
+    }
+  }
+  function boolean(value, label) {
+    if (typeof value !== "boolean")
+      throw new TypeError(`${label} must be boolean`);
+  }
+  function viewOptions(patch, previous) {
+    record2(patch, ["grid", "neutral", "maxDpr"], "view");
+    const next = { ...previous, ...patch };
+    boolean(next.neutral, "neutral");
+    if (!Number.isFinite(next.maxDpr) || next.maxDpr < 1 || next.maxDpr > 2)
+      throw new RangeError("maxDpr must be finite and within [1,2]");
+    if (next.grid !== "auto") {
+      record2(next.grid, ["cols", "rows"], "grid");
+      if (!Number.isSafeInteger(next.grid.cols) || Number(next.grid.cols) < 112 || Number(next.grid.cols) > 192 || !Number.isSafeInteger(next.grid.rows) || Number(next.grid.rows) < 50 || Number(next.grid.rows) > 86) {
+        throw new RangeError("grid must be within 112..192 columns and 50..86 rows");
+      }
+      next.grid = Object.freeze({ cols: Number(next.grid.cols), rows: Number(next.grid.rows) });
+    }
+    return Object.freeze(next);
+  }
+  function mountGecko(canvas2, options = {}) {
+    record2(options, ["config", "paused", "view", "onStatus"], "mount options");
+    if (options.paused !== void 0)
+      boolean(options.paused, "paused");
+    if (options.onStatus !== void 0 && typeof options.onStatus !== "function")
+      throw new TypeError("onStatus must be a function");
+    let view = viewOptions(options.view === void 0 ? {} : options.view, DEFAULT_VIEW);
+    const document2 = canvas2.ownerDocument;
+    const host = document2?.defaultView;
+    if (!host)
+      throw new TypeError("A connected browser document is required");
+    const context = canvas2.getContext("2d", { alpha: false });
+    if (!context)
+      throw new Error("Canvas 2D is unavailable; the static text alternative remains available.");
+    const model = createGecko(options.config);
+    let snapshot = model.getSnapshot();
+    let paused = options.paused ?? false;
+    let disposed = false;
+    const motion = host.matchMedia("(prefers-reduced-motion: reduce)");
+    let reducedMotion = motion.matches;
+    let hidden = document2.hidden;
+    let pageSuspended = false;
+    let offscreen = false;
+    let zeroSize = false;
+    let tooSmall = false;
+    let poster = "current";
+    let frame2 = null;
+    let lastTime = null;
+    let accumulator = 0;
+    let droppedMilliseconds = 0;
+    let renderedFrames = 0;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let cssWidth = 0;
+    let pendingGuide = null;
+    let pendingStartle = false;
+    let clearOnResume = false;
+    let lastGrid = null;
+    const cleanup = [];
+    const running = () => !disposed && !paused && !reducedMotion && !hidden && !pageSuspended && !offscreen && !zeroSize && !tooSmall;
+    const ensure = () => {
+      if (disposed)
+        throw new Error("Gecko controller is disposed");
+    };
+    function getStatus() {
+      return {
+        tick: snapshot.tick,
+        phase: snapshot.behavior.kind,
+        paused,
+        reducedMotion,
+        hidden,
+        pageSuspended,
+        offscreen,
+        zeroSize,
+        tooSmall,
+        disposed,
+        running: running(),
+        poster,
+        pendingInputs: Number(pendingGuide !== null) + Number(pendingStartle),
+        queuedFrames: Number(frame2 !== null),
+        renderedFrames,
+        droppedMilliseconds,
+        dimensions: { width, height, dpr }
+      };
+    }
+    function dispose() {
+      if (disposed)
+        return;
+      disposed = true;
+      if (frame2 !== null)
+        host.cancelAnimationFrame(frame2);
+      frame2 = null;
+      pendingGuide = null;
+      pendingStartle = false;
+      clearOnResume = false;
+      lastTime = null;
+      accumulator = 0;
+      for (const release of cleanup.splice(0).reverse())
+        release();
+      model.dispose();
+      lastGrid = null;
+      canvas2.width = 0;
+      canvas2.height = 0;
+    }
+    function notify() {
+      try {
+        options.onStatus?.(getStatus());
+      } catch (error) {
+        dispose();
+        throw error;
+      }
+    }
+    function suspend() {
+      if (frame2 !== null)
+        host.cancelAnimationFrame(frame2);
+      frame2 = null;
+      lastTime = null;
+      accumulator = 0;
+      pendingGuide = null;
+      pendingStartle = false;
+      clearOnResume = snapshot.target !== null;
+    }
+    function schedule() {
+      if (running() && frame2 === null)
+        frame2 = host.requestAnimationFrame(tick);
+    }
+    function reconcile() {
+      if (!running())
+        suspend();
+      else
+        schedule();
+    }
+    function posterState() {
+      return poster === "curled" ? {
+        ...snapshot,
+        tailCurl: snapshot.options.curlStrength,
+        behavior: { kind: "startle", since: snapshot.tick, heading: snapshot.heading }
+      } : snapshot;
+    }
+    function grid() {
+      const dimensions = view.grid === "auto" ? cssWidth < 560 ? { cols: 112, rows: 50 } : { cols: 176, rows: 78 } : view.grid;
+      return renderGeckoGrid(posterState(), { ...dimensions, neutral: view.neutral });
+    }
+    function draw() {
+      if (disposed || zeroSize || tooSmall || hidden || pageSuspended || offscreen || !width || !height)
+        return;
+      lastGrid = grid();
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawGeckoGrid(context, lastGrid, width, height);
+      renderedFrames++;
+    }
+    function resize() {
+      if (disposed)
+        return;
+      const rect = canvas2.getBoundingClientRect();
+      zeroSize = !Number.isFinite(rect.width) || !Number.isFinite(rect.height) || rect.width <= 0 || rect.height <= 0;
+      tooSmall = !zeroSize && rect.width < MIN_WIDTH;
+      cssWidth = zeroSize ? 0 : rect.width;
+      if (zeroSize || tooSmall) {
+        width = 0;
+        height = 0;
+        canvas2.width = 0;
+        canvas2.height = 0;
+        lastGrid = null;
+      } else {
+        const scale = Math.min(1, MAX_WIDTH / rect.width, MAX_HEIGHT / rect.height);
+        width = Math.max(1, Math.floor(rect.width * scale));
+        height = Math.max(1, Math.floor(rect.height * scale));
+        const deviceDpr = host.devicePixelRatio;
+        dpr = Math.max(1, Math.min(view.maxDpr, Number.isFinite(deviceDpr) ? deviceDpr : 1));
+        canvas2.width = Math.round(width * dpr);
+        canvas2.height = Math.round(height * dpr);
+        draw();
+      }
+      reconcile();
+      notify();
+    }
+    function advanceOne() {
+      const events = [];
+      let sequence = snapshot.lastSequence;
+      const nextTick = snapshot.tick + 1;
+      if (clearOnResume)
+        events.push({ type: "leave", tick: nextTick, seq: ++sequence });
+      if (pendingGuide)
+        events.push({ ...pendingGuide, tick: nextTick, seq: ++sequence });
+      if (pendingStartle)
+        events.push({ type: "startle", tick: nextTick, seq: ++sequence });
+      pendingGuide = null;
+      pendingStartle = false;
+      clearOnResume = false;
+      const phase2 = snapshot.behavior.kind;
+      snapshot = model.step(events).state;
+      if (snapshot.behavior.kind !== phase2)
+        notify();
+    }
+    function tick(timestamp) {
+      frame2 = null;
+      if (!running())
+        return;
+      try {
+        if (lastTime === null)
+          lastTime = timestamp;
+        const elapsed = Math.max(0, timestamp - lastTime);
+        lastTime = timestamp;
+        const accepted = Math.min(elapsed, TICK_MS * MAX_CATCH_UP);
+        droppedMilliseconds += elapsed - accepted;
+        accumulator += accepted;
+        let steps = 0;
+        while (running() && accumulator + 1e-8 >= TICK_MS && steps < MAX_CATCH_UP) {
+          advanceOne();
+          accumulator = Math.max(0, accumulator - TICK_MS);
+          steps++;
+        }
+        if (accumulator >= TICK_MS) {
+          const dropped = Math.floor(accumulator / TICK_MS) * TICK_MS;
+          accumulator -= dropped;
+          droppedMilliseconds += dropped;
+        }
+        const desiredDpr = Math.max(1, Math.min(view.maxDpr, host.devicePixelRatio || 1));
+        if (desiredDpr !== dpr)
+          resize();
+        else if (steps)
+          draw();
+        schedule();
+      } catch (error) {
+        dispose();
+        throw error;
+      }
+    }
+    function listen2(target, type, handler, options2) {
+      target.addEventListener(type, handler, options2);
+      cleanup.push(() => target.removeEventListener(type, handler, options2));
+    }
+    function guide(x, y) {
+      ensure();
+      if (typeof x !== "number" || typeof y !== "number" || !Number.isFinite(x) || !Number.isFinite(y))
+        throw new TypeError("Guide coordinates must be finite numbers");
+      if (!running())
+        return { outcome: "ignored", reason: "resting" };
+      pendingGuide = { type: "guide", x: Math.max(-1, Math.min(1, x)), y: Math.max(-1, Math.min(1, y)) };
+      return { outcome: "queued" };
+    }
+    function clearGuide() {
+      ensure();
+      pendingGuide = running() ? { type: "leave" } : null;
+      if (!running())
+        clearOnResume = snapshot.target !== null;
+    }
+    function startle() {
+      ensure();
+      if (!running()) {
+        poster = "curled";
+        draw();
+        notify();
+        return { outcome: "static" };
+      }
+      pendingStartle = true;
+      return { outcome: "queued" };
+    }
+    function setPaused(value) {
+      ensure();
+      boolean(value, "paused");
+      paused = value;
+      if (!paused && !reducedMotion)
+        poster = "current";
+      reconcile();
+      draw();
+      notify();
+    }
+    function onPointer(event) {
+      if (disposed || !running())
+        return;
+      if (event.type === "pointermove" && event.pointerType === "touch" && event.buttons === 0)
+        return;
+      const point = normalizeGuide(event.clientX, event.clientY, canvas2.getBoundingClientRect());
+      if (point)
+        guide(point.x, point.y);
+    }
+    function onDeparture() {
+      if (!disposed)
+        clearGuide();
+    }
+    function onKey(event) {
+      if (disposed || event.target !== canvas2 || event.altKey || event.ctrlKey || event.metaKey)
+        return;
+      const points = {
+        ArrowLeft: [-1, 0],
+        ArrowRight: [1, 0],
+        ArrowUp: [0, -1],
+        ArrowDown: [0, 1]
+      };
+      const point = points[event.key];
+      if (point) {
+        event.preventDefault();
+        guide(...point);
+      } else if (event.code === "Space" || event.key === " ") {
+        event.preventDefault();
+        setPaused(!paused);
+      }
+    }
+    const controller = {
+      getSnapshot() {
+        ensure();
+        return model.getSnapshot();
+      },
+      getStatus,
+      update(patch) {
+        ensure();
+        const resolved = model.update(patch);
+        snapshot = model.getSnapshot();
+        draw();
+        notify();
+        return resolved;
+      },
+      setView(patch) {
+        ensure();
+        view = viewOptions(patch, view);
+        resize();
+        return view;
+      },
+      setPaused,
+      guide,
+      clearGuide,
+      startle,
+      reset(settings = {}) {
+        ensure();
+        snapshot = model.reset(settings);
+        poster = "current";
+        pendingGuide = null;
+        pendingStartle = false;
+        clearOnResume = false;
+        accumulator = 0;
+        lastTime = null;
+        draw();
+        reconcile();
+        notify();
+      },
+      exportText() {
+        ensure();
+        return grid().text;
+      },
+      redraw() {
+        ensure();
+        resize();
+      },
+      dispose
+    };
+    try {
+      listen2(canvas2, "pointermove", onPointer, { passive: true });
+      listen2(canvas2, "pointerdown", onPointer, { passive: true });
+      for (const type of ["pointerleave", "pointercancel", "lostpointercapture"])
+        listen2(canvas2, type, onDeparture, { passive: true });
+      listen2(canvas2, "keydown", onKey);
+      listen2(document2, "visibilitychange", () => {
+        if (disposed)
+          return;
+        hidden = document2.hidden;
+        reconcile();
+        if (!hidden)
+          draw();
+        notify();
+      });
+      listen2(motion, "change", () => {
+        if (disposed)
+          return;
+        reducedMotion = motion.matches;
+        if (!reducedMotion)
+          poster = "current";
+        reconcile();
+        draw();
+        notify();
+      });
+      listen2(host, "resize", resize);
+      listen2(host, "pagehide", (event) => {
+        if (disposed)
+          return;
+        if (!event.persisted) {
+          dispose();
+          return;
+        }
+        pageSuspended = true;
+        reconcile();
+        notify();
+      });
+      listen2(host, "pageshow", () => {
+        if (disposed)
+          return;
+        pageSuspended = false;
+        hidden = document2.hidden;
+        lastTime = null;
+        accumulator = 0;
+        resize();
+      });
+      if (host.ResizeObserver) {
+        const observer = new host.ResizeObserver(resize);
+        cleanup.push(() => observer.disconnect());
+        observer.observe(canvas2);
+      }
+      if (host.IntersectionObserver) {
+        const observer = new host.IntersectionObserver((entries) => {
+          if (disposed)
+            return;
+          const entry = entries.find((item) => item.target === canvas2);
+          if (!entry)
+            return;
+          offscreen = !entry.isIntersecting;
+          reconcile();
+          if (!offscreen)
+            draw();
+          notify();
+        });
+        cleanup.push(() => observer.disconnect());
+        observer.observe(canvas2);
+      }
+      resize();
+      return controller;
+    } catch (error) {
+      dispose();
+      throw error;
+    }
+  }
+
+  // species/gecko/compiled/demo.js
+  var geckoDemo = null;
+  function element(id) {
+    const node = document.getElementById(id);
+    if (!node)
+      throw new Error(`Missing gecko demo element: ${id}`);
+    return node;
+  }
+  var canvas = element("gecko");
+  var phase = element("phase");
+  var pause = element("pause");
+  var help = element("scene-help");
+  var feedback = element("action-status");
+  var fallback = element("fallback");
+  var fallbackMessage = element("fallback-message");
+  var frame = element("text-frame");
+  var titles = {
+    idle: "Resting",
+    approach: "Curious",
+    startle: "A little startled",
+    retreat: "Stepping back",
+    recover: "Finding courage",
+    cooldown: "Taking a moment"
+  };
+  var listeners = [];
+  function listen(target, event, handler) {
+    target.addEventListener(event, handler);
+    listeners.push(() => target.removeEventListener(event, handler));
+  }
+  function announce(message) {
+    feedback.textContent = message;
+  }
+  function refresh(status) {
+    phase.textContent = status.reducedMotion ? "Still portrait" : status.paused ? "Paused" : titles[status.phase];
+    pause.textContent = status.paused ? "Play" : "Pause";
+    pause.setAttribute("aria-pressed", String(status.paused));
+    pause.setAttribute("aria-label", status.paused ? "Play gecko animation" : "Pause gecko animation");
+    help.textContent = status.reducedMotion ? "Reduced motion: Startle selects a still pose." : status.paused ? "A quiet moment. Play when you are ready." : "Move gently to invite a few steps.";
+    fallback.hidden = !(status.tooSmall || status.zeroSize);
+    if (status.tooSmall)
+      fallbackMessage.textContent = "This gecko needs 360 pixels of space. Its plain-text portrait is still available below.";
+  }
+  function refreshText() {
+    if (geckoDemo)
+      frame.textContent = geckoDemo.exportText();
+    else {
+      const poster = createGecko();
+      try {
+        frame.textContent = renderGeckoGrid(poster.getSnapshot(), { cols: 112, rows: 50 }).text;
+      } finally {
+        poster.dispose();
+      }
+    }
+  }
+  try {
+    geckoDemo = mountGecko(canvas, { onStatus: refresh });
+    listen(pause, "click", () => {
+      if (!geckoDemo)
+        return;
+      const paused = !geckoDemo.getStatus().paused;
+      geckoDemo.setPaused(paused);
+      announce(paused ? "Paused. Take your time." : geckoDemo.getStatus().reducedMotion ? "Reduced motion keeps the portrait still." : "The gecko is moving again.");
+    });
+    listen(element("reset"), "click", () => {
+      geckoDemo?.reset();
+      announce("Back to the beginning. Your playback preference is preserved.");
+    });
+    listen(element("startle"), "click", () => {
+      const action = geckoDemo?.startle();
+      announce(action?.outcome === "static" ? "A still pose with a curled tail." : "A small surprise. Give the gecko a moment to recover.");
+    });
+    for (const button of document.querySelectorAll("[data-guide]")) {
+      listen(button, "click", () => {
+        const [x, y] = (button.dataset.guide ?? "").split(",").map(Number);
+        if (x === void 0 || y === void 0)
+          return;
+        const action = geckoDemo?.guide(x, y);
+        announce(action?.outcome === "ignored" ? "The portrait is still. Play to invite steps when motion is enabled." : "A new direction to explore.");
+      });
+    }
+    listen(element("rest"), "click", () => {
+      geckoDemo?.clearGuide();
+      announce("No need to hurry.");
+    });
+    listen(element("pace"), "input", (event) => {
+      const value = Number(event.currentTarget.value);
+      geckoDemo?.update({ creepSpeed: value });
+      element("pace-value").textContent = value < 0.07 ? "Slow" : value > 0.13 ? "Brisk" : "Gentle";
+    });
+    listen(element("curl"), "input", (event) => {
+      const value = Number(event.currentTarget.value);
+      geckoDemo?.update({ curlStrength: value });
+      element("curl-value").textContent = `${Math.round(value * 100)}%`;
+    });
+    listen(element("neutral"), "change", (event) => {
+      geckoDemo?.setView({ neutral: event.currentTarget.checked });
+    });
+  } catch (error) {
+    geckoDemo?.dispose();
+    geckoDemo = null;
+    for (const release of listeners.splice(0).reverse())
+      release();
+    fallback.hidden = false;
+    fallbackMessage.textContent = "The animated canvas is unavailable here. The gecko has a broad head, four splayed pad-toed feet, and a long attached tail. Its plain-text portrait is available below.";
+    phase.textContent = "Text portrait";
+    help.textContent = "A quiet text portrait is available below.";
+    for (const control of document.querySelectorAll(".interaction-panel button, .interaction-panel input, .playback button"))
+      control.disabled = true;
+    announce("Animation unavailable; the plain-text portrait remains usable.");
+    console.warn("Gecko canvas unavailable", error);
+  }
+  listen(element("refresh-text"), "click", refreshText);
+  listen(element("text-details"), "toggle", (event) => {
+    if (event.currentTarget.open)
+      refreshText();
+  });
+  refreshText();
+  function disposeDemo() {
+    geckoDemo?.dispose();
+    for (const release of listeners.splice(0).reverse())
+      release();
+  }
+  listen(window, "pagehide", (event) => {
+    if (!event.persisted)
+      disposeDemo();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "speciesVersion": 1,
+  "seed": 37,
+  "tickRate": 60,
+  "initialHeading": -0.24,
+  "options": "DEFAULT_GECKO_OPTIONS in src/gecko.ts",
+  "events": [
+    { "tick": 1, "seq": 1, "type": "guide", "x": 0.9, "y": -0.9 },
+    { "tick": 181, "seq": 2, "type": "startle" },
+    { "tick": 320, "seq": 3, "type": "guide", "x": -0.8, "y": 0.5 },
+    { "tick": 570, "seq": 4, "type": "leave" }
+  ]
+}

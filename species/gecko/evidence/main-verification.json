@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-18T10:17:53.332387+00:00",
+  "cwd": "/workspace/scratch/2b42caa0b4f6/gecko-work",
+  "headAtStart": "4819dd939318ce29a04e09b2af1ced64f574c004",
+  "integrationBase": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+  "compilerSource": "/workspace/scratch/5bc33bd36e8d/toolchain/node_modules/typescript",
+  "compilerNote": "Original compiler path was absent; reused existing TypeScript 5.9.3 through ignored node_modules/typescript symlink. No download or dependency/configuration file change.",
+  "scope": "Merged main regressions after gecko rebase; numerical, stub, generated-output, catalogue and TypeScript checks. Not browser, accessibility or performance evidence.",
+  "checks": [
+    {
+      "name": "versions",
+      "command": "node -e 'console.log(JSON.stringify({node:process.version,platform:process.platform,arch:process.arch,typescript:require(\"./node_modules/typescript/package.json\").version},null,2))'",
+      "argv": [
+        "node",
+        "-e",
+        "console.log(JSON.stringify({node:process.version,platform:process.platform,arch:process.arch,typescript:require(\"./node_modules/typescript/package.json\").version},null,2))"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.15883959700295236,
+      "log": "species/gecko/evidence/main-versions.txt"
+    },
+    {
+      "name": "build",
+      "command": "node scripts/build.mjs",
+      "argv": [
+        "node",
+        "scripts/build.mjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 1.90909513799852,
+      "log": "species/gecko/evidence/main-build.txt"
+    },
+    {
+      "name": "tests",
+      "command": "node --test test/generated-demo.test.mjs test/lifecycle.test.mjs test/parity.test.mjs test/public-api.test.mjs test/scheduler.test.mjs",
+      "argv": [
+        "node",
+        "--test",
+        "test/generated-demo.test.mjs",
+        "test/lifecycle.test.mjs",
+        "test/parity.test.mjs",
+        "test/public-api.test.mjs",
+        "test/scheduler.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 41.35236409900244,
+      "log": "species/gecko/evidence/main-tests.txt"
+    },
+    {
+      "name": "typecheck",
+      "command": "node /workspace/scratch/5bc33bd36e8d/toolchain/node_modules/typescript/lib/tsc.js -p tsconfig.json --noEmit",
+      "argv": [
+        "node",
+        "/workspace/scratch/5bc33bd36e8d/toolchain/node_modules/typescript/lib/tsc.js",
+        "-p",
+        "tsconfig.json",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 2.620105093003076,
+      "log": "species/gecko/evidence/main-typecheck.txt"
+    },
+    {
+      "name": "demo-check",
+      "command": "node scripts/build-demo.mjs --check",
+      "argv": [
+        "node",
+        "scripts/build-demo.mjs",
+        "--check"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.09366667200083612,
+      "log": "species/gecko/evidence/main-demo-check.txt"
+    },
+    {
+      "name": "catalogue",
+      "command": "python3 scripts/check-catalogue.py",
+      "argv": [
+        "python3",
+        "scripts/check-catalogue.py"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.05079849699541228,
+      "log": "species/gecko/evidence/main-catalogue.txt"
+    },
+    {
+      "name": "authoring-bridge",
+      "command": "node scripts/check-authoring-bridge.mjs",
+      "argv": [
+        "node",
+        "scripts/check-authoring-bridge.mjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 1.5228895889958949,
+      "log": "species/gecko/evidence/main-authoring-bridge.txt"
+    },
+    {
+      "name": "legacy",
+      "command": "node scripts/check-engine.cjs",
+      "argv": [
+        "node",
+        "scripts/check-engine.cjs"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 26.22946372700244,
+      "log": "species/gecko/evidence/main-legacy.txt"
+    },
+    {
+      "name": "syntax-artwork",
+      "command": "node --check dist/artwork.js",
+      "argv": [
+        "node",
+        "--check",
+        "dist/artwork.js"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.1004285139933927,
+      "log": "species/gecko/evidence/main-syntax-artwork.txt"
+    },
+    {
+      "name": "syntax-app",
+      "command": "node --check dist/app.js",
+      "argv": [
+        "node",
+        "--check",
+        "dist/app.js"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.11030035199655686,
+      "log": "species/gecko/evidence/main-syntax-app.txt"
+    },
+    {
+      "name": "syntax-catalogue",
+      "command": "node --check dist/catalogue.js",
+      "argv": [
+        "node",
+        "--check",
+        "dist/catalogue.js"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.0877798729998176,
+      "log": "species/gecko/evidence/main-syntax-catalogue.txt"
+    },
+    {
+      "name": "tracked-diff",
+      "command": "git diff --exit-code HEAD -- . ':(exclude)species/gecko/**'",
+      "argv": [
+        "git",
+        "diff",
+        "--exit-code",
+        "HEAD",
+        "--",
+        ".",
+        ":(exclude)species/gecko/**"
+      ],
+      "exitCode": 0,
+      "durationSeconds": 0.025124184998276178,
+      "log": "species/gecko/evidence/main-tracked-diff.txt"
+    }
+  ],
+  "unrun": [
+    "check-package.mjs intentionally not repeated: no shared package/export/source edits; gecko remains outside root export map. No package compatibility claim for gecko."
+  ],
+  "finishedAt": "2026-11-18T10:18:36.808100+00:00",
+  "status": "passed",
+  "legacyScope": "check-engine.cjs and check-authoring-bridge.mjs use test/fixtures/legacy-artwork.cjs. Root parity/generated-demo tests separately compare the canonical source and generated artifacts.",
+  "versions": {
+    "node": "v24.22.1",
+    "typescript": "5.9.3",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "results": {
+    "rootNodeSuite": {
+      "tests": 25,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0
+    },
+    "legacyAuthoringBridge": {
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    "legacyNumerical": {
+      "geometryCases": 60,
+      "totalSamples": 4748048,
+      "maxSamplesPerAnimal": 23764,
+      "nonfiniteSamples": 0,
+      "clippedSamples": 0
+    },
+    "catalogue": {
+      "speciesCount": 13,
+      "availableCount": 1,
+      "plannedCount": 12
+    },
+    "generatedCanonicalSourceSha256": "5c2ad6f6e1c7d10b34bac456ad4728c7db419f4a70e2e466c9be895e37fd4b69",
+    "trackedNonGeckoDiff": false
+  }
+}

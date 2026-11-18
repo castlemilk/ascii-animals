@@ -1,0 +1,122 @@
+{
+  "node": "v24.22.1",
+  "typescript": "5.9.3",
+  "esbuild": "0.25.12",
+  "host": "Linux x86_64",
+  "tests": [
+    {
+      "check": "typescript-build",
+      "command": [
+        "node",
+        "species/gecko/scripts/build.mjs"
+      ],
+      "exitCode": 0,
+      "log": "typescript-build.txt"
+    },
+    {
+      "check": "typescript-types",
+      "command": [
+        "node",
+        "species/gecko/scripts/build.mjs",
+        "--types"
+      ],
+      "exitCode": 0,
+      "log": "typescript-types.txt"
+    },
+    {
+      "check": "species-tests",
+      "command": [
+        "node",
+        "--test",
+        "species/gecko/test/core.test.mjs",
+        "species/gecko/test/adapter.test.mjs",
+        "species/gecko/test/browser.test.mjs"
+      ],
+      "exitCode": 0,
+      "log": "species-tests.txt"
+    },
+    {
+      "check": "legacy-artwork-syntax",
+      "command": [
+        "node",
+        "--check",
+        "dist/artwork.js"
+      ],
+      "exitCode": 0,
+      "log": "legacy-artwork-syntax.txt"
+    },
+    {
+      "check": "legacy-app-syntax",
+      "command": [
+        "node",
+        "--check",
+        "dist/app.js"
+      ],
+      "exitCode": 0,
+      "log": "legacy-app-syntax.txt"
+    },
+    {
+      "check": "legacy-regression",
+      "command": [
+        "node",
+        "scripts/check-engine.cjs"
+      ],
+      "exitCode": 0,
+      "log": "legacy-regression.txt"
+    },
+    {
+      "check": "legacy-standalone",
+      "command": [
+        "python3",
+        "scripts/build-standalone.py"
+      ],
+      "exitCode": 0,
+      "log": "legacy-standalone.txt"
+    },
+    {
+      "check": "legacy-unchanged",
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "dist/"
+      ],
+      "exitCode": 0,
+      "log": "legacy-unchanged.txt"
+    },
+    {
+      "check": "gecko-standalone",
+      "command": [
+        "node",
+        "species/gecko/scripts/standalone.mjs"
+      ],
+      "exitCode": 0,
+      "log": "gecko-standalone.txt"
+    },
+    {
+      "check": "native-capture",
+      "command": [
+        "node",
+        "species/gecko/scripts/capture.mjs"
+      ],
+      "exitCode": 0,
+      "log": "native-capture.txt"
+    },
+    {
+      "check": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exitCode": 0,
+      "log": "whitespace.txt"
+    }
+  ],
+  "authoringBase": "0e446c47b491b751d484e40db753ec725652b515",
+  "finalSpeciesVerificationBase": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+  "originalLegacyVerificationBase": "0e446c47b491b751d484e40db753ec725652b515",
+  "finalMainVerification": "main-verification.json"
+}

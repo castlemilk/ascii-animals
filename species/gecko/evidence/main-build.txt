@@ -1,0 +1,10 @@
+Command: node scripts/build.mjs
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:53.498775+00:00
+Exit code: 0
+Duration seconds: 1.909095
+
+STDOUT
+{"demo":{"sourceSha256":"5c2ad6f6e1c7d10b34bac456ad4728c7db419f4a70e2e466c9be895e37fd4b69","global":"dist/artwork.js","standalone":"dist/cuttlefish.html"},"output":"lib","modules":4,"declarations":3,"tool":"tsc + private-renderer copy","runtimeDependencies":0}
+
+STDERR
