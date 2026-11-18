@@ -154,3 +154,18 @@ owl.guide(.2,.1);owl.pulse();owl.update({reactionStrength:.5});owl.pause();owl.d
 owl.update({wingSpan:1});
 // @ts-expect-error fixed DOM cell aspect
 createOwlArtwork(document.createElement('div'),{grid:{cellAspect:1}});
+import {createSeahorseArtwork,createSeahorseModel,type SeahorseOptions} from 'ascii-animals-review/seahorse';
+import {createSeahorseArtwork as rootSeahorse} from 'ascii-animals-review';
+const horseOptions={behavior:'holdfast',palette:'brass',columns:100} satisfies SeahorseOptions;
+const horse=createSeahorseArtwork(document.createElement('canvas'),horseOptions);
+const sameHorse:typeof createSeahorseArtwork=rootSeahorse;
+horse.update({facing:'right',scale:1.1});horse.pause();horse.play();horse.restart();horse.pulse();horse.guide(0,.3);horse.getFrame();horse.dispose();
+const horseModel=createSeahorseModel();horseModel.advanceTicks(10);horseModel.greet();
+// @ts-expect-error seahorse does not pretend to support marine ink or formations
+horse.update({formation:'diagonal'});
+// @ts-expect-error only supported behavior values
+horse.update({behavior:'pounce'});
+// @ts-expect-error snapshots immutable
+horse.getOptions().speed=3;
+// @ts-expect-error explicit integer tick API uses numbers
+horseModel.advanceTicks('10');

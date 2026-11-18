@@ -30,3 +30,4 @@ export { createFrogArtwork } from './public/frog.js';
 export type { FrogArtwork, FrogMountOptions, FrogConfigPatch, FrogState, FrogInput } from './public/frog.js';
 export {createOwlArtwork} from './public/owl.js';
 export type {OwlArtwork,OwlBrowserOptions,OwlBrowserStatus,OwlOptions,OwlState} from './public/owl.js';
+export * from './public/seahorse.js';

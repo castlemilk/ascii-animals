@@ -3,6 +3,7 @@ import { buildDragonflyPackage, buildDragonflyDemo } from './build-dragonfly.mjs
 import { buildPufferfishPackage, buildPufferfishDemo } from './build-pufferfish.mjs';
 import { buildFrogPackage, buildFrogDemo } from './build-frog.mjs';
 import {buildOwlPackage,buildOwlDemo} from './build-owl.mjs';
+import { buildSeahorseDemo } from './build-seahorse.mjs';
 import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
 import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
@@ -53,4 +54,5 @@ const gecko = await buildGeckoDemo();
 const pufferfish = await buildPufferfishDemo();
 const frog = await buildFrogDemo();
 const owl=await buildOwlDemo();
-console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
+const seahorse = await buildSeahorseDemo();
+console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, seahorse, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

@@ -38,6 +38,13 @@ The original reactive fox is available through a dedicated typed adapter and
 It preserves its own fixed-tick behavior model rather than pretending to accept
 cuttlefish formations or ink controls. Package publication remains disabled.
 
+## Seahorse artwork candidate
+
+A newly authored, original Seahorse study has a dedicated [typed API](docs/SEAHORSE-API.md)
+and [local demo](dist/seahorse/index.html). It adds hovering, curiosity and a curled
+holdfast pose; reduced motion and pause always remain authoritative. This review
+candidate is not yet advertised as deployed in the catalogue.
+
 ## TypeScript-first artwork API
 
 The compiled, strict TypeScript facade exposes all currently supported cuttlefish

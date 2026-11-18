@@ -52,6 +52,11 @@
       "types": "./lib/public/owl.d.ts",
       "import": "./lib/public/owl.js",
       "default": "./lib/public/owl.js"
+    },
+    "./seahorse": {
+      "types": "./lib/public/seahorse.d.ts",
+      "import": "./lib/public/seahorse.js",
+      "default": "./lib/public/seahorse.js"
     }
   },
   "sideEffects": false,
