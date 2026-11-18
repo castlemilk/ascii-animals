@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "speciesVersion": 1,
+  "seed": 17,
+  "tickRate": 60,
+  "options": {
+    "facing": "right",
+    "scale": 0.7,
+    "breathing": 0.009,
+    "tailSway": 0.075,
+    "stalkSpeed": 0.0018,
+    "sniffDepth": 0.045,
+    "pounceDistance": 0.2,
+    "pounceHeight": 0.24,
+    "crouchTicks": 24,
+    "airTicks": 36,
+    "landingTicks": 12,
+    "recoveryTicks": 36,
+    "cooldownTicks": 72
+  },
+  "events": [
+    {
+      "tick": 45,
+      "seq": 0,
+      "type": "guide",
+      "x": 0.8,
+      "y": 0.15
+    },
+    {
+      "tick": 150,
+      "seq": 1,
+      "type": "pounce"
+    },
+    {
+      "tick": 160,
+      "seq": 2,
+      "type": "pounce"
+    },
+    {
+      "tick": 340,
+      "seq": 3,
+      "type": "leave"
+    },
+    {
+      "tick": 400,
+      "seq": 4,
+      "type": "guide",
+      "x": -0.7,
+      "y": 0.2
+    },
+    {
+      "tick": 530,
+      "seq": 5,
+      "type": "pounce"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "valid": true,
+  "id": "fox-v1",
+  "status": "reference-implemented",
+  "note": "Structure and bounds only; no rights, anatomy, runtime or visual certification."
+}
+✔ implemented and proposed examples validate without converting status (10.360434ms)
+✔ typo, incomplete hash and inherited omissions are rejected (1.776948ms)
+✔ ASCII, control and duplicate glyph errors are explicit (0.660791ms)
+✔ unknown/cyclic anatomy attachments fail (0.486218ms)
+✔ numeric and array work limits are enforced (1.416125ms)
+✔ rights and validation outcomes must be explicit, not inferred (0.47903ms)
+✔ optional glyph layers cannot declare characters missing from the repertoire union (0.50816ms)
+✔ bounded file reader rejects oversized and invalid UTF-8 input; CLI fails cleanly (103.363482ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 251.049987

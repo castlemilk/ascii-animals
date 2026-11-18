@@ -110,3 +110,11 @@ One fox; ≤48 polygon parts; ≤1,024 authored vertices; ≤10,240 output cells
 ## Handoff
 
 Implementation, tests, compatibility map, README, replay log, raw verification output, native rendered contact sheets/GIF and a review ledger will stay under species/fox. VALIDATION.md will record actual commands, versions, failures, evidence provenance, independent findings/fixes and unrun acceptance. A draft PR does not imply shared integration, npm release or deployment.
+
+## Completion record (after implementation and bounded review)
+
+The initial brief above was committed before code as `b270379`. The completed record, actual commands, test results and remaining gates are in [VALIDATION.md](VALIDATION.md). Implementation tests: 22 model + 12 browser mocks + 3 preview = 37 passing; strict TypeScript fixtures include 16 expected errors. Native output and an independent before/after review are in [REVIEW.md](REVIEW.md). Real Chromium launch remains blocked before the page opens; normal-speed playback and device measurements remain unrun.
+
+The visual correction shortened the near ear tip from local y=−0.86 to −0.79 and the far tip from −0.81 to −0.755, widened the bases, kept the cream cheek behind the tapered muzzle, and reduced the eye/nose to single cells. The preview now uses a fixed grid origin at (columns/2, rows×0.35) with uniform physical scaling and a 1:2 cell aspect; arbitrary Canvas sizes are letterboxed. The model's normalized coordinate convention is unchanged. At the minimum grid, the four paws remain distinct while hind joint detail is compressed.
+
+PR #2 advanced during work. It was re-read at `8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1` before publication: its compiled TypeScript facade and canonical generated browser/standalone implementation are now present, but its species option is still cuttlefish-only. See the latest-head section of COMPATIBILITY.md. Draft catalogue PR #4 at `5015dbcffb75b1036b21b4b8e3e65bf0697a46f1` was inspected without edits; it lists Fox as in development. Main was rechecked at the original exact base and the requested fox branch was absent remotely before the authorized push.
