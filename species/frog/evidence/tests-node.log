@@ -1,0 +1,38 @@
+✔ documented defaults, ownership, seed limits and independent option objects (6.107329ms)
+✔ configuration accepts declared endpoints, rejects invalid fields atomically and never mutates the base (6.946958ms)
+✔ fixed replay is independent of 1/2/5-tick presentation grouping; changed input changes the trajectory (19.829891ms)
+✔ seed changes stable idle variation without changing deterministic landing or flight timing (5.149655ms)
+✔ pure species imports and updates without browser globals, ambient clocks or randomness (106.46829ms)
+✔ an invalid event anywhere in a batch cannot partly update state, target or sequence (3.481069ms)
+✔ ticks are explicit next integers and input work has a hard eight-event ceiling (3.173368ms)
+✔ same-tick ordered targets and leaps latch the first eligible destination; busy triggers never queue (7.859762ms)
+✔ target/leave/leap ordering selects the cleared default; preview-only operations never advance time (0.482113ms)
+✔ legal pad and maximum leap distance bounds hold for every normalized target corner (1.428946ms)
+✔ regression: a default leap remains bounded after reaching and clearing the right pad edge (0.998999ms)
+✔ the default choreography uses the specified durations, bounded ballistic arc, exact landing and complete recovery (1.706659ms)
+✔ idle never leaps; throat motion is bounded and periodic, and disabled motion/static poses do not pulsate or travel (6.170078ms)
+✔ reset clears time, sequence, targets and response while preserving validated seed/config by default (1.382205ms)
+✔ CSS pointer normalization handles offsets, scaling, out-of-bounds motion and invalid/zero rectangles (0.525504ms)
+✔ original frog surfaces are bounded, finite and invariant in count through every behavior/view (8609.80073ms)
+✔ grounded limb tips remain planted under compression and all four limbs stay attached (913.328728ms)
+✔ neutral-tone geometry preserves silhouette and stable IDs; disabling motion removes idle pulsation (76.938293ms)
+✔ extreme allowed anatomy options remain finite across static poses (412.968297ms)
+✔ pause survives reset/configuration and all environmental gates; resumed clock has no hidden catch-up (7.237ms)
+✔ reduced motion mounts static; pointer traffic cannot schedule motion; explicit actions only switch poses (3.743808ms)
+✔ chosen static pose persists across view changes, resize, target updates and visibility redraws (0.769398ms)
+✔ user pause freezes the visible pose including an active target gaze (1.718758ms)
+✔ hidden/offscreen/zero-size causes compose and do not defeat explicit pause (0.588401ms)
+✔ bounded RAF catch-up and pointer coalescing preserve one latest target plus one leap (33.038378ms)
+✔ touch tap is deliberate; cancel, leave, lost capture and dragged gestures do not leap (1.383496ms)
+✔ keyboard input is scoped to the focused canvas and leaves native form keys alone (0.784584ms)
+✔ two instances own separate resources; double disposal and post-disposal API calls are consistent (1.291274ms)
+✔ saved callbacks are inert after disposal, including media changes and keyboard handlers (0.970975ms)
+✔ partial setup and draw failures release every acquired resource (1.207918ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11000.332591

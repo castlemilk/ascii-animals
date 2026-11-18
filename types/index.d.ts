@@ -26,3 +26,5 @@ export { createGeckoArtwork } from './public/gecko.js';
 export type { GeckoArtwork, GeckoMountOptions, GeckoControllerStatus, GeckoViewOptions } from './public/gecko.js';
 export { createPufferfishArtwork } from './public/pufferfish.js';
 export type { PufferfishArtwork, PufferfishMountOptions } from './public/pufferfish.js';
+export { createFrogArtwork } from './public/frog.js';
+export type { FrogArtwork, FrogMountOptions, FrogConfigPatch, FrogState, FrogInput } from './public/frog.js';

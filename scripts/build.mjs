@@ -1,6 +1,7 @@
 import { buildGeckoPackage, buildGeckoDemo } from './build-gecko.mjs';
 import { buildDragonflyPackage, buildDragonflyDemo } from './build-dragonfly.mjs';
 import { buildPufferfishPackage, buildPufferfishDemo } from './build-pufferfish.mjs';
+import { buildFrogPackage, buildFrogDemo } from './build-frog.mjs';
 import { buildFoxPackage, buildFoxDemo } from './build-fox.mjs';
 import { execFileSync } from 'node:child_process';
 import { buildDemo } from './build-demo.mjs';
@@ -34,6 +35,7 @@ await buildFoxPackage();
 await buildDragonflyPackage();
 await buildGeckoPackage();
 await buildPufferfishPackage();
+await buildFrogPackage();
 execFileSync(process.execPath, [path.join(root, 'node_modules/typescript/bin/tsc'), '-p', path.join(root, 'tsconfig.json')], { stdio: 'inherit' });
 const metadata = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 for (const [subpath, conditions] of Object.entries(metadata.exports)) {
@@ -47,4 +49,5 @@ const fox = await buildFoxDemo();
 const dragonfly = await buildDragonflyDemo();
 const gecko = await buildGeckoDemo();
 const pufferfish = await buildPufferfishDemo();
-console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
+const frog = await buildFrogDemo();
+console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

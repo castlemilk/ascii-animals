@@ -9,3 +9,4 @@ export { createDragonflyArtwork } from './public/dragonfly.js';
 
 export { createGeckoArtwork } from './public/gecko.js';
 export { createPufferfishArtwork } from './public/pufferfish.js';
+export { createFrogArtwork } from './public/frog.js';

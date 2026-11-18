@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frog / A little leap</title><meta name="description" content="An original reactive ASCII frog. Aim a landing point, watch it gather and leap, or explore quiet static poses.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header><a class="wordmark" href="#study">ASCII ANIMALS <span>/ FIELD NOTES</span></a><span class="edition">FROG · 01</span></header>
+    <section class="intro" aria-labelledby="heading"><div><p class="eyebrow">A STUDY IN ANTICIPATION</p><h1 id="heading">A little leap.</h1></div><p class="lead">A quiet breath. A considered landing.<br>A small creature, ready when you are.</p></section>
+    <section id="study" class="study" aria-label="Interactive frog study">
+      <div class="stage-top"><span class="tag"><i></i> FROG / LANDING STUDY</span><span class="stage-help">POINT TO AIM · TAP TO LEAP</span></div>
+      <div class="canvas-wrap"><canvas id="frog" tabindex="0" role="img" aria-label="ASCII frog with a broad squat torso, large eyes, folded rear legs and two attached forelimbs. Arrow keys aim; Enter or Space leaps; Escape clears the landing target." aria-describedby="instructions"></canvas>
+        <div id="fallback" hidden><img src="../evidence/frog-poster.png" alt="Static glyph-rendered frog with raised eyes, squat body and folded legs"><p>The live Canvas preview is unavailable. This is a static specimen of the frog.</p></div>
+      </div>
+      <div class="toolbar"><button id="leap" class="primary" type="button">Leap <span aria-hidden="true">↗</span></button><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Reset</button><div class="toolbar-field"><label for="target">Landing</label><select id="target"><option value="">Pointer / current</option><option value="right">Right bank</option><option value="left">Left bank</option><option value="center">Center</option><option value="far">Far bank</option></select></div><div class="toolbar-field"><label for="pose">Static pose</label><select id="pose"><option value="">Choose a pose…</option><option value="rest">Rest</option><option value="crouch">Crouch</option><option value="airborne">Airborne</option><option value="landed">Landed</option></select></div></div>
+      <p id="status" role="status" aria-live="polite">Aim with the pointer, then tap or press Leap. The frog waits for you.</p>
+    </section>
+    <section class="details" aria-label="How the frog moves"><ol class="sequence"><li><small>01</small><strong>Gather</strong><p>Folded legs load up beneath a low, steady body.</p></li><li><small>02</small><strong>Leap</strong><p>One committed arc toward the marked landing.</p></li><li><small>03</small><strong>Settle</strong><p>A soft compression, a short recovery, then stillness.</p></li></ol>
+      <details><summary>Shape, motion &amp; specimen</summary><div class="settings"><label>View<select id="view"><option value="front">Front</option><option value="left">Left three-quarter</option><option value="right">Right three-quarter</option><option value="profile">Profile study</option></select></label><label>Frog size<input id="size" type="range" min="0.75" max="1.15" step="0.05" value="1"></label><label>Leap height<input id="height" type="range" min="0.45" max="1.1" step="0.05" value="0.85"></label><label class="check"><input id="silhouette" type="checkbox"> Single tone</label><button id="text" type="button">Show character frame</button></div><pre id="specimen" tabindex="0" hidden aria-label="Current frog character frame"></pre></details>
+      <p id="instructions" class="instructions">Keyboard: focus the scene, use arrows to aim and Enter or Space to leap. Tab moves to every control. Touch: tap a landing point, or use the Landing menu and Leap. Pause keeps the current pose; the Static pose menu pauses on a chosen posture. Reduced motion keeps the frog still and lets Leap cycle poses.</p>
+    </section>
+    <footer><span>ORIGINAL GEOMETRY · MADE OF CHARACTERS</span><span>Take a moment. There is no hurry.</span></footer>
+    <noscript><p>This frog needs JavaScript for interaction. Its silhouette has a squat torso, two raised eyes, folded rear legs and two shorter forelimbs. The controls let it aim, crouch, leap and land.</p></noscript>
+  </main>
+  <script src="../../../dist/artwork.js"></script>
+  <script type="module" src="../generated/demo.mjs"></script>
+</body>
+</html>

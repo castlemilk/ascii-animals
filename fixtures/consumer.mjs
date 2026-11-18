@@ -40,3 +40,7 @@ const pufferfish = await import('ascii-animals-review/pufferfish');
 assert.equal(root.createPufferfishArtwork,pufferfish.createPufferfishArtwork);
 const pufferState=pufferfish.createPufferfish({seed:17});
 assert.equal(pufferfish.stepPufferfish(pufferState,{tick:1,events:[]}).state.tick,1);
+
+const frog = await import('ascii-animals-review/frog');
+assert.equal(root.createFrogArtwork, frog.createFrogArtwork);
+assert.equal(frog.stepFrog(frog.createFrog(), 1).state.tick, 1);

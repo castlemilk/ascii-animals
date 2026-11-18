@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "id": "frog-v1",
+  "status": "reference-implemented",
+  "source": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "0e446c47b491b751d484e40db753ec725652b515",
+    "relationship": "original-reference",
+    "inspectedFiles": [
+      "dist/artwork.js",
+      "dist/app.js",
+      "scripts/check-engine.cjs",
+      "README.md",
+      ".github/workflows/pages.yml",
+      "PR2@8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1:src/public/index.ts",
+      "PR2@8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1:docs/EXTENDING.md"
+    ]
+  },
+  "representation": {
+    "kind": "canvas-glyph-atlas",
+    "glyphs": " .,:;!i1l+txzvcofnae0&%8B@",
+    "fontStrategy": "system",
+    "fonts": [
+      "SFMono-Regular",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ],
+    "fontProvenance": "Existing host font stack, no font binary distributed. Native capture registered installed Liberation Mono SHA-256 5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2. Plain ASCII cell snapshot is separately exported."
+  },
+  "anatomy": {
+    "classification": "stylized",
+    "anchors": [
+      "broad squat torso",
+      "two large raised eye domes",
+      "folded rear legs with shorter attached forelimbs"
+    ],
+    "views": [
+      "front",
+      "left three-quarter",
+      "right three-quarter",
+      "profile diagnostic only"
+    ],
+    "parts": [
+      {
+        "name": "torso",
+        "parent": "scene",
+        "motion": "bounded planted root and explicit ballistic arc"
+      },
+      {
+        "name": "head",
+        "parent": "torso",
+        "motion": "overlapping attached head follows squat"
+      },
+      {
+        "name": "eyes",
+        "parent": "head",
+        "motion": "two raised domes and bounded gaze"
+      },
+      {
+        "name": "throat",
+        "parent": "head",
+        "motion": "gentle periodic expansion only with motion"
+      },
+      {
+        "name": "rear-legs",
+        "parent": "torso",
+        "motion": "hip-knee-ankle-foot chain unfolds/refolds"
+      },
+      {
+        "name": "forelimbs",
+        "parent": "torso",
+        "motion": "shoulder-elbow-wrist-foot chain with seeded small elbow asymmetry"
+      }
+    ]
+  },
+  "motion": {
+    "tickRate": 60,
+    "seed": 23,
+    "phases": [
+      {
+        "name": "idle",
+        "durationTicks": 0,
+        "transition": "target preview gives interest; never auto-leap"
+      },
+      {
+        "name": "interest",
+        "durationTicks": 0,
+        "transition": "deliberate action latches reachable target"
+      },
+      {
+        "name": "crouch",
+        "durationTicks": 14,
+        "transition": "coil then flight"
+      },
+      {
+        "name": "flight",
+        "durationTicks": 42,
+        "transition": "4Hu(1-u) height; fixed planar endpoints"
+      },
+      {
+        "name": "landing",
+        "durationTicks": 12,
+        "transition": "compress then recovery"
+      },
+      {
+        "name": "recovery",
+        "durationTicks": 24,
+        "transition": "return to rest posture"
+      },
+      {
+        "name": "cooldown",
+        "durationTicks": 18,
+        "transition": "reject busy leaps without queue, then ready"
+      }
+    ],
+    "replayGuarantee": "Same v1 config/seed/explicit integer tick sequence and ordered normalized event log yields identical state and legacy logical glyph cells in tested runtime across 1/2/5 presentation grouping; not arbitrary live mouse recordings or cross-platform pixels."
+  },
+  "interaction": {
+    "pointer": "CSS-rect normalization to [-1,1], coalesced latest target; reachable marker clamped to pad and maxDistance. Does not trigger or redirect a latched leap.",
+    "keyboard": "Native Leap/Pause/Reset/target/static-pose controls; focused canvas arrows target, Enter/Space leap, Escape clear; no global interception.",
+    "touch": "Tap release within12CSSpx triggers; any drag excursion, cancel/leave/lost capture clears gesture. Pan-y preserves scrolling. Real device acceptance pending.",
+    "precedence": "Validate whole batch, next tick and increasing seq; first eligible leap latches. Later busy leaps ignored without queue. Pause/reduced/hidden/offscreen/zero compose. Reduced motion permits deliberate static alternatives only.",
+    "eventsPerTick": 8
+  },
+  "accessibility": {
+    "description": "A stylized ASCII frog with a squat torso, large eyes, folded rear legs and attached forelimbs aims then deliberately leaps.",
+    "reducedMotion": "Static poster; Leap cycles rest/crouch/airborne/landed without travel/ticks/RAF. Live preference change honored; pointer/Play cannot override.",
+    "pause": "Exact committed pose freezes including gaze; reset/config preserves pause. Hidden/offscreen/zero/undersized independently suspend. Idempotent disposal releases ownership.",
+    "liveRegion": "Sparse deliberate action status; glyph/frame content not auto-announced."
+  },
+  "resources": {
+    "scope": "implemented-reference",
+    "animals": 1,
+    "samplesPerAnimal": 32000,
+    "cols": 180,
+    "rows": 100,
+    "dpr": 2,
+    "maxCatchUp": 5,
+    "particles": 0
+  },
+  "provenance": [
+    {
+      "kind": "original",
+      "source": "species/frog/src/geometry.mts and typed frog state/controller authored for this task",
+      "rights": "No online ASCII art, model, raster frog image or teaching core copied; project license remains owner decision.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "https://museum.wa.gov.au/explore/frogwatch/frogs/green-tree-frog/",
+      "rights": "Observation only: broad body, short limbs and toe discs. No copyrighted media copied/traced.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "dist/artwork.js at pinned base and actual skill e721252075a30888198aafba0953a23fd07bd3c6",
+      "rights": "Project renderer reused in place through four private methods; teaching ray not copied.",
+      "copied": false
+    },
+    {
+      "kind": "font",
+      "source": "Installed host fonts, recorded capture font file/hash",
+      "rights": "No font binary distributed; native capture uses local font only.",
+      "copied": false
+    }
+  ],
+  "acceptance": [
+    {
+      "gate": "TypeScript, core, geometry and mocked lifecycle",
+      "status": "pass",
+      "evidence": "30 node tests pass; strict TypeScript5.9.3 source and emitted positive/negative declaration consumers pass. See evidence/types.log and tests-node.log."
+    },
+    {
+      "gate": "static demo markup and local references",
+      "status": "pass",
+      "evidence": "2/2 static checks pass, including the corrected Rest option. No browser parsing or interaction claim; see evidence/tests-demo.log."
+    },
+    {
+      "gate": "native Canvas / actual legacy renderer",
+      "status": "pass",
+      "evidence": "4/4 isolated native tests pass: real glyph cells/pixels, 1/2/5 grouping, ASCII export, projection envelope, DPR/caps and validation. Initial combined stress process SIGKILL is recorded in EVIDENCE.md; no browser memory/performance claim."
+    },
+    {
+      "gate": "full-size front recognition",
+      "status": "pass",
+      "evidence": "Independent reviewer inspected real native Canvas poster/contact sheet; all main anchors recognizable at720x540. Browser pixels not claimed."
+    },
+    {
+      "gate": "minimum72x40 all-anchor anatomical legibility",
+      "status": "fail",
+      "evidence": "Partial: eye peaks/squat outline survive; distinct forelimbs/rear folds merge at small front/turning silhouettes. Profile diagnostic, not accepted recognition."
+    },
+    {
+      "gate": "browser/input/accessibility/device timing",
+      "status": "blocked",
+      "evidence": "Chromium failed before page load: socket/ptrace Operation not permitted. Browser attempt JSON records zero checks. Native and mock evidence remain separate."
+    },
+    {
+      "gate": "normal-speed human motion and heap acceptance",
+      "status": "untested",
+      "evidence": "GIF generated from101actual native frames; reviewers inspected stills only. No normal-speed smoothness, screen-reader, physical touch or heap pass."
+    },
+    {
+      "gate": "shared library integration",
+      "status": "proposed",
+      "evidence": "PR2 refreshed at8c530b1 still exposes cuttlefish-only typed facade. Frog adapter/internal types are local, not accepted shared species contract."
+    }
+  ]
+}

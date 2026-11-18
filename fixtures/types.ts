@@ -139,3 +139,11 @@ puff.configureRender({quality:'ultra'});
 puff.getOptions().seed=3;
 // @ts-expect-error fixed-tick model is not an elapsed-seconds artwork API
 puff.advance(.1);
+import { createFrogArtwork, createFrog, stepFrog } from 'ascii-animals-review/frog';
+const frog = createFrogArtwork(document.createElement('canvas'), {config:{jumpHeight:.7}, paused:true});
+frog.target({x:.4,y:.1}); frog.pulse(); frog.update({flightTicks:42}); frog.pause(); frog.dispose();
+stepFrog(createFrog({seed:23}),1);
+// @ts-expect-error invalid view
+createFrogArtwork(document.createElement('canvas'), {preview:{view:'orbit'}});
+// @ts-expect-error invalid config property
+frog.update({wingSpan:1});

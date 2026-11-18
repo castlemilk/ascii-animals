@@ -245,3 +245,6 @@ The original reactive Gecko is available through the typed `createGeckoArtwork` 
 ### Pufferfish review adapter
 
 `createPufferfishArtwork` and `ascii-animals-review/pufferfish` expose the independently configured fixed-tick pufferfish model, staged inflation and deliberate static poses. See [Pufferfish API and provenance](docs/PUFFERFISH-API.md). Local generated demo: `dist/pufferfish/index.html`. Availability remains under review until browser acceptance; no npm release.
+## Frog adapter
+
+The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick leap study with shared scheduling, validated settings and reduced-motion static poses. Its generated demo lives at `dist/frog/`; catalogue availability follows reviewed deployment.

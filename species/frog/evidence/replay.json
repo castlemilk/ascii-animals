@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "speciesVersion": 1,
+  "tickRate": 60,
+  "seed": 23,
+  "config": {
+    "size": 1,
+    "jumpHeight": 0.85,
+    "maxDistance": 1.2,
+    "crouchTicks": 14,
+    "flightTicks": 42,
+    "landingTicks": 12,
+    "recoveryTicks": 24,
+    "cooldownTicks": 18,
+    "throatAmplitude": 0.06
+  },
+  "events": [
+    {
+      "tick": 1,
+      "seq": 0,
+      "type": "target",
+      "x": 0.65,
+      "y": 0.05
+    },
+    {
+      "tick": 12,
+      "seq": 1,
+      "type": "leap"
+    },
+    {
+      "tick": 16,
+      "seq": 2,
+      "type": "leap"
+    },
+    {
+      "tick": 24,
+      "seq": 3,
+      "type": "leave"
+    },
+    {
+      "tick": 150,
+      "seq": 4,
+      "type": "target",
+      "x": -0.6,
+      "y": 0.5
+    },
+    {
+      "tick": 162,
+      "seq": 5,
+      "type": "leap"
+    }
+  ]
+}

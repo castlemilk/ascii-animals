@@ -1,0 +1,10 @@
+✔ demo offers every declared native control/pose and valid closing tags (3.272637ms)
+✔ buildless demo script/style/fallback references resolve to scoped real files (0.622679ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.894863
