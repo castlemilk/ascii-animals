@@ -26,11 +26,13 @@ artwork.dispose();
 
 `speciesByAnimal` is an immutable snapshot array of up to 12 supported species; missing entries fall back to `species`. An empty array clears overrides. `seed` is a finite integer from 0 through 4294967295 and selects stable module variation. Changing species or seed rebuilds relevant geometry state and clears stale ink; playback pause is preserved. Other lifecycle, rendering and layout options retain their established behavior. Unknown species and invalid typed-facade values are rejected atomically. Per-animal stats include `species`; the artwork's `species` getter reflects its current school default.
 
+Octopus ink is drawn as muted violet ASCII glyphs for contrast against dark water; original cuttlefish ink remains black. These use separate particle layers, not a shared smoke bitmap.
+
 The manta has broad wings, cephalic lobes and a trailing tail. It banks and escapes without emitting ink. The octopus has a mantle and eight articulated arm chains; it reaches, gathers into a cup and retreats with ink. These are original stylized procedural animals, not biological simulations.
 
 ## Demo and build
 
-Serve `dist/` and open `animals.html`. It supports all three animals and mixed company without modifying the catalogue landing page. `animals-standalone.html` contains the same canonical renderer and controls. `npm run build` regenerates both animal and original cuttlefish artifacts. `node scripts/build-demo.mjs --check` fails if any committed generated output differs.
+Serve `dist/` and open `animals.html`. Whitelisted `?species=manta`, `?species=octopus` and `?species=cuttlefish` links select the initial animal; unknown values fall back to manta. It supports all three animals and mixed company without modifying the catalogue landing page. `animals-standalone.html` contains the same canonical renderer and controls. `npm run build` regenerates both animal and original cuttlefish artifacts. `node scripts/build-demo.mjs --check` fails if any committed generated output differs.
 
 The original Track 3 proposal patched the old browser renderer directly. This integration deliberately did **not** apply that patch: only geometry, pose/reaction dispatch, dedicated controls and bounded configuration were ported into canonical `src/`. Its older RAF lifecycle, resource caps and registry proposal did not replace the accepted scheduler or typed public API.
 
@@ -53,4 +55,4 @@ No npm publication, production deployment or merge is included in this review br
 
 ## Package-size tradeoff
 
-The historical `./cuttlefish` compatibility entry now includes the two related marine geometry definitions so that the same renderer supports mixed depth-buffer scenes. It is not per-species tree-shaken. With the same esbuild 0.28.2 animal fixture, the preceding TypeScript candidate measured 48,189 minified / 17,881 gzip bytes; this integration measures 62,011 minified / 23,616 gzip bytes (an increase of 13,822 / 5,735 bytes). Core-only remains 884 minified / 476 gzip bytes and excludes animal modules. These are bundler-output sizes, not browser performance measurements. A future explicit lazy-species host split can reduce single-species transfer cost; no such isolation is claimed here.
+The historical `./cuttlefish` compatibility entry now includes the two related marine geometry definitions so that the same renderer supports mixed depth-buffer scenes. It is not per-species tree-shaken. With the same esbuild 0.28.2 animal fixture, the preceding TypeScript candidate measured 48,189 minified / 17,881 gzip bytes; this integration measures 62,301 minified / 23,711 gzip bytes (an increase of 14,112 / 5,830 bytes). Core-only remains 884 minified / 476 gzip bytes and excludes animal modules. These are bundler-output sizes, not browser performance measurements. A future explicit lazy-species host split can reduce single-species transfer cost; no such isolation is claimed here.
