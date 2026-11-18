@@ -1,6 +1,6 @@
 # All-species integration candidate
 
-This candidate combines the reviewed source branches for the thirteen-animal collection without changing catalogue availability or publishing an npm package.
+This candidate combines the reviewed source branches for the thirteen-animal collection with catalogue availability enabled after bounded independent visual acceptance. No npm package is published.
 
 ## Provenance
 
@@ -20,13 +20,13 @@ On macOS, the combined candidate passed:
 - Strict TypeScript source and species consumer fixtures.
 - Actual local npm tarball, repeatable packaging, offline installation and SSR imports.
 - Packed NodeNext/Bundler TypeScript consumers and esbuild fixtures.
-- Existing legacy numerical and authoring-bridge checks (before the final additive Turtle/Butterfly merge; their existing engine code remained unchanged).
+- Existing legacy numerical and authoring-bridge checks, rerun after final integration.
 
 The combined build regenerates Pufferfish's copied module dependencies from the canonical renderer, including Manta/Octopus modules. A new dependency-completeness check guards relative imports across every generated demo. This is a cross-branch change and requires a Pufferfish browser check against this combined output, not just its older isolated demo.
 
 ## Visual acceptance and release gate
 
-Tests are not visual acceptance. The independent browser reviewers are checking recognizable anatomy, unique reactions, playback/reset, reduced motion, responsive layout and observed errors. Catalogue availability remains unchanged until a species is accepted and deployed. Do not infer a completed interaction from a state label or numerical particle count alone.
+Tests are not visual acceptance. Independent browser reviewers completed bounded checks of recognizable anatomy, unique reactions, playback/reset, reduced motion, responsive layout and observed errors for every study. See [the acceptance matrix and limits](VISUAL-ACCEPTANCE.md). Catalogue availability is enabled for the verified release. Do not infer a completed interaction from a state label or numerical particle count alone.
 
 No measured browser-FPS, power-use, complete assistive-technology or universal cross-browser claims are made. Marine built-ins are bundled together; per-species lazy tree-shaking is not claimed. Other species have explicit typed subpaths rather than casting incompatible interaction semantics into one interface.
 

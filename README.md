@@ -8,21 +8,21 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 
 | Animal | Status |
 | --- | --- |
-| Cuttlefish | Available: interactive Cuttlefish study |
-| Manta ray | In development: no released demo yet |
-| Octopus | In development: no released demo yet |
-| Seahorse | In development: no released demo yet |
-| Crab | In development: no released demo yet |
-| Sea turtle | In development: no released demo yet |
-| Pufferfish | In development: no released demo yet |
-| Frog | In development: no released demo yet |
-| Butterfly | In development: no released demo yet |
-| Dragonfly | In development: no released demo yet |
-| Gecko | In development: no released demo yet |
-| Owl | In development: no released demo yet |
-| Fox | Available: [reactive Fox study](https://castlemilk.github.io/ascii-animals/fox/) |
+| Cuttlefish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) |
+| Manta ray | Available: [interactive study](https://castlemilk.github.io/ascii-animals/animals.html?species=manta) |
+| Octopus | Available: [interactive study](https://castlemilk.github.io/ascii-animals/animals.html?species=octopus) |
+| Seahorse | Available: [interactive study](https://castlemilk.github.io/ascii-animals/seahorse/index.html) |
+| Crab | Available: [interactive study](https://castlemilk.github.io/ascii-animals/crab/index.html) |
+| Sea turtle | Available: [interactive study](https://castlemilk.github.io/ascii-animals/turtle/index.html) |
+| Pufferfish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/pufferfish/index.html) |
+| Frog | Available: [interactive study](https://castlemilk.github.io/ascii-animals/frog/index.html) |
+| Butterfly | Available: [interactive study](https://castlemilk.github.io/ascii-animals/butterfly/index.html) |
+| Dragonfly | Available: [interactive study](https://castlemilk.github.io/ascii-animals/dragonfly/index.html) |
+| Gecko | Available: [interactive study](https://castlemilk.github.io/ascii-animals/gecko/index.html) |
+| Owl | Available: [interactive study](https://castlemilk.github.io/ascii-animals/owl/index.html) |
+| Fox | Available: [interactive study](https://castlemilk.github.io/ascii-animals/fox/index.html) |
 
-The roster is a development plan, not a list of package exports. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
+All thirteen studies have passed bounded independent Chrome visual acceptance. Typed APIs and configuration are documented in the API map below; species intentionally preserve their own interaction contracts. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
 
 
 ## Dragonfly artwork
