@@ -62,6 +62,11 @@
       "types": "./lib/public/crab.d.ts",
       "import": "./lib/public/crab.js",
       "default": "./lib/public/crab.js"
+    },
+    "./turtle": {
+      "types": "./lib/public/turtle.d.ts",
+      "import": "./lib/public/turtle.js",
+      "default": "./lib/public/turtle.js"
     }
   },
   "sideEffects": false,

@@ -176,3 +176,8 @@ crabModel.guide(1,0);
 // @ts-expect-error unrelated cuttlefish formation is not a crab option
 createCrabModel({formation:'orbit'});
 void createCrabArtwork;
+
+import {createTurtleModel} from 'ascii-animals-review/turtle';
+createTurtleModel({behavior:'glide'}).greet();
+// @ts-expect-error turtle does not accept crab behavior
+createTurtleModel({behavior:'scuttle'});

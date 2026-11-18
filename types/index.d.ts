@@ -33,3 +33,5 @@ export type {OwlArtwork,OwlBrowserOptions,OwlBrowserStatus,OwlOptions,OwlState} 
 export * from './public/seahorse.js';
 
 export * from './public/crab.js';
+
+export * from './public/turtle.js';

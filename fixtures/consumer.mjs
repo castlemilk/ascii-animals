@@ -57,3 +57,7 @@ const crab = await import('ascii-animals-review/crab');
 assert.equal(typeof crab.createCrabArtwork,'function');
 assert.equal(crab.createCrabModel().frame().columns,120);
 assert.throws(()=>crab.createCrabModel({speed:NaN}));
+
+const turtle=await import('ascii-animals-review/turtle');
+assert.equal(turtle.createTurtleModel().frame().columns,120);
+assert.throws(()=>turtle.createTurtleModel({speed:NaN}));
