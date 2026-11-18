@@ -1,6 +1,8 @@
-/** Fox-only preview lifecycle. This is not the repository's canonical renderer. */
+/** Integrated Fox lifecycle; the optional meadow director shares this one host. */
 import { createFox, normalizeFoxPointer, staticFoxPose } from './model.js';
 import { buildFoxGrid, paintFoxGrid } from './preview.js';
+import { createFoxDirector, resolveFoxDirectorOptions } from './director.js';
+import { buildFoxSceneGrid, paintFoxSceneGrid, routeFoxScenePointer } from './director-render.js';
 const STEP_MS = 1000 / 60;
 const MAX_STEPS = 5;
 const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
@@ -32,23 +34,34 @@ export function mountFox(canvas, options = {}) {
     if (!options || typeof options !== 'object' || Array.isArray(options))
         throw new TypeError('Browser options must be an object');
     for (const key of Object.keys(options))
-        if (!['fox', 'grid', 'frameSource', 'onStatus', 'onInputs'].includes(key))
+        if (!['fox', 'grid', 'director', 'frameSource', 'onStatus', 'onInputs', 'onDirectorInputs'].includes(key))
             throw new TypeError(`Unknown browser option: ${key}`);
     if (options.onStatus !== undefined && typeof options.onStatus !== 'function')
         throw new TypeError('onStatus must be a function');
     if (options.onInputs !== undefined && typeof options.onInputs !== 'function')
         throw new TypeError('onInputs must be a function');
+    if (options.onDirectorInputs !== undefined && typeof options.onDirectorInputs !== 'function')
+        throw new TypeError('onDirectorInputs must be a function');
     if (options.frameSource !== undefined && typeof options.frameSource?.subscribe !== 'function')
         throw new TypeError('frameSource must provide subscribe');
+    if (options.director !== undefined && (!options.director || typeof options.director !== 'object' || Array.isArray(options.director)
+        || ![Object.prototype, null].includes(Object.getPrototypeOf(options.director))))
+        throw new TypeError('director must be a plain object');
     const gridOptions = validateGrid(options.grid ?? {});
+    if (options.director !== undefined && ((gridOptions.cols ?? 160) < 112 || (gridOptions.rows ?? 64) < 48))
+        throw new RangeError('Director grid requires at least 112 columns and 48 rows');
     const document = canvas?.ownerDocument;
     const view = document?.defaultView;
     if (!document || !view)
         throw new TypeError('mountFox requires a browser canvas with an owner document');
-    const model = createFox(options.fox);
+    const director = options.director === undefined ? null : createFoxDirector({ ...resolveFoxDirectorOptions(options.director), ...(options.fox === undefined ? {} : { fox: options.fox }) });
+    const model = director ? null : createFox(options.fox);
+    const currentState = () => director ? director.getState().actors[0].state : model.getState();
+    const currentOptions = () => director ? director.getFoxOptions() : model.getOptions();
     const cleanups = [];
-    let state = model.getState();
-    let userPaused = model.isPaused();
+    let state = currentState();
+    let directorState = director?.getState() ?? null;
+    let userPaused = director ? director.isPaused() : model.isPaused();
     let reducedMotion = false;
     let hidden = Boolean(document.hidden);
     let offscreen = true;
@@ -64,21 +77,27 @@ export function mountFox(canvas, options = {}) {
     let renderedFrames = 0;
     let pendingGuide = null;
     let pendingPounce = false;
+    let pendingCue = null;
     let policyLeave = false;
     let poster = reducedMotion ? 'idle' : null;
+    let tableau = null;
+    let sceneGrid = null;
     let width = 1, height = 1, dpr = 1;
-    let cols = gridOptions.cols ?? 112, rows = gridOptions.rows ?? 44;
+    let cols = gridOptions.cols ?? (director ? 160 : 112), rows = gridOptions.rows ?? (director ? 64 : 44);
     let context;
     const assertAlive = () => { if (disposed)
         throw new Error('Fox browser controller is disposed'); };
+    const requireDirector = () => { assertAlive(); if (!director)
+        throw new Error('Fox director is not enabled'); return director; };
+    const syncState = () => { state = currentState(); directorState = director?.getState() ?? null; };
     const blocked = () => disposed || userPaused || reducedMotion || hidden || offscreen || zeroSized;
     const canDraw = () => !disposed && !hidden && !offscreen && !zeroSized;
     const status = () => Object.freeze({ tick: state.tick, phase: state.behavior.kind,
         paused: userPaused, reducedMotion, hidden, offscreen, zeroSized, disposed, running: !blocked(),
         ownAnimationFrames: raf === null ? 0 : 1, subscribed,
-        pendingInputs: (pendingGuide ? 1 : 0) + (pendingPounce ? 1 : 0), pendingPolicyReset: policyLeave,
+        pendingInputs: (pendingGuide ? 1 : 0) + (pendingPounce || pendingCue ? 1 : 0), pendingPolicyReset: policyLeave,
         droppedMilliseconds, renderedFrames, staticPose: poster, cols, rows,
-        backingWidth: canvas.width, backingHeight: canvas.height });
+        backingWidth: canvas.width, backingHeight: canvas.height, director: directorState, tableau });
     function stopFrames() {
         generation++;
         if (raf !== null) {
@@ -94,10 +113,11 @@ export function mountFox(canvas, options = {}) {
         accumulator = 0;
     }
     function clearUserInput(resetInterest) {
-        if (resetInterest && (state.target.active || pendingGuide !== null))
+        if (resetInterest && (state.target.active || directorState?.pointer.active || pendingGuide !== null))
             policyLeave = true;
         pendingGuide = null;
         pendingPounce = false;
+        pendingCue = null;
     }
     function dispose() {
         if (disposed)
@@ -117,8 +137,13 @@ export function mountFox(canvas, options = {}) {
         cleanups.length = 0;
         pendingGuide = null;
         pendingPounce = false;
+        pendingCue = null;
         policyLeave = false;
-        model.dispose();
+        if (director)
+            director.dispose();
+        else
+            model.dispose();
+        sceneGrid = null;
         canvas.width = 1;
         canvas.height = 1;
     }
@@ -135,13 +160,39 @@ export function mountFox(canvas, options = {}) {
     function render() {
         if (!canDraw())
             return;
-        const pose = poster === null ? model.getPose() : staticFoxPose({ ...model.getOptions(), seed: state.seed }, poster);
-        const grid = buildFoxGrid(pose, { cols, rows, monochrome: gridOptions.monochrome ?? false });
         context.setTransform(dpr, 0, 0, dpr, 0, 0);
-        paintFoxGrid(context, grid, width, height, { monochrome: gridOptions.monochrome ?? false });
+        if (director) {
+            sceneGrid = buildFoxSceneGrid(director.getFrame(tableau ?? undefined), { cols, rows, monochrome: gridOptions.monochrome ?? false });
+            paintFoxSceneGrid(context, sceneGrid, width, height, { monochrome: gridOptions.monochrome ?? false });
+        }
+        else {
+            const pose = poster === null ? model.getPose() : staticFoxPose({ ...currentOptions(), seed: state.seed }, poster);
+            const grid = buildFoxGrid(pose, { cols, rows, monochrome: gridOptions.monochrome ?? false });
+            paintFoxGrid(context, grid, width, height, { monochrome: gridOptions.monochrome ?? false });
+        }
         renderedFrames++;
     }
     function step() {
+        if (director) {
+            const prior = director.getState(), tick = prior.tick + 1;
+            let seq = prior.lastSequence + 1;
+            const batch = [];
+            if (pendingGuide)
+                batch.push({ type: 'guide', tick, seq: seq++, ...pendingGuide });
+            else if (policyLeave)
+                batch.push({ type: 'leave', tick, seq: seq++ });
+            if (pendingCue)
+                batch.push({ type: 'cue', tick, seq: seq++, ...pendingCue });
+            pendingGuide = null;
+            pendingPounce = false;
+            pendingCue = null;
+            policyLeave = false;
+            director.step(tick, batch);
+            syncState();
+            if (batch.length)
+                options.onDirectorInputs?.(Object.freeze(batch.map(event => Object.freeze(event))));
+            return;
+        }
         const tick = state.tick + 1;
         let sequence = state.lastSequence + 1;
         const batch = [];
@@ -153,6 +204,7 @@ export function mountFox(canvas, options = {}) {
             batch.push({ type: 'pounce', tick, seq: sequence++ });
         pendingGuide = null;
         pendingPounce = false;
+        pendingCue = null;
         policyLeave = false;
         state = model.step(tick, batch).state;
         if (batch.length)
@@ -175,13 +227,21 @@ export function mountFox(canvas, options = {}) {
             droppedMilliseconds += Math.max(0, accumulated - cap);
             const count = Math.min(MAX_STEPS, Math.floor((accumulator + 1e-7) / STEP_MS));
             const before = state.behavior.kind;
+            const beforeScene = directorState ? [directorState.beat, ...directorState.actors.map(actor => actor.action)].join(':') : '';
+            const beforeTick = state.tick;
             for (let n = 0; n < count && !blocked(); n++) {
                 step();
+                // An input callback may reset/dispose and replace this subscription.
+                // The retired frame must not advance the new scene or paint it again.
+                if (disposed || ticket !== generation)
+                    return;
                 accumulator = Math.max(0, accumulator - STEP_MS);
             }
             if (count && !disposed)
                 render();
-            if (!disposed && before !== state.behavior.kind)
+            const afterScene = directorState ? [directorState.beat, ...directorState.actors.map(actor => actor.action)].join(':') : '';
+            if (!disposed && (before !== state.behavior.kind || beforeScene !== afterScene
+                || (director && Math.floor(beforeTick / 30) !== Math.floor(state.tick / 30))))
                 notify();
         });
     }
@@ -224,6 +284,7 @@ export function mountFox(canvas, options = {}) {
         }
         else {
             poster = null;
+            tableau = null;
             startFrames();
         }
         if (draw)
@@ -250,8 +311,8 @@ export function mountFox(canvas, options = {}) {
             dpr = clamp(Number.isFinite(view.devicePixelRatio) ? view.devicePixelRatio : 1, 1, 2);
             canvas.width = Math.max(1, Math.round(width * dpr));
             canvas.height = Math.max(1, Math.round(height * dpr));
-            cols = gridOptions.cols ?? (rect.width < 640 ? 80 : 112);
-            rows = gridOptions.rows ?? (rect.width < 640 ? 32 : 44);
+            cols = gridOptions.cols ?? (director ? (rect.width < 640 ? 112 : 160) : (rect.width < 640 ? 80 : 112));
+            rows = gridOptions.rows ?? (director ? 64 : (rect.width < 640 ? 32 : 44));
         }
         reconcile();
     }
@@ -262,7 +323,8 @@ export function mountFox(canvas, options = {}) {
             return;
         if (userPaused || reducedMotion) {
             if (deliberate)
-                guarded(() => { poster = 'sniff'; render(); notify(); });
+                guarded(() => { poster = 'sniff'; if (director)
+                    tableau = 'listen'; render(); notify(); });
             return;
         }
         pendingGuide = point;
@@ -273,15 +335,65 @@ export function mountFox(canvas, options = {}) {
             return;
         guarded(() => {
             const point = normalizeFoxPointer(event.clientX, event.clientY, canvas.getBoundingClientRect());
-            if (point)
+            if (!point)
+                return;
+            if (!director) {
                 guide(point.x, point.y, deliberate);
+                return;
+            }
+            // Map CSS coordinates through the exact 1:2 grid letterbox used to paint.
+            const ch = Math.min(height / rows, width / (cols * .5)), cw = ch * .5;
+            const contentWidth = cols * cw, contentHeight = rows * ch;
+            const x = ((point.x + 1) * width / 2 - (width - contentWidth) / 2) / contentWidth * 2 - 1;
+            const y = ((point.y + 1) * height / 2 - (height - contentHeight) / 2) / contentHeight * 2 - 1;
+            if (Math.abs(x) > 1 || Math.abs(y) > 1) {
+                leave();
+                return;
+            }
+            if (!sceneGrid)
+                return;
+            const route = routeFoxScenePointer(sceneGrid, x, y, deliberate ? undefined : director.getState().selectedId);
+            if (!route)
+                return;
+            guide(route.point.x, route.point.y, deliberate);
+            if (deliberate)
+                cue('rustle', route.id, route.point);
         });
     }
     function leave() {
         assertAlive();
         pendingGuide = null;
         pendingPounce = false;
+        pendingCue = null;
         policyLeave = true;
+    }
+    function cue(value, id, point) {
+        const scene = requireDirector();
+        if (!['rustle', 'pounce', 'play', 'rest'].includes(value))
+            throw new TypeError('Unknown fox cue');
+        if (id !== undefined && (!Number.isInteger(id) || id < 0 || id >= scene.getOptions().count))
+            throw new RangeError('Invalid fox id');
+        let target;
+        if (point !== undefined) {
+            if (!point || typeof point !== 'object' || Array.isArray(point) || Object.keys(point).some(key => key !== 'x' && key !== 'y'))
+                throw new TypeError('Cue point must contain x and y');
+            target = { x: clamp(finite(point.x, 'Cue x'), -1, 1), y: clamp(finite(point.y, 'Cue y'), -1, 1) };
+        }
+        if (hidden || offscreen || zeroSized)
+            return;
+        if (userPaused || reducedMotion) {
+            if (id !== undefined) {
+                scene.select(id);
+                syncState();
+            }
+            tableau = value === 'rest' ? 'rest' : value === 'rustle' ? 'listen' : 'pounce';
+            poster = tableau === 'rest' ? 'idle' : tableau === 'listen' ? 'sniff' : 'crouch';
+            guarded(() => { render(); notify(); });
+            return;
+        }
+        // A located rustle may choose the nearest actor; explicit buttons use selection.
+        const owner = id ?? (target === undefined ? scene.getState().selectedId : undefined);
+        pendingCue = { cue: value, ...(owner === undefined ? {} : { id: owner }), ...(target ?? {}) };
     }
     function listen(target, name, listener) {
         cleanups.push(() => target.removeEventListener(name, listener));
@@ -291,19 +403,22 @@ export function mountFox(canvas, options = {}) {
         configure(patch) {
             assertAlive();
             // User validation failures do not terminate or partially update a mount.
-            const value = model.configure(patch);
-            state = model.getState();
+            const value = director ? director.configureFox(patch) : model.configure(patch);
+            syncState();
             guarded(() => { render(); notify(); });
             return value;
         },
         reset(seed) {
             assertAlive();
-            const value = seed === undefined ? model.reset() : model.reset(seed);
-            state = value;
+            const value = director ? (seed === undefined ? director.reset() : director.reset(seed)).actors[0].state
+                : seed === undefined ? model.reset() : model.reset(seed);
+            syncState();
             pendingGuide = null;
             pendingPounce = false;
+            pendingCue = null;
             policyLeave = false;
             poster = reducedMotion ? 'idle' : null;
+            tableau = director && reducedMotion ? 'rest' : null;
             guarded(() => { stopFrames(); reconcile(); });
             return value;
         },
@@ -311,7 +426,10 @@ export function mountFox(canvas, options = {}) {
             assertAlive();
             if (typeof value !== 'boolean')
                 throw new TypeError('Pause must be boolean');
-            model.setPaused(value);
+            if (director)
+                director.setPaused(value);
+            else
+                model.setPaused(value);
             userPaused = value;
             guarded(() => reconcile());
         },
@@ -319,6 +437,10 @@ export function mountFox(canvas, options = {}) {
         leave,
         pounce() {
             assertAlive();
+            if (director) {
+                cue('pounce');
+                return;
+            }
             if (hidden || offscreen || zeroSized)
                 return;
             if (userPaused || reducedMotion)
@@ -331,17 +453,52 @@ export function mountFox(canvas, options = {}) {
             if (!['idle', 'sniff', 'crouch'].includes(value))
                 throw new TypeError('Unknown static fox pose');
             userPaused = true;
-            model.setPaused(true);
+            if (director)
+                director.setPaused(true);
+            else
+                model.setPaused(true);
             poster = value;
+            if (director)
+                tableau = value === 'idle' ? 'rest' : value === 'sniff' ? 'listen' : 'pounce';
             guarded(() => reconcile());
         },
-        getOptions() { assertAlive(); return model.getOptions(); },
-        getState() { assertAlive(); return model.getState(); },
+        getOptions() { assertAlive(); return currentOptions(); },
+        getState() { assertAlive(); return currentState(); },
         getStatus: status,
         exportText() {
             assertAlive();
-            const pose = poster === null ? model.getPose() : staticFoxPose({ ...model.getOptions(), seed: state.seed }, poster);
+            if (director)
+                return buildFoxSceneGrid(director.getFrame(tableau ?? undefined), { cols, rows, monochrome: gridOptions.monochrome ?? false }).text;
+            const pose = poster === null ? model.getPose() : staticFoxPose({ ...currentOptions(), seed: state.seed }, poster);
             return buildFoxGrid(pose, { cols, rows, monochrome: gridOptions.monochrome ?? false }).text;
+        },
+        configureDirector(patch) {
+            const scene = requireDirector();
+            const value = scene.configure(patch);
+            syncState();
+            clearUserInput(true);
+            guarded(() => { render(); notify(); });
+            return value;
+        },
+        getDirectorOptions() { assertAlive(); return director?.getOptions() ?? null; },
+        getDirectorState() { assertAlive(); return director?.getState() ?? null; },
+        cue,
+        selectFox(id) {
+            const scene = requireDirector();
+            scene.select(id);
+            syncState();
+            pendingCue = null;
+            guarded(() => { render(); notify(); });
+        },
+        showTableau(value) {
+            const scene = requireDirector();
+            if (!['listen', 'pounce', 'rest'].includes(value))
+                throw new TypeError('Unknown fox tableau');
+            scene.setPaused(true);
+            userPaused = true;
+            tableau = value;
+            poster = value === 'rest' ? 'idle' : value === 'listen' ? 'sniff' : 'crouch';
+            guarded(() => reconcile());
         },
         dispose,
     };
@@ -357,9 +514,10 @@ export function mountFox(canvas, options = {}) {
         const media = view.matchMedia?.('(prefers-reduced-motion: reduce)');
         reducedMotion = Boolean(media?.matches);
         poster = reducedMotion ? 'idle' : null;
+        tableau = director && reducedMotion ? 'rest' : null;
         if (media)
             listen(media, 'change', () => { if (disposed)
-                return; guarded(() => { reducedMotion = media.matches; poster = reducedMotion ? 'idle' : null; reconcile(); }); });
+                return; guarded(() => { reducedMotion = media.matches; poster = reducedMotion ? 'idle' : null; tableau = director && reducedMotion ? 'rest' : null; reconcile(); }); });
         listen(canvas, 'pointermove', event => pointer(event, false));
         listen(canvas, 'pointerdown', event => pointer(event, true));
         for (const name of ['pointerleave', 'pointercancel', 'lostpointercapture'])

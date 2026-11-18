@@ -1,0 +1,1011 @@
+{
+  "evidenceKind": "Actual native Skia Canvas output from compiled Fox director/model/scene painter; not browser/deployed evidence",
+  "node": "v24.22.1",
+  "canvas": "@napi-rs/canvas 0.1.100",
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "baseCommit": "c06114404900884814bef879a02f1a49a3e7d590",
+  "checkoutHead": "c7e4c18df63e3ccb174e8e395d25522a010e3538",
+  "uncommittedSource": true,
+  "sourceHashes": {
+    "director.js": "07219794b437e552d1842dad857965f792c2350e79e1e2c0937ec02ff7ee1c4b",
+    "director-render.js": "e952d721ff2f91aa881b9a5cfd6b7bf98d3aaf7ed846a46bef76c467ce4b8976",
+    "director-types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "model.js": "95a4811b51cf729f37f2442196047727ceb9cecaebe74770c54a4ac92e9ab96f",
+    "geometry.js": "6b0d79c1d06970ae2470e361f1703f51a3c41fbe543221b2adf6eda531532eac",
+    "config.js": "6adbc4163cbecf6171dfae379749eb89eef299ed2c29d726dbbcc56b85d95533",
+    "preview.js": "9072f25a005ae3a0d5d192c90f5f9b245df971233635a26cb35d429887beedab"
+  },
+  "font": {
+    "path": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+    "bundled": false,
+    "registeredAlias": "ui-monospace"
+  },
+  "surfaces": {
+    "desktop": {
+      "width": 800,
+      "height": 640,
+      "cols": 160,
+      "rows": 64
+    },
+    "portrait": {
+      "width": 390,
+      "height": 446,
+      "cols": 112,
+      "rows": 64
+    }
+  },
+  "note": "Native screenshots include a separate metadata footer. Nominal GIF cadence is not measured throughput. Normal-speed playback, device testing and browser accessibility require separate evidence.",
+  "replay": {
+    "schemaVersion": 1,
+    "directorVersion": 1,
+    "seed": 17,
+    "tickRate": 60,
+    "options": {
+      "scene": "dusk-hunt",
+      "count": 3,
+      "pace": 1,
+      "curiosity": 0.7,
+      "wind": 0.3,
+      "spacing": 1,
+      "showLabels": true,
+      "roles": [
+        "auto",
+        "auto",
+        "auto"
+      ],
+      "seed": 17
+    },
+    "endTick": 960,
+    "events": [
+      {
+        "tick": 30,
+        "seq": 0,
+        "type": "guide",
+        "x": 0.65,
+        "y": 0.2
+      },
+      {
+        "tick": 60,
+        "seq": 1,
+        "type": "cue",
+        "cue": "rustle",
+        "id": 0,
+        "x": -0.05,
+        "y": 0.65
+      },
+      {
+        "tick": 330,
+        "seq": 2,
+        "type": "guide",
+        "x": -0.45,
+        "y": 0.55
+      },
+      {
+        "tick": 455,
+        "seq": 3,
+        "type": "cue",
+        "cue": "play",
+        "id": 1,
+        "x": 0.1,
+        "y": 0.5
+      },
+      {
+        "tick": 700,
+        "seq": 4,
+        "type": "cue",
+        "cue": "rest",
+        "id": 2
+      },
+      {
+        "tick": 760,
+        "seq": 5,
+        "type": "leave"
+      },
+      {
+        "tick": 820,
+        "seq": 6,
+        "type": "cue",
+        "cue": "pounce",
+        "id": 0,
+        "x": 0.3,
+        "y": 0.7
+      }
+    ]
+  },
+  "gif": {
+    "frames": 193,
+    "nominalFps": 12,
+    "bytes": 547345,
+    "excerptRestarts": true
+  },
+  "states": [
+    {
+      "name": "replay-arrival",
+      "scene": "dusk-hunt",
+      "tick": 0,
+      "beat": "arrival",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 827,
+      "cellHash": "10a6ac5df08064b102a47f379795832a7dfc5def18c982cba91b83c404d9d3a9",
+      "ownerHash": "aaeda50d78c93b98dff5d4bc0eef13f475a17b84f60fca422938910ec26e338a"
+    },
+    {
+      "name": "replay-listening",
+      "scene": "dusk-hunt",
+      "tick": 95,
+      "beat": "arrival",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.24065753780112614,
+            "earNear": -0.05389391556884879,
+            "earFar": 0.24391266542992548,
+            "tailLift": -0.12963145273270352,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.17397451915861378,
+            "earNear": -0.09224675128148782,
+            "earFar": 0.24671240493933091,
+            "tailLift": -0.12363618063163417,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.11105487335477378,
+            "earNear": -0.06828594067956904,
+            "earFar": 0.17143594764696232,
+            "tailLift": -0.12363618063163417,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 833,
+      "cellHash": "4c721d6cb9da95bd0a3759775f2de577a28891add9f23f4ec19ca9403191e296",
+      "ownerHash": "e9e8a1dfb1910982bbf091190b8396502c2cb8ac30f3dfd5fbc104bc5d20dbb5"
+    },
+    {
+      "name": "replay-sniffing",
+      "scene": "dusk-hunt",
+      "tick": 230,
+      "beat": "listening",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "sniffing",
+          "phase": "sniff",
+          "expression": {
+            "headPitch": 0.034998265879765775,
+            "earNear": -0.045601270467915705,
+            "earFar": -0.13710059295655735,
+            "tailLift": 0.05999880707236576,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "watching",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.12096438438524136,
+            "earNear": -0.23950672579429919,
+            "earFar": 0.1020083795480552,
+            "tailLift": -0.12999998119359402,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "stalk",
+          "expression": {
+            "headPitch": -0.003893082321395019,
+            "earNear": -0.08213909145539947,
+            "earFar": -0.10081433241225539,
+            "tailLift": -0.20569916364101828,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 833,
+      "cellHash": "b8fe40c95038a3c07619603e62aef38df85ec55b4e3a217beca1367bd0f2e05e",
+      "ownerHash": "fec8c7ead1f810f7b9a3f7e9d28bad107325a13484cf2e2d232db0ae2ca8b7f3"
+    },
+    {
+      "name": "replay-airborne",
+      "scene": "dusk-hunt",
+      "tick": 306,
+      "beat": "listening",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "pouncing",
+          "phase": "airborne",
+          "expression": {
+            "headPitch": 0.03499999866271177,
+            "earNear": 0.07830974058541273,
+            "earFar": -0.1116403636235299,
+            "tailLift": 0.059999999080059124,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "watching",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.11178240903843804,
+            "earNear": -0.24812701160997067,
+            "earFar": 0.021771785140445532,
+            "tailLift": -0.12999999998549722,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "sniff",
+          "expression": {
+            "headPitch": 0.034970007119356286,
+            "earNear": 0.15604437916768524,
+            "earFar": -0.030227100427538126,
+            "tailLift": -0.22998126011000014,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 793,
+      "cellHash": "b0ce28b6bc22c0a9f04fbcb757f3757a7080e23c1754607e7aae2c153dc0912a",
+      "ownerHash": "eea82dc92b82f15c05f0e0dd17af77156c136a78d31543127644e1e041e697ad"
+    },
+    {
+      "name": "replay-landing",
+      "scene": "dusk-hunt",
+      "tick": 328,
+      "beat": "listening",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "pouncing",
+          "phase": "landing",
+          "expression": {
+            "headPitch": 0.034999999832067155,
+            "earNear": 0.13414470058891495,
+            "earFar": -0.07621084145898989,
+            "tailLift": 0.05999999988447645,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "watching",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.11457084532157384,
+            "earNear": -0.19580336052570688,
+            "earFar": 0.029471796035104893,
+            "tailLift": -0.1299999999981788,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "stalk",
+          "expression": {
+            "headPitch": 0.03499623357945359,
+            "earNear": 0.18349815908991848,
+            "earFar": 0.011483009614452038,
+            "tailLift": -0.22999764669797573,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 814,
+      "cellHash": "c8ae1f857a8987aed1c87b4d51530ea9092664000fb9f96898b67ad071ccac4b",
+      "ownerHash": "e6dc757ac7b6cb1954482db73ea4bf5ac8b888d8a34306bca00d352f2b3dfe2a"
+    },
+    {
+      "name": "replay-answering-hop",
+      "scene": "dusk-hunt",
+      "tick": 610,
+      "beat": "investigation",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.1598573578609157,
+            "earNear": -0.05187057924377137,
+            "earFar": 0.014498829913338585,
+            "tailLift": -0.10626095217167554,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "pouncing",
+          "phase": "airborne",
+          "expression": {
+            "headPitch": 0.03499445641258274,
+            "earNear": 0.07600769079752172,
+            "earFar": -0.061925786472911824,
+            "tailLift": 0.03727697388821294,
+            "rest": 0,
+            "bow": 0.027903033011073154
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.15367061627981365,
+            "earNear": -0.053616975710318704,
+            "earFar": 0.02602410782904865,
+            "tailLift": -0.13000004078093721,
+            "rest": 0,
+            "bow": 1.2627905130657211e-8
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 817,
+      "cellHash": "46887c2964f675e6d5954b93be55a7082695a3d988100d062e1b87ee23d8569e",
+      "ownerHash": "b3db18b480698f9d27db4ef0c941c7bb3386ee5aa5a0f8641e4aa58ceebd3ba7"
+    },
+    {
+      "name": "replay-recovery",
+      "scene": "dusk-hunt",
+      "tick": 900,
+      "beat": "response",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "sniffing",
+          "phase": "stalk",
+          "expression": {
+            "headPitch": 0.03499999999756232,
+            "earNear": 0.1828375741380204,
+            "earFar": 0.02135025452727763,
+            "tailLift": 0.05999998981688527,
+            "rest": 0,
+            "bow": 1.2504525676656372e-8
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.0972804399383676,
+            "earNear": -0.09014144706483283,
+            "earFar": 0.23631743914062808,
+            "tailLift": -0.11202005292703128,
+            "rest": 0,
+            "bow": 3.695346662196078e-14
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "recovering",
+          "phase": "recover",
+          "expression": {
+            "headPitch": 0.034999991804489206,
+            "earNear": 0.17178805037527614,
+            "earFar": -0.06614955015521545,
+            "tailLift": 0.05995055100759168,
+            "rest": 0,
+            "bow": 0.00006072141924076272
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 816,
+      "cellHash": "2522223d0be2a192753ab40b402f704d46ecf1d0dd20014d70cc431fbc2defba",
+      "ownerHash": "2b6b4b517b55aa09696685a63d86ef166c9fe9885961f9f0f733fb0e37ce69f9"
+    },
+    {
+      "name": "native-dusk-hunt",
+      "scene": "dusk-hunt",
+      "tick": 870,
+      "beat": "investigation",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "pouncing",
+          "phase": "airborne",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.13782019162110157,
+            "earFar": 0.06555291400026464,
+            "tailLift": 0.05999999999999996,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.11386222063163415,
+            "earNear": -0.1914361020764359,
+            "earFar": 0.25638912408402126,
+            "tailLift": -0.12999999999999987,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "stalk",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.18442747668022832,
+            "earFar": -0.008709541487685058,
+            "tailLift": -0.22999999999999987,
+            "rest": 0,
+            "bow": 0.045155279951973853
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 816,
+      "cellHash": "18dd22de9d00f1471877109aaa019fcb3b2a8a789e69834c5ed3a98c4db398e9",
+      "ownerHash": "2a7a66e9acbb00bf8b0ca9913705352e1c0fad978d96332ccd6da4c3230317ae"
+    },
+    {
+      "name": "native-portrait-112x64",
+      "scene": "dusk-hunt",
+      "tick": 870,
+      "beat": "investigation",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "pouncing",
+          "phase": "airborne",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.13782019162110157,
+            "earFar": 0.06555291400026464,
+            "tailLift": 0.05999999999999996,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.11386222063163415,
+            "earNear": -0.1914361020764359,
+            "earFar": 0.25638912408402126,
+            "tailLift": -0.12999999999999987,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "stalk",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.18442747668022832,
+            "earFar": -0.008709541487685058,
+            "tailLift": -0.22999999999999987,
+            "rest": 0,
+            "bow": 0.045155279951973853
+          }
+        }
+      ],
+      "cols": 112,
+      "rows": 64,
+      "occupied": 736,
+      "cellHash": "bc8912cea7394bd603f24064316d6630e70b48e70e91cf266e11972329126a36",
+      "ownerHash": "34722bed2c8bf24b2a3a80748ba72fedcb9ce0ca810c35e4cacc992c48bb3db8"
+    },
+    {
+      "name": "native-neutral-desktop",
+      "scene": "dusk-hunt",
+      "tick": 870,
+      "beat": "investigation",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "hunter",
+          "action": "pouncing",
+          "phase": "airborne",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.13782019162110157,
+            "earFar": 0.06555291400026464,
+            "tailLift": 0.05999999999999996,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.11386222063163415,
+            "earNear": -0.1914361020764359,
+            "earFar": 0.25638912408402126,
+            "tailLift": -0.12999999999999987,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "stalk",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.18442747668022832,
+            "earFar": -0.008709541487685058,
+            "tailLift": -0.22999999999999987,
+            "rest": 0,
+            "bow": 0.045155279951973853
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 816,
+      "cellHash": "9a4ef0beb864ffd3a23c407a080099dfc7c8f569629c4d5be193fd68283b44d0",
+      "ownerHash": "2a7a66e9acbb00bf8b0ca9913705352e1c0fad978d96332ccd6da4c3230317ae"
+    },
+    {
+      "name": "native-moon-play",
+      "scene": "moon-play",
+      "tick": 500,
+      "beat": "investigation",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "playmate",
+          "action": "pouncing",
+          "phase": "airborne",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": -0.04553887590885782,
+            "earFar": 0.04826750726009353,
+            "tailLift": 0.05393130818933126,
+            "rest": 0,
+            "bow": 2.0905928176183395e-12
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "playmate",
+          "action": "playing",
+          "phase": "sniff",
+          "expression": {
+            "headPitch": 0.03499999999999997,
+            "earNear": 0.0008786797939956898,
+            "earFar": 0.08812922868233852,
+            "tailLift": -0.2299999999999794,
+            "rest": 0,
+            "bow": 2.7974371222508085e-12
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "lookout",
+          "action": "watching",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.20108557174919495,
+            "earNear": -0.26410070392472984,
+            "earFar": 0.135680313126997,
+            "tailLift": -0.12999999999998646,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 822,
+      "cellHash": "21f9ad65e3e30dce60e6e7f68d6a98d7586e11bd5a9e3e1d0e4074bee2a1a893",
+      "ownerHash": "971acbdaf0de9b71aaf9c1e7c459a6bab4ec522262a2577c99dfd27b0743df4d"
+    },
+    {
+      "name": "native-den-watch",
+      "scene": "den-watch",
+      "tick": 1260,
+      "beat": "settling",
+      "tableau": null,
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "dreamer",
+          "action": "resting",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0.15999999999999986,
+            "earNear": 0.03934045297879073,
+            "earFar": 0.05731159256175746,
+            "tailLift": 0.15999999999999986,
+            "rest": 0.9999999999991206,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "listening",
+          "phase": "idle",
+          "expression": {
+            "headPitch": -0.20146038141482525,
+            "earNear": -0.1100920976328747,
+            "earFar": 0.25796822039898676,
+            "tailLift": -0.12999999999999987,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "dreamer",
+          "action": "resting",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0.15999999999999986,
+            "earNear": -0.029664221628688932,
+            "earFar": -0.021635312638838645,
+            "tailLift": 0.15999999999999986,
+            "rest": 0.9998348673370423,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 711,
+      "cellHash": "cfa80b0953279b3dda1cd07319589c32ffbf0bef931002fa71b5b58bb9135ce5",
+      "ownerHash": "414733d9230330b0188ecadc8dd2c6bf070b494e301640b6151972a085205120"
+    },
+    {
+      "name": "native-tableau-listen",
+      "scene": "den-watch",
+      "tick": 0,
+      "beat": "arrival",
+      "tableau": "listen",
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "dreamer",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "dreamer",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 832,
+      "cellHash": "593b2035f0684fb0b62e9fceb950d6a06812faccf1a2802eaee1a069d5190a9e",
+      "ownerHash": "e6011b010c70da1f0bba7d8ca6e2306fd27659c515e18fbfcd954f67c424c17e"
+    },
+    {
+      "name": "native-tableau-pounce",
+      "scene": "den-watch",
+      "tick": 0,
+      "beat": "arrival",
+      "tableau": "pounce",
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "dreamer",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "dreamer",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 770,
+      "cellHash": "424175c5b49505584fcbaf6cf80e586f9aa86d5b9d84fa826dc01092f5fb0a5e",
+      "ownerHash": "5fd856197a22f5f4dda3fb4c8da4558df2eb037a7b598e069f66c8b298a3cc06"
+    },
+    {
+      "name": "native-tableau-rest",
+      "scene": "den-watch",
+      "tick": 0,
+      "beat": "arrival",
+      "tableau": "rest",
+      "actors": [
+        {
+          "id": 0,
+          "name": "Ember",
+          "role": "dreamer",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 1,
+          "name": "Pip",
+          "role": "lookout",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        },
+        {
+          "id": 2,
+          "name": "Bracken",
+          "role": "dreamer",
+          "action": "arriving",
+          "phase": "idle",
+          "expression": {
+            "headPitch": 0,
+            "earNear": 0,
+            "earFar": 0,
+            "tailLift": 0,
+            "rest": 0,
+            "bow": 0
+          }
+        }
+      ],
+      "cols": 160,
+      "rows": 64,
+      "occupied": 624,
+      "cellHash": "b5c426f64c256933683cdd31b166d0d055d0dd79204a1963da7f8d8cba668cb3",
+      "ownerHash": "72b10209a30a4bf0ab45df11f5dae91424d79c5dcc58702ccae9f137a11b5686"
+    }
+  ],
+  "finalStateHash": "3f42353d149e7fc2f321c867ca75c02824e5da3bbb4aad9dba4dc6ade72398b0",
+  "finalCellHash": "fd607a9618ab9024406484673f07494c8e5b53e269f03ad4711c422b10ded8ef"
+}

@@ -1,0 +1,33 @@
+✔ SSR import and one live mount own one bounded frame loop; dispose twice releases all mock resources (324.042325ms)
+✔ pointer storms coalesce to latest CSS-normalized guide plus one pounce, independent of DPR (32.192092ms)
+✔ pause drops pending actions, reset/configuration preserve pause, resume records a policy leave (78.950969ms)
+✔ reduced motion keeps a static specimen: deliberate guide/pounce work without ticks or RAF (104.539493ms)
+✔ hidden, offscreen and zero-size causes compose; old callbacks do not advance after resubscription (33.109343ms)
+✔ long stalls are bounded to five ticks and discarded elapsed time is reported (15.857329ms)
+✔ leave, cancel and lost capture discard queued pounces and clear active guidance (80.244233ms)
+✔ invalid configuration/input is atomic and does not dispose a working controller (2.878552ms)
+✔ failed setup and unsupported Canvas roll back all owned listeners and observers (38.408057ms)
+✔ consumer callback errors stop the instance and release resources (18.187813ms)
+✔ multiple mounts share a borrowed scheduler without disposing it or each other (18.499752ms)
+✔ repeated mount/dispose and bounded DPR/size preserve output and do not retain mock resources (124.277556ms)
+✔ three directed foxes and marine artwork borrow one scheduler; teardown leaves neighbours running (780.66929ms)
+✔ director guide/cue storms coalesce to one ordered pair without invoking legacy callback (66.528253ms)
+✔ pointer routing preserves visible ownership through desktop/portrait letterboxes and DPR (464.302369ms)
+✔ reduced-motion cues and actor selection produce distinct tableaux without ticks or subscriptions (247.646396ms)
+✔ portrait empty-space rustles choose the nearest presented fox while hover keeps deliberate selection (110.699848ms)
+✔ suspension clears transient director input, preserves user pause and performs no hidden catch-up (168.384062ms)
+✔ invalid director operations are atomic and do not dispose a healthy mount (8.623243ms)
+✔ director callback failures and late callbacks release only owned resources (17.254704ms)
+✔ reset inside an input callback retires the old catch-up frame for director and legacy mounts (97.981305ms)
+✔ director construction is explicit and bounded; legacy mounts keep their absent-director result (10.000011ms)
+✔ fox and cuttlefish share scheduling without borrowing disposal authority (243.166691ms)
+✔ fox reduced-motion action remains static and exposes explicit fixed-tick model (47.307415ms)
+✔ Fox Pages modules and demo are reproducible from canonical typed sources (136.007301ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2947.467976

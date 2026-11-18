@@ -1,4 +1,4 @@
-import { FOX_LIMITS, smooth } from './config.js';
+import { FOX_LIMITS, clamp, smooth } from './config.js';
 const LEG_IDS = ['far-hind', 'far-front', 'near-hind', 'near-front'];
 const REST_X = [-.46, .10, -.29, .27];
 export function neutralFeet(rootX, options) {
@@ -23,7 +23,7 @@ function cubic(a, b, c, d, t) {
         y: q * q * q * a.y + 3 * q * q * t * b.y + 3 * q * t * t * c.y + t * t * t * d.y };
 }
 /** Pure pose sampling; output vertices are world-space normalized x/y, +y down. */
-export function poseFox(state, liveOptions) {
+export function poseFox(state, liveOptions, expression) {
     const b = state.behavior, options = 'plan' in b ? b.plan.options : liveOptions;
     const sign = options.facing === 'right' ? 1 : -1, scale = options.scale;
     let lift = 0, compression = 0, tailBalance = 0, air = 0, land = 1, crouch = 0;
@@ -45,15 +45,30 @@ export function poseFox(state, liveOptions) {
     }
     const calm = !['crouch', 'airborne', 'landing'].includes(b.kind);
     const breath = calm ? Math.sin(state.breathPhase) * options.breathing : 0;
-    const bodyY = lift + compression;
+    const restAmount = clamp(expression?.rest ?? 0, 0, 1), bowAmount = clamp(expression?.bow ?? 0, 0, 1);
+    const bodyY = lift + compression + .19 * scale * restAmount;
     const headDip = b.kind === 'sniff' ? options.sniffDepth * (.62 + .22 * Math.sin(state.breathPhase * 2) + .16 * state.target.y)
         : b.kind === 'stalk' ? options.sniffDepth * .35 : 0;
-    const point = (x, y, head = false) => ({ x: state.rootX + sign * x * scale,
-        y: FOX_LIMITS.groundY + (y + (head ? headDip : 0)) * scale + bodyY });
+    const point = (x, y, head = false) => {
+        if (head && expression?.headPitch) {
+            const angle = clamp(expression.headPitch, -.35, .35), dx = x - .23, dy = y + .43;
+            x = .23 + dx * Math.cos(angle) - dy * Math.sin(angle);
+            y = -.43 + dx * Math.sin(angle) + dy * Math.cos(angle);
+        }
+        return { x: state.rootX + sign * x * scale,
+            y: FOX_LIMITS.groundY + (y * (1 - restAmount * .18) + (head ? headDip : 0) + bowAmount * .075 * clamp(x + .25, 0, .8)) * scale + bodyY };
+    };
+    const earPoint = (p, near) => {
+        const angle = clamp((near ? expression?.earNear : expression?.earFar) ?? 0, -.35, .35);
+        if (!angle)
+            return p;
+        const cx = near ? .375 : .24, cy = near ? -.545 : -.58, dx = p.x - cx, dy = p.y - cy;
+        return { x: cx + dx * Math.cos(angle) - dy * Math.sin(angle), y: cy + dx * Math.sin(angle) + dy * Math.cos(angle) };
+    };
     const polygons = [], legs = [];
     const add = (id, material, depth, points) => { polygons.push({ id, material, depth, points }); };
     const local = (id, material, depth, points, head = false) => {
-        add(id, material, depth, points.map(p => point(p.x, p.y, head)));
+        add(id, material, depth, points.map(p => { const q = id.startsWith('ear-') ? earPoint(p, id.startsWith('ear-near')) : p; return point(q.x, q.y, head); }));
     };
     const neutral = neutralFeet(state.rootX, options);
     for (let i = 0; i < 4; i++) {
@@ -79,9 +94,12 @@ export function poseFox(state, liveOptions) {
             foot = { x: rest.x, y: FOX_LIMITS.groundY };
             planted = true;
         }
+        if (restAmount) {
+            foot = { x: foot.x + sign * (fore ? -.02 : .035) * scale * restAmount, y: foot.y };
+        }
         const root = point(fore ? (near ? .21 : .12) : (near ? -.31 : -.40), fore ? -.30 : -.32);
         const knee = { x: root.x + sign * (fore ? -.025 : .105) * scale + (foot.x - rest.x) * .3,
-            y: FOX_LIMITS.groundY - (fore ? .15 : .17) * scale + bodyY * .6 + (foot.y - FOX_LIMITS.groundY) * .4 };
+            y: FOX_LIMITS.groundY - (fore ? .15 : .17) * scale * (1 - restAmount * .65) + bodyY * (.6 - .35 * restAmount) + (foot.y - FOX_LIMITS.groundY) * .4 };
         const hock = { x: foot.x - sign * .04 * scale, y: FOX_LIMITS.groundY - .065 * scale + (foot.y - FOX_LIMITS.groundY) * .8 + bodyY * .15 };
         const joints = fore ? [root, knee, foot] : [root, knee, hock, foot];
         legs.push({ id, joints, planted });
@@ -94,7 +112,8 @@ export function poseFox(state, liveOptions) {
     }
     // A bushy tapered curve, with width measured normal to its tangent.
     const sway = Math.sin(state.tailPhase) * options.tailSway;
-    const a = { x: -.39, y: -.38 }, bb = { x: -.59, y: -.29 }, c = { x: -.82, y: -.34 + sway * .6 }, d = { x: -1.0, y: -.54 + sway + tailBalance };
+    const tailLift = clamp(expression?.tailLift ?? 0, -.26, .22);
+    const a = { x: -.39, y: -.38 }, bb = { x: -.59, y: -.29 + restAmount * .15 }, c = { x: -.82 + restAmount * .48, y: -.34 + sway * .6 + tailLift * .5 + restAmount * .18 }, d = { x: -1.0 + restAmount * 1.1, y: -.54 + sway + tailBalance + tailLift + restAmount * .36 };
     const tailSection = (start) => {
         const left = [], right = [];
         for (let i = 0; i <= 16; i++) {
@@ -134,7 +153,7 @@ export function poseFox(state, liveOptions) {
         if (!Number.isFinite(p.x) || !Number.isFinite(p.y))
             throw new RangeError('Non-finite fox geometry');
     return { species: 'fox', tick: state.tick, phase: b.kind, root: { x: state.rootX, y: bodyY }, polygons, legs,
-        landmarks: { muzzle: point(.65, -.395, true), earNear: point(.385, -.79, true), earFar: point(.18, -.755, true),
+        landmarks: { muzzle: point(.65, -.395, true), earNear: point(earPoint({ x: .385, y: -.79 }, true).x, earPoint({ x: .385, y: -.79 }, true).y, true), earFar: point(earPoint({ x: .18, y: -.755 }, false).x, earPoint({ x: .18, y: -.755 }, false).y, true),
             tailRoot: point(a.x, a.y), tailTip: point(d.x, d.y) },
         bounds: { minX: Math.min(...all.map(p => p.x)), maxX: Math.max(...all.map(p => p.x)),
             minY: Math.min(...all.map(p => p.y)), maxY: Math.max(...all.map(p => p.y)) } };

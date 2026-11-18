@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "directorVersion": 1,
+  "seed": 17,
+  "tickRate": 60,
+  "options": {
+    "scene": "dusk-hunt",
+    "count": 3,
+    "pace": 1,
+    "curiosity": 0.7,
+    "wind": 0.3,
+    "spacing": 1,
+    "showLabels": true,
+    "roles": [
+      "auto",
+      "auto",
+      "auto"
+    ],
+    "seed": 17
+  },
+  "endTick": 960,
+  "events": [
+    {
+      "tick": 30,
+      "seq": 0,
+      "type": "guide",
+      "x": 0.65,
+      "y": 0.2
+    },
+    {
+      "tick": 60,
+      "seq": 1,
+      "type": "cue",
+      "cue": "rustle",
+      "id": 0,
+      "x": -0.05,
+      "y": 0.65
+    },
+    {
+      "tick": 330,
+      "seq": 2,
+      "type": "guide",
+      "x": -0.45,
+      "y": 0.55
+    },
+    {
+      "tick": 455,
+      "seq": 3,
+      "type": "cue",
+      "cue": "play",
+      "id": 1,
+      "x": 0.1,
+      "y": 0.5
+    },
+    {
+      "tick": 700,
+      "seq": 4,
+      "type": "cue",
+      "cue": "rest",
+      "id": 2
+    },
+    {
+      "tick": 760,
+      "seq": 5,
+      "type": "leave"
+    },
+    {
+      "tick": 820,
+      "seq": 6,
+      "type": "cue",
+      "cue": "pounce",
+      "id": 0,
+      "x": 0.3,
+      "y": 0.7
+    }
+  ]
+}
