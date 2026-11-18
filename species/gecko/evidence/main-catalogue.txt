@@ -1,0 +1,10 @@
+Command: python3 scripts/check-catalogue.py
+CWD: /workspace/scratch/2b42caa0b4f6/gecko-work
+Started: 2026-11-18T10:17:55.509902+00:00
+Exit code: 0
+Duration seconds: 0.050798
+
+STDOUT
+Catalogue passed: 13 unique species, honest status, local links, anchors, study and standalone preserved.
+
+STDERR

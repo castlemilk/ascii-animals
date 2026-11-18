@@ -1,0 +1,40 @@
+✔ proposal writer adapter uses explicit materials, fixed tick and bounded output (28.370876ms)
+✔ proposal rejects insufficient capacity before writes and reports rejected writes (1.269798ms)
+✔ controller runs explicit 60 Hz ticks, coalesces pointer flood, and never queues more than two intents (25.037795ms)
+✔ pause, reset and option/view updates preserve independent rest causes (24.294474ms)
+✔ reduced motion starts static; pointer cannot revive it; deliberate curled poster changes cells without ticking (10.536031ms)
+✔ hidden/offscreen/zero-size causes compose and resumption discards wall-clock backlog and stale guidance (6.745433ms)
+✔ long foreground stall advances at most five ticks and accounts for discarded time (5.269688ms)
+✔ pointer input uses moved CSS rect, not DPR; departures clear the target on the next tick (12.997146ms)
+✔ keyboard events are stage-local, never form-global, and offer all direction and pause controls (3.395342ms)
+✔ backing dimensions and DPR stay capped; too-small and zero-size hosts schedule no work (2.999215ms)
+✔ all exposed mutation/read methods reject after disposal except status and idempotent dispose (2.155721ms)
+✔ multiple controllers own independent listeners, clocks and teardown (6.806757ms)
+✔ failed partial mount and missing Canvas leave no listeners, observers or RAF (0.338585ms)
+✔ consumer callback failure during setup or later phase transition rolls back owned resources (3.314216ms)
+✔ invalid updates and mount options fail atomically before resource changes (2.74129ms)
+✔ repeated mount/unmount has zero owned resources in the stub harness (66.28805ms)
+✔ reentrant status callback can pause during a five-tick catch-up without an extra simulation step (7.214713ms)
+✔ actual demo host retains working controls across persisted pagehide/pageshow and preserves user pause (13.163797ms)
+✔ actual demo bfcache freeze cancels work before visibility changes and resumes without catching up; navigation disposes (8.213782ms)
+✔ defaults are resolved, versioned, independent and resettable (3.137902ms)
+✔ reference event replay is identical with 1, 2 and 5 tick render groups (1181.284167ms)
+✔ invalid config and updates reject atomically; documented numeric endpoints work (2.196757ms)
+✔ invalid next-tick input batches reject before any state mutation (1.071948ms)
+✔ pointer normalization uses CSS bounds, clamps edges, and rejects absent or nonfinite area (0.499512ms)
+✔ startle takes behavior priority; guidance preserves sequence order (0.337558ms)
+✔ response phases finish in order and repeated startles cannot extend cooldown (4.581279ms)
+✔ a deliberate startle holds first, then makes a short backward retreat with an attached tail (6.133337ms)
+✔ creeping, reversal and response keep three toes planted and all limbs within reach (800.735367ms)
+✔ full-turn silhouettes and option extremes emit finite, bounded original anatomy (742.971735ms)
+✔ cell output is bounded printable ASCII and cannot mutate state (16.995536ms)
+✔ minimum-grid toe-pad fans retain at least three separated marks per foot in reviewed orientations (10.6321ms)
+✔ snapshots are defensive, reset validation is atomic, disposal is terminal and idempotent (1.657255ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2967.287117

@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "id": "gecko-v1",
+  "status": "reference-implemented",
+  "source": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "074b90a94bd3a747a68feed554e33a3ab0720f41",
+    "relationship": "original-reference",
+    "inspectedFiles": [
+      "dist/artwork.js",
+      "dist/app.js",
+      "scripts/check-engine.cjs"
+    ]
+  },
+  "representation": {
+    "kind": "ascii-grid",
+    "glyphs": " .:-=+*#%@oO",
+    "fontStrategy": "system",
+    "fonts": [
+      "ui-monospace",
+      "SFMono-Regular",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ],
+    "fontProvenance": "No font file bundled; host font pixels differ. Fixed world aspect; printable ASCII only."
+  },
+  "anatomy": {
+    "classification": "stylized",
+    "anchors": [
+      "Broad wedge-shaped head",
+      "Four separated splayed limbs with five rounded toe pads each",
+      "Long continuous tapering tail"
+    ],
+    "views": [
+      "Dorsal right",
+      "Dorsal left",
+      "Dorsal up/down",
+      "In-plane turns"
+    ],
+    "parts": [
+      {
+        "name": "body",
+        "parent": "scene",
+        "motion": "Bounded guided translation and slow turn"
+      },
+      {
+        "name": "head",
+        "parent": "body",
+        "motion": "Attached broad head with stable paired eyes"
+      },
+      {
+        "name": "limbs",
+        "parent": "body",
+        "motion": "Four jointed limbs; one swing at a time, diagonal order"
+      },
+      {
+        "name": "toes",
+        "parent": "limbs",
+        "motion": "Five pads per foot; fixed world position and fan angle during stance"
+      },
+      {
+        "name": "tail",
+        "parent": "body",
+        "motion": "Continuous tapered centerline with smoothly blended curl"
+      }
+    ]
+  },
+  "motion": {
+    "tickRate": 60,
+    "seed": 37,
+    "phases": [
+      {
+        "name": "idle",
+        "durationTicks": 0,
+        "transition": "Guide enters approach; deliberate startle enters response"
+      },
+      {
+        "name": "approach",
+        "durationTicks": 0,
+        "transition": "Target reached or leave returns idle; deliberate startle takes priority"
+      },
+      {
+        "name": "startle",
+        "durationTicks": 18,
+        "transition": "Hold root and smoothly curl tail, then retreat"
+      },
+      {
+        "name": "retreat",
+        "durationTicks": 48,
+        "transition": "Short backward contact-aware steps, then recover"
+      },
+      {
+        "name": "recover",
+        "durationTicks": 120,
+        "transition": "Relax curl and cautiously follow target, then cooldown"
+      },
+      {
+        "name": "cooldown",
+        "durationTicks": 120,
+        "transition": "Guidance resumes; repeated startle ignored until idle/approach"
+      }
+    ],
+    "replayGuarantee": "Same version/runtime/seed/options and ordered tick/sequence events produce identical state and ASCII cells regardless of render grouping; no cross-runtime pixel promise."
+  },
+  "interaction": {
+    "pointer": "CSS-rect normalization to [-1,1]; coalesce; movement guides only. Empty stage never startles.",
+    "keyboard": "Native guide/startle/pause/reset buttons; arrows and Space only with stage focus.",
+    "touch": "Tap stage to guide; use native Startle button; scrolling preserved.",
+    "precedence": "Atomic batch validation; startle wins behavior priority; busy startles ignored. Rest causes compose. Explicit static poster action under reduced motion.",
+    "eventsPerTick": 32
+  },
+  "accessibility": {
+    "description": "A stylized ASCII gecko with a broad head, four splayed pad-toed feet and a long attached tail.",
+    "reducedMotion": "Static poster; deliberate Startle changes to a static curled-tail pose without scheduling.",
+    "pause": "Independent user/reduced/hidden/offscreen/zero-size/disposed causes; reset/update preserve pause.",
+    "liveRegion": "User-action status only; no per-frame announcements."
+  },
+  "resources": {
+    "scope": "implemented-reference",
+    "animals": 1,
+    "samplesPerAnimal": 12288,
+    "cols": 192,
+    "rows": 86,
+    "dpr": 2,
+    "maxCatchUp": 5,
+    "particles": 0
+  },
+  "provenance": [
+    {
+      "kind": "original",
+      "source": "Original TypeScript analytic gecko geometry and contact gait in this species directory.",
+      "rights": "No copied art/models/runtime; project license choice remains with repository owner.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "Reviewed skill e721252075a30888198aafba0953a23fd07bd3c6; original authoring main 0e446c47b491b751d484e40db753ec725652b515; final integration main 074b90a94bd3a747a68feed554e33a3ab0720f41; reviewed PR2 head 8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1 is now merged, with the generic writer still only proposed.",
+      "rights": "Inspected authoring method and boundaries; ray runtime not copied.",
+      "copied": false
+    },
+    {
+      "kind": "font",
+      "source": "Host system monospace fallback stack",
+      "rights": "Uses installed fonts only; no binaries redistributed.",
+      "copied": false
+    }
+  ],
+  "acceptance": [
+    {
+      "gate": "typed numerical/input/geometry/replay/adapter + stub browser lifecycle",
+      "status": "pass",
+      "evidence": "32 node:test cases pass; TypeScript 5.9.3 strict source build and 30 expected negative type cases pass. See evidence/verification.json and species-tests.txt."
+    },
+    {
+      "gate": "native Canvas and independent minimum-grid silhouette review",
+      "status": "pass",
+      "evidence": "201 real native Canvas frames at 720x550, contact sheets, 360px neutral review. Toe-pad bounded fix accepted; not all five pads resolve separately at 112x50."
+    },
+    {
+      "gate": "real browser input/layout/accessibility",
+      "status": "blocked",
+      "evidence": "Chromium fails before page launch; cloud browser local URL connection refused. evidence/browser-smoke.json records no executed checks."
+    },
+    {
+      "gate": "normal-speed human playback / real device timing / heap",
+      "status": "untested",
+      "evidence": "Sequential frames and numerical contact invariants reviewed; no normal-speed human-playback or browser/device performance pass claimed."
+    },
+    {
+      "gate": "shared library integration and publishing",
+      "status": "proposed",
+      "evidence": "PR2 reviewed at 8c530b10e8665e5b7d5cc528c8bd451cbbeef8e1 and subsequently merged into final main 074b90a94bd3a747a68feed554e33a3ab0720f41. Public species remains cuttlefish-only. Gecko adapter acceptance is pending. No gecko merge, npm publication or deployment."
+    }
+  ]
+}
