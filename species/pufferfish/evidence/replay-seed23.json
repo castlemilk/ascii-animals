@@ -1,0 +1,39 @@
+{
+  "version": "pufferfish-v1",
+  "seed": 23,
+  "tickRate": 60,
+  "untilTick": 1110,
+  "events": [
+    {
+      "tick": 1,
+      "seq": 0,
+      "type": "pointer",
+      "x": 0.85,
+      "y": 0.5,
+      "aspect": 1.7777777777777777
+    },
+    {
+      "tick": 61,
+      "seq": 1,
+      "type": "pointer",
+      "x": 0.04,
+      "y": 0,
+      "aspect": 1.7777777777777777
+    },
+    {
+      "tick": 220,
+      "seq": 2,
+      "type": "retreat"
+    },
+    {
+      "tick": 610,
+      "seq": 3,
+      "type": "approach"
+    },
+    {
+      "tick": 780,
+      "seq": 4,
+      "type": "retreat"
+    }
+  ]
+}

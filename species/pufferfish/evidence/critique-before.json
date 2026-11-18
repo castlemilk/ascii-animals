@@ -1,0 +1,72 @@
+{
+  "evidenceKind": "native Canvas / Skia raster output; NOT browser, deployed, or target-device evidence",
+  "capturedAtUtc": "2026-11-18T09:01:16.736Z",
+  "source": {
+    "mainBase": "0e446c47b491b751d484e40db753ec725652b515",
+    "legacySha256": "381f4706bc07761e6d1e162c95ceee97c42dd687ea19469ecb4f79885bd34e91",
+    "speciesSha256": {
+      "src/types.ts": "10a060bb1b89c85081e823f4f305d6a495b914023829695ffc03fdb3a4c399e7",
+      "src/model.ts": "5499d48e8e5a9310e3f7b6849455b7801875f01ebd2e65c7e35e1ba969b7da3f",
+      "src/geometry.ts": "7ccc9ec09bf4130946e60c81bfcad5dd16dcd7c81f622d9a9a11d51647b6a943",
+      "src/legacy-painter.ts": "c988e7c928309a9743112b615f8cc44a7b7fc78548624bb78cd9ab5044235f37",
+      "scripts/capture.mjs": "55239c2e2289b729c31a7345e4aca8af1c87c5b8093e6a58040559717f0af0f7"
+    },
+    "bridge": "Original makeAtlas, _put, _rasterize and render called in place. Legacy constructor not invoked. No browser APIs stubbed for raster capture."
+  },
+  "images": [
+    {
+      "file": "critique-before-neutral.png",
+      "tick": 0,
+      "phase": {
+        "kind": "idle"
+      },
+      "inflation": 0,
+      "stateSha256": "b092813244e964fbebfe83a405575ad5b71421067e218c79638e7c0a3b6f8fe5",
+      "logicalCellSha256": "e27f8fad853f9683ba060b990fffe88457745e285cb2f4d84f8e5f6fa567bed3",
+      "rasterRgbaSha256": "baac229ede6fbc73f60ee66700bdf9357618d9027b13ce792a8de9540996c750",
+      "pngSha256": "38b7d67d2e215752535d2fefe0953db65d780ba231f9acb0117f14487fcc9578",
+      "cols": 120,
+      "rows": 50,
+      "samples": 7994,
+      "glyphs": 425,
+      "width": 900,
+      "height": 506,
+      "options": {
+        "view": "right",
+        "quality": "standard",
+        "monochrome": false,
+        "maxDpr": 2
+      },
+      "staticPose": false,
+      "label": "Neutral / small round body"
+    },
+    {
+      "file": "critique-before-inflated.png",
+      "tick": 190,
+      "phase": {
+        "kind": "holding",
+        "age": 22
+      },
+      "inflation": 1,
+      "stateSha256": "8708cfa6cf9402f2ec45d3b1291cb0e17ec64ed10d3c709f28f75d9c1e8c3a4a",
+      "logicalCellSha256": "ceb0cf11c48c3af8a6dbf6f891f3d35d164457a51b7d6770b71130c042f6a2e4",
+      "rasterRgbaSha256": "85e3a26817d22cb1ac81ab50c1d0c0d6b22fa9cdbcbb09eb961c32087a5b5f1f",
+      "pngSha256": "6dd06f002f39c0feb6c42df2a6336c61c7bbc610af01886e9f2cb68aabcbbb8c",
+      "cols": 120,
+      "rows": 50,
+      "samples": 7994,
+      "glyphs": 1064,
+      "width": 900,
+      "height": 506,
+      "options": {
+        "view": "right",
+        "quality": "standard",
+        "monochrome": false,
+        "maxDpr": 2
+      },
+      "staticPose": false,
+      "label": "Full inflation / buoyant hold"
+    }
+  ],
+  "note": "Preserved initial native renders before bounded independent fin-readability critique. Timing is in the original run metadata, not a browser pass."
+}

@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "id": "pufferfish-v1",
+  "status": "reference-implemented",
+  "source": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "0e446c47b491b751d484e40db753ec725652b515",
+    "relationship": "original-reference",
+    "inspectedFiles": [
+      "dist/artwork.js",
+      "dist/app.js",
+      "scripts/check-engine.cjs",
+      "README.md",
+      ".github/workflows/pages.yml"
+    ]
+  },
+  "representation": {
+    "kind": "canvas-glyph-atlas",
+    "glyphs": " .,:;!i1l+txzvcofnae0&%8B@",
+    "fontStrategy": "system",
+    "fonts": [
+      "SFMono-Regular",
+      "Consolas",
+      "Liberation Mono",
+      "monospace"
+    ],
+    "fontProvenance": "The existing atlas requests installed system fonts; no binary is bundled. Native capture inventories installed fonts but exact fallback choice is not instrumented."
+  },
+  "anatomy": {
+    "classification": "stylized",
+    "anchors": [
+      "small round body with inflation silhouette",
+      "two raised eyes and a puckered mouth",
+      "paired paddle fins and short rear fan tail"
+    ],
+    "views": [
+      "front",
+      "left three-quarter",
+      "right three-quarter"
+    ],
+    "parts": [
+      {
+        "name": "body",
+        "parent": "scene",
+        "motion": "Smooth staged ellipsoid inflation, independent continuous buoyant bob and roll"
+      },
+      {
+        "name": "eyes",
+        "parent": "body",
+        "motion": "Follow the growing surface with two raised shells and dark pupils"
+      },
+      {
+        "name": "mouth",
+        "parent": "body",
+        "motion": "Small attached puckered ring"
+      },
+      {
+        "name": "fins",
+        "parent": "body",
+        "motion": "Two attached rounded paddles with independent continuous phases"
+      },
+      {
+        "name": "tail",
+        "parent": "body",
+        "motion": "Attached short stalk and fan; naturally occluded front-on"
+      },
+      {
+        "name": "spines",
+        "parent": "body",
+        "motion": "42 fixed radial attachments; bounded smooth length change, no spawning"
+      }
+    ]
+  },
+  "motion": {
+    "tickRate": 60,
+    "seed": 23,
+    "phases": [
+      {
+        "name": "idle",
+        "durationTicks": 0,
+        "transition": "Wait for sustained nearby normalized input"
+      },
+      {
+        "name": "approach",
+        "durationTicks": 30,
+        "transition": "Deliberate nearby dwell; retreat cancels"
+      },
+      {
+        "name": "belly",
+        "durationTicks": 42,
+        "transition": "First inflation to55percent; retreat starts recovery"
+      },
+      {
+        "name": "spines",
+        "durationTicks": 36,
+        "transition": "Complete inflation and short spine extension"
+      },
+      {
+        "name": "holding",
+        "durationTicks": 180,
+        "transition": "Maximum buoyant hold; earlier retreat starts recovery"
+      },
+      {
+        "name": "recovering",
+        "durationTicks": 150,
+        "transition": "Smooth deflation from captured current size"
+      },
+      {
+        "name": "cooldown",
+        "durationTicks": 180,
+        "transition": "Cannot retrigger; retreat required to rearm after minimum rest"
+      }
+    ],
+    "replayGuarantee": "Same version, config, seed and ordered exact tick event log reproduce state and actual legacy logical cells in tested runtime for1/2/5tick render groups. No cross-font pixel promise; arbitrary snapshot restore unsupported."
+  },
+  "interaction": {
+    "pointer": "Current CSS rect normalized to[-1,1], aspect correction, no DPR in proximity; max one coalesced pointer input. Invalid/zero rectangles reject.",
+    "keyboard": "Native Approach/Give space/Pause/Reset buttons; Enter/Space/Tab; no global shortcut.",
+    "touch": "Native buttons with no hover dependence; pointer touch movement ignored. Physical touch execution unrun.",
+    "precedence": "Retreat wins within a batch. Pause/reduced/compact gives deliberate static posters. Hidden/offscreen/zero size blocks actions. Configure resets species run but preserves pause.",
+    "eventsPerTick": 16
+  },
+  "accessibility": {
+    "description": "A small round pufferfish with two bright eyes, paddle fins and short radial spines when inflated.",
+    "reducedMotion": "Starts static, live preference changes cancel RAF. Pointer cannot override. Deliberate static inflated/calm poses remain available.",
+    "pause": "Independent user pause composes with reduced motion, hidden/offscreen/zero-sized/compact/destroyed. Reset/configure preserve pause.",
+    "liveRegion": "Only meaningful user action announcements. Glyphs and frame counters are not live."
+  },
+  "resources": {
+    "scope": "implemented-reference",
+    "animals": 1,
+    "samplesPerAnimal": 16000,
+    "cols": 160,
+    "rows": 90,
+    "dpr": 2,
+    "maxCatchUp": 5,
+    "particles": 0
+  },
+  "provenance": [
+    {
+      "kind": "original",
+      "source": "TypeScript ellipsoid, eyes, fins, tail, radial spines and staged behavior authored specifically for this request.",
+      "rights": "No third-party ASCII drawing/image/model copied; repository owner chooses eventual license.",
+      "copied": false
+    },
+    {
+      "kind": "reference",
+      "source": "Unchanged dist/artwork.js at main0e446c47b491b751d484e40db753ec725652b515; original methods called in place through private local bridge.",
+      "rights": "Existing same-repository dependency; no renderer fork or educational ray core copy.",
+      "copied": false
+    },
+    {
+      "kind": "font",
+      "source": "Existing system monospace stack; no downloaded or bundled face.",
+      "rights": "Font names are requests to installed fonts, not redistribution permission.",
+      "copied": false
+    }
+  ],
+  "acceptance": [
+    {
+      "gate": "Typed state/geometry/input/lifecycle suite",
+      "status": "pass",
+      "evidence": "Model, geometry and mocked lifecycle suites executed; exact final counts and commands are in VERIFICATION.md and evidence/checks.json."
+    },
+    {
+      "gate": "Native raster evidence and critique",
+      "status": "pass",
+      "evidence": "Actual Skia Canvas renders through original glyph pipeline; full18.5s278frame GIF, sixphase and72x40contact sheets; original fin/eye readability issue fixed and before/after retained."
+    },
+    {
+      "gate": "Real browser/accessibility/device profiling",
+      "status": "blocked",
+      "evidence": "Chromium failed before page creation: socket/ptrace Operation not permitted. Native slow draw timings are not a browser/device pass."
+    },
+    {
+      "gate": "Canonical typed package integration",
+      "status": "proposed",
+      "evidence": "PR2 is separately owned draft; private main renderer bridge and local interface acceptance pending. See API.md compatibility section."
+    }
+  ]
+}

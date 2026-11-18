@@ -36,3 +36,7 @@ const geckoModule = await import('ascii-animals-review/gecko');
 assert.equal(root.createGeckoArtwork, geckoModule.createGeckoArtwork);
 const geckoModel = geckoModule.createGecko({seed: 7});
 assert.equal(geckoModel.step([]).state.tick, 1); geckoModel.dispose();
+const pufferfish = await import('ascii-animals-review/pufferfish');
+assert.equal(root.createPufferfishArtwork,pufferfish.createPufferfishArtwork);
+const pufferState=pufferfish.createPufferfish({seed:17});
+assert.equal(pufferfish.stepPufferfish(pufferState,{tick:1,events:[]}).state.tick,1);

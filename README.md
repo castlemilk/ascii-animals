@@ -242,3 +242,6 @@ Updating `main` does not update the live demo until a maintainer deliberately ru
 ### Gecko
 
 The original reactive Gecko is available through the typed `createGeckoArtwork` named export and `ascii-animals-review/gecko`. Its dedicated [API guide](docs/GECKO-API.md) documents fixed-tick gait, guide/startle/curl behavior and lifecycle. The generated demo is `dist/gecko/index.html`; catalogue/deployment status is tracked separately.
+### Pufferfish review adapter
+
+`createPufferfishArtwork` and `ascii-animals-review/pufferfish` expose the independently configured fixed-tick pufferfish model, staged inflation and deliberate static poses. See [Pufferfish API and provenance](docs/PUFFERFISH-API.md). Local generated demo: `dist/pufferfish/index.html`. Availability remains under review until browser acceptance; no npm release.

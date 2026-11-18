@@ -24,3 +24,5 @@ export type { DragonflyArtwork, DragonflyMountOptions, DragonflyBrowserStatus, D
 
 export { createGeckoArtwork } from './public/gecko.js';
 export type { GeckoArtwork, GeckoMountOptions, GeckoControllerStatus, GeckoViewOptions } from './public/gecko.js';
+export { createPufferfishArtwork } from './public/pufferfish.js';
+export type { PufferfishArtwork, PufferfishMountOptions } from './public/pufferfish.js';

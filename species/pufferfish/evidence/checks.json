@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "verifiedAtUtc": "2026-11-18T09:20:13.157Z",
+  "base": "0e446c47b491b751d484e40db753ec725652b515",
+  "runtime": {
+    "node": "v24.22.1",
+    "typescript": "Version 5.9.3",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "checks": [
+    {
+      "id": "typescript-version",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "/workspace/scratch/55fc7020b622/token-horizon-stageshow/node_modules/typescript/lib/tsc.js",
+        "--version"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/typescript-version.txt"
+    },
+    {
+      "id": "typescript-build",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "/workspace/scratch/55fc7020b622/token-horizon-stageshow/node_modules/typescript/lib/tsc.js",
+        "-p",
+        "species/pufferfish/tsconfig.json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/typescript-build.txt"
+    },
+    {
+      "id": "generated-build-parity",
+      "result": "TypeScript re-emission byte-identical for JS and declarations"
+    },
+    {
+      "id": "typescript-types",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "/workspace/scratch/55fc7020b622/token-horizon-stageshow/node_modules/typescript/lib/tsc.js",
+        "-p",
+        "species/pufferfish/tests/tsconfig.types.json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/typescript-types.txt"
+    },
+    {
+      "id": "typescript-server",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "/workspace/scratch/55fc7020b622/token-horizon-stageshow/node_modules/typescript/lib/tsc.js",
+        "-p",
+        "species/pufferfish/tests/tsconfig.server.json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/typescript-server.txt"
+    },
+    {
+      "id": "typescript-nodenext",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "/workspace/scratch/55fc7020b622/token-horizon-stageshow/node_modules/typescript/lib/tsc.js",
+        "-p",
+        "species/pufferfish/tests/tsconfig.nodenext.json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/typescript-nodenext.txt"
+    },
+    {
+      "id": "species-tests",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "--test",
+        "species/pufferfish/tests/controller.test.mjs",
+        "species/pufferfish/tests/geometry.test.mjs",
+        "species/pufferfish/tests/model.test.mjs"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/species-tests.txt"
+    },
+    {
+      "id": "legacy-regression",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "scripts/check-engine.cjs"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/legacy-regression.txt"
+    },
+    {
+      "id": "legacy-syntax",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "--check",
+        "dist/artwork.js"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/legacy-syntax.txt"
+    },
+    {
+      "id": "app-syntax",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "--check",
+        "dist/app.js"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/app-syntax.txt"
+    },
+    {
+      "id": "ssr-import",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "--input-type=module",
+        "-e",
+        "import assert from 'node:assert/strict'; assert.equal(typeof document,'undefined'); const {pufferfish}=await import('./species/pufferfish/build/index.js'); await import('./species/pufferfish/build/controller.js'); await import('./species/pufferfish/build/legacy-painter.js'); assert.equal(pufferfish.create().tick,0); console.log('Pure and adapter imports succeeded without DOM; no browser construction claimed.');"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/ssr-import.txt"
+    },
+    {
+      "id": "scope-boundary",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--exit-code",
+        "0e446c47b491b751d484e40db753ec725652b515",
+        "--",
+        "dist",
+        "scripts",
+        "README.md",
+        ".github"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/scope-boundary.txt"
+    },
+    {
+      "id": "whitespace",
+      "executable": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/whitespace.txt"
+    },
+    {
+      "id": "legacy-standalone",
+      "executable": "python3",
+      "args": [
+        "/tmp/pufferfish-standalone-check-eKfYSv/scripts/build-standalone.py"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/legacy-standalone.txt"
+    },
+    {
+      "id": "standalone-byte-parity",
+      "result": "Original standalone rebuilt in temporary copy, byte-identical; shared checkout untouched"
+    },
+    {
+      "id": "skill-spec-validator",
+      "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "args": [
+        "/workspace/scratch/d84a1263bfdb/skill-reference/validate-spec.mjs",
+        "species/pufferfish/authoring.json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/skill-spec-validator.txt"
+    },
+    {
+      "id": "capture-hash-parity",
+      "result": "20 artifact and 5 captured source hashes verified"
+    },
+    {
+      "id": "gif-decode",
+      "executable": "python3",
+      "args": [
+        "-c",
+        "from PIL import Image; im=Image.open('species/pufferfish/evidence/pufferfish-native.gif'); n=im.n_frames; ms=0\nfor i in range(n):\n im.seek(i); ms+=im.info.get('duration',0)\nassert n==278 and ms==18500,(n,ms)\nprint(f'GIF decoded: {n} frames, {ms}ms; intended simulation cadence, not rendering throughput')"
+      ],
+      "exitCode": 0,
+      "log": "evidence/logs/gif-decode.txt"
+    }
+  ],
+  "sourceSha256": {
+    "src/controller.ts": "ce908baf8d8c5235b3971b6e3575c7c57e9e78f6a2b985514aa70e4471f2cf92",
+    "src/demo.ts": "e7bce6a89696190cd8a9353779f6d261fd245ec10e1f4775ecbd62efd4fdfc16",
+    "src/geometry.ts": "142cabd27114e9df4a07613a862e7471deaaf6db67705a29388aa5bd5c7cf2d5",
+    "src/index.ts": "6354fac31990fcd696b98a8eae864a7dce317d213c64b262dfd894f4367a10ff",
+    "src/legacy-painter.ts": "fe87da673321eda96957f758cce1aa5b716f2e346ce66146230cf0f8e5fc2a78",
+    "src/model.ts": "5499d48e8e5a9310e3f7b6849455b7801875f01ebd2e65c7e35e1ba969b7da3f",
+    "src/types.ts": "10a060bb1b89c85081e823f4f305d6a495b914023829695ffc03fdb3a4c399e7"
+  },
+  "buildSha256": {
+    "build/controller.d.ts": "2533d5c9d1e6302e7346b9e83e3ae9c9885446de29c90329ee44c29c053d8c57",
+    "build/controller.js": "6559a99578d63bd7a8d688c432fde5b2f8a69af9af59c8453ab1999b1138cd95",
+    "build/demo.d.ts": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "build/demo.js": "da860d21843ded17f00e29977a3e3589f6e1050e869c99f6b34519710443bd1b",
+    "build/geometry.d.ts": "f4b75cb3af3c30dd502190984d773e8b30e56f48f9b0aca0c65100ba4f3f0d0c",
+    "build/geometry.js": "c7359e34f97ded7f5f76601f29aefb4897587cc3938d05c9dd83385ed58a0611",
+    "build/index.d.ts": "40b8170dcd1d518c0316999499c89aa56148f78f5d403e82eac079de9e598263",
+    "build/index.js": "23b4604bf47d9a3b5db45363694de882ee57bd7fbef4920b00788c8a387ff54c",
+    "build/legacy-painter.d.ts": "d693c775a836e016df380747d34e5a9adccf81f34b29d9128be364d69510a2cb",
+    "build/legacy-painter.js": "7a862bc45339df83da75f2b06479470b19422b030ab79be2ce2e05af5fdcdf76",
+    "build/model.d.ts": "163f9ada5157e70dbd968a9dc943a747af858934a4912113551de90f7d2365af",
+    "build/model.js": "624791f62314171b60d7a1fb56a4ae0953c57e48efad80fefbdeab0c2e3682c4",
+    "build/types.d.ts": "29935ab8986109dde5d5eab840e726ef5be9c236d8c9b931320e91ec2f1e30dd",
+    "build/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+  },
+  "boundaries": [
+    "Numerical/state/cell tests",
+    "Mocked browser resource bookkeeping",
+    "Actual native Skia pixels, no browser page",
+    "Real Chromium launch blocked before page: socket/ptrace Operation not permitted",
+    "No deployed/npm/canonical-species acceptance"
+  ]
+}

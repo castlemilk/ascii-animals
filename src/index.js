@@ -8,3 +8,4 @@ export { createFoxArtwork } from './public/fox.js';
 export { createDragonflyArtwork } from './public/dragonfly.js';
 
 export { createGeckoArtwork } from './public/gecko.js';
+export { createPufferfishArtwork } from './public/pufferfish.js';

@@ -48,7 +48,7 @@ try {
   assert.equal(candidate.license, 'UNLICENSED', 'Do not assign licensing without an owner decision');
   assert.equal(Object.keys(candidate.dependencies ?? {}).length, 0, 'Runtime dependencies must remain zero');
   assert.equal(candidate.sideEffects, false);
-  assert.deepEqual(Object.keys(candidate.exports), ['.', './cuttlefish', './core', './fox', './dragonfly', './gecko']);
+  assert.deepEqual(Object.keys(candidate.exports), ['.', './cuttlefish', './core', './fox', './dragonfly', './gecko', './pufferfish']);
   report.npm = run(npm, ['--version']).stdout;
   report.checks.build = JSON.parse(run(process.execPath, ['scripts/build.mjs']).stdout);
 
@@ -105,7 +105,7 @@ try {
     const esbuild = loaded.default ?? loaded;
     report.toolchains.esbuild = esbuild.version;
     const bundles = {};
-    for (const variant of ['core', 'root-core', 'animal', 'unused']) {
+    for (const variant of ['core', 'root-core', 'animal', 'pufferfish', 'unused']) {
       const built = await esbuild.build({
         absWorkingDir: consumer,
         entryPoints: [`bundle-${variant}.js`],
@@ -115,8 +115,12 @@ try {
       const output = built.outputFiles[0].contents;
       const included = Object.values(built.metafile.outputs).flatMap(value => Object.entries(value.inputs).filter(([, contribution]) => contribution.bytesInOutput > 0).map(([name]) => name));
       const includesAnimal = included.some(name => name.includes('/animals/cuttlefish.js'));
-      if (variant === 'animal') assert(includesAnimal, 'Animal bundle must include the engine');
+      if (variant === 'animal' || variant === 'pufferfish') assert(includesAnimal, 'Animal bundle must include the engine');
       else assert(!includesAnimal, `${variant} unexpectedly includes the animal renderer`);
+      if (variant === 'pufferfish') {
+        assert(included.some(name => name.includes('/species/pufferfish/controller.js')), 'Pufferfish controller must survive bundling');
+        assert(!included.some(name => name.includes('/species/fox/')), 'Pufferfish must not pull in Fox');
+      }
       if (variant === 'unused') assert(!included.some(name => name.includes('node_modules/ascii-animals-review/')), 'Unused module must be removed');
       bundles[variant] = { minifiedBytes: output.length, gzipBytes: gzipSync(output, { level: 9 }).length, included, sha256: digest(output) };
     }

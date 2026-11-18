@@ -125,3 +125,17 @@ gecko.update({ seed: 9 });
 gecko.dart();
 // @ts-expect-error grid is structured, not a named preset
 gecko.setView({ grid: 'small' });
+import {createPufferfishArtwork as rootPufferfish} from 'ascii-animals-review';
+import {createPufferfishArtwork,createPufferfish,stepPufferfish,type PufferfishArtwork} from 'ascii-animals-review/pufferfish';
+const puff:PufferfishArtwork=createPufferfishArtwork(document.createElement('canvas'),{species:{seed:17,inflationScale:1.6},render:{view:'front',quality:'fine'},paused:true});
+puff.update({wobble:.2});puff.configureRender({view:'left'});puff.pause();puff.play();puff.restart();puff.pulse();puff.retreat();puff.getOptions();puff.exportText();puff.dispose();
+const samePuffer:typeof createPufferfishArtwork=rootPufferfish;
+const pufferState=stepPufferfish(createPufferfish({seed:17}),{tick:1,events:[]});
+// @ts-expect-error no marine formation support
+puff.update({formation:'diagonal'});
+// @ts-expect-error explicit puffer quality enum
+puff.configureRender({quality:'ultra'});
+// @ts-expect-error readonly configuration snapshot
+puff.getOptions().seed=3;
+// @ts-expect-error fixed-tick model is not an elapsed-seconds artwork API
+puff.advance(.1);
