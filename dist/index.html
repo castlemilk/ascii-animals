@@ -1,143 +1,219 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080d0f">
-  <meta name="description" content="A cuttlefish made of light and letters. Explore an interactive, entirely code-drawn underwater artwork.">
-  <title>Cuttlefish — In the Current</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23080d0f'/%3E%3Cellipse cx='29' cy='25' rx='15' ry='20' transform='rotate(-30 29 25)' fill='%23b8f1cf'/%3E%3Cpath d='M33 40q18 14 22 1M30 42q4 18 18 12M26 42q-3 18 7 17' fill='none' stroke='%23b8f1cf' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
-  <script src="artwork.js" defer></script>
-  <script src="app.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101713">
+<meta name="description" content="ASCII Animals: interactive creatures made of characters. Explore the Cuttlefish study and the complete animal development catalogue.">
+<title>ASCII Animals · A living character collection</title>
+<link rel="stylesheet" href="catalogue.css">
+<script src="catalogue.js" defer>
+</script>
 </head>
 <body>
-  <a class="skip-link" href="#experiment">Skip to the artwork</a>
-  <header class="site-header">
-    <a class="wordmark" href="#" aria-label="Cuttlefish home">
-      <svg class="brand-mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M26 7C13-2 2 11 7 22c3 7 12 9 19 4 6-5 7-14 0-19Z" fill="currentColor"/><path d="M24 26c8 1 4 12 12 8M20 29c-1 11 8 12 8 7M15 29c-5 6-1 10 2 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="26" cy="22" r="1.7" fill="#080d0f"/></svg>
-      <span>cuttlefish<span class="wordmark-dot">.</span></span>
-    </a>
-    <nav aria-label="Main navigation"><a href="#experiment" class="nav-active">The experiment</a><a href="#under-the-surface">Under the surface <span aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M5 15h10V5"/></svg></span></a></nav>
-    <button class="text-button source-trigger" type="button"><span class="code-icon" aria-hidden="true">&lt;/&gt;</span> View source</button>
-  </header>
-
-  <main>
-    <section class="experiment" id="experiment" aria-labelledby="page-title">
-      <div class="intro">
-        <div><div class="eyebrow"><span class="tiny-line"></span> A GENERATIVE FIELD STUDY <span class="edition">/ 001</span></div><h1 id="page-title">In the <em>current.</em></h1></div>
-        <p class="intro-copy">Creatures made of characters.<br> A little mathematics. A little marine magic.</p>
-      </div>
-
-      <div class="scene-selector" role="group" aria-label="Choose a scene">
-        <button class="scene-choice selected" data-scene="swimby" type="button" aria-pressed="true">
-          <span class="scene-choice-top"><span class="scene-choice-number">01 / OBSERVE</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
-          <span class="scene-choice-title">Swim-by</span>
-          <span class="scene-choice-description">Arrives quickly, lingers, then slips away.</span>
-        </button>
-        <button class="scene-choice" data-scene="encounter" type="button" aria-pressed="false">
-          <span class="scene-choice-top"><span class="scene-choice-number">02 / ENCOUNTER</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
-          <span class="scene-choice-title">Close encounter</span>
-          <span class="scene-choice-description">Arms explore the lens. Click for an ink escape.</span>
-        </button>
-        <button class="scene-choice" data-scene="reactive" type="button" aria-pressed="false">
-          <span class="scene-choice-top"><span class="scene-choice-number">03 / INTERACT</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
-          <span class="scene-choice-title">Startle &amp; ink</span>
-          <span class="scene-choice-description">Too much movement: a warning, ink, then escape.</span>
-        </button>
-      </div>
-
-      <section class="school-director" id="school-director" aria-labelledby="school-title">
-        <div class="school-heading">
-          <div class="school-title-group"><h2 id="school-title">School director</h2><output class="school-summary" id="school-summary" aria-live="off">4 cuttlefish · independent</output></div>
-          <div class="school-presets" role="group" aria-label="School presets">
-            <button class="school-preset" data-school-preset="solo" type="button" aria-pressed="false">Solo encounter</button>
-            <button class="school-preset selected" data-school-preset="mixed" type="button" aria-pressed="true">Mixed company</button>
-            <button class="school-preset" data-school-preset="horizontal" type="button" aria-pressed="false">Horizontal procession</button>
-            <button class="school-preset" data-school-preset="diagonal" type="button" aria-pressed="false">Diagonal drift</button>
-          </div>
-        </div>
-        <div class="school-basic">
-          <div class="range-control"><label for="count">Cuttlefish <output id="count-value" for="count">4</output></label><input id="count" type="range" min="1" max="12" step="1" value="4"><div class="range-endpoints"><span>Solo</span><span>A school of 12</span></div></div>
-          <div class="range-control"><label for="size">Overall size <output id="size-value" for="size">70%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="0.7"><div class="range-endpoints"><span>Small visitors</span><span>Up close</span></div></div>
-          <fieldset class="control-group school-formations"><legend>Direction <span id="formation-name">Independent</span></legend><div class="formation-options" role="group" aria-label="Swimming formation">
-            <button class="formation-choice selected" data-formation="independent" type="button" aria-pressed="true" title="Independent paths and individual roles"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 17l9-9m-4 0h4v4M17 19l4-10m-4 2 4-2 2 4M25 5l7 9m-4-1 4 1v-4"/></svg><span>Independent</span></button>
-            <button class="formation-choice" data-formation="horizontal" type="button" aria-pressed="false" title="A horizontal procession"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 7h26m-4-4 4 4-4 4M4 17h26m-4-4 4 4-4 4"/></svg><span>Horizontal</span></button>
-            <button class="formation-choice" data-formation="vertical" type="button" aria-pressed="false" title="A vertical procession, from bottom to top"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M12 21V3m-4 4 4-4 4 4M25 21V3m-4 4 4-4 4 4"/></svg><span>Vertical</span></button>
-            <button class="formation-choice" data-formation="diagonal" type="button" aria-pressed="false" title="A diagonal drift, from bottom left to top right"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 20 19 5m-6 0h6v6M17 20 32 5m-6 0h6v6"/></svg><span>Diagonal</span></button>
-            <button class="formation-choice" data-formation="random" type="button" aria-pressed="false" title="Passes from changing directions"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 7h6c8 0 8 10 16 10h6m-4-4 4 4-4 4M4 17h6c8 0 8-10 16-10h6m-4-4 4 4-4 4"/></svg><span>Random</span></button>
-          </div></fieldset>
-        </div>
-        <details class="school-details" id="school-details">
-          <summary><span>Fine tune &amp; individual roles</span><span class="school-detail-summary" id="school-detail-summary">Varied sizes · forward</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary>
-          <div class="school-fine-controls">
-            <div class="range-control"><label for="sizeVariation">Size variation <output id="sizeVariation-value" for="sizeVariation">45%</output></label><input id="sizeVariation" type="range" min="0" max="1" step="0.05" value="0.45"><div class="range-endpoints"><span>Similar</span><span>Small &amp; large</span></div></div>
-            <div class="range-control"><label for="spacing">Space between <output id="spacing-value" for="spacing">1.00×</output></label><input id="spacing" type="range" min="0.65" max="1.6" step="0.05" value="1"><div class="range-endpoints"><span>Together</span><span>Spread out</span></div></div>
-            <label class="switch-row school-reverse" for="reverse"><span>Reverse direction<small>Reverse each swimming path.</small></span><input id="reverse" type="checkbox" role="switch"><span class="switch" aria-hidden="true"></span></label>
-          </div>
-          <div class="school-roles-heading"><div><h3>Individual roles</h3><p id="roles-help">Auto follows the scene. Give any visitor a different instinct.</p></div><label class="school-label-toggle" for="showLabels"><input id="showLabels" type="checkbox"><span>Show numbers</span></label></div>
-          <fieldset class="school-roles-fieldset" id="school-roles-fieldset" aria-describedby="roles-help"><legend class="visually-hidden">Choose each cuttlefish’s behavior</legend><div class="school-roles" id="school-roles"></div></fieldset>
-        </details>
-      </section>
-
-      <div class="studio">
-        <div class="scene" id="scene">
-          <div class="scene-heading"><div class="live-label"><span class="status-dot" id="status-dot"></span><span id="live-label">LIVE</span><span class="scene-divider">/</span><span id="render-label">ASCII CANVAS</span></div><div class="scene-observation" aria-live="off"><span class="scene-perspective">DIVER’S VIEW</span><span class="school-live-count" id="school-live-count">4 CUTTLEFISH</span><span class="scene-phase" id="scene-phase">Arriving</span><span class="scene-phase-track" aria-hidden="true"><span id="scene-progress"></span></span></div></div>
-          <canvas id="artwork" role="img" aria-label="An animated ASCII cuttlefish enters a fixed diver’s view quickly, lingers nearby with moving fins and arms, then swims away. Choose another scene or use the adjacent controls to explore."></canvas>
-          <div class="scene-side-label" aria-hidden="true">CEPHALOPOD / A STUDY IN MOTION</div>
-          <div class="scene-help" id="scene-help"><span class="pointer-star" aria-hidden="true"><svg class="symbol-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M2 10h16M4.35 4.35l11.3 11.3M4.35 15.65l11.3-11.3"/></svg></span><span id="scene-hint">A quick arrival. A little time together.</span></div>
-          <div class="scene-footer">
-            <div class="scene-tools">
-              <button class="icon-button" id="pause-btn" type="button" aria-label="Pause animation" title="Pause animation (Space)"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5v10M13 5v10"/></svg></button>
-              <button class="icon-button" id="reset-btn" type="button" aria-label="Restart this scene and reset settings" title="Restart this scene and reset settings"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 7.5a6 6 0 1 1-.3 4M4.5 3.5v4h4"/></svg></button>
-              <span class="tool-divider"></span>
-              <button class="icon-button" id="fullscreen-btn" type="button" aria-label="Enter fullscreen" title="Enter fullscreen"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg></button>
-              <button class="icon-button" id="capture-btn" type="button" aria-label="Save artwork as PNG" title="Save a PNG"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h4l1-2h4l1 2h4v10H3Z"/><circle cx="10" cy="10.5" r="3"/></svg></button>
-            </div>
-            <output class="scene-stats" id="stats" aria-live="off">PREPARING THE CURRENT</output>
-          </div>
-          <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
-        </div>
-
-        <aside class="controls" aria-label="Artwork controls">
-          <div class="controls-title"><span class="eyebrow">THE CURRENT</span><span class="control-index">01—03</span></div>
-          <h2>Make it your own.</h2>
-          <fieldset class="control-group mode-group"><legend>Render as</legend><div class="segmented" role="group" aria-label="Rendering style"><button class="mode-button selected" data-mode="ascii" aria-pressed="true" type="button"><span aria-hidden="true">Aa</span> Characters</button><button class="mode-button" data-mode="points" aria-pressed="false" type="button"><span aria-hidden="true">⠿</span> Particles</button></div></fieldset>
-          <fieldset class="control-group palette-group"><legend>Color story <span id="palette-name">Lagoon</span></legend><div class="palettes"><button class="palette selected" data-palette="lagoon" aria-pressed="true" type="button" aria-label="Lagoon palette"><span class="swatch swatch-lagoon"></span><span>Lagoon</span></button><button class="palette" data-palette="ultraviolet" aria-pressed="false" type="button" aria-label="Ultraviolet palette"><span class="swatch swatch-ultraviolet"></span><span>Ultraviolet</span></button><button class="palette" data-palette="ember" aria-pressed="false" type="button" aria-label="Ember palette"><span class="swatch swatch-ember"></span><span>Ember</span></button></div></fieldset>
-          <div class="sliders">
-            <div class="range-control"><label for="speed">Swimming tempo <output id="speed-value" for="speed">1.05×</output></label><input id="speed" type="range" min="0.3" max="2" step="0.05" value="1.05"><div class="range-endpoints"><span>Unhurried</span><span>Spirited</span></div></div>
-            <div class="range-control"><label for="motion">Swimming range <output id="motion-value" for="motion">60%</output></label><input id="motion" type="range" min="0" max="2" step="0.05" value="1.2"></div>
-            <div class="range-control"><label for="depthStrength">3D depth <output id="depthStrength-value" for="depthStrength">60%</output></label><input id="depthStrength" type="range" min="0" max="2" step="0.05" value="1.2"></div>
-            <div class="range-control"><label for="ripple">Fin ripple <output id="ripple-value" for="ripple">59%</output></label><input id="ripple" type="range" min="0.3" max="2" step="0.01" value="1.3"></div>
-            <div class="range-control"><label for="density">Character density <output id="density-value" for="density">56%</output></label><input id="density" type="range" min="0.6" max="1.5" step="0.01" value="1.1"></div>
-          </div>
-          <label class="switch-row" id="follow-row" for="follow"><span><span id="follow-label">Follow your cursor</span><small id="follow-help">Invite a little curiosity.</small></span><input type="checkbox" id="follow" role="switch"><span class="switch" aria-hidden="true"></span></label>
-          <div class="disturbance" id="disturbance" hidden><div class="disturbance-label"><span>Disturbance</span><output id="disturbance-state" aria-live="off">Calm</output></div><div class="disturbance-track" id="disturbance-meter" role="meter" aria-label="Disturbance around the cuttlefish" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Calm"><span id="disturbance-fill"></span></div></div>
-          <button class="ink-button" id="ink-btn" type="button"><span class="ink-icon" aria-hidden="true"><svg class="symbol-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M2 10h16M4.35 4.35l11.3 11.3M4.35 15.65l11.3-11.3"/></svg></span><span id="ink-label">Invite a visit</span><span class="ink-arrow" aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 15 10-10M5 5h10v10"/></svg></span></button>
-          <p class="control-footnote" id="ink-note">Replay its arrival, pause, and departure.</p>
-        </aside>
-      </div>
-      <div class="experiment-caption"><p><span class="caption-dot"></span> Drawn live, one character at a time.</p><span>NO VIDEO. JUST CODE.</span></div>
-    </section>
-
-    <section class="under-surface" id="under-the-surface" aria-labelledby="surface-title">
-      <div class="surface-intro"><div class="eyebrow">UNDER THE SURFACE</div><h2 id="surface-title">Nature is the reference.<br><em>Math is the medium.</em></h2><p>An original procedural sketch, inspired by the luminous ASCII sea life in your reference. Every curve, ripple, and wandering arm is drawn in the browser.</p><button class="source-link source-trigger" type="button">Look inside the code <span aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 15 10-10M5 5h10v10"/></svg></span></button></div>
-      <div class="anatomy-list">
-        <article class="anatomy-item"><span class="anatomy-number">01</span><div><h3>A body of letters</h3><p>Curved geometry, perspective, and moving highlights give every character a place in three-dimensional space.</p></div><span class="anatomy-glyph" aria-hidden="true">@</span></article>
-        <article class="anatomy-item"><span class="anatomy-number">02</span><div><h3>A traveling ripple</h3><p>Waves travel along the fins as the creature banks, turns, and swims toward and away from the light.</p></div><span class="anatomy-glyph" aria-hidden="true">≈</span></article>
-        <article class="anatomy-item"><span class="anatomy-number">03</span><div><h3>A little independence</h3><p>Arms reach, curl, and explore at their own pace. A startled creature gathers itself, sprays a current of black characters, then escapes.</p></div><span class="anatomy-glyph" aria-hidden="true">∿</span></article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer"><a class="footer-brand" href="#">cuttlefish.</a><p>An experiment in creative code <span>·</span> 2026</p><button class="text-button" id="download-btn" type="button">Take the HTML with you <span aria-hidden="true">↓</span></button></footer>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <dialog id="source-dialog" aria-labelledby="source-title">
-    <div class="dialog-header"><div><div class="eyebrow">OPEN THE SKETCH</div><h2 id="source-title">The code beneath the current.</h2></div><button class="icon-button" id="close-source" type="button" aria-label="Close source code"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15"/></svg></button></div>
-    <p class="source-intro">The actual renderer powering this artwork. Vanilla JavaScript, a canvas, and a collection of moving points. Download the complete HTML to play with it locally.</p>
-    <div class="source-toolbar"><span>artwork.js <span class="source-size" id="source-size"></span></span><button id="copy-source" class="text-button" type="button">Copy code</button></div>
-    <pre class="source-code" tabindex="0"><code id="source-code">Loading the renderer…</code></pre>
-    <div class="dialog-footer"><p>Visual reference: the supplied ASCII jellyfish clip by <span>@dwcminh.ascii</span>.<br>This cuttlefish is an original implementation.</p><button class="download-source" type="button">Download HTML <span aria-hidden="true">↓</span></button></div>
-  </dialog>
+<a class="skip" href="#catalogue">Skip to animal catalogue</a>
+<header class="header">
+<a class="brand" href="./">
+<span aria-hidden="true">{a}</span> ascii-animals</a>
+<nav aria-label="Main navigation">
+<a href="#catalogue">Animals</a>
+<a href="#library">Library</a>
+<a href="https://github.com/castlemilk/ascii-animals">GitHub ↗</a>
+</nav>
+</header>
+<main>
+<section class="hero" aria-labelledby="title">
+<div class="hero-copy">
+<p class="eyebrow">A LIVING CHARACTER COLLECTION / 001</p>
+<h1 id="title">Small characters.<br>
+<em>Wild personalities.</em>
+</h1>
+<p class="lede">An expanding collection of reactive ASCII creatures. Original procedural anatomy, expressive movement, and a little room for the unexpected.</p>
+<div class="actions">
+<a class="primary" href="cuttlefish-demo.html">Meet the cuttlefish <span aria-hidden="true">↗</span>
+</a>
+<a href="#catalogue">Explore all 13 animals ↓</a>
+</div>
+<p class="note">1 interactive study available · 12 animals in development</p>
+</div>
+<figure class="hero-art">
+<img src="cuttlefish-preview.jpg" alt="Screenshot of the Cuttlefish study: a blue-green animal rendered in characters beside its controls" width="1348" height="926">
+<figcaption>
+<span>01 / CUTTLEFISH</span>
+<span>Static preview · open the study to interact</span>
+</figcaption>
+</figure>
+</section>
+<section class="collection" id="catalogue" aria-labelledby="collection-title">
+<div class="section-heading">
+<div>
+<p class="eyebrow">THE FIELD GUIDE</p>
+<h2 id="collection-title">Every animal. One collection.</h2>
+</div>
+<p>Explore the full development roster. Only animals marked Available have a released interactive demo; other descriptions are intended directions, not shipped features.</p>
+</div>
+<div class="filters" hidden>
+<label for="animal-search">Find an animal<input id="animal-search" type="search" placeholder="Search by name…">
+</label>
+<label for="habitat">Habitat<select id="habitat">
+<option value="all">All habitats</option>
+<option>Ocean</option>
+<option>Shore</option>
+<option>Land</option>
+<option>Air</option>
+</select>
+</label>
+<label for="availability">Availability<select id="availability">
+<option value="all">All animals</option>
+<option value="available">Available now</option>
+<option value="planned">In development</option>
+</select>
+</label>
+<button type="button" id="reset">Reset filters</button>
+</div>
+<p id="results" class="result-count" role="status" aria-live="polite">13 animals · 1 available</p>
+<div class="animal-grid">
+<article class="animal" id="cuttlefish" data-habitat="Ocean" data-status="available">
+<div class="card-top">
+<span class="number">01 / Ocean</span>
+<span class="badge available">Available</span>
+</div>
+<h3>Cuttlefish</h3>
+<p>Swim, investigate, startle and escape in a cloud of character ink.</p>
+<a class="card-link" href="cuttlefish-demo.html">Open interactive study <span aria-hidden="true">↗</span>
+</a>
+</article>
+<article class="animal" id="manta-ray" data-habitat="Ocean" data-status="planned">
+<div class="card-top">
+<span class="number">02 / Ocean</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Manta ray</h3>
+<p>A wide-winged visitor, built around gliding and banking.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="octopus" data-habitat="Ocean" data-status="planned">
+<div class="card-top">
+<span class="number">03 / Ocean</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Octopus</h3>
+<p>Eight independently expressive arms and curious encounters.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="seahorse" data-habitat="Ocean" data-status="planned">
+<div class="card-top">
+<span class="number">04 / Ocean</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Seahorse</h3>
+<p>An upright silhouette with a curled tail and delicate fin motion.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="crab" data-habitat="Shore" data-status="planned">
+<div class="card-top">
+<span class="number">05 / Shore</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Crab</h3>
+<p>Sideways steps, articulated claws and a defensive stance.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="sea-turtle" data-habitat="Ocean" data-status="planned">
+<div class="card-top">
+<span class="number">06 / Ocean</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Sea turtle</h3>
+<p>A patterned shell and slow, sweeping flipper strokes.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="pufferfish" data-habitat="Ocean" data-status="planned">
+<div class="card-top">
+<span class="number">07 / Ocean</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Pufferfish</h3>
+<p>A compact swimmer with a distinctive inflation response.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="frog" data-habitat="Land" data-status="planned">
+<div class="card-top">
+<span class="number">08 / Land</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Frog</h3>
+<p>A crouch, a spring and a soft landing.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="butterfly" data-habitat="Air" data-status="planned">
+<div class="card-top">
+<span class="number">09 / Air</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Butterfly</h3>
+<p>Paired wings, fluttering flight and gentle landings.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="dragonfly" data-habitat="Air" data-status="planned">
+<div class="card-top">
+<span class="number">10 / Air</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Dragonfly</h3>
+<p>Four wings, hovering precision and darting flight.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="gecko" data-habitat="Land" data-status="planned">
+<div class="card-top">
+<span class="number">11 / Land</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Gecko</h3>
+<p>Splayed toes, a curling tail and surface exploration.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="owl" data-habitat="Air" data-status="planned">
+<div class="card-top">
+<span class="number">12 / Air</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Owl</h3>
+<p>A watchful face, feathered wings and expressive head turns.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+<article class="animal" id="fox" data-habitat="Land" data-status="planned">
+<div class="card-top">
+<span class="number">13 / Land</span>
+<span class="badge planned">In development</span>
+</div>
+<h3>Fox</h3>
+<p>Pointed ears, a sweeping tail and alert, playful movement.</p>
+<span class="pending">Demo not released yet</span>
+</article>
+</div>
+<p id="empty" hidden>No animals match these filters. Try another name or reset the filters.</p>
+</section>
+<section class="library" id="library" aria-labelledby="library-title">
+<div>
+<p class="eyebrow">MADE FOR PLAY. BUILT TO REUSE.</p>
+<h2 id="library-title">From a field study<br>to your interface.</h2>
+<p>The Cuttlefish demo is available as a standalone, offline HTML file. A configurable TypeScript library is in review. It is not published to npm yet, and the planned animals are not library exports.</p>
+</div>
+<div class="library-links">
+<a href="cuttlefish.html" download>Download standalone Cuttlefish <span>HTML / offline ↗</span>
+</a>
+<a href="https://github.com/castlemilk/ascii-animals#readme">Read the documentation <span>Setup, controls & source ↗</span>
+</a>
+<a href="https://github.com/castlemilk/ascii-animals/pull/2">Follow the library development <span>Review in progress ↗</span>
+</a>
+</div>
+</section>
+</main>
+<footer>
+<a class="brand" href="./">{a} ascii-animals</a>
+<p>Creatures made of characters. Built with care.</p>
+<a href="#title">Back to top ↑</a>
+</footer>
 </body>
 </html>

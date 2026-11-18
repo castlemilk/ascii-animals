@@ -1,12 +1,36 @@
 # ASCII Animals
 
-### Cuttlefish / In the Current
+A growing collection of reactive creatures made of characters. **ASCII Animals** is the product; each animal has its own study, behaviour and release status.
+
+[Browse the animal catalogue](https://castlemilk.github.io/ascii-animals/) · [Open Cuttlefish](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html)
+
+## Animal catalogue
+
+| Animal | Status |
+| --- | --- |
+| Cuttlefish | Available: interactive Cuttlefish study |
+| Manta ray | In development: no released demo yet |
+| Octopus | In development: no released demo yet |
+| Seahorse | In development: no released demo yet |
+| Crab | In development: no released demo yet |
+| Sea turtle | In development: no released demo yet |
+| Pufferfish | In development: no released demo yet |
+| Frog | In development: no released demo yet |
+| Butterfly | In development: no released demo yet |
+| Dragonfly | In development: no released demo yet |
+| Gecko | In development: no released demo yet |
+| Owl | In development: no released demo yet |
+| Fox | In development: no released demo yet |
+
+The roster is a development plan, not a list of package exports. The TypeScript library is under review in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2), not published to npm. Availability changes only when a reviewed demo is merged and deployed.
+
+## Cuttlefish / In the Current
 
 An interactive cuttlefish study built from moving characters. Direct one animal or a small school, send them through the diver’s field of view, let them investigate the lens, and disturb the water to watch them react, spray black ASCII ink, and escape.
 
 **Original procedural geometry · Canvas 2D · Perspective depth · No JavaScript dependencies**
 
-[Open the public demo](https://castlemilk.github.io/ascii-animals/) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
+[Open the Cuttlefish study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
 The hosted microsite may require its owner’s ChatGPT sign-in. The source and standalone demo in this repository can be run locally without an account.
 
@@ -64,7 +88,7 @@ cd ascii-animals
 python3 -m http.server 8000 --directory dist
 ```
 
-Open **http://localhost:8000**. Edit the files in `dist/` and refresh the page.
+Open **http://localhost:8000** for the catalogue, or **http://localhost:8000/cuttlefish-demo.html** for the interactive study. Edit the files in `dist/` and refresh the page.
 
 After changes to the page, styles, or JavaScript, rebuild the standalone version:
 

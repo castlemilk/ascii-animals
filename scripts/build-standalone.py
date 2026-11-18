@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 root = Path(__file__).resolve().parents[1]
 dist = root / 'dist'
-html = (dist / 'index.html').read_text()
+html = (dist / 'cuttlefish-demo.html').read_text()
 css = (dist / 'styles.css').read_text()
 # Fonts are an optional enhancement on the hosted page. The standalone file
 # uses local serif/sans/monospace fallbacks, so it works without a connection.
