@@ -1,0 +1,424 @@
+TAP version 13
+# Subtest: proposal bridge requires explicit host mapping and preserves finite sample positions/tone
+ok 1 - proposal bridge requires explicit host mapping and preserves finite sample positions/tone
+  ---
+  duration_ms: 11.480331
+  type: 'test'
+  ...
+# Subtest: capacity, malformed sample tail and absent material mapping reject before any write
+ok 2 - capacity, malformed sample tail and absent material mapping reject before any write
+  ---
+  duration_ms: 2.577783
+  type: 'test'
+  ...
+# Subtest: unexpected destination refusal is explicit; no silent truncation or rollback claim
+ok 3 - unexpected destination refusal is explicit; no silent truncation or rollback claim
+  ---
+  duration_ms: 6.137333
+  type: 'test'
+  ...
+# Subtest: SSR-safe import, semantic text preview and initial intersection gate
+ok 4 - SSR-safe import, semantic text preview and initial intersection gate
+  ---
+  duration_ms: 37.091917
+  type: 'test'
+  ...
+# Subtest: independent playback, hidden, reduced-motion, size and viewport blockers compose
+ok 5 - independent playback, hidden, reduced-motion, size and viewport blockers compose
+  ---
+  duration_ms: 87.259181
+  type: 'test'
+  ...
+# Subtest: pointer flooding and repeat react retain at most two next-tick actions
+ok 6 - pointer flooding and repeat react retain at most two next-tick actions
+  ---
+  duration_ms: 41.528799
+  type: 'test'
+  ...
+# Subtest: fixed-step catch-up is capped at five; time loss is reported; backward clocks do not rewind
+ok 7 - fixed-step catch-up is capped at five; time loss is reported; backward clocks do not rewind
+  ---
+  duration_ms: 14.200381
+  type: 'test'
+  ...
+# Subtest: reduced motion provides intentional still poses with an unchanged simulation
+ok 8 - reduced motion provides intentional still poses with an unchanged simulation
+  ---
+  duration_ms: 16.11288
+  type: 'test'
+  ...
+# Subtest: evidence-led pause correction freezes an in-progress wing stretch exactly
+ok 9 - evidence-led pause correction freezes an in-progress wing stretch exactly
+  ---
+  duration_ms: 103.835435
+  type: 'test'
+  ...
+# Subtest: suspension clears stale inputs and the first resumed tick clears old attention
+ok 10 - suspension clears stale inputs and the first resumed tick clears old attention
+  ---
+  duration_ms: 13.773556
+  type: 'test'
+  ...
+# Subtest: pointer cancellation clears attention; no background pointerdown starts a reaction
+ok 11 - pointer cancellation clears attention; no background pointerdown starts a reaction
+  ---
+  duration_ms: 6.889879
+  type: 'test'
+  ...
+# Subtest: malformed options and static controls fail atomically
+ok 12 - malformed options and static controls fail atomically
+  ---
+  duration_ms: 34.434202
+  type: 'test'
+  ...
+# Subtest: small hosts remain static and scale a usable poster; explicit detail is validated
+ok 13 - small hosts remain static and scale a usable poster; explicit detail is validated
+  ---
+  duration_ms: 21.295702
+  type: 'test'
+  ...
+# Subtest: disposal is idempotent, late callbacks do nothing, all other actions reject
+ok 14 - disposal is idempotent, late callbacks do nothing, all other actions reject
+  ---
+  duration_ms: 3.890611
+  type: 'test'
+  ...
+# Subtest: setup and status-callback failures roll back all acquired host resources
+ok 15 - setup and status-callback failures roll back all acquired host resources
+  ---
+  duration_ms: 4.506973
+  type: 'test'
+  ...
+# Subtest: injected shared scheduler loses only this instance subscription
+ok 16 - injected shared scheduler loses only this instance subscription
+  ---
+  duration_ms: 10.891646
+  type: 'test'
+  ...
+# Subtest: merged shared scheduler drives two Owls and stops only at zero subscribers
+ok 17 - merged shared scheduler drives two Owls and stops only at zero subscribers
+  ---
+  duration_ms: 26.298907
+  type: 'test'
+  ...
+# Subtest: missing optional APIs have static or window-event fallbacks and clean up
+ok 18 - missing optional APIs have static or window-event fallbacks and clean up
+  ---
+  duration_ms: 8.91837
+  type: 'test'
+  ...
+# Subtest: invalid frame time disposes and prevents an unowned animation loop
+ok 19 - invalid frame time disposes and prevents an unowned animation loop
+  ---
+  duration_ms: 25.337142
+  type: 'test'
+  ...
+# Subtest: explicit event log replays identically under 1/2/5-tick render grouping
+ok 20 - explicit event log replays identically under 1/2/5-tick render grouping
+  ---
+  duration_ms: 598.208819
+  type: 'test'
+  ...
+# Subtest: different seeds change identity while equal seeds and reset repeat exactly
+ok 21 - different seeds change identity while equal seeds and reset repeat exactly
+  ---
+  duration_ms: 0.750956
+  type: 'test'
+  ...
+# Subtest: ordered reaction completes once, repeated triggers are ignored through recovery/cooldown
+ok 22 - ordered reaction completes once, repeated triggers are ignored through recovery/cooldown
+  ---
+  duration_ms: 1.353511
+  type: 'test'
+  ...
+# Subtest: response timings and local wing envelopes meet the declared seam
+ok 23 - response timings and local wing envelopes meet the declared seam
+  ---
+  duration_ms: 2.917751
+  type: 'test'
+  ...
+# Subtest: attention clamps normalized input, head limits hold, and root/feet remain perched
+ok 24 - attention clamps normalized input, head limits hold, and root/feet remain perched
+  ---
+  duration_ms: 9.701448
+  type: 'test'
+  ...
+# Subtest: every malformed batch rejects atomically, including invalid tail after valid first event
+ok 25 - every malformed batch rejects atomically, including invalid tail after valid first event
+  ---
+  duration_ms: 1.63424
+  type: 'test'
+  ...
+# Subtest: last attention/leave in a tick wins and only one same-tick reaction starts
+ok 26 - last attention/leave in a tick wins and only one same-tick reaction starts
+  ---
+  duration_ms: 0.352217
+  type: 'test'
+  ...
+# Subtest: options validate all boundaries and unknown keys without coercion or allocation changes
+ok 27 - options validate all boundaries and unknown keys without coercion or allocation changes
+  ---
+  duration_ms: 1.128996
+  type: 'test'
+  ...
+# Subtest: public option resolver has no externally injectable unvalidated base
+ok 28 - public option resolver has no externally injectable unvalidated base
+  ---
+  duration_ms: 0.334116
+  type: 'test'
+  ...
+# Subtest: update preserves tick, sequence, cycle and seed; reset is explicit; snapshots are deeply immutable
+ok 29 - update preserves tick, sequence, cycle and seed; reset is explicit; snapshots are deeply immutable
+  ---
+  duration_ms: 1.201726
+  type: 'test'
+  ...
+# Subtest: static posters are deliberate complete poses and never advance core state
+ok 30 - static posters are deliberate complete poses and never advance core state
+  ---
+  duration_ms: 0.870247
+  type: 'test'
+  ...
+# Subtest: CSS pointer normalization ignores backing/DPR, rejects nonfinite rects and handles zero size
+ok 31 - CSS pointer normalization ignores backing/DPR, rejects nonfinite rects and handles zero size
+  ---
+  duration_ms: 0.388884
+  type: 'test'
+  ...
+# Subtest: disposal is idempotent, all mutations/snapshots reject, and another instance continues
+ok 32 - disposal is idempotent, all mutations/snapshots reject, and another instance continues
+  ---
+  duration_ms: 0.529635
+  type: 'test'
+  ...
+# Subtest: control clicks bubble without silently resetting the authored scene or cast
+ok 33 - control clicks bubble without silently resetting the authored scene or cast
+  ---
+  duration_ms: 16.598582
+  type: 'test'
+  ...
+# Subtest: focused scene keyboard routes explicit targets and ignores repeats, modifiers and child controls
+ok 34 - focused scene keyboard routes explicit targets and ignores repeats, modifiers and child controls
+  ---
+  duration_ms: 4.681792
+  type: 'test'
+  ...
+# Subtest: paused scene selection requests a deliberate still without starting playback
+ok 35 - paused scene selection requests a deliberate still without starting playback
+  ---
+  duration_ms: 12.835564
+  type: 'test'
+  ...
+# Subtest: director is opt-in and the original host rejects scene-only commands
+ok 36 - director is opt-in and the original host rejects scene-only commands
+  ---
+  duration_ms: 81.972269
+  type: 'test'
+  ...
+# Subtest: duet shares the real scheduler with independent artwork ownership
+ok 37 - duet shares the real scheduler with independent artwork ownership
+  ---
+  duration_ms: 95.063557
+  type: 'test'
+  ...
+# Subtest: director pause freezes the whole current composition through wing motion
+ok 38 - director pause freezes the whole current composition through wing motion
+  ---
+  duration_ms: 236.540616
+  type: 'test'
+  ...
+# Subtest: reduced-motion cues are intentional still scenes and never advance either owl
+ok 39 - reduced-motion cues are intentional still scenes and never advance either owl
+  ---
+  duration_ms: 22.074859
+  type: 'test'
+  ...
+# Subtest: director pointer and cue floods remain bounded; cancellation clears pending tap
+ok 40 - director pointer and cue floods remain bounded; cancellation clears pending tap
+  ---
+  duration_ms: 27.218238
+  type: 'test'
+  ...
+# Subtest: pointer ownership follows the actual centered text bounds instead of the outer stage
+ok 41 - pointer ownership follows the actual centered text bounds instead of the outer stage
+  ---
+  duration_ms: 4.743645
+  type: 'test'
+  ...
+# Subtest: wide and stacked pointers use the selected owl local direction, including tap cues
+ok 42 - wide and stacked pointers use the selected owl local direction, including tap cues
+  ---
+  duration_ms: 14.271212
+  type: 'test'
+  ...
+# Subtest: explicit guide uses actor-local coordinates and defaults to Ash
+ok 43 - explicit guide uses actor-local coordinates and defaults to Ash
+  ---
+  duration_ms: 6.314285
+  type: 'test'
+  ...
+# Subtest: invalid director updates and cues preserve configuration, frames and pause atomically
+ok 44 - invalid director updates and cues preserve configuration, frames and pause atomically
+  ---
+  duration_ms: 23.450148
+  type: 'test'
+  ...
+# Subtest: narrow duet uses stacked composition without reducing actor count and handles zero-size suspension
+ok 45 - narrow duet uses stacked composition without reducing actor count and handles zero-size suspension
+  ---
+  duration_ms: 13.387828
+  type: 'test'
+  ...
+# Subtest: director updates retain sparse status, lifecycle policy and late-callback safety
+ok 46 - director updates retain sparse status, lifecycle policy and late-callback safety
+  ---
+  duration_ms: 223.868997
+  type: 'test'
+  ...
+# Subtest: director defaults and copied role tuple are strict immutable values
+ok 47 - director defaults and copied role tuple are strict immutable values
+  ---
+  duration_ms: 8.274455
+  type: 'test'
+  ...
+# Subtest: all authored scenes have ordered arcs and visibly different cell output
+ok 48 - all authored scenes have ordered arcs and visibly different cell output
+  ---
+  duration_ms: 222.063764
+  type: 'test'
+  ...
+# Subtest: same seed/input log reproduces state and cells across 1/2/5 render grouping
+ok 49 - same seed/input log reproduces state and cells across 1/2/5 render grouping
+  ---
+  duration_ms: 224.590515
+  type: 'test'
+  ...
+# Subtest: input batches reject atomically, preserve sequence and coerce no fields
+ok 50 - input batches reject atomically, preserve sequence and coerce no fields
+  ---
+  duration_ms: 0.758448
+  type: 'test'
+  ...
+# Subtest: one targeted cue wins, repeats cooldown, and companion replies later
+ok 51 - one targeted cue wins, repeats cooldown, and companion replies later
+  ---
+  duration_ms: 2.270039
+  type: 'test'
+  ...
+# Subtest: tempo controls only scene beats and autonomous false keeps explicit interaction
+ok 52 - tempo controls only scene beats and autonomous false keeps explicit interaction
+  ---
+  duration_ms: 6.814006
+  type: 'test'
+  ...
+# Subtest: stretch acceptance respects captured core cooldowns for both requested turns
+ok 53 - stretch acceptance respects captured core cooldowns for both requested turns
+  ---
+  duration_ms: 20.438454
+  type: 'test'
+  ...
+# Subtest: a drowsy companion keeps its own scene until the deliberate reply delay
+ok 54 - a drowsy companion keeps its own scene until the deliberate reply delay
+  ---
+  duration_ms: 9.804394
+  type: 'test'
+  ...
+# Subtest: configuration is atomic and identity survives cast/scene changes
+ok 55 - configuration is atomic and identity survives cast/scene changes
+  ---
+  duration_ms: 1.478042
+  type: 'test'
+  ...
+# Subtest: director posters preserve simulation and show distinct deliberate stills
+ok 56 - director posters preserve simulation and show distinct deliberate stills
+  ---
+  duration_ms: 22.297504
+  type: 'test'
+  ...
+# Subtest: wide/stacked compositions retain both actors and their minimum specimen grids
+ok 57 - wide/stacked compositions retain both actors and their minimum specimen grids
+  ---
+  duration_ms: 129.96747
+  type: 'test'
+  ...
+# Subtest: visible part ownership and nearest perch targeting agree in both orientations
+ok 58 - visible part ownership and nearest perch targeting agree in both orientations
+  ---
+  duration_ms: 8.640236
+  type: 'test'
+  ...
+# Subtest: the shared bough meets the actual sampled wood edge at supported wide grids
+ok 59 - the shared bough meets the actual sampled wood edge at supported wide grids
+  ---
+  duration_ms: 9.22683
+  type: 'test'
+  ...
+# Subtest: directed poses obey existing head/wing bounds and planted feet through complete arcs
+ok 60 - directed poses obey existing head/wing bounds and planted feet through complete arcs
+  ---
+  duration_ms: 31.238537
+  type: 'test'
+  ...
+# Subtest: reset restores the seeded scene and disposal is isolated and idempotent
+ok 61 - reset restores the seeded scene and disposal is isolated and idempotent
+  ---
+  duration_ms: 1.569601
+  type: 'test'
+  ...
+# Subtest: owl geometry keeps planted roots and constant shoulder-to-tip length across accepted poses
+ok 62 - owl geometry keeps planted roots and constant shoulder-to-tip length across accepted poses
+  ---
+  duration_ms: 16.846909
+  type: 'test'
+  ...
+# Subtest: minimum grid preserves both eye apertures, dark pupils, beak, wings, feet and body at extreme head poses
+ok 63 - minimum grid preserves both eye apertures, dark pupils, beak, wings, feet and body at extreme head poses
+  ---
+  duration_ms: 31.90267
+  type: 'test'
+  ...
+# Subtest: actual glyph text is equal-width printable ASCII with an explicit union repertoire
+ok 64 - actual glyph text is equal-width printable ASCII with an explicit union repertoire
+  ---
+  duration_ms: 55.93811
+  type: 'test'
+  ...
+# Subtest: fixed framing leaves a clear border through ruffle, stretch and extreme supported turns
+ok 65 - fixed framing leaves a clear border through ruffle, stretch and extreme supported turns
+  ---
+  duration_ms: 11.637353
+  type: 'test'
+  ...
+# Subtest: sampling is deterministic, immutable and does not modify original state
+ok 66 - sampling is deterministic, immutable and does not modify original state
+  ---
+  duration_ms: 9.604094
+  type: 'test'
+  ...
+# Subtest: closed eyes are an actual alternate glyph pose and do not remove the orbital landmarks
+ok 67 - closed eyes are an actual alternate glyph pose and do not remove the orbital landmarks
+  ---
+  duration_ms: 4.986633
+  type: 'test'
+  ...
+# Subtest: full maximum-amplitude behavior sequence retains geometry bounds and perch attachment
+ok 68 - full maximum-amplitude behavior sequence retains geometry bounds and perch attachment
+  ---
+  duration_ms: 147.898425
+  type: 'test'
+  ...
+# Subtest: invalid grid sizes, aspect, unknown keys and nonfinite anatomy reject before output allocation
+ok 69 - invalid grid sizes, aspect, unknown keys and nonfinite anatomy reject before output allocation
+  ---
+  duration_ms: 1.24359
+  type: 'test'
+  ...
+1..69
+# tests 69
+# suites 0
+# pass 69
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1045.905691

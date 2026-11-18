@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "deterministicFrames": 120,
+  "grids": 54,
+  "ownerTargets": 12357,
+  "geometryPoses": 120,
+  "atomicInvalids": 12,
+  "scope": "Real generated core/composition; no native browser or performance claim"
+}
+{
+  "validation": [
+    {
+      "name": "scene string wrapper",
+      "accepted": false,
+      "error": "Unknown Owl scene"
+    },
+    {
+      "name": "scene array",
+      "accepted": false,
+      "error": "Unknown Owl scene"
+    },
+    {
+      "name": "layout array",
+      "accepted": false,
+      "error": "Unknown perch layout"
+    },
+    {
+      "name": "sparse roles",
+      "accepted": false,
+      "error": "roles must contain exactly two known Owl roles"
+    },
+    {
+      "name": "cue string wrapper",
+      "accepted": false,
+      "error": "Unknown Owl cue"
+    }
+  ],
+  "before": {
+    "phase": "rest",
+    "companionBlink": 0.9599999999768001,
+    "companionMotive": "Dozing in the last light"
+  },
+  "delayedCompanion": [
+    {
+      "cueAge": 0,
+      "companionBlink": 0.9599999999826001,
+      "controlBlink": 0.9599999999826001,
+      "companionYaw": 1.401188747388163,
+      "controlYaw": 1.401188747388163,
+      "companionMotive": "Still drowsy; waiting for a reply"
+    },
+    {
+      "cueAge": 15,
+      "companionBlink": 0.9599999999997674,
+      "controlBlink": 0.9599999999997674,
+      "companionYaw": 1.3441411890883557,
+      "controlYaw": 1.3441411890883557,
+      "companionMotive": "Still drowsy; waiting for a reply"
+    }
+  ]
+}
+{
+  "second": {
+    "acceptedCues": 0,
+    "ignoredCues": 1,
+    "cue": null,
+    "coreBehavior": {
+      "kind": "cooldown",
+      "sinceTick": 541,
+      "untilTick": 1141
+    },
+    "coreCycleStarted": 1
+  },
+  "maxSecondWing": 2.3325894390293015e-8,
+  "duringSecondCoreCycleStart": 1
+}

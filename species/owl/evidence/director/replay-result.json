@@ -1,0 +1,439 @@
+{
+  "fixture": "fixtures/director-replay.json",
+  "accepted": 3,
+  "ignored": 1,
+  "samples": [
+    {
+      "tick": 30,
+      "phase": "call",
+      "sha256": "d8904bdf86bbbe6c93ba481a706682a65a5fb1f2b949ac217b8bb8dad105b439"
+    },
+    {
+      "tick": 60,
+      "phase": "call",
+      "sha256": "d1638362ee6182eb53d2a5b485fb424d691336902a2a3d9be4b7201828cfa1e3"
+    },
+    {
+      "tick": 90,
+      "phase": "call",
+      "sha256": "4c7cf26171e335bce83318e38cd9e85bac7920e529b0ebe0a911f378c395ee15"
+    },
+    {
+      "tick": 120,
+      "phase": "alert",
+      "sha256": "ddbec33d9c979f174ffb20ff2e8ae55c0043c45148a2061217b837f88c45813c"
+    },
+    {
+      "tick": 150,
+      "phase": "alert",
+      "sha256": "fa71de2d8a5f8506ff40382cec99da42e882fc8acce25ca0b6d16df023a48f2e"
+    },
+    {
+      "tick": 180,
+      "phase": "listen",
+      "sha256": "ea5ac6228ff3fbf3a7d50355daac0b3a7b2da6fdef0c152e07e5d2c9744bcdda"
+    },
+    {
+      "tick": 210,
+      "phase": "listen",
+      "sha256": "2d0475ee117b2f729e21498168c9afb4cba25b4d4cf0e64f9e71d05152029e21"
+    },
+    {
+      "tick": 240,
+      "phase": "listen",
+      "sha256": "16336a064184e45ee3a0db7eaf85efdb883e6709291cd3f63b1d4ffe28839236"
+    },
+    {
+      "tick": 270,
+      "phase": "listen",
+      "sha256": "f4a5a9843745ab6ac66a6c29011dfdc8147d43064eb3bfcc892b699e74a03f11"
+    },
+    {
+      "tick": 300,
+      "phase": "settle",
+      "sha256": "9ca695478ae88c03419f8bd64a8636e53f108dca7681d8902d5038331ff63d7f"
+    },
+    {
+      "tick": 330,
+      "phase": "settle",
+      "sha256": "dc1267c471f9fd97153841da6a750cdbc8f707f55a65e6693790699edf487c0c"
+    },
+    {
+      "tick": 360,
+      "phase": "settle",
+      "sha256": "c7149e874184fc76ca9e848332e16c2d2a3c060b82000c000e621eb861768ab3"
+    },
+    {
+      "tick": 390,
+      "phase": "settle",
+      "sha256": "5358ac27ca1c22a5185880dd08ed09b01653635f6768c6fdfe92836bde9225fb"
+    },
+    {
+      "tick": 420,
+      "phase": "shared-watch",
+      "sha256": "a81a7c616662f42247311080af777cf43c78d9ddf7e79e468abf3a050d676d93"
+    },
+    {
+      "tick": 450,
+      "phase": "shared-watch",
+      "sha256": "1a826fadd7d2ed8d6c86fa620b947bcaad67b5122afadeb98bf41fd36b8078ce"
+    },
+    {
+      "tick": 480,
+      "phase": "call",
+      "sha256": "40c9c71bce88d6a0c0086418384c45af871f967056ca2425832e3f04d082cd27"
+    },
+    {
+      "tick": 510,
+      "phase": "call",
+      "sha256": "350fdcf77a5af660dc6270acc1df09af4a51de8eb9b67ec2ec1ae3c7ab1058b4"
+    },
+    {
+      "tick": 540,
+      "phase": "call",
+      "sha256": "0d326fefa0269357d58682a8f40123d17c36e083a60f9334f7a6fed02334e826"
+    },
+    {
+      "tick": 570,
+      "phase": "call",
+      "sha256": "1681744c3e09e297a3fce71d06b06b4207097aff439c14dfc93920563704daea"
+    },
+    {
+      "tick": 600,
+      "phase": "answer",
+      "sha256": "71704a0befd5024a3db8decf050e976bb85ed003bc5c5a1b9e96ef3f2693a396"
+    },
+    {
+      "tick": 630,
+      "phase": "answer",
+      "sha256": "7a2466b55bd30ececb452efed864ebe9e95046aac0807c50c644f0370d366c5c"
+    },
+    {
+      "tick": 660,
+      "phase": "answer",
+      "sha256": "e4fd3a9dea2f07a7f4a96e636cfbb6bb4ec1bc5ff05b254f7be643b3e2d6143e"
+    },
+    {
+      "tick": 690,
+      "phase": "settle",
+      "sha256": "e9e26b5b8876987ba8b7cfff588586499b674ad1f3a8e90faa142905ffac3907"
+    },
+    {
+      "tick": 720,
+      "phase": "settle",
+      "sha256": "45d2670da5196a662bcd3ed51625cb631b145264fbecfa492035bc5a11d8df13"
+    },
+    {
+      "tick": 750,
+      "phase": "settle",
+      "sha256": "c1a3258fe64f23a463010e97a3e90eca3abaf1d112011033685d826b5c272fcd"
+    },
+    {
+      "tick": 780,
+      "phase": "call",
+      "sha256": "0c5337ca2125b77623a55b8ac762fbb4503382040f36fc8930ccd886e23b7de5"
+    },
+    {
+      "tick": 810,
+      "phase": "call",
+      "sha256": "28f27b049e4f358b219a847175348332e074f9e59eff8240c083a4e53dfae2aa"
+    },
+    {
+      "tick": 840,
+      "phase": "stretch",
+      "sha256": "cc24d0a1ebd828a1d753a2d7967e3392cdd58a66325f55be8954632b59115c30"
+    },
+    {
+      "tick": 870,
+      "phase": "stretch",
+      "sha256": "4c71573ab649c7f0d2d7aa058ca1b02e1068e62bfaa8868b69bf19677cf27a62"
+    },
+    {
+      "tick": 900,
+      "phase": "stretch",
+      "sha256": "438f77ff421306adb33a876c356e737f8e3444c07ffdf12e8e111e1592b5ea7a"
+    },
+    {
+      "tick": 930,
+      "phase": "stretch",
+      "sha256": "4625cc2670d0de87c3c60c63b880249548d2104332e022c41c3960ebc7e7ebd1"
+    },
+    {
+      "tick": 960,
+      "phase": "stretch",
+      "sha256": "44b1bfb50047c4988680d460a38958154d8597725f3a9028226f6b0034ad346a"
+    },
+    {
+      "tick": 990,
+      "phase": "stretch",
+      "sha256": "d423fc0c3c61e929b4155c6ec164e4e03b3659e9fb1eb9ad686c6a2d861a67ef"
+    },
+    {
+      "tick": 1020,
+      "phase": "settle",
+      "sha256": "914093d156b64f0c8673ae9fe16399a4e05edae06debf5746391bc5436762922"
+    },
+    {
+      "tick": 1050,
+      "phase": "settle",
+      "sha256": "c9de276f41923310bd3c95a6a7be5b9403cbfafeb116467f7f9fa364339dc717"
+    },
+    {
+      "tick": 1080,
+      "phase": "settle",
+      "sha256": "c6b41754a4686e30e93c92977c4eb45e78266b7c0d75121475ab93be1fd7c16d"
+    }
+  ],
+  "finalState": {
+    "version": 1,
+    "tick": 1080,
+    "lastSequence": 5,
+    "beat": 1080,
+    "config": {
+      "scene": "duet",
+      "count": 2,
+      "layout": "split",
+      "tempo": 1,
+      "alertness": 0.7,
+      "sociability": 0.65,
+      "breeze": 0.3,
+      "autonomous": true,
+      "roles": [
+        "sentinel",
+        "dreamer"
+      ]
+    },
+    "phase": {
+      "kind": "settle",
+      "progress": 0.6666666666666666,
+      "cycle": 1
+    },
+    "actors": [
+      {
+        "id": 0,
+        "name": "Ash",
+        "role": "sentinel",
+        "motive": "Settling back into the scene",
+        "simulation": {
+          "species": "owl",
+          "version": 1,
+          "config": {
+            "schemaVersion": 1,
+            "seed": 7,
+            "headYawLimitDeg": 34,
+            "headPitchLimitDeg": 12,
+            "attentionSmoothing": 0.1,
+            "idleAmplitude": 0.3,
+            "reactionStrength": 0.85,
+            "featherContrast": 0.55,
+            "blinkIntervalTicks": 240,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120
+          },
+          "tick": 1080,
+          "lastSequence": 2160,
+          "phaseOffset": 0.0796965146511581,
+          "attention": {
+            "x": 0.2512371337340345,
+            "y": -0.13589406461307288,
+            "active": true
+          },
+          "behavior": {
+            "kind": "cooldown",
+            "sinceTick": 1002,
+            "untilTick": 1122
+          },
+          "cycle": {
+            "startTick": 840,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120,
+            "reactionStrength": 0.85
+          },
+          "headYawDeg": 4.479069457315455,
+          "headPitchDeg": -1.836322079265933,
+          "blink": 0,
+          "ruffle": 0,
+          "leftWing": 0,
+          "rightWing": 0,
+          "breath": -0.1707180914155287
+        },
+        "pose": {
+          "species": "owl",
+          "version": 1,
+          "config": {
+            "schemaVersion": 1,
+            "seed": 7,
+            "headYawLimitDeg": 34,
+            "headPitchLimitDeg": 12,
+            "attentionSmoothing": 0.1,
+            "idleAmplitude": 0.3,
+            "reactionStrength": 0.85,
+            "featherContrast": 0.55,
+            "blinkIntervalTicks": 240,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120
+          },
+          "tick": 1080,
+          "lastSequence": 2160,
+          "phaseOffset": 0.0796965146511581,
+          "attention": {
+            "x": 0.2512371337340345,
+            "y": -0.13589406461307288,
+            "active": true
+          },
+          "behavior": {
+            "kind": "cooldown",
+            "sinceTick": 1002,
+            "untilTick": 1122
+          },
+          "cycle": {
+            "startTick": 840,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120,
+            "reactionStrength": 0.85
+          },
+          "headYawDeg": 4.479069457315455,
+          "headPitchDeg": -1.836322079265933,
+          "blink": 0.39960932899572876,
+          "ruffle": 0.007568472971741834,
+          "leftWing": 6.48967590456808e-9,
+          "rightWing": 6.100250988963986e-9,
+          "breath": -0.1707180914155287
+        }
+      },
+      {
+        "id": 1,
+        "name": "Ember",
+        "role": "dreamer",
+        "motive": "Settling back into the scene",
+        "simulation": {
+          "species": "owl",
+          "version": 1,
+          "config": {
+            "schemaVersion": 1,
+            "seed": 2654435774,
+            "headYawLimitDeg": 34,
+            "headPitchLimitDeg": 12,
+            "attentionSmoothing": 0.1,
+            "idleAmplitude": 0.3,
+            "reactionStrength": 0.85,
+            "featherContrast": 0.55,
+            "blinkIntervalTicks": 240,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120
+          },
+          "tick": 1080,
+          "lastSequence": 2160,
+          "phaseOffset": 2.017474538678203,
+          "attention": {
+            "x": -0.6325612449286251,
+            "y": -0.27267513148009015,
+            "active": true
+          },
+          "behavior": {
+            "kind": "cooldown",
+            "sinceTick": 1062,
+            "untilTick": 1182
+          },
+          "cycle": {
+            "startTick": 900,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120,
+            "reactionStrength": 0.85
+          },
+          "headYawDeg": -18.549256819807468,
+          "headPitchDeg": -2.7501231000249216,
+          "blink": 0,
+          "ruffle": 0,
+          "leftWing": 0,
+          "rightWing": 0,
+          "breath": -0.16900925266468705
+        },
+        "pose": {
+          "species": "owl",
+          "version": 1,
+          "config": {
+            "schemaVersion": 1,
+            "seed": 2654435774,
+            "headYawLimitDeg": 34,
+            "headPitchLimitDeg": 12,
+            "attentionSmoothing": 0.1,
+            "idleAmplitude": 0.3,
+            "reactionStrength": 0.85,
+            "featherContrast": 0.55,
+            "blinkIntervalTicks": 240,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120
+          },
+          "tick": 1080,
+          "lastSequence": 2160,
+          "phaseOffset": 2.017474538678203,
+          "attention": {
+            "x": -0.6325612449286251,
+            "y": -0.27267513148009015,
+            "active": true
+          },
+          "behavior": {
+            "kind": "cooldown",
+            "sinceTick": 1062,
+            "untilTick": 1182
+          },
+          "cycle": {
+            "startTick": 900,
+            "blinkTicks": 18,
+            "ruffleTicks": 36,
+            "stretchTicks": 60,
+            "recoveryTicks": 48,
+            "cooldownTicks": 120,
+            "reactionStrength": 0.85
+          },
+          "headYawDeg": -18.549256819807468,
+          "headPitchDeg": -2.7501231000249216,
+          "blink": 1.175160074777325e-21,
+          "ruffle": 0.30083376127189637,
+          "leftWing": 0.08979981989460198,
+          "rightWing": 0.0009047249370249939,
+          "breath": -0.16900925266468705
+        }
+      }
+    ],
+    "pointer": {
+      "active": false,
+      "x": 0,
+      "y": 0,
+      "target": 0
+    },
+    "cue": {
+      "kind": "stretch",
+      "target": 0,
+      "x": -0.65,
+      "y": -0.25,
+      "startTick": 840,
+      "duration": 360,
+      "strength": 0.7
+    },
+    "cooldownUntil": 1260,
+    "poster": false
+  }
+}
