@@ -116,3 +116,8 @@ import {createTurtleModel} from 'ascii-animals-review/turtle';
 createTurtleModel({behavior:'glide'}).greet();
 // @ts-expect-error turtle does not accept crab behavior
 createTurtleModel({behavior:'scuttle'});
+
+import {createButterflyModel} from 'ascii-animals-review/butterfly';
+createButterflyModel({behavior:'perch'}).greet();
+// @ts-expect-error butterfly does not accept turtle behavior
+createButterflyModel({behavior:'glide'});

@@ -41,3 +41,7 @@ assert.throws(()=>crab.createCrabModel({speed:NaN}));
 const turtle=await import('ascii-animals-review/turtle');
 assert.equal(turtle.createTurtleModel().frame().columns,120);
 assert.throws(()=>turtle.createTurtleModel({speed:NaN}));
+
+const butterfly=await import('ascii-animals-review/butterfly');
+assert.equal(butterfly.createButterflyModel().frame().columns,120);
+assert.throws(()=>butterfly.createButterflyModel({speed:NaN}));

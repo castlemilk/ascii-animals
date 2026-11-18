@@ -23,3 +23,5 @@ export * from './public/seahorse.js';
 export * from './public/crab.js';
 
 export * from './public/turtle.js';
+
+export * from './public/butterfly.js';

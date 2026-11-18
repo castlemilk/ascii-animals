@@ -10,3 +10,5 @@ export { createSeahorseArtwork, createSeahorseModel, normalizeSeahorseOptions, S
 export {createCrabArtwork,createCrabModel,normalizeCrabOptions,CRAB_DEFAULTS} from './public/crab.js';
 
 export {createTurtleArtwork,createTurtleModel,normalizeTurtleOptions,TURTLE_DEFAULTS} from './public/turtle.js';
+
+export {createButterflyArtwork,createButterflyModel,normalizeButterflyOptions,BUTTERFLY_DEFAULTS} from './public/butterfly.js';
