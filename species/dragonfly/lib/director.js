@@ -66,7 +66,14 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
         const x = [-1.02, .96, -.78, .83][id] * options.spread;
         return v3(x, [-.25, -.25, 1.02, 1.02][id], .06);
     };
-    const initial = (id) => id === 1 ? home(id) : v3([-.88, .98, .65, -.45][id] * options.spread, [-.38, .72, .12, .7][id], .17);
+    // Arrival and the alternate still pose share the same four disjoint
+    // territories as the reeds. The old third arrival sat over visitor 02,
+    // merging their wings in reduced-motion portrait previews.
+    const initial = (id) => {
+        const anchor = home(id);
+        return id === 0 ? v3(-.88 * options.spread, -.38, .17)
+            : id === 1 ? anchor : v3(anchor.x, anchor.y + .15, .17);
+    };
     function add(id, config) {
         const model = createDragonfly({ ...config, seed: seedFor(seed, id) });
         model.setPaused(paused);

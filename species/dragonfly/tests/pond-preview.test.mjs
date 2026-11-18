@@ -179,3 +179,26 @@ test('held landing uses the same final world perch projection as the body and ac
   }
   director.dispose();
 });
+
+test('initial and alternate still ensembles retain distinct silhouettes at the smallest grid', () => {
+  for (const count of [3, 4]) for (const view of ['dorsal', 'oblique']) for (const pose of [null, 0, 1]) {
+    const director = createDragonflyDirector({ count }, { seed: 17 });
+    if (pose !== null) director.setStaticPose(pose);
+    const members = director.sample();
+    const options = { cols: 72, rows: 44, view, neutral: true };
+    const combined = rasterizeDragonflyPond(members, options);
+    assert.equal(combined.labels.length, count);
+    for (const member of members) {
+      const solo = rasterizeDragonfly(member.geometry, options);
+      const occupied = [...solo.chars].filter(char => char !== 32).length;
+      const retained = [...combined.owners].filter(id => id === member.id).length;
+      assert.ok(retained / occupied >= .95, `${count}/${view}/${pose}: member ${member.id} retains ${retained}/${occupied} cells`);
+    }
+    for (let i = 0; i < combined.labels.length; i++) for (let j = i + 1; j < combined.labels.length; j++) {
+      const a = combined.labels[i], b = combined.labels[j];
+      assert.ok(a.maxCol < b.minCol || b.maxCol < a.minCol || a.maxRow < b.minRow || b.maxRow < a.minRow,
+        `${count}/${view}/${pose}: members ${a.id}/${b.id} bounding silhouettes overlap`);
+    }
+    director.dispose();
+  }
+});
