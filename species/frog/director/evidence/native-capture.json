@@ -1,0 +1,4090 @@
+{
+  "evidence": "actual @napi-rs/canvas pixels; NOT browser, DOM or deployed evidence",
+  "node": "v24.22.1",
+  "viewport": [
+    720,
+    440
+  ],
+  "dpr": 1,
+  "previewOptions": {
+    "cols": 180,
+    "rows": 100,
+    "labels": true,
+    "trajectories": true
+  },
+  "defaultDirector": {
+    "scene": "moonlit-chorus",
+    "count": 3,
+    "layout": "arc",
+    "tempo": 1,
+    "autonomy": true,
+    "roles": [
+      "caller",
+      "hunter",
+      "dreamer"
+    ]
+  },
+  "font": {
+    "file": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+    "family": "Liberation Mono"
+  },
+  "fontRights": "Installed system font used for pixels; no font binary redistributed.",
+  "frames": [
+    {
+      "file": "frames/0000.png",
+      "scene": "stillwater",
+      "tick": 0,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0001.png",
+      "scene": "stillwater",
+      "tick": 6,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0002.png",
+      "scene": "stillwater",
+      "tick": 12,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0003.png",
+      "scene": "stillwater",
+      "tick": 18,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0004.png",
+      "scene": "stillwater",
+      "tick": 24,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0005.png",
+      "scene": "stillwater",
+      "tick": 30,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0006.png",
+      "scene": "stillwater",
+      "tick": 36,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0007.png",
+      "scene": "stillwater",
+      "tick": 42,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0008.png",
+      "scene": "stillwater",
+      "tick": 48,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0009.png",
+      "scene": "stillwater",
+      "tick": 54,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0010.png",
+      "scene": "stillwater",
+      "tick": 60,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0011.png",
+      "scene": "stillwater",
+      "tick": 66,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0012.png",
+      "scene": "stillwater",
+      "tick": 72,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0013.png",
+      "scene": "stillwater",
+      "tick": 78,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0014.png",
+      "scene": "stillwater",
+      "tick": 84,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0015.png",
+      "scene": "stillwater",
+      "tick": 90,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0016.png",
+      "scene": "stillwater",
+      "tick": 96,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "listen",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0017.png",
+      "scene": "stillwater",
+      "tick": 102,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0018.png",
+      "scene": "stillwater",
+      "tick": 108,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0019.png",
+      "scene": "stillwater",
+      "tick": 114,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0020.png",
+      "scene": "stillwater",
+      "tick": 120,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0021.png",
+      "scene": "stillwater",
+      "tick": 126,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0022.png",
+      "scene": "stillwater",
+      "tick": 132,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0023.png",
+      "scene": "stillwater",
+      "tick": 138,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0024.png",
+      "scene": "stillwater",
+      "tick": 144,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0025.png",
+      "scene": "stillwater",
+      "tick": 150,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0026.png",
+      "scene": "stillwater",
+      "tick": 156,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0027.png",
+      "scene": "stillwater",
+      "tick": 162,
+      "actorGlyphs": [
+        494,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "crouch",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0028.png",
+      "scene": "stillwater",
+      "tick": 168,
+      "actorGlyphs": [
+        463,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "crouch",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0029.png",
+      "scene": "stillwater",
+      "tick": 174,
+      "actorGlyphs": [
+        438,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0030.png",
+      "scene": "stillwater",
+      "tick": 180,
+      "actorGlyphs": [
+        467,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0031.png",
+      "scene": "stillwater",
+      "tick": 186,
+      "actorGlyphs": [
+        478,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0032.png",
+      "scene": "stillwater",
+      "tick": 192,
+      "actorGlyphs": [
+        487,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0033.png",
+      "scene": "stillwater",
+      "tick": 198,
+      "actorGlyphs": [
+        483,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0034.png",
+      "scene": "stillwater",
+      "tick": 204,
+      "actorGlyphs": [
+        477,
+        504,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0035.png",
+      "scene": "stillwater",
+      "tick": 210,
+      "actorGlyphs": [
+        466,
+        504,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "flight",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0036.png",
+      "scene": "stillwater",
+      "tick": 216,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "landing",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0037.png",
+      "scene": "stillwater",
+      "tick": 222,
+      "actorGlyphs": [
+        445,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "landing",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0038.png",
+      "scene": "stillwater",
+      "tick": 228,
+      "actorGlyphs": [
+        489,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "recovery",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0039.png",
+      "scene": "stillwater",
+      "tick": 234,
+      "actorGlyphs": [
+        491,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "recovery",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0040.png",
+      "scene": "stillwater",
+      "tick": 240,
+      "actorGlyphs": [
+        500,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "recovery",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0041.png",
+      "scene": "stillwater",
+      "tick": 246,
+      "actorGlyphs": [
+        506,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "recovery",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0042.png",
+      "scene": "stillwater",
+      "tick": 252,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "cooldown",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0043.png",
+      "scene": "stillwater",
+      "tick": 258,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "cooldown",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0044.png",
+      "scene": "stillwater",
+      "tick": 264,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "hop",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "cooldown",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0045.png",
+      "scene": "stillwater",
+      "tick": 270,
+      "actorGlyphs": [
+        510,
+        504,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0046.png",
+      "scene": "stillwater",
+      "tick": 276,
+      "actorGlyphs": [
+        510,
+        504,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0047.png",
+      "scene": "stillwater",
+      "tick": 282,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0048.png",
+      "scene": "stillwater",
+      "tick": 288,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0049.png",
+      "scene": "stillwater",
+      "tick": 294,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0050.png",
+      "scene": "stillwater",
+      "tick": 300,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0051.png",
+      "scene": "stillwater",
+      "tick": 306,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0052.png",
+      "scene": "stillwater",
+      "tick": 312,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "settle",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0053.png",
+      "scene": "stillwater",
+      "tick": 318,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0054.png",
+      "scene": "stillwater",
+      "tick": 324,
+      "actorGlyphs": [
+        510,
+        504,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0055.png",
+      "scene": "stillwater",
+      "tick": 330,
+      "actorGlyphs": [
+        510,
+        504,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0056.png",
+      "scene": "stillwater",
+      "tick": 336,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0057.png",
+      "scene": "stillwater",
+      "tick": 342,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0058.png",
+      "scene": "stillwater",
+      "tick": 348,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0059.png",
+      "scene": "stillwater",
+      "tick": 354,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0060.png",
+      "scene": "stillwater",
+      "tick": 360,
+      "actorGlyphs": [
+        510,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "interest",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0061.png",
+      "scene": "firefly-supper",
+      "tick": 0,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0062.png",
+      "scene": "firefly-supper",
+      "tick": 6,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0063.png",
+      "scene": "firefly-supper",
+      "tick": 12,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0064.png",
+      "scene": "firefly-supper",
+      "tick": 18,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0065.png",
+      "scene": "firefly-supper",
+      "tick": 24,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0066.png",
+      "scene": "firefly-supper",
+      "tick": 30,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "track",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0067.png",
+      "scene": "firefly-supper",
+      "tick": 36,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "track",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0068.png",
+      "scene": "firefly-supper",
+      "tick": 42,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "track",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0069.png",
+      "scene": "firefly-supper",
+      "tick": 48,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "track",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0070.png",
+      "scene": "firefly-supper",
+      "tick": 54,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "track",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0071.png",
+      "scene": "firefly-supper",
+      "tick": 60,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "track",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0072.png",
+      "scene": "firefly-supper",
+      "tick": 66,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "crouch",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0073.png",
+      "scene": "firefly-supper",
+      "tick": 72,
+      "actorGlyphs": [
+        498,
+        491,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "crouch",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0074.png",
+      "scene": "firefly-supper",
+      "tick": 78,
+      "actorGlyphs": [
+        498,
+        449,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "crouch",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0075.png",
+      "scene": "firefly-supper",
+      "tick": 84,
+      "actorGlyphs": [
+        498,
+        457,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0076.png",
+      "scene": "firefly-supper",
+      "tick": 90,
+      "actorGlyphs": [
+        498,
+        480,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0077.png",
+      "scene": "firefly-supper",
+      "tick": 96,
+      "actorGlyphs": [
+        498,
+        475,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0078.png",
+      "scene": "firefly-supper",
+      "tick": 102,
+      "actorGlyphs": [
+        498,
+        478,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0079.png",
+      "scene": "firefly-supper",
+      "tick": 108,
+      "actorGlyphs": [
+        498,
+        454,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0080.png",
+      "scene": "firefly-supper",
+      "tick": 114,
+      "actorGlyphs": [
+        498,
+        439,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0081.png",
+      "scene": "firefly-supper",
+      "tick": 120,
+      "actorGlyphs": [
+        498,
+        411,
+        498
+      ],
+      "samples": 57920,
+      "environmentSamples": 4166,
+      "motives": [
+        "rest",
+        "hop",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "flight",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0082.png",
+      "scene": "firefly-supper",
+      "tick": 126,
+      "actorGlyphs": [
+        498,
+        342,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "strike",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "landing",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0083.png",
+      "scene": "firefly-supper",
+      "tick": 132,
+      "actorGlyphs": [
+        498,
+        387,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "strike",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "landing",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0084.png",
+      "scene": "firefly-supper",
+      "tick": 138,
+      "actorGlyphs": [
+        498,
+        399,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "recovery",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0085.png",
+      "scene": "firefly-supper",
+      "tick": 144,
+      "actorGlyphs": [
+        498,
+        410,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "recovery",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0086.png",
+      "scene": "firefly-supper",
+      "tick": 150,
+      "actorGlyphs": [
+        498,
+        418,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "recovery",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0087.png",
+      "scene": "firefly-supper",
+      "tick": 156,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "recovery",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0088.png",
+      "scene": "firefly-supper",
+      "tick": 162,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "cooldown",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0089.png",
+      "scene": "firefly-supper",
+      "tick": 168,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "cooldown",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0090.png",
+      "scene": "firefly-supper",
+      "tick": 174,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "cooldown",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0091.png",
+      "scene": "firefly-supper",
+      "tick": 180,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "settle",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0092.png",
+      "scene": "firefly-supper",
+      "tick": 186,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0093.png",
+      "scene": "firefly-supper",
+      "tick": 192,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0094.png",
+      "scene": "firefly-supper",
+      "tick": 198,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0095.png",
+      "scene": "firefly-supper",
+      "tick": 204,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0096.png",
+      "scene": "firefly-supper",
+      "tick": 210,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57918,
+      "environmentSamples": 4164,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0097.png",
+      "scene": "firefly-supper",
+      "tick": 216,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0098.png",
+      "scene": "firefly-supper",
+      "tick": 222,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0099.png",
+      "scene": "firefly-supper",
+      "tick": 228,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0100.png",
+      "scene": "firefly-supper",
+      "tick": 234,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0101.png",
+      "scene": "firefly-supper",
+      "tick": 240,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0102.png",
+      "scene": "firefly-supper",
+      "tick": 246,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0103.png",
+      "scene": "firefly-supper",
+      "tick": 252,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0104.png",
+      "scene": "firefly-supper",
+      "tick": 258,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0105.png",
+      "scene": "firefly-supper",
+      "tick": 264,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0106.png",
+      "scene": "firefly-supper",
+      "tick": 270,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0107.png",
+      "scene": "firefly-supper",
+      "tick": 276,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0108.png",
+      "scene": "firefly-supper",
+      "tick": 282,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0109.png",
+      "scene": "firefly-supper",
+      "tick": 288,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0110.png",
+      "scene": "firefly-supper",
+      "tick": 294,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0111.png",
+      "scene": "firefly-supper",
+      "tick": 300,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0112.png",
+      "scene": "firefly-supper",
+      "tick": 306,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0113.png",
+      "scene": "firefly-supper",
+      "tick": 312,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0114.png",
+      "scene": "firefly-supper",
+      "tick": 318,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0115.png",
+      "scene": "firefly-supper",
+      "tick": 324,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0116.png",
+      "scene": "firefly-supper",
+      "tick": 330,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0117.png",
+      "scene": "firefly-supper",
+      "tick": 336,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0118.png",
+      "scene": "firefly-supper",
+      "tick": 342,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0119.png",
+      "scene": "firefly-supper",
+      "tick": 348,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0120.png",
+      "scene": "firefly-supper",
+      "tick": 354,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0121.png",
+      "scene": "firefly-supper",
+      "tick": 360,
+      "actorGlyphs": [
+        498,
+        423,
+        498
+      ],
+      "samples": 57854,
+      "environmentSamples": 4100,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "interest",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0122.png",
+      "scene": "moonlit-chorus",
+      "tick": 0,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0123.png",
+      "scene": "moonlit-chorus",
+      "tick": 6,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0124.png",
+      "scene": "moonlit-chorus",
+      "tick": 12,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0125.png",
+      "scene": "moonlit-chorus",
+      "tick": 18,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0126.png",
+      "scene": "moonlit-chorus",
+      "tick": 24,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0127.png",
+      "scene": "moonlit-chorus",
+      "tick": 30,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "call",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0128.png",
+      "scene": "moonlit-chorus",
+      "tick": 36,
+      "actorGlyphs": [
+        497,
+        504,
+        498
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "call",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0129.png",
+      "scene": "moonlit-chorus",
+      "tick": 42,
+      "actorGlyphs": [
+        496,
+        505,
+        498
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "call",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0130.png",
+      "scene": "moonlit-chorus",
+      "tick": 48,
+      "actorGlyphs": [
+        496,
+        505,
+        498
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "call",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0131.png",
+      "scene": "moonlit-chorus",
+      "tick": 54,
+      "actorGlyphs": [
+        490,
+        505,
+        498
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "call",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0132.png",
+      "scene": "moonlit-chorus",
+      "tick": 60,
+      "actorGlyphs": [
+        490,
+        505,
+        498
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "call",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0133.png",
+      "scene": "moonlit-chorus",
+      "tick": 66,
+      "actorGlyphs": [
+        492,
+        505,
+        498
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "call",
+        "call",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0134.png",
+      "scene": "moonlit-chorus",
+      "tick": 72,
+      "actorGlyphs": [
+        492,
+        505,
+        498
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "call",
+        "call",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0135.png",
+      "scene": "moonlit-chorus",
+      "tick": 78,
+      "actorGlyphs": [
+        492,
+        502,
+        498
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "call",
+        "call",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0136.png",
+      "scene": "moonlit-chorus",
+      "tick": 84,
+      "actorGlyphs": [
+        490,
+        497,
+        498
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "call",
+        "call",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0137.png",
+      "scene": "moonlit-chorus",
+      "tick": 90,
+      "actorGlyphs": [
+        490,
+        495,
+        498
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "call",
+        "call",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0138.png",
+      "scene": "moonlit-chorus",
+      "tick": 96,
+      "actorGlyphs": [
+        496,
+        495,
+        498
+      ],
+      "samples": 58458,
+      "environmentSamples": 4704,
+      "motives": [
+        "call",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0139.png",
+      "scene": "moonlit-chorus",
+      "tick": 102,
+      "actorGlyphs": [
+        496,
+        497,
+        497
+      ],
+      "samples": 58458,
+      "environmentSamples": 4704,
+      "motives": [
+        "call",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0140.png",
+      "scene": "moonlit-chorus",
+      "tick": 108,
+      "actorGlyphs": [
+        497,
+        497,
+        496
+      ],
+      "samples": 58458,
+      "environmentSamples": 4704,
+      "motives": [
+        "call",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0141.png",
+      "scene": "moonlit-chorus",
+      "tick": 114,
+      "actorGlyphs": [
+        498,
+        497,
+        496
+      ],
+      "samples": 58350,
+      "environmentSamples": 4596,
+      "motives": [
+        "settle",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0142.png",
+      "scene": "moonlit-chorus",
+      "tick": 120,
+      "actorGlyphs": [
+        498,
+        495,
+        490
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "settle",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0143.png",
+      "scene": "moonlit-chorus",
+      "tick": 126,
+      "actorGlyphs": [
+        498,
+        495,
+        490
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "settle",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0144.png",
+      "scene": "moonlit-chorus",
+      "tick": 132,
+      "actorGlyphs": [
+        498,
+        497,
+        491
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "settle",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0145.png",
+      "scene": "moonlit-chorus",
+      "tick": 138,
+      "actorGlyphs": [
+        498,
+        502,
+        491
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "settle",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0146.png",
+      "scene": "moonlit-chorus",
+      "tick": 144,
+      "actorGlyphs": [
+        498,
+        504,
+        491
+      ],
+      "samples": 58286,
+      "environmentSamples": 4532,
+      "motives": [
+        "settle",
+        "call",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0147.png",
+      "scene": "moonlit-chorus",
+      "tick": 150,
+      "actorGlyphs": [
+        498,
+        504,
+        490
+      ],
+      "samples": 58178,
+      "environmentSamples": 4424,
+      "motives": [
+        "settle",
+        "settle",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0148.png",
+      "scene": "moonlit-chorus",
+      "tick": 156,
+      "actorGlyphs": [
+        498,
+        504,
+        490
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "settle",
+        "settle",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0149.png",
+      "scene": "moonlit-chorus",
+      "tick": 162,
+      "actorGlyphs": [
+        498,
+        505,
+        496
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "rest",
+        "settle",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0150.png",
+      "scene": "moonlit-chorus",
+      "tick": 168,
+      "actorGlyphs": [
+        498,
+        505,
+        496
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "rest",
+        "settle",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0151.png",
+      "scene": "moonlit-chorus",
+      "tick": 174,
+      "actorGlyphs": [
+        498,
+        505,
+        497
+      ],
+      "samples": 58114,
+      "environmentSamples": 4360,
+      "motives": [
+        "rest",
+        "settle",
+        "call"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0152.png",
+      "scene": "moonlit-chorus",
+      "tick": 180,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 58006,
+      "environmentSamples": 4252,
+      "motives": [
+        "rest",
+        "settle",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0153.png",
+      "scene": "moonlit-chorus",
+      "tick": 186,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "settle",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0154.png",
+      "scene": "moonlit-chorus",
+      "tick": 192,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "settle",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0155.png",
+      "scene": "moonlit-chorus",
+      "tick": 198,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0156.png",
+      "scene": "moonlit-chorus",
+      "tick": 204,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0157.png",
+      "scene": "moonlit-chorus",
+      "tick": 210,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0158.png",
+      "scene": "moonlit-chorus",
+      "tick": 216,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0159.png",
+      "scene": "moonlit-chorus",
+      "tick": 222,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "settle"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0160.png",
+      "scene": "moonlit-chorus",
+      "tick": 228,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0161.png",
+      "scene": "moonlit-chorus",
+      "tick": 234,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0162.png",
+      "scene": "moonlit-chorus",
+      "tick": 240,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0163.png",
+      "scene": "moonlit-chorus",
+      "tick": 246,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0164.png",
+      "scene": "moonlit-chorus",
+      "tick": 252,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0165.png",
+      "scene": "moonlit-chorus",
+      "tick": 258,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0166.png",
+      "scene": "moonlit-chorus",
+      "tick": 264,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0167.png",
+      "scene": "moonlit-chorus",
+      "tick": 270,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0168.png",
+      "scene": "moonlit-chorus",
+      "tick": 276,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0169.png",
+      "scene": "moonlit-chorus",
+      "tick": 282,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0170.png",
+      "scene": "moonlit-chorus",
+      "tick": 288,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0171.png",
+      "scene": "moonlit-chorus",
+      "tick": 294,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0172.png",
+      "scene": "moonlit-chorus",
+      "tick": 300,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0173.png",
+      "scene": "moonlit-chorus",
+      "tick": 306,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0174.png",
+      "scene": "moonlit-chorus",
+      "tick": 312,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0175.png",
+      "scene": "moonlit-chorus",
+      "tick": 318,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0176.png",
+      "scene": "moonlit-chorus",
+      "tick": 324,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0177.png",
+      "scene": "moonlit-chorus",
+      "tick": 330,
+      "actorGlyphs": [
+        498,
+        504,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0178.png",
+      "scene": "moonlit-chorus",
+      "tick": 336,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0179.png",
+      "scene": "moonlit-chorus",
+      "tick": 342,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0180.png",
+      "scene": "moonlit-chorus",
+      "tick": 348,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0181.png",
+      "scene": "moonlit-chorus",
+      "tick": 354,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    },
+    {
+      "file": "frames/0182.png",
+      "scene": "moonlit-chorus",
+      "tick": 360,
+      "actorGlyphs": [
+        498,
+        505,
+        498
+      ],
+      "samples": 57942,
+      "environmentSamples": 4188,
+      "motives": [
+        "rest",
+        "rest",
+        "rest"
+      ],
+      "phases": [
+        "idle",
+        "idle",
+        "idle"
+      ]
+    }
+  ],
+  "contactTicks": [
+    0,
+    55,
+    95,
+    220
+  ],
+  "sceneCount": 3,
+  "presentationFps": 10,
+  "modelHz": 60,
+  "mobile": {
+    "viewport": [
+      390,
+      520
+    ],
+    "actorGlyphs": [
+      230,
+      230,
+      233
+    ]
+  },
+  "nativeCaptureHarness": "--expose-gc per frame; initial uncollected 900x560 run was killed with exit137 after one saved frame. Native memory is not browser heap evidence.",
+  "pending": [
+    "browser execution of this new demo",
+    "physical mobile touch",
+    "screen-reader semantics",
+    "browser p95/p99 and heap",
+    "minimum-grid all-anatomy recognition",
+    "human normal-speed motion review"
+  ]
+}

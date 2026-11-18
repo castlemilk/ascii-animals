@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "evidence": "native Canvas",
+  "segments": [
+    {
+      "scene": "stillwater",
+      "seed": 23,
+      "tickRate": 60,
+      "director": {
+        "scene": "stillwater",
+        "count": 3,
+        "layout": "arc",
+        "tempo": 1,
+        "autonomy": false,
+        "roles": [
+          "caller",
+          "hunter",
+          "dreamer"
+        ]
+      },
+      "bodyConfig": {
+        "size": 1,
+        "jumpHeight": 0.85,
+        "maxDistance": 1.2,
+        "crouchTicks": 14,
+        "flightTicks": 42,
+        "landingTicks": 12,
+        "recoveryTicks": 24,
+        "cooldownTicks": 18,
+        "throatAmplitude": 0.06
+      },
+      "events": [
+        {
+          "type": "ripple",
+          "x": -0.25,
+          "y": 0.15,
+          "tick": 30,
+          "seq": 0
+        },
+        {
+          "type": "hop",
+          "frogId": 0,
+          "padId": 3,
+          "tick": 160,
+          "seq": 1
+        }
+      ]
+    },
+    {
+      "scene": "firefly-supper",
+      "seed": 23,
+      "tickRate": 60,
+      "director": {
+        "scene": "firefly-supper",
+        "count": 3,
+        "layout": "arc",
+        "tempo": 1,
+        "autonomy": false,
+        "roles": [
+          "caller",
+          "hunter",
+          "dreamer"
+        ]
+      },
+      "bodyConfig": {
+        "size": 1,
+        "jumpHeight": 0.85,
+        "maxDistance": 1.2,
+        "crouchTicks": 14,
+        "flightTicks": 42,
+        "landingTicks": 12,
+        "recoveryTicks": 24,
+        "cooldownTicks": 18,
+        "throatAmplitude": 0.06
+      },
+      "events": [
+        {
+          "type": "hunt",
+          "frogId": 1,
+          "x": 0.7,
+          "y": -0.5,
+          "tick": 30,
+          "seq": 0
+        }
+      ]
+    },
+    {
+      "scene": "moonlit-chorus",
+      "seed": 23,
+      "tickRate": 60,
+      "director": {
+        "scene": "moonlit-chorus",
+        "count": 3,
+        "layout": "arc",
+        "tempo": 1,
+        "autonomy": false,
+        "roles": [
+          "caller",
+          "hunter",
+          "dreamer"
+        ]
+      },
+      "bodyConfig": {
+        "size": 1,
+        "jumpHeight": 0.85,
+        "maxDistance": 1.2,
+        "crouchTicks": 14,
+        "flightTicks": 42,
+        "landingTicks": 12,
+        "recoveryTicks": 24,
+        "cooldownTicks": 18,
+        "throatAmplitude": 0.06
+      },
+      "events": [
+        {
+          "type": "call",
+          "frogId": 0,
+          "tick": 30,
+          "seq": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "command": [
+      "node",
+      "--test",
+      "species/frog/tests/native-preview.test.mjs"
+    ],
+    "log": "evidence/tests-native-existing.log",
+    "exit": 0,
+    "wall_seconds": 74.617
+  },
+  {
+    "command": [
+      "node",
+      "--test",
+      "species/frog/tests/native-director.test.mjs"
+    ],
+    "log": "evidence/tests-native-director.log",
+    "exit": 0,
+    "wall_seconds": 66.222
+  },
+  {
+    "command": [
+      "npm",
+      "test"
+    ],
+    "log": "evidence/tests-all.log",
+    "exit": 0,
+    "wall_seconds": 57.601
+  },
+  {
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "log": "evidence/types-all.log",
+    "exit": 0,
+    "wall_seconds": 12.843
+  },
+  {
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "species/frog/tests/tsconfig.director.json"
+    ],
+    "log": "evidence/types-director.log",
+    "exit": 0,
+    "wall_seconds": 1.987
+  },
+  {
+    "command": [
+      "npm",
+      "run",
+      "check:package"
+    ],
+    "log": "evidence/package.log",
+    "exit": 0,
+    "wall_seconds": 27.59
+  },
+  {
+    "command": [
+      "npm",
+      "run",
+      "test:legacy"
+    ],
+    "log": "evidence/legacy.log",
+    "exit": 0,
+    "wall_seconds": 16.841
+  }
+]

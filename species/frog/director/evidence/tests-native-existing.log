@@ -1,0 +1,16 @@
+Command: node --test species/frog/tests/native-preview.test.mjs
+
+✔ native Canvas / actual legacy cells (13016.065099ms)
+✔ native Canvas / actual cell export (24977.554011ms)
+✔ native Canvas / actual projection (31038.846345ms)
+✔ native Canvas / private adapter (5201.600478ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74440.958777
+
+Exit: 0

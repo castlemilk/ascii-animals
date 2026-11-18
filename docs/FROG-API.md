@@ -1,4 +1,4 @@
-# Frog: typed leap study
+# Frog: typed leap study and optional pond director
 
 The `ascii-animals-review/frog` entry exposes `createFrogArtwork`, the pure `createFrog`/`stepFrog`/`sampleFrog` model and generated strict TypeScript declarations. The root entry also exports `createFrogArtwork`. This package remains private and unpublished.
 
@@ -15,6 +15,14 @@ frog.update({ jumpHeight: .7 }); // validated atomic config reset
 frog.updatePreview({ view: 'left' }); // presentation-only
 frog.dispose();
 ```
+
+## Optional pond director
+
+Pass `director: { scene: 'moonlit-chorus', count: 3 }` to opt into an original lily-pad ensemble through the same factory. Omitting `director` preserves the single-frog default. Other scenes are `stillwater` and `firefly-supper`; layouts, cue tempo, autonomy and three per-ID roles are validated typed options. Named actors share one renderer and one existing scheduler subscription.
+
+New methods are `getPondState`, `updateDirector`, `selectFrog`, `setRole`, `call`, `hunt` and `ripple`. `getState` keeps returning one `FrogState` (the selected actor in director mode), and `pulse` still means leap. A hop reserves its destination; calls schedule at most two one-generation answers; a firefly invitation aligns with a reachable perch. Director/body updates deterministically reset the ensemble and preserve explicit pause. Paused/reduced Call/Hunt/Ripple choose deliberate stills without ticks or travel.
+
+The [species-local director API](../species/frog/director/API.md) documents every default, validation rule, immutable state/input/result union, pure replay example, lifecycle semantic and budget. [Director evidence](../species/frog/director/EVIDENCE.md) distinguishes executed checks, native rendered captures and unrun browser/device gates. No shared package/core/registry contract changes are required.
 
 ## Honest lifecycle and configuration
 

@@ -6,6 +6,9 @@ type ResolvedPreview = {
     rows: number;
     view: FrogView;
     silhouette: boolean;
+    labels: boolean;
+    trajectories: boolean;
+    renderFps: number;
 };
 export declare function validatePreview(patch?: FrogPreviewOptions, base?: ResolvedPreview): ResolvedPreview;
 export declare function createLegacyFrogPreview(canvas: HTMLCanvasElement, options?: FrogPreviewOptions): FrogPreview;

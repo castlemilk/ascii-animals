@@ -56,10 +56,9 @@ test('actual projection retains all extreme geometry inside viewport through the
   preview.dispose();
 });
 
-test('private adapter rejects missing engine, missing Canvas and invalid configuration before starting lifecycle',()=>{
+test('private adapter is self-contained and rejects missing Canvas and invalid configuration',()=>{
   assert.throws(()=>validatePreview({view:'dorsal'}),/view/);assert.throws(()=>validatePreview({silhouette:'yes'}),/boolean/);
-  assert.throws(()=>createLegacyFrogPreview({ownerDocument:{defaultView:{}}}),/pinned/);
-  const methods={makeAtlas(){},_put(){},_rasterize(){},_projectWorld(){}};
-  assert.throws(()=>createLegacyFrogPreview({ownerDocument:{defaultView:{CuttlefishArtwork:{prototype:methods}}},getContext:()=>null}),/Canvas 2D/);
+  assert.throws(()=>createLegacyFrogPreview({ownerDocument:{defaultView:{}},getContext:()=>null}),/Canvas 2D/);
+  const {preview}=nativePreview();assert(preview.draw(createFrog()).glyphs>50);preview.dispose();
 });
 }

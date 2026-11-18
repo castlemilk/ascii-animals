@@ -1,0 +1,201 @@
+{
+  "schema": 1,
+  "feature": "frog pond director",
+  "branch": "feat/director-frog",
+  "exact_base": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "initial_inspected_release": "c06114404900884814bef879a02f1a49a3e7d590",
+  "pre_code_authoring_commit": "a66c30f2c1b78e07987e8133b284b1d491514551",
+  "final_main_recheck": "c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02",
+  "incoming_review": {
+    "prs": [
+      22,
+      23
+    ],
+    "scope": "Summaries and complete changed-path inventories read; butterfly/fox have no overlap with Frog-owned paths. Other branches were not checked out or modified."
+  },
+  "environment": {
+    "node": "v24.22.1",
+    "typescript": "5.9.3",
+    "canvas": "installed @napi-rs/canvas",
+    "font": {
+      "file": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+      "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+      "family": "Liberation Mono"
+    }
+  },
+  "gates": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "species/frog/tests/native-preview.test.mjs"
+      ],
+      "log": "evidence/tests-native-existing.log",
+      "exit": 0,
+      "wall_seconds": 74.617
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "species/frog/tests/native-director.test.mjs"
+      ],
+      "log": "evidence/tests-native-director.log",
+      "exit": 0,
+      "wall_seconds": 66.222
+    },
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "log": "evidence/tests-all.log",
+      "exit": 0,
+      "wall_seconds": 57.601
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "log": "evidence/types-all.log",
+      "exit": 0,
+      "wall_seconds": 12.843
+    },
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "species/frog/tests/tsconfig.director.json"
+      ],
+      "log": "evidence/types-director.log",
+      "exit": 0,
+      "wall_seconds": 1.987
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:package"
+      ],
+      "log": "evidence/package.log",
+      "exit": 0,
+      "wall_seconds": 27.59
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "test:legacy"
+      ],
+      "log": "evidence/legacy.log",
+      "exit": 0,
+      "wall_seconds": 16.841
+    }
+  ],
+  "results": {
+    "repository_tests": {
+      "pass": 340,
+      "fail": 0,
+      "skip": 0
+    },
+    "new_director_runtime_tests": 28,
+    "director_negative_type_assertions": 24,
+    "demo_tests": 7,
+    "native_existing_cases": 4,
+    "native_director_cases": 3,
+    "package_status": "passed-with-unrun-optional-checks",
+    "ssr_and_actual_tarball": "passed",
+    "strict_NodeNext_Bundler_core_types": "passed",
+    "legacy_regression": "passed"
+  },
+  "capture": {
+    "class": "native Canvas; not browser/deployed",
+    "frames": 183,
+    "model_hz": 60,
+    "gif_fps": 10,
+    "gif_seconds": 18.3,
+    "viewport": [
+      720,
+      440
+    ],
+    "max_samples": 58458,
+    "min_visible_actor_cells": 342,
+    "narrow": {
+      "viewport": [
+        390,
+        520
+      ],
+      "actorGlyphs": [
+        230,
+        230,
+        233
+      ]
+    }
+  },
+  "review_fixes": [
+    "calling throat contrast and glyph arcs",
+    "safe-perch hunt continuity and bounded miss",
+    "front/back depth sign and head-following labels",
+    "paused/still target retention",
+    "undersized fallback restoration",
+    "terminal reentrant callbacks",
+    "active pace drag retention",
+    "unreachable pad choices",
+    "static-pose label synchronization",
+    "persisted pagehide retention"
+  ],
+  "unrun_acceptance": [
+    "new-demo browser rendering/input/CSS/BFCache",
+    "physical mobile touch and performance",
+    "screen-reader/magnification",
+    "browser p95/p99, GPU and heap",
+    "minimum-grid all-anchor anatomy",
+    "human normal-speed motion review",
+    "esbuild/Rollup/Webpack runtime consumers",
+    "GitHub CI and human/coordinator acceptance",
+    "production deployment and npm publication"
+  ],
+  "native_harness_limit": "Initial uncollected capture and unflushed native replay process were killed. Final captures/tests use pixel flushes, explicit collection and per-case native process isolation. These do not establish browser memory behavior.",
+  "source_sha256": {
+    "dist/frog/demo.mjs": "79b3b248833a745a72b7b01709098f6b93093ad8dbd5d4391743e1ddc83df969",
+    "dist/frog/runtime/species/frog/controller.mjs": "0f64e20dbf42613470da474e08edca0575996552d270167aae3db13471c67227",
+    "dist/frog/runtime/species/frog/frog.mjs": "3ce29526ef220de0ffd3dd933cba165dea4427804ecc5f4b19f57ad93b2c49b6",
+    "dist/frog/runtime/species/frog/geometry.mjs": "f8d4882564b71910d0e9bf0d01eb805ab0e3dca31ac41f1692244a51cc9f4fb3",
+    "dist/frog/runtime/species/frog/index.mjs": "d4aa8155a1694b2740f0ce79dd8c12911ebb9fe8b1452f639fbbafa77d61ab40",
+    "dist/frog/runtime/species/frog/legacy-preview.mjs": "a66e571a2621258101256d748720aba6175c0b071a1210aff9c66f00bf7ad148",
+    "dist/frog/runtime/species/frog/pond-types.mjs": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "dist/frog/runtime/species/frog/pond.mjs": "52b71de87ee3b8390984ba500c5dea06db2a0011e4dbab4d1c49cb71a00b8484",
+    "dist/frog/runtime/species/frog/types.mjs": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/frog/generated/controller.d.mts": "b3f5b04f6132fdcd3d4679b3631f2c68daa193e2cd7ca1e55d699ecd7881adda",
+    "species/frog/generated/controller.mjs": "0f64e20dbf42613470da474e08edca0575996552d270167aae3db13471c67227",
+    "species/frog/generated/demo.d.mts": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/frog/generated/demo.mjs": "feee2e5e3f638bd3981062c919aea022957f3da94c48758c01a9c88d6efd1bfc",
+    "species/frog/generated/frog.d.mts": "dc4322e60d4203168d1ce402ccbbdd1ee52f90a86f91125a7284c7d7866a5d26",
+    "species/frog/generated/frog.mjs": "3ce29526ef220de0ffd3dd933cba165dea4427804ecc5f4b19f57ad93b2c49b6",
+    "species/frog/generated/geometry.d.mts": "4739e2d8329def3e9ffc282313c97e353e4ddc80746f8a5845c0902ea6a51ee2",
+    "species/frog/generated/geometry.mjs": "f8d4882564b71910d0e9bf0d01eb805ab0e3dca31ac41f1692244a51cc9f4fb3",
+    "species/frog/generated/index.d.mts": "5e5338a3c8f9c328c4bee6d811a0c005e78a710b30742c148090af2b3104553b",
+    "species/frog/generated/index.mjs": "d4aa8155a1694b2740f0ce79dd8c12911ebb9fe8b1452f639fbbafa77d61ab40",
+    "species/frog/generated/legacy-preview.d.mts": "8d10bd7771c2eeb1c9bc7e5050937595fbf5baef7a19fc147b4789b1888710cd",
+    "species/frog/generated/legacy-preview.mjs": "a66e571a2621258101256d748720aba6175c0b071a1210aff9c66f00bf7ad148",
+    "species/frog/generated/pond-types.d.mts": "a7f2527ec221c1ab371348ca7bb35657ba4d154a1a03c7955e5c31ed3e735632",
+    "species/frog/generated/pond-types.mjs": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/frog/generated/pond.d.mts": "45ce86c94ad3bea3bcd09602d6eb1dfc07a20c587653c3bb89dc160700e0b8a2",
+    "species/frog/generated/pond.mjs": "52b71de87ee3b8390984ba500c5dea06db2a0011e4dbab4d1c49cb71a00b8484",
+    "species/frog/generated/types.d.mts": "7547130a3d5c2561371ac56056e94729991c07ca88d7b84cba72aa6b36d2258a",
+    "species/frog/generated/types.mjs": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/frog/src/controller.mts": "f32d2a84bf9258395e6a7723401e83f9bdd4c5b92f222c92312b3af69c57ba84",
+    "species/frog/src/demo.mts": "b1b9e0d2396837a442ee874ac597e094d941c8fe72d9016606dbd742d3faeb25",
+    "species/frog/src/frog.mts": "4d7bb680eb38cb349997a9229dae1c7e6a115f047acffb5e9d084755c14e0772",
+    "species/frog/src/geometry.mts": "b85bf5148b7457c363b2a3224ad844d70898838ad9b44a13aee27992aeb23bc7",
+    "species/frog/src/index.mts": "eb0efaee85b34d52df3c73689ae241a66f3d7a0779a5bcd068e8a4e5866ed787",
+    "species/frog/src/legacy-preview.mts": "24efcb9b089788beabf0702115649ab73790287efe2d04d7da41cd626a1074c6",
+    "species/frog/src/pond-types.mts": "8a3f7af8dedf3f778a55a04848af5814d75a2e42d84e209f128511445e0d5ae1",
+    "species/frog/src/pond.mts": "be07761de13aa0408f55e1fe35581826df0255d4de9c255943887cf8d3e61c78",
+    "species/frog/src/types.mts": "bdc434832cd5c01c0d36585c3f7ba066b178217ab68bab03f6e50a9a4cc0ddb7"
+  },
+  "identity_note": "Exact final head/tree and binary-patch reconstruction are recorded in the external handoff manifest after committing this file."
+}
