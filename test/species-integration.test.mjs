@@ -50,3 +50,16 @@ test('restart clears species pointer attention and preserves explicit pause',()=
  a.setPaused(true);a.restart();
  assert.equal(a.pointer.active,false);assert.equal(a.pointer.interest,0);assert.equal(a.pointer.x,0);assert.equal(a.paused,true);a.destroy();
 });
+test('maximum mixed school stays finite within shared limits across aspect ratios',()=>{
+ for(const [width,height] of [[320,240],[300,800],[1600,300]]) {
+  const h=fakeBrowser(),canvas=h.canvas();Object.assign(canvas.rect,{width,height});
+  const a=new CuttlefishArtwork(canvas,{...options('manta'),count:12,size:1.4,sizeVariation:1,density:1.5,depthStrength:2,
+   speciesByAnimal:Array.from({length:12},(_,i)=>['manta','octopus','cuttlefish'][i%3])});
+  for(const formation of ['independent','horizontal','vertical','diagonal','random']) {
+   a.setOptions({formation});a.advance(.05);assert.equal(a.getStats().count,12);assert(a.getStats().cells<=65536);assert(a.sampleCount<36000);
+   for(const f of a.fish)assert([f.worldX,f.worldY,f.worldZ,f.r00,f.r11,f.r22].every(Number.isFinite));
+   for(const z of a.depth)assert(z===-Infinity||Number.isFinite(z));
+  }
+  a.destroy();
+ }
+});
