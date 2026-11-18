@@ -26,9 +26,25 @@ Test commands: `npm run build`, `npm test`, `node scripts/check-authoring-bridge
 ## Merge and release blockers
 
 1. Canonical-source migration is implemented: bounded dependency-free global generation, the same source hash, offline bundling, module/global state parity and frozen legacy comparisons. Browser acceptance remains separate below.
-2. Perform visible browser acceptance for lifecycle transitions, exports, recording, pointer ownership, responsive layouts and old/new visual parity. Recapture demonstration media only after acceptance.
+2. Bounded visible Chrome acceptance completed as recorded below; cross-browser, strict file-protocol offline execution, accessibility and measured browser performance remain release coverage limitations. Existing GIFs remain historical.
 3. Measure browser timing on representative devices. Shared-host stub-Canvas CPU results do **not** show a speedup and must not be described as improved FPS or power efficiency.
 4. Final npm name, license and publication authorization remain unresolved. `private: true`, `UNLICENSED` and the publish-blocking script remain in place.
 5. Track 3 animal definitions and Track 1 teaching core are separate proposed contracts. Reconcile them before integrating species into the public package.
 
 The legacy controller remains an optional historical integration example and is regression-tested against the frozen baseline. The main microsite uses the canonical engine directly, not two controllers on one canvas.
+
+## Canonical browser acceptance (Chrome, 2026-11-18)
+
+Independent visible Chrome QA of the canonical build verified:
+
+- Population bounds 1/12; diagonal/vertical/independent/random routes; role enable/disable and Orbit; school presets.
+- Pause/play; reset preserving pause; deliberate reactive sequence; source modal showing the generated engine/hash.
+- Dynamic reduced-motion change and reload starting paused.
+- Desktop and 390-pixel mobile layout, no visible horizontal overflow, controls usable.
+- PNG capture and 8-second school recording reach completion; actual downloaded PNG validates at 1845×1427, actual VP9 WebM at 1436×900 decodes with no errors, last packet timestamp 7.967 seconds.
+- Standalone HTML executes over HTTP, with working Solo encounter and Pause. A discovered CSS-import removal defect was fixed, covered by regression tests, and retested on desktop/mobile.
+- No browser console errors observed in these flows; temporary viewport/media emulation cleared.
+
+The standalone file has embedded CSS/engine/app, no remote font import, and reproducibility checks. Direct `file://` browser execution was **not run** because the browser tool disallows that URL protocol; no bypass was attempted. This is not an assertion of a device-wide offline browser test. GPU performance, heap-retention measurements, full assistive-technology support and cross-browser compatibility remain unmeasured. These are release/coverage limitations, not claimed performance gains.
+
+The added first-class TypeScript API work is separate from this canonical-browser acceptance and must rerun affected tests before merge. No npm release is authorized here.
