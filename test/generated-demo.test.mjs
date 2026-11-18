@@ -14,6 +14,9 @@ test('global and standalone artifacts are generated from the canonical modules',
   assert(standalone.includes(global.replaceAll('</script', '<\\/script')));
   assert(!standalone.includes('<script src="artwork.js"'));
   assert(!standalone.includes('<script src="app.js"'));
+  assert(standalone.includes('<style>\n:root{'));
+  assert(!standalone.includes('fonts.googleapis.com'));
+  assert(standalone.includes('body{margin:0;background:var(--bg)'));
   const source = await readFile(new URL('../dist/app.js', import.meta.url), 'utf8');
   assert(source.includes("fetch('artwork.js')"));
   assert(source.includes("script[data-artwork-source]"));

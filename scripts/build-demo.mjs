@@ -17,7 +17,7 @@ export async function buildDemo({ check = false } = {}) {
   let html = await readFile(path.join(root, 'dist/index.html'), 'utf8');
   let css = await readFile(path.join(root, 'dist/styles.css'), 'utf8');
   const app = await readFile(path.join(root, 'dist/app.js'), 'utf8');
-  css = css.replace(/@import url\([^;]+;\s*/, '');
+  css = css.replace(/@import\s+url\([^)]*\)\s*;\s*/, '');
   html = html.replace('<html lang="en">', '<html lang="en" data-standalone="true">')
     .replace('<link rel="stylesheet" href="styles.css">', '<style>\n' + css + '\n</style>')
     .replace('  <script src="artwork.js" defer></script>\n', '')
