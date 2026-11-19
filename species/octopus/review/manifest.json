@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "species": "octopus",
+  "repository": "castlemilk/ascii-animals",
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "branch": "review/octopus-den-contacts",
+  "sourceSha256": "48c2f1ca0be6d2d36182a184a115c32c1c5245779e33f45ff67d8ae419937165",
+  "scope": [
+    "src/animals/octopus.js",
+    "species/octopus/**"
+  ],
+  "publicApiChanged": false,
+  "sharedSourcesChanged": false,
+  "sharedGeneratedFilesIncluded": false,
+  "direction": {
+    "scene": "Solo dim den, rocky arch, connected ledges and shell midden",
+    "sequences": [
+      "notice / unfold / examine / peel",
+      "gather / ink / jet / asymmetric replant"
+    ],
+    "material": "Stable mottling, shallow papilla relief, local travelling dark band, rolling paired sucker surfaces",
+    "gating": "Solo independent reactive hover/curious; existing formations and enabled director body routes preserved"
+  },
+  "inputs": {
+    "pointer": "Invitation; animal hit retains startle",
+    "touch": "Empty water invites; animal hit startles",
+    "keyboard": "Canvas-scoped arrows, Enter, J, Escape, Space; semantic buttons",
+    "reducedMotion": "Static by default; only explicit Play resumes",
+    "host": "Simulated events tested; real device delivery unverified"
+  },
+  "validation": [
+    {
+      "command": "node --test test/species-geometry.test.mjs species/octopus/tests/*.test.mjs",
+      "result": "23 passed (22 new + 1 existing)",
+      "source": "canonical source"
+    },
+    {
+      "command": "node --test species/octopus/tests/preview-controls.test.mjs",
+      "result": "4 passed after final explanatory-copy edit"
+    },
+    {
+      "command": "npm test",
+      "result": "618 passed; pretest builds",
+      "source": "isolated base checkout with identical candidate renderer"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "passed; TypeScript 5.9.3"
+    },
+    {
+      "command": "npm run check:package",
+      "result": "passed-with-unrun-optional-checks; esbuild/Rollup/webpack/browser unavailable"
+    },
+    {
+      "command": "node --check src/animals/octopus.js; git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "node species/octopus/scripts/build-preview.mjs",
+      "result": "self-contained exact-source review HTML generated; no runtime dependencies"
+    },
+    {
+      "command": "node --expose-gc species/octopus/scripts/render-evidence.mjs OUTPUT --motion",
+      "result": "48 full PNGs, four sheets, MP4 and GIF; exit 0"
+    }
+  ],
+  "measurements": {
+    "arms": 8,
+    "linksPerArm": 40,
+    "jointLimitRadians": 0.087,
+    "sampleBudget": 18000,
+    "capturedDesktopPeakSamples": 13781,
+    "contactGateWorldUnits": 1e-06,
+    "maxContactErrorWorldUnits": 8.212247615880149e-12,
+    "bodyTravelWhilePinnedWorldUnits": 0.09636065546998888,
+    "replantSecondsByArm": {
+      "0": 8.4,
+      "3": 8.1,
+      "7": 7.9
+    },
+    "smallStepContinuityGateLocalUnits": 0.01,
+    "zeroTimePulsePointDelta": 0
+  },
+  "evidence": {
+    "kind": "Native Skia Canvas, actual canonical source, simulated browser host",
+    "browserVerified": false,
+    "viewports": [
+      [
+        1200,
+        800
+      ],
+      [
+        390,
+        640
+      ]
+    ],
+    "dpr": 1,
+    "seed": 17,
+    "speed": 1,
+    "idleTick": 120,
+    "fixedStepSeconds": 0.016666666666666666,
+    "options": {
+      "species": "octopus",
+      "count": 1,
+      "scene": "reactive",
+      "behaviors": [
+        "hover"
+      ],
+      "formation": "independent",
+      "palette": "ember",
+      "size": 1.3,
+      "sizeVariation": 0,
+      "density": 1.45,
+      "motion": 1.2,
+      "ripple": 1.3,
+      "speed": 1,
+      "glow": false,
+      "followPointer": true,
+      "seed": 17,
+      "autoStart": false,
+      "reducedMotion": "ignore"
+    },
+    "events": [
+      {
+        "tick": 120,
+        "action": "pointermove",
+        "x": 0.18,
+        "y": 0.22,
+        "note": "One normalized pointer invitation, delivered through the existing canvas listener."
+      },
+      {
+        "tick": 420,
+        "action": "pointerleave",
+        "note": "Existing pointerleave listener; no direct geometry mutation."
+      },
+      {
+        "tick": 480,
+        "action": "pulse",
+        "note": "Existing public pulse() API; response/ink evolve through fixed 1/60-second advance() calls."
+      }
+    ],
+    "motion": {
+      "mp4Size": [
+        960,
+        640
+      ],
+      "gifSize": [
+        720,
+        480
+      ],
+      "simulationHz": 60,
+      "retainedFps": 12,
+      "frames": 195,
+      "durationSeconds": 16.25
+    },
+    "nativeParity": {
+      "size": [
+        320,
+        240
+      ],
+      "variants": [
+        "before",
+        "after"
+      ],
+      "differingRgbaChannels": 0,
+      "logicalHashesEqual": true,
+      "note": "Pixel-preserving backing-store checkpoints; not browser/native equivalence"
+    },
+    "fullCaptureManifest": "In the delivered bundle: evidence/capture-manifest.json",
+    "committedMedia": [
+      {
+        "path": "species/octopus/review/evidence/before-after-desktop.png",
+        "sha256": "99b52e5a6b2d3c2eff60755f2f4efc49a512f9c7d88bef64447b67d78d177bd7"
+      },
+      {
+        "path": "species/octopus/review/evidence/before-after-phone.png",
+        "sha256": "58376d08805b86b599bc00b2e4e618f0b733f3e918587452321bc1bb0d797939"
+      },
+      {
+        "path": "species/octopus/review/evidence/after-motion-contact-sheet.png",
+        "sha256": "35abd39d52e57d7bedf115576a697fdcbad80522c84215fe8980f589f24588fe"
+      },
+      {
+        "path": "species/octopus/review/evidence/before-motion-contact-sheet.png",
+        "sha256": "aa5f91d8fb801d099053af10afac31e4bcce6bafa00317dbdfbbf0ded0beee29"
+      },
+      {
+        "path": "species/octopus/review/evidence/octopus-examine-jet-native.gif",
+        "sha256": "8e7fec08f4b95a1687aded65a528c6458888e90075e3af88a2edb037b082848e"
+      }
+    ]
+  },
+  "remainingLimits": [
+    "No real-browser, responsive CSS, actual keyboard/touch, browser accessibility or device FPS acceptance",
+    "Phone suckers simplify to pale highlights; overlapping idle arms are not all independently countable",
+    "Restrained notice; stylized upright stance and inherited pale violet ink",
+    "Existing catalogue default uses its shared director; use owned preview to see the den"
+  ],
+  "centralGeneration": [
+    "npm ci --ignore-scripts",
+    "npm run build",
+    "python3 scripts/build-standalone.py (only for the existing Pages preparation path)"
+  ],
+  "centralTests": [
+    "node --test test/species-geometry.test.mjs species/octopus/tests/*.test.mjs",
+    "npm test",
+    "npm run typecheck",
+    "npm run check:package"
+  ],
+  "publicationScope": "Working branch and review PR only; no merge, deployment, settings, workflows or Work conversion"
+}
