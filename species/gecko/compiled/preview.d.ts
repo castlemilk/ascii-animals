@@ -1,5 +1,6 @@
+import type { GeckoSurfacePose } from './geometry.js';
 import type { GeckoGrid, GeckoPreviewOptions, GeckoState, GeckoViewport, Vec2 } from './types.js';
-export declare const GECKO_GLYPHS = " .:-=+*#%@oO";
+export declare const GECKO_GLYPHS = " .:-=+*#%@oO|";
 export declare const GECKO_VIEW: Readonly<{
     width: 3.4;
     height: 2.6;
@@ -8,6 +9,7 @@ export interface GeckoRasterLayer {
     readonly state: GeckoState;
     readonly scale: number;
     readonly blink?: boolean;
+    readonly pose?: GeckoSurfacePose;
 }
 export type GeckoCellWriter = (x: number, y: number, glyph: string, tone: number, material: number, depth?: number) => void;
 /** The same Gecko sample/depth/glyph seam serves solo and the opt-in wall. */

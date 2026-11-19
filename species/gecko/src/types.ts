@@ -72,6 +72,8 @@ export type GeckoFoot = {
   readonly position: Vec2;
   /** World-space toe fan angle; does not rotate during stance. */
   readonly angle: number;
+  /** Contact-local fan spread. Option changes take effect during the next swing. */
+  readonly toeSpread?: number;
 } & (
   | { readonly phase: 'stance'; readonly plantedAt: number }
   | { readonly phase: 'swing'; readonly since: number; readonly duration: number;

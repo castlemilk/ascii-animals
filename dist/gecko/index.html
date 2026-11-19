@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="A small world after dark. Meet three original ASCII geckos, invite a moth, cast a passing shadow, and watch careful feet find their courage again.">
+  <meta name="description" content="Three ASCII geckos on a moonlit wall. Follow careful climbing, offer a moth, and watch the hunt unfold.">
   <title>Gecko — A small world after dark</title>
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="runtime/species/gecko/demo.js"></script>
@@ -51,9 +51,19 @@
           <div class="plate-heading"><span class="status-dot" aria-hidden="true"></span><span id="scene-title">THE MOONLIT WALL</span></div>
           <span class="state-pill" id="phase">Resting</span>
         </div>
+        <div class="stage-actions">
+          <div class="encounter-buttons" role="group" aria-label="Invite the selected gecko">
+            <button id="climb" class="primary-action" type="button" aria-describedby="scene-help">Climb <span aria-hidden="true">↑</span></button>
+            <button id="moth" type="button" aria-describedby="scene-help">Offer moth <span aria-hidden="true">✧</span></button>
+          </div>
+          <div class="playback" role="group" aria-label="Playback">
+            <button id="pause" type="button" aria-pressed="false" aria-label="Pause gecko animation">Pause</button>
+            <button id="reset" type="button">Restart</button>
+          </div>
+        </div>
         <div class="canvas-wrap">
           <canvas id="gecko" width="960" height="600" tabindex="0" role="img"
-            aria-label="Three interactive ASCII geckos on a nighttime wall. Each has a broad head, four splayed pad-toed feet, and a long attached tail. Select a visitor, move the pointer or tap to guide it. When the canvas is focused, arrow keys guide and Space pauses."
+            aria-label="Three interactive ASCII geckos on a nighttime wall. Each has a broad head, four splayed pad-toed feet, and a long attached tail. Select a visitor, move the pointer or tap to guide it. When the wall is focused, C invites a climb, M offers a moth, Escape releases guidance, arrow keys guide, and Space pauses."
             aria-describedby="scene-help keyboard-help">
             Three geckos made from characters: broad heads, four splayed feet with rounded pads, and long tapered tails.
           </canvas>
@@ -68,14 +78,10 @@
         </div>
         <progress id="scene-progress" class="scene-progress" max="1" value="0" aria-label="Progress through this part of the scene"></progress>
         <div class="specimen-bottomline">
-          <p id="scene-help">Select a visitor. Move nearby, or tap the wall to invite a few steps.</p>
-          <div class="playback" role="group" aria-label="Playback">
-            <button id="pause" type="button" aria-pressed="false" aria-label="Pause gecko animation">Pause</button>
-            <button id="reset" type="button">Reset</button>
-            <button id="export-png" type="button" aria-label="Save the wall as a PNG image" title="Save PNG">Save image <span aria-hidden="true">↓</span></button>
-          </div>
+          <p id="scene-help">Climb invites careful steps. Offer moth begins a hunt. Tap the wall to guide.</p>
+          <button id="export-png" class="snapshot-action" type="button" aria-label="Save the wall as a PNG image">Save image <span aria-hidden="true">↓</span></button>
         </div>
-        <p id="keyboard-help" class="keyboard-help"><span>Arrow keys to guide · Space to pause when the wall is focused.</span><span class="close-view-note">On a small screen, follow your selected visitor.</span></p>
+        <p id="keyboard-help" class="keyboard-help"><span>Focus the wall: <kbd>C</kbd> climb · <kbd>M</kbd> moth · <kbd>Esc</kbd> release · arrows guide · <kbd>Space</kbd> pause.</span></p>
       </section>
 
       <aside class="interaction-panel" aria-label="Gecko cast and encounters">
@@ -99,7 +105,6 @@
           <div class="selected-heading"><h3 id="selected-name">Mica</h3><span id="selected-emotion" class="emotion">Curious</span></div>
           <p id="selected-motive" class="selected-motive">A scout with a soft spot for unexplored corners.</p>
           <div class="encounter-actions" role="group" aria-label="Offer an encounter">
-            <button id="moth" class="primary-action" type="button"><span aria-hidden="true">✧</span> Offer a moth</button>
             <button id="startle" type="button" aria-describedby="cooldown-note"><span aria-hidden="true">◒</span> Cast a shadow</button>
             <button id="return" type="button"><span aria-hidden="true">↶</span> Come back</button>
           </div>
@@ -132,7 +137,7 @@
 
     <section class="field-notes" aria-label="Field notes">
       <div><span class="note-number">I.</span><h2>Every step has a foothold.</h2><p>Three feet hold while the fourth reaches. The little toe pads stay planted.</p></div>
-      <div><span class="note-number">II.</span><h2>A tail tells the story.</h2><p>One continuous curl, a short retreat, and the slow return of curiosity.</p></div>
+      <div><span class="note-number">II.</span><h2>Watch, wait, then pounce.</h2><p>The head follows a moth. The body gathers, reaches, then settles back into stillness.</p></div>
       <div><span class="note-number">III.</span><h2>Stillness belongs here.</h2><p>Pause whenever you like. Reduced motion offers a quiet, deliberate still scene.</p></div>
     </section>
 

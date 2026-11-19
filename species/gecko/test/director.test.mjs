@@ -244,12 +244,16 @@ test('explicit inspection, shadow and return intentions take priority over an ot
   for (const type of ['inspect', 'shadow', 'return']) {
     const director = createGeckoDirector({ options: { scene: 'lantern-hunt' } });
     const control = createGeckoDirector({ options: { scene: 'lantern-hunt' } });
-    while (geckoSceneArc('lantern-hunt', director.getSnapshot().arc.scoreTick + 1).beat !== 'strike') {
-      director.step(); control.step();
-      assert(director.getSnapshot().tick < 1320, 'the authored first hunt must have a strike window');
+    // A pounce now takes physical time. Intervene on the actual contact tick,
+    // rather than assuming a score label itself awards the catch.
+    while (member(control.getSnapshot(), 'pip').catches === 0) {
+      control.step();
+      assert(control.getSnapshot().tick < 1320, 'the authored first hunt must reach the prey');
     }
-    assert.equal(member(control.getSnapshot(), 'pip').catches, 0);
-    assert.equal(member(control.step().state, 'pip').catches, 1, 'control confirms an actual eligible strike');
+    const contactTick=control.getSnapshot().tick;
+    while(director.getSnapshot().tick<contactTick-1)director.step();
+    assert.equal(member(director.getSnapshot(), 'pip').catches, 0);
+    assert.equal(member(control.getSnapshot(), 'pip').catches, 1, 'control confirms an actual eligible strike');
     const result = director.step([event(director, { type, id: 'pip' })]);
     assert.equal(result.inputs[0].outcome, 'applied');
     assert.equal(member(result.state, 'pip').catches, 0, `${type} must not be replaced by a hidden automatic catch`);
@@ -506,7 +510,8 @@ test('director geometry and cell output remain finite, bounded, attached and rea
       if (options.neutral) assert(/^[ #\n]+$/.test(grid.text));
       if (options.focus) {
         assert.deepEqual({ x: grid.viewport.centerX, y: grid.viewport.centerY }, position(member(state, options.focus)));
-        assert.equal(grid.viewport.width, 3.4);
+        assert.equal(grid.viewport.width, 2.55);
+        assert.equal(grid.viewport.height, 2.75);
       }
     }
     assert.deepEqual(state, before);

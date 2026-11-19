@@ -1,0 +1,52 @@
+{
+  "status": "pass",
+  "browser": "158.0.8127.37",
+  "clock": "Production RAF callback, manually delivered at 60Hz; snapshots at exact model tick",
+  "checks": [
+    {
+      "name": "desktop no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "phone no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "actual mouse pointer guides the selected gecko",
+      "pass": true
+    },
+    {
+      "name": "canvas-local C climbs, Escape clears guidance, and M offers a moth",
+      "pass": true
+    },
+    {
+      "name": "canvas-local ArrowUp and Space work; Reset preserves explicit pause",
+      "pass": true
+    },
+    {
+      "name": "C, M and Escape in reduced motion do not resume the clock",
+      "pass": true
+    },
+    {
+      "name": "live reduced-motion change stops ticks; real moth button gives a deliberate still scene",
+      "pass": true
+    },
+    {
+      "name": "form-control keys remain unhandled by canvas shortcuts while paused",
+      "pass": true
+    },
+    {
+      "name": "390px resize preserves pause; idempotent disposal releases owned RAF and canvas backing storage",
+      "pass": true
+    },
+    {
+      "name": "real browser touch contact guides; touch release clears input via pointer departure",
+      "pass": true
+    },
+    {
+      "name": "320px minimum has no document overflow and retains active canvas",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

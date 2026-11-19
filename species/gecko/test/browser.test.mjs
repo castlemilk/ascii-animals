@@ -380,7 +380,8 @@ test('director mobile pointer mapping follows the focused letterbox and freezes 
   assert(Math.abs(pointer.x-mica.body.position.x*mica.scale)<1e-12);
   assert(Math.abs(pointer.y-mica.body.position.y*mica.scale)<1e-12);
   assert.equal(scene.getStatus().dimensions.dpr,2);
-  scene.reset();env.canvas.emit('pointerdown',{clientX:230,clientY:75,pointerType:'touch',buttons:1});
+  // The taller close portrait now letterboxes at the sides of a square host.
+  scene.reset();env.canvas.emit('pointerdown',{clientX:35,clientY:270,pointerType:'touch',buttons:1});
   assert.equal(scene.getStatus().pendingInputs,0,'letterbox margin is not wall guidance');
   scene.selectGecko(null);scene.guide(.05/3.3,.32/2.2);scene.selectGecko('mica');
   env.frame(0);env.frame(1000/60);

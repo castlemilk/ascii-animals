@@ -39,7 +39,7 @@ Explicit pause, live reduced-motion preference, hidden document, bfcache suspens
 | Rendering policy | Solo | Opt-in director |
 | --- | --- | --- |
 | Minimum canvas CSS width | 360 px | 320 px |
-| Automatic grid | 176×78; 112×50 below 560 px | 224×144; selected close view at 112×72 below 640 px or with one visitor |
+| Automatic grid | 176×78; 112×50 below 560 px | 224×112; selected close view at 112×72 below 640 px or with one visitor |
 | Explicit `view.grid` accepted by the host | Integer 112–192 columns, 50–86 rows | Same explicit bounds; automatic mode selects the larger director grids |
 | View defaults | `grid: 'auto'`, `neutral: false`, `maxDpr: 2` | Same |
 
