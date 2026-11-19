@@ -1,3 +1,4 @@
+import { mountAccepted } from './helpers/accepted-cuttlefish-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -12,6 +13,16 @@ const source = process.env.CUTTLEFISH_V71_ATTACHMENT_SOURCE
   : new URL('../src/animals/cuttlefish.js', import.meta.url);
 const { CuttlefishArtwork } = await import(source.href);
 const oracle = JSON.parse(readFileSync(new URL('./fixtures/cuttlefish-v7-attachment-oracle.json', import.meta.url), 'utf8'));
+const accepted = await mountAccepted('v7');
+try {
+  for (const entry of oracle.cases) {
+    const measured = captureAttachmentPose(accepted, entry.pose);
+    entry.fingerprints = attachmentFingerprints(measured);
+    entry.rootShapes = measured.rootShapes;
+  }
+  for (const entry of oracle.support) entry.measurement = captureAttachmentSupport(accepted, entry.depthStrength);
+  oracle.baselineSleeveJets = measuredSleeveJets(oracle.cases.find(c => c.pose.time === 2.4 && c.pose.lod === 1 && c.pose.grip === 0).rootShapes);
+} finally { accepted.destroy(); }
 const mount = () => new CuttlefishArtwork(fakeBrowser().canvas(1000, 650), {
   count: 1, species: 'cuttlefish', scene: 'reactive', size: 1.2, sizeVariation: 0,
   seed: 7, autoStart: false, paused: true, glow: false,

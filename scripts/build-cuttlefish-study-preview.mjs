@@ -3,8 +3,8 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
-// Private review output only. No deployment, package mutation or shared entry
-// point regeneration. Run the repository build first; embed its exact modules.
+// Deterministic opt-in study preview. Build the repository first; embed exact modules.
+// --public-preview supplies local catalogue links, not a deployment action.
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const outAt = process.argv.indexOf('--out');
 if (outAt < 0 || !process.argv[outAt + 1]) throw new Error('Usage: node scripts/build-cuttlefish-study-preview.mjs --out /absolute/path/preview.html');
@@ -36,11 +36,11 @@ const entry = await embed(path.join(demo, 'study.mjs'));
 const result = html
   .replace('<link rel="stylesheet" href="study.css">', `<style>${css}</style>`)
   .replace('<script type="module" src="study.mjs"></script>', `<script type="module" src="${entry}"></script>`)
-  .replaceAll('../../dist/index.html', 'https://castlemilk.github.io/ascii-animals/')
-  .replaceAll('../../dist/cuttlefish-demo.html', 'https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html');
+  .replaceAll('../../dist/index.html', process.argv.includes('--public-preview') ? 'index.html' : 'https://castlemilk.github.io/ascii-animals/')
+  .replaceAll('../../dist/cuttlefish-demo.html', process.argv.includes('--public-preview') ? 'cuttlefish-demo.html' : 'https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html');
 await mkdir(path.dirname(output), { recursive: true });
 await writeFile(output, result);
-const receipt = { output, sha256: sha(result), bytes: Buffer.byteLength(result),
+const receipt = { output: path.relative(root, output), sha256: sha(result), bytes: Buffer.byteLength(result),
   type: 'self-contained local HTML preview', browserVerified: false,
   sources: sources.sort((a, b) => a.path.localeCompare(b.path)) };
 await writeFile(output + '.manifest.json', JSON.stringify(receipt, null, 2) + '\n');

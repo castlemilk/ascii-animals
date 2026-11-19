@@ -1,3 +1,4 @@
+import { mountAccepted } from './helpers/accepted-cuttlefish-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -13,6 +14,14 @@ const source = process.env.CUTTLEFISH_V6_PRESERVATION_SOURCE
   : new URL('../src/animals/cuttlefish.js', import.meta.url);
 const { CuttlefishArtwork } = await import(source.href);
 const oracle = JSON.parse(readFileSync(new URL('./fixtures/cuttlefish-forward-roots-v6-preservation.json', import.meta.url), 'utf8'));
+const accepted = await mountAccepted('v6');
+try {
+  for (const entry of oracle.cases) {
+    const parts = captureV6PreservedParts(accepted, entry.pose);
+    entry.parts = Object.fromEntries(Object.entries(parts).map(([key, points]) => [key, sampleFingerprint(points)]));
+  }
+  for (const entry of oracle.supportingHead) entry.support = captureV6SupportingHead(accepted, entry.depthStrength);
+} finally { accepted.destroy(); }
 const mount = () => new CuttlefishArtwork(fakeBrowser().canvas(1000, 650), {
   count: 1, species: 'cuttlefish', scene: 'reactive', size: 1.2,
   sizeVariation: 0, seed: 7, autoStart: false, paused: true, glow: false,

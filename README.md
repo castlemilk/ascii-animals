@@ -266,3 +266,18 @@ The strict [`./frog` API](docs/FROG-API.md) provides a deliberate fixed-tick lea
 ## Owl TypeScript artwork
 
 The explicit `createOwlArtwork(element, options)` factory is available from `ascii-animals-review/owl` in the private package. It preserves the original perched owl's bounded attention, blink/ruffle/wing response and static reduced-motion alternatives, using the shared browser scheduler. See [API and integration evidence](docs/OWL-API.md); the generated HTTP demo is `dist/owl/`. The study is deployed and has the bounded browser acceptance recorded above. This is not an npm publication or a claim of exhaustive browser coverage.
+
+### Optional authored marine studies
+
+The catalogue retains each original marine demo and adds opt-in studies:
+[Manta reef glide](dist/manta-reef.html), [Cuttlefish field study](dist/cuttlefish-study.html),
+and [Octopus dim den](dist/octopus-den.html). These share the canonical marine renderer;
+they do not replace the stable package factories or claim new public exports.
+The manta supports directed left/right banks, current and representative stills;
+the cuttlefish study adds authored sequences while keeping the accepted V7.1 anatomy.
+Keyboard controls, pause and representative reduced-motion states are covered by
+numerical/mock-host tests; fresh real-browser acceptance is still pending.
+
+`npm run build` regenerates all three previews, `npm test` includes their study
+and publication suites, and `npm run typecheck` includes manta/cuttlefish study
+fixtures. See [marine integration provenance and exact preservation gates](docs/MANTA-PR30-31-INTEGRATION.md).

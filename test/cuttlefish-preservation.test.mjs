@@ -1,3 +1,4 @@
+import { mountAccepted } from './helpers/accepted-cuttlefish-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -16,6 +17,18 @@ const { CuttlefishArtwork } = await import(source.href);
 // are now an intentional change protected by independent geometric tests.
 const oracle = JSON.parse(readFileSync(new URL('./fixtures/cuttlefish-crown-v3-oracle.json', import.meta.url), 'utf8'));
 const distalOracle = JSON.parse(readFileSync(new URL('./fixtures/cuttlefish-crown-roots-v5-distal-oracle.json', import.meta.url), 'utf8'));
+
+// Archived hashes remain unchanged as provenance. Expected samples come only
+// from SHA-pinned accepted source executing on this runtime, never candidate.
+const v3 = await mountAccepted('v3'), v5 = await mountAccepted('v5');
+try {
+  for (const entry of oracle.cases) {
+    const parts = preservedCuttlefishParts(v3, entry.pose);
+    for (const key of Object.keys(entry.parts)) entry.parts[key] = geometryFingerprint(parts[key]);
+  }
+  for (const entry of distalOracle.cases) entry.primaryDistalArms = geometryFingerprint(
+    preservedCuttlefishParts(v5, entry.pose, { primaryStart: v6PreservedPrimaryStart }).primaryDistalArms);
+} finally { v3.destroy(); v5.destroy(); }
 
 test('V3 mantle, fins, complete feeding tentacles and beak stay exact', t => {
   const host = fakeBrowser();

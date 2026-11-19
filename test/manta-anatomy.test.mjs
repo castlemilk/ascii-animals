@@ -1,22 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { mantaDefinition } from '../src/animals/manta.js';
 
-// Captured from b8f222dab868821f27bf2a64a98434f3483fc8e6 before the edit,
-// excluding ONLY the old eye-disc samples (seeds >= 25700). These snapshots
-// protect the complete wing/body/tail/lobe geometry, shading, order and seeds.
-// Quantizing to 1e-9 avoids irrelevant last-bit libm differences; this is a
-// geometry check, not a browser-pixel or biological-accuracy assertion.
-const fixtures = [
-  [1, 0, 13669, '03de39f7719bdca7ce4e59eeaedab8294c91e433aa923765f6e725bed2d23ed5'],
-  [1, 5.2, 13669, '59af52b03f5543672e053f78ec6821f6deed62ebf81ef33689fc9128bbc69f59'],
-  [2, 0, 4193, '380cf12331351181f5e4380d9f59a26f5fedcf62e781b3f44c42c58a3e2fb4ec'],
-  [2, 5.2, 4193, '6d6a28f2e75f1bb238312d847380a2f1c8d34380f28e0ed3c9821abfaef72bf1'],
-  [3, 0, 2531, '7fa3f1d68128c62d2149ebb871004235726fcc689145552805850840b429e745'],
-  [3, 5.2, 2531, '59f8d34b9799632947f036722deb15ee93cb2d57e4504cd38bbafa8d0f971d78'],
-];
-
+// PR31 intentionally changes the non-eye silhouette and materials. PR30's
+// eye-removal-only byte oracle is superseded, not regenerated. Keep mode
+// parity and anatomical invariants here; species/manta/tests adds the stronger
+// forehead envelope, fin lag, bounded geometry and attachment sweeps.
 function sample(lod, time, mode = 'ascii', objectScale = 1) {
   const state = mantaDefinition.create(.73), samples = [];
   const host = {
@@ -40,23 +29,25 @@ function sample(lod, time, mode = 'ascii', objectScale = 1) {
   return { samples, state };
 }
 
-test('manta eye removal preserves every non-eye sample at all three LODs and two motion phases', () => {
-  for (const [lod, time, count, hash] of fixtures) {
+test('uplifted manta preserves dorsal no-eye, wing, tail and attached lobe invariants', () => {
+  assert.equal(mantaDefinition.ink, false);
+  for (const lod of [1, 2, 3]) for (const time of [0, 5.2]) {
     const { samples, state } = sample(lod, time);
-    assert.equal(samples.length, count);
-    assert.equal(createHash('sha256').update(JSON.stringify(samples)).digest('hex'), hash);
-    assert.equal(state.diagnostics.sampleCount, count);
+    assert(samples.length > 1000 && samples.length <= 18000);
+    assert.equal(state.diagnostics.sampleCount, samples.length);
     assert(Math.abs(state.diagnostics.wingSpan - 5.4) < 1e-12);
     assert.equal(state.diagnostics.tailRoot[0], -.88);
     assert(state.diagnostics.tailTip[0] < -3.1);
-    for (const side of [-1, 1]) {
-      // Both cephalic lobes still reach ahead of the disc and retain their root.
-      const lobe = samples.filter(point => point[5] >= 24000 + (side + 1) * 400
-        && point[5] < 24400 + (side + 1) * 400);
-      assert(lobe.some(point => Math.abs(point[0] - .86) < 1e-9));
-      assert(lobe.some(point => Math.abs(point[0] - 1.35) < 1e-9));
-      assert(lobe.every(point => Math.sign(point[1]) === side));
+    const { lobeRoots: roots, lobeTips: tips } = state.diagnostics;
+    for (const offset of [0, 3]) {
+      assert(roots[offset] >= .8 && roots[offset] <= 1.06);
+      assert(Math.abs(roots[offset + 1]) <= .315);
+      assert(tips[offset] - roots[offset] > .4);
+      assert(Math.sign(roots[offset + 1]) === Math.sign(tips[offset + 1]));
     }
+    const forehead = samples.filter(([x, y]) => x >= .71 && x <= .94 && Math.abs(y) >= .22 && Math.abs(y) <= .43);
+    assert(forehead.length > 0);
+    assert(forehead.every(([, , z]) => z < .145));
   }
 });
 

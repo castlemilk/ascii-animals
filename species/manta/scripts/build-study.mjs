@@ -39,7 +39,7 @@ let html = await readFile(path.join(root, 'species/manta/index.html'), 'utf8');
 for (const [id, source] of [['species/manta/study.css',css],['species/manta/index.html',html]]) hashes[id]=createHash('sha256').update(source).digest('hex');
 const sourceSha256 = createHash('sha256').update(JSON.stringify(hashes)).digest('hex');
 html = html.replace('<link rel="stylesheet" href="study.css">',()=>`<style>\n${css}\n</style>`)
-  .replace('href="../../dist/animals.html?species=manta"','href="https://github.com/castlemilk/ascii-animals"')
+  .replace('href="../../dist/animals.html?species=manta"',process.argv.includes('--public-preview') ? 'href="animals.html?species=manta"' : 'href="https://github.com/castlemilk/ascii-animals"')
   .replace('<script type="module" src="study.mjs"></script>',()=>`<!-- Generated manta study; source-sha256: ${sourceSha256} -->\n<script data-manta-bundle>\n${bundle.replaceAll('</script','<\\/script')}\n</script>`);
 const argument = process.argv.find(arg=>arg.startsWith('--out='));
 const output = path.resolve(root, argument ? argument.slice(6) : 'artifacts/manta-reef.html');
