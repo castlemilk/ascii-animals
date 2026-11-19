@@ -1,5 +1,10 @@
 # Seahorse: the holdfast garden
 
+> Historical director record. The current seahorse-only eelgrass revision, its
+> exact source base, anatomy changes and executed validation are documented in
+> [EELGRASS-REVIEW.md](EELGRASS-REVIEW.md). Historical geometry, counts and
+> evidence claims below describe the previous contribution.
+
 ## Provenance and scope
 
 This director extends the **current newly authored integrated Seahorse**, reviewed
