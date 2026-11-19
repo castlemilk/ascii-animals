@@ -288,5 +288,5 @@ test('static alternatives do not advance simulation or leave a latent pointer ta
   assert.equal(calm.pointer.active, false);
   assert.equal(JSON.stringify(original), before);
   assert.match(describePufferfish(inflated), /inflated pufferfish/i);
-  assert.match(describePufferfish(calm), /small round pufferfish/i);
+  assert.match(describePufferfish(calm), /oblong, spotted pufferfish/i);
 });

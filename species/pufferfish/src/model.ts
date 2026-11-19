@@ -11,6 +11,26 @@ export const PUFFERFISH_DEFAULTS: PufferfishConfig = Object.freeze({
 const keys = Object.keys(PUFFERFISH_DEFAULTS);
 const calmPointer: PufferfishPointer = Object.freeze({ active: false, x: 0, y: 0, aspect: 1 });
 const smooth = (t: number): number => t * t * (3 - 2 * t);
+// Integrate a bounded release velocity rather than adding wobble to volume.
+// The two zero-velocity shelves are the authored "is it safe?" hesitations.
+// Symmetry keeps the existing midpoint and duration contract; the integral is
+// .66, so default per-tick release remains below 1 / (.66 * 150) < .011.
+const releaseKnots = [0, .08, .24, .29, .37, .42, .58, .63, .71, .76, .92, 1] as const;
+const releaseSpeeds = [0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0] as const;
+function releasedVolume(progress: number): number {
+  const p = Math.max(0, Math.min(1, progress));
+  if (p === 0 || p === .5 || p === 1) return p;
+  let area = 0;
+  for (let i = 0; i < releaseKnots.length - 1; i++) {
+    const start = releaseKnots[i]!, span = releaseKnots[i + 1]! - start;
+    const u = Math.max(0, Math.min(1, (p - start) / span));
+    const a = releaseSpeeds[i]!, b = releaseSpeeds[i + 1]!;
+    // Integral of smoothstep: u³ - u⁴/2. Velocity and acceleration
+    // meet continuously at every knot, including both held volumes.
+    area += span * (a * u + (b - a) * (u * u * u - .5 * u * u * u * u));
+  }
+  return Math.max(0, Math.min(1, area / .66));
+}
 export function finite(value: unknown, low: number, high: number, name: string): number {
   if (typeof value !== 'number' || !Number.isFinite(value)) throw new TypeError(`${name} must be a finite number`);
   if (value < low || value > high) throw new RangeError(`${name} must be ${low}..${high}`);
@@ -120,7 +140,7 @@ export function stepPufferfish(state: PufferfishState, input: PufferfishTick): P
       break;
     case 'recovering': {
       const age = phase.age + 1;
-      inflation = phase.from * (1 - smooth(Math.min(1, age / c.recoveryTicks)));
+      inflation = phase.from * (1 - releasedVolume(age / c.recoveryTicks));
       phase = age >= c.recoveryTicks
         ? { kind: 'cooldown', remaining: c.cooldownTicks, retreated: far }
         : { ...phase, age };
@@ -144,12 +164,12 @@ export function pufferfishPoster(state: PufferfishState, inflated: boolean): Puf
 }
 export function describePufferfish(state: PufferfishState): string {
   const details: Record<PufferfishPhase['kind'], string> = {
-    idle: 'A small round pufferfish with two bright eyes, paddle fins and a short fan tail.',
-    approach: 'The pufferfish notices the nearby visitor and pauses before swelling.',
-    inflating: 'The pufferfish grows rounder in stages as short radial spines extend.',
-    holding: 'An inflated pufferfish floats with short spines and a gentle buoyant wobble.',
-    recovering: 'The pufferfish smoothly deflates while its fins keep moving.',
-    cooldown: 'The small pufferfish rests; give it space before approaching again.',
+    idle: 'An oblong, spotted pufferfish drifts with small paddle fins, a pale belly and a short fan tail.',
+    approach: 'The pufferfish brakes and watches the visitor before beginning to inflate.',
+    inflating: 'The belly rounds out, the spotted skin stretches and fine spines lift from the surface.',
+    holding: 'An inflated pufferfish holds its round, guarded shape with tiny fin and gill movements.',
+    recovering: 'The pufferfish releases volume in three gentle stages, hesitating twice while its fins keep moving.',
+    cooldown: 'The pufferfish regains its oblong shape and rests before drifting away.',
   };
   return details[state.phase.kind];
 }

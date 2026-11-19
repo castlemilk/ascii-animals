@@ -143,9 +143,31 @@ function targetFor(actor: PufferfishActor, state: PufferfishDirectorState, beat:
     y = Math.sin(t * 0.7 + v) * (actor.role === 'sentinel' ? 0.055 : 0.13),
     motive: PufferfishMotive = actor.role === 'sentinel' ? 'watching' : 'exploring';
   if (beat.scene === 'reef') {
-    if (beat.kind === 'inspect') { x = a + Math.cos(v) * 0.04; y = 0.22 + actor.id % 2 * 0.035; motive = 'inspecting'; }
-    if (beat.kind === 'gather') { x = a * 0.82; y = actor.id % 2 ? -0.14 : 0.05; motive = actor.role === 'sentinel' ? 'watching' : 'inspecting'; }
-    if (beat.kind === 'rest') { x = a + Math.sin(v) * 0.025; y = 0.15; motive = 'settling'; }
+    const home = a + Math.sin(v) * .025, station = a * .70 + Math.cos(v) * .04;
+    const p = beat.progress;
+    // Travel, brake, inspect and back away are one authored route. Position
+    // and target velocity meet at each beat; roles keep distinct excursion size.
+    if (beat.kind === 'discover') {
+      const seek = smooth(p);
+      x = home + (station - home) * seek + Math.sin(Math.PI * p) ** 2 * wander;
+      y = .02 + .13 * seek - .045 * Math.sin(Math.PI * p) ** 2;
+    }
+    if (beat.kind === 'inspect') {
+      const dip = Math.sin(Math.PI * p) ** 2;
+      x = station + Math.sin(p * Math.PI * 2) * .018 * dip;
+      y = .15 + dip * (actor.role === 'sentinel' ? .035 : .085);
+      motive = actor.role === 'sentinel' ? 'watching' : 'inspecting';
+    }
+    if (beat.kind === 'gather') {
+      const withdraw = smooth(p);
+      x = station + (home - station) * withdraw;
+      y = .15 - .13 * withdraw - .035 * Math.sin(Math.PI * p) ** 2;
+      motive = 'settling';
+    }
+    if (beat.kind === 'rest') {
+      x = home; y = .02 + Math.sin(Math.PI * p) ** 2 * .012;
+      motive = 'settling';
+    }
   } else if (beat.scene === 'current') {
     x += flow * (actor.role === 'drifter' ? 0.12 : -0.10);
     y -= Math.abs(flow) * 0.12;
@@ -193,11 +215,19 @@ export function stepPufferfishDirector(state: PufferfishDirectorState, input: Pu
     const next = stepPufferfish(actor.state, { tick: input.tick, events: [{ ...modelInput, tick: input.tick, seq: actor.state.lastSequence + 1 }] }).state;
     if (next.reactions > actor.state.reactions) reacted.push(actor.id);
     const defensive = next.phase.kind === 'approach' || next.phase.kind === 'inflating' || next.phase.kind === 'holding';
+    let inspection = 0;
     if (invitation?.id === actor.id && !defensive) {
-      // Keep a little personal space at an invitation, rather than snapping onto the target.
+      // Notice/brake -> tentative approach -> inspect -> release. The first
+      // half-second stays put; gaze acknowledges the invitation immediately.
+      const elapsed = PUFFERFISH_DIRECTOR_LIMITS.invitationTicks - (invitation.until - input.tick);
+      const seek = smooth((elapsed - 30) / 90), release = smooth((elapsed - 312) / 48);
+      inspection = seek * (1 - release);
       const personalSpace = 0.14 + (1 - c.curiosity) * 0.1;
-      target.x = invitation.x + (actor.x < invitation.x ? -personalSpace : personalSpace);
-      target.y = invitation.y + 0.1;
+      const side = anchor(c, actor.id) < invitation.x ? -1 : 1;
+      const inspectX = invitation.x + side * personalSpace;
+      const inspectY = invitation.y + .1 + Math.sin(Math.PI * clamp((elapsed - 120) / 192, 0, 1)) ** 2 * .018;
+      target.x = elapsed < 30 ? actor.x : target.x * (1 - inspection) + inspectX * inspection;
+      target.y = elapsed < 30 ? actor.y : target.y * (1 - inspection) + inspectY * inspection;
       target.motive = 'invited';
     } else if (pointer && nearest === actor.id && !defensive && c.curiosity > 0) {
       const d = Math.hypot(pointer.x - actor.x, pointer.y - actor.y);
@@ -208,14 +238,33 @@ export function stepPufferfishDirector(state: PufferfishDirectorState, input: Pu
         target.motive = 'inspecting';
       }
     }
-    if (defensive) { target.x = actor.x; target.y = actor.y - 0.015; target.motive = 'defensive'; }
-    if (next.phase.kind === 'recovering' || next.phase.kind === 'cooldown') target.motive = 'settling';
+    if (defensive) {
+      // A close approach first brakes then yields a short recoil away from the
+      // threat. Holding stays anchored instead of continually drifting upward.
+      const notice = next.phase.kind === 'approach' ? Math.sin(Math.PI * next.phase.age / next.config.dwellTicks) : 0;
+      const away = pointer ? (pointer.x > actor.x ? -1 : 1) : actor.id % 2 ? 1 : -1;
+      target.x = actor.x + away * .055 * notice;
+      target.y = actor.y + .025 * notice;
+      target.motive = 'defensive';
+    }
+    if (next.phase.kind === 'recovering') {
+      // Stay with the hesitant deflation instead of setting off mid-recovery.
+      target.x = actor.x; target.y = actor.y; target.motive = 'settling';
+    } else if (next.phase.kind === 'cooldown') {
+      const release = smooth(1 - next.phase.remaining / next.config.cooldownTicks);
+      target.x = actor.x + (target.x - actor.x) * release;
+      target.y = actor.y + (target.y - actor.y) * release;
+      target.motive = 'settling';
+    }
     // The shared screen projection has its largest horizontal extent on a square viewport.
     // Keep the largest supported inflated silhouette inside that envelope.
     const maxX = horizontalLimit(actor.scale);
     target.x = clamp(target.x, -maxX, maxX); target.y = clamp(target.y, -0.27, 0.28);
-    const vx = clamp(actor.vx * 0.88 + (target.x - actor.x) * 0.008, -0.004, 0.004);
-    const vy = clamp(actor.vy * 0.88 + (target.y - actor.y) * 0.008, -0.003, 0.003);
+    const braking = defensive || next.phase.kind === 'recovering'
+      || invitation?.id === actor.id && invitation.until - input.tick > PUFFERFISH_DIRECTOR_LIMITS.invitationTicks - 30;
+    const drag = braking ? .68 : .88;
+    const vx = clamp(actor.vx * drag + (target.x - actor.x) * .008, -.004, .004);
+    const vy = clamp(actor.vy * drag + (target.y - actor.y) * .008, -.003, .003);
     const x = clamp(actor.x + vx, -maxX, maxX), y = clamp(actor.y + vy, -0.28, 0.29);
     const focus = pointer ?? (invitation?.id === actor.id ? invitation : target);
     const gazeX = clamp((focus.x - x) * 3, -1, 1), gazeY = clamp((focus.y - y) * 3, -1, 1);
@@ -223,8 +272,9 @@ export function stepPufferfishDirector(state: PufferfishDirectorState, input: Pu
       : defensive ? 0.35 + next.inflation * 0.65 : next.inflation * 0.65;
     return { ...actor, state: next, x, y, vx, vy, motive: target.motive, threat,
       gaze: { x: actor.gaze.x + (gazeX - actor.gaze.x) * 0.1, y: actor.gaze.y + (gazeY - actor.gaze.y) * 0.1 },
-      yaw: clamp(actor.yaw * 0.96 + vx * 5 + flow * 0.004, -0.38, 0.38),
-      finEffort: clamp(Math.hypot(vx, vy) * 100 + Math.abs(flow) * 0.45 + (defensive ? 0.1 : 0.15), 0, 1) };
+      yaw: clamp(actor.yaw * .96 + vx * 5 + flow * .004 + gazeX * .0025 * (inspection || (target.motive === 'inspecting' ? .6 : 0)), -.38, .38),
+      finEffort: clamp(Math.hypot(vx, vy) * 100 + Math.abs(flow) * .45
+        + (next.phase.kind === 'approach' ? .42 : defensive ? .10 : .15) + inspection * .08, 0, 1) };
   });
   const nextState = freeze({ ...state, tick: input.tick, lastSequence: batch.sequence, sceneTick, cycle, beat,
     actors, selected: batch.selected, pointer, invitation, approach, quietUntil, shadowCycle, flow });
@@ -243,17 +293,17 @@ export function pufferfishDirectorPoster(state: PufferfishDirectorState, inflate
 }
 export function describePufferfishDirector(state: PufferfishDirectorState): string {
   const beats: Record<PufferfishSceneBeat['kind'], string> = {
-    discover: 'The reef wakes: each visitor follows its own exploratory route.',
-    inspect: 'Small discoveries: the fish inspect separate coral stations.',
-    gather: 'A quiet rendezvous: the visitors gather with room to breathe.',
-    rest: 'Rest among the reef: fins soften before another exploration.',
+    discover: 'Reef drift: small fin strokes carry each visitor toward a discovery.',
+    inspect: 'The visitors brake, hover and dip toward the reef to inspect it.',
+    gather: 'Inspection over: the visitors back away and turn into open water.',
+    rest: 'An easy drift: fins soften before the next discovery.',
     rising: 'The tide builds: fins paddle and bodies lean into the current.',
     shelter: 'Shelter behind the coral: each visitor finds a calmer pocket.',
     returning: 'The current eases: the visitors emerge from shelter.',
     slack: 'Slack water: the reef drifts into an easy rhythm.',
     watch: 'A watchful reef: bright eyes follow the water overhead.',
     shadow: 'A passing shadow: one sentinel inflates while companions find shelter.',
-    release: 'The shadow passes: spines soften and the reef settles.',
+    release: 'The shadow passes: the belly releases in stages, hesitates, then settles.',
     resume: 'Confidence returns: small explorations begin again.',
   };
   const selected = state.actors[state.selected]!;
