@@ -3,18 +3,18 @@ import { createSeahorseArtwork } from './runtime/public/seahorse.js';
 const $ = id => document.getElementById(id);
 const scenes = {
   'kelp-garden': {
-    title: 'Kelp garden',
-    description: 'A keeper holds on, an explorer wanders, a dreamer lets the current pass.',
+    title: 'Eelgrass garden',
+    description: 'The tail holds the blade as both sway in the current. Invite an inspection, release the grip, or brace against a surge.',
     options: {scene: 'kelp-garden', count: 3, choreography: 'cycle', duration: 28, stagger: .8, current: .3, scale: 1, palette: 'brass', behavior: 'curious', individuals: [{role: 'sentinel'}, {role: 'explorer'}, {role: 'dreamer'}]},
   },
   'tidal-duet': {
     title: 'Tidal duet',
-    description: 'Two partners leave their branches, share a rising phrase, then find their own holds.',
+    description: 'Two partners release their blades, rise together and return to their own holds.',
     options: {scene: 'tidal-duet', count: 2, choreography: 'cycle', duration: 30, stagger: .3, current: .15, scale: 1, palette: 'rose', behavior: 'curious', individuals: [{role: 'partner', facing: 'right'}, {role: 'partner', facing: 'left'}]},
   },
   'drift-passage': {
     title: 'Drift passage',
-    description: 'A solitary traveler loosens its tail, explores the clearing and returns to the kelp.',
+    description: 'One traveler opens its tail, drifts through the clearing and wraps the grass on return.',
     options: {scene: 'drift-passage', count: 1, choreography: 'cycle', duration: 26, stagger: 0, current: .45, scale: 1, palette: 'lagoon', behavior: 'curious', individuals: [{role: 'explorer'}]},
   },
   study: {
@@ -24,30 +24,30 @@ const scenes = {
   },
 };
 const roles = {
-  sentinel: 'Keeper · hold the kelp',
+  sentinel: 'Keeper · hold the grass',
   explorer: 'Explorer · venture out',
   dreamer: 'Dreamer · ride the current',
   partner: 'Partner · meet a neighbor',
 };
 const roleNotes = {
-  sentinel: 'Likes a secure branch and a good view of the garden.',
+  sentinel: 'Holds the grass and leans into the current.',
   explorer: 'Loosens its tail to investigate nearby movement.',
   dreamer: 'Takes its time, drifting a little before settling.',
   partner: 'Keeps an eye on its companion across the clearing.',
 };
 const arcLabels = {
-  arrival: 'Finding the garden', rest: 'A little time together',
+  arrival: 'Approaching the meadow', rest: 'Holding the blade',
   depart: 'Releasing into the current', return: 'Finding a hold again',
 };
 const motiveLabels = {
-  hold: 'Holding the kelp', holdfast: 'Holding the kelp', anchored: 'Holding the kelp',
-  grip: 'Holding against the current', shelter: 'Taking shelter', startle: 'Taking shelter', startled: 'Taking shelter',
+  hold: 'Holding the grass', holdfast: 'Holding the grass', anchored: 'Holding the grass',
+  grip: 'Holding against the current', shelter: 'Taking shelter', startle: 'Taking shelter', startled: 'Bracing against the current',
   release: 'Loosening its tail', releasing: 'Loosening its tail',
   drift: 'Drifting through the garden', drifting: 'Drifting through the garden',
   inspect: 'Inspecting a visitor', inspecting: 'Inspecting a visitor', curious: 'Following a little curiosity',
   approach: 'Approaching a holdfast', arrive: 'Arriving quietly', arrival: 'Arriving quietly', arriving: 'Arriving quietly',
   recover: 'Settling back into the garden', recovering: 'Settling back into the garden',
-  return: 'Returning to the kelp', returning: 'Returning to the kelp', anchor: 'Finding a hold',
+  return: 'Returning to the grass', returning: 'Returning to the grass', anchor: 'Finding a hold',
   duet: 'Rising with a companion', rise: 'Rising with a companion',
   rest: 'Resting in the current', idle: 'Resting in the current',
 };
@@ -57,9 +57,17 @@ const canvas = $('animal');
 const compact = window.matchMedia('(max-width: 599px)');
 const resolution = () => ({columns: compact.matches ? 100 : 160, rows: 76});
 const initialResolution = resolution();
+// A single visitor keeps the rings and tail legible on a phone. This is a
+// scene preset only: resizing preserves any population the viewer has chosen.
+function sceneOptions(id) {
+  const preset = scenes[id].options;
+  return compact.matches && id === 'kelp-garden'
+    ? {...preset, count: 1, individuals: [preset.individuals[0]]}
+    : preset;
+}
 canvas.style.setProperty('--stage-ratio', String(initialResolution.columns * .56 / initialResolution.rows));
 const art = createSeahorseArtwork(canvas, {
-  ...scenes['kelp-garden'].options, ...initialResolution, labels: true,
+  ...sceneOptions('kelp-garden'), ...initialResolution, labels: false,
 });
 let rosterSignature = '';
 let selectedBefore = null;
@@ -174,7 +182,7 @@ function syncControls() {
   $('keyboard-help').textContent = study
     ? 'On the focused artwork: Enter greets, Up/Down guide attention, Escape clears attention, Space pauses.'
     : 'On the focused artwork: Left/Right select, Up/Down guide attention, Enter inspects, R releases, H finds a hold, Escape clears attention, Space pauses.';
-  $('gesture-hint').textContent = study ? 'The close study supports a greeting. Choose a garden scene for tail release, holdfasts and shelter.' : 'The other visitors keep their own intentions.';
+  $('gesture-hint').textContent = study ? 'The close study supports a greeting. Choose a garden scene to release, re-anchor or brace against the current.' : 'The other visitors keep their own intentions.';
   const scene = scenes[options.scene];
   $('scene-title').textContent = scene.title;
   $('scene-description').textContent = scene.description;
@@ -237,7 +245,7 @@ function sync() {
 for (const button of document.querySelectorAll('[data-scene]')) {
   button.addEventListener('click', () => {
     const scene = scenes[button.dataset.scene];
-    art.update(scene.options);
+    art.update(sceneOptions(button.dataset.scene));
     art.restart();
     selectedBefore = null;
     syncControls();
@@ -277,9 +285,9 @@ $('pause').addEventListener('click', () => {
 $('reset').addEventListener('click', () => {art.restart(); sync(); announce('Replayed this scene. Your settings and pause choice are preserved.');});
 for (const [id, type, message] of [
   ['greet', 'inspect', 'An invitation to inspect.'],
-  ['release', 'release', 'Loosening the tail, then drifting.'],
-  ['anchor', 'anchor', 'Finding a hold in the kelp.'],
-  ['startle', 'startle', 'Taking shelter, then settling.'],
+  ['release', 'release', 'Uncoiling, drifting, then wrapping the grass again.'],
+  ['anchor', 'anchor', 'Reaching for the grass, then finding a hold.'],
+  ['startle', 'startle', 'Tightening the tail, leaning into the current, then recovering.'],
 ]) {
   $(id).addEventListener('click', () => {
     if (art.getOptions().scene === 'study') {

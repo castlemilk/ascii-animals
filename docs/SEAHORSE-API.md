@@ -1,11 +1,18 @@
-# Seahorse: the holdfast director
+# Seahorse: the eelgrass holdfast director
 
 The Seahorse has a compatible single-animal study and three directed scenes:
 `kelp-garden`, `tidal-duet` and `drift-passage`. A directed scene contains one to
 four individuals with separate intentions, tail attachment, current response,
 snout attention and arrival/rest/depart/return choreography.
 
-This work extends the **newly authored integrated Seahorse** inspected at base
+The eelgrass revision starts from `b8f222dab868821f27bf2a64a98434f3483fc8e6`.
+It adds solid segmented armour, a swept coronet, a genuinely opening tail coil,
+moving eelgrass contact and three distinct cue phrases. The public declarations
+are unchanged. `kelp-garden` and the `kelp` cell layer retain their API names;
+the demo calls the habitat **Eelgrass garden**. See the current
+[review record](../species/seahorse/EELGRASS-REVIEW.md).
+
+The original director extended the **newly authored integrated Seahorse** inspected at base
 `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`. The exhausted earlier Pro chat's
 implementation was not recovered. Canonical implementation is
 [`src/public/seahorse.ts`](../src/public/seahorse.ts); the demo source is
@@ -186,13 +193,27 @@ changing selection, clocks, cues or output.
 
 | Cue | Visible response | Total duration | Deliberate poster age |
 |---|---|---|---|
-| `release` | Loosen the tail, move away from the hold, recover the route | 240 ticks / 4 s | 90 ticks |
-| `anchor` | Increase grip on the individual's kelp hold, recover the route | 180 ticks / 3 s | 70 ticks |
-| `inspect` | Aim the snout, loosen part of the grip, approach the guide target | 180 ticks / 3 s | 70 ticks |
-| `startle` | Tighten grip, tuck and turn, settle back into the scene | 240 ticks / 4 s | 50 ticks |
+| `release` | Prepare while held; uncoil, let go, drift, recontact and rewrap | 240 ticks / 4 s | 90 ticks |
+| `anchor` | Reach the moving blade, establish grip, recover the route | 180 ticks / 3 s | 70 ticks |
+| `inspect` | Notice first; pivot the head/snout and trunk toward the guide, retaining grip while the underlying route remains held | 180 ticks / 3 s | 70 ticks |
+| `startle` | Tighten the coil before bracing against signed current; ease the torso back, then relax tension | 240 ticks / 4 s | 50 ticks |
 
-The first 18% of a cue eases into its response; recovery begins at 65% and ends at
-the listed duration. Cue durations are raw ticks and do not scale with `speed`.
+In a held rest pose, release retains the completed grip through tick 24, opens and detaches
+over ticks 24–66, travels through tick 145, returns over ticks 145–210 and
+rewraps through tick 240. In a held sentinel the completed contact is restored
+by tick 210. A moving/free route recovers to its underlying route instead of
+being forced into an attachment when the cue expires. Cue timing does not pause
+an evolving cycle route: departure can release its existing grip earlier.
+
+Inspection spends its first 24 ticks noticing before the trunk approaches;
+the skull, eye, coronet and tubular snout pivot together. Inspection and bracing
+keep exact contact while the underlying route remains held. Bracing tightens
+the coil over 28 ticks, delays its lean
+until tick 24, then relaxes the torso before releasing coil tension. The demo
+labels this existing `startle` action **Brace current**. These timings are
+authored animation, not measured animal kinetics.
+
+Cue durations are raw ticks and do not scale with `speed`.
 Each visitor owns one cue slot. While moving, additional cues for the same
 visitor are ignored until recovery completes; no event queue grows. Other
 visitors can respond independently.
@@ -264,7 +285,10 @@ for (const member of art.getDirectorState().members) {
 that same completed attachment. Other motives can coexist with grip, such as a
 startled visitor that remains attached. Geometry uses the same spiral endpoint
 as the director renderer; body translation compensates for facing, scale and
-rotation to keep the tail in place.
+rotation to keep the tail in place. The anchor is a material point on the same
+eelgrass curve that is drawn, so attached animals follow its sway. A depth test
+places the rear coil behind that blade and its front return above it. Contact
+is drawn by this overlap, with no artificial holdfast marker.
 
 Directed coordinates are centered with positive Y downward. World height is
 6.2; width is `6.2 * columns * .56 / rows`. The adapter fits that aspect into the
@@ -280,10 +304,12 @@ logical-cell determinism guarantee.
 
 ### Existing study consumers
 
-Default `scene: 'study', count: 1` retains the original study geometry and
+Default `scene: 'study', count: 1` retains the original study controls and
 `hover`, `curious`, `holdfast`, `guide`, `greet` and `pulse` behavior. The original
 `SeahorseState` shape remains `tick`, `responseTick`, `targetX`, `targetY`;
-director state has a separate getter.
+director state has a separate getter. Its anatomy now shares the same plate,
+head and tail painter as the garden. Appearance is intentionally revised;
+the existing method signatures and greeting thresholds remain unchanged.
 
 The legacy response is inspect at `[0,45)` ticks, curl at `[45,110)`, settle at
 `[110,180)`, then idle. `speed` does not alter these thresholds. Repeated
@@ -293,7 +319,7 @@ lock is separate from replaceable `direct(..., true)` posters.
 
 Use a directed scene for new cue choreography and renderer-exact geometry.
 For `study` plus one visitor, director snapshots are control bookkeeping in the
-director coordinate system; they are **not** literal geometry of the old portrait.
+director coordinate system; they are **not** literal geometry of the close portrait.
 Director-only cues do not replace that portrait renderer. Setting study count
 above one selects the ensemble renderer, so the legacy portrait guarantee
 applies specifically to `study` with count 1.
@@ -325,7 +351,8 @@ returning to the model's initial beat: 0 for cycle, `.42` for hold.
 The browser advances at most six ticks per frame, drops active wall time beyond
 100 ms and reports it. Resume starts a fresh timestamp baseline; paused/hidden
 time is not replayed. Logical grids cap at 160×100 (16,000 cells), population and
-cue slots at four, and water tracers at 28. Canvas CSS dimensions cap at 2048 per
+cue slots at four, and water tracers at 24. The garden adds eleven distant
+ribbons and two short near-edge leaves. Canvas CSS dimensions cap at 2048 per
 axis, DPR at 2 and backing dimensions at 4096 per axis. These are implementation
 limits, not measured FPS or battery claims.
 
@@ -341,32 +368,29 @@ Existing tests remain unchanged in
 [`test/seahorse-director.test.mjs`](../test/seahorse-director.test.mjs), with strict
 positive/negative declaration fixtures in
 [`species/seahorse/tests`](../species/seahorse/tests).
+The eelgrass revision adds [`test/seahorse-eelgrass.test.mjs`](../test/seahorse-eelgrass.test.mjs)
+for every-tick moving contact, held preparation, regrip, independent cue phases,
+free-route recovery continuity, replay grouping and lifecycle policy.
 
 ```bash
 npm run build
-node --test test/seahorse.test.mjs test/seahorse-director.test.mjs
+node --test test/seahorse.test.mjs test/seahorse-director.test.mjs test/seahorse-eelgrass.test.mjs
 node node_modules/typescript/bin/tsc -p species/seahorse/tests/tsconfig.types.json
 ```
 
-The focused run after director review fixes passed 31 tests and the species type
-fixture. This includes repeated still-cue replacement, zero-current continuity,
-matched attachment/motive state and anatomy landmark bounds across narrow/wide
-one/four-visitor scenes. The delivery also records the full `npm test` run passing
-328/328 tests, `npm run typecheck` passing, and the offline packed-consumer SSR,
-NodeNext/Bundler resolution and core-type checks passing. Optional
-esbuild/Rollup/Webpack checks were not run.
+The current eelgrass evidence and exact-source results are in
+[the revision review](../species/seahorse/EELGRASS-REVIEW.md). The original
+director's earlier results are preserved as historical records in
+[`species/seahorse/REVIEW.md`](../species/seahorse/REVIEW.md).
 
-The visual evidence uses actual logical frames, rendered offline as SVG/PNG with
-DejaVu Sans Mono. Eight poses were inspected, and a deterministic 28-second,
-336-frame replay at 12 frames per second was generated as a GIF. That replay is
-an offline rendering of the model, not a browser recording or a measured frame
-rate. The single-file HTML preview was syntax-checked but not executed in a
-browser.
+The current capture tool runs the actual built Canvas2D adapter in native
+Skia Canvas with a fake DOM and deterministic frame source. It produces matched
+1280×900 and 390×530 images and a 13-second sequence sampled at 12 fps. These
+are native Canvas renders, **not browser screenshots or achieved-FPS evidence**.
 
-Changed-demo browser verification was blocked: the cloud browser could not reach
-the local server, and local Chromium could not launch because socket creation
-was denied. The fake-browser harness establishes numeric, input and lifecycle
-behavior; it does not render browser pixels. Physical touch, phone layouts,
-screen readers, Safari and Firefox were not verified. Browser usability and
-performance remain separate acceptance gates. No WCAG, device FPS, battery or
-biological-accuracy claim follows from these checks.
+Real-browser verification remains blocked in the authoring environment: local
+Chromium failed before opening a page because socket creation was denied, and
+the cloud browser could not reach the local preview. Physical touch, phone UI
+reflow, screen readers, Safari/Firefox and browser performance remain separate
+acceptance gates. No WCAG, device-FPS, battery or biological-accuracy claim
+follows from numerical and native-render checks.

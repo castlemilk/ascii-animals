@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#081719">
-  <meta name="description" content="Direct a small garden of ASCII seahorses: quiet holdfasts, curious visitors and a rising duet. An original procedural field study.">
-  <title>Seahorse — The holdfast garden.</title>
+  <meta name="description" content="A seahorse among eelgrass: follow its bony rings, watch its tail brace against the current, then release and find a hold again.">
+  <title>Seahorse — Eelgrass garden.</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -19,52 +19,31 @@
   <main>
     <section class="intro" aria-labelledby="page-title">
       <div>
-        <p class="eyebrow"><span aria-hidden="true"></span> SMALL LIVES, A SHARED CURRENT</p>
-        <h1 id="page-title">The <em>holdfast</em> garden.</h1>
+        <p class="eyebrow"><span aria-hidden="true"></span> HIPPOCAMPUS / EELGRASS STUDY</p>
+        <h1 id="page-title">Seahorse <em>in eelgrass.</em></h1>
       </div>
-      <p class="intro-copy">A tail finds a branch. A visitor looks up.<br>A little company in a moving sea.</p>
+      <p class="intro-copy">Watch the tail brace, release<br>and find a hold again.</p>
     </section>
 
     <section class="scene-section" aria-labelledby="scenes-heading">
-      <div class="section-label"><h2 id="scenes-heading">Choose a scene</h2><span>FOUR WAYS TO SPEND A LITTLE TIME</span></div>
+      <h2 id="scenes-heading" class="sr-only">Choose a scene</h2>
       <div class="scene-selector" role="group" aria-label="Authored seahorse scenes">
-        <button class="scene-choice selected" data-scene="kelp-garden" type="button" aria-pressed="true">
-          <span class="scene-number">01 <span>INHABIT</span><i aria-hidden="true"></i></span>
-          <strong>Kelp garden</strong>
-          <span class="scene-description">Three small lives. Find a hold, venture out, come home.</span>
-          <span class="scene-footnote">A KEEPER, AN EXPLORER, A DREAMER</span>
-        </button>
-        <button class="scene-choice" data-scene="tidal-duet" type="button" aria-pressed="false">
-          <span class="scene-number">02 <span>TOGETHER</span><i aria-hidden="true"></i></span>
-          <strong>Tidal duet</strong>
-          <span class="scene-description">Meet in the clearing. Rise together, then drift apart.</span>
-          <span class="scene-footnote">TWO VISITORS, ONE SLOW PHRASE</span>
-        </button>
-        <button class="scene-choice" data-scene="drift-passage" type="button" aria-pressed="false">
-          <span class="scene-number">03 <span>WANDER</span><i aria-hidden="true"></i></span>
-          <strong>Drift passage</strong>
-          <span class="scene-description">One unhurried traveler stops to inspect the garden.</span>
-          <span class="scene-footnote">ARRIVE, REST, RELEASE, RETURN</span>
-        </button>
-        <button class="scene-choice" data-scene="study" type="button" aria-pressed="false">
-          <span class="scene-number">04 <span>OBSERVE</span><i aria-hidden="true"></i></span>
-          <strong>A closer look</strong>
-          <span class="scene-description">A quiet portrait. Watch the coronet, snout and spiral.</span>
-          <span class="scene-footnote">ONE VISITOR, ROOM TO BREATHE</span>
-        </button>
+        <button class="scene-choice selected" data-scene="kelp-garden" type="button" aria-pressed="true"><span class="scene-number">01</span><strong>Eelgrass garden</strong></button>
+        <button class="scene-choice" data-scene="tidal-duet" type="button" aria-pressed="false"><span class="scene-number">02</span><strong>Tidal duet</strong></button>
+        <button class="scene-choice" data-scene="drift-passage" type="button" aria-pressed="false"><span class="scene-number">03</span><strong>Drift passage</strong></button>
+        <button class="scene-choice" data-scene="study" type="button" aria-pressed="false"><span class="scene-number">04</span><strong>A closer look</strong></button>
       </div>
     </section>
 
     <div class="studio">
-      <div class="stage-column">
         <section class="stage" aria-labelledby="scene-title">
           <div class="stage-heading">
-            <div class="stage-name"><span class="live-dot" id="live-dot" aria-hidden="true"></span><h2 id="scene-title">Kelp garden</h2><span class="stage-separator" aria-hidden="true">/</span><output id="playback-state" aria-live="off">LIVE</output></div>
+            <div class="stage-name"><span class="live-dot" id="live-dot" aria-hidden="true"></span><h2 id="scene-title">Eelgrass garden</h2><span class="stage-separator" aria-hidden="true">/</span><output id="playback-state" aria-live="off">LIVE</output></div>
             <output id="presence-count" aria-live="off">03 VISITORS</output>
           </div>
           <div class="canvas-wrap">
-            <canvas id="animal" tabindex="0" role="img" aria-label="Three ASCII seahorses share a kelp garden. Use the director controls to select a visitor and change its behavior." aria-describedby="canvas-help keyboard-help"></canvas>
-            <span class="stage-coordinate" aria-hidden="true">HIPPOCAMPUS<br>IN THE KELP</span>
+            <canvas id="animal" tabindex="0" role="img" aria-label="Three ASCII seahorses share an eelgrass garden. Use the director controls to select a visitor and change its behavior." aria-describedby="canvas-help keyboard-help"></canvas>
+            <span class="stage-coordinate" aria-hidden="true">HIPPOCAMPUS<br>IN EELGRASS</span>
           </div>
           <div class="scene-reading">
             <div><span class="reading-label">THE SCENE</span><output id="status" aria-live="off">Arriving in the garden</output></div>
@@ -75,30 +54,26 @@
               <button id="pause" class="primary-button" type="button">Pause</button>
               <button id="reset" class="quiet-button" type="button" title="Replay this scene while keeping your settings and pause choice">Replay</button>
             </div>
-            <p id="canvas-help">Move gently to invite attention. Tap a visitor to greet it.</p>
+            <p id="canvas-help">Move gently to invite attention. Tap a seahorse to inspect.</p>
           </div>
         </section>
-
-        <section class="storyboard" aria-labelledby="beats-heading">
-          <div class="storyboard-heading"><h2 id="beats-heading">Compose a still</h2><p id="beat-hint">Choose a beat. Each one pauses the scene.</p></div>
-          <div class="beat-list" role="group" aria-label="Choose a still scene beat">
-            <button data-beat="0.08" data-arc="arrival" type="button"><span>01</span><strong>Arrival</strong><small>Finding the garden</small></button>
-            <button data-beat="0.42" data-arc="rest" type="button"><span>02</span><strong>Rest</strong><small>A little time together</small></button>
-            <button data-beat="0.73" data-arc="depart" type="button"><span>03</span><strong>Release</strong><small>Letting go of the kelp</small></button>
-            <button data-beat="0.93" data-arc="return" type="button"><span>04</span><strong>Return</strong><small>Finding a hold again</small></button>
-          </div>
-        </section>
-
-        <section class="ensemble" aria-labelledby="ensemble-heading">
-          <div class="ensemble-heading"><div><p class="eyebrow">A LITTLE INDEPENDENCE</p><h2 id="ensemble-heading">Meet the visitors.</h2></div><p>Select one. Give it a different intention.</p></div>
-          <div id="roster" class="roster"></div>
-        </section>
-      </div>
 
       <aside id="controls" class="controls" aria-labelledby="director-heading">
-        <p class="eyebrow">THE DIRECTOR</p>
-        <h2 id="director-heading">Make room<br>for small lives.</h2>
-        <p id="scene-description" class="director-description">A keeper holds on, an explorer wanders, a dreamer lets the current pass.</p>
+        <p class="eyebrow">DIRECT THE SCENE</p>
+        <h2 id="director-heading">Hold. Drift. Return.</h2>
+        <p id="scene-description" class="director-description">The tail holds the blade as both sway in the current.</p>
+
+        <section class="attention" aria-labelledby="attention-heading">
+          <div class="attention-heading"><h3 id="attention-heading">A deliberate gesture.</h3><output id="selection-label" aria-live="off">VISITOR 01</output></div>
+          <p id="selection-note">A quiet gesture for the selected visitor.</p>
+          <div class="gesture-grid" role="group" aria-label="Direct the selected visitor">
+            <button id="greet" type="button"><strong>Inspect</strong><span>Look, then approach</span></button>
+            <button id="release" type="button"><strong>Release</strong><span>Uncoil, drift, rewrap</span></button>
+            <button id="anchor" type="button"><strong>Find a hold</strong><span>Reach, then re-anchor</span></button>
+            <button id="startle" type="button"><strong>Brace current</strong><span>Tighten, lean, recover</span></button>
+          </div>
+          <p class="selection-footnote" id="gesture-hint">The other visitors keep their own intentions.</p>
+        </section>
 
         <div class="range-control">
           <label for="count">Visitors <output id="count-value" for="count">3</output></label>
@@ -116,18 +91,6 @@
           <div class="range-endpoints"><span>Unhurried</span><span>Lively</span></div>
         </div>
 
-        <section class="attention" aria-labelledby="attention-heading">
-          <div class="attention-heading"><h3 id="attention-heading">Keep it company.</h3><output id="selection-label" aria-live="off">VISITOR 01</output></div>
-          <p id="selection-note">A quiet gesture for the selected visitor.</p>
-          <div class="gesture-grid" role="group" aria-label="Direct the selected visitor">
-            <button id="greet" type="button"><strong>Inspect</strong><span>Invite its attention</span></button>
-            <button id="release" type="button"><strong>Release</strong><span>Uncurl, then drift</span></button>
-            <button id="anchor" type="button"><strong>Find a hold</strong><span>Return to the kelp</span></button>
-            <button id="startle" type="button"><strong>Take shelter</strong><span>Grip, then recover</span></button>
-          </div>
-          <p class="selection-footnote" id="gesture-hint">The other visitors keep their own intentions.</p>
-        </section>
-
         <details class="fine-tuning">
           <summary>Choreography &amp; appearance <span aria-hidden="true">+</span></summary>
           <div class="details-content">
@@ -138,14 +101,29 @@
             <div class="range-control"><label for="member-scale">Selected visitor size <output id="member-scale-value" for="member-scale">1.00×</output></label><input id="member-scale" type="range" min=".75" max="1.2" value="1" step=".05"></div>
             <label class="select-label" for="member-facing">Selected visitor facing<select id="member-facing"><option value="auto">Follow the scene</option><option value="left">Face left</option><option value="right">Face right</option></select></label>
             <label class="select-label" for="palette">Colour story<select id="palette"><option value="brass">Sunlit brass</option><option value="lagoon">Lagoon glass</option><option value="rose">Rose coral</option></select></label>
-            <label class="check-row" for="labels"><span>Label the visitors</span><input id="labels" type="checkbox" checked></label>
+            <label class="check-row" for="labels"><span>Label the visitors</span><input id="labels" type="checkbox"></label>
           </div>
         </details>
 
-        <p id="motion-note" class="motion-note">Stillness is always available. Pause, or compose a still above.</p>
+        <p id="motion-note" class="motion-note">Stillness is always available. Pause at any moment, or choose a scene beat.</p>
         <p id="keyboard-help" class="keyboard-help">On the focused artwork: <kbd>←</kbd>/<kbd>→</kbd> select a visitor; <kbd>↑</kbd>/<kbd>↓</kbd> guide its attention. <kbd>Enter</kbd> inspects, <kbd>R</kbd> releases, <kbd>H</kbd> finds a hold, <kbd>Esc</kbd> clears attention, <kbd>Space</kbd> pauses.</p>
         <div class="capture-controls" role="group" aria-label="Capture the current artwork"><button id="capture-png" class="quiet-button" type="button">Save PNG <span aria-hidden="true">↓</span></button><button id="capture" class="quiet-button" type="button" aria-controls="capture-region" aria-expanded="false">ASCII text <span aria-hidden="true">↗</span></button></div>
       </aside>
+
+        <section class="storyboard" aria-labelledby="beats-heading">
+          <div class="storyboard-heading"><h2 id="beats-heading">Compose a still</h2><p id="beat-hint">Choose a beat. Each one pauses the scene.</p></div>
+          <div class="beat-list" role="group" aria-label="Choose a still scene beat">
+            <button data-beat="0.08" data-arc="arrival" type="button"><span>01</span><strong>Arrival</strong><small>Approaching the meadow</small></button>
+            <button data-beat="0.42" data-arc="rest" type="button"><span>02</span><strong>Rest</strong><small>Holding the blade</small></button>
+            <button data-beat="0.73" data-arc="depart" type="button"><span>03</span><strong>Release</strong><small>Uncoiling into the current</small></button>
+            <button data-beat="0.93" data-arc="return" type="button"><span>04</span><strong>Return</strong><small>Finding a hold again</small></button>
+          </div>
+        </section>
+
+        <section class="ensemble" aria-labelledby="ensemble-heading">
+          <div class="ensemble-heading"><div><p class="eyebrow">INDIVIDUAL INTENTIONS</p><h2 id="ensemble-heading">The seahorses.</h2></div><p>Select one. Give it a different intention.</p></div>
+          <div id="roster" class="roster"></div>
+        </section>
     </div>
 
     <section id="capture-region" class="capture-region" hidden aria-labelledby="capture-heading">
@@ -155,12 +133,12 @@
 
     <section class="field-notes" aria-labelledby="notes-heading">
       <div><p class="eyebrow">UNDER THE SURFACE</p><h2 id="notes-heading">A hold is part<br>of the movement.</h2></div>
-      <p>An upright body, a long snout, a small crown. The tail loosens before a journey and curls when it finds a branch. Each visitor has a little space, a little curiosity, and time to settle.</p>
+      <p>An upright body, a long snout, a small crown. Bony rings catch the light. The tail opens before a journey, wraps a blade on return and stays in contact as the current bends the grass.</p>
       <p>Original procedural artwork, drawn in ASCII. The duet is courtship-inspired choreography; this is a stylized field study, not a biological simulation.</p>
     </section>
     <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
   </main>
-  <footer class="site-footer"><span>SEAHORSE <span aria-hidden="true">/</span> A STUDY IN COMPANY</span><a href="https://github.com/castlemilk/ascii-animals">Source &amp; typed API <span aria-hidden="true">↗</span></a></footer>
+  <footer class="site-footer"><span>SEAHORSE <span aria-hidden="true">/</span> A STUDY IN HOLDING</span><a href="https://github.com/castlemilk/ascii-animals">Source &amp; typed API <span aria-hidden="true">↗</span></a></footer>
   <script type="module" src="demo.js"></script>
 </body>
 </html>
