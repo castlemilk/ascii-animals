@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ascii-animals-review@0.0.0-review.0 build
+> node scripts/build.mjs
+
+{"demo":{"sourceSha256":"ddfd49f8aff727a2e4b87d8d68a4e047e77a5c3fea63d23b6ce417f623eaf3ed","global":"dist/artwork.js","standalone":"dist/cuttlefish.html"},"fox":{"entry":"dist/fox/index.html","files":15},"dragonfly":{"entry":"dist/dragonfly/index.html","files":15},"gecko":{"entry":"dist/gecko/index.html","files":15},"pufferfish":{"entry":"dist/pufferfish/index.html","files":17},"frog":{"entry":"dist/frog/index.html","files":15},"seahorse":{"entry":"dist/seahorse/index.html","files":5},"output":"lib","modules":6,"declarations":4,"tool":"tsc + private-renderer copy","runtimeDependencies":0}

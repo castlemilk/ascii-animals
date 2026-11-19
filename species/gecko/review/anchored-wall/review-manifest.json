@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "title": "Gecko: a foothold in the night",
+  "review_base": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "repository": "https://github.com/castlemilk/ascii-animals",
+  "branch": "review/gecko-anchored-wall",
+  "scope": "species/gecko/** only; includes canonical TypeScript and local compiled files",
+  "status": "source and native-art review complete; real-browser acceptance blocked and pending",
+  "source_set_sha256": "a1960d77686d2a4cb420b41f38cfb9d6d5514b730687fe525d1a1d916990c423",
+  "source_sha256": {
+    "species/gecko/compiled/browser.d.ts": "bd670a9428d7e790bf7070d056c2539d8b62baef50768410d949f9485684972a",
+    "species/gecko/compiled/browser.js": "ac3b49c9ce9dfddd7fcc4b8408a23af6e98d96e965fa3f6423e1c4d36d35912b",
+    "species/gecko/compiled/demo.d.ts": "9c4aa4f335dd3efc621ecabffdb47ca285c769a841b5a69f365ca6028054b711",
+    "species/gecko/compiled/demo.js": "1f9af13645194a0522e9c6b69d05b19bd8ad8807ca637a0c865647261b4723b1",
+    "species/gecko/compiled/director-preview.d.ts": "961322e65a16d7f097bf942e9352a88607db73d0b54b04abf735ac3502f87e67",
+    "species/gecko/compiled/director-preview.js": "22141f8cb6eecff17e3786ea30ba1b70a06ba4c90f838eb583abb13a043420cb",
+    "species/gecko/compiled/director.d.ts": "651a38ac195c78b65934124cd3fcef94dfb726e7e7d176842bcf3b8dd90bcea5",
+    "species/gecko/compiled/director.js": "3ebe92bcd18d78e19470dc7c15715b8bd17368c9b1460cfbaf16970b53772c95",
+    "species/gecko/compiled/gecko.d.ts": "d2005bd5c8e0ed14886ab5d677bc67fd2ad6b4e0f68d7855f4af9e8c26168905",
+    "species/gecko/compiled/gecko.js": "9b9244cc46aed9dc234c3cdd6bebb08f18729ac9ea510eba011a3608c04f0163",
+    "species/gecko/compiled/geometry.d.ts": "10a3a9b3ef374ce3ae4431b1c668348f2a0d9525b41347c5a7ed0936507cc42d",
+    "species/gecko/compiled/geometry.js": "28e9f3120e90cda44f5b29575c8b91d5fa14c31d13c5af3ecde4ef72e77eb635",
+    "species/gecko/compiled/preview.d.ts": "0c0f609ace7d27809ec95285fc54f1c7cee576619cc3d2b090cfc4c4217f1753",
+    "species/gecko/compiled/preview.js": "c04ba5cc73fbefb3e5739692019878c3335cea83b2d0f3e286a8e462f89be5bb",
+    "species/gecko/compiled/proposed-adapter.d.ts": "a6881628a87928dd561a87f182cb5257638dec118fa358c9de28b20633004905",
+    "species/gecko/compiled/proposed-adapter.js": "ffd72db830371ed042c467bc7f6e983451a1a364040a04cd226e37fb93c09514",
+    "species/gecko/compiled/species.d.ts": "ca8e66ca46dcfe4488a47a5301dcefce218254b13b2b221d21616db2bcf5f61a",
+    "species/gecko/compiled/species.js": "0c0e672495c156c0503c60da1493ab138b29c77e3946c537affc1007d951da48",
+    "species/gecko/compiled/types.d.ts": "953672c36a2e61b1099ee064419b4f0aab900812f731cabea2b3d1572842db9e",
+    "species/gecko/compiled/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/gecko/index.html": "5d1bf8e958b44de65a34c97e730f2d089ac9343b0a06f4b4f0a44af998e63bcd",
+    "species/gecko/src/browser.ts": "6aaaf32695608f0d6dcda44c477c6ed704688341bf8c9f7937c7998f622c1eba",
+    "species/gecko/src/demo.ts": "9485ea6955e9f83a74431963a7910a20794d2fd28de4b63afac2f4f711868863",
+    "species/gecko/src/director-preview.ts": "150a3455731f6ac2c3e08406c9678b28b0426aa92ece8048b3d52d5b174d4a59",
+    "species/gecko/src/director.ts": "911df855e5c60305b6a20a13b28a522135e49a0282d29a95a80feeea922ceeb7",
+    "species/gecko/src/gecko.ts": "c94530e542be6eb765e0b8e68336200e75dd0b6b478e5e9ab273fae3b4e9254d",
+    "species/gecko/src/geometry.ts": "359e4b8cf9d6f877c0b9cfb0c67f7a813a49768d255eab8c2ed7f0dd622cc012",
+    "species/gecko/src/preview.ts": "2ddc3de94d88cb0d6df7c23c41cfca868f634adf27dca91dd0d09acec916c80b",
+    "species/gecko/src/proposed-adapter.ts": "c7af1aa85e99578b411abaa050215ff636cba84c37097d815e8c756d165200a9",
+    "species/gecko/src/species.ts": "517834fb52bde88db85b67950a1c21e7c12f73931f9756a7050f51d3b9b1ca52",
+    "species/gecko/src/types.ts": "b647a42d0a3b134a2cae4520e466777eb6070a8a10aaa012ad383a4045037b6d",
+    "species/gecko/styles.css": "32ba2f6e65192802c0c3a905ebf046ccaa1ffe2c071d563bb8c50c79414973f9"
+  },
+  "validation": {
+    "report": "validation-results.json",
+    "species_tests": 80,
+    "integration_tests": 8,
+    "source_and_public_types": "passed",
+    "package_build": "passed;20 generated Gecko files byte-identical to frozen source build",
+    "package_tarball": "passed with optional bundler/browser checks unrun"
+  },
+  "evidence": {
+    "report": "evidence/native-evidence.json",
+    "kind": "actual native Canvas; not a browser screenshot",
+    "desktop": "1000x680 panels;224x144 grid",
+    "phone": "390x390 panels;112x72 grid;selected camera intentionally enlarged",
+    "comparison": {
+      "seed": 37,
+      "scene": "moonlit-wall",
+      "tick": 360
+    },
+    "counts": {
+      "before_individual_stills": 26,
+      "after_autonomous_stills": 28,
+      "after_directed_stills": 8,
+      "comparison_sheets": 2,
+      "state_sheets": 4,
+      "before_movies": 2,
+      "after_movies": 3
+    },
+    "motion": "60Hz integer ticks,15fps normal-speed H.264;four ticks per encoded frame"
+  },
+  "review": [
+    "AUTHORING.md",
+    "REVIEW-NOTES.md",
+    "README.md"
+  ],
+  "public_api": "existing facade and factory signatures retained; optional GeckoFoot.toeSpread contact field added; replay outputs intentionally change",
+  "central_integration": {
+    "generate": [
+      "npm run build"
+    ],
+    "verify": [
+      "npm run typecheck",
+      "npm test",
+      "npm run check:package"
+    ],
+    "documentation": "docs/GECKO-API.md automatic full-wall grid:224x144 to224x112",
+    "remaining_acceptance": "real responsive HTML/CSS at320/390px,actual pointer/touch/keyboard and browser lifecycle/performance"
+  },
+  "publication": "own branch and draft PR only; central review/merge by Bear"
+}

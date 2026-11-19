@@ -15,7 +15,7 @@ const referenceEvents = [
   { tick: 570, seq: 4, type: 'leave' },
 ];
 
-test('omitted and explicit default habitats preserve the integrated default replay and glyph output', () => {
+test('omitted and explicit default habitats preserve the reviewed default replay and glyph output', () => {
   const implicit = createGecko({ seed: 37 });
   const explicit = createGecko({ seed: 37, habitat: DEFAULT_GECKO_HABITAT });
   const emptyPatch = createGecko({ seed: 37, habitat: {} });
@@ -28,18 +28,22 @@ test('omitted and explicit default habitats preserve the integrated default repl
     assert.deepEqual(tick ? emptyPatch.step(events).state : emptyPatch.getSnapshot(), state);
     assert.deepEqual(state.habitat, { extentX: .26, extentY: .13, origin: { x: .18, y: 0 } });
     if (checkpoints.has(tick)) {
-      const { habitat, ...legacyState } = state;
-      states.push(legacyState);
+      const { habitat, ...fixtureState } = state;
+      states.push(fixtureState);
       const grid = renderGeckoGrid(state, { cols: 112, rows: 50 });
       assert.equal(Object.hasOwn(grid, 'viewport'), false, 'single-gecko grids retain their original shape');
       assert.equal(Object.hasOwn(grid, 'theme'), false);
       grids.push(grid.text);
     }
   }
-  // Captured before the habitat edit from integrated main c06114404900884814bef879a02f1a49a3e7d590,
-  // Node v24.22.1. Only the newly added habitat field is excluded from legacy state.
-  assert.equal(digest(states), '34d6fb8a6cfda03fbfe4a82628122d5412b93fcda5b5ff1631d1156288fd051b');
-  assert.equal(digest(grids), '2fb2aa74fcafdece43e31198438e52ba017965e372d4de359d23aeaa83776d40');
+  // Reviewed 19 November 2026 on Node v24.22.3, after the gecko uplift based on
+  // main b8f222dab868821f27bf2a64a98434f3483fc8e6. Latched toe spread, the
+  // peel/transfer/adhere gait, support constraints and new anatomy deliberately
+  // change the old state and glyph fixtures; this is not legacy pixel parity.
+  // Only habitat remains excluded from the state digest. Exact state equality
+  // for implicit, explicit-default and empty habitats is still checked each tick.
+  assert.equal(digest(states), 'cd4d45a757e86df029541e70a0588e0e2c06dcd3af3c4d8304451386a4475003');
+  assert.equal(digest(grids), '3c049fbbce2911f6ff5de9b552f943efdc10a78c9d3382166822f9c3622c9f8e');
 });
 
 test('habitat resolution and all snapshots detach caller-owned nested origins', () => {

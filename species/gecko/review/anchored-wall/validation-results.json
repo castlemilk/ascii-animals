@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-11-19",
+  "species": "gecko",
+  "base": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "mainWorktree": "/workspace/scratch/42da6e6d9be7/ascii-animals",
+  "isolatedPackageWorktree": "/workspace/scratch/42da6e6d9be7/gecko-package-review",
+  "runtime": {
+    "node": "v24.22.3",
+    "npm": "11.9.0",
+    "typescript": "5.9.3",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "scope": {
+    "logicalSimulationAndAsciiCellTests": true,
+    "browserLifecycleEvidence": "DOM/Canvas/event mocks only; these Node suites do not execute a real browser.",
+    "realBrowserExecutedByThisValidationTask": false,
+    "nativeCanvasExecutedByThisValidationTask": false,
+    "captureEvidence": "See the separate capture manifest for native Canvas and any browser results.",
+    "sharedGeneratedFilesInMainModified": false,
+    "changedTrackedPathsOutsideSpecies": [],
+    "publicationPerformed": false
+  },
+  "sourceSha256": {
+    "species/gecko/src/browser.ts": "6aaaf32695608f0d6dcda44c477c6ed704688341bf8c9f7937c7998f622c1eba",
+    "species/gecko/src/demo.ts": "9485ea6955e9f83a74431963a7910a20794d2fd28de4b63afac2f4f711868863",
+    "species/gecko/src/director-preview.ts": "150a3455731f6ac2c3e08406c9678b28b0426aa92ece8048b3d52d5b174d4a59",
+    "species/gecko/src/director.ts": "911df855e5c60305b6a20a13b28a522135e49a0282d29a95a80feeea922ceeb7",
+    "species/gecko/src/gecko.ts": "c94530e542be6eb765e0b8e68336200e75dd0b6b478e5e9ab273fae3b4e9254d",
+    "species/gecko/src/geometry.ts": "359e4b8cf9d6f877c0b9cfb0c67f7a813a49768d255eab8c2ed7f0dd622cc012",
+    "species/gecko/src/preview.ts": "2ddc3de94d88cb0d6df7c23c41cfca868f634adf27dca91dd0d09acec916c80b",
+    "species/gecko/src/proposed-adapter.ts": "c7af1aa85e99578b411abaa050215ff636cba84c37097d815e8c756d165200a9",
+    "species/gecko/src/species.ts": "517834fb52bde88db85b67950a1c21e7c12f73931f9756a7050f51d3b9b1ca52",
+    "species/gecko/src/types.ts": "b647a42d0a3b134a2cae4520e466777eb6070a8a10aaa012ad383a4045037b6d"
+  },
+  "compiledSourceParity": {
+    "passed": true,
+    "filesCompared": 20,
+    "method": "Exact byte comparison of main species/gecko/compiled with output freshly generated from frozen source by npm run build in the isolated worktree."
+  },
+  "reviewedFixture": {
+    "seed": 37,
+    "ticks": [
+      0,
+      1,
+      180,
+      181,
+      228,
+      320,
+      570,
+      600
+    ],
+    "grid": {
+      "cols": 112,
+      "rows": 50
+    },
+    "stateSha256": "cd4d45a757e86df029541e70a0588e0e2c06dcd3af3c4d8304451386a4475003",
+    "cellsSha256": "3c049fbbce2911f6ff5de9b552f943efdc10a78c9d3382166822f9c3622c9f8e",
+    "intentionalChange": "Latched toe spread, peel/transfer/adhere timing, support constraints and new anatomy intentionally replace the legacy state/cell hashes. Exact implicit/explicit/empty habitat parity remains asserted every tick."
+  },
+  "checks": [
+    {
+      "command": "node --test species/gecko/test/*.test.mjs",
+      "cwd": "/workspace/scratch/42da6e6d9be7/ascii-animals",
+      "exitCode": 0,
+      "result": "passed",
+      "tests": 80,
+      "pass": 80,
+      "fail": 0,
+      "skipped": 0,
+      "durationMs": 18094.365585,
+      "log": {
+        "path": "/workspace/scratch/42da6e6d9be7/gecko-validation/final-species-tests.log",
+        "sha256": "5d4c8fad55bc1a49c8a3079edd50f75f50ebcb6b9027029571a49821eb140ad9",
+        "artifact": "validation/final-species-tests.txt",
+        "artifactSha256": "5d4c8fad55bc1a49c8a3079edd50f75f50ebcb6b9027029571a49821eb140ad9"
+      }
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p species/gecko/tsconfig.json --noEmit",
+      "cwd": "/workspace/scratch/42da6e6d9be7/ascii-animals",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p species/gecko/test/tsconfig.json",
+      "cwd": "/workspace/scratch/42da6e6d9be7/ascii-animals",
+      "exitCode": 0,
+      "result": "passed"
+    },
+    {
+      "command": "npm run build",
+      "cwd": "/workspace/scratch/42da6e6d9be7/gecko-package-review",
+      "exitCode": 0,
+      "result": "passed",
+      "log": {
+        "path": "/workspace/scratch/42da6e6d9be7/gecko-validation/package-build.log",
+        "sha256": "af34ed520f1c7396c90a323be0f6df0ad4e3dd6dff85eb0645a937785f1c0b40",
+        "artifact": "validation/package-build.txt",
+        "artifactSha256": "af34ed520f1c7396c90a323be0f6df0ad4e3dd6dff85eb0645a937785f1c0b40"
+      }
+    },
+    {
+      "command": "npm run typecheck",
+      "cwd": "/workspace/scratch/42da6e6d9be7/gecko-package-review",
+      "exitCode": 0,
+      "result": "passed",
+      "log": {
+        "path": "/workspace/scratch/42da6e6d9be7/gecko-validation/package-typecheck.log",
+        "sha256": "016a624bf612bd6681acea12a4bf3880fc50fd8e3b4c907426dae7414517823e",
+        "artifact": "validation/package-typecheck.txt",
+        "artifactNormalization": "Trailing blank lines removed; execution log digest above remains the unmodified original.",
+        "artifactSha256": "70be0bdcc7c5ebe48c217103f73f3071685bc1c871076446d331c7362f1217f8"
+      }
+    },
+    {
+      "command": "node --test test/gecko-integration.test.mjs test/generated-demo.test.mjs test/demo-module-dependencies.test.mjs",
+      "cwd": "/workspace/scratch/42da6e6d9be7/gecko-package-review",
+      "exitCode": 0,
+      "result": "passed",
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "skipped": 0,
+      "durationMs": 5591.347311,
+      "log": {
+        "path": "/workspace/scratch/42da6e6d9be7/gecko-validation/package-integration-tests.log",
+        "sha256": "f819594421422b99c54603f2c3ea6d953696f89bcccbb05b7c3b559e6bac7751",
+        "artifact": "validation/package-integration-tests.txt",
+        "artifactSha256": "f819594421422b99c54603f2c3ea6d953696f89bcccbb05b7c3b559e6bac7751"
+      }
+    },
+    {
+      "command": "npm run check:package -- --report /workspace/scratch/42da6e6d9be7/gecko-validation/package-check.json",
+      "cwd": "/workspace/scratch/42da6e6d9be7/gecko-package-review",
+      "exitCode": 0,
+      "result": "passed-with-unrun-optional-checks",
+      "log": {
+        "path": "/workspace/scratch/42da6e6d9be7/gecko-validation/package-check.log",
+        "sha256": "ba8f22a91a405c897969160eb1d35fb080329c9e9ad6933cd20cde93ae370d92",
+        "artifact": "validation/package-check.txt",
+        "artifactSha256": "ba8f22a91a405c897969160eb1d35fb080329c9e9ad6933cd20cde93ae370d92"
+      },
+      "report": {
+        "path": "/workspace/scratch/42da6e6d9be7/gecko-validation/package-check.json",
+        "sha256": "98901d13718dc929efb0cecc4fa7b788b56cbff6708bf9320571b1bb05f4ebc1",
+        "artifact": "validation/package-check.json",
+        "artifactSha256": "98901d13718dc929efb0cecc4fa7b788b56cbff6708bf9320571b1bb05f4ebc1"
+      }
+    },
+    {
+      "command": "git diff --check",
+      "cwd": "/workspace/scratch/42da6e6d9be7/ascii-animals",
+      "exitCode": 0,
+      "result": "passed"
+    }
+  ],
+  "packageChecks": {
+    "pack": {
+      "dryRun": "passed",
+      "actualPack": "passed",
+      "repeatableSha256": "001b1567605f1e8dbc2e99839232edf7b40c4794c88654c171ac751676e007c8",
+      "bytes": 495751,
+      "unpackedBytes": 1865695,
+      "fileCount": 190
+    },
+    "consumer": {
+      "ssrImport": "passed",
+      "identity": "passed",
+      "declaredMethods": "present",
+      "privateSubpaths": "blocked"
+    },
+    "typeConsumers": {
+      "typesNodeNext": "passed (positive usage and @ts-expect-error negative cases)",
+      "typesBundler": "passed (positive usage and @ts-expect-error negative cases)",
+      "typesCoreServer": "passed with ES2022 only, no DOM or Node ambient declarations"
+    },
+    "optionalNotRun": {
+      "esbuild": "NOT RUN: provide ASCII_ESBUILD_MODULE pointing to an existing esbuild module",
+      "rollup": "NOT RUN: installed Rollup lacks its Node package resolver; no compatibility claim",
+      "webpack": "NOT RUN: toolchain unavailable; no compatibility claim",
+      "browser": "NOT RUN by this harness: no visual, hydration, GPU, touch, or accessibility assertions"
+    }
+  },
+  "regressionsAdded": {
+    "testFile": "species/gecko/test/anchored-wall.test.mjs",
+    "tests": 14,
+    "includedInSpeciesTotal": true,
+    "coverage": [
+      "Contact-local toe spread and fixed stance palms/tips",
+      "Peel/transfer/adhere timing and bounded supported drive",
+      "Physical climb assessment/travel/settling",
+      "Actual pounce displacement, rendered jaw proximity, four sequential replants",
+      "Automatic hunt at tempo .4, 1 and 1.6",
+      "Ordered replacement/repeated cue ownership and pounce interruption",
+      "Scene/population/options/reset and 1/2/5 render-group determinism",
+      "Manual hunt across scene-cycle seam",
+      "Mocked C/M/Escape, forms/modifiers/repeats, paused/reduced/hidden input"
+    ]
+  },
+  "centralIntegrationCommands": [
+    "npm run build",
+    "npm run typecheck",
+    "node --test species/gecko/test/*.test.mjs test/gecko-integration.test.mjs test/generated-demo.test.mjs test/demo-module-dependencies.test.mjs",
+    "npm run check:package"
+  ],
+  "centralGenerationNote": "npm run build invokes existing root generators for lib/ and dist/, including dist/gecko/. Those shared generated outputs were produced only in the isolated validation worktree, not added to the species patch."
+}

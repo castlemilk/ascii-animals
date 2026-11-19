@@ -1,14 +1,15 @@
 /** Species-local orthographic diagnostic preview; not a shared renderer fork. */
 import { GECKO_LIMITS } from './gecko.js';
 import { sampleGecko } from './geometry.js';
+import type { GeckoSurfacePose } from './geometry.js';
 import type { GeckoGrid, GeckoPreviewOptions, GeckoState, GeckoViewport, Vec2 } from './types.js';
 
-export const GECKO_GLYPHS=' .:-=+*#%@oO';
+export const GECKO_GLYPHS=' .:-=+*#%@oO|';
 export const GECKO_VIEW=Object.freeze({width:3.4,height:2.6});
 const RAMP='.:-=+*#%@';
 const MATERIALS={skin:0,pad:1,eye:2,pupil:3} as const;
 
-export interface GeckoRasterLayer { readonly state:GeckoState; readonly scale:number; readonly blink?:boolean }
+export interface GeckoRasterLayer { readonly state:GeckoState; readonly scale:number; readonly blink?:boolean; readonly pose?:GeckoSurfacePose }
 export type GeckoCellWriter=(x:number,y:number,glyph:string,tone:number,material:number,depth?:number)=>void;
 /** The same Gecko sample/depth/glyph seam serves solo and the opt-in wall. */
 export function rasterizeGeckos(layers:readonly GeckoRasterLayer[],cols:number,rows:number,viewport:GeckoViewport,neutral:boolean,
@@ -27,10 +28,13 @@ export function rasterizeGeckos(layers:readonly GeckoRasterLayer[],cols:number,r
   });
   layers.forEach((layer,index)=>{
     const result=sampleGecko(layer.state,p=>{
-      const tone=neutral?1:p.tone,material=neutral?0:MATERIALS[p.material];
-      const glyph=neutral?'#':layer.blink&&p.part==='eye'?'-':p.material==='pad'?'o':p.material==='eye'?'O':p.material==='pupil'?'.':RAMP[Math.min(RAMP.length-1,Math.floor(p.tone*RAMP.length))]!;
+      const spotted=p.material==='skin'&&p.tone<.36;
+      const tone=neutral?1:p.tone,material=neutral?0:spotted?10:MATERIALS[p.material];
+      // Tokay eyelids are fused transparent spectacles: retain the legacy blink
+      // flag in snapshots, but never erase the eye behind a mammalian blink.
+      const glyph=neutral?'#':p.material==='pad'?'o':p.material==='eye'?'O':p.material==='pupil'?'|':spotted?'*':RAMP[Math.min(RAMP.length-1,Math.floor(p.tone*RAMP.length))]!;
       write(p.x*layer.scale,p.y*layer.scale,p.z*layer.scale+index*.00001,glyph,tone,material);
-    });samples+=result.samples;
+    },layer.pose);samples+=result.samples;
   });
   const lines:string[]=[];for(let row=0;row<rows;row++)lines.push(String.fromCharCode(...glyphs.subarray(row*cols,(row+1)*cols)));
   return {cols,rows,text:lines.join('\n'),glyphs,tones,materials,occupied,samples};
@@ -53,16 +57,16 @@ export function drawGeckoGrid(ctx: CanvasRenderingContext2D, grid: GeckoGrid, wi
   const viewport=grid.viewport??GECKO_VIEW,aspect=viewport.width/viewport.height;
   const w=Math.min(width,height*aspect),h=w/aspect,left=(width-w)/2,top=(height-h)/2;
   const cw=w/grid.cols,ch=h/grid.rows,fontSize=Math.min(cw/.6,ch)*.98;
-  ctx.fillStyle=grid.theme==='moonlight'?'#0d181d':'#101c19';ctx.fillRect(0,0,width,height);
+  ctx.fillStyle=grid.theme==='moonlight'?'#101d21':'#101c19';ctx.fillRect(0,0,width,height);
   ctx.font=`${fontSize}px ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
   ctx.textAlign='center';ctx.textBaseline='middle';
   const palette=Array.from({length:24},(_,i)=>{
-    const t=i/23;return `rgb(${Math.round(85+120*t)},${Math.round(119+105*t)},${Math.round(98+100*t)})`;
+    const t=i/23;return `rgb(${Math.round(75+118*t)},${Math.round(117+111*t)},${Math.round(116+102*t)})`;
   });
   for(let i=0;i<grid.glyphs.length;i++) {
     const char=grid.glyphs[i]!;if(char===32)continue;
     const material=grid.materials[i]!;
-    ctx.fillStyle=material===1?'#ead5a6':material===2?'#f4edcf':material===3?'#263e32':material===4?'#52696f':material===5?'#bdc9c1':material===6?'#516961':material===7?'#efc579':material===8?'#1e3034':material===9?'#c5d7bc':palette[Math.min(23,Math.floor(grid.tones[i]!*23))]!;
+    ctx.fillStyle=material===1?'#f1dcad':material===2?'#f5d58a':material===3?'#101d21':material===4?'#64736d':material===5?'#8f9c89':material===6?'#496752':material===7?'#f0c078':material===8?'#2e4245':material===9?'#c5d7bc':material===10?'#c98e64':material===11?'#091517':material===12?'#919583':palette[Math.min(23,Math.floor(grid.tones[i]!*23))]!;
     ctx.fillText(String.fromCharCode(char),left+(i%grid.cols+.5)*cw,top+(Math.floor(i/grid.cols)+.5)*ch);
   }
 }

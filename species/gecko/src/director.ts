@@ -1,5 +1,6 @@
 /** Gecko-only wall choreography. No DOM, clock, random source or scheduler. */
-import { createGecko, DEFAULT_GECKO_OPTIONS, resolveGeckoOptions } from './gecko.js';
+import { createGeckoLocomotor, DEFAULT_GECKO_OPTIONS, resolveGeckoOptions } from './gecko.js';
+import type { GeckoLocomotor, GeckoLocomotorDrive } from './gecko.js';
 import type { GeckoEvent, GeckoModel, GeckoOptions, GeckoOptionsPatch, GeckoState, Vec2 } from './types.js';
 
 export type GeckoScene = 'moonlit-wall' | 'lantern-hunt' | 'passing-shadow';
@@ -132,6 +133,7 @@ const copy=(p:Vec2):Vec2=>({x:p.x,y:p.y});
 const distance=(a:Vec2,b:Vec2)=>Math.hypot(a.x-b.x,a.y-b.y);
 const world=(body:GeckoState,scale:number):Vec2=>({x:body.position.x*scale,y:body.position.y*scale});
 const bound=(p:Vec2):Vec2=>({x:clamp(p.x,-2,2),y:clamp(p.y,-1,1)});
+const ease=(n:number):number=>{const t=clamp(n,0,1);return t*t*(3-2*t);};
 const optionsCopy=(o:Readonly<GeckoDirectorOptions>):Readonly<GeckoDirectorOptions>=>({...o,roles:[...o.roles]});
 function record(v:unknown,keys:readonly string[],name:string):void {
   if(!v||typeof v!=='object'||Array.isArray(v)||![Object.prototype,null].includes(Object.getPrototypeOf(v)))throw new TypeError(`${name} must be a plain object`);
@@ -162,8 +164,13 @@ export function geckoSceneArc(scene:GeckoScene,scoreTick:number):GeckoSceneArc {
   throw new RangeError('Invalid score tick');
 }
 interface Forced { kind:'inspect'|'moth'|'shadow'|'return'; until:number; target:Vec2; returnAt:number | null }
+interface Hunt {
+  phase:'track'|'brace'|'pounce'|'recover'; since:number; started:number;
+  target:Vec2; heading:number; distance:number; caught:boolean;
+}
 interface Actor {
   id:GeckoIndividualId; index:number; role:GeckoRole; scale:number; model:GeckoModel;
+  locomotor:GeckoLocomotor; hunt:Hunt|null; assessUntil:number;
   motive:GeckoMotive; emotion:GeckoEmotion; tail:number; routeIndex:number; goal:Vec2|null;
   forced:Forced|null; alarmAt:number|null; cooldownUntil:number; catches:number; phase:number; strikeUntil:number;
 }
@@ -188,9 +195,10 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
   }
   function makeActor(index:number):Actor {
     const scale=SCALES[index]!,home=HOMES[index]!,memberSeed=(seed+Math.imul(index+1,0x9e3779b9))>>>0;
+    const locomotor=createGeckoLocomotor({seed:memberSeed,heading:heading??HEADINGS[index]!,options:modelOptions(index),
+      habitat:{extentX:2/scale,extentY:1/scale,origin:{x:home.x/scale,y:home.y/scale}}});
     return {id:IDS[index]!,index,role:options.roles[index]??ROLES[index]!,scale,
-      model:createGecko({seed:memberSeed,heading:heading??HEADINGS[index]!,options:modelOptions(index),
-        habitat:{extentX:2/scale,extentY:1/scale,origin:{x:home.x/scale,y:home.y/scale}}}),
+      model:locomotor.model,locomotor,hunt:null,assessUntil:0,
       motive:'watch',emotion:'content',tail:.04,routeIndex:0,goal:null,forced:null,alarmAt:null,cooldownUntil:0,catches:0,phase:(memberSeed%173),strikeUntil:0};
   }
   function populate():void {
@@ -203,6 +211,8 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
   }
   populate();
   function mothPosition():Vec2 {
+    const committed=actors.find(a=>a.hunt&&a.hunt.phase!=='track');
+    if(committed?.hunt)return copy(committed.hunt.target);
     if(mothOverride&&tick<=mothOverride.until)return copy(mothOverride.position);
     return {x:.76+.075*Math.sin(scoreTick/260),y:-.52+.045*Math.sin(scoreTick/190+.7)};
   }
@@ -240,6 +250,7 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
     const body=actor.model.getSnapshot();
     if(actor.cooldownUntil>tick||!['idle','approach'].includes(body.behavior.kind))return false;
     actor.alarmAt=tick+delay;
+    actor.hunt=null;
     actor.cooldownUntil=tick+delay+animal.startleTicks+animal.retreatTicks+animal.recoveryTicks+animal.cooldownTicks;
     actor.forced={kind:'shadow',until:tick+1200,target:copy(HOMES[actor.index]!),returnAt:null};
     return true;
@@ -254,15 +265,22 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
       const point='x'in e&&e.x!==undefined?bound({x:e.x*3.3,y:e.y!*2.2}):null;
       const actor=targetOwner(point??{x:0,y:0},e.id),position=world(actor.model.getSnapshot(),actor.scale);
       const direction=actor.model.getSnapshot().heading;
-      const target=point??(e.type==='moth'?bound({x:position.x+.5,y:position.y-.2}):e.type==='inspect'
+      const target=point??(e.type==='moth'?bound({x:position.x+Math.cos(direction)*.84,y:position.y+Math.sin(direction)*.84}):e.type==='inspect'
         ?bound({x:position.x+Math.cos(direction)*.65,y:position.y+Math.sin(direction)*.65}):position);
       if(e.type==='guide'||e.type==='inspect') {
+        if(actor.forced?.kind!=='inspect')actor.assessUntil=tick+20;
+        actor.hunt=null;
         pointer=copy(target);pointerUntil=tick+Math.round(180+options.boldness*180);
         actor.forced={kind:'inspect',until:pointerUntil,target:copy(target),returnAt:null};
       } else if(e.type==='moth') {
+        for(const other of actors) {
+          other.hunt=null;
+          if(other!==actor&&other.forced?.kind==='moth')other.forced={kind:'return',until:tick+900,target:copy(HOMES[other.index]!),returnAt:null};
+        }
         mothOverride={position:bound(target),until:tick+480,owner:actor.id};caughtBy=null;
-        actor.forced={kind:'moth',until:tick+600,target:bound(target),returnAt:null};
-      } else if(e.type==='return')actor.forced={kind:'return',until:tick+1200,target:copy(HOMES[actor.index]!),returnAt:null};
+        actor.hunt={phase:'track',since:tick,started:tick,target:bound(target),heading:direction,distance:0,caught:false};
+        actor.forced={kind:'moth',until:tick+1050,target:bound(target),returnAt:null};
+      } else if(e.type==='return'){actor.hunt=null;actor.forced={kind:'return',until:tick+1200,target:copy(HOMES[actor.index]!),returnAt:null};}
       else if(e.type==='shadow') {
         if(!alarm(actor,target)){receipts.push({seq,type:'shadow',outcome:'ignored',reason:'busy',id:actor.id});continue;}
         shadowSince=tick;shadowPosition=copy(target);
@@ -275,11 +293,15 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
     const beforeArc=geckoSceneArc(options.scene,scoreTick);
     if(options.autonomy)scoreTick+=options.tempo;
     const arc=geckoSceneArc(options.scene,scoreTick);
-    if(arc.cycle!==beforeArc.cycle){caughtBy=null;caughtCycle=-1;}
+    if(arc.cycle!==beforeArc.cycle){if(!mothOverride){caughtBy=null;caughtCycle=-1;}for(const a of actors)if(!a.forced)a.hunt=null;}
     if(pointer&&tick>pointerUntil)pointer=null;
     if(mothOverride&&tick>mothOverride.until){
       const owner=actors.find(a=>a.id===mothOverride!.owner);
-      if(owner?.forced?.kind==='moth')owner.forced={kind:'return',until:tick+900,target:copy(HOMES[owner.index]!),returnAt:null};
+      if(owner?.forced?.kind==='moth') {
+        owner.forced={kind:'return',until:tick+900,target:copy(HOMES[owner.index]!),returnAt:null};
+        if(owner.hunt?.phase==='track'||owner.hunt?.phase==='brace')owner.hunt=null;
+        else if(owner.hunt?.phase==='pounce'){owner.hunt.phase='recover';owner.hunt.since=tick;}
+      }
       mothOverride=null;caughtBy=null;
     }
     if(options.autonomy&&arc.scene==='passing-shadow'&&arc.beat==='shadow'&&arc.cycle!==lastShadowCycle) {
@@ -292,6 +314,7 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
       const body=a.model.getSnapshot(),position=positions[a.index]!;
       if(a.forced&&tick>a.forced.until)a.forced=null;
       let goal:Vec2|null=null,motive:GeckoMotive='watch',emotion:GeckoEmotion='content';
+      let drive:GeckoLocomotorDrive|undefined;
       const route=ROUTES[a.index]!,direction=options.reverse?-1:1;
       if(options.autonomy) {
         // The inspect beat keeps the previous climb destination, allowing actual
@@ -309,23 +332,53 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
           goal=copy(HOMES[a.index]!);motive=distance(position,goal)<.10?'watch':arc.beat==='shelter'?'shelter':'return';emotion='wary';
         }
       }
-      const hunting=(a.forced?.kind==='moth')||(!a.forced&&options.autonomy&&!mothOverride&&arc.scene==='lantern-hunt'&&a===hunter&&arc.beat!=='return');
-      if(hunting&&caughtBy===null) {
+      const hunting=(a.forced?.kind==='moth'&&mothOverride?.owner===a.id)||(!a.forced&&options.autonomy&&!mothOverride&&arc.scene==='lantern-hunt'&&a===hunter&&arc.beat!=='return');
+      if(hunting&&caughtBy===null&&!a.hunt)a.hunt={phase:'track',since:tick,started:tick,target:copy(moth),heading:body.heading,distance:0,caught:false};
+      if(a.hunt) {
+        const hunt=a.hunt;
         const toward=Math.atan2(moth.y-position.y,moth.x-position.x);
-        const head={x:position.x+Math.cos(body.heading)*.49*a.scale,y:position.y+Math.sin(body.heading)*.49*a.scale};
-        const near=distance(head,moth)<.18,aligned=Math.cos(toward-body.heading)>.7;
-        // Aim at the cue itself while creeping. An offset goal just behind a moving
-        // moth can cross behind the root and turn the animal away at the last step.
-        // Once the real head is close and facing it, keep all contacts still.
-        goal=near&&aligned?null:copy(moth);
-        motive=near&&aligned?'poise':'stalk';emotion='focused';
-        const strikeWindow=(arc.scene==='lantern-hunt'&&arc.beat==='strike')||!!a.forced&&((tick+a.phase)%150>115);
-        if(near&&aligned&&strikeWindow) {
-          motive='strike';goal=null;
-          if(caughtCycle!==arc.cycle||mothOverride){caughtBy=a.id;caughtCycle=arc.cycle;a.catches++;a.strikeUntil=tick+24;a.forced={kind:'return',until:tick+900,target:copy(HOMES[a.index]!),returnAt:null};}
+        const angle=Math.atan2(Math.sin(toward-body.heading),Math.cos(toward-body.heading));
+        const head={x:position.x+Math.cos(body.heading)*.55*a.scale,y:position.y+Math.sin(body.heading)*.55*a.scale};
+        emotion='focused';
+        if(hunt.phase==='track') {
+          hunt.target=copy(moth);goal=copy(moth);motive='stalk';
+          // Read the prey before moving; once close, finish the current foot
+          // transfer. Only a fully supported stance may launch the wall pounce.
+          if(tick-hunt.started<24){goal=null;drive={hold:true};}
+          if(distance(head,moth)<.21*a.scale&&Math.abs(angle)<.16&&tick-hunt.started>=32) {
+            goal=null;drive={hold:true};
+            if(a.forced||(arc.scene==='lantern-hunt'&&(arc.beat==='poise'||arc.beat==='strike'))) {
+              hunt.phase='brace';hunt.since=tick;hunt.heading=body.heading;motive='poise';
+            }
+          } else if(tick-hunt.started>(a.forced?480:Math.ceil(1320/options.tempo))) {hunt.phase='recover';hunt.since=tick;goal=null;drive={hold:true};}
+        }
+        if(hunt.phase==='brace') {
+          const age=tick-hunt.since;
+          const recoil=-.022*(ease((age+1)/18)-ease(age/18));
+          drive={hold:true,rootDelta:{x:Math.cos(hunt.heading)*recoil,y:Math.sin(hunt.heading)*recoil}};
+          goal=null;motive='poise';
+          const window=!!a.forced||(arc.scene==='lantern-hunt'&&arc.beat==='strike');
+          if(age>=36&&window&&body.feet.every(foot=>foot.phase==='stance')) {
+            hunt.phase='pounce';hunt.since=tick;
+            hunt.distance=clamp(distance(position,hunt.target)/a.scale-.55+.035,.06,.17);
+          } else if(age>Math.ceil(240/options.tempo)&&!window){hunt.phase='recover';hunt.since=tick;}
+        }
+        if(hunt.phase==='pounce') {
+          const age=tick-hunt.since;
+          const thrust=hunt.distance*(ease((age+1)/14)-ease(age/14));
+          drive={hold:true,rootDelta:{x:Math.cos(hunt.heading)*thrust,y:Math.sin(hunt.heading)*thrust}};
+          goal=null;motive='strike';
+          if(age>=14){hunt.phase='recover';hunt.since=tick;drive={hold:true};motive='poise';}
+        } else if(hunt.phase==='recover') {
+          const age=tick-hunt.since;
+          goal=null;drive={hold:true,settle:age>=30};motive='poise';emotion='content';
+          if(age>=115&&body.feet.every(foot=>foot.phase==='stance')) {
+            a.hunt=null;a.forced={kind:'return',until:tick+900,target:copy(HOMES[a.index]!),returnAt:null};
+            drive=undefined;motive='return';
+          }
         }
       }
-      if(a.forced&&a.forced.kind!=='moth') {
+      if(a.forced&&a.forced.kind!=='moth'&&!a.hunt) {
         goal=copy(a.forced.target);emotion=a.forced.kind==='shadow'?'wary':'curious';
         motive=a.forced.kind==='inspect'?'inspect':a.forced.kind==='shadow'?'shelter':'return';
         if(distance(position,goal)<.10) {
@@ -337,7 +390,7 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
         }
       }
       if(body.behavior.kind==='startle'||body.behavior.kind==='retreat'){motive='retreat';emotion='wary';}
-      if(tick<a.strikeUntil){motive='strike';emotion='focused';goal=null;}
+      if(tick<a.assessUntil&&a.forced?.kind==='inspect'){drive={hold:true};motive='inspect';}
       // A nearby neighbor is a real obstacle: wait or take a perpendicular step.
       if(goal&&motive!=='retreat')for(const other of actors) {
         if(other===a)continue;const there=positions[other.index]!,delta={x:there.x-position.x,y:there.y-position.y};
@@ -350,8 +403,14 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
       if(goal)input.push({type:'guide',tick:body.tick+1,seq:++actorSeq,x:clamp(goal.x/2,-1,1),y:clamp(goal.y,-1,1)});
       else if(body.target)input.push({type:'leave',tick:body.tick+1,seq:++actorSeq});
       if(a.alarmAt!==null&&tick>=a.alarmAt){input.push({type:'startle',tick:body.tick+1,seq:++actorSeq});a.alarmAt=null;}
-      a.model.step(input);a.goal=goal;a.motive=motive;a.emotion=emotion;
-      const tail=emotion==='wary'?.62:emotion==='focused'?.10:emotion==='curious'?.26:.04;
+      const advanced=drive?a.locomotor.stepDriven(input,drive).state:a.model.step(input).state;
+      if(a.hunt?.phase==='pounce'&&!a.hunt.caught&&caughtBy===null) {
+        const root=world(advanced,a.scale),jaw={x:root.x+Math.cos(advanced.heading)*.55*a.scale,y:root.y+Math.sin(advanced.heading)*.55*a.scale};
+        // Receipt follows actual jaw proximity, never a score label or a timer.
+        if(distance(jaw,a.hunt.target)<.085*a.scale) {caughtBy=a.id;caughtCycle=arc.cycle;a.catches++;a.hunt.caught=true;}
+      }
+      a.goal=goal;a.motive=motive;a.emotion=emotion;
+      const tail=emotion==='wary'?.62:motive==='poise'?.19:motive==='strike'?.08:emotion==='focused'?.10:emotion==='curious'?.18:.04;
       a.tail+=(tail-a.tail)*.055;
     }
     return {state:snapshot(),inputs:receipts.map(r=>({...r}))};
@@ -361,7 +420,7 @@ export function createGeckoDirector(config:GeckoDirectorConfig={}):GeckoDirector
     update(patch) {
       alive();const next=resolveGeckoDirectorOptions(patch,options),changedScene=next.scene!==options.scene;
       options=next;populate();
-      if(changedScene){scoreTick=0;lastShadowCycle=-1;caughtCycle=-1;caughtBy=null;mothOverride=null;pointer=null;shadowSince=-1000;for(const a of actors){a.forced=null;a.alarmAt=null;a.strikeUntil=0;}}
+      if(changedScene){scoreTick=0;lastShadowCycle=-1;caughtCycle=-1;caughtBy=null;mothOverride=null;pointer=null;shadowSince=-1000;for(const a of actors){a.forced=null;a.alarmAt=null;a.strikeUntil=0;a.hunt=null;a.assessUntil=0;}}
       return optionsCopy(options);
     },
     updateAnimal(patch){alive();const next=resolveGeckoOptions(patch,animal);animal=next;for(const a of actors)a.model.update(modelOptions(a.index));return {...animal};},

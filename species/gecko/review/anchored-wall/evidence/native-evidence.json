@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "Actual native Canvas renders and encoded replay of the exact compiled Gecko source. Not real-browser, UI or target-device evidence.",
+  "baseline": {
+    "repository": "https://github.com/castlemilk/ascii-animals",
+    "commit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+    "source_build": "TypeScript 5.9.3, species-only build; generated compiled files byte-identical to committed baseline. Baseline preserved unchanged.",
+    "sha256": {
+      "src/director.ts": "a927adf2b3dded4a8c72411fae97316312a8ed2c76e5a7a665e1d4e291ce849e",
+      "compiled/director.js": "fb9a9a65224cc3547bf2b6ad952c3a2d0653866973231afe75ff49be6d846ac6",
+      "src/director-preview.ts": "05534f2c1177c99fb764a0beb5c485f4f696de9647d25a617e309e46791f4f63",
+      "compiled/director-preview.js": "b9e818d759d411ca08568f89e801652a6e93e4f4b2ceeae09128e04decbab260",
+      "src/gecko.ts": "11fc2762b9a0aa425558825e3b7bae216a281a66cd26a196e17b336b8d7d879b",
+      "compiled/gecko.js": "e88437dbc4772e954be7c2fccb7a26d9ed3abfeaaaf62e270daf3d23e24c8fef",
+      "src/geometry.ts": "60aa07cee838b2d77c8391688e5a9bca311abb5474147c3e7be3287df3d7d986",
+      "compiled/geometry.js": "21a1147058c836feee71dedd64546e7fa556c276826c2ebe7ea1aa964d59de3f",
+      "src/preview.ts": "7fee78d83a704cc335d039c8973dc298a321c98a30db13719d40061ac9a0987d",
+      "compiled/preview.js": "35369de5ddc1c20d6286bdbfede57298614c37ec7526de0bc203842ed781e332",
+      "src/types.ts": "47af6b6fb60c2973ebf719e57c854a98bde8c92991fbf84bd787af84d609d628",
+      "compiled/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    }
+  },
+  "final_source_sha256": {
+    "src/director.ts": "911df855e5c60305b6a20a13b28a522135e49a0282d29a95a80feeea922ceeb7",
+    "compiled/director.js": "3ebe92bcd18d78e19470dc7c15715b8bd17368c9b1460cfbaf16970b53772c95",
+    "src/director-preview.ts": "150a3455731f6ac2c3e08406c9678b28b0426aa92ece8048b3d52d5b174d4a59",
+    "compiled/director-preview.js": "22141f8cb6eecff17e3786ea30ba1b70a06ba4c90f838eb583abb13a043420cb",
+    "src/gecko.ts": "c94530e542be6eb765e0b8e68336200e75dd0b6b478e5e9ab273fae3b4e9254d",
+    "compiled/gecko.js": "9b9244cc46aed9dc234c3cdd6bebb08f18729ac9ea510eba011a3608c04f0163",
+    "src/geometry.ts": "359e4b8cf9d6f877c0b9cfb0c67f7a813a49768d255eab8c2ed7f0dd622cc012",
+    "compiled/geometry.js": "28e9f3120e90cda44f5b29575c8b91d5fa14c31d13c5af3ecde4ef72e77eb635",
+    "src/preview.ts": "2ddc3de94d88cb0d6df7c23c41cfca868f634adf27dca91dd0d09acec916c80b",
+    "compiled/preview.js": "c04ba5cc73fbefb3e5739692019878c3335cea83b2d0f3e286a8e462f89be5bb",
+    "src/types.ts": "b647a42d0a3b134a2cae4520e466777eb6070a8a10aaa012ad383a4045037b6d",
+    "compiled/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+  },
+  "source_integrity": {
+    "source_unchanged_during_final_captures": true,
+    "all_final_capture_sources_rechecked_after_encoding": true,
+    "all_recorded_still_and_movie_sha256_rechecked": true
+  },
+  "runtime": {
+    "node": "v24.22.3",
+    "native_canvas": "@napi-rs/canvas 0.1.100",
+    "font": "Liberation Mono available; scene uses existing system-font fallback chain",
+    "video": "ffmpeg H.264/yuv420p, 15fps, 1010x510; ffprobe verified sizes, durations and frame counts"
+  },
+  "comparison": {
+    "seed": 37,
+    "tick": 360,
+    "scene": "moonlit-wall",
+    "selected": "mica",
+    "desktop": {
+      "pixels": [
+        1000,
+        680
+      ],
+      "grid": [
+        224,
+        144
+      ],
+      "focus": null
+    },
+    "phone": {
+      "pixels": [
+        390,
+        390
+      ],
+      "grid": [
+        112,
+        72
+      ],
+      "focus": "mica"
+    },
+    "matched": "Same seed, scene, tick, output pixels and explicit grid for before and after.",
+    "intentional_camera_change": "The selected close viewport changed from 3.4x2.6 to 2.55x2.75 world units. The full-wall viewport remains 6.6x4.4.",
+    "host_auto_grid": "The updated browser host selects 224x112 for the full wall. Matched native comparisons keep 224x144 to isolate the artwork change; directed replay uses 224x112 wide and 112x72 close."
+  },
+  "capture_counts": {
+    "before_individual_stills": 26,
+    "after_autonomous_stills": 28,
+    "after_directed_stills": 8,
+    "comparison_sheets": 2,
+    "state_sheets": 4,
+    "before_movies": 2,
+    "after_movies": 3
+  },
+  "autonomous_states": {
+    "moonlit_wall_ticks": [
+      0,
+      120,
+      128,
+      360,
+      600,
+      690
+    ],
+    "lantern_hunt_ticks": [
+      180,
+      690,
+      720,
+      800,
+      820,
+      850,
+      900,
+      1060
+    ],
+    "selected_hunt_individual": "pip",
+    "climb_lift": "Mica tick128: front-left foot swings while the other three remain planted.",
+    "hunt_contact_sheet": "Brace720, pounce/catch820, replant recovery900, return1060."
+  },
+  "directed_replay": {
+    "clock": "One integer tick at 60Hz; every four ticks becomes one 15fps frame. No motion interpolation, time compression or native-browser input claim.",
+    "scenarios": [
+      {
+        "name": "climb",
+        "options": {
+          "version": 1,
+          "kind": "gecko-scene-recipe",
+          "seed": 37,
+          "options": {
+            "scene": "moonlit-wall",
+            "population": 3,
+            "tempo": 1,
+            "boldness": 0.55,
+            "reverse": false,
+            "showRoutes": false,
+            "autonomy": false,
+            "roles": [
+              "scout",
+              "hunter",
+              "sentry"
+            ]
+          },
+          "animal": {
+            "creepSpeed": 0.15,
+            "turnRate": 0.95,
+            "stride": 0.1,
+            "stepTicks": 15,
+            "tailLength": 1,
+            "toeSpread": 1,
+            "curlStrength": 1,
+            "tailSway": 0.035,
+            "breathing": 0.008,
+            "startleTicks": 18,
+            "retreatTicks": 48,
+            "retreatDistance": 0.14,
+            "recoveryTicks": 120,
+            "cooldownTicks": 120
+          },
+          "startsAtTick": 0
+        },
+        "inputs": [
+          {
+            "type": "inspect",
+            "id": "mica",
+            "tick": 30,
+            "seq": 1,
+            "x": -0.4848484848484849,
+            "y": 0.05909090909090909
+          }
+        ],
+        "ticks": [
+          0,
+          360
+        ]
+      },
+      {
+        "name": "moth",
+        "options": {
+          "version": 1,
+          "kind": "gecko-scene-recipe",
+          "seed": 37,
+          "options": {
+            "scene": "moonlit-wall",
+            "population": 3,
+            "tempo": 1,
+            "boldness": 0.55,
+            "reverse": false,
+            "showRoutes": false,
+            "autonomy": false,
+            "roles": [
+              "scout",
+              "hunter",
+              "sentry"
+            ]
+          },
+          "animal": {
+            "creepSpeed": 0.15,
+            "turnRate": 0.95,
+            "stride": 0.1,
+            "stepTicks": 15,
+            "tailLength": 1,
+            "toeSpread": 1,
+            "curlStrength": 1,
+            "tailSway": 0.035,
+            "breathing": 0.008,
+            "startleTicks": 18,
+            "retreatTicks": 48,
+            "retreatDistance": 0.14,
+            "recoveryTicks": 120,
+            "cooldownTicks": 120
+          },
+          "startsAtTick": 0
+        },
+        "inputs": [
+          {
+            "type": "moth",
+            "id": "mica",
+            "tick": 30,
+            "seq": 1
+          }
+        ],
+        "ticks": [
+          0,
+          360
+        ]
+      }
+    ],
+    "representative_frames": [
+      {
+        "file": "after-native-directed-climb-0042.png",
+        "phase": "Assess the next hold",
+        "tick": 42,
+        "motive": "inspect",
+        "catches": 0,
+        "swing_foot": []
+      },
+      {
+        "file": "after-native-directed-climb-0062.png",
+        "phase": "Peel and reach",
+        "tick": 62,
+        "motive": "inspect",
+        "catches": 0,
+        "swing_foot": [
+          "front-left"
+        ]
+      },
+      {
+        "file": "after-native-directed-climb-0075.png",
+        "phase": "Grip and transfer",
+        "tick": 75,
+        "motive": "inspect",
+        "catches": 0,
+        "swing_foot": [
+          "rear-right"
+        ]
+      },
+      {
+        "file": "after-native-directed-climb-0270.png",
+        "phase": "Settle on the wall",
+        "tick": 270,
+        "motive": "inspect",
+        "catches": 0,
+        "swing_foot": []
+      },
+      {
+        "file": "after-native-directed-moth-0072.png",
+        "phase": "Track the insect",
+        "tick": 72,
+        "motive": "stalk",
+        "catches": 0,
+        "swing_foot": [
+          "rear-right"
+        ]
+      },
+      {
+        "file": "after-native-directed-moth-0108.png",
+        "phase": "Brace before pouncing",
+        "tick": 108,
+        "motive": "poise",
+        "catches": 0,
+        "swing_foot": []
+      },
+      {
+        "file": "after-native-directed-moth-0132.png",
+        "phase": "Pounce and catch",
+        "tick": 132,
+        "motive": "strike",
+        "catches": 1,
+        "swing_foot": []
+      },
+      {
+        "file": "after-native-directed-moth-0208.png",
+        "phase": "Replant and recover",
+        "tick": 208,
+        "motive": "poise",
+        "catches": 1,
+        "swing_foot": [
+          "rear-right"
+        ]
+      }
+    ]
+  },
+  "movies": [
+    {
+      "file": "before-native-moonlit-wall.mp4",
+      "origin": "before",
+      "ticks": [
+        0,
+        660
+      ],
+      "frames": 166,
+      "fps": 15,
+      "duration_seconds": 11.066667
+    },
+    {
+      "file": "before-native-lantern-hunt.mp4",
+      "origin": "before",
+      "ticks": [
+        540,
+        1140
+      ],
+      "frames": 151,
+      "fps": 15,
+      "duration_seconds": 10.066667
+    },
+    {
+      "file": "after-native-moonlit-wall.mp4",
+      "origin": "after",
+      "ticks": [
+        0,
+        660
+      ],
+      "frames": 166,
+      "fps": 15,
+      "duration_seconds": 11.066667
+    },
+    {
+      "file": "after-native-lantern-hunt.mp4",
+      "origin": "after",
+      "ticks": [
+        540,
+        1140
+      ],
+      "frames": 151,
+      "fps": 15,
+      "duration_seconds": 10.066667
+    },
+    {
+      "file": "after-native-directed-sequences.mp4",
+      "origin": "after",
+      "ticks": [
+        [
+          0,
+          360
+        ],
+        [
+          0,
+          360
+        ]
+      ],
+      "frames": 182,
+      "fps": 15,
+      "duration_seconds": 12.133333,
+      "cut_seconds": 6.066667
+    }
+  ],
+  "browser_attempt": {
+    "status": "blocked before any page opened",
+    "report": "before-browser-capture.json",
+    "error": "Chromium process_singleton_posix.cc socket() failed: Operation not permitted (1), SIGABRT.",
+    "not_run": [
+      "Real DOM layout and controls",
+      "Actual pointer/touch/keyboard flow",
+      "Live reduced-motion and browser lifecycle",
+      "Browser/mobile hardware performance and heap"
+    ],
+    "runnable_harness": "../../../scripts/capture-anchored-wall.mjs"
+  },
+  "commands_actually_run_from_repository_root": [
+    "GECKO_TSC_JS=/workspace/scratch/42da6e6d9be7/ascii-animals/node_modules/typescript/lib/tsc.js node species/gecko/scripts/build.mjs (baseline worktree cwd)",
+    "node species/gecko/scripts/capture-anchored-wall.mjs --label before --url http://127.0.0.1:8765/ascii-animals-before/species/gecko/index.html (blocked)",
+    "node species/gecko/scripts/capture-anchored-wall-native.mjs --label before --species /workspace/scratch/42da6e6d9be7/ascii-animals-before/species/gecko --out /workspace/scratch/42da6e6d9be7/ascii-animals/species/gecko/review/anchored-wall/evidence --movie",
+    "node species/gecko/scripts/capture-anchored-wall-native.mjs --label after --species /workspace/scratch/42da6e6d9be7/ascii-animals/species/gecko --out /workspace/scratch/42da6e6d9be7/ascii-animals/species/gecko/review/anchored-wall/evidence --movie",
+    "node species/gecko/scripts/capture-gecko-directed-replay.mjs --species /workspace/scratch/42da6e6d9be7/ascii-animals/species/gecko --out /workspace/scratch/42da6e6d9be7/ascii-animals/species/gecko/review/anchored-wall/evidence",
+    "node --check for each of the three new capture scripts; ffprobe on all five MP4 files; git diff --check on the new scripts"
+  ],
+  "artifact_sha256": {
+    "after-native-desktop-lantern-hunt-0180.png": "a8d098de3dfcb005a186907755ca20d7797597776a0ac709d145b76d75403ce1",
+    "after-native-desktop-lantern-hunt-0690.png": "3e0b9d976088279361a780714e4f61db22160472d9333de7120b1e634da42929",
+    "after-native-desktop-lantern-hunt-0720.png": "8b9a368b95c23022dd86395004ae915bf3b3971fdc219dde88c0d5c8f743a0f2",
+    "after-native-desktop-lantern-hunt-0800.png": "762306614a8b304a05c49f4dd08a26371a8fbb86d7feb17c58c27fa11d3425e1",
+    "after-native-desktop-lantern-hunt-0820.png": "32bf5507eb30f036195f4ad80a3e835cf3013203018fc4f1fe5114bcf78e8095",
+    "after-native-desktop-lantern-hunt-0850.png": "9c0242a54fd0f976b96a73b4c79023df065f6c6eab27baf1aa3b8fc145befab5",
+    "after-native-desktop-lantern-hunt-0900.png": "6c127d5e9eadd9bd683595bb9c96de8e5060415fe64fa956a21bbe4c8a5b9148",
+    "after-native-desktop-lantern-hunt-1060.png": "11e4719d6fef17ae1d607637097bff03539adb755a1ef8075d869415ce181ee1",
+    "after-native-desktop-moonlit-wall-0000.png": "388666be29480f69f1279b322f7516a4198b305710cc8df2c63a38f23521ffc0",
+    "after-native-desktop-moonlit-wall-0120.png": "d114e537d74560a07b5364da73b98f1596a7a1e8eaac5397f7bebe7a5402dec3",
+    "after-native-desktop-moonlit-wall-0128.png": "6f7441634205c252bbd3a0065be218885006ec708714e703d4149c73a637b0c9",
+    "after-native-desktop-moonlit-wall-0360.png": "6e085f67ba4b7ec6ae504d0e27743cff1a8d3bc00f6b29cf5d8dc682053f79e8",
+    "after-native-desktop-moonlit-wall-0600.png": "9c6cdd3ca40853ef6e2e0d235aae80f5d57c20ad6cd92456e65832dd8228eba3",
+    "after-native-desktop-moonlit-wall-0690.png": "6d9ea1001236cbeb88c8583cf62fdafdae2cbfd4c249138d09b9c75395f5af14",
+    "after-native-directed-climb-0042.png": "a8d9805f012de0ec6ce09a8614e83278ebfd6188b4de2ba784293171ca6f4acc",
+    "after-native-directed-climb-0062.png": "4421aaf6b22289f89073f154cc029c67ef576e28f6e98e13e77815c39a8400df",
+    "after-native-directed-climb-0075.png": "31ee2db47b20338a6d26b0a0a0dd0b489f194513b784485181a15ec1efe4e0de",
+    "after-native-directed-climb-0270.png": "4d88076402a6a2464e9787b6b257d0393a7e66f0bc3316a8a5bdf051f1f0b380",
+    "after-native-directed-climb-states.png": "47957cc9b914a14dc9ebe9c7ddafa4db7428ceb59ba48bc94dd7ee3461a3b480",
+    "after-native-directed-moth-0072.png": "7a5bfdc18069f6a86cd8763ba0dc71d172f296ea47e59b64b936deb4b79c9296",
+    "after-native-directed-moth-0108.png": "29879a3b3440d7c01cddb587d69817b6f0c98ebec49323c79ec239cdb5ce7a35",
+    "after-native-directed-moth-0132.png": "86a29576fbcfa66df01969c455d7b5e8b764133fa90deee5227932405c0ba788",
+    "after-native-directed-moth-0208.png": "c5d80af4f3e40aac148920d3f938b46c3c9ea77f0003f13308566147c686e0ee",
+    "after-native-directed-moth-states.png": "2d7d8d4a045b8ec9b1fb6090dfe19c42c92ea71cc1687c7772b94318567adb86",
+    "after-native-directed-sequences.mp4": "3c9bc46594a815c83b1f5ef3de21d5ddb980b0452d3608f9d5fef23bb480f8dc",
+    "after-native-lantern-hunt-states.png": "c54d894c4ab8bae7de5f3eb8b9aef54bde86fffa3ef9cfa2a293d9efe6c611f4",
+    "after-native-lantern-hunt.mp4": "808b055028d79b23d9ba5c1a3f58898241c4c7962efbb5a6069f5813f9ab944f",
+    "after-native-moonlit-wall-states.png": "7ba63fcb2fdd65059ab79c7b5d19fe5871ebdbd8846b6ef07117e801ddd924a6",
+    "after-native-moonlit-wall.mp4": "756b03911159f3c2b7093936fa7e2b222a9f4d9aeb6fb026ed5c53fdbc31d62e",
+    "after-native-phone-lantern-hunt-0180.png": "5ca25efc5b37088af3aa3a8c65c9cf3a34a5964ddd16c87a18f7637d71164fa8",
+    "after-native-phone-lantern-hunt-0690.png": "9cf24d5a46d6122454dd5fa65a0284e72705e3d205da7e848373a1deebdf6800",
+    "after-native-phone-lantern-hunt-0720.png": "8ceb17b7a76ef33c88a5be35356b820234df902e60eac7ac703e0858fcc7e87a",
+    "after-native-phone-lantern-hunt-0800.png": "8890ea82e15b934bc24bbd093162794989c983ea6c78ea00451d2c6e86940226",
+    "after-native-phone-lantern-hunt-0820.png": "29c2984690b0a3cb809126bc8b0a9c65568fef20365107b96d7b2b532b2661a0",
+    "after-native-phone-lantern-hunt-0850.png": "22f67ce76fb2f515580ab604cdfc8c250b6ce00c415f1d3aec80132d8bd132e8",
+    "after-native-phone-lantern-hunt-0900.png": "c7d7027393ee5a21cf8629ed4f0ffc64d4b143d827cdf1c43eee8fc2d05fbe64",
+    "after-native-phone-lantern-hunt-1060.png": "2fe797aadb082460ce7711d6d4b398f18305020b5b50455bc07eafdfd4c87c81",
+    "after-native-phone-moonlit-wall-0000.png": "6d84466e2de0faaa162e1886fa5f30e608bf1cdc5df7487f8d3af0724838d040",
+    "after-native-phone-moonlit-wall-0120.png": "d3d8e096ca2420501305a2130052109e2c2a9f11c7c9b4d58f4de4b02150d702",
+    "after-native-phone-moonlit-wall-0128.png": "e9d508ae50feaacce5af278d11e1b4b21e91ba1956501036e383e37246b5a720",
+    "after-native-phone-moonlit-wall-0360.png": "dcdaa644cf9e8bb0e1474e5c3cb2fb4685a5094d9684dfd0581cbc5a327cd3a1",
+    "after-native-phone-moonlit-wall-0600.png": "79e05673d4acb7e77ce02cc0e942f2e7aaa3a94575a7110240a8bcc049f8b860",
+    "after-native-phone-moonlit-wall-0690.png": "0ad7fa7cc8b10ea7ad3f0ddbf5343b6594e7abb787a7dfdcf838d25edbb25dc4",
+    "before-native-desktop-lantern-hunt-0180.png": "0db1df1d82574c98dda5b27102729af346483fc67e41e95b669bfb0de9b50256",
+    "before-native-desktop-lantern-hunt-0690.png": "a8c44c0a22fc9a53ab028957f4772c2e40df6fe706eca5b5be999dd33e17df22",
+    "before-native-desktop-lantern-hunt-0720.png": "e8eaf9109a9da2ca53b8bf7586809ec3979555db21c575fa461ae96b801ebc0e",
+    "before-native-desktop-lantern-hunt-0800.png": "fceaf02b84f50aeac80c295dc757807d02c5bd399da00399a9b09a685ee81d8d",
+    "before-native-desktop-lantern-hunt-0820.png": "83856e793a2a5d017a946937d854a6ed61a15bbb57e7ffb952ade2a1a9315d15",
+    "before-native-desktop-lantern-hunt-0850.png": "6df3cfb4f0de22e97a31d7baff4302f257ea1dbcbfe6774d05e3b86cc87904f4",
+    "before-native-desktop-lantern-hunt-0900.png": "ce3965c4f132e4150f806225e29360e8fcf0986cb327f7bc860fddf1fcad245d",
+    "before-native-desktop-lantern-hunt-1060.png": "ed2e9f690c49cd318e565c8ccfbd751e5aa0106882617f4135145e2a04326f95",
+    "before-native-desktop-moonlit-wall-0000.png": "7557d9366cd0ea5eca5419054e3825d7c4d16a2a2a2aaecb689750cfff1904b3",
+    "before-native-desktop-moonlit-wall-0120.png": "12896a5e54b6667fe4506a2f897650a2474bcf0726e422287f009dde19e359b1",
+    "before-native-desktop-moonlit-wall-0360.png": "5371234ce527a52b3288ea0938e55bf58c074bf9703d0a955d2fc8130fd5f473",
+    "before-native-desktop-moonlit-wall-0600.png": "32c481cc2d0ff0a1f7ac6fa868c24f09a39417c774045085a9935ffe8a9d500a",
+    "before-native-desktop-moonlit-wall-0690.png": "64d475def8911b5ea3b173af833828c64688657d0eabd308ebba3479f0c7fcae",
+    "before-native-lantern-hunt.mp4": "40a03a09966b57dfa7987383b218ef717af6be090f8120e359b0c64f271f3f3f",
+    "before-native-moonlit-wall.mp4": "3b2ec3e2ee30330553bc5c9794189ad102f116e6a920c1289bf9be7cf6883b1c",
+    "before-native-phone-lantern-hunt-0180.png": "0887a50f0eb592bd66c259f6772982e9b3c963ebe0b555cbc2dd8bfa2c79763f",
+    "before-native-phone-lantern-hunt-0690.png": "9c2551aba9378e658814da10cc9960798a35260cf35898b190504b3011a66fc9",
+    "before-native-phone-lantern-hunt-0720.png": "8771aba719bb9e645c15acff441b390d92a22fe01b8f88cb8d94e0c320b942d6",
+    "before-native-phone-lantern-hunt-0800.png": "16f27c378fc06d3a0ccf5f3fb6239aff54954f7aecb7032700929145360412b0",
+    "before-native-phone-lantern-hunt-0820.png": "4a971a853b774d62fce61b2dff39ea1eaf2b7c412255edaf52cdc4344f5146fe",
+    "before-native-phone-lantern-hunt-0850.png": "39e9990f6dd8804d0af979e6bc641383fbe4e53fd934099e2891ca68b2aef740",
+    "before-native-phone-lantern-hunt-0900.png": "301f98db9df5839544e50c0238d509897da912b8ab3e0824f0ec0cf6ed43212c",
+    "before-native-phone-lantern-hunt-1060.png": "e10d267731c49ae1a9b7bd0b588f87171d2a5994f40adcf3788d37b9af8fa55e",
+    "before-native-phone-moonlit-wall-0000.png": "dbd2236f29edbdd43de444600c8c7f931e3afc6056e519a64526daa4597848e2",
+    "before-native-phone-moonlit-wall-0120.png": "96c3a6342a1f8c27e5aea07cf548d340b33ad86cc1d1ad88abdd04aaa0e0c23a",
+    "before-native-phone-moonlit-wall-0360.png": "9eb48213bcc60d7046b91cdbe39bb223cc499d0bee920c5ab1d7b8152f65fcb8",
+    "before-native-phone-moonlit-wall-0600.png": "ac8029658a712adcfc1dad9a2f435121bc7b1239509117495756c96684102af7",
+    "before-native-phone-moonlit-wall-0690.png": "95c2ab2c499ea027c4a52c56d002de8463c12f39f48f659a8dad7c9fa1bf52c2",
+    "matched-native-desktop.png": "38ba98f35d9ef51c2d04252d09cc30455f348d5a68a376d53266c6d0e7af1f7e",
+    "matched-native-phone.png": "9fe3ccc4d5eee41fd074e3e322728d20584434b2ba01249f5a4e60b2c4d06caf"
+  }
+}

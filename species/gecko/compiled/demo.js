@@ -96,7 +96,7 @@ function refreshDirector(state, status) {
     const visitorName = visitor?.label ?? 'The gecko';
     text('scene-title', SCENES[state.arc.scene].title.toUpperCase());
     text('scene-beat', still ? 'A quiet moment on the wall' : BEATS[state.arc.beat]);
-    text('cycle-label', `NIGHT ${String(state.arc.cycle + 1).padStart(2, '0')} · BEAT ${String(state.arc.beatIndex + 1).padStart(2, '0')}`);
+    text('cycle-label', state.arc.cycle ? 'THE NIGHT CONTINUES' : 'A NIGHT ON THE WALL');
     text('cast-count', String(state.individuals.length).padStart(2, '0'));
     const progress = optional('scene-progress');
     if (progress)
@@ -132,7 +132,7 @@ function refreshDirector(state, status) {
         ? 'Reduced motion: encounters select still scenes. Guide controls do not animate the wall.'
         : status.paused ? 'A quiet moment. Choose a still encounter, or press Play to continue.'
             : busy ? `${visitorName} is ${words(titles[kind]).toLowerCase()}. Give those careful feet a moment.`
-                : `Follow ${visitorName}: move nearby or tap the wall. Offer a moth for a new distraction.`;
+                : `Following ${visitorName}. Climb invites careful steps; offer a moth to begin a hunt. Tap the wall to guide.`;
     phase.textContent = status.reducedMotion ? 'Still scene' : status.paused ? 'Paused' : `${visitorName} · ${titles[kind]}`;
     const values = [['population', state.options.population], ['tempo', state.options.tempo], ['boldness', state.options.boldness]];
     for (const [id, value] of values) {
@@ -148,7 +148,7 @@ function refreshDirector(state, status) {
         if (input)
             input.checked = value;
     }
-    canvas.setAttribute('aria-label', `${state.individuals.length} ASCII gecko${state.individuals.length === 1 ? '' : 's'} in the scene ${SCENES[state.arc.scene].title}. ${visitorName} is selected. Each has a broad head, four splayed pad-toed feet, and a long attached tail. Move the pointer or tap to guide. Arrow keys guide and Space pauses when the wall is focused.`);
+    canvas.setAttribute('aria-label', `${state.individuals.length} ASCII gecko${state.individuals.length === 1 ? '' : 's'} in the scene ${SCENES[state.arc.scene].title}. ${visitorName} is selected. Each has a broad head, four splayed pad-toed feet, and a long attached tail. Move the pointer or tap to guide. When the wall is focused, C invites a climb, M offers a moth, Escape releases guidance, arrow keys guide, and Space pauses.`);
 }
 function refresh(status) {
     phase.textContent = status.reducedMotion ? 'Still portrait' : status.paused ? 'Paused' : titles[status.phase];
@@ -233,6 +233,35 @@ function direct(type) {
     }
     catch (error) {
         reportFailure(error, 'encounter');
+    }
+}
+function climb() {
+    if (!geckoDemo || demoDisposed)
+        return;
+    try {
+        const state = geckoDemo.getDirectorSnapshot();
+        const visitor = state ? selected(state) : undefined;
+        if (!visitor)
+            return;
+        // A cue changes the next foothold goal. It never resets the planted pose.
+        const worldX = visitor.body.position.x * visitor.scale;
+        const worldY = visitor.body.position.y * visitor.scale;
+        if (state?.options.scene !== 'moonlit-wall')
+            geckoDemo.configureDirector({ scene: 'moonlit-wall' });
+        const result = geckoDemo.direct({
+            type: 'inspect', id: visitor.id,
+            x: Math.max(-2, Math.min(2, worldX)) / 3.3,
+            y: Math.max(-1, Math.min(1, worldY - .55)) / 2.2
+        });
+        reportAction(result, 'inspect');
+        if (result.outcome === 'queued')
+            announce(`${visitor.label} looks up. Watch one foot reach while the others hold.`);
+        else if (result.outcome === 'static')
+            announce(`A still climbing pose for ${visitor.label}.`);
+        reflect();
+    }
+    catch (error) {
+        reportFailure(error, 'climb');
     }
 }
 function download(blob, filename) {
@@ -336,7 +365,9 @@ try {
         listenOptional('autonomy', 'change', event => configure({ autonomy: event.currentTarget.checked }));
         listenOptional('show-routes', 'change', event => configure({ showRoutes: event.currentTarget.checked }));
         listenOptional('reverse', 'change', event => configure({ reverse: event.currentTarget.checked }));
+        listenOptional('climb', 'click', climb);
         listenOptional('moth', 'click', () => direct('moth'));
+        listenOptional('moth-quick', 'click', () => direct('moth'));
         listenOptional('return', 'click', () => direct('return'));
         listenOptional('inspect', 'click', () => direct('inspect'));
         listen(canvas, 'pointerdown', () => { const cue = optional('canvas-cue'); if (cue)
@@ -407,7 +438,7 @@ catch (error) {
     fallbackMessage.textContent = 'The animated canvas is unavailable here. Each gecko has a broad head, four splayed pad-toed feet, and a long attached tail. A plain-text portrait is available below.';
     phase.textContent = 'Text portrait';
     help.textContent = 'A quiet text portrait is available below.';
-    for (const control of demoDocument.querySelectorAll('.interaction-panel button, .interaction-panel input, .interaction-panel select, .playback button, .scene-director button, .direction-desk input, .direction-desk button, .tuning input, .export-actions button'))
+    for (const control of demoDocument.querySelectorAll('.interaction-panel button, .interaction-panel input, .interaction-panel select, .stage-actions button, .snapshot-action, .playback button, .scene-director button, .direction-desk input, .direction-desk button, .tuning input, .export-actions button'))
         control.disabled = true;
     announce('Animation unavailable; the plain-text portrait remains usable.');
     console.warn('Gecko canvas unavailable', error);
