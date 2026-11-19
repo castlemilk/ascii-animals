@@ -1,0 +1,2175 @@
+{
+  "sourceCommit": "d638880513978c63b8cb1dfc97101463baa22966",
+  "sourceTree": "cb01b581891142b9e4c31167e5776f762ef2408b",
+  "sourceSha256": "b65cb598f9944c1d89e8564db6707b684632cadcfd416e1365e1eb0bf58071dd",
+  "method": {
+    "nativeCanvas": [
+      1000,
+      650
+    ],
+    "density": 1.1,
+    "geometryStep": 1,
+    "cameraScale": 135.13513513513513,
+    "objectScale": 1.2,
+    "perspectiveStrength": 0.2,
+    "cameraPosition": [
+      -0.45,
+      0,
+      -0.6
+    ],
+    "region": {
+      "x": [
+        1.02,
+        1.4
+      ],
+      "normalizedTransverseRadius": [
+        0.55,
+        1.05
+      ],
+      "minimumCrownNormalX": 0.65
+    },
+    "primaryRootEndByArm": [
+      0.3,
+      0.4,
+      0.4,
+      0.4,
+      0.3,
+      0.3,
+      0.3,
+      0.3
+    ]
+  },
+  "upperMinimumNormalizedHeight": 0.45,
+  "cases": [
+    {
+      "view": "broadside",
+      "time": 2.4,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28971,
+      "winningCells": 2186,
+      "potentialForwardCrownCells": 87,
+      "exposedForwardCrownCells": 26,
+      "primaryRootOccludesCrownCells": 38,
+      "primaryRootOcclusionFraction": 0.4367816091954023,
+      "localPrimaryRootCells": 106,
+      "localRootAndCrownCells": 201,
+      "exposedCrownFraction": 0.12935323383084577,
+      "exposedDistinctRows": 17,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 10,
+          "maximumCellCount": 10,
+          "startColumn": 109
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 14,
+          "maximumCellCount": 19,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 15,
+          "maximumCellCount": 23,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 15,
+        "exposedForwardCrownCells": 5,
+        "primaryRootOccludesCrownCells": 6,
+        "primaryRootOcclusionFraction": 0.4,
+        "primaryRootCells": 19,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 2,
+            "maximumCellCount": 2,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 2,
+            "maximumCellCount": 4,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 2,
+            "maximumCellCount": 5,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "broadside",
+      "time": 2.4,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30819,
+      "winningCells": 2880,
+      "potentialForwardCrownCells": 87,
+      "exposedForwardCrownCells": 9,
+      "primaryRootOccludesCrownCells": 62,
+      "primaryRootOcclusionFraction": 0.7126436781609196,
+      "localPrimaryRootCells": 251,
+      "localRootAndCrownCells": 287,
+      "exposedCrownFraction": 0.0313588850174216,
+      "exposedDistinctRows": 8,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 4,
+          "maximumCellCount": 4,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 6,
+          "maximumCellCount": 7,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 7,
+          "maximumCellCount": 8,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 15,
+        "exposedForwardCrownCells": 3,
+        "primaryRootOccludesCrownCells": 9,
+        "primaryRootOcclusionFraction": 0.6,
+        "primaryRootCells": 63,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 2,
+            "maximumCellCount": 2,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 2,
+            "maximumCellCount": 3,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 2,
+            "maximumCellCount": 3,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "broadside",
+      "time": 4.641509433962264,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28971,
+      "winningCells": 2187,
+      "potentialForwardCrownCells": 87,
+      "exposedForwardCrownCells": 27,
+      "primaryRootOccludesCrownCells": 37,
+      "primaryRootOcclusionFraction": 0.42528735632183906,
+      "localPrimaryRootCells": 107,
+      "localRootAndCrownCells": 204,
+      "exposedCrownFraction": 0.1323529411764706,
+      "exposedDistinctRows": 17,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 10,
+          "maximumCellCount": 10,
+          "startColumn": 109
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 14,
+          "maximumCellCount": 19,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 15,
+          "maximumCellCount": 22,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 15,
+        "exposedForwardCrownCells": 6,
+        "primaryRootOccludesCrownCells": 5,
+        "primaryRootOcclusionFraction": 0.3333333333333333,
+        "primaryRootCells": 21,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 2,
+            "maximumCellCount": 2,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 2,
+            "maximumCellCount": 4,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 2,
+            "maximumCellCount": 5,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "broadside",
+      "time": 4.641509433962264,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30819,
+      "winningCells": 2830,
+      "potentialForwardCrownCells": 87,
+      "exposedForwardCrownCells": 6,
+      "primaryRootOccludesCrownCells": 71,
+      "primaryRootOcclusionFraction": 0.8160919540229885,
+      "localPrimaryRootCells": 240,
+      "localRootAndCrownCells": 272,
+      "exposedCrownFraction": 0.022058823529411766,
+      "exposedDistinctRows": 5,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 3,
+          "maximumCellCount": 3,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 4,
+          "maximumCellCount": 5,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 4,
+          "maximumCellCount": 5,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 15,
+        "exposedForwardCrownCells": 2,
+        "primaryRootOccludesCrownCells": 11,
+        "primaryRootOcclusionFraction": 0.7333333333333333,
+        "primaryRootCells": 62,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 1,
+            "maximumCellCount": 1,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 1,
+            "maximumCellCount": 2,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 1,
+            "maximumCellCount": 2,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "broadside",
+      "time": 6.8,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28971,
+      "winningCells": 2156,
+      "potentialForwardCrownCells": 87,
+      "exposedForwardCrownCells": 27,
+      "primaryRootOccludesCrownCells": 37,
+      "primaryRootOcclusionFraction": 0.42528735632183906,
+      "localPrimaryRootCells": 102,
+      "localRootAndCrownCells": 200,
+      "exposedCrownFraction": 0.135,
+      "exposedDistinctRows": 18,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 10,
+          "maximumCellCount": 10,
+          "startColumn": 109
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 14,
+          "maximumCellCount": 19,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 15,
+          "maximumCellCount": 22,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 15,
+        "exposedForwardCrownCells": 5,
+        "primaryRootOccludesCrownCells": 6,
+        "primaryRootOcclusionFraction": 0.4,
+        "primaryRootCells": 18,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 2,
+            "maximumCellCount": 2,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 2,
+            "maximumCellCount": 4,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 2,
+            "maximumCellCount": 5,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "broadside",
+      "time": 6.8,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30819,
+      "winningCells": 2934,
+      "potentialForwardCrownCells": 87,
+      "exposedForwardCrownCells": 14,
+      "primaryRootOccludesCrownCells": 62,
+      "primaryRootOcclusionFraction": 0.7126436781609196,
+      "localPrimaryRootCells": 236,
+      "localRootAndCrownCells": 274,
+      "exposedCrownFraction": 0.051094890510948905,
+      "exposedDistinctRows": 9,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 7,
+          "maximumCellCount": 7,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 7,
+          "maximumCellCount": 11,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 8,
+          "maximumCellCount": 12,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 15,
+        "exposedForwardCrownCells": 2,
+        "primaryRootOccludesCrownCells": 11,
+        "primaryRootOcclusionFraction": 0.7333333333333333,
+        "primaryRootCells": 75,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 1,
+            "maximumCellCount": 1,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 1,
+            "maximumCellCount": 2,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 1,
+            "maximumCellCount": 2,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "dorsal",
+      "time": 2.4,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 29052,
+      "winningCells": 3629,
+      "potentialForwardCrownCells": 124,
+      "exposedForwardCrownCells": 46,
+      "primaryRootOccludesCrownCells": 72,
+      "primaryRootOcclusionFraction": 0.5806451612903226,
+      "localPrimaryRootCells": 148,
+      "localRootAndCrownCells": 274,
+      "exposedCrownFraction": 0.1678832116788321,
+      "exposedDistinctRows": 21,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 11,
+          "maximumCellCount": 11,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 14,
+          "maximumCellCount": 21,
+          "startColumn": 109
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 17,
+          "maximumCellCount": 27,
+          "startColumn": 109
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 86,
+        "exposedForwardCrownCells": 44,
+        "primaryRootOccludesCrownCells": 42,
+        "primaryRootOcclusionFraction": 0.4883720930232558,
+        "primaryRootCells": 107,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 11,
+            "maximumCellCount": 11,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 13,
+            "maximumCellCount": 20,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 16,
+            "maximumCellCount": 26,
+            "startColumn": 109
+          }
+        ]
+      }
+    },
+    {
+      "view": "dorsal",
+      "time": 2.4,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30900,
+      "winningCells": 4007,
+      "potentialForwardCrownCells": 124,
+      "exposedForwardCrownCells": 23,
+      "primaryRootOccludesCrownCells": 95,
+      "primaryRootOcclusionFraction": 0.7661290322580645,
+      "localPrimaryRootCells": 250,
+      "localRootAndCrownCells": 314,
+      "exposedCrownFraction": 0.0732484076433121,
+      "exposedDistinctRows": 9,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 7,
+          "maximumCellCount": 7,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 8,
+          "maximumCellCount": 11,
+          "startColumn": 108
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 9,
+          "maximumCellCount": 14,
+          "startColumn": 107
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 86,
+        "exposedForwardCrownCells": 18,
+        "primaryRootOccludesCrownCells": 68,
+        "primaryRootOcclusionFraction": 0.7906976744186046,
+        "primaryRootCells": 181,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 7,
+            "maximumCellCount": 7,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 8,
+            "maximumCellCount": 11,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 9,
+            "maximumCellCount": 14,
+            "startColumn": 107
+          }
+        ]
+      }
+    },
+    {
+      "view": "dorsal",
+      "time": 4.641509433962264,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 29052,
+      "winningCells": 3592,
+      "potentialForwardCrownCells": 124,
+      "exposedForwardCrownCells": 49,
+      "primaryRootOccludesCrownCells": 69,
+      "primaryRootOcclusionFraction": 0.5564516129032258,
+      "localPrimaryRootCells": 147,
+      "localRootAndCrownCells": 274,
+      "exposedCrownFraction": 0.17883211678832117,
+      "exposedDistinctRows": 23,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 12,
+          "maximumCellCount": 12,
+          "startColumn": 110
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 16,
+          "maximumCellCount": 23,
+          "startColumn": 109
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 20,
+          "maximumCellCount": 30,
+          "startColumn": 109
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 86,
+        "exposedForwardCrownCells": 48,
+        "primaryRootOccludesCrownCells": 38,
+        "primaryRootOcclusionFraction": 0.4418604651162791,
+        "primaryRootCells": 109,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 11,
+            "maximumCellCount": 11,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 15,
+            "maximumCellCount": 22,
+            "startColumn": 109
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 19,
+            "maximumCellCount": 29,
+            "startColumn": 109
+          }
+        ]
+      }
+    },
+    {
+      "view": "dorsal",
+      "time": 4.641509433962264,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30900,
+      "winningCells": 4012,
+      "potentialForwardCrownCells": 124,
+      "exposedForwardCrownCells": 29,
+      "primaryRootOccludesCrownCells": 90,
+      "primaryRootOcclusionFraction": 0.7258064516129032,
+      "localPrimaryRootCells": 240,
+      "localRootAndCrownCells": 305,
+      "exposedCrownFraction": 0.09508196721311475,
+      "exposedDistinctRows": 12,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 7,
+          "maximumCellCount": 7,
+          "startColumn": 107
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 10,
+          "maximumCellCount": 14,
+          "startColumn": 107
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 11,
+          "maximumCellCount": 18,
+          "startColumn": 107
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 86,
+        "exposedForwardCrownCells": 23,
+        "primaryRootOccludesCrownCells": 63,
+        "primaryRootOcclusionFraction": 0.7325581395348837,
+        "primaryRootCells": 178,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 7,
+            "maximumCellCount": 7,
+            "startColumn": 107
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 10,
+            "maximumCellCount": 14,
+            "startColumn": 107
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 10,
+            "maximumCellCount": 17,
+            "startColumn": 107
+          }
+        ]
+      }
+    },
+    {
+      "view": "dorsal",
+      "time": 6.8,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 29052,
+      "winningCells": 3643,
+      "potentialForwardCrownCells": 124,
+      "exposedForwardCrownCells": 46,
+      "primaryRootOccludesCrownCells": 72,
+      "primaryRootOcclusionFraction": 0.5806451612903226,
+      "localPrimaryRootCells": 156,
+      "localRootAndCrownCells": 279,
+      "exposedCrownFraction": 0.16487455197132617,
+      "exposedDistinctRows": 22,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 12,
+          "maximumCellCount": 12,
+          "startColumn": 110
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 16,
+          "maximumCellCount": 23,
+          "startColumn": 109
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 19,
+          "maximumCellCount": 34,
+          "startColumn": 108
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 86,
+        "exposedForwardCrownCells": 43,
+        "primaryRootOccludesCrownCells": 43,
+        "primaryRootOcclusionFraction": 0.5,
+        "primaryRootCells": 117,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 11,
+            "maximumCellCount": 11,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 13,
+            "maximumCellCount": 21,
+            "startColumn": 108
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 16,
+            "maximumCellCount": 31,
+            "startColumn": 108
+          }
+        ]
+      }
+    },
+    {
+      "view": "dorsal",
+      "time": 6.8,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30900,
+      "winningCells": 4072,
+      "potentialForwardCrownCells": 124,
+      "exposedForwardCrownCells": 27,
+      "primaryRootOccludesCrownCells": 92,
+      "primaryRootOcclusionFraction": 0.7419354838709677,
+      "localPrimaryRootCells": 244,
+      "localRootAndCrownCells": 315,
+      "exposedCrownFraction": 0.08571428571428572,
+      "exposedDistinctRows": 12,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 6,
+          "maximumCellCount": 6,
+          "startColumn": 107
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 9,
+          "maximumCellCount": 11,
+          "startColumn": 107
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 10,
+          "maximumCellCount": 15,
+          "startColumn": 107
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 86,
+        "exposedForwardCrownCells": 21,
+        "primaryRootOccludesCrownCells": 65,
+        "primaryRootOcclusionFraction": 0.7558139534883721,
+        "primaryRootCells": 189,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 6,
+            "maximumCellCount": 6,
+            "startColumn": 107
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 9,
+            "maximumCellCount": 11,
+            "startColumn": 107
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 10,
+            "maximumCellCount": 15,
+            "startColumn": 107
+          }
+        ]
+      }
+    },
+    {
+      "view": "three-quarter",
+      "time": 2.4,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28851,
+      "winningCells": 2110,
+      "potentialForwardCrownCells": 300,
+      "exposedForwardCrownCells": 109,
+      "primaryRootOccludesCrownCells": 177,
+      "primaryRootOcclusionFraction": 0.59,
+      "localPrimaryRootCells": 275,
+      "localRootAndCrownCells": 473,
+      "exposedCrownFraction": 0.23044397463002114,
+      "exposedDistinctRows": 24,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 11,
+          "maximumCellCount": 11,
+          "startColumn": 93
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 13,
+          "maximumCellCount": 19,
+          "startColumn": 92
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 14,
+          "maximumCellCount": 27,
+          "startColumn": 92
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 108,
+        "exposedForwardCrownCells": 53,
+        "primaryRootOccludesCrownCells": 55,
+        "primaryRootOcclusionFraction": 0.5092592592592593,
+        "primaryRootCells": 92,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 6,
+            "maximumCellCount": 6,
+            "startColumn": 103
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 6,
+            "maximumCellCount": 11,
+            "startColumn": 102
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 7,
+            "maximumCellCount": 16,
+            "startColumn": 101
+          }
+        ]
+      }
+    },
+    {
+      "view": "three-quarter",
+      "time": 2.4,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30699,
+      "winningCells": 2504,
+      "potentialForwardCrownCells": 300,
+      "exposedForwardCrownCells": 29,
+      "primaryRootOccludesCrownCells": 142,
+      "primaryRootOcclusionFraction": 0.47333333333333333,
+      "localPrimaryRootCells": 312,
+      "localRootAndCrownCells": 374,
+      "exposedCrownFraction": 0.07754010695187166,
+      "exposedDistinctRows": 17,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 4,
+          "maximumCellCount": 4,
+          "startColumn": 101
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 6,
+          "maximumCellCount": 7,
+          "startColumn": 92
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 8,
+          "maximumCellCount": 8,
+          "startColumn": 90
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 108,
+        "exposedForwardCrownCells": 14,
+        "primaryRootOccludesCrownCells": 57,
+        "primaryRootOcclusionFraction": 0.5277777777777778,
+        "primaryRootCells": 103,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 4,
+            "maximumCellCount": 4,
+            "startColumn": 101
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 4,
+            "maximumCellCount": 6,
+            "startColumn": 100
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 4,
+            "maximumCellCount": 7,
+            "startColumn": 99
+          }
+        ]
+      }
+    },
+    {
+      "view": "three-quarter",
+      "time": 4.641509433962264,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28851,
+      "winningCells": 2100,
+      "potentialForwardCrownCells": 300,
+      "exposedForwardCrownCells": 110,
+      "primaryRootOccludesCrownCells": 164,
+      "primaryRootOcclusionFraction": 0.5466666666666666,
+      "localPrimaryRootCells": 263,
+      "localRootAndCrownCells": 460,
+      "exposedCrownFraction": 0.2391304347826087,
+      "exposedDistinctRows": 26,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 11,
+          "maximumCellCount": 11,
+          "startColumn": 93
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 13,
+          "maximumCellCount": 19,
+          "startColumn": 93
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 14,
+          "maximumCellCount": 25,
+          "startColumn": 92
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 108,
+        "exposedForwardCrownCells": 51,
+        "primaryRootOccludesCrownCells": 55,
+        "primaryRootOcclusionFraction": 0.5092592592592593,
+        "primaryRootCells": 94,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 5,
+            "maximumCellCount": 5,
+            "startColumn": 101
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 6,
+            "maximumCellCount": 10,
+            "startColumn": 103
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 6,
+            "maximumCellCount": 14,
+            "startColumn": 101
+          }
+        ]
+      }
+    },
+    {
+      "view": "three-quarter",
+      "time": 4.641509433962264,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30699,
+      "winningCells": 2505,
+      "potentialForwardCrownCells": 300,
+      "exposedForwardCrownCells": 28,
+      "primaryRootOccludesCrownCells": 206,
+      "primaryRootOcclusionFraction": 0.6866666666666666,
+      "localPrimaryRootCells": 351,
+      "localRootAndCrownCells": 411,
+      "exposedCrownFraction": 0.0681265206812652,
+      "exposedDistinctRows": 15,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 4,
+          "maximumCellCount": 4,
+          "startColumn": 92
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 6,
+          "maximumCellCount": 7,
+          "startColumn": 91
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 7,
+          "maximumCellCount": 11,
+          "startColumn": 91
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 108,
+        "exposedForwardCrownCells": 11,
+        "primaryRootOccludesCrownCells": 77,
+        "primaryRootOcclusionFraction": 0.7129629629629629,
+        "primaryRootCells": 118,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 2,
+            "maximumCellCount": 2,
+            "startColumn": 92
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 2,
+            "maximumCellCount": 3,
+            "startColumn": 91
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 2,
+            "maximumCellCount": 4,
+            "startColumn": 91
+          }
+        ]
+      }
+    },
+    {
+      "view": "three-quarter",
+      "time": 6.8,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28851,
+      "winningCells": 2060,
+      "potentialForwardCrownCells": 300,
+      "exposedForwardCrownCells": 115,
+      "primaryRootOccludesCrownCells": 144,
+      "primaryRootOcclusionFraction": 0.48,
+      "localPrimaryRootCells": 243,
+      "localRootAndCrownCells": 446,
+      "exposedCrownFraction": 0.257847533632287,
+      "exposedDistinctRows": 26,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 9,
+          "maximumCellCount": 9,
+          "startColumn": 92
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 11,
+          "maximumCellCount": 18,
+          "startColumn": 92
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 14,
+          "maximumCellCount": 21,
+          "startColumn": 90
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 108,
+        "exposedForwardCrownCells": 54,
+        "primaryRootOccludesCrownCells": 54,
+        "primaryRootOcclusionFraction": 0.5,
+        "primaryRootCells": 92,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 5,
+            "maximumCellCount": 5,
+            "startColumn": 102
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 6,
+            "maximumCellCount": 9,
+            "startColumn": 101
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 6,
+            "maximumCellCount": 14,
+            "startColumn": 102
+          }
+        ]
+      }
+    },
+    {
+      "view": "three-quarter",
+      "time": 6.8,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30699,
+      "winningCells": 2622,
+      "potentialForwardCrownCells": 300,
+      "exposedForwardCrownCells": 36,
+      "primaryRootOccludesCrownCells": 161,
+      "primaryRootOcclusionFraction": 0.5366666666666666,
+      "localPrimaryRootCells": 254,
+      "localRootAndCrownCells": 313,
+      "exposedCrownFraction": 0.11501597444089456,
+      "exposedDistinctRows": 20,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 5,
+          "maximumCellCount": 5,
+          "startColumn": 92
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 8,
+          "maximumCellCount": 9,
+          "startColumn": 93
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 11,
+          "maximumCellCount": 14,
+          "startColumn": 92
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 108,
+        "exposedForwardCrownCells": 15,
+        "primaryRootOccludesCrownCells": 78,
+        "primaryRootOcclusionFraction": 0.7222222222222222,
+        "primaryRootCells": 126,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 3,
+            "maximumCellCount": 3,
+            "startColumn": 101
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 4,
+            "maximumCellCount": 5,
+            "startColumn": 101
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 4,
+            "maximumCellCount": 7,
+            "startColumn": 99
+          }
+        ]
+      }
+    },
+    {
+      "view": "frontal",
+      "time": 2.4,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28440,
+      "winningCells": 1557,
+      "potentialForwardCrownCells": 645,
+      "exposedForwardCrownCells": 162,
+      "primaryRootOccludesCrownCells": 211,
+      "primaryRootOcclusionFraction": 0.3271317829457364,
+      "localPrimaryRootCells": 347,
+      "localRootAndCrownCells": 541,
+      "exposedCrownFraction": 0.29944547134935307,
+      "exposedDistinctRows": 25,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 10,
+          "maximumCellCount": 10,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 12,
+          "maximumCellCount": 17,
+          "startColumn": 88
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 12,
+          "maximumCellCount": 25,
+          "startColumn": 89
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 182,
+        "exposedForwardCrownCells": 49,
+        "primaryRootOccludesCrownCells": 41,
+        "primaryRootOcclusionFraction": 0.22527472527472528,
+        "primaryRootCells": 82,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 5,
+            "maximumCellCount": 5,
+            "startColumn": 89
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 6,
+            "maximumCellCount": 7,
+            "startColumn": 86
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 6,
+            "maximumCellCount": 10,
+            "startColumn": 86
+          }
+        ]
+      }
+    },
+    {
+      "view": "frontal",
+      "time": 2.4,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30288,
+      "winningCells": 3749,
+      "potentialForwardCrownCells": 645,
+      "exposedForwardCrownCells": 135,
+      "primaryRootOccludesCrownCells": 454,
+      "primaryRootOcclusionFraction": 0.703875968992248,
+      "localPrimaryRootCells": 630,
+      "localRootAndCrownCells": 771,
+      "exposedCrownFraction": 0.17509727626459143,
+      "exposedDistinctRows": 25,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 8,
+          "maximumCellCount": 8,
+          "startColumn": 90
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 12,
+          "maximumCellCount": 16,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 14,
+          "maximumCellCount": 21,
+          "startColumn": 89
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 182,
+        "exposedForwardCrownCells": 52,
+        "primaryRootOccludesCrownCells": 123,
+        "primaryRootOcclusionFraction": 0.6758241758241759,
+        "primaryRootCells": 174,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 5,
+            "maximumCellCount": 5,
+            "startColumn": 72
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 6,
+            "maximumCellCount": 9,
+            "startColumn": 71
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 7,
+            "maximumCellCount": 11,
+            "startColumn": 70
+          }
+        ]
+      }
+    },
+    {
+      "view": "frontal",
+      "time": 4.641509433962264,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28440,
+      "winningCells": 1627,
+      "potentialForwardCrownCells": 645,
+      "exposedForwardCrownCells": 150,
+      "primaryRootOccludesCrownCells": 197,
+      "primaryRootOcclusionFraction": 0.3054263565891473,
+      "localPrimaryRootCells": 321,
+      "localRootAndCrownCells": 500,
+      "exposedCrownFraction": 0.3,
+      "exposedDistinctRows": 24,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 9,
+          "maximumCellCount": 9,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 11,
+          "maximumCellCount": 15,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 12,
+          "maximumCellCount": 22,
+          "startColumn": 89
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 182,
+        "exposedForwardCrownCells": 57,
+        "primaryRootOccludesCrownCells": 41,
+        "primaryRootOcclusionFraction": 0.22527472527472528,
+        "primaryRootCells": 86,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 6,
+            "maximumCellCount": 6,
+            "startColumn": 89
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 7,
+            "maximumCellCount": 10,
+            "startColumn": 91
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 7,
+            "maximumCellCount": 14,
+            "startColumn": 89
+          }
+        ]
+      }
+    },
+    {
+      "view": "frontal",
+      "time": 4.641509433962264,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30288,
+      "winningCells": 3592,
+      "potentialForwardCrownCells": 645,
+      "exposedForwardCrownCells": 167,
+      "primaryRootOccludesCrownCells": 403,
+      "primaryRootOcclusionFraction": 0.6248062015503876,
+      "localPrimaryRootCells": 558,
+      "localRootAndCrownCells": 736,
+      "exposedCrownFraction": 0.2269021739130435,
+      "exposedDistinctRows": 25,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 11,
+          "maximumCellCount": 11,
+          "startColumn": 72
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 13,
+          "maximumCellCount": 19,
+          "startColumn": 72
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 15,
+          "maximumCellCount": 26,
+          "startColumn": 70
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 182,
+        "exposedForwardCrownCells": 58,
+        "primaryRootOccludesCrownCells": 119,
+        "primaryRootOcclusionFraction": 0.6538461538461539,
+        "primaryRootCells": 151,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 6,
+            "maximumCellCount": 6,
+            "startColumn": 72
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 7,
+            "maximumCellCount": 11,
+            "startColumn": 72
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 7,
+            "maximumCellCount": 15,
+            "startColumn": 72
+          }
+        ]
+      }
+    },
+    {
+      "view": "frontal",
+      "time": 6.8,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28440,
+      "winningCells": 1596,
+      "potentialForwardCrownCells": 645,
+      "exposedForwardCrownCells": 198,
+      "primaryRootOccludesCrownCells": 221,
+      "primaryRootOcclusionFraction": 0.3426356589147287,
+      "localPrimaryRootCells": 391,
+      "localRootAndCrownCells": 621,
+      "exposedCrownFraction": 0.3188405797101449,
+      "exposedDistinctRows": 26,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 11,
+          "maximumCellCount": 11,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 14,
+          "maximumCellCount": 20,
+          "startColumn": 91
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 14,
+          "maximumCellCount": 30,
+          "startColumn": 89
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 182,
+        "exposedForwardCrownCells": 82,
+        "primaryRootOccludesCrownCells": 66,
+        "primaryRootOcclusionFraction": 0.3626373626373626,
+        "primaryRootCells": 129,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 6,
+            "maximumCellCount": 6,
+            "startColumn": 89
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 7,
+            "maximumCellCount": 9,
+            "startColumn": 91
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 7,
+            "maximumCellCount": 14,
+            "startColumn": 89
+          }
+        ]
+      }
+    },
+    {
+      "view": "frontal",
+      "time": 6.8,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30288,
+      "winningCells": 3644,
+      "potentialForwardCrownCells": 645,
+      "exposedForwardCrownCells": 157,
+      "primaryRootOccludesCrownCells": 435,
+      "primaryRootOcclusionFraction": 0.6744186046511628,
+      "localPrimaryRootCells": 627,
+      "localRootAndCrownCells": 791,
+      "exposedCrownFraction": 0.19848293299620734,
+      "exposedDistinctRows": 27,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 8,
+          "maximumCellCount": 8,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 12,
+          "maximumCellCount": 15,
+          "startColumn": 89
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 14,
+          "maximumCellCount": 20,
+          "startColumn": 89
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 182,
+        "exposedForwardCrownCells": 41,
+        "primaryRootOccludesCrownCells": 141,
+        "primaryRootOcclusionFraction": 0.7747252747252747,
+        "primaryRootCells": 195,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 3,
+            "maximumCellCount": 3,
+            "startColumn": 73
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 5,
+            "maximumCellCount": 5,
+            "startColumn": 89
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 7,
+            "maximumCellCount": 7,
+            "startColumn": 89
+          }
+        ]
+      }
+    },
+    {
+      "view": "rear",
+      "time": 2.4,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28943,
+      "winningCells": 1342,
+      "potentialForwardCrownCells": 387,
+      "exposedForwardCrownCells": 0,
+      "primaryRootOccludesCrownCells": 0,
+      "primaryRootOcclusionFraction": 0,
+      "localPrimaryRootCells": 0,
+      "localRootAndCrownCells": 0,
+      "exposedCrownFraction": null,
+      "exposedDistinctRows": 0,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 104,
+        "exposedForwardCrownCells": 0,
+        "primaryRootOccludesCrownCells": 0,
+        "primaryRootOcclusionFraction": 0,
+        "primaryRootCells": 0,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          }
+        ]
+      }
+    },
+    {
+      "view": "rear",
+      "time": 2.4,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30791,
+      "winningCells": 1660,
+      "potentialForwardCrownCells": 387,
+      "exposedForwardCrownCells": 0,
+      "primaryRootOccludesCrownCells": 0,
+      "primaryRootOcclusionFraction": 0,
+      "localPrimaryRootCells": 1,
+      "localRootAndCrownCells": 1,
+      "exposedCrownFraction": 0,
+      "exposedDistinctRows": 0,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 104,
+        "exposedForwardCrownCells": 0,
+        "primaryRootOccludesCrownCells": 0,
+        "primaryRootOcclusionFraction": 0,
+        "primaryRootCells": 1,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          }
+        ]
+      }
+    },
+    {
+      "view": "rear",
+      "time": 4.641509433962264,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28943,
+      "winningCells": 1345,
+      "potentialForwardCrownCells": 387,
+      "exposedForwardCrownCells": 0,
+      "primaryRootOccludesCrownCells": 0,
+      "primaryRootOcclusionFraction": 0,
+      "localPrimaryRootCells": 0,
+      "localRootAndCrownCells": 0,
+      "exposedCrownFraction": null,
+      "exposedDistinctRows": 0,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 104,
+        "exposedForwardCrownCells": 0,
+        "primaryRootOccludesCrownCells": 0,
+        "primaryRootOcclusionFraction": 0,
+        "primaryRootCells": 0,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          }
+        ]
+      }
+    },
+    {
+      "view": "rear",
+      "time": 4.641509433962264,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30791,
+      "winningCells": 1715,
+      "potentialForwardCrownCells": 387,
+      "exposedForwardCrownCells": 0,
+      "primaryRootOccludesCrownCells": 0,
+      "primaryRootOcclusionFraction": 0,
+      "localPrimaryRootCells": 0,
+      "localRootAndCrownCells": 0,
+      "exposedCrownFraction": null,
+      "exposedDistinctRows": 0,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 104,
+        "exposedForwardCrownCells": 0,
+        "primaryRootOccludesCrownCells": 0,
+        "primaryRootOcclusionFraction": 0,
+        "primaryRootCells": 0,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          }
+        ]
+      }
+    },
+    {
+      "view": "rear",
+      "time": 6.8,
+      "grip": 0,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 28943,
+      "winningCells": 1338,
+      "potentialForwardCrownCells": 387,
+      "exposedForwardCrownCells": 0,
+      "primaryRootOccludesCrownCells": 1,
+      "primaryRootOcclusionFraction": 0.002583979328165375,
+      "localPrimaryRootCells": 0,
+      "localRootAndCrownCells": 0,
+      "exposedCrownFraction": null,
+      "exposedDistinctRows": 0,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 104,
+        "exposedForwardCrownCells": 0,
+        "primaryRootOccludesCrownCells": 0,
+        "primaryRootOcclusionFraction": 0,
+        "primaryRootCells": 0,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          }
+        ]
+      }
+    },
+    {
+      "view": "rear",
+      "time": 6.8,
+      "grip": 0.7,
+      "grid": [
+        190,
+        92
+      ],
+      "cell": [
+        5.2727272727272725,
+        7.118181818181818
+      ],
+      "emittedSamples": 30791,
+      "winningCells": 1643,
+      "potentialForwardCrownCells": 387,
+      "exposedForwardCrownCells": 0,
+      "primaryRootOccludesCrownCells": 1,
+      "primaryRootOcclusionFraction": 0.002583979328165375,
+      "localPrimaryRootCells": 1,
+      "localRootAndCrownCells": 1,
+      "exposedCrownFraction": 0,
+      "exposedDistinctRows": 0,
+      "bands": [
+        {
+          "widthColumns": 1,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 2,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        },
+        {
+          "widthColumns": 3,
+          "maximumRows": 0,
+          "maximumCellCount": 0,
+          "startColumn": null
+        }
+      ],
+      "upper": {
+        "minimumNormalizedHeight": 0.45,
+        "potentialForwardCrownCells": 104,
+        "exposedForwardCrownCells": 0,
+        "primaryRootOccludesCrownCells": 0,
+        "primaryRootOcclusionFraction": 0,
+        "primaryRootCells": 0,
+        "bands": [
+          {
+            "widthColumns": 1,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 2,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          },
+          {
+            "widthColumns": 3,
+            "maximumRows": 0,
+            "maximumCellCount": 0,
+            "startColumn": null
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 import { buildDemo } from '../scripts/build-demo.mjs';
 import { CuttlefishArtwork } from '../src/animals/cuttlefish.js';
@@ -41,6 +42,12 @@ test('classic global build preserves module simulation and lifecycle', async () 
   }
   const state = a => JSON.parse(JSON.stringify({fish:a.fish,ink:a.ink,time:a.time,elapsed:a.elapsed}));
   assert.deepEqual(state(classic),state(module));
+  // Include the corrected anatomy and material/depth ownership, not only clocks.
+  const digest = buffer => createHash('sha256').update(new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength)).digest('hex');
+  assert.equal(classic.sampleCount, module.sampleCount);
+  for (const key of ['samples', 'depth', 'owners', 'tones', 'kinds', 'glyphs']) {
+    assert.equal(digest(classic[key]), digest(module[key]), `generated ${key}`);
+  }
   classic.setPaused(true); const time=classic.time; classic.pulse(); assert.equal(classic.time,time);
   classic.destroy(); module.destroy(); assert.equal(classic.samples.length,0);
 });

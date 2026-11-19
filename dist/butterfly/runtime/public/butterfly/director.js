@@ -298,7 +298,9 @@ export function createGardenDirector(initial, initialSeed, initialLayout = { col
                 }
         for (let i = 0; i < actors.length; i++) {
             const a = actors[i], target = aims[i], rate = target.rate ?? (target.activity.kind === 'nectar' || target.activity.kind === 'perch' ? .065 : .045);
-            const tx = clamp(target.x, -.78, .78), ty = clamp(target.y, -.56, .51);
+            // Low blooms remain reachable on tall phone grids, where the same body
+            // occupies fewer normalized y units. The renderer still fits the silhouette.
+            const tx = clamp(target.x, -.78, .78), ty = clamp(target.y, -.56, .60);
             const dx = (tx - a.x) * rate, dy = (ty - a.y) * rate, distance = Math.hypot(dx, dy);
             // A new flower at the cycle seam cannot create a long one-tick jump.
             const step = distance > .07 ? .07 / distance : 1;

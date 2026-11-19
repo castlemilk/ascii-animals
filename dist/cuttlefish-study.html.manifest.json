@@ -1,0 +1,44 @@
+{
+  "output": "dist/cuttlefish-study.html",
+  "sha256": "3ae6b8d74e32dd7d8278027b9f2f72dec86c6e4088844cb8989a16665be4dc31",
+  "bytes": 574945,
+  "type": "self-contained local HTML preview",
+  "browserVerified": false,
+  "sources": [
+    {
+      "path": "examples/cuttlefish-study/study.mjs",
+      "sha256": "6e22ac9f0052aca82fbb01a38a1fa8fd8ef2e82fdb0346594f141248d446d4ec",
+      "bytes": 5178
+    },
+    {
+      "path": "lib/animals/cuttlefish-study-director.js",
+      "sha256": "8c31d107564fe081bacaa2a34bd825f63bc6d47d5f8d71db5315f8a6a22e4cf0",
+      "bytes": 13098
+    },
+    {
+      "path": "lib/animals/cuttlefish-study.js",
+      "sha256": "8575b9926f4b697ab234d20927cda78b0d742867073d6d0c320a6c568082e90f",
+      "bytes": 16902
+    },
+    {
+      "path": "lib/animals/cuttlefish.js",
+      "sha256": "de98d21f593751cdd69e66b2425ff72c064508e9af1d856fb434dd60099d569d",
+      "bytes": 138736
+    },
+    {
+      "path": "lib/animals/manta.js",
+      "sha256": "507867c9c284da28d7ca6e625b68e45b7e59ae4a6e6e5d9f60fa769f3e2e14d6",
+      "bytes": 12870
+    },
+    {
+      "path": "lib/animals/octopus.js",
+      "sha256": "48c2f1ca0be6d2d36182a184a115c32c1c5245779e33f45ff67d8ae419937165",
+      "bytes": 36977
+    },
+    {
+      "path": "lib/core/scheduler.js",
+      "sha256": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+      "bytes": 2832
+    }
+  ]
+}

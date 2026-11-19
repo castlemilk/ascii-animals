@@ -1,0 +1,316 @@
+{
+  "sourceCommit": "99cb8c503d70f8a407d6f2b3aff3c6b45af8f9bd",
+  "sourceTree": "30372b6c308c0734d9ea3adf73639fee396c6bd7",
+  "sourcePath": "src/animals/cuttlefish.js",
+  "sourceSha256": "e92beee50ae36c590191929370668d9e82e24f16f2e5716111e1678a883df83d",
+  "description": "Exact V4 eye-bearing head skin with the separate crown suppressed, plus both absolute eye surfaces. Complete emitted geometry/light/kind/seed values; candidate crown/proximal-root samples excluded.",
+  "hashEncoding": "SHA256 of JSON.stringify of emitted arrays, without numeric rounding",
+  "cases": [
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 2278,
+          "sha256": "0589615d5abd5a5bc0cb1d90a3487b082a0c67c30c3464e7d48ee079e5ed9b3d"
+        },
+        "eyes": {
+          "samples": 437,
+          "sha256": "8f02978dd96d802252fa1c57ceef0ad722e27dd0295ef1514c19aa47d7d77e65"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 2278,
+          "sha256": "0589615d5abd5a5bc0cb1d90a3487b082a0c67c30c3464e7d48ee079e5ed9b3d"
+        },
+        "eyes": {
+          "samples": 437,
+          "sha256": "8f02978dd96d802252fa1c57ceef0ad722e27dd0295ef1514c19aa47d7d77e65"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 572,
+          "sha256": "fd2db26b97abf565dc60244bba0a7143f71627fea981aacf84b039398a536582"
+        },
+        "eyes": {
+          "samples": 109,
+          "sha256": "4a9e7247081a8f021109fe638dec267f51868f30edf8e34c2e4cd3498ed85d53"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 572,
+          "sha256": "fd2db26b97abf565dc60244bba0a7143f71627fea981aacf84b039398a536582"
+        },
+        "eyes": {
+          "samples": 109,
+          "sha256": "4a9e7247081a8f021109fe638dec267f51868f30edf8e34c2e4cd3498ed85d53"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 274,
+          "sha256": "83c029a916005705355ae712d3e9ca506360e4df320c748115466990514345cc"
+        },
+        "eyes": {
+          "samples": 63,
+          "sha256": "fa20ea767750d3abfea1336acbf80643777419863d5c45430cf2439162d161c5"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 274,
+          "sha256": "83c029a916005705355ae712d3e9ca506360e4df320c748115466990514345cc"
+        },
+        "eyes": {
+          "samples": 63,
+          "sha256": "fa20ea767750d3abfea1336acbf80643777419863d5c45430cf2439162d161c5"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 2278,
+          "sha256": "fe882f00775e33aa997903093ee17dfe6f6c76125fcfb9f5a19c94a9d3c5dead"
+        },
+        "eyes": {
+          "samples": 437,
+          "sha256": "48e56e3efdc78d5c36815407500a2d1da02f116c52a15561399705bb97a6cc04"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 2278,
+          "sha256": "fe882f00775e33aa997903093ee17dfe6f6c76125fcfb9f5a19c94a9d3c5dead"
+        },
+        "eyes": {
+          "samples": 437,
+          "sha256": "48e56e3efdc78d5c36815407500a2d1da02f116c52a15561399705bb97a6cc04"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 572,
+          "sha256": "635b82a2da75cede479989c5a4f7002aa79ed48a965b6c3f3747133e32cf5204"
+        },
+        "eyes": {
+          "samples": 109,
+          "sha256": "94c52dcc47be562a0456d4d43a6d1011a5fb853d3b93f7f6a074d91c074543c8"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 572,
+          "sha256": "635b82a2da75cede479989c5a4f7002aa79ed48a965b6c3f3747133e32cf5204"
+        },
+        "eyes": {
+          "samples": 109,
+          "sha256": "94c52dcc47be562a0456d4d43a6d1011a5fb853d3b93f7f6a074d91c074543c8"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 274,
+          "sha256": "2670913b8036fb8937547881d63b00a1eecec8f5469772dd9194c4f9e6782a1d"
+        },
+        "eyes": {
+          "samples": 63,
+          "sha256": "62e8b79fd4bf5b6be3dd13aa683459b29e8bfa12e741a6d3f4b155456d0111df"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 274,
+          "sha256": "2670913b8036fb8937547881d63b00a1eecec8f5469772dd9194c4f9e6782a1d"
+        },
+        "eyes": {
+          "samples": 63,
+          "sha256": "62e8b79fd4bf5b6be3dd13aa683459b29e8bfa12e741a6d3f4b155456d0111df"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 2278,
+          "sha256": "5485caa328a96171fdf3cb1364ad3f9f14534328af2b364148006d26126b897b"
+        },
+        "eyes": {
+          "samples": 437,
+          "sha256": "b4e6f02227272adcf16d52b16ca058b20bac54ba9a93de4c11e19785a213efc9"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 2278,
+          "sha256": "5485caa328a96171fdf3cb1364ad3f9f14534328af2b364148006d26126b897b"
+        },
+        "eyes": {
+          "samples": 437,
+          "sha256": "b4e6f02227272adcf16d52b16ca058b20bac54ba9a93de4c11e19785a213efc9"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 572,
+          "sha256": "723aebde3d5364f60836f32ed9b397730303d84aa6daf8c132c00ad0f47988d7"
+        },
+        "eyes": {
+          "samples": 109,
+          "sha256": "6a63305341255a869d2127396da2919309bc23d2e09476e6c8a8ecefed4cafec"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 572,
+          "sha256": "723aebde3d5364f60836f32ed9b397730303d84aa6daf8c132c00ad0f47988d7"
+        },
+        "eyes": {
+          "samples": 109,
+          "sha256": "6a63305341255a869d2127396da2919309bc23d2e09476e6c8a8ecefed4cafec"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 274,
+          "sha256": "09f499f996cbd45d5276a9a19b55b8935b6e3e0c5b93653682847492c3f12f23"
+        },
+        "eyes": {
+          "samples": 63,
+          "sha256": "c6a5fa07e9300602f020d16a9b28388bebb99ccafccde827d886bbbb1693cf18"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "headSkin": {
+          "samples": 274,
+          "sha256": "09f499f996cbd45d5276a9a19b55b8935b6e3e0c5b93653682847492c3f12f23"
+        },
+        "eyes": {
+          "samples": 63,
+          "sha256": "c6a5fa07e9300602f020d16a9b28388bebb99ccafccde827d886bbbb1693cf18"
+        }
+      }
+    }
+  ]
+}

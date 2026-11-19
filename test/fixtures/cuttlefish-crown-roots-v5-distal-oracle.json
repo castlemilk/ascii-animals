@@ -1,0 +1,227 @@
+{
+  "sourceCommit": "d638880513978c63b8cb1dfc97101463baa22966",
+  "sourceTree": "cb01b581891142b9e4c31167e5776f762ef2408b",
+  "sourceSha256": "b65cb598f9944c1d89e8564db6707b684632cadcfd416e1365e1eb0bf58071dd",
+  "primaryStart": [
+    0.3,
+    0.4,
+    0.4,
+    0.4,
+    0.3,
+    0.3,
+    0.3,
+    0.3
+  ],
+  "intentionalProximalExtension": {
+    "arms": [
+      1,
+      2,
+      3
+    ],
+    "u": [
+      0.3,
+      0.4
+    ]
+  },
+  "method": "Pinned V5 emitted positions, light, materials, seeds and sucker extras; no candidate recording and no adjacent-frame exception at the declared boundaries.",
+  "cases": [
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 3699,
+        "sha256": "98f875fc4d8c95fc46ceb9bb8bcf44e87cc3a090f782fafea1c209d9eedd9793"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 4833,
+        "sha256": "5bdffb9a173e23a5a1ce15e8ce49eb20ea6319b4b713d71500229ba3ec438344"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 947,
+        "sha256": "e6a7ff8a6087bce81ce3d9a1c7d7f492e831086d5d64d1b525ebc1e0596a557b"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 1359,
+        "sha256": "fc5c4ec01eeb8987ad0b4128f8dbd1fad000188017343f09af18b78fac744fc6"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 532,
+        "sha256": "dcb38e9fb3fe4c68bd48a7076006d42b2236167f946c255d557a205d7f598839"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 652,
+        "sha256": "9044c4804962e5d890e9d513346b7ba7bbf3964e78d048e7c6ff3c871e89ba4a"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 3699,
+        "sha256": "178ee37cf20c19d40b09c77e05527f07cb3a4d5bdd3e334f01691044a5455e69"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 4833,
+        "sha256": "e1372c84183942c02ff6dddeec8a386cfbd5123594cec55eab5e5fa4140107d3"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 947,
+        "sha256": "6a5d79cedf6682b2f384a325a2655223eea53984d170e5fd286d3c3207e62765"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 1359,
+        "sha256": "e427fd0b7caa4068dcc230b17caa63274e79728bfdfcef59e615bf5395c34bcb"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 532,
+        "sha256": "34a91ee053cfa2b9a7af09b213db8d3c2eed3bb7f3459cd67d8792cfa3fb6362"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 652,
+        "sha256": "d231dfb9e1f1ef11c198afbf2a4a323d5e57fbf79d735a710ade93b178c53d1a"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 3699,
+        "sha256": "b6bd5cbc776aaa36b847d5a53fa0b47002d72954e6ec0914a51590e1d53922e8"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 4833,
+        "sha256": "779f39c0f09490fc067890fd42ab39cd947afcce2d6fcd4f731a8a9de40ca915"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 947,
+        "sha256": "06a84d20e09467d0cf5616f01e464a9016151b248e7917b113f60f348bb0022f"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 1359,
+        "sha256": "a14143c8ded0e5feec0a915c9c4abb2cc2a0eea8e8cfeaf682388babe6596687"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0
+      },
+      "primaryDistalArms": {
+        "samples": 532,
+        "sha256": "8c6046fbf8e9a9627987a8277dd67b1a63f8997956e2a85c44ca73ace2b6b774"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "primaryDistalArms": {
+        "samples": 652,
+        "sha256": "4bdab9e04a16e3fd11efc3d8de04c700d81b70e1d3d2b1b912e05d7fd82e583e"
+      }
+    }
+  ]
+}

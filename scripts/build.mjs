@@ -65,6 +65,11 @@ const octopusDen = JSON.parse(execFileSync(process.execPath, [
   path.join(root, 'species/octopus/scripts/build-preview.mjs'),
   '--out', path.join(root, 'dist/octopus-den.html'),
 ], { encoding: 'utf8' }));
+// Optional authored studies share the exact built marine renderer.
+execFileSync(process.execPath, [path.join(root, 'species/manta/scripts/build-study.mjs'),
+  '--out=dist/manta-reef.html', '--public-preview'], { stdio: 'pipe' });
+execFileSync(process.execPath, [path.join(root, 'scripts/build-cuttlefish-study-preview.mjs'),
+  '--out', path.join(root, 'dist/cuttlefish-study.html'), '--public-preview'], { stdio: 'pipe' });
 console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, seahorse,
   octopusDen: { entry: 'dist/octopus-den.html', sourceSha256: octopusDen.sourceSha256 },
   output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

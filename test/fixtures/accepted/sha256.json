@@ -1,0 +1,18 @@
+{
+  "v3/src/animals/cuttlefish.js": "cd1dc0d1cb60310afdaa86f2743be336fa97078a464f74511d6bf7af2d0d0f10",
+  "v3/src/animals/manta.js": "f47da269edb75a7efc764e8798d31393a38fe0848424bd1172abc3636e1c6012",
+  "v3/src/animals/octopus.js": "ed004cb139fa48aadab556c16f2fc36d3cf2195c426c2c072fe786dd4927ca72",
+  "v3/src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+  "v5/src/animals/cuttlefish.js": "b65cb598f9944c1d89e8564db6707b684632cadcfd416e1365e1eb0bf58071dd",
+  "v5/src/animals/manta.js": "f47da269edb75a7efc764e8798d31393a38fe0848424bd1172abc3636e1c6012",
+  "v5/src/animals/octopus.js": "ed004cb139fa48aadab556c16f2fc36d3cf2195c426c2c072fe786dd4927ca72",
+  "v5/src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+  "v6/src/animals/cuttlefish.js": "2dd02aa60ed0503d41f1bbd4d19554a9b37323c11ced16fbd037196b94a1e0f9",
+  "v6/src/animals/manta.js": "f47da269edb75a7efc764e8798d31393a38fe0848424bd1172abc3636e1c6012",
+  "v6/src/animals/octopus.js": "ed004cb139fa48aadab556c16f2fc36d3cf2195c426c2c072fe786dd4927ca72",
+  "v6/src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+  "v7/src/animals/cuttlefish.js": "815dc158a2013a6590cdfce4d093e5092989eecfd0687ed952948583e56289ba",
+  "v7/src/animals/manta.js": "239fe85eb0396b36e97be4b041fabfe77f0509d6827714ec79c472b7ece9f4ca",
+  "v7/src/animals/octopus.js": "ed004cb139fa48aadab556c16f2fc36d3cf2195c426c2c072fe786dd4927ca72",
+  "v7/src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd"
+}

@@ -1,0 +1,232 @@
+{
+  "sourceCommit": "d638880513978c63b8cb1dfc97101463baa22966",
+  "sourceTree": "cb01b581891142b9e4c31167e5776f762ef2408b",
+  "sourceSha256": "b65cb598f9944c1d89e8564db6707b684632cadcfd416e1365e1eb0bf58071dd",
+  "changedRegion": {
+    "oldCenterX": 0.78,
+    "newCenterX": 0.87,
+    "halfX": 0.205,
+    "centerAngle": 0.18,
+    "halfAngle": 0.31,
+    "removedSkinRadius": 0.92
+  },
+  "method": "Exact emitted V5 head-skin geometry/light/material/seed outside the explicit union of V5 and V6 socket holes. Fixture recorded from immutable V5 source, never the candidate.",
+  "cases": [
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 2232,
+        "sha256": "c79cd7fda4d5f6d6ed48d8d852e6204f7eede19e4c9e64603da8354f5ed60f8b"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 2232,
+        "sha256": "c79cd7fda4d5f6d6ed48d8d852e6204f7eede19e4c9e64603da8354f5ed60f8b"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 560,
+        "sha256": "4f08c7d6604f28a03f57ba4af0136a5c8e61330c719541397d5ff91358c1e9aa"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 560,
+        "sha256": "4f08c7d6604f28a03f57ba4af0136a5c8e61330c719541397d5ff91358c1e9aa"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 266,
+        "sha256": "bb29cbdf1bdcaa3338ff04652505e11be5f2b79ff12375d764c248e55987a3a7"
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 266,
+        "sha256": "bb29cbdf1bdcaa3338ff04652505e11be5f2b79ff12375d764c248e55987a3a7"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 2232,
+        "sha256": "404c28db8fe9a51b6fa165beff6bbda4f41a9995ee3662b9732ddfedcac37336"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 2232,
+        "sha256": "404c28db8fe9a51b6fa165beff6bbda4f41a9995ee3662b9732ddfedcac37336"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 560,
+        "sha256": "adb0c8a7b26355fa828debbfd27c9153ebd22386bd87bf69e907eef43d663659"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 560,
+        "sha256": "adb0c8a7b26355fa828debbfd27c9153ebd22386bd87bf69e907eef43d663659"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 266,
+        "sha256": "2570b0a0e16b72c6997209ef53d33b3cbd2d8c2937671cfd6e6a003dc01e236e"
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 266,
+        "sha256": "2570b0a0e16b72c6997209ef53d33b3cbd2d8c2937671cfd6e6a003dc01e236e"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 2232,
+        "sha256": "61bb38c701d1e1f25885647a91477bc9728f5fff1915151d3b9bdc459e749842"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 2232,
+        "sha256": "61bb38c701d1e1f25885647a91477bc9728f5fff1915151d3b9bdc459e749842"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 560,
+        "sha256": "1bffadd34f3ea3e64e88929e87d00c80d5d4e74de96bece8c99bc44704f28f1a"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 560,
+        "sha256": "1bffadd34f3ea3e64e88929e87d00c80d5d4e74de96bece8c99bc44704f28f1a"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0
+      },
+      "headSkin": {
+        "samples": 266,
+        "sha256": "b2872737071c75b7432763307f2c6279f5e7676594138bc3517436212d01ccdb"
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "headSkin": {
+        "samples": 266,
+        "sha256": "b2872737071c75b7432763307f2c6279f5e7676594138bc3517436212d01ccdb"
+      }
+    }
+  ],
+  "eyeFootprints": [
+    {
+      "side": -1,
+      "samples": 2397,
+      "minimumX": 0.5750000000000001,
+      "maximumX": 0.985,
+      "centerX": 0.78,
+      "spanX": 0.4099999999999999
+    },
+    {
+      "side": 1,
+      "samples": 2397,
+      "minimumX": 0.5750000000000001,
+      "maximumX": 0.985,
+      "centerX": 0.78,
+      "spanX": 0.4099999999999999
+    }
+  ]
+}

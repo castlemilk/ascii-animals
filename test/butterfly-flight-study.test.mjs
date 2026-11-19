@@ -120,6 +120,59 @@ test('flower visits approach before feeding, hold contact, and fan their wings a
   }
 });
 
+test('six foragers physically reach the lowest blooms on tall phone grids and fan without losing contact', () => {
+  for (const [columns, rows] of [[104, 86], [80, 90]]) {
+    const options = {
+      seed: 7, columns, rows,
+      director: { scene: 'nectar', count: 6, sceneSeconds: 32, roles: Array(6).fill('forager') },
+    };
+    const model = createButterflyModel(options);
+    advance(model, 1200);
+    const poses = Array.from({ length: 6 }, () => []);
+    // Geometric oracle from the exported pose, the declared .56 cell aspect,
+    // anatomical head attachment and small-grid wing-detail floor. It does not
+    // reuse the director's landing target or trust its activity label alone.
+    const worldW = Math.max(6, 3.7 * columns * .56 / rows);
+    const worldH = worldW * rows / (columns * .56);
+    for (let tick = 0; tick <= 120; tick++) {
+      const garden = model.getGarden();
+      const frame = tick === 0 ? model.frame() : null;
+      for (const actor of garden.members) {
+        assert.equal(actor.activity.kind, 'nectar', `${columns}×${rows}: visitor ${actor.id + 1} must reach its bloom.`);
+        const flower = garden.flowers.find(f => f.id === actor.activity.flower);
+        assert(flower);
+        const scale = Math.max(actor.scale, worldW / (columns - 1) * 5.4);
+        const hx = actor.x * worldW * .5 + .53 * Math.sin(actor.heading) * scale;
+        const hy = actor.y * worldH * .5 - .53 * Math.cos(actor.heading) * scale;
+        const fx = flower.x * worldW * .5, fy = flower.y * worldH * .5;
+        assert(Math.hypot(fx - hx, fy - hy) < scale * .6,
+          `${columns}×${rows}: visitor ${actor.id + 1} needs a short physical head-to-flower connection.`);
+        if (frame) {
+          const column = x => Math.round((x / worldW + .5) * (columns - 1));
+          const row = y => Math.round((y / worldH + .5) * (rows - 1));
+          const left = Math.max(0, Math.min(column(hx), column(fx)) - 1);
+          const right = Math.min(columns - 1, Math.max(column(hx), column(fx)) + 1);
+          const top = Math.max(0, Math.min(row(hy), row(fy)) - 1);
+          const bottom = Math.min(rows - 1, Math.max(row(hy), row(fy)) + 1);
+          let visibleConnection = false;
+          for (let r = top; r <= bottom; r++) for (let c = left; c <= right; c++) {
+            const cell = frame.cells[r * columns + c];
+            visibleConnection ||= cell.ink === 11 && cell.glyph === '.';
+          }
+          assert(visibleConnection, `${columns}×${rows}: visitor ${actor.id + 1} must render its reachable feeding connection.`);
+        }
+        poses[actor.id].push(actor);
+      }
+      model.advanceTicks(1);
+    }
+    for (const samples of poses) {
+      assert(range(samples.map(m => m.x)) < .01 && range(samples.map(m => m.y)) < .01,
+        'The landed root must stay anchored through the fan.');
+      assert(range(samples.map(m => m.opening)) > .08, 'Each landed visitor must fan its wings.');
+    }
+  }
+});
+
 test('flight, landing and escape replay equally with irregular tick partitions', () => {
   const options = {
     seed: 907, columns: 180, rows: 90, speed: .75,

@@ -5,17 +5,18 @@
   "scope": "Butterfly source, demo source, tests, documentation and review evidence only; generated shared entries omitted.",
   "sourceSha256": {
     "src/public/butterfly.ts": "5c6ed8d870d22e15f702dc03ccf2aeeaed9f5ec044f254fe3ff4eed47ba1f39a",
-    "src/public/butterfly/director.ts": "31d68f106cc681ed6535d260fec59c9336d5b1863de6fd8580f52a8665636574",
+    "src/public/butterfly/director.ts": "124209be0b952ac9375b6fd8d717230fcd4340d5cd018888e47a20fd2902d2a1",
     "src/public/butterfly/render-garden.ts": "a4805224503fb4c3b72674b4a02aea51fbc76f68514dde3d46f2cc9021e306f5",
     "species/butterfly/demo/demo.js": "c16178e1a3f656f9d6354f5f1759ae7b77f40a9be5fc5849a69c8929c6b40f88",
     "species/butterfly/demo/index.html": "ef9d976a150b19d97b9a1d66f3a19eb4d02607ff9134b531ada397bfc370163c",
-    "test/butterfly-flight-study.test.mjs": "5e79ce005d5df61ee832dcbf6574b7953e3081c513c5ee6242fbfab4843b8190"
+    "test/butterfly-flight-study.test.mjs": "161aafd65741de2425fca03b028895622bb7278441646544cdbe0a5c5c7dc1d4",
+    "docs/BUTTERFLY-API.md": "d131a5cdad8250776121f2a83987abeb81135ac4d0e346faab63f67e5b013164"
   },
   "validation": {
-    "tests": 627,
-    "passed": 627,
+    "tests": 628,
+    "passed": 628,
     "failed": 0,
-    "newBehaviorTests": 9,
+    "newBehaviorTests": 10,
     "typecheck": "passed",
     "butterflyTypeFixture": "passed",
     "package": "passed; esbuild/Rollup/Webpack optional checks unrun"
@@ -134,7 +135,8 @@
   "reviewFixes": [
     "Brighter dark veins/body and simpler coarse glyphs after 390px review.",
     "Bounded position step at loop seam after unchanged continuity gate failed.",
-    "Default nectar cue selects a flower without persistent synthetic hover."
+    "Default nectar cue selects a flower without persistent synthetic hover.",
+    "Lowest blooms remain reachable with six foragers on tall phone grids."
   ],
   "remainingAcceptance": [
     "Real-browser font/CSS/keyboard/touch validation (local Chromium launch denied; cloud local URL connection refused).",
