@@ -1,0 +1,262 @@
+{
+  "schema": "ascii-animals/crab-review/v1",
+  "reviewDate": "2026-11-19",
+  "userTimezone": "Australia/Melbourne",
+  "repository": "https://github.com/castlemilk/ascii-animals",
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "baseVerifiedAgainstRemoteMain": true,
+  "branch": "feat/crab-tidal-flat-choreography",
+  "scope": "crab source, crab demo, crab documentation, crab tests and crab evidence only",
+  "source": {
+    "before": {
+      "path": "src/public/crab.ts",
+      "sha256": "ef36976cb7acf42bee4abdb1d6c6634cbbda67c65e472cd94bac7805d2e091a6",
+      "compiledSHA256": "cd56ec80655186b7b260b561c9a721aca54f337ff04fa010d2a49c241d3c1e0b"
+    },
+    "after": {
+      "path": "src/public/crab.ts",
+      "sha256": "381cf8c9018e7deceacdc82aef891857d05d46b0943187f6a92c4b7ba7bad2a2",
+      "compiledSHA256": "cf0a4617eba573e1eef3df153f1c52a1953b4708948c461e3db03041715f10b6"
+    },
+    "harnessSHA256": "4380ae7e387c7ea50875645e05f28d9b995b2d1375d34606e6ab0dac555dc93b",
+    "fakeBrowserSHA256": "f4b3cae1638051dea6da3ef7f9afa1307c969c75a24283fed746f7a62839ed3b"
+  },
+  "publicAPI": {
+    "declarationParity": "byte-identical to pinned main",
+    "newPublicMethods": false,
+    "newRuntimeDependencies": false
+  },
+  "implementation": [
+    "Continuous broad carapace with shallow regions, mottling and underside; two articulated chelae and four pairs of walking legs.",
+    "Forage cue: anticipate, planted lateral travel, working claw, return and finish airborne steps.",
+    "Display cue: prepare, lead claw, delayed second claw, hold, independently lower and settle.",
+    "Shelter cue: brace, retreat behind fixed depth-sorted ledge, conceal, inspect, emerge and recover.",
+    "Visible shelter taps target its resident; existing pointer, touch and keyboard routes retained.",
+    "Default demo has one resident and responsive 80/112/140-column grids; library defaults unchanged."
+  ],
+  "validation": [
+    {
+      "command": "npm ci --ignore-scripts",
+      "result": "passed"
+    },
+    {
+      "command": "npm run build",
+      "result": "passed; generated outputs excluded from patch for central integration"
+    },
+    {
+      "command": "node --test test/crab.test.mjs test/crab-director.test.mjs test/crab-tidal-flat.test.mjs",
+      "result": "42 passed, 0 failed",
+      "log": "logs/crab-tests-final.log"
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p species/crab/tests/tsconfig.json",
+      "result": "passed",
+      "log": "logs/crab-types-final.log"
+    },
+    {
+      "command": "diff -u ../crab-baseline/lib/public/crab.d.ts lib/public/crab.d.ts",
+      "result": "identical declarations, exit 0",
+      "log": "logs/crab-api-parity.log"
+    },
+    {
+      "command": "node --check species/crab/demo/demo.js",
+      "result": "passed"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "final run passed",
+      "log": "logs/crab-typecheck-final.log"
+    },
+    {
+      "command": "npm run check:package",
+      "result": "passed-with-unrun-optional-checks; repeatable pack, installed consumer, SSR and NodeNext/Bundler/core server types passed",
+      "log": "logs/crab-package-check.log",
+      "report": "logs/package-check.json",
+      "notRun": [
+        "esbuild",
+        "Rollup with resolver",
+        "webpack",
+        "browser acceptance"
+      ]
+    },
+    {
+      "command": "npm test",
+      "result": "initial default-concurrency run: 624 passed, 1 failed; file-level species/frog/tests/geometry.test.mjs failed without detailed assertion; cause unconfirmed",
+      "log": "logs/crab-full-tests.log"
+    },
+    {
+      "command": "node --test --test-concurrency=1 test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs species/gecko/test/*.test.mjs species/pufferfish/tests/*.test.mjs species/frog/tests/core.test.mjs species/frog/tests/geometry.test.mjs species/frog/tests/lifecycle.test.mjs species/frog/tests/demo.test.mjs species/owl/tests/*.test.mjs",
+      "result": "628 passed, 0 failed, 0 skipped; same aggregate test selection with bounded concurrency, no tests or thresholds removed",
+      "log": "logs/crab-full-tests-bounded.log"
+    }
+  ],
+  "validationNotes": [
+    "An earlier typecheck overlapped the aggregate pretest build clearing lib and failed on missing generated modules. Sequential final typecheck passed; no source change was needed for this orchestration race.",
+    "Crab lifecycle tests use mocked browser APIs and do not constitute real browser acceptance.",
+    "Independent reviewer passed the 10 added crab tests and found no blocking contract regression."
+  ],
+  "evidence": {
+    "kind": "native-canvas-with-mocked-window",
+    "backend": {
+      "package": "@napi-rs/canvas",
+      "version": "0.1.100"
+    },
+    "font": {
+      "path": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+      "sha256": "54bf827eb99404e8f430c330ad30f063334f637eba0109b6a18d4f566a8e9dd8",
+      "registeredAlias": "ui-monospace"
+    },
+    "desktop": {
+      "canvasPixels": [
+        980,
+        700
+      ],
+      "grid": [
+        140,
+        56
+      ]
+    },
+    "phoneSized": {
+      "canvasPixels": [
+        390,
+        280
+      ],
+      "grid": [
+        80,
+        32
+      ],
+      "isPhoneBrowserScreenshot": false
+    },
+    "matchedParameters": "same seed 7, options, ordered events and integer ticks on separately compiled before/after source",
+    "fixtures": 64,
+    "fullManifest": "native/native-review-manifest.json in review bundle",
+    "timeline": {
+      "tickRate": 60,
+      "lastTick": 1080,
+      "sampledEveryTicks": 6,
+      "events": [
+        {
+          "tick": 0,
+          "method": "setBeat",
+          "arguments": [
+            "forage"
+          ]
+        },
+        {
+          "tick": 60,
+          "method": "guide",
+          "arguments": [
+            0.3,
+            0.2
+          ]
+        },
+        {
+          "tick": 60,
+          "method": "cue",
+          "arguments": [
+            "forage",
+            0
+          ]
+        },
+        {
+          "tick": 60,
+          "method": "clearGuide",
+          "arguments": []
+        },
+        {
+          "tick": 360,
+          "method": "cue",
+          "arguments": [
+            "signal",
+            0
+          ]
+        },
+        {
+          "tick": 720,
+          "method": "cue",
+          "arguments": [
+            "shelter",
+            0
+          ]
+        }
+      ]
+    },
+    "motion": {
+      "name": "native-crab-matched-motion",
+      "kind": "native-canvas-with-mocked-window",
+      "sampleRateHz": 10,
+      "renderedFrames": 181,
+      "simulatedSeconds": 18,
+      "dimensions": {
+        "width": 1432,
+        "height": 594
+      },
+      "mp4SHA256": "be015050db0ca0b5ab2884b7a21ba472255a386566454e06e16d4cd8e5d440d8",
+      "gifSHA256": "d2d57448499d912f559aedf3aec5c074e566ea544bd4353095a2c3c73772f8c2",
+      "performanceClaim": "Sampling rate only; not measured runtime FPS."
+    },
+    "selectedFiles": [
+      {
+        "path": "native-matched-desktop-display.png",
+        "sha256": "3f1e9eaf010c441a2de0dc9028444c5364df1b14a09b9ece1e41190d9958641e"
+      },
+      {
+        "path": "native-matched-phone-display.png",
+        "sha256": "fcd9d0b8ff20bd78aa6f0546db12755ab66e0b9a0411c5cfca967c35a3bdcf08"
+      },
+      {
+        "path": "native-sequence-contact-sheet.png",
+        "sha256": "081c5197d34e7807bbb07999e60c187fadcfadb76aa5e7eed9cb5041394d27dc"
+      },
+      {
+        "path": "native-crab-matched-motion.gif",
+        "sha256": "d2d57448499d912f559aedf3aec5c074e566ea544bd4353095a2c3c73772f8c2"
+      }
+    ],
+    "visualReview": "Reviewed raw before/after stills, representative sequence/contact frames and successive emergence frames; generated 18-second motion exports. No real-time browser playback was observed.",
+    "fiveActorMinimum": "Five residents remain bounded at 80x32; fine joints necessarily simplify at this density."
+  },
+  "reviewCorrections": [
+    "Finish airborne steps after body travel stops; preserve planted world-space toes.",
+    "Remove duplicate eye glyphs and resolve the shelter lip masking open bodies.",
+    "Restore all water phase dependence on signed current; zero current stays still.",
+    "Fit home and patch anchors to the same reachable travel bounds after scale/grid changes."
+  ],
+  "realBrowser": {
+    "status": "unverified",
+    "localChromium": {
+      "result": "blocked before page creation",
+      "executable": "/usr/bin/chromium",
+      "driver": "Playwright",
+      "error": "process_singleton_posix.cc:297: socket() failed: Operation not permitted; SIGABRT",
+      "workaround": "none"
+    },
+    "dedicatedCloudBrowser": "Could not reach the local preview: net::ERR_CONNECTION_REFUSED; subsequent selection of the error tab was blocked by browser security policy. Stopped without bypass.",
+    "remainingChecks": [
+      "real browser DOM and CSS",
+      "real pointer/touch/keyboard delivery",
+      "screen readers",
+      "device performance",
+      "Safari or mobile browser rasterization"
+    ],
+    "noDevicePerformanceClaim": true
+  },
+  "centralIntegrationCommands": [
+    "git apply --check crab-tidal-flat.patch",
+    "git apply crab-tidal-flat.patch",
+    "npm ci",
+    "npm run build",
+    "node --test test/crab.test.mjs test/crab-director.test.mjs test/crab-tidal-flat.test.mjs",
+    "node node_modules/typescript/bin/tsc -p species/crab/tests/tsconfig.json",
+    "npm run typecheck",
+    "npm run check:package"
+  ],
+  "generatedOutputs": "dist/crab and lib are regenerated centrally; no generated entry points, workflows, shared engines or other species included.",
+  "authorization": "own working branch and PR only; no merge, deployment, repository settings changes or Work conversion",
+  "references": [
+    "https://collections.museumsvictoria.com.au/species/8652",
+    "https://bpb-us-e2.wpmucdn.com/about.illinoisstate.edu/dist/d/46/files/2019/10/Vidal_Gadea_2008.pdf",
+    "https://www.marlin.ac.uk/species/detail/1497",
+    "https://www.marinepests.gov.au/sites/default/files/Documents/empplan-rapid-response-manual-carcinus-maenas.pdf"
+  ]
+}
