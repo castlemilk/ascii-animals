@@ -1,6 +1,7 @@
 import { GECKO_LIMITS, geckoShoulder, transformGeckoPoint } from './gecko.js';
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const TAU = Math.PI * 2;
+const smooth = (x) => { const t = clamp(x, 0, 1); return t * t * (3 - 2 * t); };
 /** Original attached centerline + four two-bone limbs, with world-fixed stance pads. */
 export function getGeckoAnatomy(state) {
     if (state.feet.length !== 4 || ![state.position.x, state.position.y, state.heading, state.phase, state.tailCurl, state.options.tailLength, state.options.toeSpread].every(Number.isFinite)) {
@@ -30,11 +31,13 @@ export function getGeckoAnatomy(state) {
         const along = (upper * upper - lower * lower + d * d) / (2 * d), height = Math.sqrt(Math.max(0, upper * upper - along * along));
         const bend = foot.side * (foot.front ? 1 : -1);
         const elbow = { x: shoulder.x + ux * along - uy * height * bend, y: shoulder.y + uy * along + ux * height * bend };
+        const spread = foot.toeSpread ?? state.options.toeSpread;
+        // Digital hyperextension: a raised foot folds its fan before transferring.
+        // Stance tips depend only on the latched contact, never on body movement.
+        const peel = foot.phase === 'swing' ? Math.sin(Math.PI * clamp((state.tick - foot.since) / foot.duration, 0, 1)) : 0;
         const pads = Array.from({ length: 5 }, (_, i) => {
-            // One critique loop: the first .51-radian fan merged pads at 112x50.
-            // Wider angular/longitudinal separation preserves negative space at LOD.
-            const a = foot.angle + (i - 2) * .66 * state.options.toeSpread;
-            const reach = (.16 + .022 * (1 - Math.abs(i - 2) / 2)) * state.options.toeSpread;
+            const a = foot.angle + (i - 2) * .66 * spread * (1 - .46 * peel);
+            const reach = (.16 + .022 * (1 - Math.abs(i - 2) / 2)) * spread * (1 - .22 * peel);
             return { x: palm.x + Math.cos(a) * reach, y: palm.y + Math.sin(a) * reach };
         });
         return { id: foot.id, shoulder, elbow, palm: { ...palm }, angle: foot.angle, lift: foot.phase === 'swing' ? foot.lift : 0, pads };
@@ -45,9 +48,13 @@ export function getGeckoAnatomy(state) {
  * Bounded surface samples. This knows no camera, cell grid, Canvas or host clock.
  * Material names are gecko-local; the proposed writer adapter maps them explicitly.
  */
-export function sampleGecko(state, emit) {
+export function sampleGecko(state, emit, pose = {}) {
     if (typeof emit !== 'function')
         throw new TypeError('emit must be a function');
+    const headTurn = clamp(pose.headTurn ?? 0, -.24, .24), headReach = clamp(pose.headReach ?? 0, -.025, .025);
+    const crouch = clamp(pose.crouch ?? 0, 0, 1), jawOpen = clamp(pose.jawOpen ?? 0, 0, 1);
+    if (![headTurn, headReach, crouch, jawOpen].every(Number.isFinite))
+        throw new TypeError('Expected finite Gecko expression');
     const anatomy = getGeckoAnatomy(state);
     let count = 0;
     const put = (p, z, tone, material, part) => {
@@ -63,11 +70,20 @@ export function sampleGecko(state, emit) {
             const radius = ir / rings, steps = ir === 0 ? 1 : ir * 8;
             for (let j = 0; j < steps; j++) {
                 const theta = j / steps * TAU, u = Math.cos(theta) * radius, v = Math.sin(theta) * radius;
-                const lx = u * rx, ly = v * ry * (head ? (1 - .23 * Math.max(0, u)) : 1);
+                const lx = u * rx, ly = v * ry * (head ? (1 - .30 * Math.max(0, u) + .035 * Math.cos(u * 3)) : 1);
                 const p = { x: center.x + lx * c - ly * s, y: center.y + lx * s + ly * c };
                 const dome = Math.sqrt(Math.max(0, 1 - radius * radius));
-                const texture = material === 'skin' ? .045 * Math.sin((u + state.seed * .001) * 29) * Math.cos(v * 23) : 0;
-                put(p, z + dome * (material === 'skin' ? .055 : .012), tone + .17 * dome - .10 * v + texture, material, part);
+                // Skin markings are locked to anatomy, not screen cells or frame time.
+                // Sparse warm islands are encoded in the low skin-tone band; the rest
+                // remains a cool, quiet surface with a continuous lit dorsal contour.
+                const gx = u * (head ? 5 : 6), gy = v * 3, ix = Math.floor(gx + .5), iy = Math.floor(gy + .5);
+                const hash = (Math.imul(ix + 19, 73856093) ^ Math.imul(iy + 31, 19349663) ^ state.seed) >>> 0;
+                const offsetX = ((hash & 255) / 255 - .5) * .33, offsetY = (((hash >>> 8) & 255) / 255 - .5) * .33;
+                const spot = material === 'skin' && (part === 'body' || part === 'head') && radius < .91 &&
+                    ((hash >>> 16) % 5 !== 0) && Math.hypot((gx - ix - offsetX) * 1.25, gy - iy - offsetY) < .25;
+                const texture = material === 'skin' ? .018 * Math.cos(u * 67 + state.seed) * Math.cos(v * 53) : 0;
+                const value = spot ? .29 + .035 * dome : tone + .16 * dome - .12 * v + texture;
+                put(p, z + dome * (material === 'skin' ? .055 : .012), value, material, part);
             }
         }
     };
@@ -87,7 +103,8 @@ export function sampleGecko(state, emit) {
         const dx = next.x - prev.x, dy = next.y - prev.y, length = Math.hypot(dx, dy), nx = -dy / length, ny = dx / length;
         for (let j = 0; j < 9; j++) {
             const v = j / 4 - 1;
-            put({ x: p.x + nx * p.radius * v, y: p.y + ny * p.radius * v }, .018 + .025 * (1 - v * v), .50 + .22 * (1 - Math.abs(v)), 'skin', 'tail');
+            const band = smooth((Math.cos(i * .59) - .45) * 3) * .095;
+            put({ x: p.x + nx * p.radius * v, y: p.y + ny * p.radius * v }, .018 + .025 * (1 - v * v), .51 + .23 * (1 - Math.abs(v)) - band, 'skin', 'tail');
         }
     }
     // Raised swing feet are sampled above stance feet; all remain joint-connected.
@@ -96,18 +113,33 @@ export function sampleGecko(state, emit) {
         strip(limb.elbow, limb.palm, .029, .020, 18, 7, .024 + limb.lift * .7, 'limb');
         disk(limb.palm, .031, .028, limb.angle, 4, .025 + limb.lift, 'skin', 'limb', .64);
         for (const pad of limb.pads) {
-            strip(limb.palm, pad, .008, .006, 12, 3, .025 + limb.lift, 'digit');
-            disk(pad, .026, .023, limb.angle, 6, .032 + limb.lift, 'pad', 'pad', .72);
+            const angle = Math.atan2(pad.y - limb.palm.y, pad.x - limb.palm.x);
+            const knuckle = { x: limb.palm.x + (pad.x - limb.palm.x) * .55, y: limb.palm.y + (pad.y - limb.palm.y) * .55 };
+            strip(limb.palm, knuckle, .010, .008, 6, 3, .025 + limb.lift, 'digit');
+            strip(knuckle, pad, .008, .007, 7, 3, .027 + limb.lift, 'digit');
+            disk(pad, .029, .017, angle, 6, .034 + limb.lift, 'pad', 'pad', .79);
         }
     }
     const breathing = 1 + state.options.breathing * Math.sin(state.phase * 1.45);
-    disk(state.position, .25, .115 * breathing, state.heading, 18, .061, 'skin', 'body', .55);
-    disk(transformGeckoPoint(state.position, state.heading, .205, 0), .115, .077, state.heading, 8, .068, 'skin', 'neck', .58);
-    disk(transformGeckoPoint(state.position, state.heading, .35, 0), .20, .155, state.heading, 15, .076, 'skin', 'head', .59, true);
+    disk(state.position, .265 - .012 * crouch, (.126 + .008 * crouch) * breathing, state.heading, 19, .061 - .012 * crouch, 'skin', 'body', .57);
+    const neck = transformGeckoPoint(state.position, state.heading, .20, 0), faceHeading = state.heading + headTurn;
+    disk(neck, .108, .074, state.heading, 8, .068, 'skin', 'neck', .61);
+    const face = transformGeckoPoint(neck, faceHeading, .145 + headReach, 0);
+    disk(face, .202, .165, faceHeading, 17, .076, 'skin', 'head', .64, true);
+    // A small mouth gap and attached lower-jaw lip sit above the head surface.
+    // Drawing the jaw underneath the skull made a strike invisible at phone size.
+    if (jawOpen > 0) {
+        const mouth = transformGeckoPoint(face, faceHeading, .145, 0);
+        disk(mouth, .048 * jawOpen, .080, faceHeading, 5, .147, 'pupil', 'head', .18);
+        const lip = transformGeckoPoint(face, faceHeading, .194 + headReach * .3, 0);
+        disk(lip, .016, .083, faceHeading, 4, .157, 'skin', 'head', .72);
+    }
     for (const side of [-1, 1]) {
-        const eye = transformGeckoPoint(state.position, state.heading, .415, side * .105);
-        disk(eye, .040, .030, state.heading, 6, .142, 'eye', 'eye', .80);
-        disk(eye, .010, .021, state.heading, 3, .159, 'pupil', 'eye', .25);
+        const eye = transformGeckoPoint(face, faceHeading, .058, side * .126);
+        disk(eye, .043, .034, faceHeading, 6, .142, 'eye', 'eye', .86);
+        disk(eye, .008, .024, faceHeading, 3, .159, 'pupil', 'eye', .20);
+        const nostril = transformGeckoPoint(face, faceHeading, .168, side * .047);
+        disk(nostril, .009, .007, faceHeading, 2, .144, 'pupil', 'head', .25);
     }
     return { samples: count, capacity: GECKO_LIMITS.samples };
 }

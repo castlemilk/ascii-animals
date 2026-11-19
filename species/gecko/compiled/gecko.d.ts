@@ -1,4 +1,4 @@
-import type { GeckoConfig, GeckoFoot, GeckoHabitat, GeckoModel, GeckoOptions, GeckoOptionsPatch, Vec2 } from './types.js';
+import type { GeckoConfig, GeckoFoot, GeckoHabitat, GeckoInput, GeckoModel, GeckoOptions, GeckoOptionsPatch, GeckoStepResult, Vec2 } from './types.js';
 export type * from './types.js';
 export declare const GECKO_LIMITS: Readonly<{
     tickRate: 60;
@@ -25,5 +25,20 @@ export declare function normalizeGuide(clientX: number, clientY: number, rect: {
 }): Vec2 | null;
 export declare function transformGeckoPoint(position: Vec2, heading: number, x: number, y: number): Vec2;
 export declare function geckoShoulder(position: Vec2, heading: number, foot: Pick<GeckoFoot, 'front' | 'side'>): Vec2;
+/** Species-internal drive used by the wall director; not part of the package facade. */
+export interface GeckoLocomotorDrive {
+    /** Additional root movement; <=.025/tick. A lifted foot must land first. */
+    readonly rootDelta?: Vec2;
+    /** Hold ordinary travel and new steps; an already lifted foot still lands. */
+    readonly hold?: boolean;
+    /** Hold the root while displaced contacts replant, one foot at a time. */
+    readonly settle?: boolean;
+}
+export interface GeckoLocomotor {
+    readonly model: GeckoModel;
+    stepDriven(events: GeckoInput, drive: GeckoLocomotorDrive): GeckoStepResult;
+}
 /** Original deterministic single-gecko model. Rendering and scheduling are host-owned. */
+export declare function createGeckoLocomotor(config?: GeckoConfig): GeckoLocomotor;
+/** Original public model contract; authored director movement remains internal. */
 export declare function createGecko(config?: GeckoConfig): GeckoModel;

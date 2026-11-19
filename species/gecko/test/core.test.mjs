@@ -373,7 +373,7 @@ test('cell output is bounded printable ASCII and cannot mutate state', () => {
     const rows = grid.text.split('\n');
     assert.equal(rows.length, grid.rows);
     assert.ok(rows.every(row => row.length === grid.cols));
-    assert.match(grid.text, /^[ .:\-=+*#%@oO\n]*$/);
+    assert.match(grid.text, /^[ .:\-=+*#%@oO|\n]*$/);
     assert.ok(grid.occupied > 100 && grid.occupied < grid.cols * grid.rows);
   }
   for (const options of [
