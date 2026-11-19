@@ -1,0 +1,485 @@
+{
+  "sourceCommit": "d638880513978c63b8cb1dfc97101463baa22966",
+  "sourceTree": "cb01b581891142b9e4c31167e5776f762ef2408b",
+  "sourceSha256": "b65cb598f9944c1d89e8564db6707b684632cadcfd416e1365e1eb0bf58071dd",
+  "method": {
+    "x": [
+      1,
+      1.6
+    ],
+    "stepX": 0.005,
+    "slabHalfWidth": 0.02,
+    "dropWindowX": 0.05,
+    "primaryArmMaximumU": 0.5,
+    "normalizationStationX": 1.02,
+    "primaryRootEndByArm": [
+      0.3,
+      0.4,
+      0.4,
+      0.4,
+      0.3,
+      0.3,
+      0.3,
+      0.3
+    ],
+    "excluded": "Feeding tentacles, distal curls after u=.50, and all eye samples."
+  },
+  "cases": [
+    {
+      "time": 2.4,
+      "grip": 0,
+      "referenceDepth": 0.5959999999999983,
+      "maximumDropOver05X": {
+        "x": 1.23,
+        "drop": 0.1494132112884452
+      },
+      "profile": [
+        {
+          "x": 1,
+          "upperRadius": 1.025939989860432,
+          "rootUpperRadius": 1.025939989860432
+        },
+        {
+          "x": 1.05,
+          "upperRadius": 1.0014392064548283,
+          "rootUpperRadius": 0.9084845628173597
+        },
+        {
+          "x": 1.1,
+          "upperRadius": 1.0181250470766856,
+          "rootUpperRadius": 1.0181250470766856
+        },
+        {
+          "x": 1.15,
+          "upperRadius": 0.9601589930575037,
+          "rootUpperRadius": 0.9601589930575037
+        },
+        {
+          "x": 1.2,
+          "upperRadius": 0.886607625289778,
+          "rootUpperRadius": 0.886607625289778
+        },
+        {
+          "x": 1.25,
+          "upperRadius": 0.7642988090684923,
+          "rootUpperRadius": 0.7642988090684923
+        },
+        {
+          "x": 1.3,
+          "upperRadius": 0.6455718813361584,
+          "rootUpperRadius": 0.6455718813361584
+        },
+        {
+          "x": 1.35,
+          "upperRadius": 0.5528583753865918,
+          "rootUpperRadius": 0.5528583753865918
+        },
+        {
+          "x": 1.4,
+          "upperRadius": 0.4321186534588514,
+          "rootUpperRadius": 0.4321186534588514
+        },
+        {
+          "x": 1.45,
+          "upperRadius": 0.4311539262760296,
+          "rootUpperRadius": 0.4311539262760296
+        },
+        {
+          "x": 1.5,
+          "upperRadius": 0.4297752082543569,
+          "rootUpperRadius": 0.4297752082543569
+        },
+        {
+          "x": 1.55,
+          "upperRadius": 0.42865721802953977,
+          "rootUpperRadius": 0.3379707207342441
+        },
+        {
+          "x": 1.6,
+          "upperRadius": 0.4288344174954001,
+          "rootUpperRadius": 0.3402022826736211
+        }
+      ]
+    },
+    {
+      "time": 2.4,
+      "grip": 0.7,
+      "referenceDepth": 0.5959999999999983,
+      "maximumDropOver05X": {
+        "x": 1.085,
+        "drop": 0.018633980149674212
+      },
+      "profile": [
+        {
+          "x": 1,
+          "upperRadius": 1.0902106209970346,
+          "rootUpperRadius": 1.0902106209970346
+        },
+        {
+          "x": 1.05,
+          "upperRadius": 1.0894101039837405,
+          "rootUpperRadius": 1.0894101039837405
+        },
+        {
+          "x": 1.1,
+          "upperRadius": 1.082267016939916,
+          "rootUpperRadius": 1.082267016939916
+        },
+        {
+          "x": 1.15,
+          "upperRadius": 1.068835436725251,
+          "rootUpperRadius": 1.068835436725251
+        },
+        {
+          "x": 1.2,
+          "upperRadius": 1.0751621665386928,
+          "rootUpperRadius": 1.0751621665386928
+        },
+        {
+          "x": 1.25,
+          "upperRadius": 1.080062743705229,
+          "rootUpperRadius": 1.080062743705229
+        },
+        {
+          "x": 1.3,
+          "upperRadius": 1.0781684610939495,
+          "rootUpperRadius": 1.0781684610939495
+        },
+        {
+          "x": 1.35,
+          "upperRadius": 1.0650244753749174,
+          "rootUpperRadius": 1.0650244753749174
+        },
+        {
+          "x": 1.4,
+          "upperRadius": 1.1325115796059688,
+          "rootUpperRadius": 1.1325115796059688
+        },
+        {
+          "x": 1.45,
+          "upperRadius": 1.2514555985579612,
+          "rootUpperRadius": 1.2514555985579612
+        },
+        {
+          "x": 1.5,
+          "upperRadius": 1.3321806770681228,
+          "rootUpperRadius": 1.3321806770681228
+        },
+        {
+          "x": 1.55,
+          "upperRadius": 1.413002945249105,
+          "rootUpperRadius": 1.2900350423469595
+        },
+        {
+          "x": 1.6,
+          "upperRadius": 1.4926832429807162,
+          "rootUpperRadius": 1.24396160183204
+        }
+      ]
+    },
+    {
+      "time": 4.641509433962264,
+      "grip": 0,
+      "referenceDepth": 0.5959999999999983,
+      "maximumDropOver05X": {
+        "x": 1.245,
+        "drop": 0.13725436754419373
+      },
+      "profile": [
+        {
+          "x": 1,
+          "upperRadius": 1.0259305049825775,
+          "rootUpperRadius": 1.0259305049825775
+        },
+        {
+          "x": 1.05,
+          "upperRadius": 1.0014392064548283,
+          "rootUpperRadius": 0.908636828047876
+        },
+        {
+          "x": 1.1,
+          "upperRadius": 1.018316234536606,
+          "rootUpperRadius": 1.018316234536606
+        },
+        {
+          "x": 1.15,
+          "upperRadius": 0.9614078578774726,
+          "rootUpperRadius": 0.9614078578774726
+        },
+        {
+          "x": 1.2,
+          "upperRadius": 0.8899132082176887,
+          "rootUpperRadius": 0.8899132082176887
+        },
+        {
+          "x": 1.25,
+          "upperRadius": 0.7741403658103597,
+          "rootUpperRadius": 0.7741403658103597
+        },
+        {
+          "x": 1.3,
+          "upperRadius": 0.6630453475174185,
+          "rootUpperRadius": 0.6630453475174185
+        },
+        {
+          "x": 1.35,
+          "upperRadius": 0.5342715095578906,
+          "rootUpperRadius": 0.5342715095578906
+        },
+        {
+          "x": 1.4,
+          "upperRadius": 0.497533107355803,
+          "rootUpperRadius": 0.497533107355803
+        },
+        {
+          "x": 1.45,
+          "upperRadius": 0.5180046929108527,
+          "rootUpperRadius": 0.5180046929108527
+        },
+        {
+          "x": 1.5,
+          "upperRadius": 0.5406212623840375,
+          "rootUpperRadius": 0.44033430237299376
+        },
+        {
+          "x": 1.55,
+          "upperRadius": 0.5650901819462463,
+          "rootUpperRadius": 0.4566604306249362
+        },
+        {
+          "x": 1.6,
+          "upperRadius": 0.546165233109958,
+          "rootUpperRadius": 0.46501112999311683
+        }
+      ]
+    },
+    {
+      "time": 4.641509433962264,
+      "grip": 0.7,
+      "referenceDepth": 0.5959999999999983,
+      "maximumDropOver05X": {
+        "x": 1.305,
+        "drop": 0.02337902734502917
+      },
+      "profile": [
+        {
+          "x": 1,
+          "upperRadius": 1.1016425707344695,
+          "rootUpperRadius": 1.1016425707344695
+        },
+        {
+          "x": 1.05,
+          "upperRadius": 1.1016650057295292,
+          "rootUpperRadius": 1.1016650057295292
+        },
+        {
+          "x": 1.1,
+          "upperRadius": 1.0936983266933407,
+          "rootUpperRadius": 1.0936983266933407
+        },
+        {
+          "x": 1.15,
+          "upperRadius": 1.0769258428330104,
+          "rootUpperRadius": 1.0769258428330104
+        },
+        {
+          "x": 1.2,
+          "upperRadius": 1.0745727840859005,
+          "rootUpperRadius": 1.0745727840859005
+        },
+        {
+          "x": 1.25,
+          "upperRadius": 1.0759045977093893,
+          "rootUpperRadius": 1.0759045977093893
+        },
+        {
+          "x": 1.3,
+          "upperRadius": 1.0730730481296806,
+          "rootUpperRadius": 1.0730730481296806
+        },
+        {
+          "x": 1.35,
+          "upperRadius": 1.0496940207846515,
+          "rootUpperRadius": 1.0496940207846515
+        },
+        {
+          "x": 1.4,
+          "upperRadius": 1.0811337336424636,
+          "rootUpperRadius": 1.0811337336424636
+        },
+        {
+          "x": 1.45,
+          "upperRadius": 1.1784366304927456,
+          "rootUpperRadius": 1.1784366304927456
+        },
+        {
+          "x": 1.5,
+          "upperRadius": 1.286182336280684,
+          "rootUpperRadius": 1.2604355080188685
+        },
+        {
+          "x": 1.55,
+          "upperRadius": 1.3911827984544212,
+          "rootUpperRadius": 1.2463354299449234
+        },
+        {
+          "x": 1.6,
+          "upperRadius": 1.4907868522431191,
+          "rootUpperRadius": 1.2119085602574329
+        }
+      ]
+    },
+    {
+      "time": 6.8,
+      "grip": 0,
+      "referenceDepth": 0.5959999999999983,
+      "maximumDropOver05X": {
+        "x": 1.31,
+        "drop": 0.12992861461136684
+      },
+      "profile": [
+        {
+          "x": 1,
+          "upperRadius": 1.02579539998452,
+          "rootUpperRadius": 1.02579539998452
+        },
+        {
+          "x": 1.05,
+          "upperRadius": 1.0014392064548283,
+          "rootUpperRadius": 0.9096623316588349
+        },
+        {
+          "x": 1.1,
+          "upperRadius": 0.9813765940530069,
+          "rootUpperRadius": 0.960941318932437
+        },
+        {
+          "x": 1.15,
+          "upperRadius": 0.96521867853675,
+          "rootUpperRadius": 0.96521867853675
+        },
+        {
+          "x": 1.2,
+          "upperRadius": 0.8961239329986788,
+          "rootUpperRadius": 0.8961239329986788
+        },
+        {
+          "x": 1.25,
+          "upperRadius": 0.783227437159674,
+          "rootUpperRadius": 0.783227437159674
+        },
+        {
+          "x": 1.3,
+          "upperRadius": 0.6728698991975326,
+          "rootUpperRadius": 0.6728698991975326
+        },
+        {
+          "x": 1.35,
+          "upperRadius": 0.5429412845861658,
+          "rootUpperRadius": 0.5429412845861658
+        },
+        {
+          "x": 1.4,
+          "upperRadius": 0.49092974382119425,
+          "rootUpperRadius": 0.49092974382119425
+        },
+        {
+          "x": 1.45,
+          "upperRadius": 0.49713300515817405,
+          "rootUpperRadius": 0.49713300515817405
+        },
+        {
+          "x": 1.5,
+          "upperRadius": 0.5002404643886885,
+          "rootUpperRadius": 0.4649410084452598
+        },
+        {
+          "x": 1.55,
+          "upperRadius": 0.5005296554784165,
+          "rootUpperRadius": 0.3630900454167001
+        },
+        {
+          "x": 1.6,
+          "upperRadius": 0.49994363677262627,
+          "rootUpperRadius": 0.3591078509744221
+        }
+      ]
+    },
+    {
+      "time": 6.8,
+      "grip": 0.7,
+      "referenceDepth": 0.5959999999999983,
+      "maximumDropOver05X": {
+        "x": 1.3599999999999999,
+        "drop": 0.02915095786087263
+      },
+      "profile": [
+        {
+          "x": 1,
+          "upperRadius": 1.0925314319969552,
+          "rootUpperRadius": 1.0925314319969552
+        },
+        {
+          "x": 1.05,
+          "upperRadius": 1.0943174610489432,
+          "rootUpperRadius": 1.0943174610489432
+        },
+        {
+          "x": 1.1,
+          "upperRadius": 1.0914073990492965,
+          "rootUpperRadius": 1.0914073990492965
+        },
+        {
+          "x": 1.15,
+          "upperRadius": 1.0756969677447616,
+          "rootUpperRadius": 1.0756969677447616
+        },
+        {
+          "x": 1.2,
+          "upperRadius": 1.0642632212231866,
+          "rootUpperRadius": 1.0642632212231866
+        },
+        {
+          "x": 1.25,
+          "upperRadius": 1.0625463475299142,
+          "rootUpperRadius": 1.0625463475299142
+        },
+        {
+          "x": 1.3,
+          "upperRadius": 1.055477143926261,
+          "rootUpperRadius": 1.055477143926261
+        },
+        {
+          "x": 1.35,
+          "upperRadius": 1.045169497276461,
+          "rootUpperRadius": 1.045169497276461
+        },
+        {
+          "x": 1.4,
+          "upperRadius": 1.0250049778854056,
+          "rootUpperRadius": 1.0250049778854056
+        },
+        {
+          "x": 1.45,
+          "upperRadius": 1.0673920481055004,
+          "rootUpperRadius": 1.0673920481055004
+        },
+        {
+          "x": 1.5,
+          "upperRadius": 1.1515890773635127,
+          "rootUpperRadius": 1.1515890773635127
+        },
+        {
+          "x": 1.55,
+          "upperRadius": 1.2210376879509803,
+          "rootUpperRadius": 1.2210376879509803
+        },
+        {
+          "x": 1.6,
+          "upperRadius": 1.309069096540132,
+          "rootUpperRadius": 1.2031720035328457
+        }
+      ]
+    }
+  ]
+}

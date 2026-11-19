@@ -189,19 +189,10 @@ export const mantaDefinition = (() => {
             host._shade(-.15, ca, sa, .12), 0, 24000 + (side + 1) * 400 + i * 12 + j);
         }
       }
-      // Small raised eye with a dark central pupil, rendered through the same
-      // depth buffer. Ring thickness remains meaningful on a small grid.
-      const eyeSteps = lod === 1 ? 10 : 7;
-      for (let iy = -eyeSteps; iy <= eyeSteps; iy++) {
-        for (let ix = -eyeSteps; ix <= eyeSteps; ix++) {
-          const u = ix / eyeSteps, v = iy / eyeSteps, rr = u * u + v * v;
-          if (rr > 1) continue;
-          const dome = Math.sqrt(1 - rr), pupil = rr < .26;
-          put(.82 + .090 * u, side * .32 + .080 * v, .145 + .065 * dome,
-            pupil ? .035 : .86 + .08 * dome, 0, 26000 + (side + 1) * 250 + iy * 21 + ix);
-        }
-      }
     }
+    // Manta eyes are lateral. This dorsal presentation deliberately omits eye
+    // detail instead of placing bright pupil discs on the upper/front surface.
+    // Keep the cephalic lobes above intact; they are not eyes.
   }
 
   return Object.freeze({ id: 'manta', label: 'Manta ray', ink: false, bounds, create, pose, draw });
