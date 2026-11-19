@@ -109,11 +109,18 @@ function crabRadius(o:CrabConfig,size:number){
   const requested=(o.count===1?.20:o.count===2?.14:o.count===3?.112:.094)*o.scale*size;
   return Math.min(Math.max(requested,10.6/(o.columns-1)),.26/(o.columns*.56/o.rows));
 }
-interface MovingFoot { x:number;y:number;planted:boolean;lift:number;fromX:number;fromY:number;toX:number;toY:number }
+interface MovingFoot { x:number;y:number;planted:boolean;lift:number;fromX:number;fromY:number;toX:number;toY:number;swing:number }
 interface Resident {
   id:number;label:string;role:CrabRole;size:number;x:number;y:number;homeX:number;homeY:number;patchX:number;patchY:number;
   vx:number;vy:number;gait:number;feet:MovingFoot[];kind:CrabActivity;progress:number;leftClaw:number;rightClaw:number;gazeX:number;gazeY:number;crouch:number;
-  action:null|{kind:CrabAction;start:number;x:number;y:number}; replyAt:number|null;
+  action:null|{kind:CrabAction;start:number;x:number;y:number;originX:number;originY:number}; replyAt:number|null;
+}
+/** Authored display: prepare, lead, answer, hold, close, settle. No new public phase. */
+function clawDisplay(age:number):{left:number;right:number;crouch:number} {
+  const rise=(start:number,end:number)=>smooth((age-start)/(end-start));
+  const left=-.16*(1-rise(18,34))+rise(24,74)*(1-rise(157,238));
+  const right=-.12*(1-rise(30,48))+.82*rise(44,94)*(1-rise(175,254));
+  return {left,right,crouch:.18*rise(0,14)*(1-rise(26,62))};
 }
 /** Species-local director. One cue and one delayed reply per resident, never an event queue. */
 function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
@@ -139,25 +146,33 @@ function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
   }
   function footOffset(a:Resident,k:number):[number,number]{
     const o=options(),side=k<4?-1:1,j=k%4,r=crabRadius(o,a.size),ratio=o.columns*.56/o.rows;
-    return [side*(1.88-j*.11)*r,(.02+j*.24)*r*ratio];
+    return [side*(1.88-j*.11)*r,(-.13+j*.33)*r*ratio];
   }
-  function plant(a:Resident){a.feet=Array.from({length:8},(_,k)=>{const [x,y]=footOffset(a,k);return {x:a.x+x,y:a.y+y,planted:true,lift:0,fromX:0,fromY:0,toX:0,toY:0};});}
+  function plant(a:Resident){a.feet=Array.from({length:8},(_,k)=>{const [x,y]=footOffset(a,k);return {x:a.x+x,y:a.y+y,planted:true,lift:0,fromX:0,fromY:0,toX:0,toY:0,swing:0};});}
   function syncCast(reseed=false){
     const o=options();actors=Array.from({length:o.count},(_,id)=>{
       const c=o.cast[id],d=RESIDENTS[id]!,old=reseed?undefined:actors[id],role=c?.role??d.role;
-      const [ax,py]=anchor(id),direction=Math.sign(ax),px=ax-direction*.04,homeX=ax+(direction?direction*.07:-.08),homeY=py-.10;
+      const [ax,py]=anchor(id),direction=Math.sign(ax)||-1,px=ax-direction*.04;
+      // Cover sits laterally beside the feeding patch. A retreat reads as a
+      // sideways journey, rather than a short diagonal slide underneath a badge.
+      const span=o.count===1?.40:o.count===2?.13:.09,homeX=ax+direction*span,homeY=py-.045;
       const a:Resident=old??{id,label:'',role,size:1,x:homeX,y:homeY,homeX,homeY,patchX:px,patchY:py,vx:0,vy:0,gait:((o.seed+id*17)%47)/47,feet:[],kind:'rest',progress:0,leftClaw:0,rightClaw:0,gazeX:0,gazeY:0,crouch:0,action:null,replyAt:null};
       a.label=c?.label??d.label;a.role=role;a.size=c?.size??(id===1?.9:id===2?1.06:1);
-      a.homeX=homeX;a.homeY=homeY;a.patchX=px;a.patchY=py;
-      if(!old)plant(a);
+      const r=crabRadius(o,a.size),ratio=o.columns*.56/o.rows;
+      const xLimit=.96-r*2.08,minY=-.83+r*ratio*1.5,maxY=.82-r*ratio;
+      // Anchors obey the same fitted bounds as travel, including large casts
+      // after resize. A shelter must never sit outside its resident's reach.
+      a.homeX=clamp(homeX,-xLimit,xLimit);a.homeY=clamp(homeY,minY,maxY);
+      a.patchX=clamp(px,-xLimit,xLimit);a.patchY=clamp(py,minY,maxY);
+      if(!old){a.x=a.homeX;a.y=a.homeY;plant(a);}
       return a;
     });selectedId=Math.min(selectedId,o.count-1);
   }
   function plan(a:Resident){
     const o=options(),b=beat(),p=progress(),age=tick(),offset=(o.seed*13+a.id*79)%480,idle=(age+offset)%480;
     let x=a.patchX,y=a.patchY,kind:CrabActivity='rest',pr=p,left=0,right=0,crouch=0;
-    const callAge=((o.director==='manual'?age:clock)%o.actDuration)-(a.role==='territorial'?0:a.role==='curious'?65:125);
-    const call=callAge>=0&&callAge<110?Math.sin(callAge/110*Math.PI):0;
+    const callAge=((o.director==='manual'?age:clock)%o.actDuration)-(a.role==='territorial'?0:a.role==='curious'?26:48);
+    const display=clawDisplay(callAge*300/Math.max(120,o.actDuration-48));
     if(b==='arrive'){kind='scuttle';if(a.role==='shy'&&p<.3){x=a.homeX;y=a.homeY;kind='inspect';crouch=.3;}}
     if(b==='forage'){
       const forage=(idle%210)/210;pr=forage;
@@ -166,11 +181,11 @@ function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
       else{kind='inspect';x+=Math.sin(offset)*o.sway*.24;}
     }
     if(b==='signal'){
-      kind=call>0?'signal':a.role==='shy'?'inspect':'rest';left=call*(a.id%2?.35:1);right=call*(a.id%2?1:.35);
+      kind=callAge>=0?'signal':a.role==='shy'?'inspect':'rest';left=display.left;right=display.right;crouch=display.crouch;
       if(a.role==='shy'){x=a.homeX;y=a.homeY;left*=.5;right*=.5;}
     }
     if(b==='challenge'){
-      if(a.role==='territorial'){kind='signal';left=.85;right=.45+.2*Math.sin(age*.065);x+=Math.sin(p*TAU)*.055;}
+      if(a.role==='territorial'){kind='signal';const show=clawDisplay(p*300);left=show.left;right=show.right;crouch=show.crouch;}
       else if(a.role==='shy'){kind='retreat';x=a.homeX;y=a.homeY;crouch=.45;}
       else{kind='inspect';x-=Math.sign(a.patchX||1)*.055;left=.25;}
     }
@@ -192,20 +207,26 @@ function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
       else{kind='inspect';x=clamp(guideX,a.patchX-.12,a.patchX+.12);y=clamp(guideY,a.patchY-.06,a.patchY+.09);left=.15;right=.1;}
     }
     if(a.action){
-      const q=clamp((age-a.action.start)/300,0,1);pr=q;
+      const actionAge=age-a.action.start,q=clamp(actionAge/300,0,1);pr=q;
       if(a.action.kind==='forage'){
-        if(q<.28){x=a.action.x;y=a.action.y;kind='scuttle';}
-        else if(q<.75){x=a.action.x;y=a.action.y;kind='forage';left=-.75*Math.sin((q-.28)/.47*TAU);right=.1;}
+        if(q<.28){
+          x=actionAge<18?a.action.originX:a.action.x;y=actionAge<18?a.action.originY:a.action.y;kind='scuttle';
+          crouch=.16*(1-smooth((actionAge-18)/30));left=-.18;right=-.12;
+        }
+        else if(q<.75){x=a.action.x;y=a.action.y;kind='forage';left=-.66*(.45+.55*Math.sin((q-.28)/.47*TAU)**2);right=.1;}
         else{kind='return';}
       }else if(a.action.kind==='signal'){
-        x=a.action.x;y=a.action.y;kind=q<.72?'signal':'rest';left=q<.72?Math.sin(q/.72*Math.PI):0;right=left*.35;
+        x=a.action.originX;y=a.action.originY;kind=actionAge<264?'signal':'rest';
+        const show=clawDisplay(actionAge);left=show.left;right=show.right;crouch=show.crouch;
       }else{
-        if(q<.30){x=a.homeX;y=a.homeY;kind='retreat';crouch=q*2;}
-        else if(q<.65){x=a.homeX;y=a.homeY;kind=q<.5?'shelter':'inspect';crouch=q<.5?1:.55;}
-        else{kind='return';crouch=(1-q)*.7;}
+        if(actionAge<18){x=a.action.originX;y=a.action.originY;kind='brace';crouch=.28;}
+        else if(q<.30){x=a.homeX;y=a.homeY;kind='retreat';crouch=.3+.55*smooth((actionAge-18)/72);}
+        else if(q<.65){x=a.homeX;y=a.homeY;kind=q<.5?'shelter':'inspect';crouch=q<.5?1:.58;}
+        else{kind='return';crouch=.58*(1-smooth((actionAge-195)/70));}
+        left=-.34;right=-.26;
       }
     }
-    if((kind==='scuttle'||kind==='return')&&Math.hypot(x-a.x,y-a.y)<.002){kind=idle<110?'groom':idle<190?'inspect':'rest';if(kind==='groom'){left=.25;right=.08;}}
+    if(!a.action&&(kind==='scuttle'||kind==='return')&&Math.hypot(x-a.x,y-a.y)<.002){kind=idle<110?'groom':idle<190?'inspect':'rest';if(kind==='groom'){left=.25;right=.08;}}
     const r=crabRadius(o,a.size),ratio=o.columns*.56/o.rows;
     x=clamp(x,-.96+r*2.08,.96-r*2.08);y=clamp(y,-.83+r*ratio*1.5,.82-r*ratio);
     return {x,y,kind,pr,left,right,crouch};
@@ -217,21 +238,28 @@ function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
     const gazeY=guideActive?clamp((guideY-a.y)*3,-1,1):Math.cos((tick()+a.id*113)*.013)*.25;
     a.gazeX+=(gazeX-a.gazeX)*gain;a.gazeY+=(gazeY-a.gazeY)*gain;
     if(snap){a.x=p.x;a.y=p.y;a.vx=a.vy=0;plant(a);return;}
-    const max=.0024*o.speed*(a.role==='shy'?.8:1),dx=p.x-a.x,dy=p.y-a.y;
-    a.vx+=clamp(clamp(dx*.08,-max,max)-a.vx,-.00022,.00022);
+    const max=(p.kind==='retreat'?.0065:p.kind==='scuttle'?.0072:.0045)*o.speed*(a.role==='shy'?.86:1),dx=p.x-a.x,dy=p.y-a.y;
+    a.vx+=clamp(clamp(dx*.10,-max,max)-a.vx,-.0004,.0004);
     a.vy+=clamp(clamp(dy*.08,-max*.58,max*.58)-a.vy,-.00016,.00016);
     if(Math.abs(dx)<.00025)a.vx=0;if(Math.abs(dy)<.00025)a.vy=0;
     a.x+=a.vx;a.y+=a.vy;
     const moving=Math.hypot(a.vx,a.vy)>.00008;
-    if(moving)a.gait+=o.speed/44;
+    if(moving)a.gait+=o.speed/48;
     const r=crabRadius(o,a.size),ratio=o.columns*.56/o.rows;
     for(let k=0;k<8;k++){
       const f=a.feet[k]!,phase=(a.gait+(k%2)*.5+(k<4?0:.5))%1;
-      if(!moving){f.planted=true;f.lift=0;continue;}
-      if(phase<.66){if(!f.planted){f.x=f.toX;f.y=f.toY;}f.planted=true;f.lift=0;}
-      else{
-        if(f.planted){const [ox,oy]=footOffset(a,k);f.fromX=f.x;f.fromY=f.y;f.toX=a.x+ox+a.vx*22;f.toY=a.y+oy+a.vy*22;}
-        f.planted=false;const q=smooth((phase-.66)/.34);f.x=f.fromX+(f.toX-f.fromX)*q;f.y=f.fromY+(f.toY-f.fromY)*q;f.lift=Math.sin((phase-.66)/.34*Math.PI)*r*ratio*.32;
+      if(f.planted){
+        // A fresh swing always starts at ground level, even after stop/restart.
+        // The two support groups cannot overlap: swing is shorter than half-cycle.
+        if(!moving||phase<.68||phase>.68+o.speed/48)continue;
+        const [ox,oy]=footOffset(a,k);f.fromX=f.x;f.fromY=f.y;
+        f.toX=a.x+ox+a.vx*8;f.toY=a.y+oy+a.vy*8;f.swing=0;f.planted=false;
+      }else{
+        f.swing=Math.min(1,f.swing+o.speed/15);
+        const q=smooth(f.swing);f.x=f.fromX+(f.toX-f.fromX)*q;f.y=f.fromY+(f.toY-f.fromY)*q;
+        f.lift=Math.sin(f.swing*Math.PI)*r*ratio*.22;
+        // Finish the airborne foot before planting, even if the body has stopped.
+        if(f.swing===1){f.x=f.toX;f.y=f.toY;f.lift=0;f.planted=true;}
       }
     }
   }
@@ -241,7 +269,7 @@ function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
     const a=actors[id]!;
     if(a.action&&!poster)return;
     const lure=action==='forage'&&guideActive;
-    a.action={kind:action,start:tick()-(poster?120:0),x:lure?clamp(guideX,a.patchX-.14,a.patchX+.14):a.x,y:lure?clamp(guideY,a.patchY-.08,a.patchY+.08):a.y};
+    a.action={kind:action,start:tick()-(poster?120:0),x:lure?clamp(guideX,a.patchX-.14,a.patchX+.14):a.x,y:lure?clamp(guideY,a.patchY-.08,a.patchY+.08):a.y,originX:a.x,originY:a.y};
     a.replyAt=null;
     if(action==='signal'&&!poster)for(const other of actors)if(other.id!==id&&!other.action&&other.replyAt===null)other.replyAt=tick()+55+other.id*25;
     if(poster)pose(a,true);
@@ -274,160 +302,273 @@ function createCrabDirector(options:()=>CrabConfig,tick:()=>number){
       else clock=Math.min(clock+1,(beatIndex()+1)*o.actDuration-1);
       for(const a of actors){
         if(a.action&&tick()-a.action.start>=300)a.action=null;
-        if(a.replyAt!==null&&tick()>=a.replyAt){a.replyAt=null;if(!a.action)a.action={kind:'signal',start:tick(),x:a.x,y:a.y};}
+        if(a.replyAt!==null&&tick()>=a.replyAt){a.replyAt=null;if(!a.action)a.action={kind:'signal',start:tick(),x:a.x,y:a.y,originX:a.x,originY:a.y};}
         pose(a);
       }
     }
   };
 }
 
-/** Pure logical-cell rendering; no DOM, font, random or wall-clock dependency. */
+type CrabPoint = readonly [number,number];
+interface CrabInk {
+  point(x:number,y:number,tone:number,glyph?:string):void;
+  ellipse(x:number,y:number,rx:number,ry:number,tone:number,glyph?:string):void;
+  line(x:number,y:number,xx:number,yy:number,width:number,tone:number,glyph?:string):void;
+  polygon(points:readonly CrabPoint[],tone:number,glyph?:string):void;
+}
+
+/** A species-local printable grid. All marks, including habitat, have real depth ownership. */
+function crabRaster(o:CrabConfig){
+  const cols=o.columns,rows=o.rows,ratio=cols*.56/rows,ramp='.,:;=+*#%@';
+  const cells:CrabCell[]=Array.from({length:cols*rows},()=>({glyph:' ',tone:0}));
+  const col=(x:number)=>(x+1)*.5*(cols-1),row=(y:number)=>(y+1)*.5*(rows-1);
+  function put(c:number,r:number,tone:number,layer:NonNullable<CrabCell['layer']>,owner?:number,glyph?:string){
+    c=Math.round(c);r=Math.round(r);if(c<0||c>=cols||r<0||r>=rows)return;
+    if(layer==='cue'&&cells[r*cols+c]?.owner!==undefined)return;
+    const t=clamp(Math.round(tone),0,9),value={glyph:glyph??ramp[t]!,tone:t,layer};
+    cells[r*cols+c]=owner===undefined?value:{...value,owner};
+  }
+  function ink(layer:NonNullable<CrabCell['layer']>,owner?:number):CrabInk {
+    const point=(x:number,y:number,t:number,g?:string)=>put(col(x),row(y),t,layer,owner,g);
+    function ellipse(x:number,y:number,rx:number,ry:number,t:number,g?:string){
+      const cx=col(x),cy=row(y),w=Math.max(.40,rx*.5*(cols-1)),h=Math.max(.40,ry*.5*(rows-1));
+      for(let r=Math.max(0,Math.floor(cy-h));r<=Math.min(rows-1,Math.ceil(cy+h));r++)
+        for(let c=Math.max(0,Math.floor(cx-w));c<=Math.min(cols-1,Math.ceil(cx+w));c++){
+          const q=((c-cx)/w)**2+((r-cy)/h)**2;
+          if(q<=1)put(c,r,t+(g?0:(1-q)*.65),layer,owner,g);
+        }
+      point(x,y,t,g);
+    }
+    function line(x:number,y:number,xx:number,yy:number,w:number,t:number,g?:string){
+      const n=Math.max(1,Math.ceil(Math.max(Math.abs(col(xx)-col(x)),Math.abs(row(yy)-row(y)))*1.4));
+      for(let i=0;i<=n;i++){
+        const p=i/n,px=x+(xx-x)*p,py=y+(yy-y)*p;
+        if(w>0)ellipse(px,py,w,w*ratio,t,g);else point(px,py,t,g);
+      }
+    }
+    function polygon(points:readonly CrabPoint[],t:number,g?:string){
+      const ps=points.map(([x,y])=>[col(x),row(y)] as const);
+      const minY=Math.max(0,Math.floor(Math.min(...ps.map(p=>p[1])))),maxY=Math.min(rows-1,Math.ceil(Math.max(...ps.map(p=>p[1]))));
+      const minX=Math.max(0,Math.floor(Math.min(...ps.map(p=>p[0])))),maxX=Math.min(cols-1,Math.ceil(Math.max(...ps.map(p=>p[0]))));
+      for(let r=minY;r<=maxY;r++)for(let c=minX;c<=maxX;c++){
+        let inside=false;
+        for(let i=0,j=ps.length-1;i<ps.length;j=i++){
+          const a=ps[i]!,b=ps[j]!;
+          if((a[1]>r)!==(b[1]>r)&&c<(b[0]-a[0])*(r-a[1])/(b[1]-a[1])+a[0])inside=!inside;
+        }
+        if(inside)put(c,r,t,layer,owner,g);
+      }
+      // Thin tips remain connected even when their interior is smaller than a cell.
+      for(let i=0;i<points.length;i++){const a=points[i]!,b=points[(i+1)%points.length]!;line(...a,...b,0,t,g);}
+    }
+    return {point,ellipse,line,polygon};
+  }
+  function text(x:number,y:number,label:string,tone:number){
+    const c=clamp(Math.round(col(x))-Math.floor(label.length/2),0,cols-label.length),r=clamp(Math.round(row(y)),0,rows-1);
+    for(let i=0;i<label.length;i++)put(c+i,r,tone,'label',undefined,label[i]!);
+  }
+  return {ink,text,frame(phase:CrabPhase):CrabFrame{
+    const frozen=Object.freeze(cells.map(c=>Object.freeze(c)));
+    const lines=Array.from({length:rows},(_,r)=>cells.slice(r*cols,(r+1)*cols).map(c=>c.glyph).join(''));
+    return Object.freeze({columns:cols,rows,cells:frozen,text:lines.join('\n'),phase});
+  }};
+}
+
+function localCrabInk(ink:CrabInk,x:number,y:number,r:number,sy:number,mirror=1):CrabInk {
+  const map=([px,py]:CrabPoint):CrabPoint=>[x+px*r*mirror,y+py*sy];
+  return {
+    point(px,py,t,g){ink.point(...map([px,py]),t,g);},
+    ellipse(px,py,rx,ry,t,g){ink.ellipse(...map([px,py]),rx*r,ry*sy,t,g);},
+    line(px,py,qx,qy,w,t,g){ink.line(...map([px,py]),...map([qx,qy]),w*r,t,g);},
+    polygon(points,t,g){ink.polygon(points.map(map),t,g);}
+  };
+}
+
+/** Original shore-crab geometry: continuous grooved shield, chelae and eight legs. */
+function paintShoreCrab(p:CrabInk,a:{left:number;right:number;crouch:number;gazeX:number;gazeY:number;feet:readonly CrabPoint[];planted:readonly boolean[];detail:boolean;seed:number}){
+  const compress=1-a.crouch*.36,drop=a.crouch*.47;
+  const by=(y:number)=>y*compress+drop;
+  const bp=(x:number,y:number,t:number,g?:string)=>p.point(x,by(y),t,g);
+  const bl=(x:number,y:number,xx:number,yy:number,w:number,t:number,g?:string)=>p.line(x,by(y),xx,by(yy),w,t,g);
+  const poly=(points:readonly CrabPoint[],t:number,g?:string)=>p.polygon(points.map(([x,y])=>[x,by(y)] as const),t,g);
+
+  // The legs sit below the shield. Joints bend toward the fixed toe, rather than
+  // moving the toe with the body. Four separately readable fans on each side.
+  for(let k=3;k>=0;k--)for(const side of [-1,1]){
+    const index=(side<0?0:4)+k,toe=a.feet[index]!;
+    const hx=side*(.68-k*.015),hy=by(-.14+k*.16);
+    const ankle:CrabPoint=[toe[0]-side*.12,toe[1]-.065];
+    const dx=ankle[0]-hx,dy=ankle[1]-hy;
+    // Oblique projection fans front and rear knees apart instead of stacking
+    // four nearly horizontal rails. Toes remain the director's exact contacts.
+    const knee:CrabPoint=[hx+dx*.62+side*.045,hy+dy*.45+(k-1.3)*.115];
+    p.line(hx,hy,...knee,.073,3);p.line(hx,hy,...knee,.033,6);
+    p.line(...knee,...ankle,.043,4);p.line(...knee,...ankle,.016,7);
+    p.ellipse(...knee,.063,.052,7,a.detail?'o':undefined);
+    p.line(...ankle,...toe,.014,8);
+    if(a.planted[index])p.point(...toe,6,'_');
+  }
+
+  // Dark ventral rim separates the continuous shield from its walking limbs.
+  poly([[-.73,.17],[-.81,.36],[-.54,.55],[.52,.55],[.81,.33],[.72,.14]],3);
+  bl(-.50,.47,.49,.47,.012,5,'=');
+
+  // Chelipeds attach in front of the shield. One palm is moderately heavier;
+  // asymmetry is shore-crab scale, not the single oversized claw of a fiddler.
+  for(const side of [-1,1]){
+    const lift=side<0?a.left:a.right,raised=Math.max(0,lift),mass=side<0?1.08:.94;
+    const cx=side*(1.27-raised*.10),cy=-.61-lift*.56;
+    const elbow:CrabPoint=[side*.99,by(-.26-lift*.22)],wrist:CrabPoint=[cx,by(cy+.16)];
+    p.line(side*.50,by(-.21),...elbow,.115,3);p.line(side*.50,by(-.24),...elbow,.064,6);
+    p.ellipse(...elbow,.105,.082,7);
+    p.line(...elbow,...wrist,.092,4);p.line(...elbow,...wrist,.046,7);
+    const angle=side*(.12+raised*.13),ca=Math.cos(angle),sa=Math.sin(angle);
+    const m=([x,y]:CrabPoint):CrabPoint=>[cx+side*(x*ca-y*sa)*mass,by(cy+(x*sa+y*ca)*mass)];
+    const shape=(ps:readonly CrabPoint[],t:number)=>p.polygon(ps.map(m),t);
+    shape([[-.19,.17],[-.29,.03],[-.24,-.16],[-.11,-.25],[.14,-.21],[.27,-.04],[.22,.17],[.04,.25]],5);
+    shape([[-.16,.02],[-.17,-.12],[-.04,-.20],[.12,-.14],[.16,.02],[.03,.12]],7);
+    const gape=.07+raised*.24;
+    // Fixed finger: an inward, hooked lower jaw. Mobile finger opens outside it.
+    shape([[-.21,-.07],[-.29,-.31],[-.21,-.51],[-.10,-.55],[-.035,-.49],[-.15,-.42],[-.14,-.21]],6);
+    shape([[.14,-.09],[.25+gape,-.25],[.23+gape,-.41],[.10+gape*.6,-.56],[.02+gape*.55,-.49],[.11+gape*.6,-.35],[.03,-.21]],7);
+    p.line(...m([-.23,-.29]),...m([-.16,-.45]),.009,9);
+    p.point(...m([.10+gape*.6,-.51]),9);
+    if(a.detail){p.line(...m([-.10,.09]),...m([.11,.08]),0,4,':');p.point(...m([.04,-.05]),8,'.');}
+  }
+
+  // A broad, lightly toothed shield, not an oval filled with extra characters.
+  const shell:readonly CrabPoint[]=[[-.54,.43],[-.80,.29],[-.91,.05],[-.87,-.18],[-.73,-.38],[-.48,-.51],[-.22,-.48],[0,-.53],[.22,-.48],[.48,-.51],[.73,-.38],[.87,-.18],[.91,.05],[.80,.29],[.54,.43]];
+  poly(shell,5);
+  poly([[-.67,.20],[-.77,-.08],[-.55,-.32],[-.23,-.37],[-.30,-.06],[-.25,.24],[-.49,.33]],6);
+  poly([[.26,.28],[.30,-.07],[.24,-.36],[.56,-.31],[.76,-.06],[.66,.24],[.45,.34]],4);
+  poly([[-.22,-.38],[0,-.45],[.20,-.37],[.25,-.10],[.12,.10],[-.11,.10],[-.26,-.11]],7);
+  poly([[-.14,.13],[.12,.13],[.24,.30],[0,.38],[-.24,.28]],6);
+  for(const side of [-1,1]){
+    for(let k=0;k<4;k++){
+      const y=-.32+k*.14,x=side*(.79+Math.sin(k/3*Math.PI)*.12);
+      poly([[x,y-.05],[x+side*.09,y+.015],[x,y+.055]],side<0?7:5);
+    }
+    bl(side*.25,-.34,side*.30,-.13,.006,3,':');
+    bl(side*.30,-.13,side*.17,.10,.006,3,':');
+    bl(side*.17,.10,side*.43,.26,.006,3,':');
+  }
+  bl(-.56,-.40,-.28,-.45,.009,8);
+  bl(-.81,-.10,-.76,.13,.010,7);
+  bl(-.15,.10,.15,.10,.006,4,'_');
+  if(a.detail){
+    // Stable connected mottling; seed changes small islands, never frame noise.
+    for(let k=0;k<12;k++){
+      const x=Math.sin(k*2.41+a.seed*.17)*.63,y=Math.cos(k*1.87+a.seed*.07)*.23-.04;
+      bp(x,y,k%3===0?7:4,k%3===0?':':'.');
+    }
+  }
+  // Short, independently attending stalks emerge from the anterior shell.
+  for(const side of [-1,1]){
+    const ex=side*.38+a.gazeX*.055,ey=-.74+a.gazeY*.06+a.crouch*.12;
+    bl(side*.30,-.43,ex,ey,.040,4);bl(side*.30,-.43,ex,ey,.012,8);
+    bp(ex,ey,9,'O');
+    bl(side*.12,-.49,side*.17,-.61,.006,6,'/');
+  }
+}
+
+/** Pure legacy study: unchanged input/phase contract, using the same new anatomy. */
 function renderCrab(o:CrabConfig,s:CrabState,phase:CrabPhase):CrabFrame {
-  const cols=o.columns,rows=o.rows,worldW=Math.max(6,3.7*cols*.56/rows),worldH=worldW*rows/(cols*.56);
-  const glyphs=new Array<string>(cols*rows).fill(' '),tones=new Uint8Array(cols*rows);
+  const raster=crabRaster(o),ratio=o.columns*.56/o.rows;
+  const worldW=Math.max(6,3.7*ratio),r=2/worldW*o.scale,sy=r*ratio;
   const t=s.tick/60*o.speed,seedPhase=(o.seed%997)/997*TAU;
   const age=s.responseTick===null?0:s.tick-s.responseTick;
-  const lift=o.behavior==='guard'?1:s.responseTick===null?0:Math.sin(Math.PI*clamp(age/180,0,1));
-  const dx=o.behavior==='curious'?s.targetX*.3:o.behavior==='scuttle'?Math.sin(t*.65+seedPhase)*o.sway:0;
-  const bounce=o.behavior==='guard'?0:Math.sin(t*7)*.025;
-  const mirror=o.facing==='left'?1:-1, chars='.,:;+=*#%@';
-  function point(x:number,y:number,tone:number,glyph?:string){
-    x=x*o.scale*mirror+dx;y=y*o.scale+bounce;
-    const c=Math.round((x/worldW+.5)*(cols-1)),r=Math.round((y/worldH+.5)*(rows-1));
-    if(c<0||c>=cols||r<0||r>=rows)return;const i=r*cols+c;
-    glyphs[i]=glyph??chars[clamp(Math.round(tone),0,9)]!;tones[i]=clamp(Math.round(tone),1,9);
-  }
-  const step=worldH/rows*.32;
-  function disk(cx:number,cy:number,r:number,tone:number,glyph?:string){for(let y=-r;y<=r;y+=step)for(let x=-r;x<=r;x+=step)if(x*x+y*y<=r*r)point(cx+x,cy+y,tone,glyph);point(cx,cy,tone,glyph);}
-  function line(x:number,y:number,xx:number,yy:number,r:number,tone:number,glyph?:string){const n=Math.max(1,Math.ceil(Math.hypot(xx-x,yy-y)/step));for(let k=0;k<=n;k++){const a=k/n;disk(x+(xx-x)*a,y+(yy-y)*a,r,tone,glyph);}}
-  function ellipse(cx:number,cy:number,rx:number,ry:number,tone:number){for(let y=-ry;y<=ry;y+=step)for(let x=-rx;x<=rx;x+=step){const q=x*x/(rx*rx)+y*y/(ry*ry);if(q<=1)point(cx+x,cy+y,tone+(1-q)*1.8-y/ry*.4);}}
-  // Eight separately jointed walking legs: four on each side, not chelipeds.
-  for(const side of [-1,1])for(let k=3;k>=0;k--){
-    const gait=o.behavior==='guard'?0:Math.sin(t*6+k*1.6+side)*.09;
-    const y=-.1+k*.17, kneeY=-.15+k*.26+gait, footY=.12+k*.29;
-    const reach=1.25+(3-k)*.17;
-    line(side*.62,y,side*reach,kneeY,.055,5.4);
-    line(side*reach,kneeY,side*(reach+.27),footY,.038,7);
-    line(side*(reach+.27),footY,side*(reach+.15),footY+.13,.018,8);
-  }
-  // Paired chelipeds: articulated elbow, broad palm, two gaping tapered fingers.
-  for(const side of [-1,1]){
-    const x=side*1.38,y=-.73-lift*.38;
-    line(side*.48,-.23,side*.92,-.58-lift*.08,.12,5.5);
-    line(side*.92,-.58-lift*.08,x,y,.10,6.5);
-    ellipse(x,y,.27,.22,6.5);
-    const gape=.16+lift*.12;
-    line(x-side*.13,y-.12,x-side*(.24+gape),y-.40,.085,7);
-    line(x-side*(.24+gape),y-.40,x-side*.13,y-.53,.035,8);
-    line(x+side*.12,y-.12,x+side*(.22+gape),y-.39,.085,7);
-    line(x+side*(.22+gape),y-.39,x+side*.10,y-.53,.035,8);
-  }
-  ellipse(0,.04,.79,.48,5.5);
-  // Scalloped shell rim and ornamental plate texture retain a broad carapace.
-  for(let k=0;k<30;k++){const a=Math.PI+k/29*Math.PI;point(Math.cos(a)*.81,.04+Math.sin(a)*.49,8,'#');}
-  for(let k=0;k<7;k++)line(-.46+k*.15,-.12,-.42+k*.14,.2,.012,4,':');
-  for(const side of [-1,1]){line(side*.31,-.31,side*.39,-.63,.045,7);disk(side*.39,-.65,.065,9,'O');}
-  line(-.15,.26,.15,.26,.018,8,'=');
-  const cells=Object.freeze(glyphs.map((glyph,i)=>Object.freeze({glyph,tone:tones[i]!})));
-  let text='';for(let r=0;r<rows;r++)text+=glyphs.slice(r*cols,(r+1)*cols).join('')+(r===rows-1?'':'\n');
-  return Object.freeze({columns:cols,rows,cells,text,phase});
+  const display=o.behavior==='guard'?{left:.93,right:.78,crouch:0}:s.responseTick===null?{left:0,right:.06,crouch:0}:clawDisplay(age*300/180);
+  const x=(o.behavior==='curious'?s.targetX*.3:o.behavior==='scuttle'?Math.sin(t*.65+seedPhase)*o.sway:0)*2/worldW;
+  const mirror=o.facing==='left'?1:-1;
+  const feet:CrabPoint[]=Array.from({length:8},(_,k)=>{
+    const side=k<4?-1:1,j=k%4,phase=o.behavior==='guard'?0:(t*1.35+(k%2)*.5+(k<4?0:.5))%1;
+    const lift=phase>.68?Math.sin((phase-.68)/.32*Math.PI)*.15:0;
+    return [side*(1.88-j*.11),-.13+j*.33-lift] as const;
+  });
+  const shadow=localCrabInk(raster.ink('sand'),x,.02,r,sy);
+  shadow.ellipse(0,.38,1.37,.27,1,'.');
+  paintShoreCrab(localCrabInk(raster.ink('crab',0),x,.02,r,sy,mirror),{
+    ...display,gazeX:s.targetX,gazeY:s.targetY,feet,planted:feet.map(()=>true),detail:r*(o.columns-1)>16,seed:o.seed
+  });
+  return raster.frame(phase);
 }
-/** Scenery and every resident share one printable, bounded grid and visible owner map. */
+
+/** Tidal flat: distant wash, damp sediment, low ledges, then living anatomy. */
 function renderTidepool(o:CrabConfig,s:CrabSceneState,phase:CrabPhase,tick:number):CrabFrame {
-  const cols=o.columns,rows=o.rows,ratio=cols*.56/rows,chars='.,:;+=*#%@',time=tick/60;
-  const cells:CrabCell[]=Array.from({length:cols*rows},()=>({glyph:' ',tone:0}));
-  const col=(x:number)=>Math.round((x+1)*.5*(cols-1)),row=(y:number)=>Math.round((y+1)*.5*(rows-1));
-  function put(c:number,r:number,glyph:string,tone:number,layer:NonNullable<CrabCell['layer']>,owner?:number){
-    if(c<0||c>=cols||r<0||r>=rows)return;
-    if(layer==='cue'&&cells[r*cols+c]?.owner!==undefined)return;
-    cells[r*cols+c]=owner===undefined?{glyph,tone:clamp(Math.round(tone),0,9),layer}:{glyph,tone:clamp(Math.round(tone),0,9),layer,owner};
-  }
-  function point(x:number,y:number,tone:number,layer:NonNullable<CrabCell['layer']>,owner?:number,glyph?:string){put(col(x),row(y),glyph??chars[clamp(Math.round(tone),0,9)]!,tone,layer,owner);}
-  function ellipse(x:number,y:number,rx:number,ry:number,tone:number,layer:NonNullable<CrabCell['layer']>,owner?:number,glyph?:string){
-    const cx=(x+1)*.5*(cols-1),cy=(y+1)*.5*(rows-1),w=Math.max(.45,rx*.5*(cols-1)),h=Math.max(.45,ry*.5*(rows-1));
-    for(let r=Math.max(0,Math.floor(cy-h));r<=Math.min(rows-1,Math.ceil(cy+h));r++)for(let c=Math.max(0,Math.floor(cx-w));c<=Math.min(cols-1,Math.ceil(cx+w));c++){
-      const q=((c-cx)/w)**2+((r-cy)/h)**2;if(q<=1){const t=clamp(Math.round(tone+(1-q)*1.2),0,9);put(c,r,glyph??chars[t]!,t,layer,owner);}
-    }
-  }
-  function line(x:number,y:number,xx:number,yy:number,thickness:number,tone:number,layer:NonNullable<CrabCell['layer']>,owner?:number,glyph?:string){
-    const n=Math.max(1,Math.ceil(Math.max(Math.abs(xx-x)*cols,Math.abs(yy-y)*rows)));
-    for(let i=0;i<=n;i++){const p=i/n,px=x+(xx-x)*p,py=y+(yy-y)*p;if(thickness>0)ellipse(px,py,thickness,thickness*ratio,tone,layer,owner,glyph);point(px,py,tone,layer,owner,glyph);}
-  }
-  function text(x:number,y:number,label:string,tone:number,layer:NonNullable<CrabCell['layer']>){const c=clamp(col(x)-Math.floor(label.length/2),0,cols-label.length),r=clamp(row(y),0,rows-1);for(let i=0;i<label.length;i++)put(c+i,r,label[i]!,tone,layer);}
+  const raster=crabRaster(o),ratio=o.columns*.56/o.rows,time=tick/60;
+  const sand=raster.ink('sand'),water=raster.ink('water'),rock=raster.ink('rock');
   const waveY=-.81+s.tideLevel*.96;
-  // Static sand; no frame-random sparkle. The moving current remains behind the cast.
-  for(let r=4;r<rows-2;r+=3)for(let c=3;c<cols-2;c+=4){
-    const hash=((c*73856093)^(r*19349663)^(o.seed*83492791))>>>0,y=r/(rows-1)*2-1;
-    if(y>waveY+.05&&hash%5<2)put(c,r,hash%7===0?':':'.',1,'sand');
+  // Continuous broad contours, with restrained density. Nothing sparkles per frame.
+  for(let c=0;c<o.columns;c++){
+    const x=c/(o.columns-1)*2-1,edge=waveY+Math.sin(x*7-time*s.current*1.2)*.026;
+    if(c%6!==0)water.point(x,edge,3,c%3===0?'-':'~');
+    if(c%7<4)water.point(x,edge-.067,1,'_');
+    if(c%11<5)water.point(x,edge+.042,1,'.');
+    if(c%13<5)water.point(x,-.91+Math.sin(x*5+time*s.current*.42)*.02,1,'-');
   }
-  for(let c=0;c<cols;c++){
-    const x=c/(cols-1)*2-1,y=waveY+Math.sin(c*.10-time*.55)*.024;
-    if(c%3!==0)point(x,y,3,'water',undefined,'~');
-    if(c%5===0)point(x,y-.15,1,'water',undefined,'-');
+  for(let r=3;r<o.rows-1;r++)for(let c=2;c<o.columns-2;c++){
+    const x=c/(o.columns-1)*2-1,y=r/(o.rows-1)*2-1;
+    if(y<waveY+.06)continue;
+    const hash=((c*73856093)^(r*19349663)^(o.seed*83492791))>>>0;
+    if(hash%113===0)sand.point(x,y,1,hash%3===0?':':'.');
+    if(r%7===0&&c%19<5&&Math.abs(x)>.45)sand.point(x,y+Math.sin(x*8)*.012,1,'_');
   }
-  for(let i=0;i<18;i++){
-    const x=((i*.127+time*s.current*.025+10)%1)*2-1,y=-.94+(i%4)/4*Math.max(.03,waveY+.88);
-    point(x,y,1,'water',undefined,i%3===0?'~':'.');
-  }
-  if(Math.abs(s.current)>.05)text(s.current>0?.76:-.76,-.88,s.current>0?'>>>':'<<<',4,'water');
-  // A repeated contour places each burrow in the world, not in the moving crab.
-  for(const a of s.actors){
-    const r=crabRadius(o,a.size);
-    ellipse(a.home.x,a.home.y+.025,r*1.3,r*ratio*.52,2,'rock');
-    line(a.home.x-r,a.home.y+.03,a.home.x+r,a.home.y+.03,0,2,'rock',undefined,'_');
-    ellipse(a.patch.x,a.patch.y+r*ratio*.72,r*1.48,r*ratio*.18,1,'sand',undefined,'.');
-  }
+  const shelter=(a:CrabResidentState,front:boolean)=>{
+    const r=crabRadius(o,a.size),sy=r*ratio,p=localCrabInk(rock,a.home.x,a.home.y,r,sy);
+    if(!front){
+      p.polygon([[-1.55,.44],[-1.62,-.03],[-1.22,-.62],[-.51,-.86],[.35,-.78],[1.12,-.44],[1.47,.09],[1.35,.47]],2);
+      p.polygon([[-1.44,-.05],[-1.12,-.51],[-.48,-.70],[.34,-.65],[.87,-.38],[.25,-.32],[-.52,-.45]],3);
+      p.line(-1.16,-.52,-.55,-.73,0,4,'_');
+      p.line(-.49,-.71,.31,-.64,0,3,'-');
+      p.line(.11,-.63,-.12,-.31,0,1,':');
+      p.ellipse(0,.05,1.13,.34,0,'.');
+      p.line(-.83,-.12,.78,-.12,0,1,'_');
+      // Two sparse fronds attach to the rock, never to the travelling crab.
+      p.line(-1.25,-.20,-1.40,-.69,0,2,'/');p.line(-1.40,-.69,-1.18,-.82,0,2,'~');
+      p.line(1.12,-.08,1.35,-.46,0,2,'/');
+    }else{
+      // A stationary front lip occludes the crab geometrically. Crouching lowers
+      // shell/eyes behind it; the rock itself does not grow or follow the actor.
+      p.polygon([[-1.57,.31],[-1.11,.12],[-.48,.16],[.12,.10],[.73,.18],[1.30,.12],[1.52,.37],[1.11,.66],[-.89,.68]],2);
+      p.line(-1.10,.12,-.49,.16,0,4,'_');p.line(-.47,.16,.12,.10,0,3,'-');
+      p.line(.73,.18,1.27,.12,0,4,'_');
+      p.line(-.94,.45,-.58,.53,0,1,':');p.line(.29,.43,.68,.48,0,1,':');
+    }
+  };
+  for(const a of s.actors)shelter(a,false);
   const ordered=[...s.actors].sort((a,b)=>a.y-b.y||a.id-b.id);
-  for(const a of ordered){
-    const r=crabRadius(o,a.size),mir=o.facing==='left'?1:-1,sy=r*ratio;
-    const xy=(x:number,y:number):[number,number]=>[a.x+x*r*mir,a.y+(y*(1-a.crouch*.18)+a.crouch*.10)*sy];
-    const p=(x:number,y:number,t:number,glyph?:string)=>{const [xx,yy]=xy(x,y);point(xx,yy,t,'crab',a.id,glyph);};
-    const ell=(x:number,y:number,w:number,h:number,t:number,glyph?:string)=>{const [xx,yy]=xy(x,y);ellipse(xx,yy,w*r,h*sy,t,'crab',a.id,glyph);};
-    const ln=(x:number,y:number,xx:number,yy:number,w:number,t:number,glyph?:string)=>{const from=xy(x,y),to=xy(xx,yy);line(...from,...to,w*r,t,'crab',a.id,glyph);};
-    for(let k=7;k>=0;k--){
-      const side=k<4?-1:1,j=k%4,f=a.feet[mir<0?(k<4?k+4:k-4):k]!,knee=xy(side*(1.18+(3-j)*.10),-.13+j*.23);
-      const hip=xy(side*.60,-.04+j*.11);
-      line(...hip,...knee,.027*r,5,'crab',a.id,'=');
-      line(...knee,f.x,f.y-f.lift,.017*r,7,'crab',a.id,side<0?'/':'\\');
-      point(f.x,f.y-f.lift,7,'crab',a.id,f.planted?'_':'^');
-    }
-    // Chelipeds can sift and signal independently; they do not count as walking legs.
-    for(const side of [-1,1]){
-      const lift=side<0?a.leftClaw:a.rightClaw,feeding=a.behavior.kind==='forage'&&side<0;
-      const x=side*(1.30-(feeding?Math.max(0,lift)*.45:0)),y=-.62-lift*.53;
-      ln(side*.45,-.19,side*.91,-.35-lift*.18,.065,5);
-      ln(side*.91,-.35-lift*.18,x,y,.07,6);
-      ell(x,y,.25,.20,6);
-      const gape=.14+Math.max(0,lift)*.10;
-      ln(x-side*.12,y-.09,x-side*(.19+gape),y-.32,.04,7);
-      ln(x-side*(.19+gape),y-.32,x-side*.06,y-.45,.018,9);
-      ln(x+side*.12,y-.09,x+side*(.19+gape),y-.31,.04,7);
-      ln(x+side*(.19+gape),y-.31,x+side*.07,y-.45,.018,9);
-      if(feeding){p(x+.1,y+.25,6,'.');p(x-.12,y+.4,4,':');}
-    }
-    ell(0,.04,.78,.43,5);
-    for(let k=0;k<16;k++){const t=Math.PI+k/15*Math.PI;p(Math.cos(t)*.79,.04+Math.sin(t)*.44,8,'#');}
-    for(let k=0;k<5;k++)p(-.42+k*.21,.03+(k%2)*.12,4,':');
-    for(const side of [-1,1]){const eyeX=side*.34+a.gazeX*.07,eyeY=-.61+a.gazeY*.08;ln(side*.29,-.28,eyeX,eyeY,.025,7);p(eyeX,eyeY,9,'O');}
-    ln(-.16,.28,.16,.28,.014,8,'=');
-    if(a.crouch>.7&&Math.hypot(a.x-a.home.x,a.y-a.home.y)<.09){
-      ellipse(a.home.x,a.home.y+sy*.48,r*1.35,sy*.45,2,'rock');
-      line(a.home.x-r*1.1,a.home.y+sy*.19,a.home.x+r*1.1,a.home.y+sy*.19,0,3,'rock',undefined,'_');
-    }
-    if(o.labels){
-      const label=`${a.id===s.selectedId?'[':' '}${a.id+1}${a.id===s.selectedId?']':' '} ${a.label.toUpperCase()}`;
-      const footBottom=Math.max(a.y+sy*.85,...a.feet.map(f=>f.y-f.lift));
-      text(a.x,(row(footBottom)+2)/(rows-1)*2-1,label,a.id===s.selectedId?8:5,'label');
-    }
+  // Painter depth includes the grounded body height. An open-flat crab stands
+  // in front of its ledge; retreat and crouch carry it behind the fixed lip.
+  // Sorting the rock itself (rather than conditionally drawing a mask over all
+  // residents) also avoids erasing neighbouring animals in dense casts.
+  const planes=s.actors.flatMap(a=>{
+    const sy=crabRadius(o,a.size)*ratio;
+    return [{a,cover:true,depth:a.home.y+sy*.28},{a,cover:false,depth:a.y+sy*(.30-a.crouch*.60)}];
+  }).sort((a,b)=>a.depth-b.depth||Number(a.cover)-Number(b.cover)||a.a.id-b.a.id);
+  for(const plane of planes){
+    const a=plane.a;if(plane.cover){shelter(a,true);continue;}
+    const r=crabRadius(o,a.size),sy=r*ratio,mirror=o.facing==='left'?1:-1;
+    const ground=localCrabInk(sand,a.x,a.y,r,sy);
+    ground.ellipse(.07,.43,1.42,.23,1,'.');
+    const feet:CrabPoint[]=Array.from({length:8},(_,k)=>{
+      const index=mirror<0?(k<4?k+4:k-4):k,f=a.feet[index]!;
+      return [(f.x-a.x)/(r*mirror),(f.y-f.lift-a.y)/sy] as const;
+    });
+    paintShoreCrab(localCrabInk(raster.ink('crab',a.id),a.x,a.y,r,sy,mirror),{
+      left:a.leftClaw,right:a.rightClaw,crouch:a.crouch,gazeX:a.gazeX,gazeY:a.gazeY,feet,
+      planted:Array.from({length:8},(_,k)=>a.feet[mirror<0?(k<4?k+4:k-4):k]!.planted),detail:r*(o.columns-1)>16,seed:o.seed+a.id*23
+    });
   }
-  if(s.guide.active){
-    point(s.guide.x,s.guide.y,7,'cue',undefined,'+');
-    point(s.guide.x-.025,s.guide.y,3,'cue',undefined,'.');point(s.guide.x+.025,s.guide.y,3,'cue',undefined,'.');
+  // Labels and guide never borrow a crab owner.
+  if(o.labels)for(const a of ordered){
+    const r=crabRadius(o,a.size),sy=r*ratio;
+    const bottom=Math.max(a.y+sy*1.05,...a.feet.map(f=>f.y-f.lift));
+    raster.text(a.x,bottom+4/(o.rows-1),`${a.id===s.selectedId?'[':' '}${a.id+1}${a.id===s.selectedId?']':' '} ${a.label.toUpperCase()}`,a.id===s.selectedId?8:5);
   }
-  const frozen=Object.freeze(cells.map(c=>Object.freeze(c)));
-  let output='';for(let r=0;r<rows;r++)output+=cells.slice(r*cols,(r+1)*cols).map(c=>c.glyph).join('')+(r===rows-1?'':'\n');
-  return Object.freeze({columns:cols,rows,cells:frozen,text:output,phase});
+  if(s.guide.active){const cue=raster.ink('cue');cue.point(s.guide.x,s.guide.y,7,'+');cue.point(s.guide.x-.025,s.guide.y,3,'.');cue.point(s.guide.x+.025,s.guide.y,3,'.');}
+  return raster.frame(phase);
 }
+
 
 export interface CrabBrowserOptions extends CrabOptions { frameSource?:CrabFrameSource }
 export interface CrabStatus { readonly paused:boolean; readonly reducedMotion:boolean; readonly hidden:boolean; readonly inViewport:boolean; readonly disposed:boolean; readonly phase:CrabPhase; readonly tick:number; readonly droppedSeconds:number; readonly scene:CrabScene;readonly beat:CrabBeat;readonly selectedId:number }
@@ -489,6 +630,10 @@ export function createCrabArtwork(canvas:HTMLCanvasElement,input:CrabBrowserOpti
     // Only a visible creature glyph owns a hit: sand, waves, labels and covering rocks do not.
     const cell=frame.cells[r*frame.columns+c],scene=model.getScene();
     if(cell?.layer==='crab'&&cell.owner!==undefined){const a=scene.actors[cell.owner]!;model.select(a.id);cue(a.role==='shy'?'shelter':a.role==='curious'?'forage':'signal',a.id);}
+    else if(cell?.layer==='rock'){
+      const nearest=[...scene.actors].sort((a,b)=>Math.hypot(a.home.x-p[0],a.home.y-p[1])-Math.hypot(b.home.x-p[0],b.home.y-p[1]))[0]!;
+      model.select(nearest.id);cue('shelter',nearest.id);
+    }
     else if(p[1]>-.81+scene.tideLevel*.96+.05){
       const cast=scene.actors.filter(a=>a.role==='curious'),eligible=cast.length?cast:scene.actors;
       const closest=[...eligible].sort((a,b)=>Math.hypot(a.x-p[0],a.y-p[1])-Math.hypot(b.x-p[0],b.y-p[1]))[0]!;

@@ -42,9 +42,12 @@ const currentLabel = current => Math.abs(current) < .025 ? 'Still water' : `${cu
 
 function start() {
   let art;
+  const canvas = $('animal');
+  const gridForWidth = width => width < 560 ? { columns: 80, rows: 32 }
+    : width < 780 ? { columns: 112, rows: 45 } : { columns: 140, rows: 56 };
   try {
-    art = createCrabArtwork($('animal'), {
-      ...presets.forage, count: 3, columns: 140, rows: 56, labels: true,
+    art = createCrabArtwork(canvas, {
+      ...presets.forage, count: 1, ...gridForWidth(canvas.getBoundingClientRect().width), labels: false,
       director: 'auto', actDuration: 240,
       cast: [
         { label: 'Pip', role: 'curious', size: 1 },
@@ -69,6 +72,16 @@ function start() {
   let castEvents = new AbortController(), chapterEvents = new AbortController();
   let castSignature = '', chapterSignature = '', disposed = false, retainedUrl = null;
   let cachedPlayback = null, capturedFrame = null;
+  // The specimen keeps a readable glyph size on phones. Only a breakpoint
+  // change reseats feet; ordinary CSS resizing remains the adapter's job.
+  const resizeGrid = () => {
+    if (disposed) return;
+    const grid = gridForWidth(canvas.getBoundingClientRect().width);
+    if (grid.columns !== art.getOptions().columns) art.update(grid);
+  };
+  const gridObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(resizeGrid) : null;
+  gridObserver?.observe(canvas);
+  if (!gridObserver) on(window, 'resize', resizeGrid);
   const announce = text => { $('announcement').textContent = text; };
   const actorFor = scene => scene.actors.find(actor => actor.id === scene.selectedId) ?? scene.actors[0];
 
@@ -262,7 +275,7 @@ function start() {
   const unsubscribe = art.subscribe(sync);
   function dispose() {
     if (disposed) return;
-    disposed = true; unsubscribe(); events.abort(); castEvents.abort(); chapterEvents.abort(); art.dispose();
+    disposed = true; unsubscribe(); gridObserver?.disconnect(); events.abort(); castEvents.abort(); chapterEvents.abort(); art.dispose();
     if (retainedUrl) { URL.revokeObjectURL(retainedUrl); retainedUrl = null; }
   }
   on(window, 'pagehide', event => {
