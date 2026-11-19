@@ -1,10 +1,42 @@
 # Pufferfish · A little reef, full of intentions
 
-## Current director follow-up
+## Current uplift — fine skin and controlled recovery
 
-The current integrated factory is `createPufferfishArtwork` from `ascii-animals-review/pufferfish`. The new opt-in director adds **Reef ramble**, **Returning tide** and **Passing shadow**, with one to three visitors, individual explorer/sentinel/drifter roles, exploratory routes, gaze and fin attention, localized staged inflation and coordinated recovery. Omitting `director` preserves the original solo encounter.
+This source-only revision starts from main `b8f222dab868821f27bf2a64a98434f3483fc8e6`, verified on **2026-11-19 UTC**. It preserves the public typed API, option defaults, seeded event protocol and lifecycle contract. The authoritative API is [docs/PUFFERFISH-API.md](../../docs/PUFFERFISH-API.md); the anatomy, choreography and scope are recorded in [UPLIFT-BRIEF.md](UPLIFT-BRIEF.md).
 
-The authoritative current reference is [docs/PUFFERFISH-API.md](../../docs/PUFFERFISH-API.md). The [pre-code director brief](DIRECTOR-BRIEF.md) records the scene matrix and constraints. [Director evidence](evidence/director/README.md) contains actual canonical native-Canvas frames, a 20-second GIF, mobile before/after correction, exact source/runtime hashes and honest browser/performance limits. [Director verification](DIRECTOR-VERIFICATION.md) records the final gates and coordinator handoff.
+The animal now has an oblong, Arothron-inspired resting body, a pale belly, stable dark spots, fine skin spinules, lateral irises and a small muzzle. Inflation expands the belly and flanks disproportionately, stretching the surface pattern and raising the short spines while the face and small fins remain comparatively stable. A short, clear fan tail keeps the resting silhouette legible. Sparse reef relief, sponges and suspended grains provide depth around the animal.
+
+Two directed encounters use the existing controls:
+
+- **Reef inspection:** Invite starts with a 30-tick brake, then a cautious approach, inspection and backing away into drift. Distant pointer attention remains distinct from a close defensive approach.
+- **Startle and recovery:** Approach produces a short recoil, belly expansion, spine erection, guarded hold and hesitant deflation. The established default timings remain 30 / 42 / 36 / 180 / 150 / 180 ticks for notice, belly, spines, hold, recovery and cooldown. The two recovery shelves are authored animation pauses, not a physiological timing claim.
+
+Tap a fish to select it; tap empty water to invite the selected fish. With the canvas focused, `I` invites, `A` approaches, `Escape` gives space, `1`–`3` select, `Space` pauses/resumes and `R` resets. Native buttons expose the same actions to touch and keyboard. Pause, reduced motion and compact sizes retain deliberate still alternatives.
+
+For readability, `small` retains a 72-column ceiling. `standard` and `fine` use a 96-column ceiling through 520 logical pixels wide, interpolating to their 120- and 160-column ceilings at 700 pixels. The 90-row ceiling can reduce the effective column count further. The existing three-visitor size multiplier is unchanged. The scene budget remains 16,000 samples; the latest reviewed trio used 15,622. These are allocation/work bounds, not an FPS result.
+
+### Build and review this revision
+
+Central integration must regenerate outputs from the applied source:
+
+```sh
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+node --test test/pufferfish-integration.test.mjs species/pufferfish/tests/*.test.mjs
+python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
+```
+
+Open `http://127.0.0.1:4173/pufferfish/`. `npm run build` regenerates package modules, species builds and demo outputs; generated files are intentionally excluded from this patch.
+
+[UPLIFT-REVIEW.md](UPLIFT-REVIEW.md) records the exact commands, source hashes, matched desktop/phone captures, motion excerpts and remaining acceptance. [capture-uplift-native.mjs](scripts/capture-uplift-native.mjs) renders freshly built source through the canonical painter in native Skia Canvas. [review-uplift.mjs](scripts/review-uplift.mjs) supplies a separate real-Chromium review harness.
+
+**Evidence boundary:** the new captures are native Canvas output, not browser screenshots. Local Chromium was blocked before a page loaded; the cloud-browser route could not reach the local service and encountered a policy block. There is no new real-browser acceptance. A successful script syntax check does not establish that the browser harness or its interaction assertions passed. Historical browser and native captures below are provenance for earlier revisions only.
+
+## Historical director follow-up
+
+The earlier integrated factory was `createPufferfishArtwork` from `ascii-animals-review/pufferfish`, still the public factory today. That director revision added **Reef ramble**, **Returning tide** and **Passing shadow**, with one to three visitors, individual explorer/sentinel/drifter roles, exploratory routes, gaze and fin attention, localized staged inflation and coordinated recovery. Omitting `director` retained the solo encounter.
+
+The [pre-code director brief](DIRECTOR-BRIEF.md) records that revision's scene matrix and constraints. [Director evidence](evidence/director/README.md) contains its canonical native-Canvas frames, a 20-second GIF, mobile before/after correction, exact source/runtime hashes and browser/performance limits. [Director verification](DIRECTOR-VERIFICATION.md) records that historical handoff; it does not certify the current uplift.
 
 To review the generated integrated demo from the repository root:
 
@@ -16,13 +48,13 @@ python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
 
 Open `http://127.0.0.1:4173/pufferfish/`. Choose a scene, select an individual, then invite or approach it. Give space releases the whole group. Tap an actual fish to select it or empty water to invite the current selection. With the canvas focused, use `1`–`3`, `I`, `A`, `Escape`, `Space` and `R`. The native controls expose those actions without hover. Pause and system reduced motion retain deliberate still alternatives.
 
-Current source is based on main `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`. The private canonical marine renderer, shared scheduler and package contract remain in place. Only Pufferfish paths and its specific facade/integration test change.
+That director revision was based on main `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`. Its scope included Pufferfish paths and its specific facade/integration test. Those scope and base statements are historical; the current source-only uplift uses the later base and narrower scope stated above.
 
 ---
 
 ## Historical original handoff notes
 
-The remaining notes describe the **pre-integration original handoff**, including its original base, captures and then-pending public API. They are retained for provenance. Use the current integrated reference and director verification above for this branch; the historical integration-status statements below are superseded.
+The remaining notes describe the **pre-integration original handoff**, including its original base, captures and then-pending public API. They are retained for provenance. Use the integrated API and uplift review linked at the top for this revision; the historical integration-status statements below are superseded.
 
 An original reactive pufferfish with a small round body, raised eyes, paddle fins and a short tail. A deliberate nearby approach leads through **notice → belly inflation → spine extension → buoyant hold → deflation → cooldown**. Retreat begins recovery, and staying nearby cannot accumulate repeated reactions.
 

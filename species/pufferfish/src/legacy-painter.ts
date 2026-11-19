@@ -145,66 +145,132 @@ export function createPufferfishPainter(canvas: HTMLCanvasElement, legacy: Puffe
       if (!state) return;
       const geometryQuality = frameScene && frameScene.actors.length > 1 ? 'small' : config.quality;
       const extra = actor ? { gaze: actor.gaze, finEffort: actor.finEffort } : {};
+      const passingShade = actor && frameScene ? 1 - shadowAt(frameScene, actor.x) : 1;
       samplePufferfish(state, sample => {
         if (++combinedSamples > 16000 || this.sampleCount >= 16000) throw new RangeError('Pufferfish scene sample cap exceeded');
         // The existing writer subtracts 0.30 from local x. Keep the species origin at zero.
-        this._put(sample.x + 0.30, sample.y, sample.z, sample.light, sample.material, sample.seed);
+        this._put(sample.x + 0.30, sample.y, sample.z, sample.light * passingShade, sample.material, sample.seed);
       }, { quality: geometryQuality, monochrome: config.monochrome, staticPose, ...extra });
     },
     _arms: noop, _beak: noop, _saveFish: noop, _drawInk: noop,
     _put: put,
     _rasterize() { rasterize.call(this); },
   };
-  /** Sparse original reef and current lines, sampled through the same writer.
-   * Fixed topology: 987 reef samples and 90 current samples, no effect queues.
+  /** The shadow is a soft light change across the reef, never a second animal.
+   * Its passage starts before the director's defensive cue and clears during
+   * recovery. Static poses use one fixed lighting state, just like the fins.
+   */
+  function shadowAt(scene: PufferfishDirectorState, x: number): number {
+    if (scene.config.scene !== 'shadow' || staticPose) return 0;
+    const progress = (scene.sceneTick - 180) / 420;
+    if (progress <= 0 || progress >= 1) return 0;
+    const envelope = Math.sin(progress * Math.PI) ** 2;
+    const distance = (x - (-0.9 + progress * 1.8)) / 0.44;
+    return 0.20 * envelope * Math.exp(-distance * distance);
+  }
+  /** Original asymmetric reef, three depth planes, and suspended grains.
+   * Fixed topology: 1,198 samples. Quiet central water stays available to the
+   * fish; the nearest rim remains at the lower edges. No effect queues or
+   * additional renderer resources, and all scenery keeps one non-actor owner.
    */
   function sampleReef(scene: PufferfishDirectorState): void {
+    const time = staticPose ? 0 : scene.sceneTick;
+    const strength = Math.abs(scene.flow);
     const submit = (x: number, y: number, z: number, light: number, material: number, seed: number): void => {
       if (++combinedSamples > 16000) throw new RangeError('Pufferfish scene sample cap exceeded');
       const lens = 1 - z * surface.perspectiveStrength;
       surface._put(x * surface.width / (2 * surface.scale) * lens + 0.30,
-        y * surface.height / (2 * surface.scale) * lens, z, light, config.monochrome ? 2 : material, seed);
+        y * surface.height / (2 * surface.scale) * lens, z,
+        light * (1 - shadowAt(scene, x)), config.monochrome ? 2 : material, seed);
     };
-    for (let station = 0; station < 3; station++) {
-      const center = (station - 1) * 0.64;
-      // Half-dome rock clusters give the route destinations a stable landmark.
-      for (let ring = 0; ring <= 6; ring++) for (let arc = 0; arc <= 28; arc++) {
-        const r = ring / 6, angle = arc / 28 * Math.PI;
-        submit(center + Math.cos(angle) * r * 0.16, 0.77 - Math.sin(angle) * r * (0.065 + station * 0.01),
-          -1.2 + r * Math.sin(angle) * 0.07, 0.27 + Math.sin(angle) * 0.17, 0, 80_000 + station * 1000 + ring * 31 + arc);
-      }
-      for (let stem = 0; stem < 3; stem++) {
-        const height = 0.12 + stem * 0.045;
-        const root = center + (stem - 1) * 0.052;
-        const bend = scene.flow * 0.05 + Math.sin((staticPose ? 0 : scene.sceneTick) * 0.004 + station + stem) * 0.008;
-        for (let point = 0; point <= 16; point++) {
-          const u = point / 16;
-          submit(root + bend * u * u, 0.74 - u * height, -1.03, 0.43, 1, 84_000 + station * 400 + stem * 100 + point);
-        }
-        for (let leaf = 1; leaf <= 5; leaf++) for (let point = 0; point < 5; point++) {
-          const u = leaf / 6, v = point / 4, sign = leaf % 2 ? 1 : -1;
-          submit(root + bend * u * u + sign * v * 0.025, 0.74 - u * height - v * 0.018,
-            -1.02, 0.39, 1, 85_500 + station * 400 + stem * 100 + leaf * 6 + point);
-        }
+    // Far sand: two interrupted, gently curved bands rather than a hard floor.
+    for (let band = 0; band < 2; band++) for (let point = 0; point < 65; point++) {
+      const u = point / 64, x = -0.94 + u * 1.88;
+      const wave = Math.sin(u * 7 + band * 1.9) * 0.025 + Math.sin(u * 19) * 0.008;
+      submit(x, 0.70 + band * 0.075 + wave, -1.8 - band * 0.18,
+        0.10 + (point % 7 === 0 ? 0.025 : 0), 0, 80_000 + band * 70 + point);
+    }
+    // Broad limestone at left, a smaller broken shoulder, and a low central
+    // pebble: different silhouettes establish three destinations without clones.
+    const rocks = [
+      { x: -0.64, y: 0.79, width: 0.23, height: 0.09, depth: -0.95 },
+      { x: -0.40, y: 0.80, width: 0.10, height: 0.055, depth: -1.20 },
+      { x: 0.02, y: 0.82, width: 0.17, height: 0.047, depth: -1.08 },
+    ];
+    for (const [rock, shape] of rocks.entries()) {
+      for (let ring = 0; ring < 5; ring++) for (let point = 0; point < 24; point++) {
+        const r = ring / 4, angle = point / 23 * Math.PI;
+        const crest = Math.sin(angle), chip = 0.88 + 0.12 * Math.cos(angle * 5 + rock);
+        submit(shape.x + Math.cos(angle) * r * shape.width,
+          shape.y - crest * r * shape.height * chip, shape.depth + crest * r * 0.09,
+          0.20 + crest * 0.17 + (ring === 4 ? 0.04 : 0), 0, 81_000 + rock * 150 + ring * 25 + point);
       }
     }
-    // Six small stream ribbons indicate signed flow. Their topology remains
-    // fixed at slack water; contrast and length vary continuously with flow.
-    const strength = Math.abs(scene.flow), direction = scene.flow < 0 ? -1 : 1;
-    for (let ribbon = 0; ribbon < 6; ribbon++) {
-      const centerX = -0.66 + (ribbon % 3) * 0.66;
-      const centerY = ribbon < 3 ? -0.68 : 0.35;
-      const drift = Math.sin((staticPose ? 0 : scene.sceneTick) * 0.006 + ribbon) * 0.018 * strength;
-      for (let point = 0; point < 9; point++) {
-        const u = point / 8;
-        submit(centerX + direction * (u - 0.5) * (0.045 + 0.12 * strength) + drift,
-          centerY + Math.sin(u * Math.PI) * 0.012, -1.4, 0.045 + 0.30 * strength, 1, 88_000 + ribbon * 20 + point);
+    // Three unequal sea-fronds rise from the left rock. A common signed bend
+    // follows the current, with gentle independent tip lag on each strand.
+    for (let stem = 0; stem < 3; stem++) {
+      const root = -0.74 + stem * 0.065, height = [0.17, 0.24, 0.15][stem]!;
+      const bend = scene.flow * 0.075 + Math.sin(time * 0.005 + stem * 1.3) * 0.012;
+      for (let point = 0; point < 22; point++) {
+        const u = point / 21;
+        submit(root + bend * u * u + Math.sin(u * 5) * 0.008,
+          0.75 - u * height, -0.83, 0.34 + u * 0.10, 1, 82_000 + stem * 100 + point);
       }
-      for (let wing = -1; wing <= 1; wing += 2) for (let point = 0; point < 3; point++) {
-        const u = point / 2;
-        submit(centerX + direction * (0.5 * (0.045 + 0.12 * strength) - u * 0.025 * strength) + drift,
-          centerY + wing * u * 0.018 * strength, -1.4, 0.045 + 0.30 * strength, 1, 88_200 + ribbon * 10 + (wing + 1) * 2 + point);
+      for (let leaf = 1; leaf <= 5; leaf++) for (let point = 0; point < 4; point++) {
+        const u = leaf / 6, v = point / 3, sign = leaf % 2 ? 1 : -1;
+        submit(root + bend * u * u + sign * v * (0.035 - u * 0.017),
+          0.75 - u * height - Math.sin(v * 1.6) * 0.018,
+          -0.82, 0.28 + v * 0.08, 1, 82_050 + stem * 100 + leaf * 4 + point);
       }
+    }
+    // Two fluted sponge cups, offset in depth and size, give the right side a
+    // porous material and an open rim; their lip is never a glowing solid disk.
+    for (let cup = 0; cup < 2; cup++) {
+      const center = 0.60 + cup * 0.125, base = 0.79 - cup * 0.022;
+      const height = cup ? 0.235 : 0.155, depth = cup ? -1.08 : -0.86;
+      for (let ring = 0; ring < 8; ring++) for (let point = 0; point < 18; point++) {
+        const u = ring / 7, angle = point / 18 * Math.PI * 2;
+        const radius = (0.026 + u * 0.029) * (1 + Math.sin(angle * 5 + u) * 0.07);
+        const pores = point % 5 === 0 && ring % 3 === 1 ? -0.13 : 0;
+        submit(center + Math.cos(angle) * radius + u * u * (cup ? 0.022 : -0.012),
+          base - u * height + Math.sin(angle) * 0.011,
+          depth + Math.sin(angle) * 0.06, 0.28 + Math.max(0, Math.cos(angle + 0.7)) * 0.19 + pores,
+          0, 83_000 + cup * 200 + ring * 18 + point);
+      }
+      for (let point = 0; point < 18; point++) {
+        const angle = point / 18 * Math.PI * 2;
+        submit(center + Math.cos(angle) * 0.044 + (cup ? 0.022 : -0.012),
+          base - height + Math.sin(angle) * 0.010 + 0.006,
+          depth + Math.sin(angle) * 0.06 + 0.005, 0.15, 0, 83_160 + cup * 200 + point);
+      }
+    }
+    // Small fan shells lie flat in the central rubble. Dense edge samples read
+    // as short ridges at phone size instead of isolated decorative punctuation.
+    for (let shell = 0; shell < 2; shell++) for (let rib = 0; rib < 5; rib++) {
+      for (let point = 0; point < 13; point++) {
+        const u = point / 12, angle = -0.9 + rib * 0.45;
+        submit(-0.08 + shell * 0.21 + Math.sin(angle) * u * 0.065,
+          0.813 - Math.cos(angle) * Math.sin(u * 1.4) * 0.032,
+          -0.99 + shell * 0.02 + u * 0.025, 0.26 + u * 0.12, 0,
+          84_000 + shell * 100 + rib * 13 + point);
+      }
+    }
+    // A broken near rim at the corners closes the composition without a line
+    // crossing under the fish. Positive depth belongs only to this low border.
+    for (const side of [-1, 1]) for (let point = 0; point < 48; point++) {
+      const u = point / 47;
+      submit(side * (0.94 - u * 0.42), 0.91 + Math.sin(u * 8 + side) * 0.018,
+        0.18, 0.15 + Math.sin(u * Math.PI) * 0.08, 0, 85_000 + (side + 1) * 50 + point);
+    }
+    // Sparse advected grains provide scale and signed flow. They stay in the
+    // outer water bands; no arrows, persistent trails or particles on the face.
+    for (let grain = 0; grain < 32; grain++) {
+      const lane = grain % 4, seed = (Math.imul(grain + 1, 1597334677) >>> 0) / 4294967296;
+      const travel = (seed + time * scene.flow * 0.00014) % 1;
+      const x = -0.92 + ((travel + 1) % 1) * 1.84;
+      const y = lane < 2 ? -0.71 + lane * 0.21 : 0.39 + (lane - 2) * 0.13;
+      submit(x, y + Math.sin(time * 0.003 + grain) * 0.008, -1.5,
+        0.09 + strength * 0.10 + (grain % 7 === 0 ? 0.045 : 0), 1, 86_000 + grain);
     }
   }
   function validateScene(scene: PufferfishDirectorState): void {
@@ -266,7 +332,12 @@ export function createPufferfishPainter(canvas: HTMLCanvasElement, legacy: Puffe
       if (width === 0 || height === 0) { surface.width = 0; surface.height = 0; canvas.width = canvas.height = 1; return false; }
       const factor = Math.min(1, 1200 / width, 675 / height);
       surface.width = width * factor; surface.height = height * factor; surface.dpr = Math.min(config.maxDpr, dpr);
-      const targetCols = { small: 72, standard: 120, fine: 160 }[config.quality];
+      // Fine detail is a ceiling, not a reason to make phone glyphs microscopic.
+      // Smooth density changes avoid a resize threshold that suddenly doubles
+      // the cell count. The public 72-column small preset stays exact.
+      const densityMix = Math.max(0, Math.min(1, (surface.width - 520) / 180));
+      const qualityCols = { small: 72, standard: 120, fine: 160 }[config.quality];
+      const targetCols = config.quality === 'small' ? 72 : 96 + (qualityCols - 96) * densityMix;
       surface.cellW = Math.max(surface.width / targetCols, surface.height / (90 * 1.35)); surface.cellH = surface.cellW * 1.35;
       surface.cols = Math.min(160, Math.ceil(surface.width / surface.cellW));
       surface.rows = Math.min(90, Math.ceil(surface.height / surface.cellH));

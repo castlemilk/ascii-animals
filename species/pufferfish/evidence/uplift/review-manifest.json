@@ -1,0 +1,241 @@
+{
+  "schema": "pufferfish-uplift-review-v1",
+  "base_commit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "branch": "pufferfish/fine-spines-and-recovery",
+  "verified_main": "2026-11-19; matched again before publication",
+  "species": "pufferfish",
+  "status": "source-tested; native-Canvas reviewed; real-browser acceptance pending",
+  "scope": {
+    "allowed": [
+      "species/pufferfish source/tests/scripts/documentation",
+      "docs/PUFFERFISH-API.md"
+    ],
+    "excluded": [
+      "shared engines",
+      "other species",
+      "shared generated entry points",
+      "compiled species/lib/dist output",
+      "workflows",
+      "repo settings",
+      "merge",
+      "deployment"
+    ]
+  },
+  "runtime": {
+    "node": "v24.22.3",
+    "typescript": "5.9.3",
+    "npm": "11.9.0",
+    "native_canvas": "@napi-rs/canvas 0.1.100",
+    "playwright": "1.62.1 (launch failed)",
+    "ffmpeg": "7.1.5-0+deb13u1",
+    "browser": false
+  },
+  "verification": {
+    "build": {
+      "command": "npm run build",
+      "exit_code": 0
+    },
+    "focused_tests": {
+      "command": "node --test species/pufferfish/tests/*.test.mjs test/pufferfish-integration.test.mjs",
+      "exit_code": 0,
+      "passed": 84,
+      "failed": 0,
+      "skipped": 0,
+      "environment": "pure model/actual geometry + accounting DOM/input/lifecycle doubles"
+    },
+    "typed_fixtures": {
+      "commands": [
+        "node node_modules/typescript/bin/tsc -p species/pufferfish/tests/tsconfig.types.json",
+        "node node_modules/typescript/bin/tsc -p species/pufferfish/tests/tsconfig.server.json",
+        "node node_modules/typescript/bin/tsc -p species/pufferfish/tests/tsconfig.nodenext.json",
+        "npm run typecheck"
+      ],
+      "all_exit_code": 0
+    },
+    "package": {
+      "command": "npm run check:package -- --report ../pufferfish-review/package-check-final.json",
+      "exit_code": 0,
+      "status": "passed-with-unrun-optional-checks",
+      "repeatable_tarball_bytes": 495875,
+      "files": 190,
+      "sha256": "f8bcb4570859dabcc37e8f296c909d5d3c817cc574f42e4302c3933f9ad8ecc2",
+      "passed": [
+        "dry-run pack",
+        "actual repeated pack",
+        "unpacked consumer SSR import",
+        "factory identity",
+        "public methods",
+        "private subpaths blocked",
+        "NodeNext/Bundler/server type consumers"
+      ],
+      "not_run": [
+        "esbuild",
+        "Rollup resolver",
+        "webpack",
+        "browser"
+      ]
+    },
+    "baseline_discrimination": "Baseline probe failed new nonuniform-body and two-hesitation gates: original axis ratios 1.65/1.65/1.65, zero pauses.",
+    "syntax_only": [
+      "capture-uplift-native.mjs",
+      "review-uplift.mjs",
+      "capture-director.mjs"
+    ],
+    "not_run": [
+      "full-repository npm test",
+      "real-browser input/layout assertions",
+      "physical touch",
+      "screen-reader/zoom acceptance",
+      "device performance/heap profiling"
+    ]
+  },
+  "capture": {
+    "backend": {
+      "node": "v24.22.3",
+      "backend": "@napi-rs/canvas native Skia, canonical glyph painter",
+      "browser": false,
+      "timing": "Explicit 60 Hz simulation; GIF samples every four ticks at 15 fps. Not live frame throughput.",
+      "atlas": "Lossless immutable native Image used only as drawImage source to avoid native mutable-canvas retention."
+    },
+    "seed": 23,
+    "view": "right unless filename explicitly states front/left",
+    "dpr": 1,
+    "dimensions": [
+      [
+        1200,
+        675
+      ],
+      [
+        390,
+        520
+      ],
+      [
+        360,
+        270
+      ]
+    ],
+    "quality": [
+      "fine",
+      "small in minimum-canvas subset"
+    ],
+    "harness_sha256": "12d38105f6a32f0193d3284f4f04da76767c99e8f0ec1415910ff68f4e6216fa",
+    "matching": "Same seed/options/events/checkpoints/harness for baseline and candidate. State and pixels intentionally differ after behavior changes.",
+    "before": {
+      "pngs": 66,
+      "gifs": 2,
+      "max_samples": 14793,
+      "manifest_sha256": "9b359c173087830c013f97f1ef2005e966a80fb587a649f7c9eb4a46f80b251c"
+    },
+    "after": {
+      "pngs": 66,
+      "gifs": 2,
+      "max_samples": 15622,
+      "manifest_sha256": "a7e067c576a36f3152d80200edcca7c7fbf1bbd49a20e8dd2b5394c239eafb22"
+    },
+    "motion": [
+      {
+        "file": "encounter-native.gif",
+        "nativeCanvas": true,
+        "ticks": [
+          0,
+          720
+        ],
+        "tickStep": 4,
+        "captureFps": 15,
+        "events": [
+          {
+            "tick": 121,
+            "seq": 0,
+            "type": "approach"
+          },
+          {
+            "tick": 271,
+            "seq": 1,
+            "type": "retreat"
+          }
+        ],
+        "sha256": "901d3daf4a528fa44cf188a6929c28f6c2c9b0c9af485f3a6ce17627230cc1ad",
+        "decoded": {
+          "width": 900,
+          "height": 506,
+          "duration": "12.070000",
+          "nb_read_frames": "181"
+        },
+        "note": "A replay excerpt, not a seamless loop. GIF returns to its initial frame."
+      },
+      {
+        "file": "inspection-native.gif",
+        "nativeCanvas": true,
+        "ticks": [
+          0,
+          720
+        ],
+        "tickStep": 4,
+        "captureFps": 15,
+        "events": [
+          {
+            "tick": 61,
+            "seq": 0,
+            "type": "invite",
+            "x": 0.38,
+            "y": -0.2
+          }
+        ],
+        "sha256": "6bde46f0a8272b0fbd1902fc50ff7dea11b4d337aacb6b6f3792fdefa4c65a43",
+        "decoded": {
+          "width": 900,
+          "height": 506,
+          "duration": "12.070000",
+          "nb_read_frames": "181"
+        },
+        "note": "A replay excerpt, not a seamless loop. GIF returns to its initial frame."
+      }
+    ]
+  },
+  "browser_limit": {
+    "local": "Chromium socket() denied before page creation; no screenshots or assertions ran.",
+    "cloud": "Local service connection refused, followed by URL-policy block. Stopped without workaround.",
+    "pending_command": "PUFFERFISH_CHROMIUM=/path/to/chromium node species/pufferfish/scripts/review-uplift.mjs --root=/absolute/candidate --out=/absolute/review/browser"
+  },
+  "source_sha256": {
+    "species/pufferfish/src/controller.ts": "133bd51d893c1742b4e86eef6204354ce1d4c94c85c0b8900f33005439b20f15",
+    "species/pufferfish/src/demo.ts": "c0b402f3f9a66350efdea00656f121d6757333698900c537453cb88114477d72",
+    "species/pufferfish/src/director-types.ts": "062fec5e877f247be6f6fea310a423387ff0724f0ddcbe0fe2474945d953327c",
+    "species/pufferfish/src/director.ts": "2b394f8bdd67bd4e827468df97387653848cc5551e63d79bf03bc1d778e6a783",
+    "species/pufferfish/src/geometry.ts": "3635913fc0b1f542ae4b40bcf87313dbe02720a5002f4f582c88ea189d77d15b",
+    "species/pufferfish/src/index.ts": "1f507ca973c3a8be7ac741a4fb6a44dfd665483a4a45c6204c465a6bb1379415",
+    "species/pufferfish/src/legacy-painter.ts": "b220a1841bd1843ac61934a53c08fcfb02014b71bcba8df206299fd9dc021a9a",
+    "species/pufferfish/src/model.ts": "2da876650bd1945fe413ab70bed66fd76bfaf15b4ff08a9131ce6af6969d38f1",
+    "species/pufferfish/src/types.ts": "96f32188a909c1eb532fbf34ee3cd54e3bb8726be81b907bf3cdda6b6c520899",
+    "src/animals/cuttlefish.js": "c09382ee6847bdfc269d4b55bf44e24e92d7dd46fe53be7e46b34f6891c6b94f"
+  },
+  "built_runtime_sha256": {
+    "lib/animals/cuttlefish.js": "c09382ee6847bdfc269d4b55bf44e24e92d7dd46fe53be7e46b34f6891c6b94f",
+    "lib/species/pufferfish/controller.js": "cfab07532275025a660a6e07a63ff198f06ac2fe2178eb90207630edbc95e5ba",
+    "lib/species/pufferfish/director-types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "lib/species/pufferfish/director.js": "e639bf53c9ff928daffc1e351165db2f40de794fbf37c2ab8ec586341f0488a1",
+    "lib/species/pufferfish/geometry.js": "ecb6ed5600e128268e8e927557773207efe54b5161ee28d03851270460d819f3",
+    "lib/species/pufferfish/index.js": "1d48023ce8d451e8b85291b275281f144d48d06f37394165af4628e20c4f4f56",
+    "lib/species/pufferfish/legacy-painter.js": "f4e2c67f6943ee093f8b672e841c6ffdf4e108990fd6700b1b0cce69cab1ad94",
+    "lib/species/pufferfish/model.js": "39510a9ec524c7268697049726b0e16b8e5c0a4578c6a92547245e04e206e028",
+    "lib/species/pufferfish/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+  },
+  "unchanged_sha256": {
+    "species/pufferfish/src/types.ts": "96f32188a909c1eb532fbf34ee3cd54e3bb8726be81b907bf3cdda6b6c520899",
+    "species/pufferfish/src/director-types.ts": "062fec5e877f247be6f6fea310a423387ff0724f0ddcbe0fe2474945d953327c",
+    "species/pufferfish/src/controller.ts": "133bd51d893c1742b4e86eef6204354ce1d4c94c85c0b8900f33005439b20f15",
+    "src/public/pufferfish.ts": "e0684ddb1a530b489a8c50ee703dcdf7ed5b14987b135998221a1f5de02d19b5",
+    "src/animals/cuttlefish.js": "c09382ee6847bdfc269d4b55bf44e24e92d7dd46fe53be7e46b34f6891c6b94f",
+    "src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+    "package.json": "5fafeb6dfdaeddaab8d60d2a4b84a02de5bbe31995086e28a3d70954bedd1583",
+    "package-lock.json": "8a55decc912067055b2a5f0c69a77ac7819efc25a6409340307f171273d9d619",
+    "docs/ANIMAL-APIS.md": "74cab064b3a6c511180b3eb50f89629d53009e094cc0f55c93a13d14288a8b5d"
+  },
+  "central_generation": [
+    "npm ci --ignore-scripts --no-audit --no-fund",
+    "npm run build"
+  ],
+  "reference_brief": "species/pufferfish/UPLIFT-BRIEF.md",
+  "review": "species/pufferfish/UPLIFT-REVIEW.md",
+  "evidence_delivery": "pufferfish-review-bundle.zip contains raw matched captures/manifests, motion GIFs, comparison sheets, logs, review and source patch."
+}

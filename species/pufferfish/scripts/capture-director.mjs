@@ -56,7 +56,10 @@ async function makePainter(width, height, options = {}) {
 }
 function inspectOwners(painter, result) {
   const counts = Array.from({ length: result.actorCount }, () => 0), edge = counts.slice();
-  const target = { small: 72, standard: 120, fine: 160 }[painter.getConfig().quality];
+  const quality = painter.getConfig().quality;
+  const cap = { small: 72, standard: 120, fine: 160 }[quality];
+  const mix = Math.max(0, Math.min(1, (result.width - 520) / 180));
+  const target = quality === 'small' ? 72 : 96 + (cap - 96) * mix;
   const cellW = Math.max(result.width / target, result.height / (90 * 1.35));
   for (let row = 0; row < result.rows; row++) for (let col = 0; col < result.cols; col++) {
     const x = Math.min(1, (col + 0.5) * cellW / result.width * 2 - 1);
