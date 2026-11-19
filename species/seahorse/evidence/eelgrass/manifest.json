@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "sourceSha256": "5f094f0ee811682ab6ab52f085769d3fbcf9dd2f739c93e27caac5804c95d91b",
+  "compiledModuleSha256": "3e447e4f27c24aa31eaafea7c28b44846afce5ce2060274095473c436b7dbdff",
+  "baselineModuleSha256": "3bfcd58a34202259adceb8a99afeb86b9b1b770b303bd4c1666073242cb86ac9",
+  "representation": "Actual compiled createSeahorseArtwork in native Skia Canvas with fake DOM and deterministic frame source; not browser screenshots.",
+  "matchedPairs": 33,
+  "stills": [
+    {
+      "surface": [
+        1280,
+        900
+      ],
+      "grid": [
+        160,
+        76
+      ],
+      "count": 1
+    },
+    {
+      "surface": [
+        390,
+        530
+      ],
+      "grid": [
+        100,
+        76
+      ],
+      "count": 1
+    },
+    {
+      "surface": [
+        1280,
+        900
+      ],
+      "grid": [
+        160,
+        76
+      ],
+      "count": 3
+    }
+  ],
+  "seed": 7,
+  "current": 0.6,
+  "choreography": "hold",
+  "labels": false,
+  "motion": {
+    "framesPerSurface": 157,
+    "surfaces": [
+      [
+        780,
+        660
+      ],
+      [
+        390,
+        530
+      ]
+    ],
+    "tickRange": [
+      0,
+      780
+    ],
+    "sampleIntervalTicks": 5,
+    "sampledFps": 12,
+    "cueTicks": {
+      "startle": 30,
+      "release": 300,
+      "inspect": 570
+    },
+    "achievedBrowserFps": null
+  },
+  "files": [
+    {
+      "name": "seahorse-desktop-before-after.png",
+      "sha256": "d71da71dd3c51dc497e419ae8cc4ffc59d743b44fc06272da79f0434ba336601",
+      "bytes": 130517
+    },
+    {
+      "name": "seahorse-phone-before-after.png",
+      "sha256": "7237679341e0ce96cbbc5a7dbadc3f10ea9b3b18373b07ea79d4417da311cdc0",
+      "bytes": 46048
+    },
+    {
+      "name": "seahorse-directed-contact-sheet.png",
+      "sha256": "8a2dc8cf68e817088ffa93606093e79b81709ea886a906878e589b89a41baaad",
+      "bytes": 184815
+    },
+    {
+      "name": "seahorse-motion.gif",
+      "sha256": "5fc601632b22f3ea0c9f1d116dc1f530e4054bc5a43da451a8cc851b9c98aad6",
+      "bytes": 3366999
+    }
+  ],
+  "browserAcceptance": "blocked: local Chromium socket EPERM; cloud browser localhost connection refused",
+  "reproduce": "See ../../EELGRASS-REVIEW.md and ../../tools/capture-eelgrass.mjs"
+}
