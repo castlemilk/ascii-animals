@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d0f">
+  <title>Cuttlefish — A quiet encounter</title>
+  <link rel="stylesheet" href="study.css">
+  <script type="module" src="study.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#artwork">Skip to the cuttlefish</a>
+  <header class="masthead">
+    <a class="brand" href="../../dist/index.html">ascii animals<span aria-hidden="true">.</span></a>
+    <nav aria-label="Breadcrumb"><a href="../../dist/index.html">Collection</a><span aria-hidden="true">/</span><span aria-current="page">Cuttlefish</span></nav>
+    <span class="edition">FIELD STUDY 001</span>
+  </header>
+  <main>
+    <div class="intro">
+      <div><p class="eyebrow">AT THE EDGE OF THE SEAGRASS</p><h1>A quiet <em>encounter.</em></h1></div>
+      <p class="introduction">Hold a point in the water.<br>Give it a moment to notice you.</p>
+    </div>
+    <div class="study-layout">
+      <section class="observation" aria-label="Cuttlefish observation window">
+        <div class="observation-header"><span>01 / CUTTLEFISH</span><output id="phase" aria-live="off">Hovering</output></div>
+        <canvas id="artwork" tabindex="0" role="img" aria-label="An interactive cuttlefish with a broad mantle, rippling side fins and eight arms, hovering above sparse seagrass. Its two feeding tentacles stay concealed." aria-describedby="interaction-help keyboard-help"></canvas>
+        <div class="observation-footer"><span>A STUDY IN PATIENCE</span><button id="pause" class="quiet-button" type="button">Pause</button></div>
+      </section>
+      <aside class="direction" aria-labelledby="direction-heading">
+        <p class="eyebrow">MAKE THE FIRST MOVE</p>
+        <h2 id="direction-heading">A little curiosity.</h2>
+        <p id="interaction-help">Move slowly, or tap the water. It will pause, approach and take a closer look.</p>
+        <div class="actions" role="group" aria-label="Direct the cuttlefish">
+          <button class="action" type="button" data-action="investigate"><span class="action-index">01</span><span><strong>Invite a closer look</strong><small>Notice · approach · linger</small></span><span class="action-arrow" aria-hidden="true">↗</span></button>
+          <button class="action" type="button" data-action="turn"><span class="action-index">02</span><span><strong>Turn in the current</strong><small>Settle · bank · unwind</small></span><span class="action-arrow" aria-hidden="true">↶</span></button>
+          <button class="action" type="button" data-action="retreat"><span class="action-index">03</span><span><strong>A sudden disturbance</strong><small>Gather · ink · retreat</small></span><span class="action-arrow" aria-hidden="true">↙</span></button>
+        </div>
+        <fieldset class="representation"><legend>Look a little closer</legend><div class="modes"><button data-mode="ascii" type="button" aria-pressed="true">Characters</button><button data-mode="points" type="button" aria-pressed="false">Points</button></div></fieldset>
+        <label class="autonomy"><input type="checkbox" id="automatic" checked><span>Let it explore on its own</span></label>
+        <div class="still-tools"><button id="restart" class="quiet-button" type="button">Begin again</button><button id="save" class="quiet-button" type="button">Save a frame <span aria-hidden="true">↓</span></button></div>
+        <p id="status" class="status" role="status" aria-live="polite">Watching the current.</p>
+      </aside>
+    </div>
+    <div class="field-notes">
+      <p><span class="note-number">08 + 02</span>Eight arms. Two feeding tentacles, tucked out of sight.</p>
+      <p id="keyboard-help">When the artwork has focus: <kbd>I</kbd> investigate, <kbd>T</kbd> turn, <kbd>R</kbd> retreat. Arrow keys move the point of interest. <kbd>Space</kbd> pauses.</p>
+    </div>
+    <details class="natural-history"><summary>Notes from the water</summary><p>A rippling fin holds the body in place. A jet moves it quickly. This is an authored interpretation of cuttlefish behavior, informed by the <a href="https://www.mbl.edu/research/research-organisms/common-cuttlefish">Marine Biological Laboratory</a> and <a href="https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/common-cuttlefish">Monterey Bay Aquarium</a>. Every visible surface is drawn from procedural geometry.</p></details>
+  </main>
+  <footer><a href="../../dist/cuttlefish-demo.html">Explore the original school director <span aria-hidden="true">↗</span></a><span>Letters, light, and a little life.</span></footer>
+</body>
+</html>
