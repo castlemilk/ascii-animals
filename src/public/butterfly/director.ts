@@ -34,12 +34,12 @@ function scene(id:ButterflyScene,label:string,description:string,acts:readonly (
   return Object.freeze({id,label,description,acts:Object.freeze(acts.map(([id,label])=>Object.freeze({id,label})))});
 }
 export const BUTTERFLY_SCENES:readonly ButterflySceneDescription[] = Object.freeze([
-  scene('specimen','Wing study','The original single butterfly, close enough to see the pattern.',[
+  scene('specimen','Wing study','A close wing study: branching veins, amber cells and pale marginal spots.',[
     ['observe','Observe'],['approach','Approach'],['display','Patterned display'],['settle','Settle']]),
   scene('morning','First light','Warm the wings. Lift into the light. Find a place in the meadow.',[
     ['warm','Warm the wings'],['lift','First flight'],['explore','Explore the meadow'],['settle','Settle into sun']]),
   scene('nectar','Nectar rounds','Visitors inspect a bloom, sip, then take a different route home.',[
-    ['arrive','Follow the scent'],['inspect','Inspect the flowers'],['sip','Nectar time'],['depart','Drift to another bloom']]),
+    ['arrive','Follow the scent'],['inspect','Brake & alight'],['sip','Sip & fan'],['depart','Lift into a glide']]),
   scene('breeze','Passing breeze','A ribbon of air lifts the garden, then leaves a pocket of quiet.',[
     ['listen','Read the air'],['ride','Ride the ribbon'],['shelter','Find shelter'],['return','Return to flowers']]),
   scene('roost','Evening roost','One last visit, a lantern-like ascent, then folded wings on stems.',[
@@ -98,9 +98,10 @@ export interface ButterflyGardenState {
 }
 interface Actor {
   id:number;x:number;y:number;heading:number;opening:number;phase:number;size:number;
-  activity:ButterflyActivity;
+  activity:ButterflyActivity;contactTick:number|null;
 }
-interface Aim {x:number;y:number;heading:number;activity:ButterflyActivity}
+interface Aim {x:number;y:number;heading:number;activity:ButterflyActivity;opening?:number;rate?:number}
+interface Layout {columns:number;rows:number;scale:number}
 const FLOWERS:readonly ButterflyFlower[]=Object.freeze([
   [-.74,.46],[-.44,.62],[-.14,.42],[.17,.58],[.46,.42],[.75,.61]
 ].map(([x,y],id)=>Object.freeze({id,x:x!,y:y!})));
@@ -110,10 +111,10 @@ const FLOWER_ORDER=[0,2,3,5,1,4] as const;
 const CUE_TICKS:Readonly<Record<ButterflyCue,number>>=Object.freeze({gather:300,breeze:300,rest:420});
 
 /** Internal engine. Public callers use createButterflyModel / createButterflyArtwork. */
-export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed:number){
-  let options=initial,seed=initialSeed,clock=0,sceneTime=0,ticks=0;
+export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed:number,initialLayout:Layout={columns:120,rows:50,scale:1}){
+  let options=initial,layout=initialLayout,seed=initialSeed,clock=0,sceneTime=0,ticks=0;
   let pointer={active:false,x:0,y:0};
-  let cue:Readonly<{kind:ButterflyCue;start:number;offset:number;x:number;y:number}>|null=null;
+  let cue:Readonly<{kind:ButterflyCue;start:number;offset:number;x:number;y:number;flower:number|null;repel:boolean;origins:readonly Readonly<{x:number;y:number;heading:number}>[]}>|null=null;
   let recoveringUntil=0;
   let actors:Actor[]=[];
   const role=(id:number):Exclude<ButterflyRole,'auto'>=>{
@@ -121,7 +122,7 @@ export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed
   };
   function makeActor(id:number):Actor {
     return {id,x:options.count===1?0:LANES[id]!,y:-.24+(id%2)*.26,heading:0,opening:.85,
-      phase:hash(seed,id,1)*TAU,size:.9+hash(seed,id,2)*.2,activity:Object.freeze({kind:'bask'})};
+      phase:hash(seed,id,1)*TAU,size:.9+hash(seed,id,2)*.2,activity:Object.freeze({kind:'bask'}),contactTick:null};
   }
   function stage(){
     const position=sceneTime/options.sceneSeconds;
@@ -132,28 +133,39 @@ export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed
     const cycle=stage().cycle;
     return FLOWERS[((options.count===1?2:FLOWER_ORDER[id]!)+cycle)%FLOWERS.length]!;
   }
+  function bodySize(a:Actor){
+    const base=options.count===1?.56:options.count<=3?.44:options.count===4?.40:.34;
+    const worldW=Math.max(6,3.7*layout.columns*.56/layout.rows),worldH=worldW*layout.rows/(layout.columns*.56);
+    return {scale:Math.max(base*a.size*layout.scale,worldW/(layout.columns-1)*5.4),worldW,worldH};
+  }
   function flight(a:Actor,kind:'flutter'|'glide'|'recover'='flutter'):Aim {
-    const phase=a.phase,t=clock, lane=options.count===1?0:LANES[a.id]!;
-    const r=role(a.id);
+    const phase=a.phase,t=clock,lane=options.count===1?0:LANES[a.id]!,r=role(a.id);
+    // Short powered bouts gain height, then a held glide uses that height.
+    // Identity offsets are seeded; there is no random per-frame flutter.
+    const bout=(t+phase/TAU*3.8)%3.8,powered=bout<1.25;
+    const activity=kind==='flutter'?(powered?'flutter':'glide'):kind;
     let x=lane*.82+Math.sin(t*.49+phase)*.12;
     let y=-.25+Math.cos(t*.71+phase)*.13+(a.id%2)*.12;
     if(options.path==='ribbon'){
-      x=Math.sin(t*.22+phase)*.67;
-      y=-.22+Math.sin(t*.44+phase)*.19+(a.id%2)*.08;
-    } else if(options.path==='spiral'){
+      x=Math.sin(t*.22+phase)*.67;y=-.22+Math.sin(t*.44+phase)*.19+(a.id%2)*.08;
+    }else if(options.path==='spiral'){
       const angle=t*.34+phase,radius=.22+(a.id%3)*.11;
       x=Math.cos(angle)*radius+lane*.26;y=-.19+Math.sin(angle)*radius*.68;
     }
     if(r==='scout'){y-=.13;x+=Math.sin(t*.73+phase)*.07;}
     if(r==='wanderer'&&options.path==='meadow'){x=lane*.65+Math.sin(t*.22+phase)*.18;y=-.19+Math.cos(t*.3+phase)*.18;}
+    y+=activity==='flutter'?Math.sin(t*4.2+phase)*.022:.018*smooth((bout-1.25)/2.55);
     x=x*options.spread+options.breeze*Math.sin(t*.6+phase)*.075;
-    return {x,y,heading:Math.sin(t*.55+phase)*.35,activity:Object.freeze({kind})};
+    return {x,y,heading:Math.sin(t*.55+phase)*.30,activity:Object.freeze({kind:activity})};
   }
   function bloom(a:Actor,kind:'inspect'|'nectar'|'perch'|'bask',flower=flowerFor(a.id)):Aim {
-    const inspect=kind==='inspect';
-    return {x:flower.x+(inspect?Math.sin(clock*1.6+a.phase)*.07:0),
-      y:flower.y-(inspect?.31:kind==='bask'?.22:.19),
-      heading:kind==='nectar'||inspect?Math.PI+Math.sin(clock*.8+a.phase)*.12:Math.sin(a.phase)*.16,
+    const {scale,worldW,worldH}=bodySize(a),inspect=kind==='inspect';
+    const heading=kind==='nectar'||inspect?Math.PI+Math.sin(a.phase)*.12:Math.sin(a.phase)*.12;
+    // Match the rendered head and a short uncoiled proboscis to the bloom.
+    // This uses the same logical aspect/LOD scale at desktop and phone sizes.
+    const reach=.91*scale;
+    return {x:flower.x-Math.sin(heading)*reach*2/worldW+(inspect?Math.sin(clock*.9+a.phase)*.035:0),
+      y:flower.y-reach*2/worldH-(inspect?.16:kind==='bask'?.035:0),heading,
       activity:kind==='bask'?Object.freeze({kind}):kind==='inspect'?Object.freeze({kind,target:'flower',flower:flower.id}):Object.freeze({kind,flower:flower.id})};
   }
   function autonomous(a:Actor):Aim {
@@ -175,11 +187,16 @@ export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed
     }
     if(options.scene==='nectar'){
       if(s.index===0)return r==='basker'?bloom(a,'bask'):flying;
-      if(s.index===1)return r==='wanderer'&&s.local<.5?flight(a,'glide'):bloom(a,'inspect');
+      if(s.index===1){
+        if(r==='wanderer'&&s.local<.35)return flight(a,'glide');
+        return bloom(a,s.local<.48?'inspect':r==='basker'?'bask':'nectar');
+      }
       if(s.index===2)return r==='scout'&&s.local>.65?flying:r==='basker'?bloom(a,'bask'):bloom(a,'nectar');
       if(r==='basker')return bloom(a,'bask');
-      const from=bloom(a,'nectar'),e=smooth(s.local*1.6);
-      return {...flight(a,'glide'),x:mix(from.x,flying.x,e),y:mix(from.y,flying.y,e)};
+      const from=bloom(a,'nectar');
+      if(s.local<.10)return {...from,opening:.32+.30*(1-smooth(s.local/.10))};
+      const e=smooth((s.local-.10)*1.65),depart=flight(a,s.local<.42?'flutter':'glide');
+      return {...depart,x:mix(from.x,depart.x,e),y:mix(from.y,depart.y,e)-Math.sin(e*Math.PI)*.09};
     }
     if(options.scene==='breeze'){
       if(s.index===0)return r==='basker'?bloom(a,'bask'):flying;
@@ -205,11 +222,24 @@ export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed
       if(age<duration-70){
         if(cue.kind==='rest')return bloom(a,age<100?'inspect':'perch');
         if(cue.kind==='breeze'){
-          if(age<150)return {x:clamp(a.x+(options.breeze<0?-.22:.22),-.79,.79),y:-.42+(a.id%3)*.13,
-            heading:(options.breeze<0?-.5:.5),activity:Object.freeze({kind:age<55?'flutter':'glide'})};
-          const f=flowerFor(a.id);return {x:f.x,y:f.y-.12,heading:options.breeze*.25,activity:Object.freeze({kind:'shelter'})};
+          const origin=cue.origins[a.id]??a;
+          const away=cue.repel&&Math.abs(origin.x-cue.x)>.08?Math.sign(origin.x-cue.x):(options.breeze<0?-1:1);
+          if(age<24)return {x:origin.x,y:origin.y+.012*smooth(age/24),heading:origin.heading+away*.07,
+            opening:.30,rate:.06,activity:Object.freeze({kind:'shelter'})};
+          const escapeX=clamp(origin.x+away*.38,-.73,.73),escapeY=clamp(origin.y-.29,-.51,.33);
+          if(age<92){const e=smooth((age-24)/68);return {x:mix(origin.x,escapeX,e),y:mix(origin.y,escapeY,e),
+            heading:away*.58,rate:.065,activity:Object.freeze({kind:'flutter'})};}
+          if(age<170)return {x:clamp(escapeX+away*.06,-.75,.75),y:escapeY+.05*smooth((age-92)/78),
+            heading:away*.24,rate:.04,activity:Object.freeze({kind:'glide'})};
+          const f=flowerFor(a.id),rest=bloom(a,'perch',f);
+          return {...rest,heading:options.breeze*.20,activity:Object.freeze({kind:'shelter'})};
         }
-        // Nectar invitations interest foragers/scouts; a basker keeps its patch of sun.
+        // A deliberate invitation close to a bloom selects that physical bloom.
+        // In open air the established invitation semantics remain unchanged.
+        if(cue.flower!==null&&(r!=='basker'||options.count===1)){
+          const flower=FLOWERS[(cue.flower+a.id)%FLOWERS.length]!;
+          return bloom(a,age<60?'inspect':'nectar',flower);
+        }
         if(r!=='basker'||options.count===1){
           const angle=a.phase, radius=.12+(a.id%2)*.1;
           return {x:cue.x+Math.cos(angle)*radius,y:cue.y+Math.sin(angle)*radius,
@@ -229,15 +259,20 @@ export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed
     return result;
   }
   function open(a:Actor,kind:ButterflyActivity['kind']){
-    const beat=.5+.5*Math.cos(clock*(7.4+hash(seed,a.id,7)*2)+a.phase);
+    const beat=.5+.5*Math.cos(clock*(8.5+hash(seed,a.id,7)*1.1)+a.phase);
     switch(kind){
-      case 'perch':return .28+.035*Math.cos(clock*.6+a.phase);
-      case 'shelter':return .31;
-      case 'bask':return .87+.1*Math.sin(clock*.45+a.phase);
-      case 'glide':return .94+.04*Math.sin(clock*.8+a.phase);
-      case 'nectar':return .45+beat*.32;
-      case 'inspect':return .43+beat*.55;
-      default:return .36+beat*.62;
+      case 'perch':return .28+.025*Math.cos(clock*.6+a.phase);
+      case 'shelter':return .30;
+      case 'bask':return .87+.10*Math.sin(clock*.45+a.phase);
+      case 'glide':return .94+.035*Math.sin(clock*.8+a.phase);
+      case 'nectar':{
+        const age=a.contactTick===null?0:ticks-a.contactTick;
+        // Landing damping first; a slow fan breathes while feet and root hold.
+        if(age<30)return mix(.74,.40,smooth(age/30));
+        return .42+.49*(.5+.5*Math.sin((age-30)/60*2.35-Math.PI*.5));
+      }
+      case 'inspect':return .38+beat*.57;
+      default:return .30+beat*.68;
     }
   }
   function pose(snap=false){
@@ -249,43 +284,62 @@ export function createGardenDirector(initial:ButterflyDirectorConfig,initialSeed
         aims[i]!.x+=ux*push;aims[j]!.x-=ux*push;aims[i]!.y+=uy*push;aims[j]!.y-=uy*push;}
     }
     for(let i=0;i<actors.length;i++){
-      const a=actors[i]!,target=aims[i]!,rate=target.activity.kind==='nectar'||target.activity.kind==='perch'?.035:.045;
-      a.x=mix(a.x,clamp(target.x,-.78,.78),snap?1:rate);
-      a.y=mix(a.y,clamp(target.y,-.56,.51),snap?1:rate);
+      const a=actors[i]!,target=aims[i]!,rate=target.rate??(target.activity.kind==='nectar'||target.activity.kind==='perch'?.065:.045);
+      const tx=clamp(target.x,-.78,.78),ty=clamp(target.y,-.56,.51);
+      const dx=(tx-a.x)*rate,dy=(ty-a.y)*rate,distance=Math.hypot(dx,dy);
+      // A new flower at the cycle seam cannot create a long one-tick jump.
+      const step=distance>.07?.07/distance:1;
+      a.x=snap?tx:a.x+dx*step;a.y=snap?ty:a.y+dy*step;
       const delta=Math.atan2(Math.sin(target.heading-a.heading),Math.cos(target.heading-a.heading));
       a.heading=snap?target.heading:a.heading+delta*.04;
-      const opening=open(a,target.activity.kind);
-      a.opening=snap?opening:mix(a.opening,opening,.36);a.activity=target.activity;
+      const landing=target.activity.kind==='nectar'||target.activity.kind==='perch';
+      const aligned=Math.abs(delta)<.20,near=Math.hypot(a.x-target.x,a.y-target.y)<.025;
+      if(landing&&(snap||(near&&aligned))){
+        if(a.contactTick===null)a.contactTick=ticks;
+        a.activity=target.activity;
+      }else{
+        a.contactTick=null;
+        a.activity=landing&&'flower' in target.activity?Object.freeze({kind:'inspect',target:'flower',flower:target.activity.flower}):target.activity;
+      }
+      const opening=target.opening??open(a,a.activity.kind);
+      a.opening=snap?opening:mix(a.opening,opening,.30);
     }
   }
   function reset(){clock=0;sceneTime=0;ticks=0;cue=null;pointer={active:false,x:0,y:0};recoveringUntil=0;actors=Array.from({length:options.count},(_,id)=>makeActor(id));pose(true);}
   reset();
   return Object.freeze({
     step(speed:number){ticks++;clock+=speed/60;sceneTime+=speed/60;if(cue&&ticks-cue.start+cue.offset>=CUE_TICKS[cue.kind])cue=null;pose();},
-    configure(next:ButterflyDirectorConfig,nextSeed:number){
+    configure(next:ButterflyDirectorConfig,nextSeed:number,nextLayout:Layout=layout){
       const sceneChanged=next.scene!==options.scene,seedChanged=seed!==nextSeed;
       if(!sceneChanged&&next.sceneSeconds!==options.sceneSeconds)sceneTime=sceneTime/options.sceneSeconds*next.sceneSeconds;
-      options=next;seed=nextSeed;
+      options=next;seed=nextSeed;layout=nextLayout;
       if(seedChanged){reset();return;}
       if(sceneChanged){sceneTime=0;cue=null;pointer={active:false,x:0,y:0};recoveringUntil=0;}
       actors=Array.from({length:options.count},(_,id)=>actors[id]??makeActor(id));
       // Keep surviving identities/positions; update roles and visible poses immediately.
-      if(sceneChanged)pose(true);else for(const a of actors)a.activity=aim(a).activity;
+      if(sceneChanged)pose(true);else for(const a of actors){
+        const target=aim(a);
+        if(target.activity.kind!=='nectar'&&target.activity.kind!=='perch')a.activity=target.activity;
+      }
     },
     guide(x:number,y:number){pointer={active:true,x,y};},
     release(cancelCue=true){if(pointer.active||(cue&&cancelCue))recoveringUntil=ticks+90;pointer={active:false,x:0,y:0};if(cancelCue)cue=null;},
     cue(kind:ButterflyCue,poster=false){
       if(!CUES.includes(kind))throw new TypeError('Invalid butterfly cue');
       if(cue?.kind===kind&&!poster)return;
-      cue=Object.freeze({kind,start:ticks,offset:poster?kind==='breeze'?170:120:0,
-        x:pointer.active?pointer.x:0,y:pointer.active?pointer.y:-.14});
-      if(poster)pose(true);else for(const a of actors)a.activity=aim(a).activity;
+      const offered=FLOWERS[(stage().cycle+2)%FLOWERS.length]!;
+      const x=pointer.active?pointer.x:kind==='gather'?offered.x:0,y=pointer.active?pointer.y:kind==='gather'?offered.y:-.14;
+      const nearest=FLOWERS.reduce((a,b)=>Math.hypot(b.x-x,b.y-y)<Math.hypot(a.x-x,a.y-y)?b:a);
+      cue=Object.freeze({kind,start:ticks,offset:poster?kind==='breeze'?170:120:0,x,y,
+        flower:kind==='gather'&&Math.hypot(nearest.x-x,nearest.y-y)<.13?nearest.id:null,repel:pointer.active,
+        origins:Object.freeze(actors.map(a=>Object.freeze({x:a.x,y:a.y,heading:a.heading})))});
+      if(poster)pose(true);else for(const a of actors){const target=aim(a);a.activity=(target.activity.kind==='nectar'||target.activity.kind==='perch')?Object.freeze({kind:'inspect',target:'flower',flower:target.activity.flower}):target.activity;}
     },
     nextAct(poster=false){
       const s=stage();sceneTime=(s.cycle+(s.index===3?1:0)+(s.index+1)%4/4)*options.sceneSeconds+.000001;
       cue=null;recoveringUntil=0;pointer={active:false,x:0,y:0};
       // Jumping acts is an explicit composition edit. Live changes ease; still changes select a tableau.
-      if(poster)pose(true);else for(const a of actors)a.activity=aim(a).activity;
+      if(poster)pose(true);else for(const a of actors){const target=aim(a);a.activity=(target.activity.kind==='nectar'||target.activity.kind==='perch')?Object.freeze({kind:'inspect',target:'flower',flower:target.activity.flower}):target.activity;}
     },
     still(){pose(true);},reset,
     getState():ButterflyGardenState {
