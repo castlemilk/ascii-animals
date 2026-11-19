@@ -1,4 +1,6 @@
-import type { FrogGeometryResult, FrogLandmarks, FrogPose, FrogSampleSink, FrogState, GeometryOptions } from './types.mjs';
+import type { FrogGeometryResult, FrogLandmarks, FrogPose, FrogSampleSink, FrogState, FrogView, GeometryOptions, Vec3 } from './types.mjs';
+/** Internal attachment shared with the tongue pass; not a new public option. */
+export declare function frogMouthPoint(pose: FrogPose, view?: FrogView): Vec3;
 /** Posed anatomical landmarks use exactly the transforms used for the surfaces. */
 export declare function frogLandmarks(state: FrogState, options?: GeometryOptions): FrogLandmarks;
 /**

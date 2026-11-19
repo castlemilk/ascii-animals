@@ -1,0 +1,49 @@
+✔ two ponds and the original frog share one browser frame source and clean up independently (8.553422ms)
+✔ public pond timing replays the same command boundaries under 1/2/5-tick frame delivery (22.892051ms)
+✔ director updates validate atomically, reset coherently and preserve explicit pause (1.272016ms)
+✔ new director mode is opt-in and can be explicitly enabled without breaking the original factory (0.541407ms)
+✔ selected ownership is explicit and queued calls, hunts and hops cannot be stolen by later selection (1.530201ms)
+✔ occupied or unreachable aimed pads reject with feedback; clearing aim permits one nearest-free hop (1.146229ms)
+✔ mounted normalized inputs reject atomically, including explicit null rather than omitted targets (0.695517ms)
+✔ reduced-motion Call, Hunt and Ripple choose stills without ticks, travel, effects or scheduling (0.890127ms)
+✔ pause freezes committed poses and deliberate pond stills persist through redraw without time or scheduling (2.015905ms)
+✔ restoring an undersized pond clears its fallback still only when motion may resume (0.683789ms)
+✔ whole pond suspension drops pending actions and resumes with no social catch-up burst (0.427938ms)
+✔ pond pointer and deliberate-action bursts stay within two coalesced inputs and five catch-up ticks (7.528443ms)
+✔ owner-cell taps select one frog, drag cancellation is inert and focused keys route scene actions (0.458293ms)
+✔ pond-change notifications follow changed state identities and callback failure releases the mount (2.915597ms)
+✔ consumer disposal stops later announcements and consumer pause ends the current catch-up batch (1.195912ms)
+✔ pond saved callbacks are inert after disposal and new methods reject post-disposal work (0.471363ms)
+✔ offscreen direction publishes state and defers destructive resize until visible (0.211154ms)
+✔ offscreen reduced motion cue selects a still without scheduling animation (0.137545ms)
+✔ requested draw reconciles lagging intersection after viewport resize, not actual offscreen canvas (0.238345ms)
+✔ the bounded visible feeding endpoint stays continuous at contact for every actor/count/view (57.742381ms)
+ℹ {"contacts":96,"cappedContacts":28,"maximumNormalizedContactTravel":0.0033692591779239897}
+✔ simultaneous call/strike/ripples keep the actual numerical raster pass within the original sample budget (4017.687249ms)
+ℹ {"evidence":"numerical raster with Canvas method doubles; not pixels","maximum":{"scene":"moonlit-chorus","tick":151,"samples":59075,"environmentSamples":5321}}
+✔ pond defaults and roles are fully validated, immutable and independently owned (7.628653ms)
+✔ invalid director config and options reject without coercion or partial changes (1.561828ms)
+✔ pure director events validate the complete batch, exact next tick and global sequence (4.265628ms)
+✔ identical seed and routed event log replay across 1/2/5-tick presentation groups (82.714608ms)
+✔ all scene/count/layout combinations keep pad ownership, single-flight and bounded effects/replies (251.283006ms)
+✔ deliberate hop reserves one free pad, preserves the latched endpoint and settles exactly on it (1.547958ms)
+✔ two simultaneous manual hops cannot reserve the same destination or start two flights (0.35556ms)
+✔ a deliberate hop wins the same tick as an autonomous cue in every scene (1.289703ms)
+✔ hunting places one insect at a reachable perch and reports a catch only within strike reach (5.549314ms)
+✔ caller replies are delayed, bounded and one generation; repeated water effects expire (7.67343ms)
+✔ selection/role edits preserve model clocks, positions and committed hops; reset preserves options and clears activity (1.287659ms)
+✔ autonomy off preserves rest indefinitely and tempo never changes model leap durations (5.217849ms)
+✔ crouch stores motion above four fixed contact points in every view (7.185833ms)
+✔ hindlegs extend early in the arc and gather before the landing (0.331844ms)
+✔ hunt is planted before contact, carries its catch back, and fully recovers (281.795145ms)
+✔ long valid body timings retain the insect through landing and never catch in midair (4.95002ms)
+✔ a blocked approach visibly misses instead of touching an uncaught insect (1.463452ms)
+✔ splash starts at the latched touchdown, once, and busy input cannot restart the hop (1.612514ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4194.809438

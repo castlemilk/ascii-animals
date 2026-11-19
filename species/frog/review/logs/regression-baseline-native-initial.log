@@ -1,0 +1,71 @@
+TAP version 13
+# Subtest: native bitmap redraw
+not ok 1 - native bitmap redraw
+  ---
+  duration_ms: 934.455768
+  type: 'test'
+  location: '/workspace/scratch/4d3a084a973b/ascii-animals/species/frog/tests/native-regressions.test.mjs:37:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    TAP version 13
+    # Subtest: native bitmap redraw survives desktop/phone sizes, zero size and deferred offscreen scene changes
+    not ok 1 - native bitmap redraw survives desktop/phone sizes, zero size and deferred offscreen scene changes
+      ---
+      duration_ms: 81.382045
+      type: 'test'
+      location: '/workspace/scratch/4d3a084a973b/ascii-animals/species/frog/tests/native-regressions.test.mjs:126:3'
+      failureType: 'testCodeFailure'
+      error: 'initial desktop: 0 bright pixels, expected > 200'
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: true
+      actual: false
+      operator: '=='
+      stack: |-
+        assertDrawn (file:///workspace/scratch/4d3a084a973b/ascii-animals/species/frog/tests/native-regressions.test.mjs:114:5)
+        TestContext.<anonymous> (file:///workspace/scratch/4d3a084a973b/ascii-animals/species/frog/tests/native-regressions.test.mjs:135:5)
+        Test.runInAsyncScope (node:async_hooks:227:14)
+        Test.run (node:internal/test_runner/test:1402:25)
+        Test.start (node:internal/test_runner/test:1262:17)
+        startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+      ...
+    1..1
+    # tests 1
+    # suites 0
+    # pass 0
+    # fail 1
+    # cancelled 0
+    # skipped 0
+    # todo 0
+    # duration_ms 744.400298
+
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///workspace/scratch/4d3a084a973b/ascii-animals/species/frog/tests/native-regressions.test.mjs:43:14)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.start (node:internal/test_runner/test:1262:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+  ...
+# Subtest: native demo labels
+ok 2 - native demo labels
+  ---
+  duration_ms: 768.089425
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1793.332661

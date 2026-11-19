@@ -1,0 +1,139 @@
+{
+  "source": "Raw native Canvas PNGs; no generated illustration or repainting.",
+  "derivedStills": [
+    {
+      "file": "before-desktop-hop-crown.png",
+      "source": "frames/before-desktop/hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "before-desktop-solo-hop-crown.png",
+      "source": "frames/before-desktop/solo-hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "before-phone-hop-crown.png",
+      "source": "frames/before-phone/hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "before-phone-solo-hop-crown.png",
+      "source": "frames/before-phone/solo-hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "after-desktop-hop-crown.png",
+      "source": "frames/after-desktop/hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "after-desktop-solo-hop-crown.png",
+      "source": "frames/after-desktop/solo-hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "after-phone-hop-crown.png",
+      "source": "frames/after-phone/hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    },
+    {
+      "file": "after-phone-solo-hop-crown.png",
+      "source": "frames/after-phone/solo-hop/0031.png",
+      "tick": 93,
+      "operation": "Byte-for-byte PNG copy; no rerender or image edit"
+    }
+  ],
+  "splashSelection": "Original *-hop-splash.png stills record touchdown/impact at tick83. Contact-sheet splash panels use the exact recorded tick93 frame on both revisions, copied as *-hop-crown.png, when water droplets are lifted. No simulation retiming or rerendering.",
+  "sheets": [
+    "frog-before-after-desktop.png",
+    "frog-before-after-phone.png",
+    "frog-anatomy-comparison.png",
+    "frog-hop-contact-sheet.png",
+    "frog-hunt-contact-sheet.png",
+    "frog-phone-motion.png",
+    "frog-solo-hop-contact-sheet.png",
+    "frog-solo-hunt-contact-sheet.png",
+    "frog-solo-phone-motion.png"
+  ],
+  "scaling": "Desktop comparison/anatomy and phone panels retain native pixel dimensions. Motion contact sheets use declared fixed matching crops at1:1pixels; only desktop GIF panels are downsampled from1200×700 to600×350. Raw full-resolution PNGs remain included.",
+  "motionContactSheetCrops": {
+    "hop": {
+      "x": 130,
+      "y": 180,
+      "width": 800,
+      "height": 440
+    },
+    "hunt": {
+      "x": 430,
+      "y": 140,
+      "width": 700,
+      "height": 440
+    },
+    "phone": {
+      "x": 0,
+      "y": 140,
+      "width": 390,
+      "height": 300
+    },
+    "soloHop": {
+      "crouch": {
+        "x": 80,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      },
+      "arc": {
+        "x": 200,
+        "y": 130,
+        "width": 680,
+        "height": 380
+      },
+      "splash": {
+        "x": 300,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      },
+      "recovery": {
+        "x": 300,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      }
+    },
+    "soloHunt": {
+      "stalk": {
+        "x": 80,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      },
+      "extend": {
+        "x": 300,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      },
+      "return": {
+        "x": 300,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      },
+      "settle": {
+        "x": 300,
+        "y": 260,
+        "width": 680,
+        "height": 380
+      }
+    }
+  },
+  "animation": "GIF20fps from60Hz model sampled every3ticks; both revisions share the same input log and timeline. Loop return is an edit between explicit replays, not a claimed seamless model loop."
+}
