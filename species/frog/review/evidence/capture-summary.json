@@ -1,0 +1,1195 @@
+{
+  "schema": 1,
+  "evidence": "Actual @napi-rs/canvas raster pixels. NOT a browser/DOM capture or deployed evidence.",
+  "sourceHashes": "source-hashes.json",
+  "settings": {
+    "node": "v24.22.3",
+    "dpr": 1,
+    "seed": 23,
+    "modelHz": 60,
+    "captureFps": 20,
+    "previewOptions": {
+      "cols": 180,
+      "rows": 100,
+      "labels": true,
+      "trajectories": false,
+      "view": "front"
+    },
+    "font": {
+      "file": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+      "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+      "family": "Liberation Mono"
+    }
+  },
+  "inputSegments": [
+    {
+      "name": "hop",
+      "scene": "stillwater",
+      "count": 3,
+      "endTick": 210,
+      "events": [
+        {
+          "type": "hop",
+          "frogId": 0,
+          "padId": 4,
+          "tick": 24,
+          "seq": 0
+        }
+      ]
+    },
+    {
+      "name": "hunt",
+      "scene": "firefly-supper",
+      "count": 3,
+      "hunter": 1,
+      "endTick": 300,
+      "events": [
+        {
+          "type": "hunt",
+          "frogId": 1,
+          "x": 0.7,
+          "y": -0.5,
+          "tick": 24,
+          "seq": 0
+        }
+      ]
+    },
+    {
+      "name": "solo-hop",
+      "scene": "stillwater",
+      "count": 1,
+      "endTick": 210,
+      "events": [
+        {
+          "type": "hop",
+          "frogId": 0,
+          "padId": 4,
+          "tick": 24,
+          "seq": 0
+        }
+      ]
+    },
+    {
+      "name": "solo-hunt",
+      "scene": "firefly-supper",
+      "count": 1,
+      "hunter": 0,
+      "endTick": 300,
+      "events": [
+        {
+          "type": "hunt",
+          "frogId": 0,
+          "x": 0.2,
+          "y": 0.55,
+          "tick": 24,
+          "seq": 0
+        }
+      ]
+    }
+  ],
+  "matchedPolicy": "Identical seed, inputs, viewports and presentation ticks. Hunt contact-sheet states are also matched by motive progress; their actual ticks are recorded.",
+  "singleAnimalPolicy": "Default createFrog state and native renderer camera, no scene/camera enlargement.",
+  "nativeCachePolicy": "Fresh process per viewport, immutable Image of the exact native atlas pixels, explicit collection after each PNG; not browser heap evidence.",
+  "initialCaptureFailure": "Mutable native atlas capture at1200×700 and720×440 was SIGKILL before its first PNG. An immutable atlas Image host resolves native display-list retention without renderer edits. The native PNG/Image path is not claimed pixel-identical to native Canvas sampling; see native-atlas-parity.json.",
+  "pending": [
+    "Real browser regression execution: local Chromium socket denied; cloud localhost unavailable.",
+    "Physical phone input/performance",
+    "Browser DOM/accessibility and frame-time/heap checks"
+  ],
+  "fullCapturePolicy": "Original *-capture.json files are preserved intact in the complete review bundle. This summary omits their per-frame objects.",
+  "crownSelection": "Composition copies each hop sequence frame at tick93 without rerendering; original tick83 *-hop-splash.png records remain touchdown/impact. See composition.json for source files and crops.",
+  "captures": [
+    {
+      "name": "before-desktop",
+      "revision": "baseline",
+      "viewport": [
+        1200,
+        700
+      ],
+      "fullCaptureFile": "before-desktop-capture.json",
+      "counts": {
+        "selectedStills": 23,
+        "motionFrames": 344,
+        "framesBySegment": {
+          "hop": 71,
+          "hunt": 101,
+          "solo-hop": 71,
+          "solo-hunt": 101
+        }
+      },
+      "metrics": {
+        "maxSamples": 57942,
+        "maxEnvironmentSamples": 4188,
+        "minimumActorGlyphs": 271,
+        "minimumForegroundPixels": 18787,
+        "minimumBrightPixels": 8417
+      },
+      "selectedStills": [
+        {
+          "file": "before-desktop-rest.png",
+          "tick": 0,
+          "phase": "rest",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false
+          }
+        },
+        {
+          "file": "before-desktop-oblique.png",
+          "tick": 0,
+          "phase": "oblique",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "view": "left"
+          }
+        },
+        {
+          "file": "before-desktop-silhouette.png",
+          "tick": 0,
+          "phase": "silhouette",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "silhouette": true
+          }
+        },
+        {
+          "file": "before-desktop-reduced-hunt.png",
+          "tick": 0,
+          "phase": "reduced-hunt",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "staticPose": "rest",
+            "pondStill": "hunt"
+          }
+        },
+        {
+          "file": "before-desktop-single.png",
+          "tick": 0,
+          "phase": "single",
+          "singleFrog": true,
+          "view": "left"
+        },
+        {
+          "file": "before-desktop-hop-crouch.png",
+          "tick": 35,
+          "phase": "hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hop-arc.png",
+          "tick": 59,
+          "phase": "hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hop-splash.png",
+          "tick": 83,
+          "phase": "hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hop-recovery.png",
+          "tick": 118,
+          "phase": "hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hop-restored.png",
+          "tick": 190,
+          "phase": "hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hunt-stalk.png",
+          "tick": 47,
+          "phase": "hunt-stalk",
+          "actorId": 1,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hunt-extend.png",
+          "tick": 120,
+          "phase": "hunt-extend",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 4,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hunt-return.png",
+          "tick": 124,
+          "phase": "hunt-return",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 8,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-hunt-settle.png",
+          "tick": 158,
+          "phase": "hunt-settle",
+          "actorId": 1,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hop-crouch.png",
+          "tick": 35,
+          "phase": "solo-hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hop-arc.png",
+          "tick": 59,
+          "phase": "solo-hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hop-splash.png",
+          "tick": 83,
+          "phase": "solo-hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hop-recovery.png",
+          "tick": 118,
+          "phase": "solo-hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hop-restored.png",
+          "tick": 190,
+          "phase": "solo-hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hunt-stalk.png",
+          "tick": 47,
+          "phase": "solo-hunt-stalk",
+          "actorId": 0,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hunt-extend.png",
+          "tick": 120,
+          "phase": "solo-hunt-extend",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 4,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hunt-return.png",
+          "tick": 124,
+          "phase": "solo-hunt-return",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 8,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-desktop-solo-hunt-settle.png",
+          "tick": 158,
+          "phase": "solo-hunt-settle",
+          "actorId": 0,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        }
+      ]
+    },
+    {
+      "name": "before-phone",
+      "revision": "baseline",
+      "viewport": [
+        390,
+        520
+      ],
+      "fullCaptureFile": "before-phone-capture.json",
+      "counts": {
+        "selectedStills": 23,
+        "motionFrames": 344,
+        "framesBySegment": {
+          "hop": 71,
+          "hunt": 101,
+          "solo-hop": 71,
+          "solo-hunt": 101
+        }
+      },
+      "metrics": {
+        "maxSamples": 57942,
+        "maxEnvironmentSamples": 4188,
+        "minimumActorGlyphs": 134,
+        "minimumForegroundPixels": 5975,
+        "minimumBrightPixels": 1486
+      },
+      "selectedStills": [
+        {
+          "file": "before-phone-rest.png",
+          "tick": 0,
+          "phase": "rest",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false
+          }
+        },
+        {
+          "file": "before-phone-oblique.png",
+          "tick": 0,
+          "phase": "oblique",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "view": "left"
+          }
+        },
+        {
+          "file": "before-phone-silhouette.png",
+          "tick": 0,
+          "phase": "silhouette",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "silhouette": true
+          }
+        },
+        {
+          "file": "before-phone-reduced-hunt.png",
+          "tick": 0,
+          "phase": "reduced-hunt",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "staticPose": "rest",
+            "pondStill": "hunt"
+          }
+        },
+        {
+          "file": "before-phone-single.png",
+          "tick": 0,
+          "phase": "single",
+          "singleFrog": true,
+          "view": "left"
+        },
+        {
+          "file": "before-phone-hop-crouch.png",
+          "tick": 35,
+          "phase": "hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hop-arc.png",
+          "tick": 59,
+          "phase": "hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hop-splash.png",
+          "tick": 83,
+          "phase": "hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hop-recovery.png",
+          "tick": 118,
+          "phase": "hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hop-restored.png",
+          "tick": 190,
+          "phase": "hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hunt-stalk.png",
+          "tick": 47,
+          "phase": "hunt-stalk",
+          "actorId": 1,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hunt-extend.png",
+          "tick": 120,
+          "phase": "hunt-extend",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 4,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hunt-return.png",
+          "tick": 124,
+          "phase": "hunt-return",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 8,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-hunt-settle.png",
+          "tick": 158,
+          "phase": "hunt-settle",
+          "actorId": 1,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hop-crouch.png",
+          "tick": 35,
+          "phase": "solo-hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hop-arc.png",
+          "tick": 59,
+          "phase": "solo-hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hop-splash.png",
+          "tick": 83,
+          "phase": "solo-hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hop-recovery.png",
+          "tick": 118,
+          "phase": "solo-hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hop-restored.png",
+          "tick": 190,
+          "phase": "solo-hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hunt-stalk.png",
+          "tick": 47,
+          "phase": "solo-hunt-stalk",
+          "actorId": 0,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hunt-extend.png",
+          "tick": 120,
+          "phase": "solo-hunt-extend",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 4,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hunt-return.png",
+          "tick": 124,
+          "phase": "solo-hunt-return",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 8,
+          "bodyBehavior": "landing",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "before-phone-solo-hunt-settle.png",
+          "tick": 158,
+          "phase": "solo-hunt-settle",
+          "actorId": 0,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        }
+      ]
+    },
+    {
+      "name": "after-desktop",
+      "revision": "candidate",
+      "viewport": [
+        1200,
+        700
+      ],
+      "fullCaptureFile": "after-desktop-capture.json",
+      "counts": {
+        "selectedStills": 23,
+        "motionFrames": 344,
+        "framesBySegment": {
+          "hop": 71,
+          "hunt": 101,
+          "solo-hop": 71,
+          "solo-hunt": 101
+        }
+      },
+      "metrics": {
+        "maxSamples": 58499,
+        "maxEnvironmentSamples": 4745,
+        "minimumActorGlyphs": 248,
+        "minimumForegroundPixels": 15510,
+        "minimumBrightPixels": 3471
+      },
+      "selectedStills": [
+        {
+          "file": "after-desktop-rest.png",
+          "tick": 0,
+          "phase": "rest",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false
+          }
+        },
+        {
+          "file": "after-desktop-oblique.png",
+          "tick": 0,
+          "phase": "oblique",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "view": "left"
+          }
+        },
+        {
+          "file": "after-desktop-silhouette.png",
+          "tick": 0,
+          "phase": "silhouette",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "silhouette": true
+          }
+        },
+        {
+          "file": "after-desktop-reduced-hunt.png",
+          "tick": 0,
+          "phase": "reduced-hunt",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "staticPose": "rest",
+            "pondStill": "hunt"
+          }
+        },
+        {
+          "file": "after-desktop-single.png",
+          "tick": 0,
+          "phase": "single",
+          "singleFrog": true,
+          "view": "left"
+        },
+        {
+          "file": "after-desktop-hop-crouch.png",
+          "tick": 35,
+          "phase": "hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hop-arc.png",
+          "tick": 59,
+          "phase": "hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hop-splash.png",
+          "tick": 83,
+          "phase": "hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hop-recovery.png",
+          "tick": 118,
+          "phase": "hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hop-restored.png",
+          "tick": 190,
+          "phase": "hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hunt-stalk.png",
+          "tick": 47,
+          "phase": "hunt-stalk",
+          "actorId": 1,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hunt-extend.png",
+          "tick": 179,
+          "phase": "hunt-extend",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 9,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hunt-return.png",
+          "tick": 190,
+          "phase": "hunt-return",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 20,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-hunt-settle.png",
+          "tick": 230,
+          "phase": "hunt-settle",
+          "actorId": 1,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hop-crouch.png",
+          "tick": 35,
+          "phase": "solo-hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hop-arc.png",
+          "tick": 59,
+          "phase": "solo-hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hop-splash.png",
+          "tick": 83,
+          "phase": "solo-hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hop-recovery.png",
+          "tick": 118,
+          "phase": "solo-hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hop-restored.png",
+          "tick": 190,
+          "phase": "solo-hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hunt-stalk.png",
+          "tick": 47,
+          "phase": "solo-hunt-stalk",
+          "actorId": 0,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hunt-extend.png",
+          "tick": 179,
+          "phase": "solo-hunt-extend",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 9,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hunt-return.png",
+          "tick": 190,
+          "phase": "solo-hunt-return",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 20,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-desktop-solo-hunt-settle.png",
+          "tick": 230,
+          "phase": "solo-hunt-settle",
+          "actorId": 0,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        }
+      ]
+    },
+    {
+      "name": "after-phone",
+      "revision": "candidate",
+      "viewport": [
+        390,
+        520
+      ],
+      "fullCaptureFile": "after-phone-capture.json",
+      "counts": {
+        "selectedStills": 23,
+        "motionFrames": 344,
+        "framesBySegment": {
+          "hop": 71,
+          "hunt": 101,
+          "solo-hop": 71,
+          "solo-hunt": 101
+        }
+      },
+      "metrics": {
+        "maxSamples": 58499,
+        "maxEnvironmentSamples": 4745,
+        "minimumActorGlyphs": 113,
+        "minimumForegroundPixels": 5071,
+        "minimumBrightPixels": 553
+      },
+      "selectedStills": [
+        {
+          "file": "after-phone-rest.png",
+          "tick": 0,
+          "phase": "rest",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false
+          }
+        },
+        {
+          "file": "after-phone-oblique.png",
+          "tick": 0,
+          "phase": "oblique",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "view": "left"
+          }
+        },
+        {
+          "file": "after-phone-silhouette.png",
+          "tick": 0,
+          "phase": "silhouette",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "silhouette": true
+          }
+        },
+        {
+          "file": "after-phone-reduced-hunt.png",
+          "tick": 0,
+          "phase": "reduced-hunt",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 0,
+          "bodyBehavior": "idle",
+          "geometryOptions": {
+            "motion": false,
+            "staticPose": "rest",
+            "pondStill": "hunt"
+          }
+        },
+        {
+          "file": "after-phone-single.png",
+          "tick": 0,
+          "phase": "single",
+          "singleFrog": true,
+          "view": "left"
+        },
+        {
+          "file": "after-phone-hop-crouch.png",
+          "tick": 35,
+          "phase": "hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hop-arc.png",
+          "tick": 59,
+          "phase": "hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hop-splash.png",
+          "tick": 83,
+          "phase": "hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hop-recovery.png",
+          "tick": 118,
+          "phase": "hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hop-restored.png",
+          "tick": 190,
+          "phase": "hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hunt-stalk.png",
+          "tick": 47,
+          "phase": "hunt-stalk",
+          "actorId": 1,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hunt-extend.png",
+          "tick": 179,
+          "phase": "hunt-extend",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 9,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hunt-return.png",
+          "tick": 190,
+          "phase": "hunt-return",
+          "actorId": 1,
+          "motive": "strike",
+          "motiveAge": 20,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-hunt-settle.png",
+          "tick": 230,
+          "phase": "hunt-settle",
+          "actorId": 1,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hop-crouch.png",
+          "tick": 35,
+          "phase": "solo-hop-crouch",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 11,
+          "bodyBehavior": "crouch",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hop-arc.png",
+          "tick": 59,
+          "phase": "solo-hop-arc",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 35,
+          "bodyBehavior": "flight",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hop-splash.png",
+          "tick": 83,
+          "phase": "solo-hop-splash",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 59,
+          "bodyBehavior": "landing",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hop-recovery.png",
+          "tick": 118,
+          "phase": "solo-hop-recovery",
+          "actorId": 0,
+          "motive": "hop",
+          "motiveAge": 94,
+          "bodyBehavior": "cooldown",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hop-restored.png",
+          "tick": 190,
+          "phase": "solo-hop-restored",
+          "actorId": 0,
+          "motive": "rest",
+          "motiveAge": 8,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hunt-stalk.png",
+          "tick": 47,
+          "phase": "solo-hunt-stalk",
+          "actorId": 0,
+          "motive": "track",
+          "motiveAge": 23,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "hover",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hunt-extend.png",
+          "tick": 179,
+          "phase": "solo-hunt-extend",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 9,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hunt-return.png",
+          "tick": 190,
+          "phase": "solo-hunt-return",
+          "actorId": 0,
+          "motive": "strike",
+          "motiveAge": 20,
+          "bodyBehavior": "interest",
+          "fireflyPhase": "caught",
+          "geometryOptions": {}
+        },
+        {
+          "file": "after-phone-solo-hunt-settle.png",
+          "tick": 230,
+          "phase": "solo-hunt-settle",
+          "actorId": 0,
+          "motive": "settle",
+          "motiveAge": 30,
+          "bodyBehavior": "interest",
+          "geometryOptions": {}
+        }
+      ]
+    }
+  ]
+}

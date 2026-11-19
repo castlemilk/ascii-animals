@@ -13,7 +13,7 @@ export declare const FROG_POND_LIMITS: Readonly<{
     maxSceneSamples: 60000;
     callTicks: 84;
     trackTicks: 36;
-    strikeTicks: 12;
+    strikeTicks: 30;
     settleTicks: 48;
     listenTicks: 72;
     rippleTicks: 90;

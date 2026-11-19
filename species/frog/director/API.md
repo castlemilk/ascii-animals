@@ -69,7 +69,7 @@ Body defaults and bounds remain unchanged:
 
 Seed defaults to 23; accepted creation/reset seed is an integer `0…4294967295`. Actor seeds derive from scene seed and stable ID; no ambient random source is used.
 
-The director's fixed authored behavior durations are exported as readonly `FROG_POND_LIMITS`: call 84 ticks, track 36, strike 12, settle 48, base listen 72, ripple TTL 90, firefly TTL 240, first reply delay 36 plus 30 ticks for the next neighbor before tempo scaling. They are constants for this version, not configurable constructor fields. The default scene arc is 90 opening + 480 activity + 120 settling + 210 quiet ticks. Autonomy schedules cues only in activity; ongoing actions recover naturally into the quiet interval.
+The director's fixed authored behavior durations are exported as readonly `FROG_POND_LIMITS`: call 84 ticks, track 36, strike 30, settle 48, base listen 72, ripple TTL 90, base firefly TTL 240, first reply delay 36 plus 30 ticks for the next neighbor before tempo scaling. They are constants for this version, not configurable constructor fields. The wetland revision slows the strike from 12 to 30 ticks so projection, contact and attached return can be read as characters. Its insect lifetime extends when valid configured body timings require more time to approach and recover. The default scene arc is 90 opening + 480 activity + 120 settling + 210 quiet ticks. Autonomy schedules cues only in activity; ongoing actions recover naturally into the quiet interval.
 
 ### Presentation
 
@@ -84,7 +84,7 @@ New options are `labels` (defaulttrue), `trajectories` (defaultfalse), and `rend
 | Scene / interaction | Multi-stage behavior | Bounds and recovery |
 | --- | --- | --- |
 | Stillwater | Long rests, independent gaze/breath phases, listening, occasional short pad change | Dreamer takes longer listening intervals; no continuous chasing |
-| Firefly supper | Notice a small light → track → short safe hop or nearby strike → settle | One active insect; a blocked chase can miss without claiming an impossible capture |
+| Firefly supper | Notice a small light → supported stalk → safe approach and recovery → planted tongue projection, contact and attached return → settle | One active insect; a blocked chase can miss without claiming an impossible capture |
 | Moonlit chorus | A caller expands its throat → neighbors answer at delayed times → silence | At most two replies, generation1 only; replies do not create more replies |
 | Manual hop | Target preview → crouch → latched ballistic arc → landing compression → recovery → cooldown | Free reachable destination; source and destination both protected until touchdown; one crouch/flight globally |
 | Water ripple | A ring spreads → nearest available frog turns/listens → rest | At most six effects, each with finite TTL; no delayed action queue |

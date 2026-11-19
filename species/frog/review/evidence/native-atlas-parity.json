@@ -1,0 +1,16 @@
+{
+  "viewport": [
+    360,
+    260
+  ],
+  "state": "seed23,count3,moonlit-chorus,tick0",
+  "pixels": 93600,
+  "changedPixels": 844,
+  "maxChannelDelta": 7,
+  "meanChannelDelta": 0.008536324786324786,
+  "aboveOne": 339,
+  "aboveFive": 7,
+  "foregroundMaskThreshold": 60,
+  "foregroundMaskDifference": 8,
+  "foregroundMaskUnion": 12225
+}
