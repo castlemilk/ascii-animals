@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "species": "fox",
+  "reviewDate": "2026-11-19",
+  "dateTimezone": "Australia/Melbourne",
+  "reviewStatus": "draft: native visual and source/package checks complete; real-browser and device performance acceptance pending",
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "branch": "fox/dusk-directed-behaviour",
+  "scope": "species/fox/** only; no shared engine, other species, public entry point, workflow or central generated output edits",
+  "sourceAndCompiledSha256": {
+    "species/fox/src/browser.ts": "ed922bf71c7e367efa10868f098eae7aae34925d49416d1e149b6e81216dae84",
+    "species/fox/src/config.ts": "59b4b1c40f9e5284fb129c801dcfc85c357f81e0a697655a629e5fa80ff35d99",
+    "species/fox/src/director-render.ts": "81e442d66e7bfc2480dcdd9b5ab5426ad288112c16bc89cc3662eab6add9f768",
+    "species/fox/src/director-types.ts": "788c5f362d05db42f520558b5eed17e313abf30ba749b1bf15dc74aadf5f645d",
+    "species/fox/src/director.ts": "12033a2a0cb9ced4c7614a83c731a1f3fe88b81e14cb3283c3bee0dfc2bd20b6",
+    "species/fox/src/geometry.ts": "1be92f7fca8c1c1c9f7b90edb983cad7c1122defe1cc3729d3621645b55a63de",
+    "species/fox/src/model.ts": "b48da24df40fade6089f3ec5e076e74707ec8974973f2aa6156651d6fd5aac2b",
+    "species/fox/src/preview.ts": "cd0066d7f8dce1295b55f03fd83f5b344338eafee4e1d6e26617e35ee536fd81",
+    "species/fox/src/types.ts": "41aab62508b0d078ace769e0efbc8503df2010d35caeea0cd4deae5eddb0a454",
+    "species/fox/lib/browser.js": "2defff4be3e7125b2a3f424361bc894bb466bba91eb398ae9147027c011ebf21",
+    "species/fox/lib/config.js": "6adbc4163cbecf6171dfae379749eb89eef299ed2c29d726dbbcc56b85d95533",
+    "species/fox/lib/director-render.js": "d5c822d304f12d665865346bd90b3582cc686aca82783d77bf4a231f6ef67e6e",
+    "species/fox/lib/director-types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/fox/lib/director.js": "08f0f4960f531493036386b451c80a0dd8e7c296f36ab37da1effca2f58c526e",
+    "species/fox/lib/geometry.js": "d9935a55051767da766a4d94889486709a296897ee8bef76cd0b08df59f2b5a6",
+    "species/fox/lib/model.js": "f9d8c0c3556c9277ea2b9381b39f4bfb06642383e2c2099dc9f5d21af9dd1366",
+    "species/fox/lib/preview.js": "9481206ea5cd65f05dab6e0fc200c02c1184e64f1510800a010fc8e32f6a32a6",
+    "species/fox/lib/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+  },
+  "api": "Public options, inputs, behavior/cue unions, original solo glyph repertoire, and factory exports retained. Poses and historical cross-version replay are intentionally changed.",
+  "sequences": [
+    {
+      "cue": "rustle",
+      "anticipation": "ear triangulation and head cock",
+      "response": "creep, planted sniff, crouch, captured pounce, forepaw-first landing",
+      "recovery": "weight absorption, tail settle, cooldown",
+      "prepareAtCueAgeTicks": 205
+    },
+    {
+      "cue": "play",
+      "anticipation": "tail raises first; head holds for first 20 ticks",
+      "response": "head and ears follow, bow, measured approach, short answering hop",
+      "recovery": "captured bow/tail unwind, planted cooldown",
+      "prepareAtCueAgeTicks": 130
+    }
+  ],
+  "interaction": {
+    "pointer": "existing canvas guide and local tap rustle; painted owner mapping retained",
+    "touch": "native labelled controls and new Tail curiosity button; real touch acceptance pending",
+    "keyboard": "canvas-focused arrows, Enter, C, P, Space, Escape; Tab leaves canvas; native button activation",
+    "reducedMotion": "existing authoritative static-tableau lifecycle preserved and mock-tested; live browser check pending"
+  },
+  "checks": [
+    {
+      "command": "git ls-remote origin refs/heads/main refs/heads/fox/dusk-directed-behaviour",
+      "result": "main matches base; own remote branch absent before publication"
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p species/fox/tsconfig.json",
+      "result": "passed before final capture"
+    },
+    {
+      "command": "node --test species/fox/tests/*.test.mjs",
+      "result": "70/70 passed, zero skipped",
+      "evidence": "numerical, renderer, explicit DOM/Canvas/scheduler mocks"
+    },
+    {
+      "command": "node --test species/fox/tests/director-demo.test.mjs",
+      "result": "passed again after final descriptive copy edit",
+      "evidence": "mock demo interaction"
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p species/fox/tsconfig.types.json",
+      "result": "initial standalone exit 2: central generated lib absent; subsequent full typecheck after build passed in disposable copy"
+    },
+    {
+      "command": "npm run build",
+      "result": "passed in disposable exact-source copy only"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "passed after build in disposable copy"
+    },
+    {
+      "command": "node --test test/fox-integration.test.mjs test/fox-director-integration.test.mjs",
+      "result": "13/13 passed in disposable copy"
+    },
+    {
+      "command": "npm pack --ignore-scripts --offline --json --pack-destination /workspace/scratch/b91a06885f33/fox-evidence/package",
+      "result": "passed; no publish"
+    },
+    {
+      "command": "node species/fox/scripts/check-director-package.mjs /workspace/scratch/b91a06885f33/fox-evidence/package/ascii-animals-review-0.0.0-review.0.tgz",
+      "result": "passed: offline installed consumer, strict NodeNext/Bundler, 14 negative assertions per mode, throw-on-DOM SSR"
+    },
+    {
+      "command": "node --check species/fox/demo/demo.js; node --check species/fox/scripts/capture-dusk-review.mjs; node --check species/fox/scripts/browser-dusk-smoke.mjs; git diff --check",
+      "result": "each passed"
+    }
+  ],
+  "nativeEvidence": {
+    "kind": "native-canvas",
+    "claim": "Exact compiled fox source rendered by native Skia Canvas, not browser screenshots or browser input acceptance.",
+    "configuration": {
+      "seed": 17,
+      "scene": "dusk-hunt",
+      "count": 2,
+      "showLabels": false
+    },
+    "surfaces": {
+      "desktop": {
+        "width": 960,
+        "height": 640,
+        "cols": 160,
+        "rows": 64
+      },
+      "phone": {
+        "width": 390,
+        "height": 446,
+        "cols": 112,
+        "rows": 64
+      }
+    },
+    "runtime": {
+      "node": "v24.22.3",
+      "canvas": "@napi-rs/canvas 0.1.100",
+      "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers"
+    },
+    "font": {
+      "path": "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+      "sha256": "5883330d94debd992952cd8f0571b225f478c2d797d3f36c7521b0a5c9bde0f2",
+      "alias": "ui-monospace",
+      "bundled": false
+    },
+    "baseline": "Exact base Git objects independently compiled",
+    "matching": "Same seed, ordered cue, tick, grid and dimensions; behavioral states may differ after change",
+    "capturesPerVersion": 32,
+    "motion": [
+      {
+        "scenario": "hunt",
+        "events": [
+          {
+            "type": "cue",
+            "cue": "rustle",
+            "tick": 60,
+            "seq": 0,
+            "id": 0,
+            "x": -0.04,
+            "y": 0.69
+          }
+        ],
+        "endTick": 540,
+        "frameCount": 109,
+        "nominalFps": 12,
+        "simulationTicksPerFrame": 5,
+        "files": [
+          "native-after-hunt.gif",
+          "native-after-hunt.mp4"
+        ]
+      },
+      {
+        "scenario": "curiosity",
+        "events": [
+          {
+            "type": "cue",
+            "cue": "play",
+            "tick": 60,
+            "seq": 0,
+            "id": 0,
+            "x": -0.04,
+            "y": 0.69
+          }
+        ],
+        "endTick": 540,
+        "frameCount": 109,
+        "nominalFps": 12,
+        "simulationTicksPerFrame": 5,
+        "files": [
+          "native-after-curiosity.gif",
+          "native-after-curiosity.mp4"
+        ]
+      }
+    ],
+    "inspection": "Matched desktop and phone, monochrome silhouette, detail and representative state sheets visually reviewed; independent visual review approved handoff; encoded motion not watched in a real browser",
+    "sha256": {
+      "matched-listen-desktop.png": "a392fac2f8fbca4b758e9cf22177dbef8a5b5b24461463d99c61cf5e46907839",
+      "matched-listen-phone.png": "65f3f6bf952747ea9a65b443530f57d425df670d66c40d7dace71925e25fa846",
+      "matched-hunt-age-075-desktop.png": "2f524e655a084f502fbb3271a09d3476069b35b3efbf12c4311ead8f9cd30b8f",
+      "matched-hunt-age-075-phone.png": "bc7784fd13ddbbb98904508107d302e4cb3b3b48cc97765ca4619b34556b38e6",
+      "native-after-hunt-contact.png": "f3f888a3aeb1cebdc815a39f76b733086242c7361f2d4740f1a134963b4103cb",
+      "native-after-curiosity-contact.png": "6ee7c598abf590d0854158d2e53730d88cb4d31c770c5e900ea283830eb2bf4c",
+      "native-after-hunt.gif": "ec487d04b118356040105fa36c83d3d6811f2d78b536bd3377a33f62038e3e48",
+      "native-after-curiosity.gif": "e7b05155016ff4480ed5bc6fb1626bb9473bba4d95ea885ec5785e1d68106b3b"
+    }
+  },
+  "nativeTiming": {
+    "workload": {
+      "width": 960,
+      "height": 640,
+      "cols": 160,
+      "rows": 64,
+      "configuration": {
+        "seed": 17,
+        "scene": "dusk-hunt",
+        "count": 2,
+        "showLabels": false
+      },
+      "events": [
+        {
+          "type": "cue",
+          "cue": "rustle",
+          "tick": 60,
+          "seq": 0,
+          "id": 0,
+          "x": -0.04,
+          "y": 0.69
+        },
+        {
+          "type": "cue",
+          "cue": "play",
+          "tick": 510,
+          "seq": 1,
+          "id": 0,
+          "x": -0.04,
+          "y": 0.69
+        }
+      ],
+      "warmupFrames": 30,
+      "sampledFrames": 120,
+      "simulationTicksPerFrame": 5,
+      "finalTick": 750
+    },
+    "results": [
+      {
+        "label": "before",
+        "summary": {
+          "simulation": {
+            "p50Ms": 0.19751499999983935,
+            "p95Ms": 6.418783000000076
+          },
+          "poseAndGrid": {
+            "p50Ms": 5.156551000000036,
+            "p95Ms": 19.922827999999754
+          },
+          "draw": {
+            "p50Ms": 13.755726000000323,
+            "p95Ms": 32.00627200000008
+          },
+          "total": {
+            "p50Ms": 21.93026800000007,
+            "p95Ms": 47.24074699999983
+          }
+        }
+      },
+      {
+        "label": "after",
+        "summary": {
+          "simulation": {
+            "p50Ms": 0.20222199999989243,
+            "p95Ms": 3.0064830000001166
+          },
+          "poseAndGrid": {
+            "p50Ms": 8.906541000000288,
+            "p95Ms": 21.711866000001464
+          },
+          "draw": {
+            "p50Ms": 18.899066999998468,
+            "p95Ms": 45.6009269999995
+          },
+          "total": {
+            "p50Ms": 29.50463099999979,
+            "p95Ms": 58.83717600000091
+          }
+        }
+      }
+    ],
+    "notes": [
+      "One bounded run, baseline then candidate, in a shared execution host.",
+      "Each sample advances five simulation ticks then samples/rasterizes/draws once.",
+      "poseAndGrid includes pose construction and logical-cell rasterization.",
+      "No browser, physical phone, GPU throughput, thermal, heap, or sustained frame-rate claim.",
+      "No pass/fail threshold; reported p50/p95 are observations of this specific native workload."
+    ],
+    "finding": "Median total cost increased from 21.930 to 29.505 ms (about 35%); no performance pass claimed"
+  },
+  "browser": {
+    "status": "blocked before page initialization",
+    "attempt": "Ordinary installed Playwright Chromium launch",
+    "reason": "socket() and ptrace Operation not permitted; SIGABRT",
+    "cloudPreview": "Supported cloud browser could not reach execution-host localhost; policy rejected access to the resulting error-page URL; stopped without workaround",
+    "executedChecks": 0,
+    "handoffScript": "species/fox/scripts/browser-dusk-smoke.mjs (syntax checked only)"
+  },
+  "review": "Independent read-only source review found no concrete blocker in geometry, materials, director state, gait, phone routing or control handlers",
+  "remaining": [
+    "Real-browser pointer/touch/keyboard, DOM/layout, resize, live reduced motion and disposal",
+    "Physical phone readability/accessibility, screen reader and sustained device performance",
+    "Normal-speed real-browser motion review",
+    "Continuous yaw is unsupported; left/right discrete profiles remain"
+  ],
+  "centralRegeneration": [
+    "npm run build",
+    "npm run typecheck",
+    "node --test test/fox-integration.test.mjs test/fox-director-integration.test.mjs species/fox/tests/*.test.mjs",
+    "node species/fox/scripts/browser-dusk-smoke.mjs --out=/absolute/review-evidence/browser"
+  ],
+  "references": [
+    "https://www.nps.gov/yell/learn/nature/red-fox.htm",
+    "https://www.nps.gov/articles/species-spotlight-red-fox.htm",
+    "https://www.nps.gov/articles/fox.htm",
+    "https://www.nps.gov/yose/learn/nature/redfox-biology.htm"
+  ],
+  "rights": "Original procedural geometry and code. References used for observation only; no reference photographs or font binary redistributed."
+}
