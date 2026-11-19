@@ -91,7 +91,8 @@ function initialState(seed, heading, options, habitat) {
     const position = copyPoint(habitat.origin);
     const feet = FOOT_NAMES.map((id, i) => {
         const front = i < 2, side = (i % 2 === 0 ? -1 : 1);
-        return { id, front, side, position: nominalFoot(position, heading, { front, side }), angle: footAngle(heading, front, side), phase: 'stance', plantedAt: 0 };
+        return { id, front, side, position: nominalFoot(position, heading, { front, side }), angle: footAngle(heading, front, side),
+            toeSpread: options.toeSpread, phase: 'stance', plantedAt: 0 };
     });
     // uint32 mixing changes stable phase/texture; never an ambient random source.
     let mixed = (seed ^ 0x9e3779b9) >>> 0;
@@ -128,7 +129,26 @@ function validateEvents(events, state) {
         seq = e.seq;
     }
 }
-function advanceState(old, events) {
+function resolveDrive(drive) {
+    record(drive, ['rootDelta', 'hold', 'settle'], 'locomotor drive');
+    for (const key of ['hold', 'settle']) {
+        if (Object.hasOwn(drive, key) && typeof drive[key] !== 'boolean')
+            throw new TypeError(`drive.${key} must be boolean`);
+    }
+    let rootDelta;
+    if (Object.hasOwn(drive, 'rootDelta')) {
+        record(drive.rootDelta, ['x', 'y'], 'drive.rootDelta');
+        const point = drive.rootDelta;
+        number(point.x, -.025, .025, 'drive.rootDelta.x');
+        number(point.y, -.025, .025, 'drive.rootDelta.y');
+        if (Math.hypot(point.x, point.y) > .025 + 1e-12)
+            throw new RangeError('drive.rootDelta must not exceed .025 units per tick');
+        rootDelta = copyPoint(point);
+    }
+    return { ...(rootDelta === undefined ? {} : { rootDelta }),
+        ...(drive.hold === undefined ? {} : { hold: drive.hold }), ...(drive.settle === undefined ? {} : { settle: drive.settle }) };
+}
+function advanceState(old, events, drive = {}) {
     if (old.tick >= GECKO_LIMITS.maxTick)
         throw new RangeError('maximum tick reached; reset before continuing');
     validateEvents(events, old);
@@ -188,36 +208,80 @@ function advanceState(old, events) {
             moving = true;
         }
     }
+    // The director can brace a body without translating any planted contact.
+    // A bounded lunge uses the same habitat/reach guards as ordinary locomotion.
+    const holding = drive.hold === true || drive.settle === true;
+    if (holding) {
+        dx = 0;
+        dy = 0;
+        desiredHeading = old.heading;
+        moving = false;
+    }
+    // Bracing finishes an in-flight foot before driven displacement begins. A
+    // rejected delta is not queued: callers observe the actual root, and catch
+    // success must be decided from that position rather than requested travel.
+    if (drive.rootDelta && !old.feet.some(foot => foot.phase === 'swing')) {
+        dx += drive.rootDelta.x;
+        dy += drive.rootDelta.y;
+        if (!holding && (dx !== 0 || dy !== 0))
+            moving = true;
+    }
     let completed = old.stepsCompleted, nextFoot = old.nextFoot;
     let feet = old.feet.map((foot) => {
         if (foot.phase === 'stance')
             return foot;
-        const t = clamp((tick - foot.since) / foot.duration, 0, 1), u = ease(t);
+        const t = clamp((tick - foot.since) / foot.duration, 0, 1);
+        // Peel in place, transfer, then adhere in place. A planted toe never gets
+        // dragged along with the torso, and transfer has zero endpoint velocity.
+        const u = ease((t - .18) / .64);
+        const previousU = ease(((tick - 1 - foot.since) / foot.duration - .18) / .64);
+        const spread = foot.toeSpread ?? old.options.toeSpread;
+        const spreadMix = previousU < 1 ? clamp((u - previousU) / (1 - previousU), 0, 1) : 0;
+        const toeSpread = spread + (o.toeSpread - spread) * spreadMix;
         if (t >= 1) {
             completed++;
-            return { id: foot.id, side: foot.side, front: foot.front, position: foot.to, angle: foot.toAngle, phase: 'stance', plantedAt: tick };
+            return { id: foot.id, side: foot.side, front: foot.front, position: foot.to, angle: foot.toAngle, toeSpread, phase: 'stance', plantedAt: tick };
         }
         return { ...foot, position: { x: foot.from.x + (foot.to.x - foot.from.x) * u, y: foot.from.y + (foot.to.y - foot.from.y) * u },
-            angle: foot.fromAngle + angleDelta(foot.fromAngle, foot.toAngle) * u, lift: .035 * Math.sin(Math.PI * t) };
+            angle: foot.fromAngle + angleDelta(foot.fromAngle, foot.toAngle) * u, toeSpread, lift: .035 * Math.sin(Math.PI * t) };
     });
     const proposed = { x: clamp(old.position.x + dx, -old.habitat.extentX, old.habitat.extentX), y: clamp(old.position.y + dy, -old.habitat.extentY, old.habitat.extentY) };
-    if (moving && !feet.some(f => f.phase === 'swing')) {
-        const index = ORDER[nextFoot % 4], foot = feet[index];
-        const nominal = nominalFoot(proposed, desiredHeading, foot), length = Math.hypot(dx, dy);
-        const lead = length > 0 ? o.stride * .4 : 0;
-        const to = { x: nominal.x + (length > 0 ? dx / length * lead : 0), y: nominal.y + (length > 0 ? dy / length * lead : 0) };
-        feet = feet.map((f, i) => i === index
-            ? { id: f.id, front: f.front, side: f.side, position: f.position, angle: f.angle, phase: 'swing', since: tick, duration: o.stepTicks,
-                from: f.position, to, fromAngle: f.angle, toAngle: footAngle(desiredHeading, f.front, f.side), lift: 0 }
-            : f);
-        nextFoot = (nextFoot + 1) % 4;
+    if ((moving || drive.settle) && !feet.some(f => f.phase === 'swing')) {
+        let order = nextFoot % 4;
+        if (drive.settle) {
+            // Finish support recovery without a walk-in-place loop. Contact-local
+            // option changes also settle only through a real lifted step.
+            const pending = ORDER.map((_, offset) => (nextFoot + offset) % 4).find(candidate => {
+                const foot = feet[ORDER[candidate]], target = nominalFoot(proposed, desiredHeading, foot);
+                return Math.hypot(target.x - foot.position.x, target.y - foot.position.y) > .008
+                    || Math.abs(angleDelta(foot.angle, footAngle(desiredHeading, foot.front, foot.side))) > .05
+                    || Math.abs((foot.toeSpread ?? o.toeSpread) - o.toeSpread) > .0001;
+            });
+            order = pending ?? -1;
+        }
+        if (order >= 0) {
+            const index = ORDER[order], foot = feet[index];
+            const nominal = nominalFoot(proposed, desiredHeading, foot), length = Math.hypot(dx, dy);
+            const lead = !drive.settle && length > 0 ? o.stride * .4 : 0;
+            const to = { x: nominal.x + (length > 0 ? dx / length * lead : 0), y: nominal.y + (length > 0 ? dy / length * lead : 0) };
+            feet = feet.map((f, i) => i === index
+                ? { id: f.id, front: f.front, side: f.side, position: f.position, angle: f.angle, phase: 'swing', since: tick, duration: o.stepTicks,
+                    from: f.position, to, fromAngle: f.angle, toAngle: footAngle(desiredHeading, f.front, f.side), toeSpread: f.toeSpread ?? o.toeSpread, lift: 0 }
+                : f);
+            nextFoot = (order + 1) % 4;
+        }
     }
     // Do not drag planted feet or over-stretch joints to follow a fast target.
     // The body waits while the contact gait catches up.
     const safe = feet.every(foot => {
         const shoulder = geckoShoulder(proposed, desiredHeading, foot);
-        const distance = Math.hypot(shoulder.x - foot.position.x, shoulder.y - foot.position.y);
-        return distance >= .063 && distance <= .425;
+        const fx = foot.position.x - shoulder.x, fy = foot.position.y - shoulder.y;
+        const distance = Math.hypot(fx, fy);
+        // Keep supports on their anatomical side. Without this constraint, a
+        // sideways drive could carry a shoulder around an adhered foot and make
+        // the later straight replant pass through a folded, impossible joint.
+        const lateral = foot.side * (-Math.sin(desiredHeading) * fx + Math.cos(desiredHeading) * fy);
+        return distance >= .063 && distance <= .425 && lateral >= .07;
     });
     const position = safe ? proposed : old.position, heading = safe ? desiredHeading : old.heading;
     if (behavior.kind === 'retreat')
@@ -228,7 +292,7 @@ function advanceState(old, events) {
     return { state, inputs };
 }
 /** Original deterministic single-gecko model. Rendering and scheduling are host-owned. */
-export function createGecko(config = {}) {
+export function createGeckoLocomotor(config = {}) {
     record(config, ['seed', 'heading', 'options', 'habitat'], 'config');
     const seed = config.seed === undefined ? 37 : config.seed, heading = config.heading === undefined ? -.24 : config.heading;
     number(seed, 0, 0xffff_ffff, 'seed', true);
@@ -238,13 +302,17 @@ export function createGecko(config = {}) {
     let disposed = false;
     const alive = () => { if (disposed)
         throw new Error('Gecko has been disposed'); };
-    return {
+    function stepDriven(events, drive) {
+        alive();
+        const resolved = resolveDrive(drive);
+        const result = advanceState(state, events, resolved);
+        state = result.state;
+        return { state: cloneState(state), inputs: result.inputs.map(x => ({ ...x })) };
+    }
+    const model = {
         get disposed() { return disposed; },
         step(events = []) {
-            alive();
-            const result = advanceState(state, events);
-            state = result.state;
-            return { state: cloneState(state), inputs: result.inputs.map(x => ({ ...x })) };
+            return stepDriven(events, {});
         },
         getSnapshot() { alive(); return cloneState(state); },
         update(patch) {
@@ -265,4 +333,9 @@ export function createGecko(config = {}) {
         },
         dispose() { disposed = true; },
     };
+    return { model, stepDriven };
+}
+/** Original public model contract; authored director movement remains internal. */
+export function createGecko(config = {}) {
+    return createGeckoLocomotor(config).model;
 }

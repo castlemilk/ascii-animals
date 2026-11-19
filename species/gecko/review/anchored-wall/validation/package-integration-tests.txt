@@ -1,0 +1,16 @@
+✔ every generated demo relative static module dependency is shipped (48.525714ms)
+✔ Gecko shares scheduler but keeps lifecycle and fixed tick semantics independent (211.396439ms)
+✔ Gecko static curl respects reduced motion, options/base validation is atomic (20.29467ms)
+✔ Gecko generated real-adapter demo is reproducible (121.744516ms)
+✔ three directed geckos and a Fox borrow one shared scheduler and release only their own subscription (233.35473ms)
+✔ headless director subpath export constructs and replays without DOM or an owned timer (1.094051ms)
+✔ global and standalone artifacts are generated from the canonical modules (167.17228ms)
+✔ classic global build preserves module simulation and lifecycle (4772.713506ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5591.347311
