@@ -26,8 +26,8 @@ option defaults, the legacy response phases and cue strings remain compatible.
 
 | Check | Result |
 | --- | --- |
-| Full `npm test` on final source | 627/627 passed, zero failures/skips |
-| New Butterfly behavior checks | 9 passed |
+| Full `npm test` on final source | 628/628 passed, zero failures/skips |
+| New Butterfly behavior checks | 10 passed |
 | Full `npm run typecheck` | Passed |
 | Butterfly strict type fixture | Passed |
 | `npm run check:package` | Passed tarball, consumer, SSR and typing checks |
@@ -42,7 +42,7 @@ this source patch. The default landing implementation initially exposed a roost
 loop jump; a 0.07 normalized per-tick bound fixes the unchanged continuity gate.
 Independent visual review also prompted brighter veins/body and coarser glyphs
 at phone size. A review-found synthetic-hover recovery defect was fixed and has
-its own regression test.
+its own regression test. A final six-forager phone check exposed the old vertical travel cap above the lowest blooms; expanding that bounded range restores physical contact and adds a maximum-population regression.
 
 ## Visual evidence and limits
 
