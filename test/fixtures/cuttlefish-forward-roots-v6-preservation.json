@@ -1,0 +1,1986 @@
+{
+  "sourceCommit": "037cd63b0a34ca0f129b6adedb9ea3d46a8465b8",
+  "sourceTree": "fc7723e367c9795952c728d9a4f8a98e3f195168",
+  "sourceSha256": "2dd02aa60ed0503d41f1bbd4d19554a9b37323c11ced16fbd037196b94a1e0f9",
+  "provenance": {
+    "origin": "Exact user-supplied V6 combined patch applied over b8f222dab868821f27bf2a64a98434f3483fc8e6",
+    "observedHead": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+    "verifiedIndexTree": "fc7723e367c9795952c728d9a4f8a98e3f195168",
+    "expectedGeometryImportedFromCandidate": false,
+    "generatorSha256": "d0945f67d93b9b1781a5f132dccf24c4fb0505b841421fd6ab7f70c1106a978b",
+    "helperSha256": "8548be6918c153a600691f75791554049e148b5a2442a27c5aa1348a6d913b7f"
+  },
+  "changedRegion": {
+    "before": {
+      "x": 0.87,
+      "angle": 0.18
+    },
+    "after": {
+      "x": 0.9,
+      "angle": 0.52
+    },
+    "halfX": 0.205,
+    "halfAngle": 0.31,
+    "removedSkinRadius": 0.92
+  },
+  "cases": [
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "d3d2964feca815a6b25c10cd86cf4261531f8a7d82a55549fd22cc6a94c0fa63"
+        },
+        "completePrimaryArm0": {
+          "samples": 1080,
+          "sha256": "5f800cdab585bd35260f5ce14687a6b8bb49c8aff0499a0b1aae72584e629771"
+        },
+        "completePrimaryArm1": {
+          "samples": 1206,
+          "sha256": "480fe6faa88b290e2f28d2048d4612b590c89a36a74563d91184b2b13258605f"
+        },
+        "completePrimaryArm2": {
+          "samples": 1206,
+          "sha256": "b24156456f713437cbce2e407ab6b7d13f48d5a3e8885884f85f58f6711adb55"
+        },
+        "completePrimaryArm3": {
+          "samples": 1206,
+          "sha256": "3ba375382f84cad6a1beed90e599f0ad527afa11ff871c0a598a8be68d1e66b0"
+        },
+        "completePrimaryArm4": {
+          "samples": 1080,
+          "sha256": "a6e33cf94e6809bcd1d40e3d8f4218a649ee2f2f05a4bdc8c42a9abeb27de736"
+        },
+        "completePrimaryArm5": {
+          "samples": 1080,
+          "sha256": "47a07afb44bc33b5ba48e5b05b5b7cf102dd8ce3f46df7556357c17fc81b0b95"
+        },
+        "completePrimaryArm6": {
+          "samples": 1080,
+          "sha256": "a401afb70f0d5762addb23bb2a619bdbe323357ae74e7ae6743ec500213a213e"
+        },
+        "completePrimaryArm7": {
+          "samples": 1080,
+          "sha256": "a8e74187a96c56fa94468d42cf82f3876fdf2216771f199d648df1c2bc231044"
+        },
+        "completeFeedingTentacles": {
+          "samples": 1728,
+          "sha256": "3b0de1f4a71ccfbc79f2ca07b8f6d55956f11936fee5eb9a7a55cb607c3fb89a"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "8d7fab161117305c8f45756dc16ff3a3d46ca238ac61913a3eabead6978c1621"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 2184,
+          "sha256": "5bd5ef6a81ab0295c6557f155c43aea428b3ff7b2809671aab85c8afa8d10c4a"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 2135,
+          "sha256": "a37eb13939506ffa0a4f20294a0c618b1cd738fcbb070e080d79f2f776136bab"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "d3d2964feca815a6b25c10cd86cf4261531f8a7d82a55549fd22cc6a94c0fa63"
+        },
+        "completePrimaryArm0": {
+          "samples": 1245,
+          "sha256": "39e67ba9ddb86d99dec247b96639e50063960ddf208ac9bc470474305731e7b6"
+        },
+        "completePrimaryArm1": {
+          "samples": 1357,
+          "sha256": "89dfa48f581996a8041d59bf17b29e61f25fa0318a279e7f3a4ee5f9f198070d"
+        },
+        "completePrimaryArm2": {
+          "samples": 1357,
+          "sha256": "9aa0d926154bb27d24d1667063db432d64406ff9dc89b059ae8da641c5c5dcb9"
+        },
+        "completePrimaryArm3": {
+          "samples": 1357,
+          "sha256": "6998a18eb26d981970f15c49ab66924e0aca72fa5655950dc35051a7933ec5f8"
+        },
+        "completePrimaryArm4": {
+          "samples": 1245,
+          "sha256": "57818c512787d4b3930f87113da55b82ee81d9c349d117a39adaaced6c19a6d8"
+        },
+        "completePrimaryArm5": {
+          "samples": 1245,
+          "sha256": "bc9b4d2d03c2886cb976126cd6c83f33c579c9431a9a5d6ec1c684ade5105ab9"
+        },
+        "completePrimaryArm6": {
+          "samples": 1245,
+          "sha256": "455de9e9306e2cd3ed012be5cd96452e7c3df38626dadb79303139e19ef11cfa"
+        },
+        "completePrimaryArm7": {
+          "samples": 1245,
+          "sha256": "2035730b16a32f2a6986ca547b406c44bf168ed31b80a5332b11267a2002a5ed"
+        },
+        "completeFeedingTentacles": {
+          "samples": 2256,
+          "sha256": "e51b094ea2835d23bb9c8a99a18eba2a5398bd92ce1d530b35a4af008434f482"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "b03fec6e63850977eb0ef458191275e4ca15f2543723278f6797410862417b55"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 2184,
+          "sha256": "5bd5ef6a81ab0295c6557f155c43aea428b3ff7b2809671aab85c8afa8d10c4a"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 2135,
+          "sha256": "a37eb13939506ffa0a4f20294a0c618b1cd738fcbb070e080d79f2f776136bab"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "0af7336066a120105a2e1ee51ed8507fbed898ffdead4d24013a3b1bbd8a4d93"
+        },
+        "completePrimaryArm0": {
+          "samples": 280,
+          "sha256": "1f09f1cef40e4b62a85865e056c2bb67432ff3d84cbc27da6c17d876308e64c3"
+        },
+        "completePrimaryArm1": {
+          "samples": 307,
+          "sha256": "8753abc86e07e060cffd5adbbe4907219863316a8450233953a035185b4c3b20"
+        },
+        "completePrimaryArm2": {
+          "samples": 307,
+          "sha256": "97f100e6dbe2c6953963c236caa2f1e780a2756b9779166edf8eb774c2b724dd"
+        },
+        "completePrimaryArm3": {
+          "samples": 307,
+          "sha256": "134883da61549f20a930b43b7a455d7ce1998adad6cb2cca3e3b9b65e8d357c3"
+        },
+        "completePrimaryArm4": {
+          "samples": 280,
+          "sha256": "d16798a942441f47efeeda453c76273d2ae2ff0806766192dd6e433e85e07db5"
+        },
+        "completePrimaryArm5": {
+          "samples": 280,
+          "sha256": "19f34d1c454ca9cb51ecf5b73d95d142fffa10b68d6dff18e2615fe2fdcfa99e"
+        },
+        "completePrimaryArm6": {
+          "samples": 280,
+          "sha256": "9e59fec19e27e0bf8a7dfe7a0c89af95a85dbe167ebaa4f137e5d49d4ef4306d"
+        },
+        "completePrimaryArm7": {
+          "samples": 280,
+          "sha256": "0e8d83c786cc8a043aca6449c279746f641ad020cfe6397108883de991e18b73"
+        },
+        "completeFeedingTentacles": {
+          "samples": 444,
+          "sha256": "d7d60ddf6010e7c691564dae781d3cf723d2b0809d8a5e2aea792bb38de61b0c"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "148263056cd6f1fb9f156b763c9232bc501a46da61418fe9bf6f0ce425c900d1"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 550,
+          "sha256": "98efc81a471405ccbbc7bde09c1b2b7dbe6aa2925d361b9d626e0169a17f586b"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 554,
+          "sha256": "f69a4706c610df9b7c7c0d0366ffd3bfff674a8fbdbf3bd138e5663746fd7c8d"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "0af7336066a120105a2e1ee51ed8507fbed898ffdead4d24013a3b1bbd8a4d93"
+        },
+        "completePrimaryArm0": {
+          "samples": 343,
+          "sha256": "cea0c060c792fe906328b51e65119cfaf8b55ef5ea66d8180cccd56fd1690f78"
+        },
+        "completePrimaryArm1": {
+          "samples": 367,
+          "sha256": "4b10c682dab01b58773d2865dc8e635ed8f3d888bbc60ac2b73d8f1182adb927"
+        },
+        "completePrimaryArm2": {
+          "samples": 367,
+          "sha256": "4700bfb4278dab5899d1a08f2445388d6b487e935a1889eb4454b95d1e996e60"
+        },
+        "completePrimaryArm3": {
+          "samples": 367,
+          "sha256": "55139d6d2ffd81e15d53787ebb905c99a7e335e9c82a29654de4b91d3e4e11ba"
+        },
+        "completePrimaryArm4": {
+          "samples": 343,
+          "sha256": "c4265bb22a3f50bf74d0359c76cd2756cc48eb68e7a0c54270ac69cb9823af68"
+        },
+        "completePrimaryArm5": {
+          "samples": 343,
+          "sha256": "56f0ec5e8a40d33c88c60041d15d0a3f237ec41f0274e5e0ea71f60b1caeb2d8"
+        },
+        "completePrimaryArm6": {
+          "samples": 343,
+          "sha256": "36284888fd4b123b0109facd28c27645590d24ce24dad81063f1c18eaac6f4e8"
+        },
+        "completePrimaryArm7": {
+          "samples": 343,
+          "sha256": "a98768207fe2a6528dbc9783a95ce1ba5eec5763b1779bc396487b4509c89d32"
+        },
+        "completeFeedingTentacles": {
+          "samples": 624,
+          "sha256": "0e6430001f785b4c94fd99e7b79032a4f7f1550689c00ca5188aa2542633eac5"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "984af035a1cacec358105c0bf98dcd069b1bd87921e85293732beae1e2882a40"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 550,
+          "sha256": "98efc81a471405ccbbc7bde09c1b2b7dbe6aa2925d361b9d626e0169a17f586b"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 554,
+          "sha256": "f69a4706c610df9b7c7c0d0366ffd3bfff674a8fbdbf3bd138e5663746fd7c8d"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "b0ef8dc7fb6a17daed463115c991048a68f45b543f318f73ce8287037fb257bd"
+        },
+        "completePrimaryArm0": {
+          "samples": 142,
+          "sha256": "363d3274b84555be7f1e8defcf4cceb35753d42a5ee11bd7d65e4c17bf774451"
+        },
+        "completePrimaryArm1": {
+          "samples": 160,
+          "sha256": "4a861099e0e2d5c0b84c857570d77886e971c76a61a8d8a0387f3b46160d1a0f"
+        },
+        "completePrimaryArm2": {
+          "samples": 160,
+          "sha256": "b9e73bf295ff52e96049d156654cf1b593616b030fe240678695dbc0e88a2f0c"
+        },
+        "completePrimaryArm3": {
+          "samples": 160,
+          "sha256": "da9effba24cf2142d30096b145819cfef2b84143f6ec946b467e0bd8267901f4"
+        },
+        "completePrimaryArm4": {
+          "samples": 142,
+          "sha256": "f3af759ef012edc3690037bce171701baf3a1fcc8c7cef86a589fbe5a2b97603"
+        },
+        "completePrimaryArm5": {
+          "samples": 142,
+          "sha256": "25ab0e5af1a3d76710f23dff6f5640b37651b7dbd18ac51977962cfb7f788ee8"
+        },
+        "completePrimaryArm6": {
+          "samples": 142,
+          "sha256": "608b7d47a0e510a22701c98fe35b7be0e9a230d008f5a94fee82ac334e2cf134"
+        },
+        "completePrimaryArm7": {
+          "samples": 142,
+          "sha256": "d2df6ca79f8d13459a364c9b6eef9f1fc5b43b61f3a1c9b02b831920c1af4b85"
+        },
+        "completeFeedingTentacles": {
+          "samples": 242,
+          "sha256": "74f003d5edeb58d5a4e040bc3f1c8f3c93e4b82d365a2c483da28e2e3f981180"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "31255ac9378ec61486b5d9fe03a837c96d2c10fdea4d3ce78940513fc8738e60"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 264,
+          "sha256": "938de41245b2a9703f050236245e3e0acdcfafb5006f452fea0ce125f99eea02"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 262,
+          "sha256": "a46a51a826aa36758753abeb9eaf3a055dc2b47533ea6a5ee10141260abf452b"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "b0ef8dc7fb6a17daed463115c991048a68f45b543f318f73ce8287037fb257bd"
+        },
+        "completePrimaryArm0": {
+          "samples": 165,
+          "sha256": "27427ba4e513ef3dd5f3901556537d39900f94ffb6ba4c3348e9a844d4ba175a"
+        },
+        "completePrimaryArm1": {
+          "samples": 183,
+          "sha256": "f5cc944dd7c27ab74c6161d4b3d34bab7e16f2d3f240fe7d9b424df622ed7791"
+        },
+        "completePrimaryArm2": {
+          "samples": 183,
+          "sha256": "e7cdaf64714b68c82247325819c366037e14f3220c849cb0eee29c2e5823d4aa"
+        },
+        "completePrimaryArm3": {
+          "samples": 183,
+          "sha256": "d79309b2009acb9c64455f0c893073573368aa46b42f8dee52bd2ce59cd5452d"
+        },
+        "completePrimaryArm4": {
+          "samples": 165,
+          "sha256": "a7a666b4aa3c04bd102a7d58b01f75f55121f0be2406c8de356a6ac9201c7fcb"
+        },
+        "completePrimaryArm5": {
+          "samples": 165,
+          "sha256": "2946e67cfa3b73f5b8748d96b392511cd60dcbbe2321665d1b46226bc19129e7"
+        },
+        "completePrimaryArm6": {
+          "samples": 165,
+          "sha256": "f2e4fd7feb88af0494f4b453fc07b76f8f96f8794ac8d4db482b307b8d64cf54"
+        },
+        "completePrimaryArm7": {
+          "samples": 165,
+          "sha256": "efbc94e24cf91cca07ee20871bc208d11e010dfec2fbc63355f513a5caf96a90"
+        },
+        "completeFeedingTentacles": {
+          "samples": 304,
+          "sha256": "dcf09a0e90287a91883c40b314db98187e8f32caf91d5e04412456c238348d46"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "a22cde33c0b350d3ffa23692496e877924cae1798652c483968ad46474850d48"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 264,
+          "sha256": "938de41245b2a9703f050236245e3e0acdcfafb5006f452fea0ce125f99eea02"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 262,
+          "sha256": "a46a51a826aa36758753abeb9eaf3a055dc2b47533ea6a5ee10141260abf452b"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "5e427572118a891cc5dcb1a7c162096060c1618362acd8bcb029f19d1e4b1e3b"
+        },
+        "completePrimaryArm0": {
+          "samples": 1080,
+          "sha256": "5ffaf8542307d02bab96bf48d8ac8f59ab52e7865efbabaec3ef5aa5c290eeb5"
+        },
+        "completePrimaryArm1": {
+          "samples": 1206,
+          "sha256": "34c0fad75228e71371cd5a7b76e146f1d23d3609a9c71999be668db8608a056c"
+        },
+        "completePrimaryArm2": {
+          "samples": 1206,
+          "sha256": "caad25071cf5bea6ec7ddeb94e598d0a19ffa318b4bded97aac5ed4a8c560af8"
+        },
+        "completePrimaryArm3": {
+          "samples": 1206,
+          "sha256": "23156d0ac5dde81ba3bf8ecaea5163e4524cbdda174b0ef6bbe97ba728b704c9"
+        },
+        "completePrimaryArm4": {
+          "samples": 1080,
+          "sha256": "5153329adee3fd19a0ad2ebbebabe05aa0a9a0348879266865629e08df6dd8d2"
+        },
+        "completePrimaryArm5": {
+          "samples": 1080,
+          "sha256": "5b633f332f0a29e1d7c6d51c6b7edd14bc10995f21f09b45fd6e779a9245ef72"
+        },
+        "completePrimaryArm6": {
+          "samples": 1080,
+          "sha256": "d20c74da904657b91bf0d28641d7b0aef77fe6f1c0ea46db43d777e79d7c886e"
+        },
+        "completePrimaryArm7": {
+          "samples": 1080,
+          "sha256": "2517428ce24cc9ffd498bbf372400de8384e1bde0e7c29007f86470b1a56590f"
+        },
+        "completeFeedingTentacles": {
+          "samples": 1728,
+          "sha256": "7ca84fb64dc61d745ec38124aeb009eb5bf86684dcbd6171d5904f708d4c60d1"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "806c26c8cfbcb80bc1f608c13f4fb4079adee6c938ab5c009f83d4116a0b769e"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 2184,
+          "sha256": "97a56696ae6a16fb46e6a16e40865c389b5329b7f5697267a1f0dc3faadb9bba"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 2135,
+          "sha256": "f3c05e8a59b086d21057f1bd59ac66f553a584cb7202282ef2a0042a01a9e4a2"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "5e427572118a891cc5dcb1a7c162096060c1618362acd8bcb029f19d1e4b1e3b"
+        },
+        "completePrimaryArm0": {
+          "samples": 1245,
+          "sha256": "66586b7b8a12ce1dfc2aa480426efb1ed666529c329fee306aea6beaaebb6520"
+        },
+        "completePrimaryArm1": {
+          "samples": 1357,
+          "sha256": "af460c7c40fcb52065d0f296fa4b4e3d2e80989ee3b4343bba2bc6b68a8ac3b2"
+        },
+        "completePrimaryArm2": {
+          "samples": 1357,
+          "sha256": "44f44e036c86d17b2e7c2b3ff8b558dd8a318f5c9e5085fbd631f6bc129d54a0"
+        },
+        "completePrimaryArm3": {
+          "samples": 1357,
+          "sha256": "dedff67198a7b46d1d18175d17cba3a1b0485d849266756b8798df9fa0138f0f"
+        },
+        "completePrimaryArm4": {
+          "samples": 1245,
+          "sha256": "e57ce42e2fd25a66d97057f0d3aff7b5785674a23f80f103fba0f5e98672f050"
+        },
+        "completePrimaryArm5": {
+          "samples": 1245,
+          "sha256": "3c0d1ce5943e3e44b92426633466d5c7285688f19f0b54e5d99125a544d1256a"
+        },
+        "completePrimaryArm6": {
+          "samples": 1245,
+          "sha256": "a7d38f351efc55a3f2afcff3d4a819cb25952dd361cbdbf92f4336eae3786de7"
+        },
+        "completePrimaryArm7": {
+          "samples": 1245,
+          "sha256": "21e925ff8eed6e225d2153e16e90d745a6c1114b1290090ccb50045c7791f1f2"
+        },
+        "completeFeedingTentacles": {
+          "samples": 2256,
+          "sha256": "9087031d74943de0a97aaaafe8e07f1f13ac1037367b8975964d1c24658220c1"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "beece043bf7407594326ebaffa584f084faf111134a7407d3a6aa92b0d098035"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 2184,
+          "sha256": "97a56696ae6a16fb46e6a16e40865c389b5329b7f5697267a1f0dc3faadb9bba"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 2135,
+          "sha256": "f3c05e8a59b086d21057f1bd59ac66f553a584cb7202282ef2a0042a01a9e4a2"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "5932d8e226f6255d5ddbe9ffc6759a1599aa1cb74bc7b0b988f4680ed7ec35dd"
+        },
+        "completePrimaryArm0": {
+          "samples": 280,
+          "sha256": "3f368216c0b8d62656439e8659ff35b48b4ba01f2aaef0d8de151663a8189420"
+        },
+        "completePrimaryArm1": {
+          "samples": 307,
+          "sha256": "ed3c9d53c59fa9dd4b3948542b3fc646ae93caaee7a75e1fedc7509b14171882"
+        },
+        "completePrimaryArm2": {
+          "samples": 307,
+          "sha256": "80524e73f1449aa436a622594fe7a8efc9a31b814b09b31cfec5db10efc7485d"
+        },
+        "completePrimaryArm3": {
+          "samples": 307,
+          "sha256": "5c4cfe8f5cdbd7e7b1e117c900d821306446947dbac9aba5fbfc45c2cd7d1b67"
+        },
+        "completePrimaryArm4": {
+          "samples": 280,
+          "sha256": "4c62c8e34126eb28d79515eab36a564f9f108f0d2b389e42583efa0028c42741"
+        },
+        "completePrimaryArm5": {
+          "samples": 280,
+          "sha256": "78c46155152ed811eb6f35303f3721976d19389a22be24c836b4359d05f1f90b"
+        },
+        "completePrimaryArm6": {
+          "samples": 280,
+          "sha256": "d4392ee8165b5147a6b44ea313661e2b522d0f2563a5857a4ceb5fc2abd58804"
+        },
+        "completePrimaryArm7": {
+          "samples": 280,
+          "sha256": "27b1e1dcd1e4ac9fa882dddf2bb5d324141e0ccaa23f70e08d08f80400b8eee6"
+        },
+        "completeFeedingTentacles": {
+          "samples": 444,
+          "sha256": "124cd414f1068716c0f42566560d8122298b2e7ef3a14c37839a34bdb276b70e"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "8488d62955a834e4de3d2faf35173fd899f2dc79e02eda0f8ef833713000d052"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 550,
+          "sha256": "1e5dc0f77aebc302f387c06d198accde183e2312038c2ce0cabc5831d728c063"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 554,
+          "sha256": "84eb90d95fa1be4300269c53a2a273fe336790fe839b3684c5b1f0443a3df425"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "5932d8e226f6255d5ddbe9ffc6759a1599aa1cb74bc7b0b988f4680ed7ec35dd"
+        },
+        "completePrimaryArm0": {
+          "samples": 343,
+          "sha256": "0df057e0615946fbaf5ec00416fd431385bb2a3ea084728c98ff773eeb0b2732"
+        },
+        "completePrimaryArm1": {
+          "samples": 367,
+          "sha256": "86da3de10c37443fd9f847898edec95f604d793c23ad97ead3d3072cce84c6c8"
+        },
+        "completePrimaryArm2": {
+          "samples": 367,
+          "sha256": "5314290753ae3c66838b0be01141d99d3e3210d474ac7e3ed5de76154c5f46d4"
+        },
+        "completePrimaryArm3": {
+          "samples": 367,
+          "sha256": "eaab1e03cc7175462fbe51819a9053abc945b23a9fa0183ffda87a6eab5b8ddf"
+        },
+        "completePrimaryArm4": {
+          "samples": 343,
+          "sha256": "71f2d9c73a0642ee75d3210858c08b17d38321455052b5242168bdf0d2bc2b3a"
+        },
+        "completePrimaryArm5": {
+          "samples": 343,
+          "sha256": "8008f227330957ad29cf62366dfcdc10b2dbbcd9c77515e870904a3db45b54e1"
+        },
+        "completePrimaryArm6": {
+          "samples": 343,
+          "sha256": "abe6f3f8f0a35d74db09c1045a8548cdb4ae8273644444999385d262a8a477da"
+        },
+        "completePrimaryArm7": {
+          "samples": 343,
+          "sha256": "cfc6098924d942b6f3ac19782b29ba023e339595cd6530ec721e2aa1182523fe"
+        },
+        "completeFeedingTentacles": {
+          "samples": 624,
+          "sha256": "047df1d68cbc16bee14b0403f093964fc94465cf62906a7d4cef92ab5fe252a3"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "43069edecd336091f0f278cdf2cfc467109ba312482d4c1cec78c573a257ff91"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 550,
+          "sha256": "1e5dc0f77aebc302f387c06d198accde183e2312038c2ce0cabc5831d728c063"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 554,
+          "sha256": "84eb90d95fa1be4300269c53a2a273fe336790fe839b3684c5b1f0443a3df425"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "5673ff29a6f1ac4335c2fe2e3228dc5b1672c9600f4c35143fec101b80c09de8"
+        },
+        "completePrimaryArm0": {
+          "samples": 142,
+          "sha256": "0598a5beea39d99abb92e8ac0b91ffa6715bb93d4e20da8b59e1033709ffcad7"
+        },
+        "completePrimaryArm1": {
+          "samples": 160,
+          "sha256": "52ce251fec8ebbd835f548967a44761528feac0e94e0abb4d7f8884517b829f9"
+        },
+        "completePrimaryArm2": {
+          "samples": 160,
+          "sha256": "4ff9dba604cbe1cf4c3a2ab7d7573a2b3b020a50cc531d1d3b81cb93b3dbc1e5"
+        },
+        "completePrimaryArm3": {
+          "samples": 160,
+          "sha256": "3c0bc952a84d86e146224981bd644c4c33d9d704158f23b55d964273f04845c3"
+        },
+        "completePrimaryArm4": {
+          "samples": 142,
+          "sha256": "4841a60d5c8f6eb561d4806d4e3401e18d1b3427deeb7a1811fbc902a02a9a07"
+        },
+        "completePrimaryArm5": {
+          "samples": 142,
+          "sha256": "26888779c345c6be6ad99a3a2d95362807196b57d22b2841ea4b00c0cf9db37a"
+        },
+        "completePrimaryArm6": {
+          "samples": 142,
+          "sha256": "462839a08c0fc8067c35a1908a86245126a43aac6079229ef62a4a8cd7b366a7"
+        },
+        "completePrimaryArm7": {
+          "samples": 142,
+          "sha256": "c25730ff453fab925db6b38f5b2551ec64d817d3fcfd3900f2e990e711058ec4"
+        },
+        "completeFeedingTentacles": {
+          "samples": 242,
+          "sha256": "3b6a4ffd703dc427bb4818dafad5daae5cbee1c655abdc23c29769efb5dc5852"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "c985ff210fabb3b0b4ce73bd1078e92ca66370ae13dd69a619927f2730622139"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 264,
+          "sha256": "53837779f10eebb7cdc77bbbbdb8f44adea23bdf11207f5f01f2d2766ca099df"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 262,
+          "sha256": "abfd657e401e6c58ebc3c6d9d6c3ffde4b0c465247b53e996be26eb38e56a994"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "5673ff29a6f1ac4335c2fe2e3228dc5b1672c9600f4c35143fec101b80c09de8"
+        },
+        "completePrimaryArm0": {
+          "samples": 165,
+          "sha256": "e53c95953384936f3d940a7f981404a4e69285259a353e9d203a13b941d1ceff"
+        },
+        "completePrimaryArm1": {
+          "samples": 183,
+          "sha256": "e7e53c0503334837e86603170dc5c7f5ded1db630b8a55c342c1e6711efdfdff"
+        },
+        "completePrimaryArm2": {
+          "samples": 183,
+          "sha256": "cd7bc19da8fd014398735fc6f9c75d30ec4b88a67faf368687aaeebda5cb3c15"
+        },
+        "completePrimaryArm3": {
+          "samples": 183,
+          "sha256": "843118c169cc083314af3df6dcd1255fdf761f7aac2f07a9aef5d3c9f6e0bf34"
+        },
+        "completePrimaryArm4": {
+          "samples": 165,
+          "sha256": "3672ece72fe165ccf8947edd38f5875f5a1700724548cc04e88ea81edc1d73f9"
+        },
+        "completePrimaryArm5": {
+          "samples": 165,
+          "sha256": "d318719f9b797d6476f40a1af9cb55f51e10d83f4d624029542a30c6af390614"
+        },
+        "completePrimaryArm6": {
+          "samples": 165,
+          "sha256": "61db8b5c2c399d055a656f4b7833369cde47a292ce3298376b479623798374ee"
+        },
+        "completePrimaryArm7": {
+          "samples": 165,
+          "sha256": "37f23c96537c06d6c00d10eb363c1272b592216dbc290ce0a18306db640e4019"
+        },
+        "completeFeedingTentacles": {
+          "samples": 304,
+          "sha256": "c3f3a0af36db87302a0dbdddb5ecd7fa4f70547eefb0f3939281b6311ff253a1"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "405250d65cb6f2197b7fa2a0d55d07efa4acfddf7a36c3864d8515e451185732"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 264,
+          "sha256": "53837779f10eebb7cdc77bbbbdb8f44adea23bdf11207f5f01f2d2766ca099df"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 262,
+          "sha256": "abfd657e401e6c58ebc3c6d9d6c3ffde4b0c465247b53e996be26eb38e56a994"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "95ef6ff99d75dbc41a905a441923021416530d20376265771a2ae4c748f11bf2"
+        },
+        "completePrimaryArm0": {
+          "samples": 1080,
+          "sha256": "596f77c1020093d9b6ca175244eb177577b443b82f8d014818d253145e1d63f9"
+        },
+        "completePrimaryArm1": {
+          "samples": 1206,
+          "sha256": "010da371e820ed1d33c0c89b2a9336ccb582fa72ab66c3d2c1a919440692428f"
+        },
+        "completePrimaryArm2": {
+          "samples": 1206,
+          "sha256": "a199f8002922d2be4833c65dd5f37992350eed7a50441af6bf5ac593fc4a70e5"
+        },
+        "completePrimaryArm3": {
+          "samples": 1206,
+          "sha256": "30b72d9fb91eee90c1058aa39018856dc144d85bfeea9e9090a43073448cf4f2"
+        },
+        "completePrimaryArm4": {
+          "samples": 1080,
+          "sha256": "7af9a0a79e596b9e75aea9a715943ec196304e2e8b1c0d2883f5e6a56fb323de"
+        },
+        "completePrimaryArm5": {
+          "samples": 1080,
+          "sha256": "b7939cf530cf2b0dd55085c81f6e3bdd5913e1dca0045595bf8ae3e850537b73"
+        },
+        "completePrimaryArm6": {
+          "samples": 1080,
+          "sha256": "596a5fa10bbc8de64a0e0d554672b52403e8bd7e960f34e9a893c568859938b5"
+        },
+        "completePrimaryArm7": {
+          "samples": 1080,
+          "sha256": "4b4f47172afce77315053dcf65642f50eec929688fa7d39ebe431d069910e507"
+        },
+        "completeFeedingTentacles": {
+          "samples": 1728,
+          "sha256": "35cc1e4b45c1fc2b72bc41d665e6690f9058a3e6fb12aee40889184f324d30cf"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "0731adef493f1d6b0171f690507d7dfa39ec19e2bc642684780c0129597662f9"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 2184,
+          "sha256": "bf54021cc0ceaa9f92898ae40c4b41221ebb9dfe799fe15067542f0242137496"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 2135,
+          "sha256": "d137585f3a1659e912d4ff7fe1e0fbfa8349afdb9512b6506ff4be554984d957"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "95ef6ff99d75dbc41a905a441923021416530d20376265771a2ae4c748f11bf2"
+        },
+        "completePrimaryArm0": {
+          "samples": 1245,
+          "sha256": "2e19fb27d8a33d6ae15c52b4ba63a7cc30d4cc6eb8b9adaf885a12209eb73dcb"
+        },
+        "completePrimaryArm1": {
+          "samples": 1357,
+          "sha256": "6b4ca85701b5e55309ad4723bafff8592d662928ec3047e5b0c2ec271cb1a38a"
+        },
+        "completePrimaryArm2": {
+          "samples": 1357,
+          "sha256": "b67719b8f1224dba57de379a138ba988adad7e5fb99139f25026d07cf3ba91b5"
+        },
+        "completePrimaryArm3": {
+          "samples": 1357,
+          "sha256": "71ea13429b0298eb29d1a8d76df4d4c6bef62507f21b4b89b2f87c9c9fceff81"
+        },
+        "completePrimaryArm4": {
+          "samples": 1245,
+          "sha256": "af971ceae98d9404f150f65999c3503a6165b597894bab68f8679c9f6708656b"
+        },
+        "completePrimaryArm5": {
+          "samples": 1245,
+          "sha256": "841ee8adc2db4400c388549c2a75094541b8bc3dfbf1695d30e8dcab0e2df2fd"
+        },
+        "completePrimaryArm6": {
+          "samples": 1245,
+          "sha256": "c262171b3512fd4fafd7af52179d555d01750cd90ab7cb0c6f642900f8259ef6"
+        },
+        "completePrimaryArm7": {
+          "samples": 1245,
+          "sha256": "9a4f4dcfebf3ed8cbbc3e8c2aa37c53219bed30db4f931e003ed855d1b342303"
+        },
+        "completeFeedingTentacles": {
+          "samples": 2256,
+          "sha256": "d8bfd63a44eef7c5f362e78ca865e1ffb24b31545f3d54c2627497ab616ec15b"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "6299ee5bfe3aca9646f7a191960f7086e0b3845d3fd226af98c3dcb9d52b0138"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 2184,
+          "sha256": "bf54021cc0ceaa9f92898ae40c4b41221ebb9dfe799fe15067542f0242137496"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 2135,
+          "sha256": "d137585f3a1659e912d4ff7fe1e0fbfa8349afdb9512b6506ff4be554984d957"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "ea72e23831e515fbc2fcac29bfd9a6856157caeaaf5ab700c15053b982ceed62"
+        },
+        "completePrimaryArm0": {
+          "samples": 280,
+          "sha256": "c96556ed58853073f1b257fe308e5db279782dbfd1b9411e7d554fa6f0f0ae1f"
+        },
+        "completePrimaryArm1": {
+          "samples": 307,
+          "sha256": "231a80fb3438500272af1948c0e61c86b0e80d7704576f99c50ed675a89d374c"
+        },
+        "completePrimaryArm2": {
+          "samples": 307,
+          "sha256": "62daa703f1ed7c8425aeda20b251d328640dfdd09ad5a18e167020a16e99ffe2"
+        },
+        "completePrimaryArm3": {
+          "samples": 307,
+          "sha256": "91b6e2cd7d60afc65d75dd2d4f055ccab4a3f1d445f93a929f17463d0981cbd2"
+        },
+        "completePrimaryArm4": {
+          "samples": 280,
+          "sha256": "b17cf6bc2842180c904384d00ca72f04aeef1e849e07368fad5505e7e4fa0dbc"
+        },
+        "completePrimaryArm5": {
+          "samples": 280,
+          "sha256": "dd8903645529266da440c0b8d660196f2231e1cea23b551e366835ce9e0e6fb1"
+        },
+        "completePrimaryArm6": {
+          "samples": 280,
+          "sha256": "f64957d9bb0abb3b7c4e660d55ca5d9cfd3398376ea7e092d7f2314fb87ad544"
+        },
+        "completePrimaryArm7": {
+          "samples": 280,
+          "sha256": "8daa565a2620a6ba89c2f860b67eba207602f70814d96a613e38543f4c5839ab"
+        },
+        "completeFeedingTentacles": {
+          "samples": 444,
+          "sha256": "c8fb79d45552a28b0171f44366dd5ab959ff442e2141be1a6fbf7c30248b5a64"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "eba63e362c753eb05d3f8f7a2ef499ee5172b590dfff2c5b9110a2ab738c2ebb"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 550,
+          "sha256": "a1eb5ca944b2a791e2827ae658883f83c1839f5766abc07550ac60127e68b7a3"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 554,
+          "sha256": "97ea848944b11e8149aea2cef7af2c523c4c276efea73f1f88556a3df424149a"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "ea72e23831e515fbc2fcac29bfd9a6856157caeaaf5ab700c15053b982ceed62"
+        },
+        "completePrimaryArm0": {
+          "samples": 343,
+          "sha256": "e2c08d078228dc1c689d621d911afba70fc5a28717225420a20f34919cb2618a"
+        },
+        "completePrimaryArm1": {
+          "samples": 367,
+          "sha256": "bc98449c23cdf6dd97b3b40c0b26990f2fa15161f66ffb4de431fb9c7a722321"
+        },
+        "completePrimaryArm2": {
+          "samples": 367,
+          "sha256": "3c96a4308ef7c48b509a917a15913e48298c5683efb96e000d0f305f36e7075d"
+        },
+        "completePrimaryArm3": {
+          "samples": 367,
+          "sha256": "7b55765c232ebd5340591e08ff5f7c5a137464a036d5cff8f763a1f09be5eeb1"
+        },
+        "completePrimaryArm4": {
+          "samples": 343,
+          "sha256": "d8a8c25644c4aee1579abdb8014d10f707da4698e0913bc971e27d89ceb8fe27"
+        },
+        "completePrimaryArm5": {
+          "samples": 343,
+          "sha256": "e4141ccbb7a4fc3dd42e95b180f1ac5b141f738f7575c5b2c89b5ef0446ee027"
+        },
+        "completePrimaryArm6": {
+          "samples": 343,
+          "sha256": "838e478d2e7f9117a4c2366bae833dac41d9e5af1b2e350711142aa0df6121d1"
+        },
+        "completePrimaryArm7": {
+          "samples": 343,
+          "sha256": "6bf0285b626e11937ceafe6f4c5dd11f6f8f4a5afcf4c640c8e5f34b25decf39"
+        },
+        "completeFeedingTentacles": {
+          "samples": 624,
+          "sha256": "a71ffe5813e2c0b29b4bc267ad0d9ab3416f1e2f26d9199e9741331e6c50f5ec"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "2e4e4b6374f982edcf955708133f30825452af1f995ab57d2eaf2d2a134bbd41"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 550,
+          "sha256": "a1eb5ca944b2a791e2827ae658883f83c1839f5766abc07550ac60127e68b7a3"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 554,
+          "sha256": "97ea848944b11e8149aea2cef7af2c523c4c276efea73f1f88556a3df424149a"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "941f08f1808d2916e66686efbdbbf7a25da15b49a62c65acbdd5d18da76b94b4"
+        },
+        "completePrimaryArm0": {
+          "samples": 142,
+          "sha256": "3a8f9e98cd569034b2ab66e0735d00f7288793ed9477caa4877853791809a7e2"
+        },
+        "completePrimaryArm1": {
+          "samples": 160,
+          "sha256": "5b64ef43326dbbd945919bd393a7d1f61dc11edd90e824e6cc5b09f73b935504"
+        },
+        "completePrimaryArm2": {
+          "samples": 160,
+          "sha256": "ec3cf05d4fa344088b9bf6bb23c6df0bf86ba2097f1cac546a531cba50c9d824"
+        },
+        "completePrimaryArm3": {
+          "samples": 160,
+          "sha256": "695fb49c740b2dbbb88dead27db5bd46091fb25e0a19db7fd33be426b1b587bf"
+        },
+        "completePrimaryArm4": {
+          "samples": 142,
+          "sha256": "ebb07bb3386cf3a033e67bcfab0478ef4418d1466cfe69526d1994255c1d149b"
+        },
+        "completePrimaryArm5": {
+          "samples": 142,
+          "sha256": "e3cce296ad71c327bc04470a59d120a35ade85b967631e872f71d15c1a10f1d5"
+        },
+        "completePrimaryArm6": {
+          "samples": 142,
+          "sha256": "d0d9752cc3878e2d0260bbf1f0434a798f9483461b8dd0ac890b5af3998ae3fa"
+        },
+        "completePrimaryArm7": {
+          "samples": 142,
+          "sha256": "e4ab41e43e0653fc7d9870a320060bfbaa19b7819a67e3c0b6e779709c5732df"
+        },
+        "completeFeedingTentacles": {
+          "samples": 242,
+          "sha256": "6d23dc3328a9240a0805180a29b677f2d425a7c5efca2c7a09c7a8b746c256ec"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "9ab94dade42a6cc418feadb05cc1f7cab0df54533fd181b9a5679beec850f885"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 264,
+          "sha256": "86c90d16c9d5c0ea47c4312b6f301bcc8eb81fc98c30c2216c6179a76993febe"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 262,
+          "sha256": "3a9ff9031c2f57e327f79252dab2aa96c9dc79fe53168e34e431e57087500a7e"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "941f08f1808d2916e66686efbdbbf7a25da15b49a62c65acbdd5d18da76b94b4"
+        },
+        "completePrimaryArm0": {
+          "samples": 165,
+          "sha256": "f1875a9b50221741d16a2767a1ba1748e663a19a30f84794529596a22b20b21a"
+        },
+        "completePrimaryArm1": {
+          "samples": 183,
+          "sha256": "57f0f0789fcfb9513f32a721658a4e331532fda9e0e69a0d3dd4f9caa853653c"
+        },
+        "completePrimaryArm2": {
+          "samples": 183,
+          "sha256": "7931c884a687efe0578edb999a9eee28784e05b449631365ce763d264ba968c6"
+        },
+        "completePrimaryArm3": {
+          "samples": 183,
+          "sha256": "03ad0195b43963a8a0472b09fb9956920f821036f41a437b945e356348353204"
+        },
+        "completePrimaryArm4": {
+          "samples": 165,
+          "sha256": "10fe9ca72eede5a9a95ce7d0468c5596e18417b769d18b02c9a81da64ecabc8f"
+        },
+        "completePrimaryArm5": {
+          "samples": 165,
+          "sha256": "113a2eb88730d924366354329693a3e55b2efd19c2891ccbdd0d0b190154eab0"
+        },
+        "completePrimaryArm6": {
+          "samples": 165,
+          "sha256": "dc9b25bfb1ae9c86dcaa7ddc7fb61a8053967e4564d24323d96e47c6919bba8a"
+        },
+        "completePrimaryArm7": {
+          "samples": 165,
+          "sha256": "f46a58251562af0f91613086bd2924dfc745f838a4c177098751f3b19acb947f"
+        },
+        "completeFeedingTentacles": {
+          "samples": 304,
+          "sha256": "b5f88ef61395356ac3d1635416965a40e9677fd2bd84adf2d1b4eb6a040d262b"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "b04caf9ba1acb76f59cd683b86fb43edc84e40d32247eb352dc60d174f5f9a68"
+        },
+        "headSkinOutsideSocketUnion": {
+          "samples": 264,
+          "sha256": "86c90d16c9d5c0ea47c4312b6f301bcc8eb81fc98c30c2216c6179a76993febe"
+        },
+        "crownSkinOutsideSocketUnion": {
+          "samples": 262,
+          "sha256": "3a9ff9031c2f57e327f79252dab2aa96c9dc79fe53168e34e431e57087500a7e"
+        }
+      }
+    }
+  ],
+  "supportingHead": [
+    {
+      "depthStrength": 0,
+      "support": {
+        "headNormals": {
+          "elements": 7392,
+          "bytes": 29568,
+          "encoding": "float32-le",
+          "sha256": "595de818390534873a2867e648dabb794f144ca7bc28110a91b7939a78d23d51"
+        },
+        "crownSurfacePositionsAndNormals": {
+          "elements": 13200,
+          "bytes": 105600,
+          "encoding": "float64-le",
+          "sha256": "222f45e6739ed3ce11457a2183d7c58fded77036d1536f535a498836f861d00f"
+        },
+        "fullDorsalHeadProfile": [
+          [
+            0.3,
+            4.6076013154895176e-17,
+            0.43
+          ],
+          [
+            0.3261111111111111,
+            4.615548286514417e-17,
+            0.4302582667502866
+          ],
+          [
+            0.3522222222222222,
+            4.6271033207984984e-17,
+            0.4310139887500447
+          ],
+          [
+            0.3783333333333333,
+            4.6420426205688963e-17,
+            0.4322385486226217
+          ],
+          [
+            0.40444444444444444,
+            4.660142388052744e-17,
+            0.43390332899136497
+          ],
+          [
+            0.4305555555555556,
+            4.681178825477175e-17,
+            0.43597971247962203
+          ],
+          [
+            0.45666666666666667,
+            4.704928135069322e-17,
+            0.43843908171074025
+          ],
+          [
+            0.48277777777777775,
+            4.73116651905632e-17,
+            0.441252819308067
+          ],
+          [
+            0.5088888888888888,
+            4.759670179665302e-17,
+            0.44439230789494977
+          ],
+          [
+            0.5349999999999999,
+            4.790215319123401e-17,
+            0.4478289300947359
+          ],
+          [
+            0.5611111111111111,
+            4.8225781396577516e-17,
+            0.45153406853077294
+          ],
+          [
+            0.5872222222222222,
+            4.856534843495487e-17,
+            0.45547910582640816
+          ],
+          [
+            0.6133333333333333,
+            4.8918616328637406e-17,
+            0.4596354246049891
+          ],
+          [
+            0.6394444444444445,
+            4.928334709989646e-17,
+            0.46397440748986307
+          ],
+          [
+            0.6655555555555555,
+            4.9657302771003354e-17,
+            0.46846743710437755
+          ],
+          [
+            0.6916666666666667,
+            5.003824536422946e-17,
+            0.4730858960718799
+          ],
+          [
+            0.7177777777777777,
+            5.042393690184607e-17,
+            0.4778011670157176
+          ],
+          [
+            0.7438888888888888,
+            5.0812139406124553e-17,
+            0.4825846325592381
+          ],
+          [
+            0.77,
+            5.120061489933623e-17,
+            0.48740767532578877
+          ],
+          [
+            0.7961111111111111,
+            5.1587125403752444e-17,
+            0.492241677938717
+          ],
+          [
+            0.8222222222222222,
+            5.1969432941644524e-17,
+            0.4970580230213702
+          ],
+          [
+            0.8483333333333334,
+            5.234529953528381e-17,
+            0.5018280931970959
+          ],
+          [
+            0.8744444444444444,
+            5.271248720694164e-17,
+            0.5065232710892413
+          ],
+          [
+            0.9005555555555556,
+            5.306875797888934e-17,
+            0.511114939321154
+          ],
+          [
+            0.9266666666666665,
+            5.3411873873398236e-17,
+            0.5155744805161815
+          ],
+          [
+            0.9527777777777777,
+            5.373959691273971e-17,
+            0.519873277297671
+          ],
+          [
+            0.9788888888888889,
+            5.404968911918505e-17,
+            0.52398271228897
+          ],
+          [
+            1.005,
+            5.4339912515005604e-17,
+            0.5278741681134259
+          ]
+        ],
+        "fullDorsalCrownProfile": [
+          [
+            1.02,
+            5.449678256205722e-17,
+            0.53
+          ],
+          [
+            1.0362897380592788,
+            5.4531880192037965e-17,
+            0.5309832259646394
+          ],
+          [
+            1.0542909692695324,
+            5.426572191643993e-17,
+            0.5290879593157342
+          ],
+          [
+            1.0737543425817533,
+            5.3614661405090525e-17,
+            0.523471877626935
+          ],
+          [
+            1.0943224755990926,
+            5.2509841418505866e-17,
+            0.5134262433719762
+          ],
+          [
+            1.115550160128475,
+            5.0910978938831657e-17,
+            0.4985148772601047
+          ],
+          [
+            1.136930606605796,
+            4.8817090133655524e-17,
+            0.4786856643969871
+          ],
+          [
+            1.1579259564192335,
+            4.6271294851761714e-17,
+            0.4543250188349679
+          ],
+          [
+            1.178,
+            4.335801986936295e-17,
+            0.4262366835575315
+          ],
+          [
+            1.1966508878516433,
+            4.019278353269517e-17,
+            0.3955447998190919
+          ],
+          [
+            1.2134416217192292,
+            3.6906644391090216e-17,
+            0.3635409083933853
+          ],
+          [
+            1.228026263858321,
+            3.36286238763347e-17,
+            0.3315079311995272
+          ],
+          [
+            1.2401700935788387,
+            3.046956147185122e-17,
+            0.30055657022807397
+          ],
+          [
+            1.2497623520673644,
+            2.7510016394975325e-17,
+            0.2715014462040618
+          ],
+          [
+            1.2568207208706201,
+            2.479346928115074e-17,
+            0.24479046993277215
+          ],
+          [
+            1.2614872419831349,
+            2.2324769383990176e-17,
+            0.22048736867234733
+          ],
+          [
+            1.264015969889343,
+            2.0072899387075366e-17,
+            0.19829810521837657
+          ],
+          [
+            1.2647532084779498,
+            1.7976783354020408e-17,
+            0.17762821370472234
+          ],
+          [
+            1.2641116901401523,
+            1.5952921298191192e-17,
+            0.15765861397022257
+          ],
+          [
+            1.2625404662135817,
+            1.3903905823941002e-17,
+            0.13743027303614944
+          ],
+          [
+            1.2604925691779312,
+            1.172721026727954e-17,
+            0.11593155565287376
+          ],
+          [
+            1.2583926578027222,
+            9.323942829699918e-18,
+            0.09218528253679993
+          ],
+          [
+            1.2566068565206656,
+            6.607472793968885e-18,
+            0.06533471630057738
+          ],
+          [
+            1.255416849651267,
+            3.511881077844883e-18,
+            0.0347281728658795
+          ],
+          [
+            1.255,
+            3.4838169951416064e-33,
+            3.445169571768006e-17
+          ]
+        ]
+      }
+    },
+    {
+      "depthStrength": 1.2,
+      "support": {
+        "headNormals": {
+          "elements": 7392,
+          "bytes": 29568,
+          "encoding": "float32-le",
+          "sha256": "02c262dddf60d9739abff65bb844b694b72364c9a6f236b7d7a40307219f3c28"
+        },
+        "crownSurfacePositionsAndNormals": {
+          "elements": 13200,
+          "bytes": 105600,
+          "encoding": "float64-le",
+          "sha256": "0a3bffab55c9d2a9ebc873233604bf75e3c6e1a2511b93b18ae90d28d27c946e"
+        },
+        "fullDorsalHeadProfile": [
+          [
+            0.3,
+            4.6076013154895176e-17,
+            0.496
+          ],
+          [
+            0.3261111111111111,
+            4.615548286514417e-17,
+            0.4962582667502866
+          ],
+          [
+            0.3522222222222222,
+            4.6271033207984984e-17,
+            0.4970139887500447
+          ],
+          [
+            0.3783333333333333,
+            4.6420426205688963e-17,
+            0.4982385486226217
+          ],
+          [
+            0.40444444444444444,
+            4.660142388052744e-17,
+            0.49990332899136497
+          ],
+          [
+            0.4305555555555556,
+            4.681178825477175e-17,
+            0.501979712479622
+          ],
+          [
+            0.45666666666666667,
+            4.704928135069322e-17,
+            0.5044390817107403
+          ],
+          [
+            0.48277777777777775,
+            4.73116651905632e-17,
+            0.507252819308067
+          ],
+          [
+            0.5088888888888888,
+            4.759670179665302e-17,
+            0.5103923078949497
+          ],
+          [
+            0.5349999999999999,
+            4.790215319123401e-17,
+            0.513828930094736
+          ],
+          [
+            0.5611111111111111,
+            4.8225781396577516e-17,
+            0.517534068530773
+          ],
+          [
+            0.5872222222222222,
+            4.856534843495487e-17,
+            0.5214791058264082
+          ],
+          [
+            0.6133333333333333,
+            4.8918616328637406e-17,
+            0.525635424604989
+          ],
+          [
+            0.6394444444444445,
+            4.928334709989646e-17,
+            0.529974407489863
+          ],
+          [
+            0.6655555555555555,
+            4.9657302771003354e-17,
+            0.5344674371043775
+          ],
+          [
+            0.6916666666666667,
+            5.003824536422946e-17,
+            0.53908589607188
+          ],
+          [
+            0.7177777777777777,
+            5.042393690184607e-17,
+            0.5438011670157177
+          ],
+          [
+            0.7438888888888888,
+            5.0812139406124553e-17,
+            0.5485846325592381
+          ],
+          [
+            0.77,
+            5.120061489933623e-17,
+            0.5534076753257887
+          ],
+          [
+            0.7961111111111111,
+            5.1587125403752444e-17,
+            0.5582416779387169
+          ],
+          [
+            0.8222222222222222,
+            5.1969432941644524e-17,
+            0.5630580230213702
+          ],
+          [
+            0.8483333333333334,
+            5.234529953528381e-17,
+            0.5678280931970958
+          ],
+          [
+            0.8744444444444444,
+            5.271248720694164e-17,
+            0.5725232710892413
+          ],
+          [
+            0.9005555555555556,
+            5.306875797888934e-17,
+            0.5771149393211541
+          ],
+          [
+            0.9266666666666665,
+            5.3411873873398236e-17,
+            0.5815744805161814
+          ],
+          [
+            0.9527777777777777,
+            5.373959691273971e-17,
+            0.5858732772976709
+          ],
+          [
+            0.9788888888888889,
+            5.404968911918505e-17,
+            0.58998271228897
+          ],
+          [
+            1.005,
+            5.4339912515005604e-17,
+            0.5938741681134259
+          ]
+        ],
+        "fullDorsalCrownProfile": [
+          [
+            1.02,
+            5.449678256205722e-17,
+            0.596
+          ],
+          [
+            1.0362897380592788,
+            5.4531880192037965e-17,
+            0.5968255838313046
+          ],
+          [
+            1.0542909692695324,
+            5.426572191643993e-17,
+            0.5943918261638482
+          ],
+          [
+            1.0737543425817533,
+            5.3614661405090525e-17,
+            0.5877640925728116
+          ],
+          [
+            1.0943224755990926,
+            5.2509841418505866e-17,
+            0.5761624385404811
+          ],
+          [
+            1.115550160128475,
+            5.0910978938831657e-17,
+            0.5591157472713877
+          ],
+          [
+            1.136930606605796,
+            4.8817090133655524e-17,
+            0.5365839789273354
+          ],
+          [
+            1.1579259564192335,
+            4.6271294851761714e-17,
+            0.5090160406502937
+          ],
+          [
+            1.178,
+            4.335801986936295e-17,
+            0.47732332877988
+          ],
+          [
+            1.1966508878516433,
+            4.019278353269517e-17,
+            0.44276967285769997
+          ],
+          [
+            1.2134416217192292,
+            3.6906644391090216e-17,
+            0.40680005056400903
+          ],
+          [
+            1.228026263858321,
+            3.36286238763347e-17,
+            0.37084486356738394
+          ],
+          [
+            1.2401700935788387,
+            3.046956147185122e-17,
+            0.33613883766610886
+          ],
+          [
+            1.2497623520673644,
+            2.7510016394975325e-17,
+            0.3035844429606704
+          ],
+          [
+            1.2568207208706201,
+            2.479346928115074e-17,
+            0.2736744389968589
+          ],
+          [
+            1.2614872419831349,
+            2.2324769383990176e-17,
+            0.24647326022324878
+          ],
+          [
+            1.264015969889343,
+            2.0072899387075366e-17,
+            0.2216469299321497
+          ],
+          [
+            1.2647532084779498,
+            1.7976783354020408e-17,
+            0.1985271644544034
+          ],
+          [
+            1.2641116901401523,
+            1.5952921298191192e-17,
+            0.17619594545205713
+          ],
+          [
+            1.2625404662135817,
+            1.3903905823941002e-17,
+            0.15357992381005267
+          ],
+          [
+            1.2604925691779312,
+            1.172721026727954e-17,
+            0.12954782623722452
+          ],
+          [
+            1.2583926578027222,
+            9.323942829699918e-18,
+            0.10300751639321655
+          ],
+          [
+            1.2566068565206656,
+            6.607472793968885e-18,
+            0.07300177523909868
+          ],
+          [
+            1.255416849651267,
+            3.511881077844883e-18,
+            0.03880239002938481
+          ],
+          [
+            1.255,
+            3.4838169951416064e-33,
+            3.849303015486632e-17
+          ]
+        ]
+      }
+    },
+    {
+      "depthStrength": 2,
+      "support": {
+        "headNormals": {
+          "elements": 7392,
+          "bytes": 29568,
+          "encoding": "float32-le",
+          "sha256": "6a096ff1b81df3760bc7c73f8d812963520bf5d27cfe5d868e5984f1192bc769"
+        },
+        "crownSurfacePositionsAndNormals": {
+          "elements": 13200,
+          "bytes": 105600,
+          "encoding": "float64-le",
+          "sha256": "4c6102ee18175b3e19d90c9b7563286e0cd81f4c24936688155ec684eabf65ed"
+        },
+        "fullDorsalHeadProfile": [
+          [
+            0.3,
+            4.6076013154895176e-17,
+            0.54
+          ],
+          [
+            0.3261111111111111,
+            4.615548286514417e-17,
+            0.5402582667502867
+          ],
+          [
+            0.3522222222222222,
+            4.6271033207984984e-17,
+            0.5410139887500447
+          ],
+          [
+            0.3783333333333333,
+            4.6420426205688963e-17,
+            0.5422385486226217
+          ],
+          [
+            0.40444444444444444,
+            4.660142388052744e-17,
+            0.5439033289913651
+          ],
+          [
+            0.4305555555555556,
+            4.681178825477175e-17,
+            0.5459797124796221
+          ],
+          [
+            0.45666666666666667,
+            4.704928135069322e-17,
+            0.5484390817107403
+          ],
+          [
+            0.48277777777777775,
+            4.73116651905632e-17,
+            0.551252819308067
+          ],
+          [
+            0.5088888888888888,
+            4.759670179665302e-17,
+            0.5543923078949498
+          ],
+          [
+            0.5349999999999999,
+            4.790215319123401e-17,
+            0.557828930094736
+          ],
+          [
+            0.5611111111111111,
+            4.8225781396577516e-17,
+            0.561534068530773
+          ],
+          [
+            0.5872222222222222,
+            4.856534843495487e-17,
+            0.5654791058264083
+          ],
+          [
+            0.6133333333333333,
+            4.8918616328637406e-17,
+            0.5696354246049891
+          ],
+          [
+            0.6394444444444445,
+            4.928334709989646e-17,
+            0.5739744074898631
+          ],
+          [
+            0.6655555555555555,
+            4.9657302771003354e-17,
+            0.5784674371043775
+          ],
+          [
+            0.6916666666666667,
+            5.003824536422946e-17,
+            0.58308589607188
+          ],
+          [
+            0.7177777777777777,
+            5.042393690184607e-17,
+            0.5878011670157177
+          ],
+          [
+            0.7438888888888888,
+            5.0812139406124553e-17,
+            0.5925846325592381
+          ],
+          [
+            0.77,
+            5.120061489933623e-17,
+            0.5974076753257888
+          ],
+          [
+            0.7961111111111111,
+            5.1587125403752444e-17,
+            0.602241677938717
+          ],
+          [
+            0.8222222222222222,
+            5.1969432941644524e-17,
+            0.6070580230213702
+          ],
+          [
+            0.8483333333333334,
+            5.234529953528381e-17,
+            0.6118280931970959
+          ],
+          [
+            0.8744444444444444,
+            5.271248720694164e-17,
+            0.6165232710892413
+          ],
+          [
+            0.9005555555555556,
+            5.306875797888934e-17,
+            0.6211149393211541
+          ],
+          [
+            0.9266666666666665,
+            5.3411873873398236e-17,
+            0.6255744805161815
+          ],
+          [
+            0.9527777777777777,
+            5.373959691273971e-17,
+            0.629873277297671
+          ],
+          [
+            0.9788888888888889,
+            5.404968911918505e-17,
+            0.6339827122889701
+          ],
+          [
+            1.005,
+            5.4339912515005604e-17,
+            0.6378741681134259
+          ]
+        ],
+        "fullDorsalCrownProfile": [
+          [
+            1.02,
+            5.449678256205722e-17,
+            0.64
+          ],
+          [
+            1.0362897380592788,
+            5.4531880192037965e-17,
+            0.6407204890757481
+          ],
+          [
+            1.0542909692695324,
+            5.426572191643993e-17,
+            0.6379277373959243
+          ],
+          [
+            1.0737543425817533,
+            5.3614661405090525e-17,
+            0.6306255692033961
+          ],
+          [
+            1.0943224755990926,
+            5.2509841418505866e-17,
+            0.6179865686528178
+          ],
+          [
+            1.115550160128475,
+            5.0910978938831657e-17,
+            0.5995163272789097
+          ],
+          [
+            1.136930606605796,
+            4.8817090133655524e-17,
+            0.5751828552809011
+          ],
+          [
+            1.1579259564192335,
+            4.6271294851761714e-17,
+            0.545476721860511
+          ],
+          [
+            1.178,
+            4.335801986936295e-17,
+            0.5113810922614457
+          ],
+          [
+            1.1966508878516433,
+            4.019278353269517e-17,
+            0.4742529215501054
+          ],
+          [
+            1.2134416217192292,
+            3.6906644391090216e-17,
+            0.43563947867775815
+          ],
+          [
+            1.228026263858321,
+            3.36286238763347e-17,
+            0.39706948514595514
+          ],
+          [
+            1.2401700935788387,
+            3.046956147185122e-17,
+            0.35986034929146554
+          ],
+          [
+            1.2497623520673644,
+            2.7510016394975325e-17,
+            0.3249731074650761
+          ],
+          [
+            1.2568207208706201,
+            2.479346928115074e-17,
+            0.2929304183729167
+          ],
+          [
+            1.2614872419831349,
+            2.2324769383990176e-17,
+            0.26379718792384976
+          ],
+          [
+            1.264015969889343,
+            2.0072899387075366e-17,
+            0.23721281307466516
+          ],
+          [
+            1.2647532084779498,
+            1.7976783354020408e-17,
+            0.21245979828752412
+          ],
+          [
+            1.2641116901401523,
+            1.5952921298191192e-17,
+            0.18855416643994685
+          ],
+          [
+            1.2625404662135817,
+            1.3903905823941002e-17,
+            0.1643463576593215
+          ],
+          [
+            1.2604925691779312,
+            1.172721026727954e-17,
+            0.13862533996012505
+          ],
+          [
+            1.2583926578027222,
+            9.323942829699918e-18,
+            0.11022233896416099
+          ],
+          [
+            1.2566068565206656,
+            6.607472793968885e-18,
+            0.07811314786477955
+          ],
+          [
+            1.255416849651267,
+            3.511881077844883e-18,
+            0.041518534805055025
+          ],
+          [
+            1.255,
+            3.4838169951416064e-33,
+            4.11872531129905e-17
+          ]
+        ]
+      }
+    }
+  ]
+}

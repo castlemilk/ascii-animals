@@ -250,7 +250,7 @@
   </dialog>
 <script data-artwork-source>
 // GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js, src/animals/manta.js, src/animals/octopus.js. Do not edit.
-// source-sha256: ddfd49f8aff727a2e4b87d8d68a4e047e77a5c3fea63d23b6ce417f623eaf3ed
+// source-sha256: 4d3360a0b7ba66830a3b85e38a96373c2f9e0c973137ebd0e367a13e3aa2fd41
 (function () {
 'use strict';
 /** A framework-neutral, injectable requestAnimationFrame multiplexer. */
@@ -514,19 +514,10 @@ const mantaDefinition = (() => {
             host._shade(-.15, ca, sa, .12), 0, 24000 + (side + 1) * 400 + i * 12 + j);
         }
       }
-      // Small raised eye with a dark central pupil, rendered through the same
-      // depth buffer. Ring thickness remains meaningful on a small grid.
-      const eyeSteps = lod === 1 ? 10 : 7;
-      for (let iy = -eyeSteps; iy <= eyeSteps; iy++) {
-        for (let ix = -eyeSteps; ix <= eyeSteps; ix++) {
-          const u = ix / eyeSteps, v = iy / eyeSteps, rr = u * u + v * v;
-          if (rr > 1) continue;
-          const dome = Math.sqrt(1 - rr), pupil = rr < .26;
-          put(.82 + .090 * u, side * .32 + .080 * v, .145 + .065 * dome,
-            pupil ? .035 : .86 + .08 * dome, 0, 26000 + (side + 1) * 250 + iy * 21 + ix);
-        }
-      }
     }
+    // Manta eyes are lateral. This dorsal presentation deliberately omits eye
+    // detail instead of placing bright pupil discs on the upper/front surface.
+    // Keep the cephalic lobes above intact; they are not eyes.
   }
 
   return Object.freeze({ id: 'manta', label: 'Manta ray', ink: false, bounds, create, pose, draw });
@@ -859,6 +850,121 @@ const SPECIES = new Map([['manta', mantaDefinition], ['octopus', octopusDefiniti
   }
   const hash = n => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453123; return s - Math.floor(s); };
   const GLYPHS = '.,:;!i1l+txzvcofnae0&%8B@';
+  // Eye footprint in the continuous head/crown (anterior X, angle) chart.
+  // Turn the socket around the existing upper-lateral head surface; a small
+  // anterior advance keeps the forward rim on the same continuous crown.
+  // Retain the V6 footprint and shallow recess: the supporting brow is skin,
+  // not a separate cap. Authored proportions, not reference-photo measurements.
+  const EYE_X = .90, EYE_HALF_X = .205, EYE_ANGLE = .52, EYE_HALF_ANGLE = .31;
+  const ARM_ROOT_Y = .56, ARM_ROOT_Z = .34;
+  const PRIMARY_ROOT_Y = .64, PRIMARY_ROOT_Z = .43;
+  const HEAD_RING = 88;
+  // The eye-bearing skin grows into the arm crown. The separate crown rolls
+  // forward into individual proximal sleeves instead of one transverse cap.
+  const HEAD_STATIONS = Array.from({ length: 28 }, (_, i) => .30 + .94 * (i / 36));
+  const ROOT_MERGE = [.26, .38, .40, .39, .27, .27, .29, .255];
+  // The three upper primary roots need a longer local handoff to leave the
+  // brow before descending. Other roots and both feeding paths keep their
+  // approved boundary; the free-arm geometry beyond each boundary is exact.
+  const rootEnd = arm => arm > 0 && arm < 4 ? .40 : .30;
+  const ROOT_SECTION = [.18, .12, .24, .14, .18, .10, .22, .13];
+  function rootSleeve(arm, u) {
+    if (arm >= 8 || u >= ROOT_MERGE[arm]) return [0, 0];
+    const q = u / ROOT_MERGE[arm], angle = arm / 8 * TAU;
+    const fullness = .95 * (.125 + .070 * Math.cos(angle) ** 2);
+    // Smooth endpoints match both radius and tangent of the existing tube.
+    // Start the taper under the crown so its forward handoff stays gradual.
+    // Different short merge lengths keep the crown from ending on one plane.
+    // Keep the three upper attachments full through the early rollover, then
+    // ease into the existing arm surface. The quintic matches position, slope
+    // and curvature at both ends; its boundary and the arm paths are unchanged.
+    if (arm > 0 && arm < 4) return [fullness * (1 - q ** 3 * (10 + q * (-15 + 6 * q))),
+      -30 * fullness * q * q * (1 - q) ** 2 / ROOT_MERGE[arm]];
+    return [fullness * (1 - q) ** 3 * (1 + 3 * q),
+      -fullness * 12 * q * (1 - q) ** 2 / ROOT_MERGE[arm]];
+  }
+  function rootOffsetCorrection(arm, u) {
+    const upper = arm > 0 && arm < 4, end = upper ? .38 : .28, span = upper ? .36 : .26;
+    if (arm >= 8 || u <= .02 || u >= end) return [0, 0];
+    const v = (u - .02) / span, b = v * (1 - v);
+    // Flatten the middle of the spatial root blend, where inward center
+    // motion and sleeve taper would otherwise form a second sharp shoulder.
+    // Position and derivative return before the arm-specific distal boundary;
+    // coarse distal frames retain the original neighbor coordinates.
+    return [6 * b * b * (2 * v - 1), 12 * b * (5 * b - 1) / span];
+  }
+  // The mantle profile also supports the fins; keep its breathing and shape
+  // independent of the increasing, eye-bearing head section below.
+  function anteriorProfile(x, thickness) {
+    const u = clamp((x + .55) / 1.57, 0, 1);
+    return [.73 + .04 * u * u * (3 - 2 * u), thickness,
+      .24 * u * (1 - u) / 1.57, 0];
+  }
+  function headProfile(x, thickness) {
+    const [a, b, ax, bx] = anteriorProfile(x, thickness);
+    const q = clamp((x - .30) / .72, 0, 1);
+    // Distributed growth in both axes embeds the eye within tissue that
+    // continues filling out toward the arm roots, rather than a level barrel.
+    // The cubic starts tangent to the mantle and retains a forward slope at
+    // the crown join. These are authored proportions, not photo measurements.
+    const growth = q * q * (2 - q);
+    const slope = x >= .30 && x <= 1.02 ? q * (4 - 3 * q) / .72 : 0;
+    return [a + .12 * growth, b + .10 * growth,
+      ax + .12 * slope, bx + .10 * slope];
+  }
+  // One crown chart supplies the closing skin and the forward part of each
+  // eye. Position and both derivatives agree at the head/crown seam.
+  function crownChart(theta, phi, profile, c = Math.cos(phi), sn = Math.sin(phi)) {
+    const [crownY, crownZ, crownSlopeY, crownSlopeZ] = profile;
+    const s = Math.sin(theta), r = Math.cos(theta);
+    const blend = 4 * s * s * r * r, blendSlope = 8 * s * r * (r * r - s * s);
+    const lobe = .5 + .5 * Math.cos(8 * phi), lobeSlope = -4 * Math.sin(8 * phi);
+    const delay = .18 + .015 * c * c + .006 * c + .004 * sn;
+    const delaySlope = -.030 * c * sn - .006 * sn + .004 * c;
+    const dorsal = Math.max(0, sn);
+    // Let the upper closing skin turn beneath the separate dorsal sleeves,
+    // instead of remaining a high brow that drops in front of those roots.
+    const turnOffset = .15 - delay * lobe * lobe + .25 * dorsal ** 4;
+    const turn = theta + turnOffset * blend;
+    const turnT = 1 + turnOffset * blendSlope;
+    const turnP = (-(delaySlope * lobe * lobe + 2 * delay * lobe * lobeSlope)
+      + 1.00 * dorsal ** 3 * c) * blend;
+    const sr = Math.sin(turn), cr = Math.cos(turn);
+    const a = cr * (crownY + .235 * crownSlopeY * sr);
+    const b = cr * (crownZ + .235 * crownSlopeZ * sr);
+    const ad = -crownY * sr + .235 * crownSlopeY * (cr * cr - sr * sr);
+    const bd = -crownZ * sr + .235 * crownSlopeZ * (cr * cr - sr * sr);
+    const at = ad * turnT, bt = bd * turnT, ap = ad * turnP, bp = bd * turnP;
+    const reach = .05 + .02 * c * c + .006 * c + .004 * sn;
+    const reachSlope = -.04 * c * sn - .006 * sn + .004 * c;
+    const extension = reach * lobe * lobe;
+    const extensionSlope = reachSlope * lobe * lobe + 2 * reach * lobe * lobeSlope;
+    return [1.02 + .235 * s + extension * blend, a * c, b * sn,
+      .235 * r + extension * blendSlope, at * c, bt * sn,
+      extensionSlope * blend, ap * c - a * sn, bp * sn + b * c];
+  }
+  function eyeHeadChart(x, phi, side, thickness) {
+    if (x <= 1.02) {
+      const [a, b, ax, bx] = headProfile(x, thickness), c = Math.cos(phi), sn = Math.sin(phi);
+      return [x, side * a * c, b * sn, 1, side * ax * c, bx * sn,
+        0, -side * a * sn, b * c];
+    }
+    const angle = side === 1 ? phi : Math.PI - phi;
+    const c = Math.cos(angle), sn = Math.sin(angle);
+    const lobe = .5 + .5 * Math.cos(8 * angle);
+    const extension = (.05 + .02 * c * c + .006 * c + .004 * sn) * lobe * lobe;
+    // The eye occupies only the monotone, rear part of the crown chart. Solve
+    // its anterior coordinate without flattening or clamping its forward lid.
+    let theta = Math.asin((x - 1.02) / .235);
+    for (let iteration = 0; iteration < 5; iteration++) {
+      const s = Math.sin(theta), r = Math.cos(theta);
+      theta -= (1.02 + .235 * s + extension * 4 * s * s * r * r - x)
+        / (.235 * r + extension * 8 * s * r * (r * r - s * s));
+    }
+    const [px, y, z, xt, yt, zt, xp, yp, zp] = crownChart(theta, angle, headProfile(1.02, thickness), c, sn);
+    return [px, y, z, 1, yt / xt, zt / xt,
+      0, side * (yp - yt * xp / xt), side * (zp - zt * xp / xt)];
+  }
   const INK_GLYPHS = '.,:;+=x%#@';
   const REACTION = { react: .34, spray: .94, escape: 3.25, recover: 8.8 };
   const FORMATIONS = ['independent', 'horizontal', 'vertical', 'diagonal', 'random'];
@@ -1910,21 +2016,49 @@ class CuttlefishArtwork {
         const u = i / 82, theta = Math.PI * .90 * u;
         const sine = Math.max(.00001, Math.sin(theta));
         const nx = -.72 * Math.pow(sine, -.28) * Math.cos(theta) * Math.PI * .90 / 2.34;
+        const x = -1.85 + 2.34 * u, front = anteriorProfile(x, thickness);
         for (let j = 0; j < 88; j++) {
           const ny = this._rings[88][j][0] / .73, nz = this._rings[88][j][1] / thickness;
-          const inv = 1 / Math.sqrt(nx * nx + ny * ny + nz * nz), n = (i * 88 + j) * 3;
-          this.bodyNormals[n] = nx * inv; this.bodyNormals[n + 1] = ny * inv; this.bodyNormals[n + 2] = nz * inv;
+          const c = this._rings[88][j][0], s = this._rings[88][j][1];
+          const fx = x > -.55 ? -front[2] / front[0] * c * c : nx;
+          const fy = x > -.55 ? c / front[0] : ny, fz = x > -.55 ? s / front[1] : nz;
+          const inv = 1 / Math.sqrt(fx * fx + fy * fy + fz * fz), n = (i * 88 + j) * 3;
+          this.bodyNormals[n] = fx * inv; this.bodyNormals[n + 1] = fy * inv; this.bodyNormals[n + 2] = fz * inv;
         }
       }
-      if (!this.headNormals) {
-        this.headNormals = new Float32Array(37 * 48 * 3);
-        for (let i = 0; i <= 36; i++) {
-          const nx = -Math.cos(Math.PI * i / 36) * Math.PI / .94;
-          for (let j = 0; j < 48; j++) {
-            const ny = this._rings[48][j][0] / .40, nz = this._rings[48][j][1] / .36;
-            const inv = 1 / Math.sqrt(nx * nx + ny * ny + nz * nz), n = (i * 48 + j) * 3;
-            this.headNormals[n] = nx * inv; this.headNormals[n + 1] = ny * inv; this.headNormals[n + 2] = nz * inv;
-          }
+      this.headNormals ||= new Float32Array(HEAD_STATIONS.length * HEAD_RING * 3);
+      for (let i = 0; i < HEAD_STATIONS.length; i++) {
+        const [a, b, ax, bx] = headProfile(HEAD_STATIONS[i], thickness);
+        for (let j = 0; j < HEAD_RING; j++) {
+          const [c, s] = this._rings[HEAD_RING][j];
+          const nx = -(b * ax * c * c + a * bx * s * s), ny = b * c, nz = a * s;
+          const inv = 1 / Math.max(.00001, Math.hypot(nx, ny, nz)), n = (i * HEAD_RING + j) * 3;
+          this.headNormals[n] = nx * inv;
+          this.headNormals[n + 1] = ny * inv;
+          this.headNormals[n + 2] = nz * inv;
+        }
+      }
+      this.crownSurface ||= new Float64Array(25 * HEAD_RING * 6);
+      const crownProfile = headProfile(1.02, thickness);
+      for (let i = 0; i <= 24; i++) {
+        const theta = i / 24 * Math.PI / 2;
+        for (let j = 0; j < HEAD_RING; j++) {
+          const [c, sn] = this._rings[HEAD_RING][j], phi = j / HEAD_RING * TAU;
+          const point = crownChart(theta, phi, crownProfile, c, sn);
+          const [x, y, z, xt, yt, zt, xp, yp, zp] = point;
+          const n = (i * HEAD_RING + j) * 6;
+          this.crownSurface[n] = x;
+          this.crownSurface[n + 1] = y;
+          this.crownSurface[n + 2] = z;
+          // Cross derivatives include the angular relief and the upper roll.
+          // At the central pole the beak remains in front at 1.258+.
+          this.crownSurface[n + 3] = i === 24 ? 1 : yp * zt - zp * yt;
+          this.crownSurface[n + 4] = i === 24 ? 0 : zp * xt - xp * zt;
+          this.crownSurface[n + 5] = i === 24 ? 0 : xp * yt - yp * xt;
+          const inv = 1 / Math.max(.000001, Math.hypot(...this.crownSurface.subarray(n + 3, n + 6)));
+          this.crownSurface[n + 3] *= inv;
+          this.crownSurface[n + 4] *= inv;
+          this.crownSurface[n + 5] *= inv;
         }
       }
     }
@@ -2167,10 +2301,11 @@ class CuttlefishArtwork {
         const u = i / nu, theta = Math.PI * .90 * u;
         const sine = Math.max(.00001, Math.sin(theta));
         const profile = i === 0 ? 0 : Math.pow(sine, .72);
-        const slope = .72 * Math.pow(sine, -.28) * Math.cos(theta) * Math.PI * .90 / 2.34;
         const x = -1.85 + 2.34 * u;
+        const front = anteriorProfile(x, thickness);
         const breath = (1 + .037 * Math.sin(t * 2.8 - u * 3.2)) * (1 - this.startleTension * .09);
-        const ry = .73 * profile * breath, rz = thickness * profile;
+        const ry = (x > -.55 ? front[0] : .73 * profile) * breath;
+        const rz = x > -.55 ? front[1] : thickness * profile;
         const flex = .035 * Math.sin(t * 2.2 - u * 3.8);
         for (let j = 0; j < nv; j += lod) {
           const phi = j / nv * TAU, c = ring[j][0], sn = ring[j][1];
@@ -2186,12 +2321,12 @@ class CuttlefishArtwork {
       }
       // The tail tapers to a true point. A solid shoulder cap closes the
       // front of the mantle underneath the overlapping head.
-      const frontProfile = Math.pow(Math.sin(Math.PI * .9), .72);
+      const frontProfile = anteriorProfile(.49, thickness);
       for (let ir = 0; ir <= 12; ir += this.geometryStep || 1) {
         const r = ir / 12;
         for (let j = 0; j < 48; j += this.geometryStep || 1) {
           const a = this._rings[48][j];
-          this._put(.49, .73 * frontProfile * r * a[0], thickness * frontProfile * r * a[1], this._shade(1, 0, 0, -.035), 0, ir * 51 + j);
+          this._put(.49, frontProfile[0] * r * a[0], frontProfile[1] * r * a[1], this._shade(1, 0, 0, -.035), 0, ir * 51 + j);
         }
       }
       // A broad, very thin skirt fin: out-of-plane traveling waves make
@@ -2201,7 +2336,8 @@ class CuttlefishArtwork {
           const u = i / 116;
           const x = -1.85 + 2.34 * u;
           const profile = Math.pow(Math.max(0, Math.sin(Math.PI * .9 * u)), .72);
-          const ry = .73 * profile * (1 + .037 * Math.sin(t * 2.8 - u * 3.2));
+          const ry = (x > -.55 ? anteriorProfile(x, thickness)[0] : .73 * profile)
+            * (1 + .037 * Math.sin(t * 2.8 - u * 3.2));
           const spread = .31 * Math.pow(Math.sin(Math.PI * u), .65) * (1 - this.escapeAmount * .48);
           const phase = u * 20 - t * 4.8 + side * .85;
           const wave = (Math.sin(phase) * .18 + Math.sin(phase * 1.8 + 1.1) * .035) * ripple;
@@ -2218,37 +2354,184 @@ class CuttlefishArtwork {
           }
         }
       }
-      // A closed ellipsoidal head and two raised, rounded eyes.
-      for (let i = 0; i <= 36; i += lod) {
-        const u = i / 36, x = .30 + .94 * u;
-        const r = Math.sin(Math.PI * u), slope = Math.cos(Math.PI * u) * Math.PI / .94;
-        for (let j = 0; j < 48; j += this.geometryStep || 1) {
-          const a = this._rings[48][j];
-          const ni = (i * 48 + j) * 3, hn = this.headNormals;
-          const light = this._shade(hn[ni], hn[ni + 1], hn[ni + 2], Math.sin(u * 30 + j * .7) * .035, false, true);
-          this._put(x, a[0] * .40 * r, a[1] * .36 * r, light, 0, i * 71 + j);
-        }
-      }
-      this._eye(.75, -.31, .35, .145, t);
-      this._eye(.79, .33, .43, .20, t);
+      this._head(t);
+      this._eye(-1);
+      this._eye(1);
     }
 
-    _eye(x, y, z, radius, t) {
-      // The luminous crescent and a W-shaped dark slit distinguish the eye.
-      for (let iy = -12; iy <= 12; iy += this.geometryStep || 1) {
-        for (let ix = -14; ix <= 14; ix += this.geometryStep || 1) {
-          const u = ix / 14, v = iy / 12, rr = u * u + v * v;
-          if (rr > 1) continue;
-          const dome = Math.sqrt(1 - rr);
-          const slit = -.03 + .20 * Math.cos(u * Math.PI * 2);
-          const pupil = Math.abs(v - slit) < .19 && Math.abs(u) < .82;
-          const light = pupil ? .025 : .46 + this._shade(u * .45, v * .45, dome, 0) * .54;
-          this._put(x + u * radius * 1.1, y + v * radius * .72, z + .1 * dome, light, 0, ix * 17 + iy * 9);
+    _head(t) {
+      const lod = this.geometryStep || 1, thickness = .43 + .055 * this.depthAmount;
+      // A broad continuation of the anterior mantle carries the eye into the
+      // crown. Match mantle angular density so the wider head stays continuous
+      // at native demo scale. Socket patches replace small lateral interiors.
+      for (let i = 0; i < HEAD_STATIONS.length; i += lod) {
+        const x = HEAD_STATIONS[i], u = i / 36;
+        const [ry, rz] = headProfile(x, thickness);
+        for (let j = 0; j < HEAD_RING; j += lod) {
+          const a = this._rings[HEAD_RING][j];
+          const eyeU = (x - EYE_X) / EYE_HALF_X;
+          const eyeV = (Math.atan2(a[1], Math.abs(a[0])) - EYE_ANGLE) / EYE_HALF_ANGLE;
+          if (eyeU * eyeU + eyeV * eyeV < .92 * .92) continue;
+          const ni = (i * HEAD_RING + j) * 3, hn = this.headNormals;
+          const light = this._shade(hn[ni], hn[ni + 1], hn[ni + 2], Math.sin(u * 30 + j * .7) * .035, false, true);
+          this._put(x, a[0] * ry, a[1] * rz, light, 0, i * 101 + j);
         }
+      }
+      this._crown(t);
+    }
+
+    _crown(t) {
+      const lod = this.geometryStep || 1, surface = this.crownSurface;
+      for (let i = 0; i <= 24; i += lod) {
+        for (let j = 0; j < HEAD_RING; j += lod) {
+          const n = (i * HEAD_RING + j) * 6;
+          const [c, sn] = this._rings[HEAD_RING][j];
+          const eyeU = (surface[n] - EYE_X) / EYE_HALF_X;
+          const eyeV = (Math.atan2(sn, Math.abs(c)) - EYE_ANGLE) / EYE_HALF_ANGLE;
+          if (eyeU * eyeU + eyeV * eyeV < .92 * .92) continue;
+          const light = this._shade(surface[n + 3], surface[n + 4], surface[n + 5],
+            Math.sin(i * .73 + j * .7) * .035, false, true);
+          this._put(surface[n], surface[n + 1], surface[n + 2], light, 0, 50000 + i * 101 + j);
+        }
+      }
+    }
+
+    _eye(side) {
+      // +X is anterior, ±Y lateral and +Z dorsal. The socket, lid and iris
+      // share the head's curved parameterization: no sphere, stalk or tangent
+      // disc can extend the outline. A shallow inward dish meets a flush lid.
+      // The W is a light-adapted aperture on that surface, never a glyph.
+      // Biology, view/LOD limits and reference provenance: MARINE-EYE-ANATOMY.md.
+      const surface = (u, v) => {
+        const x = EYE_X + EYE_HALF_X * u, phi = EYE_ANGLE + EYE_HALF_ANGLE * v;
+        return eyeHeadChart(x, phi, side, .43 + .055 * this.depthAmount).slice(0, 3);
+      };
+      const left = this._project(...surface(-1, 0)), right = this._project(...surface(1, 0));
+      const top = this._project(...surface(0, 1)), bottom = this._project(...surface(0, -1));
+      const width = Math.hypot((right[0] - left[0]) / this.cellW, (right[1] - left[1]) / this.cellH);
+      const height = Math.hypot((top[0] - bottom[0]) / this.cellW, (top[1] - bottom[1]) / this.cellH);
+      // Fade the two troughs into a simple slit when too few cells can carry
+      // them. This is continuous under scale/turns and changes no attachment.
+      const detail = smooth(4, 8, width) * smooth(2, 4, height);
+      const lod = this.geometryStep || 1;
+      // Center both grids on zero at every LOD, so coarse sampling still
+      // carries the slit instead of stepping over its entire dark band.
+      const nu = Math.ceil(Math.min(32, Math.max(12, Math.ceil(width * 1.2))) / lod) * lod;
+      const nv = Math.ceil(Math.min(24, Math.max(10, Math.ceil(height * 1.2))) / lod) * lod;
+      // Local camera direction, multiplied by perspectiveStrength. Unlike a
+      // fixed +Z test this also culls the far surface during close/off-axis
+      // passes. At zero perspective it reduces to the orthographic view vector.
+      const p = this.perspectiveStrength, k = p * this.objectScale;
+      const wx = -p * this.worldX, wy = -p * this.worldY, wz = 1 - p * this.worldZ;
+      const cx = wx * this.r00 + wy * this.r10 + wz * this.r20;
+      const cy = wx * this.r01 + wy * this.r11 + wz * this.r21;
+      const cz = wx * this.r02 + wy * this.r12 + wz * this.r22;
+      for (let iy = -nv; iy <= nv; iy += lod) {
+        for (let ix = -nu; ix <= nu; ix += lod) {
+          const u = ix / nu, v = iy / nv, rr = u * u + v * v;
+          if (rr > 1) continue;
+          const q = Math.sqrt(rr), px = EYE_X + EYE_HALF_X * u;
+          const phi = EYE_ANGLE + EYE_HALF_ANGLE * v;
+          const [, sy, sz, , sxy, sxz, , spy, spz] = eyeHeadChart(px, phi, side, .43 + .055 * this.depthAmount);
+          // At most .0108 model units inward; the perimeter is exactly flush.
+          // Analytic derivatives keep the recessed iris and lid in the same
+          // lighting field as the head, without a spherical specular button.
+          const blend = clamp((q - .55) / .42, 0, 1);
+          const recess = .014 * (1 - blend * blend * (3 - 2 * blend));
+          const recessSlope = -.014 * 6 * blend * (1 - blend) / .42;
+          const r = 1 - recess;
+          const rx = -recessSlope * u / (EYE_HALF_X * Math.max(q, .00001));
+          const rp = -recessSlope * v / (EYE_HALF_ANGLE * Math.max(q, .00001));
+          const py = sy * r, pz = sz * r;
+          const ty = sxy * r + sy * rx, tz = sxz * r + sz * rx;
+          const ay = spy * r + sy * rp, az = spz * r + sz * rp;
+          const nx = side * (ay * tz - az * ty), ny = side * az, nz = -side * ay;
+          const dx = cx - k * (px - .30), dy = cy - k * py, dz = cz - k * pz;
+          // The supporting head also occludes the recessed surface.
+          // Test both normals so a far socket cannot show through sparse cells.
+          const facing = side * ((spy * sxz - spz * sxy) * dx + spz * dy - spy * dz);
+          if (facing <= 0 || nx * dx + ny * dy + nz * dz <= 0) continue;
+          const iris = 1 - smooth(.66, .84, q);
+          const slit = .015 + .17 * detail * Math.cos(u / .76 * TAU);
+          // A subcell dark band can lose every depth-buffer cell to adjacent
+          // iris samples. Give the unresolved slit bounded pixel coverage;
+          // at resolving scale the authored aperture is already wide enough.
+          const slitWidth = Math.max(.070 + .035 * (1 - detail), Math.min(.32, 1.2 / Math.max(1, height)));
+          const halfSlit = slitWidth * Math.sqrt(Math.max(0, 1 - (u / .76) ** 2));
+          const pupil = q < .82 && Math.abs(u) < .76 && Math.abs(v - slit) < halfSlit;
+          const shade = this._shade(nx, ny, nz, 0);
+          const crease = smooth(.64, .74, q) * (1 - smooth(.78, .94, q));
+          // Restrained iris contrast and an upper lid shadow, not a luminous
+          // round surround. The outer skin blends back into head lighting.
+          const irisLight = .10 + .58 * Math.min(shade, .82);
+          const light = pupil ? .025 : Math.max(.065, mix(shade, irisLight, iris) - crease * (.07 + .045 * smooth(-.2, .7, v)));
+          this._put(px, py, pz, light, 0, 30000 + (side + 1) * 6000 + (iy + nv) * 81 + ix + nu);
+        }
+      }
+    }
+
+    _storeRootSection(i, arm, u, center, tangent, first, second, radius, sleeve, texture, seed) {
+      // Reuse a small strip cache for one arm at a time. The extra terminal
+      // row is a derivative neighbor only: distal samples use their original
+      // emission path unchanged.
+      this._rootSections ||= Array.from({ length: 32 }, () => ({
+        points: new Float64Array(28 * 3), extras: [], texture: 0, seed: 0, kind: 0,
+      }));
+      const row = this._rootSections[i], angle = arm / 8 * TAU;
+      let radial = [0, Math.cos(angle), Math.sin(angle)];
+      const projection = dot(radial, tangent);
+      radial = unit(radial.map((value, axis) => value - projection * tangent[axis]));
+      const across = cross(tangent, radial);
+      // Broad root faces carry the brow and cheek into individual arms. Extra
+      // tangential width on the three upper roots exposes separate sloping
+      // faces. The oval vanishes with each sleeve, before its distal boundary.
+      const dorsal = Math.max(0, Math.sin(angle));
+      // Round the tissue where the three upper arms emerge through the brow.
+      // Only the radial section changes; centers, trajectories and distal
+      // arm surfaces keep their accepted V7 coordinates. The short quintic
+      // returns to the existing section with two derivatives before u=.16.
+      const joinU = clamp(u / .16, 0, 1);
+      const joinBlend = 1 - joinU ** 3 * (10 + joinU * (-15 + 6 * joinU));
+      const radialChange = (-.055 - .12 * dorsal * dorsal * joinBlend) * sleeve;
+      const tangentialChange = (ROOT_SECTION[arm] + .35 * dorsal * dorsal) * sleeve;
+      for (let j = 0; j < 28; j++) {
+        const [ca, sa] = this._rootRing[j];
+        const dx = first[0] * ca + second[0] * sa, dy = first[1] * ca + second[1] * sa, dz = first[2] * ca + second[2] * sa;
+        const along = (dx * radial[0] + dy * radial[1] + dz * radial[2]) * radialChange;
+        const wide = (dx * across[0] + dy * across[1] + dz * across[2]) * tangentialChange;
+        row.points[j * 3] = center[0] + dx * radius + radial[0] * along + across[0] * wide;
+        row.points[j * 3 + 1] = center[1] + dy * radius + radial[1] * along + across[1] * wide;
+        row.points[j * 3 + 2] = center[2] + dz * radius + radial[2] * along + across[2] * wide;
+      }
+      row.texture = texture; row.seed = seed; row.kind = arm % 3 === 0 ? 1 : 0;
+      row.extras.length = 0;
+      return row;
+    }
+
+    _emitRootSections(count, lod) {
+      const rows = this._rootSections;
+      for (let i = 0; i < count; i++) {
+        const row = rows[i], previous = rows[Math.max(0, i - 1)].points, next = rows[i + 1].points;
+        for (let j = 0; j < 28; j += lod) {
+          const offset = j * 3, before = ((j + 27) % 28) * 3, after = ((j + 1) % 28) * 3;
+          const ax = row.points[after] - row.points[before], ay = row.points[after + 1] - row.points[before + 1], az = row.points[after + 2] - row.points[before + 2];
+          const ux = next[offset] - previous[offset], uy = next[offset + 1] - previous[offset + 1], uz = next[offset + 2] - previous[offset + 2];
+          // Surface differences include taper, the ellipse and the moving
+          // frame. A circular tube normal would light these broad faces as
+          // rounded buttons and omit the curvature of the root trajectory.
+          let nx = ay * uz - az * uy, ny = az * ux - ax * uz, nz = ax * uy - ay * ux;
+          const length = Math.hypot(nx, ny, nz);
+          if (length > .00001) { nx /= length; ny /= length; nz /= length; }
+          else { nx = 1; ny = 0; nz = 0; }
+          this._put(row.points[offset], row.points[offset + 1], row.points[offset + 2],
+            this._shade(nx, ny, nz, row.texture, false, true), row.kind, row.seed + j);
+        }
+        for (const extra of row.extras) this._put(...extra);
       }
     }
 
     _arms(t) {
+      this._rootRing ||= Array.from({ length: 28 }, (_, j) => [Math.cos(j / 28 * TAU), Math.sin(j / 28 * TAU)]);
       const requestedGrip = Number(this.encounterGrip);
       const tension = clamp(Number(this.startleTension) || 0, 0, 1);
       const escape = clamp(Number(this.escapeAmount) || 0, 0, 1);
@@ -2272,17 +2555,49 @@ class CuttlefishArtwork {
             const curl = curlSign * (feeding ? 1.7 : 5.4) * Math.pow(u, 4.1) * (1 - .84 * escape + .1 * tension);
             const theta = fan + wave + curl;
             const beta = Math.sin(angle) * .15 + Math.sin(delayed * .82) * (.22 + .13 * this.options.ripple) * u * (1 - .66 * escape);
-            const ct = Math.cos(theta), st = Math.sin(theta), cb = Math.cos(beta), sb = Math.sin(beta);
+            let ct = Math.cos(theta), st = Math.sin(theta), cb = Math.cos(beta), sb = Math.sin(beta);
             if (i > 0) { x += ct * cb * step; y += st * cb * step; z += sb * step; }
-            const club = feeding ? .054 * Math.exp(-Math.pow((u - .89) / .1, 2)) : 0;
-            const radius = (feeding ? .035 : .064) * Math.pow(1 - u, .65) + .007 + club;
-            for (let j = 0; j < 10; j += this.geometryStep || 1) {
-              const ca = ring[j][0], sa = ring[j][1];
-              const nx = -st * ca - sb * ct * sa, ny = ct * ca - sb * st * sa, nz = cb * sa;
-              const light = this._shade(nx, ny, nz, .06 * Math.sin(u * 55 - t), false, true);
-              this._put(x + nx * radius, y + ny * radius, z + nz * radius, light, k % 3 === 0 ? 1 : 0, i * 19 + j + k * 90);
+            // Blend the proximal attachment into the crown over each root
+            // interval. The underlying free-arm waves, curl and escape keep
+            // their existing coordinates and timing beyond that interval.
+            const rootStart = feeding ? .02 : .06, rootSpan = feeding ? .28 : rootEnd(k) - .06;
+            const rootU = clamp((u - rootStart) / rootSpan, 0, 1);
+            const [rootOffset, rootSlope] = rootOffsetCorrection(k, u);
+            const root = 1 - rootU * rootU * (3 - 2 * rootU) + rootOffset;
+            const rootY = ((feeding ? ARM_ROOT_Y : PRIMARY_ROOT_Y) - .20) * Math.cos(angle);
+            const rootZ = ((feeding ? ARM_ROOT_Z : PRIMARY_ROOT_Z) - .17) * Math.sin(angle);
+            const py = y + rootY * root, pz = z + rootZ * root;
+            let centerSpeed = 1;
+            if ((rootU > 0 && rootU < 1) || rootSlope !== 0) {
+              const slope = -6 * rootU * (1 - rootU) / (rootSpan * length) + rootSlope / length;
+              const tx = ct * cb, ty = st * cb + rootY * slope, tz = sb + rootZ * slope;
+              const radial = Math.hypot(tx, ty), total = Math.hypot(radial, tz);
+              centerSpeed = total;
+              ct = tx / radial; st = ty / radial; cb = radial / total; sb = tz / total;
             }
-            if (i % 5 === 0 && u > .12 && u < .96) this._put(x - sb * ct * radius, y - sb * st * radius, z + cb * radius * 1.05, .97, 0, i + k);
+            const club = feeding ? .054 * Math.exp(-Math.pow((u - .89) / .1, 2)) : 0;
+            const [sleeve, sleeveSlope] = rootSleeve(k, u);
+            const radius = (feeding ? .035 : .064) * Math.pow(1 - u, .65) + .007 + club + sleeve;
+            if (!feeding && (u < rootEnd(k) || (i - 1) / segments < rootEnd(k))) {
+              const row = this._storeRootSection(i, k, u, [x, py, pz], [ct * cb, st * cb, sb],
+                [-st, ct, 0], [-sb * ct, -sb * st, cb], radius, sleeve, .06 * Math.sin(u * 55 - t), i * 19 + k * 90);
+              if (u < rootEnd(k)) {
+                if (i % 5 === 0 && u > .12 && u < .96) row.extras.push(
+                  [x - sb * ct * radius, py - sb * st * radius, pz + cb * radius * 1.05, .97, 0, i + k]);
+                continue;
+              }
+              this._emitRootSections(i, this.geometryStep || 1);
+            }
+            const section = sleeve > 0 ? this._rootRing : ring;
+            const taper = sleeveSlope / (length * centerSpeed);
+            for (let j = 0; j < section.length; j += this.geometryStep || 1) {
+              const ca = section[j][0], sa = section[j][1];
+              const nx = -st * ca - sb * ct * sa, ny = ct * ca - sb * st * sa, nz = cb * sa;
+              const light = this._shade(nx - ct * cb * taper, ny - st * cb * taper, nz - sb * taper,
+                .06 * Math.sin(u * 55 - t), false, sleeve === 0);
+              this._put(x + nx * radius, py + ny * radius, pz + nz * radius, light, k % 3 === 0 ? 1 : 0, i * 19 + j + k * 90);
+            }
+            if (i % 5 === 0 && u > .12 && u < .96) this._put(x - sb * ct * radius, py - sb * st * radius, pz + cb * radius * 1.05, .97, 0, i + k);
           }
         }
         return;
@@ -2290,6 +2605,7 @@ class CuttlefishArtwork {
 
       if (!this._gripPoints) {
         this._gripPoints = Array.from({ length: 10 }, () => new Float32Array(85 * 3));
+        this._gripFramePoints = Array.from({ length: 10 }, () => new Float32Array(85 * 3));
         this._gripRing = Array.from({ length: 12 }, (_, j) => [Math.cos(j / 12 * TAU), Math.sin(j / 12 * TAU)]);
         this._cupRing = Array.from({ length: 8 }, (_, j) => [Math.cos(j / 8 * TAU), Math.sin(j / 8 * TAU)]);
       }
@@ -2351,7 +2667,7 @@ class CuttlefishArtwork {
         const segments = Math.round((feeding ? 84 : 68) / (this.geometryStep || 1));
         const length = feeding ? 2.05 : 1.36 + .21 * Math.sin(k * 2.1), step = length / segments;
         const normalCurlSign = feeding ? side : (k % 2 === 0 ? 1 : -1);
-        const points = this._gripPoints[k];
+        const points = this._gripPoints[k], framePoints = this._gripFramePoints[k];
         let nx = p0x, ny = p0y, nz = p0z;
 
         for (let i = 0; i <= segments; i++) {
@@ -2380,15 +2696,25 @@ class CuttlefishArtwork {
           const ez = p0z * b0 + p1z * b1 + p2z * b2 + p3z * b3
             + Math.cos(angle) * wave * spreadZ;
           const n = i * 3;
+          const originalRoot = 1 - smooth(.02, .30, u);
+          const root = (feeding ? originalRoot : 1 - smooth(.06, rootEnd(k), u)) + rootOffsetCorrection(k, u)[0];
           points[n] = nx + (ex - nx) * g;
-          points[n + 1] = ny + (ey - ny) * g;
-          points[n + 2] = nz + (ez - nz) * g;
+          points[n + 1] = ny + (ey - ny) * g + ((feeding ? ARM_ROOT_Y : PRIMARY_ROOT_Y) - .20) * Math.cos(normalAngle) * root;
+          points[n + 2] = nz + (ez - nz) * g + ((feeding ? ARM_ROOT_Z : PRIMARY_ROOT_Z) - .17) * Math.sin(normalAngle) * root;
+          // Preserve the original Float32 neighbor positions as well as the
+          // positions of the new proximal tissue. At coarse LOD the first
+          // distal frame can otherwise reach back into a corrected root.
+          framePoints[n] = points[n];
+          framePoints[n + 1] = ny + (ey - ny) * g + (ARM_ROOT_Y - .20) * Math.cos(normalAngle) * originalRoot;
+          framePoints[n + 2] = nz + (ez - nz) * g + (ARM_ROOT_Z - .17) * Math.sin(normalAngle) * originalRoot;
         }
 
         for (let i = 0; i <= segments; i++) {
           const u = i / segments, n = i * 3;
           const prev = Math.max(0, i - 1) * 3, next = Math.min(segments, i + 1) * 3;
-          let tx = points[next] - points[prev], ty = points[next + 1] - points[prev + 1], tz = points[next + 2] - points[prev + 2];
+          const frame = u >= rootEnd(k) ? framePoints : points;
+          let tx = frame[next] - frame[prev], ty = frame[next + 1] - frame[prev + 1], tz = frame[next + 2] - frame[prev + 2];
+          const centerSpeed = Math.hypot(tx, ty, tz) * segments * 3 / Math.max(3, next - prev);
           let inv = 1 / Math.max(.00001, Math.hypot(tx, ty, tz));
           tx *= inv; ty *= inv; tz *= inv;
           let rx = 0, ry = Math.cos(angle), rz = Math.sin(angle);
@@ -2404,14 +2730,24 @@ class CuttlefishArtwork {
           const normalRadius = (feeding ? .035 : .064) * Math.pow(1 - u, .65) + .007 + club;
           const gripRadius = ((feeding ? .061 : .096) * cfg[5] * (1 - .68 * u) + .014 + club * .75)
             * (1 + .12 * tension) * (1 + .045 * Math.sin(t * 1.5 - u * 8 + k));
-          const radius = normalRadius + (gripRadius - normalRadius) * g;
+          const [sleeve, sleeveSlope] = rootSleeve(k, u);
+          const radius = normalRadius + (gripRadius - normalRadius) * g + sleeve;
+          const taper = sleeveSlope / Math.max(.00001, centerSpeed);
           const x = points[n], y = points[n + 1], z = points[n + 2];
-          for (let j = 0; j < 12; j += this.geometryStep || 1) {
-            const ca = this._gripRing[j][0], sa = this._gripRing[j][1];
+          const section = sleeve > 0 ? this._rootRing : this._gripRing;
+          let rootRow = null;
+          if (!feeding && (u < rootEnd(k) || (i - 1) / segments < rootEnd(k))) {
+            const row = this._storeRootSection(i, k, u, [x, y, z], [tx, ty, tz], [rx, ry, rz], [bx, by, bz],
+              radius, sleeve, .045 * Math.sin(u * 65 - t * .7 + k), i * 19 + k * 90);
+            if (u < rootEnd(k)) rootRow = row;
+            else this._emitRootSections(i, this.geometryStep || 1);
+          }
+          if (!rootRow) for (let j = 0; j < section.length; j += this.geometryStep || 1) {
+            const ca = section[j][0], sa = section[j][1];
             const sx = rx * ca + bx * sa, sy = ry * ca + by * sa, sz = rz * ca + bz * sa;
             const texture = .045 * Math.sin(u * 65 - t * .7 + k);
             this._put(x + sx * radius, y + sy * radius, z + sz * radius,
-              this._shade(sx, sy, sz, texture, false, true), k % 3 === 0 ? 1 : 0, i * 19 + j + k * 90);
+              this._shade(sx - tx * taper, sy - ty * taper, sz - tz * taper, texture, false, sleeve === 0), k % 3 === 0 ? 1 : 0, i * 19 + j + k * 90);
           }
           if (i % 6 === 0 && u > .10 && u < .95) {
             let cx = g, cy = 0, cz = 1 - g;
@@ -2424,12 +2760,14 @@ class CuttlefishArtwork {
             const light = clamp(.25 + this._shade(cx, cy, cz, 0, false, true) * .86, .38, .98);
             for (let j = 0; j < 8; j++) {
               const ca = this._cupRing[j][0], sa = this._cupRing[j][1];
-              this._put(x + cx * lift + (tx * ca + ux * sa) * cupRadius,
+              const cup = [x + cx * lift + (tx * ca + ux * sa) * cupRadius,
                 y + cy * lift + (ty * ca + uy * sa) * cupRadius,
                 z + cz * lift + (tz * ca + uz * sa) * cupRadius,
-                light, 0, 17000 + k * 200 + i * 8 + j);
+                light, 0, 17000 + k * 200 + i * 8 + j];
+              if (rootRow) rootRow.extras.push(cup); else this._put(...cup);
             }
-            this._put(x + cx * (lift - .009), y + cy * (lift - .009), z + cz * (lift - .009), .075, 0, k * 600 + i);
+            const center = [x + cx * (lift - .009), y + cy * (lift - .009), z + cz * (lift - .009), .075, 0, k * 600 + i];
+            if (rootRow) rootRow.extras.push(center); else this._put(...center);
           }
         }
       }
@@ -2677,7 +3015,9 @@ class CuttlefishArtwork {
       for (const f of this.fish) f.definition?.dispose?.(f.speciesState);
       this.ink.length = 0; this.plankton.length = 0; this.lastPointer = null;
       this._rings = {}; this.colors = []; this.colorBytes = []; this.fps = 0;
-      this.bodyNormals = null; this.headNormals = null; this._gripPoints = null;
+      this.bodyNormals = null; this.headNormals = null; this.crownSurface = null; this._rootRing = null;
+      this._rootSections = null;
+      this._gripPoints = null; this._gripFramePoints = null;
       // Keep the caller's visible canvas and its last frame. Ownership stays
       // with the host; only internal buffers and subscriptions are released.
     }

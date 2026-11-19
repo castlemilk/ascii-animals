@@ -1,0 +1,612 @@
+{
+  "sourceCommit": "8931bcc568cb5272f3a7b5eab0532c6c95c92858",
+  "sourceTree": "ef45da059fb583c86e3561eaeb5b3bf810fc244f",
+  "sourcePath": "src/animals/cuttlefish.js",
+  "sourceSha256": "cd1dc0d1cb60310afdaa86f2743be336fa97078a464f74511d6bf7af2d0d0f10",
+  "hashEncoding": "SHA256 of JSON.stringify of emitted [x,y,z,light,kind,seed] arrays; no numeric rounding",
+  "description": "Exact V3 oracle for all mantle/fins, full feeding tentacles, every primary arm ring/extras at u>=.30 including the first coarse grip frame, and beak. Head/eye coordinates are intentionally revised in V4; fixed V3 head-section measurements retain the no-shrink boundary independently of the new profile formula.",
+  "headProfiles": [
+    {
+      "depthStrength": 0,
+      "landmarks": [
+        {
+          "x": 0.3,
+          "a": 0.7524783992735715,
+          "b": 0.43
+        },
+        {
+          "x": 0.4,
+          "a": 0.7562128694514293,
+          "b": 0.43
+        },
+        {
+          "x": 0.5,
+          "a": 0.7597426828080258,
+          "b": 0.42999999999999994
+        },
+        {
+          "x": 0.56,
+          "a": 0.7617107372219335,
+          "b": 0.4300000000000001
+        },
+        {
+          "x": 0.65,
+          "a": 0.7643823459718394,
+          "b": 0.43000000000000005
+        },
+        {
+          "x": 0.78,
+          "a": 0.7674816047885562,
+          "b": 0.4299999999999999
+        },
+        {
+          "x": 0.9,
+          "a": 0.7693346792792467,
+          "b": 0.43000000000000005
+        },
+        {
+          "x": 1,
+          "a": 0.7699806919726205,
+          "b": 0.43
+        },
+        {
+          "x": 1.02,
+          "a": 0.7699999999999998,
+          "b": 0.43000000000000016
+        }
+      ]
+    },
+    {
+      "depthStrength": 1.2,
+      "landmarks": [
+        {
+          "x": 0.3,
+          "a": 0.7524783992735714,
+          "b": 0.4960000000000001
+        },
+        {
+          "x": 0.4,
+          "a": 0.7562128694514294,
+          "b": 0.496
+        },
+        {
+          "x": 0.5,
+          "a": 0.7597426828080258,
+          "b": 0.4960000000000001
+        },
+        {
+          "x": 0.56,
+          "a": 0.7617107372219334,
+          "b": 0.4960000000000001
+        },
+        {
+          "x": 0.65,
+          "a": 0.7643823459718395,
+          "b": 0.4960000000000001
+        },
+        {
+          "x": 0.78,
+          "a": 0.767481604788556,
+          "b": 0.496
+        },
+        {
+          "x": 0.9,
+          "a": 0.7693346792792466,
+          "b": 0.49600000000000005
+        },
+        {
+          "x": 1,
+          "a": 0.7699806919726208,
+          "b": 0.49600000000000016
+        },
+        {
+          "x": 1.02,
+          "a": 0.7699999999999996,
+          "b": 0.4960000000000001
+        }
+      ]
+    },
+    {
+      "depthStrength": 2,
+      "landmarks": [
+        {
+          "x": 0.3,
+          "a": 0.7524783992735717,
+          "b": 0.5399999999999997
+        },
+        {
+          "x": 0.4,
+          "a": 0.7562128694514294,
+          "b": 0.5399999999999998
+        },
+        {
+          "x": 0.5,
+          "a": 0.759742682808026,
+          "b": 0.5399999999999998
+        },
+        {
+          "x": 0.56,
+          "a": 0.7617107372219334,
+          "b": 0.5399999999999999
+        },
+        {
+          "x": 0.65,
+          "a": 0.7643823459718396,
+          "b": 0.5399999999999997
+        },
+        {
+          "x": 0.78,
+          "a": 0.7674816047885562,
+          "b": 0.5399999999999997
+        },
+        {
+          "x": 0.9,
+          "a": 0.7693346792792468,
+          "b": 0.5399999999999997
+        },
+        {
+          "x": 1,
+          "a": 0.7699806919726206,
+          "b": 0.5399999999999998
+        },
+        {
+          "x": 1.02,
+          "a": 0.7699999999999999,
+          "b": 0.5399999999999998
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "d3d2964feca815a6b25c10cd86cf4261531f8a7d82a55549fd22cc6a94c0fa63"
+        },
+        "feedingTentacles": {
+          "samples": 1728,
+          "sha256": "3b0de1f4a71ccfbc79f2ca07b8f6d55956f11936fee5eb9a7a55cb607c3fb89a"
+        },
+        "primaryDistalArms": {
+          "samples": 3912,
+          "sha256": "34fdd3123bd494cd6b53673190b0d7f80c35fed20569e0e1a252efa7dbfd31b3"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "8d7fab161117305c8f45756dc16ff3a3d46ca238ac61913a3eabead6978c1621"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "d3d2964feca815a6b25c10cd86cf4261531f8a7d82a55549fd22cc6a94c0fa63"
+        },
+        "feedingTentacles": {
+          "samples": 2256,
+          "sha256": "e51b094ea2835d23bb9c8a99a18eba2a5398bd92ce1d530b35a4af008434f482"
+        },
+        "primaryDistalArms": {
+          "samples": 5112,
+          "sha256": "c6c57e4e2df8f0816db62ec37d6a00fdea99c324d680ee1e6583bac5618c5495"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "b03fec6e63850977eb0ef458191275e4ca15f2543723278f6797410862417b55"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "0af7336066a120105a2e1ee51ed8507fbed898ffdead4d24013a3b1bbd8a4d93"
+        },
+        "feedingTentacles": {
+          "samples": 444,
+          "sha256": "d7d60ddf6010e7c691564dae781d3cf723d2b0809d8a5e2aea792bb38de61b0c"
+        },
+        "primaryDistalArms": {
+          "samples": 992,
+          "sha256": "ee74fb2ed075851d9fa7c96580993070b6a5fb14475d3493009fb29b31474850"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "148263056cd6f1fb9f156b763c9232bc501a46da61418fe9bf6f0ce425c900d1"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "0af7336066a120105a2e1ee51ed8507fbed898ffdead4d24013a3b1bbd8a4d93"
+        },
+        "feedingTentacles": {
+          "samples": 624,
+          "sha256": "0e6430001f785b4c94fd99e7b79032a4f7f1550689c00ca5188aa2542633eac5"
+        },
+        "primaryDistalArms": {
+          "samples": 1440,
+          "sha256": "64af6ee38969a75a791b207ee4ec79c942366cc007e3cd5e0fea789794861be7"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "984af035a1cacec358105c0bf98dcd069b1bd87921e85293732beae1e2882a40"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "b0ef8dc7fb6a17daed463115c991048a68f45b543f318f73ce8287037fb257bd"
+        },
+        "feedingTentacles": {
+          "samples": 242,
+          "sha256": "74f003d5edeb58d5a4e040bc3f1c8f3c93e4b82d365a2c483da28e2e3f981180"
+        },
+        "primaryDistalArms": {
+          "samples": 568,
+          "sha256": "3ee78bbcf61f0d44b4081936192a4a97f9f7f63d2e463f7204870c9a73c7c258"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "31255ac9378ec61486b5d9fe03a837c96d2c10fdea4d3ce78940513fc8738e60"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 2.4,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "b0ef8dc7fb6a17daed463115c991048a68f45b543f318f73ce8287037fb257bd"
+        },
+        "feedingTentacles": {
+          "samples": 304,
+          "sha256": "dcf09a0e90287a91883c40b314db98187e8f32caf91d5e04412456c238348d46"
+        },
+        "primaryDistalArms": {
+          "samples": 688,
+          "sha256": "2bd32ab1a3bce7ce5a54cc95f4331c3494a47c6089b929f9f8f84ae0506a179e"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "a22cde33c0b350d3ffa23692496e877924cae1798652c483968ad46474850d48"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "5e427572118a891cc5dcb1a7c162096060c1618362acd8bcb029f19d1e4b1e3b"
+        },
+        "feedingTentacles": {
+          "samples": 1728,
+          "sha256": "7ca84fb64dc61d745ec38124aeb009eb5bf86684dcbd6171d5904f708d4c60d1"
+        },
+        "primaryDistalArms": {
+          "samples": 3912,
+          "sha256": "dcaec1cfe52478084dbb47fe035ac52fb14f5a70c24b5a29d4793cbe03326173"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "806c26c8cfbcb80bc1f608c13f4fb4079adee6c938ab5c009f83d4116a0b769e"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "5e427572118a891cc5dcb1a7c162096060c1618362acd8bcb029f19d1e4b1e3b"
+        },
+        "feedingTentacles": {
+          "samples": 2256,
+          "sha256": "9087031d74943de0a97aaaafe8e07f1f13ac1037367b8975964d1c24658220c1"
+        },
+        "primaryDistalArms": {
+          "samples": 5112,
+          "sha256": "e57b1b0771c53aec465c848f4afd8b8fd52627d3bd6306ee42301a0d1b0d992e"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "beece043bf7407594326ebaffa584f084faf111134a7407d3a6aa92b0d098035"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "5932d8e226f6255d5ddbe9ffc6759a1599aa1cb74bc7b0b988f4680ed7ec35dd"
+        },
+        "feedingTentacles": {
+          "samples": 444,
+          "sha256": "124cd414f1068716c0f42566560d8122298b2e7ef3a14c37839a34bdb276b70e"
+        },
+        "primaryDistalArms": {
+          "samples": 992,
+          "sha256": "4fa7a61509ea96a38c50d82b7fd06bc81cc9f8d9894ee0b0690344c850095bd2"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "8488d62955a834e4de3d2faf35173fd899f2dc79e02eda0f8ef833713000d052"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "5932d8e226f6255d5ddbe9ffc6759a1599aa1cb74bc7b0b988f4680ed7ec35dd"
+        },
+        "feedingTentacles": {
+          "samples": 624,
+          "sha256": "047df1d68cbc16bee14b0403f093964fc94465cf62906a7d4cef92ab5fe252a3"
+        },
+        "primaryDistalArms": {
+          "samples": 1440,
+          "sha256": "42f7d54081fade5029c511105cf877e3067a61f196aba6e0507559b14462bf95"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "43069edecd336091f0f278cdf2cfc467109ba312482d4c1cec78c573a257ff91"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "5673ff29a6f1ac4335c2fe2e3228dc5b1672c9600f4c35143fec101b80c09de8"
+        },
+        "feedingTentacles": {
+          "samples": 242,
+          "sha256": "3b6a4ffd703dc427bb4818dafad5daae5cbee1c655abdc23c29769efb5dc5852"
+        },
+        "primaryDistalArms": {
+          "samples": 568,
+          "sha256": "e983d428665b2e72df3fa4d227bd75d12f02f9119aff072ab4f758bb5c6c8ece"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "c985ff210fabb3b0b4ce73bd1078e92ca66370ae13dd69a619927f2730622139"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 4.641509433962264,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "5673ff29a6f1ac4335c2fe2e3228dc5b1672c9600f4c35143fec101b80c09de8"
+        },
+        "feedingTentacles": {
+          "samples": 304,
+          "sha256": "c3f3a0af36db87302a0dbdddb5ecd7fa4f70547eefb0f3939281b6311ff253a1"
+        },
+        "primaryDistalArms": {
+          "samples": 688,
+          "sha256": "23e24242c19863692b2c22f56f93a331c0f8eedb1fae84d2e5dede6472e3ddad"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "405250d65cb6f2197b7fa2a0d55d07efa4acfddf7a36c3864d8515e451185732"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "95ef6ff99d75dbc41a905a441923021416530d20376265771a2ae4c748f11bf2"
+        },
+        "feedingTentacles": {
+          "samples": 1728,
+          "sha256": "35cc1e4b45c1fc2b72bc41d665e6690f9058a3e6fb12aee40889184f324d30cf"
+        },
+        "primaryDistalArms": {
+          "samples": 3912,
+          "sha256": "ec3bd34b4dae199bcc00be3e7b260352d6964d7dbc1e484f9007f8c5edba7407"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "0731adef493f1d6b0171f690507d7dfa39ec19e2bc642684780c0129597662f9"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 1,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 11672,
+          "sha256": "95ef6ff99d75dbc41a905a441923021416530d20376265771a2ae4c748f11bf2"
+        },
+        "feedingTentacles": {
+          "samples": 2256,
+          "sha256": "d8bfd63a44eef7c5f362e78ca865e1ffb24b31545f3d54c2627497ab616ec15b"
+        },
+        "primaryDistalArms": {
+          "samples": 5112,
+          "sha256": "69543ed2035ac14f14cba557f4c0073e2625e60d22fbc75052432fe060be909e"
+        },
+        "beak": {
+          "samples": 1922,
+          "sha256": "6299ee5bfe3aca9646f7a191960f7086e0b3845d3fd226af98c3dcb9d52b0138"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "ea72e23831e515fbc2fcac29bfd9a6856157caeaaf5ab700c15053b982ceed62"
+        },
+        "feedingTentacles": {
+          "samples": 444,
+          "sha256": "c8fb79d45552a28b0171f44366dd5ab959ff442e2141be1a6fbf7c30248b5a64"
+        },
+        "primaryDistalArms": {
+          "samples": 992,
+          "sha256": "f0c344246119cb869256e86f29a402b06583f2fc675e524cdeb9b41af0d52a2c"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "eba63e362c753eb05d3f8f7a2ef499ee5172b590dfff2c5b9110a2ab738c2ebb"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 2,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 2960,
+          "sha256": "ea72e23831e515fbc2fcac29bfd9a6856157caeaaf5ab700c15053b982ceed62"
+        },
+        "feedingTentacles": {
+          "samples": 624,
+          "sha256": "a71ffe5813e2c0b29b4bc267ad0d9ab3416f1e2f26d9199e9741331e6c50f5ec"
+        },
+        "primaryDistalArms": {
+          "samples": 1440,
+          "sha256": "48ed6598feb7bb3eac7bf8d5b4377300ad9756b10e6454ac5496097464e5f118"
+        },
+        "beak": {
+          "samples": 506,
+          "sha256": "2e4e4b6374f982edcf955708133f30825452af1f995ab57d2eaf2d2a134bbd41"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "941f08f1808d2916e66686efbdbbf7a25da15b49a62c65acbdd5d18da76b94b4"
+        },
+        "feedingTentacles": {
+          "samples": 242,
+          "sha256": "6d23dc3328a9240a0805180a29b677f2d425a7c5efca2c7a09c7a8b746c256ec"
+        },
+        "primaryDistalArms": {
+          "samples": 568,
+          "sha256": "88be9f46a24db8edebb697af58a2d6599b6ddfdf7f861bcc9344c30ac7923085"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "9ab94dade42a6cc418feadb05cc1f7cab0df54533fd181b9a5679beec850f885"
+        }
+      }
+    },
+    {
+      "pose": {
+        "time": 6.8,
+        "lod": 3,
+        "grip": 0.7
+      },
+      "parts": {
+        "mantleAndFins": {
+          "samples": 1388,
+          "sha256": "941f08f1808d2916e66686efbdbbf7a25da15b49a62c65acbdd5d18da76b94b4"
+        },
+        "feedingTentacles": {
+          "samples": 304,
+          "sha256": "b5f88ef61395356ac3d1635416965a40e9677fd2bd84adf2d1b4eb6a040d262b"
+        },
+        "primaryDistalArms": {
+          "samples": 688,
+          "sha256": "0a9e0c6bd0a3fe21cfc94cc37185e18a35ac49a5de06f23101539c14fff581fe"
+        },
+        "beak": {
+          "samples": 224,
+          "sha256": "b04caf9ba1acb76f59cd683b86fb43edc84e40d32247eb352dc60d174f5f9a68"
+        }
+      }
+    }
+  ]
+}
