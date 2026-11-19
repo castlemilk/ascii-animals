@@ -68,36 +68,61 @@ export function rasterizeDragonflyPond(members: readonly DragonflyDirectedGeomet
   const project = createDragonflyProjector(options);
   const perches = grids.map(({ member }) => ({ id: member.id, ...project(member.perch) }));
   if (!options.neutral) {
-    // Quiet ASCII context stays behind the creatures. It is a fixed visual
-    // reference, not a second simulation or a particle/background image system.
-    const shore = rows - 8;
+    // Three quiet depths: a broken far bank, low-contrast water contours, then
+    // nearer stems. The pond leaves a full cell of air around flying anatomy.
+    const clearOfAnimal=(col:number,row:number):boolean=>{
+      for(let y=Math.max(0,row-1);y<=Math.min(rows-1,row+1);y++)
+        for(let x=Math.max(0,col-1);x<=Math.min(cols-1,col+1);x++)if(owners[y*cols+x]!>=0)return false;
+      return true;
+    };
+    const distant=(col:number,row:number,glyph:string,material=1):void=>{
+      if(clearOfAnimal(col,row))emptyGlyph(col,row,glyph,material);
+    };
+    const shore = rows - 11;
     for (let col = 4; col < cols - 4; col++) {
-      if (col % 5 !== 0) emptyGlyph(col, shore + Math.round(Math.sin(col * .13)), col % 3 === 0 ? ',' : '.', 1);
+      if (col % 7 < 4) distant(col, shore + Math.round(Math.sin(col * .09)*1.5), col % 3 === 0 ? ',' : '.');
     }
-    for (const [column, height, lean] of [[7, 13, 1], [12, 9, -1], [cols - 8, 16, -1], [cols - 14, 11, 1]] as const) {
+    for(const [cx,cy,radius] of [[cols*.34,rows-6,cols*.16],[cols*.68,rows-8,cols*.13],[cols*.54,rows-3,cols*.23]]) {
+      for(let step=0;step<38;step++) {
+        const a=Math.PI*.12+step/37*Math.PI*.76;
+        const col=Math.round(cx!+Math.cos(a)*radius!),row=Math.round(cy!+Math.sin(a)*1.3);
+        if(step%5!==1)distant(col,row,step%7<3?'~':'-',2);
+      }
+    }
+    for (const [column, height, lean] of [[7, 17, 1], [14, 11, -1], [cols - 8, 20, -1], [cols - 16, 12, 1]] as const) {
       for (let stem = 0; stem < height; stem++) {
         const bend = Math.round(lean * Math.pow(stem / height, 2) * 3);
-        emptyGlyph(column + bend, rows - 4 - stem, ';', 1);
+        distant(column + bend, rows - 3 - stem, stem%4===0?';':'|',stem<height*.6?5:1);
         if (stem === Math.floor(height * .45) || stem === Math.floor(height * .7)) {
-          emptyGlyph(column + bend + lean, rows - 5 - stem, ',', 1);
-          emptyGlyph(column + bend + lean * 2, rows - 6 - stem, '-', 1);
+          for(let leaf=1;leaf<=4;leaf++)distant(column+bend+lean*leaf,rows-3-stem-Math.ceil(leaf*.55),lean>0?'/':'\\',1);
         }
       }
-      emptyGlyph(column + lean * 3, rows - 4 - height, 'o', 1);
+      for(let head=0;head<3;head++)distant(column+lean*3,rows-3-height+head,head===0?':':'o',1);
     }
-    // These reeds share the director's actual landing points. The same projector
-    // places both the perched animal and its stem, including the oblique view.
+    // These twigs share the actual foot-contact line. Derive specimen scale from
+    // its rigid eye spacing; no viewport-dependent contact or extra simulation.
     for (const { member } of grids) {
       const lean = member.id % 2 === 0 ? 1 : -1;
+      const eyes=member.geometry.eyes;
+      const scale=Math.hypot(eyes[1].x-eyes[0].x,eyes[1].y-eyes[0].y,eyes[1].z-eyes[0].z)/.34;
+      const heading=-.18+member.id*.08;
+      const tip=project(member.perch);emptyGlyph(tip.col,tip.row,'o',5);
+      for(let step=-18;step<=18;step++) {
+        const along=step/18*.40*scale;
+        const p=project({x:member.perch.x+Math.cos(heading)*along,y:member.perch.y+Math.sin(heading)*along,z:member.perch.z});
+        emptyGlyph(p.col,p.row,'-',5);
+      }
       for (let segment = 0; segment <= 64; segment++) {
         const u = segment / 64;
-        const stem = { x: member.perch.x + lean * .06 * u * u,
+        const stem = { x: member.perch.x + lean * .18 * u * u,
           y: member.perch.y + (2.15 - member.perch.y) * u, z: member.perch.z - .03 * u };
         const p = project(stem);
-        emptyGlyph(p.col, p.row, segment === 0 ? 'o' : ';', 1);
-        if (segment === 22 || segment === 43) {
-          const leaf = project({ x: stem.x + lean * .09, y: stem.y - .05, z: stem.z });
-          emptyGlyph(leaf.col, leaf.row, '-', 1);
+        emptyGlyph(p.col, p.row, segment === 0 ? 'o' : segment%7===0?'|':';', 1);
+        if (segment === 30 || segment === 46) {
+          for(let l=1;l<=8;l++) {
+            const leaf=project({x:stem.x+lean*l*.018,y:stem.y-l*.016,z:stem.z});
+            emptyGlyph(leaf.col,leaf.row,lean>0?'/':'\\',1);
+          }
         }
       }
     }

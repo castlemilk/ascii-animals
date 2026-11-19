@@ -1,0 +1,18 @@
+{
+  "evidence": "Actual compiled demo executed with instrumented DOM/controller mocks; not a browser",
+  "node": "v24.22.3",
+  "sourceSha256": {
+    "species/dragonfly/lib/demo.js": "24b5f34a9042b456d678db2635ac8fc2ea0173665b8e60c8dfba1274a1c69a0d"
+  },
+  "compiledDemoMock": "passed",
+  "checks": [
+    "offscreen deferral",
+    "latest cue wins",
+    "selection guide cue ordering",
+    "reentrant status no repeats",
+    "hidden cancellation",
+    "population change cancellation",
+    "reset cancellation"
+  ],
+  "scrollRequests": 10
+}
