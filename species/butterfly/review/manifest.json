@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "species": "butterfly",
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "scope": "Butterfly source, demo source, tests, documentation and review evidence only; generated shared entries omitted.",
+  "sourceSha256": {
+    "src/public/butterfly.ts": "5c6ed8d870d22e15f702dc03ccf2aeeaed9f5ec044f254fe3ff4eed47ba1f39a",
+    "src/public/butterfly/director.ts": "31d68f106cc681ed6535d260fec59c9336d5b1863de6fd8580f52a8665636574",
+    "src/public/butterfly/render-garden.ts": "a4805224503fb4c3b72674b4a02aea51fbc76f68514dde3d46f2cc9021e306f5",
+    "species/butterfly/demo/demo.js": "c16178e1a3f656f9d6354f5f1759ae7b77f40a9be5fc5849a69c8929c6b40f88",
+    "species/butterfly/demo/index.html": "ef9d976a150b19d97b9a1d66f3a19eb4d02607ff9134b531ada397bfc370163c",
+    "test/butterfly-flight-study.test.mjs": "5e79ce005d5df61ee832dcbf6574b7953e3081c513c5ee6242fbfab4843b8190"
+  },
+  "validation": {
+    "tests": 627,
+    "passed": 627,
+    "failed": 0,
+    "newBehaviorTests": 9,
+    "typecheck": "passed",
+    "butterflyTypeFixture": "passed",
+    "package": "passed; esbuild/Rollup/Webpack optional checks unrun"
+  },
+  "runtime": {
+    "node": "v24.22.3",
+    "npm": "11.9.0",
+    "typescript": "Version 5.9.3",
+    "platform": "linux",
+    "architecture": "x64"
+  },
+  "visualEvidence": {
+    "renderer": "Native Canvas2D through exact public controller and synthetic browser host. NOT real browser.",
+    "nativeCanvas": "@napi-rs/canvas 0.1.100",
+    "font": "DejaVu Sans Mono",
+    "seed": 7,
+    "desktop": [
+      1280,
+      800
+    ],
+    "phone": [
+      390,
+      844
+    ],
+    "grids": {
+      "desktop": [
+        144,
+        68
+      ],
+      "phone": [
+        104,
+        86
+      ]
+    },
+    "motionSampling": "60 Hz integer simulation, 12 fps video sampling; not measured browser FPS",
+    "videos": [
+      {
+        "file": "after/cues/desktop-breeze.mp4",
+        "width": 800,
+        "height": 500,
+        "r_frame_rate": "12/1",
+        "duration": "6.083333",
+        "nb_read_frames": "73"
+      },
+      {
+        "file": "after/cues/desktop-gather.mp4",
+        "width": 800,
+        "height": 500,
+        "r_frame_rate": "12/1",
+        "duration": "6.083333",
+        "nb_read_frames": "73"
+      },
+      {
+        "file": "after/cues/phone-breeze.mp4",
+        "width": 390,
+        "height": 844,
+        "r_frame_rate": "12/1",
+        "duration": "6.083333",
+        "nb_read_frames": "73"
+      },
+      {
+        "file": "after/cues/phone-gather.mp4",
+        "width": 390,
+        "height": 844,
+        "r_frame_rate": "12/1",
+        "duration": "6.083333",
+        "nb_read_frames": "73"
+      },
+      {
+        "file": "after/motion/desktop-nectar.mp4",
+        "width": 800,
+        "height": 500,
+        "r_frame_rate": "12/1",
+        "duration": "32.083333",
+        "nb_read_frames": "385"
+      },
+      {
+        "file": "after/motion/phone-nectar.mp4",
+        "width": 390,
+        "height": 844,
+        "r_frame_rate": "12/1",
+        "duration": "32.083333",
+        "nb_read_frames": "385"
+      }
+    ],
+    "sourceHashesVerified": true
+  },
+  "directedSequences": [
+    {
+      "name": "Flower visit",
+      "phases": [
+        "flutter/glide search",
+        "bank and brake",
+        "align and land",
+        "sip and wing fan",
+        "detach and recover"
+      ]
+    },
+    {
+      "name": "Disturbance",
+      "ticks": {
+        "brace": "0\u201323",
+        "poweredEscape": "24\u201391",
+        "heldGlide": "92\u2013169",
+        "shelter": "170\u2013229",
+        "recovery": "230\u2013299",
+        "expires": 300
+      }
+    }
+  ],
+  "interaction": {
+    "pointer": "Nearby attention; flower tap selects physical bloom, open-air tap inspects invitation; breeze mode repels from pointer.",
+    "touch": "Synthetic pointerdown/up/lostcapture/leave tested; cue preserved and hover released. Real touch not run.",
+    "keyboard": "Existing canvas-scoped keys retained; real browser dispatch not run."
+  },
+  "reviewFixes": [
+    "Brighter dark veins/body and simpler coarse glyphs after 390px review.",
+    "Bounded position step at loop seam after unchanged continuity gate failed.",
+    "Default nectar cue selects a flower without persistent synthetic hover."
+  ],
+  "remainingAcceptance": [
+    "Real-browser font/CSS/keyboard/touch validation (local Chromium launch denied; cloud local URL connection refused).",
+    "Physical phone performance, screen-reader and long-session heap checks.",
+    "Four-member phone scene prioritizes silhouette over fine venation.",
+    "Optional esbuild/Rollup/Webpack package checks."
+  ],
+  "centralGenerationCommands": [
+    "npm ci --ignore-scripts",
+    "npm run build",
+    "node --test test/butterfly.test.mjs test/butterfly-director.test.mjs test/butterfly-flight-study.test.mjs",
+    "node node_modules/typescript/bin/tsc -p species/butterfly/tests/tsconfig.json",
+    "npm run typecheck",
+    "npm run check:package"
+  ],
+  "publicationBoundary": "Own branch and PR only. Central owner reviews, generates shared output, merges and deploys."
+}
