@@ -5,7 +5,7 @@ const scenes = {
   'reef-passage': { title: 'Reef passage', description: 'Travelers trace the shelf at different depths, each keeping a different rhythm.' },
   'seagrass-stop': { title: 'Seagrass stop', description: 'An unhurried stop above the meadow. An inspection becomes a bank, then a return.' },
   'blue-drift': { title: 'Blue drift', description: 'Quiet water, long glides, and a small change of direction toward the light.' },
-  study: { title: 'The solo study', description: 'The original centered turtle: a domed shell, four flippers, and a patient glide.' }
+  study: { title: 'The solo study', description: 'One green turtle: a curved scuted shell, four attached paddles, and a patient glide.' }
 };
 const actNames = { arrival: 'Arriving', linger: 'Lingering', departure: 'Departing', complete: 'Passage complete', study: 'Solo study' };
 const formatCurrent = value => Math.abs(value) < .01 ? 'Still water' : `${value < 0 ? 'West' : 'East'} · ${Math.round(Math.abs(value) * 100)}%`;
@@ -14,7 +14,7 @@ const numericOptions = ['count', 'current', 'depth', 'spacing', 'speed', 'scale'
 const selectOptions = ['route', 'director', 'palette', 'facing', 'behavior'];
 // Choose legible cells at mount without changing the grid during a gesture.
 const compact = window.matchMedia('(max-width: 620px)').matches;
-const initial = { scene: 'reef-passage', count: 3, columns: compact ? 100 : 160, rows: compact ? 40 : 64, showLabels: true, palette: 'brass' };
+const initial = { scene: 'reef-passage', count: compact ? 1 : 3, columns: compact ? 100 : 160, rows: compact ? 40 : 64, showLabels: true, palette: 'brass' };
 const rosterButtons = [];
 let art, unsubscribe, restorePlayback = false;
 
@@ -85,6 +85,7 @@ function sync() {
   const selected = director.members.find(member => member.id === director.selectedId);
   if (selected) {
     $('individual-title').textContent = selected.label;
+    $('cue-help').textContent = `${selected.label} · ${selected.motion === 'surfacing' ? 'rising for air' : selected.motion === 'banking' && selected.reaction.kind !== 'none' ? 'diving' : selected.motion}. ${selected.reaction.kind === 'none' ? 'Ready for your cue.' : 'Let this movement finish.'}`;
     $('individual-status').textContent = `${titleCase(selected.role)} / ${titleCase(selected.motion)}`;
     $('individual-role').value = selected.role;
     $('individual-size').value = String(selected.size);
@@ -118,9 +119,16 @@ document.querySelectorAll('[data-act]').forEach(button => button.addEventListene
 })));
 $('pause').addEventListener('click', () => perform(() => { art.getOptions().paused ? art.play() : art.pause(); announce(art.getStatus().paused ? 'Passage paused.' : 'Passage playing.'); }));
 $('reset').addEventListener('click', () => perform(() => { art.restart(); announce('Passage restarted. Your pause choice is preserved.'); }));
+for (const [id, y, message] of [['surface', -.9, 'Surface breath invited.'], ['dive', .9, 'Dive and recovery invited.']]) {
+  $(id).addEventListener('click', () => perform(() => {
+    const director = art.getDirectorState(), member = director.members[director.selectedId];
+    art.inspect(Math.max(-1, Math.min(1, member.x)), y, member.id);
+    announce(`${message} ${art.getStatus().paused ? 'Still pose selected.' : 'The current cue completes before another begins.'}`);
+  }));
+}
 $('inspect').addEventListener('click', () => perform(() => { art.pulse(); announce('Inspection invited for the selected traveler.'); }));
 $('clear-guide').addEventListener('click', () => perform(() => { art.clearGuide(); announce('Guide cleared.'); }));
-$('classic').addEventListener('click', () => perform(() => { art.direct('study'); announce('Original solo study selected.'); }));
+$('classic').addEventListener('click', () => perform(() => { art.direct('study'); announce('Solo study selected.'); }));
 for (const key of numericOptions) $(key).addEventListener('input', () => perform(() => art.update({ [key]: Number($(key).value) })));
 for (const key of selectOptions) $(key).addEventListener('change', () => perform(() => art.update({ [key]: $(key).value })));
 for (const key of ['showLabels', 'showRoute']) $(key).addEventListener('change', () => perform(() => art.update({ [key]: $(key).checked })));

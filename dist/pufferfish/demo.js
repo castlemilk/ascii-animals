@@ -6,18 +6,18 @@ function element(id) {
     return value;
 }
 const scenes = {
-    reef: { title: 'Reef ramble', note: 'Separate discoveries, a shared meeting place. Invite one visitor into the open water.' },
+    reef: { title: 'Reef ramble', note: 'Drift, brake, hover, inspect. Invite a visitor to a quiet point in the open water.' },
     current: { title: 'Returning tide', note: 'The current rises. Watch the visitors paddle, shelter, then venture out into slack water.' },
     shadow: { title: 'Passing shadow', note: 'A watchful pause, a local defence, then confidence returning. Give the group room to settle.' },
 };
 const beats = {
-    discover: 'Small discoveries', inspect: 'Taking a closer look', gather: 'A quiet gathering', rest: 'At ease among the reef',
+    discover: 'Drifting toward a discovery', inspect: 'A cautious inspection', gather: 'Backing into open water', rest: 'Drifting at ease',
     rising: 'The tide is rising', shelter: 'Finding a sheltered spot', returning: 'Into the returning tide', slack: 'A moment of slack water',
     watch: 'Keeping a gentle watch', shadow: 'Something passes overhead', release: 'The water feels safe again', resume: 'Curiosity returns',
 };
 const phases = {
-    idle: 'Calm', approach: 'Noticing you', inflating: 'Making a little room', holding: 'Round and watchful',
-    recovering: 'Slowly settling', cooldown: 'Taking a breath',
+    idle: 'At ease', approach: 'Braking and watching', inflating: 'Belly unfolding', holding: 'Round and watchful',
+    recovering: 'Release, hesitate, settle', cooldown: 'Regaining the current',
 };
 const roleNotes = {
     explorer: 'An eager visitor, drawn to new places and quiet invitations.',

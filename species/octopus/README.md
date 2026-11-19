@@ -82,7 +82,8 @@ marine class. It provides native buttons and canvas-scoped shortcuts:
 
 The shell owns no timer or animation loop. System reduced motion starts with a
 still. Motion-related controls keep that state; only explicit Play resumes it.
-Listeners are aborted and the marine controller destroyed on page hide.
+Ordinary navigation aborts listeners and destroys the marine controller. A cached
+history entry retains its controls and renderer when restored.
 
 To create an independent HTML review file without modifying shared outputs:
 
@@ -116,8 +117,9 @@ complete Pages preparation path, also run its existing
 `python3 scripts/build-standalone.py` step. No workflow or deployment command is
 part of this patch.
 
-The existing `npm test` command does not discover this new owned test directory;
-run the explicit `species/octopus/tests/*.test.mjs` command shown above as well.
+The integrated `npm test` command includes the Octopus checks. The catalogue
+keeps the shared marine study route and links the separately generated
+`dist/octopus-den.html` for the solo cave experience.
 
 Native evidence is reproducible with an already installed `@napi-rs/canvas`
 and, for motion, `ffmpeg`:

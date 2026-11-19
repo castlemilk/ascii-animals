@@ -86,13 +86,13 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs species/gecko/test/*.test.mjs species/pufferfish/tests/*.test.mjs species/frog/tests/core.test.mjs species/frog/tests/geometry.test.mjs species/frog/tests/lifecycle.test.mjs species/frog/tests/demo.test.mjs species/owl/tests/*.test.mjs",
+    "test": "node --test test/*.test.mjs species/fox/tests/*.test.mjs species/dragonfly/tests/*.test.mjs species/gecko/test/*.test.mjs species/pufferfish/tests/*.test.mjs species/frog/tests/core.test.mjs species/frog/tests/geometry.test.mjs species/frog/tests/lifecycle.test.mjs species/frog/tests/demo.test.mjs species/frog/tests/feeding-endpoint.test.mjs species/frog/tests/wetland-choreography.test.mjs species/owl/tests/*.test.mjs species/octopus/tests/*.test.mjs species/turtle/tests/*.test.mjs",
     "test:legacy": "node scripts/check-engine.cjs",
     "bench:cpu": "node bench/benchmark.cjs --source src/animals/cuttlefish.js --esm --out artifacts/benchmark.json",
     "check:package": "node scripts/check-package.mjs",
     "prepublishOnly": "node -e \"throw new Error('Review candidate: publication is intentionally disabled')\"",
     "pretest": "npm run build",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/dragonfly/tsconfig.types.json && tsc -p species/gecko/test/tsconfig.json && tsc -p species/frog/tests/tsconfig.json && tsc -p species/owl/tsconfig.types.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p species/fox/tsconfig.types.json && tsc -p species/dragonfly/tsconfig.types.json && tsc -p species/gecko/test/tsconfig.json && tsc -p species/frog/tests/tsconfig.json && tsc -p species/owl/tsconfig.types.json && tsc -p species/frog/tests/tsconfig.director.json && tsc -p species/pufferfish/tests/tsconfig.types.json && tsc -p species/pufferfish/tests/tsconfig.nodenext.json && tsc -p species/pufferfish/tests/tsconfig.server.json && tsc -p species/butterfly/tests/tsconfig.json && tsc -p species/crab/tests/tsconfig.json && tsc -p species/seahorse/tests/tsconfig.types.json && tsc -p species/turtle/tests/tsconfig.json",
     "test:fox": "node node_modules/typescript/bin/tsc -p species/fox/tsconfig.types.json && node --test species/fox/tests/*.test.mjs"
   },
   "repository": {

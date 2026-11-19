@@ -1,10 +1,11 @@
 /** Deterministic frog-only choreography; no DOM, renderer, clock or randomness. */
 import { FROG_LIMITS, clamp, clearFrogTarget, configureFrog, createFrog, finite, integer, ownKeys, poseFrog, previewFrogTarget, stepFrog, validateTarget, } from './frog.mjs';
+import { tongueMotion } from './choreography.mjs';
 export const FROG_POND_LIMITS = Object.freeze({
     tickRate: 60, maxTick: FROG_LIMITS.maxTick, eventsPerTick: 8,
     maxActors: 3, maxPads: 6, maxAirborne: 1, maxRipples: 6, maxReplies: 2,
     maxFireflies: 1, maxSceneSamples: 60000,
-    callTicks: 84, trackTicks: 36, strikeTicks: 12, settleTicks: 48,
+    callTicks: 84, trackTicks: 36, strikeTicks: 30, settleTicks: 48,
     listenTicks: 72, rippleTicks: 90, fireflyTicks: 240,
     replyDelayTicks: 36, replySpacingTicks: 30,
 });
@@ -331,16 +332,19 @@ export function stepFrogPond(state, tick, inputs = []) {
         const focus = pad?.point ?? actor.model.position;
         actor.model = previewFrogTarget(actor.model, focus);
         actor.motive = { kind: 'track', age: 0, duration: FROG_POND_LIMITS.trackTicks, point: focus, padId: pad?.id ?? null };
-        firefly = { point: focus, age: 0, ttl: FROG_POND_LIMITS.fireflyTicks, phase: 'hover', ownerId: actor.id };
+        const c = actor.model.config;
+        const encounterTicks = FROG_POND_LIMITS.trackTicks + c.crouchTicks + c.flightTicks + c.landingTicks
+            + c.recoveryTicks + c.cooldownTicks + FROG_POND_LIMITS.strikeTicks + 2;
+        firefly = { point: focus, age: 0, ttl: Math.max(FROG_POND_LIMITS.fireflyTicks, encounterTicks), phase: 'hover', ownerId: actor.id };
         notices.push(`${actor.name} notices the firefly.`);
         return true;
     }
     function beginStrike(actor, at) {
         actor.motive = { kind: 'strike', age: 0, duration: FROG_POND_LIMITS.strikeTicks, point: at };
-        const caught = distance(actor.model.position, at) <= .15;
+        const withinReach = distance(actor.model.position, at) <= .15;
         if (firefly?.ownerId === actor.id)
-            firefly = { ...firefly, phase: caught ? 'caught' : 'hover', age: 0, ttl: FROG_POND_LIMITS.strikeTicks };
-        notices.push(caught ? `${actor.name} makes a quick strike, then settles.` : `${actor.name} strikes; the firefly slips away.`);
+            firefly = { ...firefly, phase: withinReach ? 'chased' : 'hover', age: 0, ttl: FROG_POND_LIMITS.strikeTicks };
+        notices.push(withinReach ? `${actor.name} plants its feet for a tongue strike.` : `${actor.name} strikes; the firefly slips away.`);
     }
     // Touchdown transfers occupancy exactly once; both endpoints were protected.
     for (const actor of actors) {
@@ -358,7 +362,9 @@ export function stepFrogPond(state, tick, inputs = []) {
         if (motive.kind === 'rest')
             actor.motive = { ...motive, age };
         else if (motive.kind === 'hop') {
-            if (landed && motive.purpose === 'hunt')
+            // Finish the approach landing before feeding: a planted stalk/strike,
+            // not an immediate tongue shot while the body is still absorbing impact.
+            if (ready(actor.model) && motive.purpose === 'hunt')
                 beginStrike(actor, motive.point);
             else
                 actor.motive = ready(actor.model) ? settle() : { ...motive, age };
@@ -367,8 +373,15 @@ export function stepFrogPond(state, tick, inputs = []) {
             // Commit after manual commands so a deliberate hop wins the flight slot.
             actor.motive = { ...motive, age };
         }
-        else if (age < motive.duration)
+        else if (age < motive.duration) {
             actor.motive = { ...motive, age };
+            if (motive.kind === 'strike' && tongueMotion(age, motive.duration).contact
+                && firefly?.ownerId === actor.id && firefly.phase === 'chased'
+                && distance(actor.model.position, motive.point) <= .15) {
+                firefly = { ...firefly, phase: 'caught' };
+                notices.push(`${actor.name} catches the firefly and draws its tongue back.`);
+            }
+        }
         else if (motive.kind === 'call' || motive.kind === 'strike')
             actor.motive = settle();
         else
@@ -500,9 +513,16 @@ export function posePondFrog(state, actor, options = {}) {
         gaze = .22 * Math.sin((motion ? state.tick : 0) / (actor.role === 'dreamer' ? 150 : 96) + actor.model.phaseOffset);
     }
     if (motion && motive.kind === 'strike') {
-        const envelope = Math.sin(Math.PI * clamp(motive.age / motive.duration, 0, 1));
-        compression = Math.max(compression, .22 * envelope);
-        extension = Math.max(extension, .12 * envelope);
+        const envelope = tongueMotion(motive.age, motive.duration).reach;
+        compression = Math.max(compression, .12 * envelope);
+        throat = 0;
+        // Feet stay planted. Tongue reach must not extend the leap's legs.
+        extension = base.extension;
+    }
+    if (motion && motive.kind === 'track') {
+        const envelope = Math.sin(Math.PI * clamp(motive.age / motive.duration, 0, 1)) ** 2;
+        compression = Math.max(compression, .28 * envelope);
+        throat *= 1 - envelope;
     }
     if (!motion && actor.id === state.selectedId && options.pondStill === 'call')
         throat = .23;

@@ -25,28 +25,28 @@ const YAW = { front: 0, left: -.52, right: .52, profile: 1.25 };
 function modelLandmarks(pose) {
     const e = clamp(pose.extension);
     const rear = (side) => ({
-        attachment: v(side * .48, .06, -.08),
-        elbow: mix(v(side * .94, .22, -.09), v(side * .76, .42, -.30), e),
-        ankle: mix(v(side * .68, .48, .18), v(side * .57, .77, -.50), e),
-        tip: mix(v(side * 1.02, GROUND, .39), v(side * .66, 1.02, -.72), e),
+        attachment: v(side * .43, .10, -.20),
+        elbow: mix(v(side * .91, .23, -.02), v(side * .73, .43, -.37), e),
+        ankle: mix(v(side * .64, .48, .32), v(side * .57, .78, -.61), e),
+        tip: mix(v(side * 1.01, GROUND, .52), v(side * .64, 1.04, -.80), e),
     });
     const fore = (side) => {
         // Asymmetry only bends the elbow. The planted wrist/toes never wander.
         const bend = .018 * Math.sin(pose.phase + (side < 0 ? .2 : 1.6));
         return {
-            attachment: v(side * .49, -.16, .37),
+            attachment: v(side * .48, -.09, .42),
             // The lower belly/forearm gap must survive the minimum cell grid.
             // Outward elbows keep an attached shoulder while exposing the limb.
-            elbow: mix(v(side * (.70 + bend), .28, .51), v(side * .71, .10, .76), e),
+            elbow: mix(v(side * (.70 + bend), .29, .55), v(side * .71, .10, .76), e),
             ankle: mix(v(side * .49, .56, .68), v(side * .71, .12, 1.02), e),
             tip: mix(v(side * .50, GROUND, .78), v(side * .76, .18, 1.19), e),
         };
     };
     return {
-        torso: v(0, .06, -.03),
-        head: v(0, -.31, .16),
-        eyeLeft: v(-.49, -.61, .35),
-        eyeRight: v(.49, -.61, .35),
+        torso: v(0, .10, -.10),
+        head: v(0, -.26, .21),
+        eyeLeft: v(-.48, -.54, .38),
+        eyeRight: v(.48, -.54, .38),
         rearLeft: rear(-1), rearRight: rear(1),
         foreLeft: fore(-1), foreRight: fore(1),
     };
@@ -56,16 +56,34 @@ function transformation(pose, view) {
         throw new RangeError('Unsupported frog view');
     const angle = YAW[view];
     const ca = Math.cos(angle), sa = Math.sin(angle);
-    const squash = 1 - clamp(pose.compression) * .22;
-    const spread = 1 + clamp(pose.compression) * .055;
-    const rotate = (p) => v(p.x * ca + p.z * sa, p.y, -p.x * sa + p.z * ca);
+    const compression = clamp(pose.compression);
+    const squash = 1 - compression * .37;
+    const spread = 1 + compression * .075;
+    const pitch = pose.airborne ? -.15 * clamp(pose.extension) : 0;
+    const cp = Math.cos(pitch), sp = Math.sin(pitch);
+    const rotate = (p) => {
+        const y = p.y * cp - p.z * sp, z = p.y * sp + p.z * cp;
+        return v(p.x * ca + z * sa, y, -p.x * sa + z * ca);
+    };
     return {
         point(p) {
-            const local = v(p.x * spread, GROUND + (p.y - GROUND) * squash, p.z);
+            // Squash about the support plane. Unlike a uniform width scale, this
+            // keeps x/y/z of every planted toe fixed through anticipation and impact.
+            const aboveFoot = clamp((GROUND - p.y) / 1.2);
+            const local = v(p.x * (1 + (spread - 1) * aboveFoot), GROUND + (p.y - GROUND) * squash, p.z + compression * .055 * aboveFoot);
             return add(pose.origin, mul(rotate(local), pose.scale));
         },
         normal(n) { return unit(rotate(v(n.x / spread, n.y / squash, n.z))); },
     };
+}
+/** Internal attachment shared with the tongue pass; not a new public option. */
+export function frogMouthPoint(pose, view = 'front') {
+    return transformation(pose, view).point(mouthSurface(0));
+}
+function mouthSurface(x) {
+    const y = -.115 + .037 * (x / .59) ** 2;
+    const r = 1 - (x / .77) ** 2 - ((y + .26) / .29) ** 2;
+    return v(x, y, .21 + .53 * Math.sqrt(Math.max(.02, r)) + .014);
 }
 function transformLandmarks(landmarks, transform) {
     const limb = (l) => ({
@@ -108,6 +126,7 @@ export function sampleFrogPose(pose, sink, options = {}) {
     const transform = transformation(pose, options.view ?? 'front');
     const landmarks = modelLandmarks(pose);
     const lightDirection = unit(v(-.36, -.55, .76));
+    const wetHighlight = unit(v(-.20, -.33, 1));
     let count = 0;
     let minX = Infinity, minY = Infinity, minZ = Infinity;
     let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
@@ -117,11 +136,15 @@ export function sampleFrogPose(pose, sink, options = {}) {
         const point = transform.point(p), n = transform.normal(normal);
         const diffuse = Math.max(0, dot(n, lightDirection));
         const rim = Math.pow(1 - Math.abs(n.z), 3);
-        // Mottling is fixed in local coordinates. No clock or random value enters
-        // shading, so the markings follow the same skin through every movement.
-        const mottling = part === 'torso' || part === 'head'
-            ? .026 * Math.sin(p.x * 17 + p.z * 11) * Math.sin(p.y * 14 - p.z * 7) : 0;
-        const light = options.silhouette ? .72 : clamp(tone ?? (.22 + .58 * diffuse + .12 * rim + mottling), .025, 1);
+        const skin = part === 'torso' || part === 'head' || part.startsWith('rear') || part.startsWith('fore');
+        // Broad markings travel with the skin. A narrow coherent specular lobe
+        // supplies wetness without frame-random sparkle or extra geometry.
+        const marking = skin ? Math.sin(p.x * 7.2 + p.z * 3.1) * Math.sin(p.z * 5.3 - p.y * 3.0) : 0;
+        const specular = .34 * Math.pow(Math.max(0, dot(n, wetHighlight)), 23);
+        const gold = skin && p.y < .15 && marking > .43 && n.y < .4;
+        const nostril = part === 'head' && p.z > .65 && Math.abs(Math.abs(p.x) - .21) < .037 && Math.abs(p.y + .29) < .032;
+        const base = .18 + .48 * diffuse + .055 * rim + specular + (skin ? marking * .035 : .04);
+        const light = options.silhouette ? .72 : clamp(tone ?? (nostril ? .08 : base + (part === 'throat' ? .13 : 0)), .025, 1);
         if (![point.x, point.y, point.z, light].every(Number.isFinite))
             throw new RangeError('Non-finite frog sample');
         minX = Math.min(minX, point.x);
@@ -130,7 +153,7 @@ export function sampleFrogPose(pose, sink, options = {}) {
         maxX = Math.max(maxX, point.x);
         maxY = Math.max(maxY, point.y);
         maxZ = Math.max(maxZ, point.z);
-        sink({ ...point, light, material: options.silhouette ? 0 : material, sampleId: count++, part });
+        sink({ ...point, light, material: options.silhouette ? 0 : gold ? 2 : material, sampleId: count++, part });
     }
     function ellipsoid(center, radius, part, latitudes = 26, longitudes = 48, material = 0, tone) {
         for (let iy = 0; iy <= latitudes; iy++) {
@@ -153,7 +176,8 @@ export function sampleFrogPose(pose, sink, options = {}) {
             const center = mix(from, to, t);
             // A modest belly gives muscular thighs while endpoints share radii with
             // the joint spheres. Geometry is a continuous tube, never separated beads.
-            const radius = startRadius + (endRadius - startRadius) * t;
+            const thigh = part.startsWith('rear') && startRadius > .2;
+            const radius = startRadius + (endRadius - startRadius) * t + (thigh ? .055 * Math.sin(Math.PI * t) : 0);
             for (let j = 0; j < sides; j++) {
                 const angle = TAU * j / sides;
                 const radial = add(mul(tangent, Math.cos(angle)), mul(bitangent, Math.sin(angle)));
@@ -166,8 +190,8 @@ export function sampleFrogPose(pose, sink, options = {}) {
     }
     function rear(l, side) {
         const part = side < 0 ? 'rear-left' : 'rear-right';
-        tube(l.attachment, l.elbow, .22, .225, part, 24, 20);
-        joint(l.elbow, .225, part);
+        tube(l.attachment, l.elbow, .22, .245, part, 24, 20);
+        joint(l.elbow, .245, part);
         tube(l.elbow, l.ankle, .155, .085, part, 24, 18);
         joint(l.ankle, .087, part);
         tube(l.ankle, l.tip, .075, .053, part, 18, 14);
@@ -198,20 +222,20 @@ export function sampleFrogPose(pose, sink, options = {}) {
     rear(landmarks.rearRight, 1);
     // Raised lower belly creates a readable wedge beside each forearm; this
     // bounded refinement follows the first actual native-atlas contact sheet.
-    ellipsoid(landmarks.torso, v(.72, .40, .43), 'torso', 36, 64);
-    ellipsoid(landmarks.head, v(.78, .31, .47), 'head', 32, 64);
+    ellipsoid(landmarks.torso, v(.65, .35, .50), 'torso', 36, 64);
+    ellipsoid(landmarks.head, v(.77, .29, .53), 'head', 32, 64);
     // The throat overlaps both head and torso and expands smoothly from its base.
-    ellipsoid(v(0, .02, .45), v(.31 + pose.throat * .40, .18 + pose.throat, .12 + pose.throat), 'throat', 22, 38, 2);
+    ellipsoid(v(0, .035, .49), v(.35 + pose.throat * .40, .14 + pose.throat, .12 + pose.throat), 'throat', 22, 38, 2);
     fore(landmarks.foreLeft, -1);
     fore(landmarks.foreRight, 1);
     function eye(center, part) {
-        ellipsoid(center, v(.245, .245, .235), part, 24, 38);
+        ellipsoid(center, v(.225, .205, .225), part, 24, 38);
         // Iris and pupil are slightly flattened ellipsoids sharing a globe center.
         // Their overlap preserves attachment in both front and oblique views.
-        const iris = add(center, v(.025 * pose.gaze, -.008, .194));
-        ellipsoid(iris, v(.174, .160, .060), part, 20, 34, 2, .79);
+        const iris = add(center, v(.025 * pose.gaze, -.008, .190));
+        ellipsoid(iris, v(.169, .124, .057), part, 20, 34, 2, .80);
         const pupil = add(iris, v(.018 * pose.gaze, .006, .051));
-        ellipsoid(pupil, v(.128, .060, .025), part, 14, 30, 2, .028);
+        ellipsoid(pupil, v(.131, .044, .025), part, 14, 30, 2, .028);
         // Small reflection is a geometry patch, not an externally painted eye.
         ellipsoid(add(pupil, v(-.053, -.030, .021)), v(.026, .018, .012), part, 7, 12, 2, .96);
     }
@@ -220,9 +244,7 @@ export function sampleFrogPose(pose, sink, options = {}) {
     // A shallow mouth seam follows the front of the cheek ellipsoid.
     for (let i = 0; i < 68; i++) {
         const x = -.59 + 1.18 * i / 67;
-        const y = -.147 + .048 * (x / .59) ** 2;
-        const r = 1 - (x / .78) ** 2 - ((y + .31) / .31) ** 2;
-        const z = .16 + .47 * Math.sqrt(Math.max(.02, r)) + .012;
+        const { y, z } = mouthSurface(x);
         for (let j = 0; j < 4; j++) {
             const angle = TAU * j / 4;
             emit(v(x, y + .011 * Math.sin(angle), z + .010 * Math.cos(angle)), v(0, Math.sin(angle), Math.cos(angle)), 'mouth', 2, .055);

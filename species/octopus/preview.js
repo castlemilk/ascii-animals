@@ -141,7 +141,9 @@ export function mountOctopusPreview(doc = document, Artwork = CuttlefishArtwork)
       syncPlayback();
       if (motion.matches) announce('Reduced motion is on. The current pose is held; choose Play only when you want movement.');
     });
-    on(view, 'pagehide', dispose, { once: true });
+    // A cached history entry resumes this same document. Keep its controls and
+    // renderer alive; ordinary navigation still releases both.
+    on(view, 'pagehide', event => { if (!event.persisted) dispose(); });
     syncPlayback();
     announce(artwork.paused ? 'A still view of the den. Choose Play when you want to explore its movement.'
       : 'The den is quiet. Move gently, tap the water, or choose Examine.');

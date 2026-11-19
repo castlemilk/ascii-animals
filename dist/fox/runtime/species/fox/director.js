@@ -1,7 +1,7 @@
 /** Fox-only choreography over the existing fixed-tick animal model. No DOM/clock. */
 import { createFox } from './model.js';
 import { poseFox, neutralFeet } from './geometry.js';
-import { clamp, finite, integer, plain, resolveFoxOptions } from './config.js';
+import { clamp, finite, integer, plain, resolveFoxOptions, smooth } from './config.js';
 export const FOX_DIRECTOR_LIMITS = Object.freeze({ maxActors: 3, tickRate: 60, maxTick: 0x7fffffff,
     eventsPerTick: 16, cycleTicks: 1800, minCols: 112, minRows: 48, maxCols: 160, maxRows: 64,
     maxAccents: 48, maxPolygons: 144, maxVertices: 3072 });
@@ -13,6 +13,7 @@ const CUES = ['rustle', 'pounce', 'play', 'rest'];
 const TABLEAUX = ['listen', 'pounce', 'rest'];
 const NAMES = ['Ember', 'Pip', 'Bracken'];
 const NEUTRAL = Object.freeze({ headPitch: 0, earNear: 0, earFar: 0, tailLift: 0, rest: 0, bow: 0 });
+const easeBetween = (age, start, end) => smooth((age - start) / (end - start));
 export function resolveFoxDirectorOptions(patch = {}, base = FOX_DIRECTOR_DEFAULTS) {
     plain(patch, 'director options');
     if (base !== FOX_DIRECTOR_DEFAULTS)
@@ -81,6 +82,56 @@ function freezeState(state) {
     return Object.freeze(state);
 }
 function busy(state) { return 'plan' in state.behavior; }
+/** Bounded, phase-authored local expression; the model continues to own the feet and leap. */
+function interestExpression(a, age, playful) {
+    const origin = a.interestOrigin;
+    if (playful) {
+        // The white brush flags first. Ears/head then follow; the shoulder bow is last.
+        const tail = easeBetween(age, 0, 22), look = easeBetween(age, 20, 48);
+        const release = easeBetween(age, 108, 130);
+        return {
+            headPitch: origin.headPitch * (1 - look) - .22 * look + .31 * release,
+            earNear: origin.earNear * (1 - look) + .25 * look - .10 * release,
+            earFar: origin.earFar * (1 - look) - .21 * look + .30 * release,
+            tailLift: origin.tailLift * (1 - tail) - .25 * tail + .055 * Math.sin(Math.PI * easeBetween(age, 42, 128)),
+            rest: origin.rest * (1 - easeBetween(age, 24, 60)),
+            bow: Math.sin(Math.PI * easeBetween(age, 48, 124)) * .88,
+        };
+    }
+    // Ear triangulation leads the muzzle: one ear locates, the other cross-checks.
+    const locate = easeBetween(age, 0, 12), crossCheck = easeBetween(age, 16, 34);
+    const focus = easeBetween(age, 34, 52), lower = easeBetween(age, 122, 175);
+    return {
+        headPitch: origin.headPitch * (1 - easeBetween(age, 10, 24))
+            - .22 * easeBetween(age, 10, 25) + .18 * easeBetween(age, 28, 50) + .17 * lower,
+        earNear: origin.earNear * (1 - locate) - .28 * locate + .48 * crossCheck - .04 * focus,
+        earFar: origin.earFar * (1 - easeBetween(age, 5, 21)) + .25 * easeBetween(age, 5, 21)
+            - .46 * easeBetween(age, 23, 40) + .34 * focus,
+        tailLift: origin.tailLift * (1 - locate) + .025 * locate - .07 * lower,
+        rest: origin.rest * (1 - easeBetween(age, 0, 35)),
+        bow: .25 * easeBetween(age, 154, 201),
+    };
+}
+function responseExpression(state, playful) {
+    const b = state.behavior;
+    if (!('plan' in b))
+        return NEUTRAL;
+    const o = b.plan.options;
+    if (b.kind === 'crouch')
+        return { ...NEUTRAL, headPitch: .12, earNear: .21, earFar: .14, tailLift: playful ? -.24 : -.14 };
+    if (b.kind === 'airborne') {
+        const u = b.age / o.airTicks;
+        return { ...NEUTRAL, headPitch: .12 - .23 * Math.sin(Math.PI * u), earNear: -.12, earFar: -.19,
+            tailLift: -.12 * Math.cos(Math.PI * u) - (playful ? .07 : 0) };
+    }
+    if (b.kind === 'landing') {
+        const absorb = 1 - smooth(b.age / Math.max(1, o.landingTicks - 1));
+        return { ...NEUTRAL, headPitch: .17 * absorb, earNear: -.08 * absorb, earFar: -.16 * absorb, tailLift: .13 * absorb };
+    }
+    const settling = b.kind === 'recover' ? 1 - smooth(b.age / Math.max(1, o.recoveryTicks - 1)) : 0;
+    return { ...NEUTRAL, headPitch: .10 * settling, earNear: .13 * settling, earFar: -.10 * settling,
+        tailLift: (playful ? -.15 : .07) * settling };
+}
 /** Explicit deterministic director. Its scene clock never changes the animal's 60Hz tick domain. */
 export function createFoxDirector(init = {}) {
     plain(init, 'director create options');
@@ -100,7 +151,14 @@ export function createFoxDirector(init = {}) {
         const h = home(options.count, id);
         const facing = id % 2 ? (foxOptions.facing === 'right' ? 'left' : 'right') : foxOptions.facing;
         const model = supplied ?? createFox({ ...foxOptions, seed: (seed + Math.imul(id, 2654435761)) >>> 0, facing });
-        return { model, intent: { kind: 'autonomous' }, expression: NEUTRAL, x: h.x, y: h.y, noticeUntil: 0, answerAt: -1 };
+        return { model, intent: { kind: 'autonomous' }, expression: NEUTRAL,
+            interestOrigin: NEUTRAL, interestRoot: 0, responsePlayful: false,
+            x: h.x * options.spacing, y: h.y, noticeUntil: 0, answerAt: -1 };
+    }
+    function investigate(a, target, playful) {
+        a.interestOrigin = a.expression;
+        a.interestRoot = a.model.getState().rootX;
+        a.intent = { kind: 'investigate', age: 0, target, playful };
     }
     for (let id = 0; id < options.count; id++)
         runtimes.push(makeActor(id, id === 0 ? first : undefined));
@@ -184,11 +242,16 @@ export function createFoxDirector(init = {}) {
         configure(p) {
             alive();
             const next = resolveFoxDirectorOptions(p, options), changedScene = next.scene !== options.scene;
+            const changedLayout = next.count !== options.count || next.spacing !== options.spacing;
             options = next;
             while (runtimes.length > options.count)
                 runtimes.pop().model.dispose();
             while (runtimes.length < options.count)
                 runtimes.push(makeActor(runtimes.length));
+            // Layout edits may reframe the cast. Simulation never drifts these anchors:
+            // translating the whole actor every tick would slide all four stance paws.
+            if (changedLayout)
+                runtimes.forEach((a, id) => { const h = home(options.count, id); a.x = h.x * options.spacing; a.y = h.y; });
             if (changedScene) {
                 for (const a of runtimes) {
                     a.intent = { kind: 'autonomous' };
@@ -259,7 +322,7 @@ export function createFoxDirector(init = {}) {
                         a.intent = { kind: 'autonomous' };
                     }
                     else
-                        a.intent = { kind: 'investigate', age: 0, target, playful: e.cue === 'play' };
+                        investigate(a, target, e.cue === 'play');
                     rustle = { ...target, age: 0, owner };
                     runtimes.forEach((other, id) => { if (id !== owner) {
                         other.noticeUntil = tick + 110 + id * 23;
@@ -272,18 +335,56 @@ export function createFoxDirector(init = {}) {
             const cycle = state.cycle + Math.floor(rawTime / 1800), beat = beatAt(sceneTime);
             const snapshots = [];
             for (let id = 0; id < runtimes.length; id++) {
-                const a = runtimes[id], before = a.model.getState(), role = roleFor(options, id), p = phase(seed, id), h = home(options.count, id);
+                const a = runtimes[id], before = a.model.getState(), role = roleFor(options, id), p = phase(seed, id);
                 let action = 'watching', guide = null, pounce = instant.has(id), rest = 0, bow = 0;
-                if (a.answerAt === tick && !busy(before) && a.intent.kind === 'autonomous')
-                    a.intent = { kind: 'investigate', age: 0, target: { x: -.3, y: .3 }, playful: true };
+                let authored = null;
+                if (a.answerAt === tick && !busy(before) && a.intent.kind === 'autonomous') {
+                    const inviter = state.rustle ? runtimes[state.rustle.owner] : undefined;
+                    investigate(a, { x: inviter?.x ?? -.3, y: inviter?.y ?? .3 }, true);
+                }
+                // Ambient scenes use the same full anticipation as deliberate invitations.
+                // The scene clock schedules a start; the captured response stays at 60 Hz.
+                const autoPlay = options.scene === 'moon-play' || role === 'playmate';
+                const trigger = options.scene === 'moon-play' ? 460 + id * 170 : 830 + id * 180;
+                const start = trigger - (autoPlay ? 129 : 204);
+                if (role !== 'lookout' && role !== 'dreamer' && a.intent.kind === 'autonomous' && !busy(before)
+                    && sceneTime >= start && state.sceneTime < start) {
+                    investigate(a, { x: clamp(a.x + (a.model.getOptions().facing === 'right' ? .3 : -.3), -1, 1), y: a.y }, autoPlay);
+                }
                 if (a.intent.kind === 'investigate') {
                     const intent = a.intent, age = intent.age + 1;
-                    action = age < 45 ? 'listening' : age < 140 ? intent.playful ? 'bowing' : 'stalking' : 'sniffing';
-                    if (age >= 45)
-                        guide = { x: clamp((intent.target.x - a.x) * 3, -.95, .95), y: .65 };
-                    bow = intent.playful && age < 130 ? Math.sin(Math.PI * clamp((age - 45) / 85, 0, 1)) : 0;
-                    if (age === (intent.playful ? 130 : 205))
+                    const leapAt = intent.playful ? 130 : 205;
+                    const targetX = clamp((intent.target.x - a.x) * 3, -.95, .95) * .2;
+                    const delta = targetX - a.interestRoot;
+                    const stopX = a.interestRoot + Math.sign(delta) * Math.max(0, Math.abs(delta) - .07);
+                    authored = interestExpression(a, age, intent.playful);
+                    if (intent.playful) {
+                        action = age < 48 ? 'listening' : age < 108 ? 'bowing' : 'playing';
+                        // The tail and then the bow are readable before the first careful step.
+                        if (age >= 76 && age < leapAt)
+                            guide = { x: (before.rootX + clamp(stopX - before.rootX, -.014, .014)) / .2, y: .45 };
+                    }
+                    else {
+                        const creeping = age >= 45 && age < 100 || age >= 130 && age < 166;
+                        action = age < 45 ? 'listening' : creeping ? 'stalking' : 'sniffing';
+                        if (creeping) {
+                            const goal = age < 100 ? a.interestRoot + (stopX - a.interestRoot) * .68 : stopX;
+                            guide = { x: (before.rootX + clamp(goal - before.rootX, -.014, .014)) / .2, y: .7 };
+                        }
+                        else if (age >= 45 && age < leapAt) {
+                            // Keep the nose working while the paws finish planting between steps.
+                            guide = { x: before.rootX / .2, y: .7 };
+                        }
+                    }
+                    if (age === leapAt) {
                         pounce = true;
+                        guide = { x: targetX / .2, y: .65 };
+                    }
+                    if (age > leapAt) {
+                        action = 'recovering';
+                        guide = null;
+                        authored = NEUTRAL;
+                    }
                     a.intent = age > 420 ? { kind: 'autonomous' } : { ...intent, age };
                 }
                 else if (a.intent.kind === 'rest') {
@@ -315,9 +416,6 @@ export function createFoxDirector(init = {}) {
                         action = idleCycle < 90 ? 'sniffing' : 'stalking';
                         guide = { x: Math.sin(sceneTime / 220 + p) * .92, y: .7 };
                     }
-                    const trigger = options.scene === 'moon-play' ? 460 + id * 170 : 830 + id * 180;
-                    if (role !== 'lookout' && role !== 'dreamer' && sceneTime >= trigger && state.sceneTime < trigger && !busy(before))
-                        pounce = true;
                     if (pointer.active && options.curiosity > 0 && id === selected && role !== 'dreamer') {
                         if (pointer.stillTicks > 35) {
                             guide = { x: clamp((pointer.x - a.x) * 2.5, -.95, .95), y: pointer.y };
@@ -332,13 +430,20 @@ export function createFoxDirector(init = {}) {
                     guide = null;
                     rest = 0;
                 }
-                if (guide && !busy(before) && Math.abs(guide.x) > .16)
-                    a.model.configure({ facing: guide.x > 0 ? 'right' : 'left' });
+                if (guide && !busy(before) && Math.abs(guide.x * .2 - before.rootX) > .006) {
+                    a.model.configure({ facing: guide.x * .2 > before.rootX ? 'right' : 'left' });
+                }
+                // An in-flight/recovering fox finishes its captured response before it
+                // receives new walking guidance, including on the last cooldown tick.
+                if (busy(before))
+                    guide = null;
                 const modelTick = before.tick + 1, seq = before.lastSequence + 1;
                 const events = [guide ? { type: 'guide', tick: modelTick, seq, ...guide } : { type: 'leave', tick: modelTick, seq }];
                 if (pounce)
                     events.push({ type: 'pounce', tick: modelTick, seq: seq + 1 });
                 const after = a.model.step(modelTick, events).state;
+                if (!busy(before) && busy(after))
+                    a.responsePlayful = a.intent.kind === 'investigate' && a.intent.playful;
                 if (['crouch', 'airborne', 'landing'].includes(after.behavior.kind)) {
                     action = 'pouncing';
                     rest = 0;
@@ -351,19 +456,14 @@ export function createFoxDirector(init = {}) {
                 }
                 const attention = action === 'listening' || action === 'watching';
                 const lookY = pointer.active && id === selected ? clamp(pointer.y - a.y, -.7, .7) : Math.sin(tick / 97 + p) * .35;
-                const desired = { headPitch: rest ? .16 : attention ? -.16 + lookY * .2 * options.curiosity : .035,
+                const ambient = { headPitch: rest ? .16 : attention ? -.16 + lookY * .2 * options.curiosity : .035,
                     earNear: Math.sin(tick / 43 + p) * .12 + (attention ? -.17 : .07),
                     earFar: Math.sin(tick / 61 + p + 1.2) * .12 + (attention ? .14 : -.03),
                     tailLift: rest ? .16 : action === 'playing' || action === 'bowing' ? -.23 : attention ? -.13 : .06,
                     rest, bow };
+                const desired = busy(after) ? responseExpression(after, a.responsePlayful) : authored ?? ambient;
                 a.expression = Object.fromEntries(Object.keys(NEUTRAL).map(key => [key,
                     a.expression[key] + (desired[key] - a.expression[key]) * .09]));
-                // A tucked fox keeps its ground anchor. Scene paths resume when it rises.
-                if (!rest) {
-                    const arc = options.scene === 'moon-play' ? .065 * Math.sin(sceneTime / 170 + p) : .035 * Math.sin(sceneTime / 350 + p);
-                    a.x += (h.x * options.spacing + arc - a.x) * .025;
-                    a.y += (h.y + (options.scene === 'moon-play' ? .018 * Math.sin(sceneTime / 85 + p) : 0) - a.y) * .025;
-                }
                 snapshots.push(actorSnapshot(id, action));
             }
             state = freezeState({ ...state, tick, lastSequence: sequence, scene: options.scene, sceneTime, cycle, beat,

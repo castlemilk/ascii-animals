@@ -141,6 +141,21 @@ test('reduced-motion controls remain static; AbortController and pagehide remove
   assert.equal(f.nodes.get('action-status').textContent, status);
 });
 
+test('history-cached page remains interactive and later ordinary navigation disposes', () => {
+  const f = fixture(), a = f.artwork;
+  f.host.view.emit('pagehide', { persisted: true });
+  assert.equal(a.destroyed, false);
+  assert(f.listeners() > 0);
+  f.host.view.emit('pageshow', { persisted: true });
+  f.click('examine');
+  assert.equal(a.pointer.active, true);
+  assert.equal(a.fish[0].speciesState.diagnostics.sequence, 'notice');
+  f.host.view.emit('pagehide', { persisted: false });
+  assert.equal(a.destroyed, true);
+  assert.equal(f.listeners(), 0);
+  assert.equal(f.host.pending, 0);
+});
+
 test('standalone preview contains exact canonical sources and has no local module or stylesheet dependency', () => {
   const directory = mkdtempSync(path.join(tmpdir(), 'octopus-preview-test-'));
   try {

@@ -34,7 +34,14 @@ const PHASE_LABELS = {
   settle: 'Finding their quiet', call: 'A call across the perch', answer: 'An answering turn',
   'shared-watch': 'Keeping watch together', stretch: 'Unfolding the wings', rest: 'Heavy eyelids',
   wake: 'Stirring again', focus: 'Finding the sound', recover: 'Returning to the scene',
+  launch: 'Gathering for takeoff', glide: 'Holding the quiet air',
+  brake: 'Opening the wings to brake', alight: 'Finding the bough again',
 };
+const FLIGHT_ARC = Object.freeze({
+  phases: ['launch', 'glide', 'brake', 'alight'],
+  labels: ['Launch', 'Glide', 'Brake', 'Alight'],
+  description: 'The owl gathers its weight, lifts from the branch, then glides. Spread wings and reaching feet slow the return before the feathers settle.',
+});
 const DIRECTIONS = { left: [-0.85, 0], up: [0, -0.75], down: [0, 0.75], right: [0.85, 0] };
 const humanize = value => String(value ?? 'Quietly perched').replace(/[-_]/g, ' ').replace(/^./, c => c.toUpperCase());
 let controller;
@@ -91,15 +98,17 @@ function showDirector(state, status) {
   syncDirectorControls(state.config);
   const scene = SCENES[state.config.scene];
   const phase = state.phase.kind;
-  const index = scene.phases.indexOf(phase);
+  const flight = state.cue?.kind === 'flight' || FLIGHT_ARC.phases.includes(phase);
+  const arc = flight ? FLIGHT_ARC : scene;
+  const index = arc.phases.indexOf(phase);
   byId('behavior').textContent = `${status.running ? '' : 'Still · '}${PHASE_LABELS[phase] ?? humanize(phase)}`;
-  byId('scene-description').textContent = scene.description;
+  byId('scene-description').textContent = arc.description;
   byId('scene-hint').textContent = status.running ? scene.hint : 'This moment is held. Give a cue to choose a deliberate still pose.';
   byId('phase-counter').textContent = index < 0 ? 'RESPONDING' : `${String(index + 1).padStart(2, '0')} / 04`;
   const steps = byId('scene-arc').children;
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
-    step.querySelector('.arc-label').textContent = scene.labels[i];
+    step.querySelector('.arc-label').textContent = arc.labels[i];
     step.classList.toggle('current', i === index);
     step.classList.toggle('complete', index >= 0 && i < index);
     if (i === index) step.setAttribute('aria-current', 'step'); else step.removeAttribute('aria-current');
@@ -149,6 +158,7 @@ function announceCue(kind, result) {
     rustle: `${name} receives a rustle at the guided position.`,
     call: `${name} receives a call. A companion can answer in its own time.`,
     stretch: `${name} is invited to unfold its wings.`,
+    flight: `${name} is invited to launch, glide and return to its perch.`,
   };
   announcement.textContent = result.kind === 'poster'
     ? `${descriptions[kind]} A still response is displayed; motion remains stopped.`
@@ -267,7 +277,8 @@ byId('reset').addEventListener('click', () => action(() => {
   showStoppedScenePose();
   announcement.textContent = `This scene starts again with the same settings.${controller.getStatus().paused ? ' Motion remains paused.' : ''}`;
 }));
-for (const kind of ['rustle', 'call', 'stretch']) byId(kind).addEventListener('click', () => cue(kind));
+for (const kind of ['rustle', 'flight', 'call', 'stretch']) byId(kind).addEventListener('click', () => cue(kind));
+for (const button of document.querySelectorAll('[data-cue]')) button.addEventListener('click', () => cue(button.dataset.cue));
 for (const button of document.querySelectorAll('[data-guide]')) button.addEventListener('click', () => guide(button.dataset.guide));
 byId('release').addEventListener('click', releaseAttention);
 host.addEventListener('keydown', event => {
@@ -275,10 +286,11 @@ host.addEventListener('keydown', event => {
   const direction = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' }[event.key];
   if (direction) { event.preventDefault(); guide(direction); return; }
   const key = event.key.toLowerCase();
-  if (!['enter', 'c', 's', ' ', 'escape'].includes(key)) return;
+  if (!['enter', 'r', 'f', 'c', 's', ' ', 'escape'].includes(key)) return;
   event.preventDefault();
   if (event.repeat) return;
-  if (key === 'enter') cue('rustle');
+  if (key === 'enter' || key === 'r') cue('rustle');
+  else if (key === 'f') cue('flight');
   else if (key === 'c') cue('call');
   else if (key === 's') cue('stretch');
   else if (key === ' ') togglePause();
