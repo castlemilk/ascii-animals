@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark"><title>Manta / Reef shadows — ASCII Animals</title>
+  <link rel="stylesheet" href="study.css">
+</head>
+<body>
+  <main class="study">
+    <header class="masthead">
+      <nav aria-label="Breadcrumb"><a href="../../dist/animals.html?species=manta">ASCII Animals</a><span aria-hidden="true"> / </span><span aria-current="page">Manta</span></nav>
+      <span class="edition">FIELD STUDY 02</span>
+    </header>
+    <section aria-labelledby="title">
+      <div class="intro"><div><p class="eyebrow">REEF SHADOWS</p><h1 id="title">Manta</h1></div><p class="species">Mobula alfredi<br><span>A quiet passage above the reef.</span></p></div>
+      <div class="water">
+        <canvas id="manta" tabindex="0" role="img" aria-label="A reef manta glides above a layered reef shelf. Its broad fins bank, with a trailing tail and two cephalic lobes. Use the buttons below or left and right arrows while the canvas is focused to bank." aria-describedby="interaction-help">Your browser needs Canvas 2D to draw this scene. The controls remain labelled below.</canvas>
+        <div class="scene-caption" aria-hidden="true"><span id="phase">Reading the current</span><span id="motion-state">Live study</span></div>
+      </div>
+      <div class="control-row">
+        <div class="actions" role="group" aria-label="Manta actions"><button id="play" type="button">Pause</button><button id="left-bank" type="button">← Bank left</button><button id="right-bank" type="button">Bank right →</button></div>
+        <label class="current">Current <select id="current"><option value="-.8">← Westward</option><option value="0">Still water</option><option value=".45" selected>Eastward →</option></select></label>
+      </div>
+      <p id="interaction-help" class="help">Move gently to guide its attention. Tap the manta to bank. Each turn settles slowly back into the current.</p>
+      <div class="lower">
+        <fieldset class="stills"><legend>Explore a still</legend><div><button type="button" data-still="glide">Glide</button><button type="button" data-still="anticipation">Anticipation</button><button type="button" data-still="bank">Bank</button><button type="button" data-still="recover">Recovery</button></div></fieldset>
+        <div class="view-options"><label><input id="habitat" type="checkbox" checked> Reef habitat</label><label><input id="points" type="checkbox"> Point study</label><button id="restart" type="button">Restart</button></div>
+      </div>
+      <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+      <p id="error" class="error" role="alert" hidden></p>
+    </section>
+    <footer><p>Original procedural geometry. A dorsal study with lateral eyes omitted.</p><p>The barrel bank is authored motion, inspired by manta turns.</p></footer>
+  </main>
+  <script type="module" src="study.mjs"></script>
+</body>
+</html>
