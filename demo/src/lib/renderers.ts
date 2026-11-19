@@ -3,7 +3,8 @@
  * review package's public export map; no renderer is copied into this app.
  * Type imports are erased and do not load inactive species at runtime.
  */
-import type { Artwork } from 'ascii-animals-review';
+import type { ArtworkOptions } from 'ascii-animals-review';
+import type { MarineMovementArtwork } from 'ascii-animals-review/movement/marine';
 import type { ButterflyArtwork } from 'ascii-animals-review/butterfly';
 import type { CrabArtwork } from 'ascii-animals-review/crab';
 import type { DragonflyArtwork } from 'ascii-animals-review/dragonfly';
@@ -16,14 +17,17 @@ import type { SeahorseArtwork } from 'ascii-animals-review/seahorse';
 import type { TurtleArtwork } from 'ascii-animals-review/turtle';
 
 export type MarineSpeciesId = 'cuttlefish' | 'manta' | 'octopus';
+export function isMarineSpecies(species: SpeciesId): species is MarineSpeciesId {
+  return species === 'cuttlefish' || species === 'manta' || species === 'octopus';
+}
 export type SpeciesId = MarineSpeciesId | 'seahorse' | 'crab' | 'turtle'
   | 'pufferfish' | 'frog' | 'butterfly' | 'dragonfly' | 'gecko' | 'owl' | 'fox';
 
 /** A movement extension narrows session.species before using its real API. */
 export interface RendererControllers {
-  cuttlefish: Artwork;
-  manta: Artwork;
-  octopus: Artwork;
+  cuttlefish: MarineMovementArtwork;
+  manta: MarineMovementArtwork;
+  octopus: MarineMovementArtwork;
   seahorse: SeahorseArtwork;
   crab: CrabArtwork;
   turtle: TurtleArtwork;
@@ -40,13 +44,13 @@ export interface RendererControllers {
  * The movement owner's opt-in point BEFORE a controller is constructed. Several
  * species cannot switch from solo to director mode after mounting. These are
  * each factory's actual public options, not a fabricated common movement API.
- * Marine's newer /cuttlefish director factory is intentionally not substituted
- * for createArtwork here; that change is an explicit integration handoff.
+ * Marine starts with journey mode disabled in its one canonical renderer. The
+ * independent authored studios are not mounted or altered by this bridge.
  */
 export interface RendererConfigurations {
-  cuttlefish: NonNullable<Parameters<typeof import('ascii-animals-review').createArtwork>[1]>;
-  manta: NonNullable<Parameters<typeof import('ascii-animals-review').createArtwork>[1]>;
-  octopus: NonNullable<Parameters<typeof import('ascii-animals-review').createArtwork>[1]>;
+  cuttlefish: ArtworkOptions;
+  manta: ArtworkOptions;
+  octopus: ArtworkOptions;
   seahorse: NonNullable<Parameters<typeof import('ascii-animals-review/seahorse').createSeahorseArtwork>[1]>;
   crab: NonNullable<Parameters<typeof import('ascii-animals-review/crab').createCrabArtwork>[1]>;
   turtle: NonNullable<Parameters<typeof import('ascii-animals-review/turtle').createTurtleArtwork>[1]>;
@@ -215,8 +219,11 @@ export async function mountRenderer(
     case 'cuttlefish':
     case 'manta':
     case 'octopus': {
-      const marine = await import(/* webpackExports: ["createArtwork"] */ 'ascii-animals-review');
-      return mountCanvas(species, host, options, canvas => marine.createArtwork(canvas, {
+      const { createMarineMovementArtwork } = await import('ascii-animals-review/movement/marine');
+      return mountCanvas(species, host, options, canvas => createMarineMovementArtwork(canvas, {
+        enabled: false, timing: { mode: 'duration', seconds: 8 },
+        lingerSeconds: 0, repeat: true, edgePadding: 16,
+      }, {
         // The default swim-by starts out of frame. Reactive presents a legible
         // still immediately without manually advancing or changing anatomy.
         seed: 7, scene: 'reactive', count: 1, size: 1, followPointer: true,

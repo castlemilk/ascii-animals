@@ -263,8 +263,12 @@ python3 -m http.server 8000
 ```
 
 For Next.js, import the same subpath from the installed local package in a client
-mount effect. This patch does not alter the Next shell, project base path, routing,
-existing demo URLs or deployment configuration.
+mount effect. The Next.js study stage now uses this single native adapter for Cuttlefish,
+Manta and Octopus with motion disabled until the user opts in. The study's React
+panel is distinct from the standalone sample, but shares the typed contract.
+Its scope is path, starting direction, travel time, midpoint linger/still,
+repeat and continuous reverse. Main routing, original studios and deployment
+configuration are unchanged.
 
 ## Validation and remaining acceptance
 

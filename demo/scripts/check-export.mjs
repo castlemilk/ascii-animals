@@ -18,7 +18,7 @@ function tags(html) {
 }
 
 const packageFactories = {
-  'ascii-animals-review': 'createArtwork',
+  'ascii-animals-review/movement/marine': 'createMarineMovementArtwork',
   'ascii-animals-review/fox': 'createFoxArtwork',
   'ascii-animals-review/dragonfly': 'createDragonflyArtwork',
   'ascii-animals-review/gecko': 'createGeckoArtwork',

@@ -91,34 +91,24 @@ Owl pauses below 350 × 330 CSS px. The controls describe those compact still
 views. The marine family and Pufferfish share some implementation bytes, as
 documented in the library; one mounted renderer does not mean equal chunk sizes.
 
-## Movement owner: stable plug-in point
+## Across-screen journeys
 
-`src/extensions/movement-controls.tsx` exports:
+Cuttlefish, manta and octopus start in their original natural movement. Enable
+**Travel across the screen** in the route director to use a horizontal, vertical,
+diagonal or wandering path. Select the starting direction, travel time and an
+optional midpoint linger. Turn off repeat for a single pass. **Reverse now**
+retraces the path without a positional jump, while changing Starting direction
+sets new endpoints. **Show midpoint still** uses the shell's pause policy.
 
-```ts
-movementControls: {
-  configuration: Partial<RendererConfigurations>;
-  Panel: ComponentType<MovementPanelProps> | null;
-}
-```
+The panel uses the single marine session's published
+`ascii-animals-review/movement/marine` adapter; other species do not show it.
+The adapter projects the route through the existing canonical renderer rather
+than moving a separate canvas. Classic studios (including the authored marine
+studies) remain available and unchanged. See [movement contracts](../docs/MOVEMENT.md)
+for the additional library-only cast and timing controls.
 
-Configuration types come from each **actual factory parameter** and are applied
-before construction. This permits existing directors that require initial
-configuration to be enabled without a second renderer. The optional panel gets
-the discriminated `RendererSession`, effective pause/reduced-motion state, and
-`requestPaused`. Narrow `session.species` before using its native controller.
-
-The movement owner should edit this extension file. If a different native
-factory is required, coordinate the corresponding branch in
-`src/lib/renderers.ts`. In particular, marine's newer `createMarineDirector`
-lives on `/cuttlefish`; the typed `createArtwork` controller does not expose it.
-Do not claim that this hook already bridges that distinct factory.
-
-The panel owns its listeners/subscriptions and cleans them on unmount. It must
-not instantiate another renderer, dispose the shell's controller or resume it
-outside `requestPaused`. Unmount cleanup may encounter an already disposed
-controller and must tolerate that. No panel is installed in this patch, so the
-empty region is omitted; Original studio remains available.
+This panel does not promise every species has a native journey adapter. It has
+no animation loop and does not bypass or supersede shell motion settings.
 
 ## Checks
 

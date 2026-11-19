@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { BASE_PATH, apiPath, originalPath, type Animal } from '../lib/catalogue';
-import { mountRenderer, type RendererSession } from '../lib/renderers';
+import { isMarineSpecies, mountRenderer, type RendererSession } from '../lib/renderers';
 import { movementControls } from '../extensions/movement-controls';
 import { useMotionPolicy } from './motion-policy';
 
@@ -103,7 +103,7 @@ export function StudyStage({ animal }: { animal: Animal }) {
         <p className="keyboard-hint">Focus the artwork and press <kbd>Space</kbd> to pause or play. <kbd>Tab</kbd> moves to the controls.</p>
         <p className="sr-only" role="status">{notice}</p>
       </section>
-      {session && Panel && <section className="control-section movement-controls" aria-label="Movement controls"><Panel key={animal.id} session={session} paused={motion.paused} reducedMotion={motion.reduced} requestPaused={motion.setUserPaused} /></section>}
+      {session && isMarineSpecies(session.species) && Panel && <section className="control-section movement-controls" aria-label="Movement controls"><Panel key={animal.id} session={session} paused={motion.paused} reducedMotion={motion.reduced} requestPaused={motion.setUserPaused} /></section>}
       <section className="original-studio" aria-labelledby="original-title"><p className="eyebrow">More ways to explore</p><h2 id="original-title">Full studios</h2><p>Use the dedicated studio for more scenes, reactions, and individual controls.</p>{animal.fieldStudy && <a className="text-link" href={BASE_PATH + animal.fieldStudy.path}>{animal.fieldStudy.title} <span aria-hidden="true">↗</span></a>}<a className="text-link" href={originalPath(animal)}>Open original studio <span aria-hidden="true">↗</span></a><a className="api-link" href={apiPath(animal)}>Animal API <span aria-hidden="true">↗</span></a></section>
     </aside>
   </div>;

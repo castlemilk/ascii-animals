@@ -238,3 +238,35 @@ test('a rejected real factory configuration removes its attempted host and leave
   assert.deepEqual(host.host.children, [host.sibling]);
   assert.equal(host.resourceCount, 0);
 });
+
+for (const species of ['cuttlefish', 'manta', 'octopus']) {
+  test(`${species}: opt-in journey uses the same native stage and one scheduling owner`, async () => {
+    const host = rendererHost();
+    const session = await mountRenderer(species, host.host, { paused: true, reducedMotion: false });
+    const controller = session.controller;
+    const { element } = session;
+    try {
+      host.intersectAll();
+      assert.equal(controller.getMovementOptions().enabled, false);
+      assert.equal(controller.getOptions().species, species);
+      assert.equal(host.pending, 0);
+      controller.configureMovement({ enabled: true, path: 'horizontal', timing: { mode: 'duration', seconds: 4 }, repeat: false });
+      controller.showMovementStill(.5);
+      assert(controller.getStats().glyphs > 0);
+      assert.equal(controller.getMovementState().tick, 0);
+      assert.equal(host.pending, 0);
+      controller.seekMovement(60);
+      const x = controller.getMovementState().members[0].x;
+      session.play(); advance(host);
+      assert(controller.getMovementState().members[0].x > x);
+      assert.equal(session.element, element);
+      assert.deepEqual(host.host.children, [host.sibling, element]);
+      assert.equal(host.pending, 1);
+      controller.configureMovement({ enabled: false });
+      assert.equal(controller.getMovementOptions().enabled, false);
+      assert.equal(session.element, element);
+      session.pause(); assert.equal(host.pending, 0);
+    } finally { session.dispose(); }
+    assertReleased(host, session);
+  });
+}
