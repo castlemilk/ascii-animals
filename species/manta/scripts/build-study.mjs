@@ -2,6 +2,7 @@
 // No package exports, shared generated entry, workflow, or deployment is edited.
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { Script } from 'node:vm';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -24,7 +25,9 @@ async function visit(id) {
     await visit(resolved);
   }
   const output = ts.transpileModule(source.replace(/^\/\/# sourceMappingURL=.*$/gm, ''), {
-    fileName: id, reportDiagnostics: true,
+    // .mjs forces TypeScript to preserve ESM even with CommonJS requested.
+    // Only the compiler's virtual filename changes; logical module IDs stay exact.
+    fileName: id.replace(/\.mjs$/, '.cjs'), reportDiagnostics: true,
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, allowJs: true, sourceMap: false }
   });
   const errors = (output.diagnostics || []).filter(item => item.category === ts.DiagnosticCategory.Error);
@@ -34,6 +37,8 @@ async function visit(id) {
 await visit('species/manta/study.mjs');
 const wrappers = [...modules].map(([id, entry]) => `${JSON.stringify(id)}:[function(require,module,exports){\n${entry.code}\n},${JSON.stringify(entry.dependencies)}]`).join(',\n');
 const bundle = `(function(){'use strict';const modules={${wrappers}};const cache={};function load(id){if(cache[id])return cache[id].exports;const item=modules[id];if(!item)throw new Error('Missing bundled module: '+id);const m={exports:{}};cache[id]=m;item[0](name=>load(item[1][name]),m,m.exports);return m.exports;}load('species/manta/study.mjs');})();`;
+// Fail before emitting HTML if any module syntax survives the classic wrapper.
+new Script(bundle, { filename: 'manta-reef.generated.js' });
 const css = await readFile(path.join(root, 'species/manta/study.css'), 'utf8');
 let html = await readFile(path.join(root, 'species/manta/index.html'), 'utf8');
 for (const [id, source] of [['species/manta/study.css',css],['species/manta/index.html',html]]) hashes[id]=createHash('sha256').update(source).digest('hex');

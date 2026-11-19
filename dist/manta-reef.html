@@ -391,7 +391,9 @@ footer p {
   <!-- Generated manta study; source-sha256: 45fe8660f92f973f0c40063315e0c9274c265d32ae20e46cfd31c8d84a763e8b -->
 <script data-manta-bundle>
 (function(){'use strict';const modules={"species/manta/study.mjs":[function(require,module,exports){
-import { createMantaReef } from './reef-artwork.mjs';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const reef_artwork_mjs_1 = require("./reef-artwork.mjs");
 const byId = id => document.getElementById(id);
 const canvas = byId('manta'), buttons = [...document.querySelectorAll('[data-still]')];
 const liveHelp = byId('interaction-help').textContent;
@@ -427,7 +429,7 @@ function destroy() {
     artwork?.destroy();
 }
 try {
-    artwork = createMantaReef(canvas);
+    artwork = (0, reef_artwork_mjs_1.createMantaReef)(canvas);
     on(byId('play'), 'click', () => { artwork.setPaused(!artwork.paused); refresh(); announce(artwork.paused ? 'Animation paused.' : 'Animation playing.'); });
     on(byId('left-bank'), 'click', () => bank(-1));
     on(byId('right-bank'), 'click', () => bank(1));
@@ -477,20 +479,24 @@ catch (error) {
 
 },{"./reef-artwork.mjs":"species/manta/reef-artwork.mjs"}],
 "species/manta/reef-artwork.mjs":[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MantaReefArtwork = void 0;
+exports.createMantaReef = createMantaReef;
 // Species-local study adapter. It consumes the actual built marine package.
 // The underscored camera/render seams are review integration details, not a new
 // stable package API. Scheduling, input, buffers and disposal stay with the host.
-import { CuttlefishArtwork } from '../../lib/animals/cuttlefish.js';
-import { normalizeOptions } from '../../lib/public/index.js';
-import { normalizeReefOptions, sampleReefPose, REEF_STILLS } from './reef-director.mjs';
-import { drawReefHabitat } from './reef-habitat.mjs';
+const cuttlefish_js_1 = require("../../lib/animals/cuttlefish.js");
+const index_js_1 = require("../../lib/public/index.js");
+const reef_director_mjs_1 = require("./reef-director.mjs");
+const reef_habitat_mjs_1 = require("./reef-habitat.mjs");
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const smooth = n => { const u = clamp(n, 0, 1); return u * u * (3 - 2 * u); };
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 const unit = (v, fallback = [0, 0, 1]) => { const n = Math.hypot(...v); return n > .00001 ? v.map(x => x / n) : fallback.slice(); };
 function validateArtwork(options) {
-    normalizeOptions(options); // The study adopts the existing strict typed facade's schema.
+    (0, index_js_1.normalizeOptions)(options); // The study adopts the existing strict typed facade's schema.
     if (!options || typeof options !== 'object' || Array.isArray(options))
         throw new TypeError('Artwork options must be an object.');
     if (options.species !== undefined && options.species !== 'manta')
@@ -510,9 +516,9 @@ function validateArtwork(options) {
         throw new TypeError('The reef study supports a single hover or curious role.');
     }
 }
-export class MantaReefArtwork extends CuttlefishArtwork {
+class MantaReefArtwork extends cuttlefish_js_1.CuttlefishArtwork {
     constructor(canvas, reefOptions = {}, artworkOptions = {}) {
-        const config = normalizeReefOptions(reefOptions);
+        const config = (0, reef_director_mjs_1.normalizeReefOptions)(reefOptions);
         validateArtwork(artworkOptions); // Fail before the host allocates listeners.
         const cleanArtwork = Object.fromEntries(Object.entries(artworkOptions).filter(([, value]) => value !== undefined));
         super(canvas, { scene: 'reactive', species: 'manta', count: 1, behaviors: ['curious'],
@@ -541,7 +547,7 @@ export class MantaReefArtwork extends CuttlefishArtwork {
     }
     _sampleReef() {
         const still = this._reefStill;
-        const pose = sampleReefPose({
+        const pose = (0, reef_director_mjs_1.sampleReefPose)({
             time: still ? this._reefConfig.duration * .32 : this.time + this._reefPhaseOffset,
             seed: this.options.seed, current: this._currentAt(),
             pointer: still || !this.options.followPointer ? undefined : { x: this.pointer.x, y: this.pointer.y, interest: this.pointer.interest },
@@ -624,16 +630,16 @@ export class MantaReefArtwork extends CuttlefishArtwork {
             this._reefRendering = previous;
         }
     }
-    drawReefHabitat(pose) { drawReefHabitat(this, pose); }
+    drawReefHabitat(pose) { (0, reef_habitat_mjs_1.drawReefHabitat)(this, pose); }
     setReef(patch) {
         if (this.destroyed)
             return;
         if (!patch || typeof patch !== 'object' || Array.isArray(patch))
             throw new TypeError('Reef options must be an object.');
         // Normalize the patch separately so undefined means omitted on updates.
-        normalizeReefOptions(patch);
+        (0, reef_director_mjs_1.normalizeReefOptions)(patch);
         const clean = Object.fromEntries(Object.entries(patch).filter(([, value]) => value !== undefined));
-        const next = normalizeReefOptions({ ...this._reefConfig, ...clean });
+        const next = (0, reef_director_mjs_1.normalizeReefOptions)({ ...this._reefConfig, ...clean });
         if (next.current !== this._reefConfig.current) {
             this._reefCurrent = { from: this.paused ? next.current : this._currentAt(), to: next.current, start: this.elapsed };
         }
@@ -680,7 +686,7 @@ export class MantaReefArtwork extends CuttlefishArtwork {
     showReefStill(still) {
         if (this.destroyed)
             return false;
-        if (!REEF_STILLS.includes(still))
+        if (!reef_director_mjs_1.REEF_STILLS.includes(still))
             throw new TypeError('Unknown reef still.');
         this.setPaused(true);
         this._reefStill = still;
@@ -736,7 +742,8 @@ export class MantaReefArtwork extends CuttlefishArtwork {
         super.restart();
     }
 }
-export function createMantaReef(canvas, reefOptions = {}, artworkOptions = {}) {
+exports.MantaReefArtwork = MantaReefArtwork;
+function createMantaReef(canvas, reefOptions = {}, artworkOptions = {}) {
     return new MantaReefArtwork(canvas, reefOptions, artworkOptions);
 }
 
@@ -4611,6 +4618,11 @@ function createArtwork(canvas, options = {}) {
 
 },{"../animals/cuttlefish.js":"lib/animals/cuttlefish.js"}],
 "species/manta/reef-director.mjs":[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.REEF_RESPONSE_SECONDS = exports.REEF_STILLS = exports.REEF_DEFAULTS = void 0;
+exports.normalizeReefOptions = normalizeReefOptions;
+exports.sampleReefPose = sampleReefPose;
 // Manta reef study. Original analytic direction; no DOM, timers or random state.
 // The barrel bank is authored motion, not a claim to reproduce feeding somersaults.
 const TAU = Math.PI * 2;
@@ -4618,17 +4630,17 @@ const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const smooth = (a, b, n) => { const u = clamp((n - a) / (b - a), 0, 1); return u * u * (3 - 2 * u); };
 const unit = value => { const length = Math.hypot(...value); return value.map(n => n / length); };
 const finite = (value, fallback) => Number.isFinite(value) ? value : fallback;
-export const REEF_DEFAULTS = Object.freeze({ current: .45, duration: 32, habitat: true });
-export const REEF_STILLS = Object.freeze(['glide', 'anticipation', 'bank', 'recover']);
-export const REEF_RESPONSE_SECONDS = 8.8;
+exports.REEF_DEFAULTS = Object.freeze({ current: .45, duration: 32, habitat: true });
+exports.REEF_STILLS = Object.freeze(['glide', 'anticipation', 'bank', 'recover']);
+exports.REEF_RESPONSE_SECONDS = 8.8;
 /** Strict study-only options. Existing package configuration is unchanged. */
-export function normalizeReefOptions(options = {}) {
+function normalizeReefOptions(options = {}) {
     if (!options || typeof options !== 'object' || Array.isArray(options))
         throw new TypeError('Reef options must be an object.');
     for (const key of Object.keys(options))
-        if (!Object.hasOwn(REEF_DEFAULTS, key))
+        if (!Object.hasOwn(exports.REEF_DEFAULTS, key))
             throw new TypeError(`Unknown reef option: ${key}`);
-    const next = { ...REEF_DEFAULTS };
+    const next = { ...exports.REEF_DEFAULTS };
     for (const [key, value] of Object.entries(options)) {
         if (value === undefined)
             continue;
@@ -4652,7 +4664,7 @@ export function normalizeReefOptions(options = {}) {
  * `current` can be the adapter's eased current. Response age uses the inherited
  * 8.8-second clock and is independent of playback speed. Extra renders do no work.
  */
-export function sampleReefPose(input, options = REEF_DEFAULTS) {
+function sampleReefPose(input, options = exports.REEF_DEFAULTS) {
     if (!input || typeof input !== 'object' || Array.isArray(input))
         throw new TypeError('A reef pose needs a sample input.');
     for (const key of Object.keys(input))
@@ -4722,16 +4734,16 @@ export function sampleReefPose(input, options = REEF_DEFAULTS) {
     let phase = stage === 'anticipation' ? 'Reading the current' : stage === 'glide' ? 'Gliding along the reef' : 'Settling into open water';
     let sequence = 'current-glide', progress = cycle;
     const side = input.side === -1 ? -1 : 1;
-    const age = input.reactionAge == null ? null : Math.max(0, finite(input.reactionAge, REEF_RESPONSE_SECONDS));
-    const active = age !== null && age < REEF_RESPONSE_SECONDS;
+    const age = input.reactionAge == null ? null : Math.max(0, finite(input.reactionAge, exports.REEF_RESPONSE_SECONDS));
+    const active = age !== null && age < exports.REEF_RESPONSE_SECONDS;
     if (active) {
         // The leading wing loads first. Roll and travel then build together, with
         // more than half the response reserved for a slow, continuous unroll.
         const anticipation = smooth(0, .42, age) * (1 - smooth(.42, .8, age));
         const commit = smooth(.8, 2.6, age);
-        const release = 1 - smooth(3, REEF_RESPONSE_SECONDS, age);
+        const release = 1 - smooth(3, exports.REEF_RESPONSE_SECONDS, age);
         const roll = commit * release * motion;
-        const settle = smooth(3, 5.2, age) * (1 - smooth(5.2, REEF_RESPONSE_SECONDS, age));
+        const settle = smooth(3, 5.2, age) * (1 - smooth(5.2, exports.REEF_RESPONSE_SECONDS, age));
         bank = baseBank * (1 - .9 * roll) + side * (1.12 * roll - .115 * anticipation * motion);
         heading += side * .23 * roll;
         pitch += .09 * roll;
@@ -4745,7 +4757,7 @@ export function sampleReefPose(input, options = REEF_DEFAULTS) {
         stage = age < .8 ? 'anticipation' : age < 3 ? 'bank' : 'recover';
         phase = stage === 'anticipation' ? 'Loading the near wing' : stage === 'bank' ? 'Banking over the reef' : 'Unrolling into the current';
         sequence = 'barrel-bank';
-        progress = age / REEF_RESPONSE_SECONDS;
+        progress = age / exports.REEF_RESPONSE_SECONDS;
     }
     return {
         position,
@@ -4758,6 +4770,9 @@ export function sampleReefPose(input, options = REEF_DEFAULTS) {
 
 },{}],
 "species/manta/reef-habitat.mjs":[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.drawReefHabitat = drawReefHabitat;
 // Original reef silhouettes and glyph sediment. Presentation only: no clock,
 // randomness, listeners, atlas mutation, or animal ownership cells.
 const TAU = Math.PI * 2;
@@ -4765,7 +4780,7 @@ const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 const ridge = (x, layer, phase) => .79 + layer * .078
     + Math.sin(x * 5.7 + layer * 1.6 + phase) * .038
     + Math.sin(x * 17.1 + layer * 2.3) * .014;
-export function drawReefHabitat(host, pose) {
+function drawReefHabitat(host, pose) {
     const c = host.ctx, w = host.width, h = host.height;
     if (!w || !h)
         return;

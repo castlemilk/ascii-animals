@@ -4,6 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { Script } from 'node:vm';
 import { reefTestHost } from './reef-test-host.mjs';
 
 class Element {
@@ -27,13 +28,13 @@ class Element {
   get listenerCount() { return [...this.listeners.values()].reduce((sum, list) => sum + list.size, 0); }
 }
 
-async function studyDOM() {
+async function studyDOM(htmlURL = new URL('../index.html', import.meta.url)) {
   const host = reefTestHost(), document = host.document, canvas = host.canvas(390, 500);
-  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+  const html = await readFile(htmlURL, 'utf8');
   const elements = [], ids = new Map();
   // Read the shipped control elements as fixture data. This bounded parser is
   // intentionally not an HTML renderer, CSS engine or accessibility-tree test.
-  for (const match of html.matchAll(/<(canvas|button|select|input|p|span)\b([^>]*)>/g)) {
+  for (const match of html.matchAll(/<(canvas|button|select|input|p|span|strong|output)\b([^>]*)>/g)) {
     const [opening, tag, attributeText] = match;
     const attributes = new Map();
     for (const attribute of attributeText.matchAll(/([^\s=]+)(?:\s*=\s*"([^"]*)")?/g)) {
@@ -52,6 +53,9 @@ async function studyDOM() {
   }
   document.getElementById = id => ids.get(id) ?? null;
   document.querySelectorAll = selector => {
+    if (selector === '[data-action]') return elements.filter(element => element.dataset?.action);
+    if (selector === '[data-mode]') return elements.filter(element => element.dataset?.mode);
+    if (selector === 'button, input') return elements.filter(element => ['BUTTON', 'INPUT'].includes(element.tagName));
     if (selector === '[data-still]') return elements.filter(element => element.dataset?.still);
     if (selector === 'button,select,input') return elements.filter(element => ['BUTTON', 'SELECT', 'INPUT'].includes(element.tagName));
     throw new Error(`Unsupported mock selector: ${selector}`);
@@ -160,5 +164,48 @@ test('mocked DOM: actual study keyboard actions affect the renderer and pagehide
       if (descriptor) Object.defineProperty(globalThis, name, descriptor);
       else delete globalThis[name];
     }
+  }
+});
+
+
+test('actual generated classic manta bundle parses, boots visible glyphs and disposes', async () => {
+  const html = await readFile(new URL('../../../dist/manta-reef.html', import.meta.url), 'utf8');
+  const code = html.match(/<script data-manta-bundle>([\s\S]*?)<\/script>/)?.[1];
+  assert(code, 'published classic entry exists');
+  const script = new Script(code, { filename: 'published-manta-reef.js' });
+  const dom = await studyDOM(), timers = new Map(); let next=0;
+  try {
+    script.runInNewContext({ window: dom.host.view, document: dom.host.document,
+      setInterval(callback) { timers.set(++next,callback); return next; }, clearInterval(id) { timers.delete(id); },
+      console });
+    assert.equal(dom.ids.get('error').hidden,true,dom.ids.get('error').textContent);
+    assert(dom.glyphs > 20, 'generated bundle must draw actual glyphs, not only parse');
+    assert.equal(timers.size,1);
+    activateButton(dom.ids.get('play'));
+    assert.equal(dom.ids.get('play').textContent,'Play');
+    dom.host.view.emit('pagehide',{persisted:false});
+    assert.equal(timers.size,0); assert.equal(dom.host.pending,0);
+  } finally { dom.host.view.emit('pagehide',{persisted:false}); }
+});
+
+test('actual generated cuttlefish data-module graph imports and draws a nonblank study', async () => {
+  const html = await readFile(new URL('../../../dist/cuttlefish-study.html', import.meta.url), 'utf8');
+  const entry = html.match(/<script type="module" src="(data:text\/javascript;base64,[^"]+)"/)[1];
+  const dom = await studyDOM(new URL('../../../examples/cuttlefish-study/index.html',import.meta.url));
+  const previous = new Map(['window','document','location','setInterval','clearInterval'].map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
+  const timers = new Map(); let next=0, module;
+  const install = (name,value)=>Object.defineProperty(globalThis,name,{configurable:true,writable:true,value});
+  install('window',dom.host.view); install('document',dom.host.document); install('location',{search:'?manual'});
+  install('setInterval',callback=>{timers.set(++next,callback);return next;}); install('clearInterval',id=>timers.delete(id));
+  try {
+    try { module=await import(entry); } catch(error) { throw new Error(`Generated cuttlefish graph failed: ${error.message}`); }
+    assert(dom.glyphs>20,'published data-module graph must draw actual glyphs');
+    assert(!dom.ids.get('phase').textContent.includes('Unavailable'));
+    dom.ids.get('pause').emit('click');
+    assert.equal(module.study.paused,true);
+    module.dispose(); assert.equal(timers.size,0); assert.equal(dom.host.pending,0);
+  } finally {
+    module?.dispose();
+    for(const [name,descriptor] of previous) { if(descriptor) Object.defineProperty(globalThis,name,descriptor); else delete globalThis[name]; }
   }
 });
