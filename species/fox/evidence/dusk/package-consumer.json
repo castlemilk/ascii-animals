@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-19T11:25:26.391Z",
+  "node": "v24.22.3",
+  "scope": "Installed local tarball: strict ./fox consumer declarations and stub-free Node SSR runtime import. No build, registry access, publication, browser or performance claim.",
+  "checks": {
+    "install": "passed: one local tarball, offline, lifecycle scripts disabled",
+    "typesNodeNext": "passed: positive usage and @ts-expect-error negative assertions",
+    "typesBundler": "passed: positive usage and @ts-expect-error negative assertions",
+    "ssr": {
+      "status": "passed",
+      "domGlobals": "throw-on-access; imports and headless director completed",
+      "runtime": [
+        "root/subpath Fox factory identity",
+        "root director export absent",
+        "director exports and defaults",
+        "ordered step and accepted cue",
+        "static frame without tick",
+        "invalid config atomicity",
+        "exact reset replay",
+        "pause and disposal",
+        "legacy model creation"
+      ]
+    }
+  },
+  "unrun": [
+    "Browser playback, touch and accessibility",
+    "Browser or device rendering performance",
+    "Deployed package use"
+  ],
+  "tarball": {
+    "path": "../fox-evidence/package/ascii-animals-review-0.0.0-review.0.tgz",
+    "bytes": 495158,
+    "sha256": "e9329151f290714becf832c25b4b9a764a1010dfc97de0cf517e2abf87128d53"
+  },
+  "fixture": {
+    "path": "species/fox/tests/types/director-package.ts",
+    "sha256": "cd87e32fc5808f622f90195b7a3c5d89b04ab7af09c3c143c4631d15ace75f08",
+    "consumerSha256": "6372dd86a9902543608005a11297883b5b7ffe9df5cb2292cba8e23ee930e12d",
+    "negativeAssertions": 14,
+    "imports": [
+      "ascii-animals-review",
+      "ascii-animals-review/fox"
+    ]
+  },
+  "typescript": "Version 5.9.3",
+  "package": "ascii-animals-review@0.0.0-review.0",
+  "status": "passed"
+}

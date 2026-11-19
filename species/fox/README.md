@@ -1,8 +1,34 @@
 # Fox / Dusk in the Meadow
 
-An original TypeScript Fox with pointed ears, a long muzzle, four articulated legs and a pale-tipped bushy tail. The integrated character supports cautious stalking/sniffing and a captured **crouch → airborne → forepaw landing → recovery → cooldown** response. This branch adds an opt-in, bounded meadow cast with attentive ears/head, play bows and paths, expressive tails, rest poses and three authored scenes.
+An original TypeScript Fox with pointed ears, a long muzzle, four articulated legs and a pale-tipped bushy tail. The integrated character supports cautious stalking/sniffing and a captured **crouch → airborne → forepaw landing → recovery → cooldown** response. The opt-in meadow director adds attentive ears/head, expressive tails, rest poses and three authored scenes.
 
-**Status:** the original Fox is already integrated on inspected main **`c06114404900884814bef879a02f1a49a3e7d590`**. The director additions in this branch are **unmerged source**, not a claim that the currently deployed Fox page has been updated. No central renderer/package/registry contract is replaced. The actual public guide is [docs/FOX-API.md](../../docs/FOX-API.md).
+**Review base:** main **`b8f222dab868821f27bf2a64a98434f3483fc8e6`**, verified on 19 November 2026, already includes the director. This candidate improves the fox's coat, paw loading and directed sequences inside `species/fox/`. Shared engines, package entry points and workflows are unchanged. This is a review candidate, not a deployment claim. The public guide remains [docs/FOX-API.md](../../docs/FOX-API.md).
+
+## Dusk coat and directed movement
+
+The [dusk authoring record](DUSK-AUTHORING.md) records the reference observations,
+rights and fixed budgets. A darker back and shoulders sit over a warm flank;
+attached coat ribbons follow the low-carried brush into its pale tip. Layered
+grass banks and a distant ridge leave the animals an open lane. Phone layouts
+give one or two foxes wider lanes so coat and paw separation remain readable.
+
+`rustle` now gives the fox time to triangulate with its ears, creep, plant and
+sniff before the captured pounce. `play` raises the tail first, holds the current
+head for 20 ticks, then follows with head/ears, shoulder bow, careful steps and
+an answering hop. The hunt/play takeoff preparations still start at cue ages
+205/130 ticks. Both finish their response and settle before accepting another
+invitation. Tail-first curiosity is an authored expression, not a claim that
+the exact timing reproduces observed animal behaviour.
+
+Paws already planted ahead now bear weight until the body catches up; scene
+anchors no longer drift independently beneath stationary feet. These are
+intentional motion/pose changes, so historical exact-pose/cell parity scripts
+against the earlier fox are not acceptance gates for this revision. Same-source
+seeded replay, the public typed contract and its validation policies remain.
+
+See the [dusk review evidence](evidence/dusk/README.md) for matched desktop/phone
+native renders, both motion sequences, exact validation and the open browser
+and device-performance gates.
 
 ## Try this branch
 
@@ -18,7 +44,7 @@ Open `http://127.0.0.1:8000/fox/`. This serves the integrated demo generated fro
 
 Choose **Dusk hunt**, **Moonlit mischief**, or **Den watch**; direct Ember, Pip or Bracken; assign a motive; and make a localized invitation. Count is bounded to 1–3. Pointer movement attracts attention; holding a guide permits investigation. Click/tap creates a local rustle. The demo includes native scene/cast/role controls, tempo/curiosity/wind/spread, pause/reset, deliberate still tableaux, actual ASCII text capture and browser PNG capture.
 
-With the canvas focused, arrows guide, Enter rustles, P pounces, Space pauses and Escape clears the guide. The equivalent labeled controls work without canvas keyboard commands. Reduced motion remains authoritative; it offers listen, pre-leap crouch and rest tableaux. No action silently resumes animation. Canvas failure exposes a static text specimen.
+With the canvas focused, arrows guide, Enter rustles, C invites tail curiosity, P pounces, Space pauses and Escape clears the guide. The **Tail curiosity** button exposes the second sequence in every scene without requiring a hover or keyboard shortcut. The equivalent labeled controls work without canvas keyboard commands. Reduced motion remains authoritative; it offers listen, pre-leap crouch and rest tableaux. No action silently resumes animation. Canvas failure exposes a static text specimen.
 
 ## Public API: keep the single Fox or opt into the director
 
@@ -32,7 +58,7 @@ const solo = createFoxArtwork(soloCanvas, {
   fox: { seed: 17, facing: 'right', pounceHeight: .24 },
 });
 
-// New branch API: an explicit director option enables the composed meadow.
+// Existing director API: an explicit director option enables the composed meadow.
 const meadow = createFoxArtwork(meadowCanvas, {
   fox: { seed: 17 },
   director: { scene: 'dusk-hunt', count: 2, roles: ['hunter', 'lookout'] },
@@ -56,7 +82,7 @@ The full director API/defaults/behavior table, replay example, lifecycle and int
 | Scene | What it composes | Automatic motives |
 |---|---|---|
 | `dusk-hunt` | Listen, track/sniff, crouch/leap/land, settle; a lookout gives the hunter space | Hunter, lookout, playmate |
-| `moon-play` | Raised tails, play bows, curved paths and staggered answering hops | Playmate, playmate, lookout |
+| `moon-play` | Tail-led attention, play bows, measured steps and staggered answering hops | Playmate, playmate, lookout |
 | `den-watch` | Tucked rest beside a listening sentinel | Dreamer, lookout, dreamer |
 
 Director defaults are `scene: 'dusk-hunt'`, `count: 2`, `pace: 1`, `curiosity: .7`, `wind: .3`, `spacing: 1`, `showLabels: true`, `roles: ['auto','auto','auto']`. Accepted ranges are count 1–3, pace .5–1.5, curiosity 0–1, wind −1–1 and spacing .8–1.15. Roles are `auto`, `hunter`, `playmate`, `lookout` or `dreamer`; at most three entries, including spare entries retained for absent actors. Scene/role names, booleans and finite numeric bounds are validated atomically; malformed/unknown fields and sparse arrays reject.

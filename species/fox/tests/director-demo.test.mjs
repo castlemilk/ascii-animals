@@ -126,6 +126,14 @@ test('keyboard equivalents are canvas-scoped, bounded, modifier-safe and repeat-
   assert.deepEqual(env.calls.at(-1), ['cue', 'rustle', 0, { x: 1, y: .15 }]);
   canvas.emit('keydown', { key: 'P' });
   assert.deepEqual(env.calls.at(-1), ['cue', 'pounce', 0, { x: 1, y: .15 }]);
+  canvas.emit('keydown', { key: 'C' });
+  assert.deepEqual(env.calls.at(-1), ['cue', 'play', 0, { x: 1, y: .15 }]);
+  const beforeRepeat = env.calls.length;
+  canvas.emit('keydown', { key: 'c', repeat: true });
+  assert.equal(env.calls.length, beforeRepeat);
+  env.element('fox-1').click();
+  env.element('tail-curiosity').click();
+  assert.deepEqual(env.calls.at(-1), ['cue', 'play', 1]);
   canvas.emit('keydown', { key: ' ' }); assert.equal(env.status().paused, true);
   canvas.emit('keydown', { key: 'Escape' }); assert.deepEqual(env.calls.at(-1), ['leave']);
   assert.equal(canvas.emit('keydown', { key: 'Tab' }).prevented, false);
