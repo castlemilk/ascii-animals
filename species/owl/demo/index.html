@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Direct a twilight owl scene in living text. Two distinct personalities, a listening duet, and a quiet return to the roost.">
+  <meta name="description" content="A woodland study in living text. Direct a tawny owl's focused listen, quiet flight and careful return to the bough.">
   <title>Owl — The night shift</title>
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -16,8 +16,8 @@
     </header>
 
     <section class="intro" aria-labelledby="title">
-      <div><p class="eyebrow">A study in shared attention</p><h1 id="title">The night shift<span>.</span></h1></div>
-      <p class="intro-copy">A rustle below. An answer across the branch.<br class="wide-only"> Give two small lives a scene, then let it unfold.</p>
+      <div><p class="eyebrow">Tawny owls / a woodland study</p><h1 id="title">The night shift<span>.</span></h1></div>
+      <p class="intro-copy">A tilted face finds the sound.<br class="wide-only"> Broad wings carry it into the clearing, then home.</p>
     </section>
 
     <div class="scene-choices" role="group" aria-label="Choose an authored owl scene">
@@ -55,6 +55,10 @@
             <span class="caption-symbol" aria-hidden="true">+</span>
             <p id="scene-hint">Move gently to meet a gaze. Tap an owl to rustle its perch.</p>
           </div>
+          <div class="stage-actions" role="group" aria-label="Direct the selected owl">
+            <button type="button" data-cue="rustle">Listen to a rustle <span aria-hidden="true">↗</span></button>
+            <button type="button" data-cue="flight">Take flight <span aria-hidden="true">↗</span></button>
+          </div>
           <div class="stage-footer">
             <div class="playback">
               <button id="pause" type="button" aria-pressed="false"><span id="pause-symbol" aria-hidden="true">Ⅱ</span><span id="pause-label">Pause</span></button>
@@ -84,18 +88,19 @@
       </div>
 
       <aside class="director" aria-labelledby="director-title">
-        <p class="eyebrow">The twilight director</p><h2 id="director-title">Give them a reason<br>to look.</h2>
-        <p id="interaction-help" class="help">Gentle movement holds a gaze. A rustle invites listening; a call invites an answer. Each owl keeps its own pace.</p>
+        <p class="eyebrow">The twilight director</p><h2 id="director-title">Listen. Lift off.<br>Come home.</h2>
+        <p id="interaction-help" class="help">Guide a gaze, rustle the leaves, or invite a flight. Watch the head find a sound and the wings prepare each landing.</p>
 
         <div class="control"><label for="target">Speak to</label><select id="target"><option value="0">Ash · first perch</option><option id="target-ember" value="1">Ember · second perch</option></select></div>
         <div class="cue-actions" role="group" aria-label="Give the selected owl a cue">
           <button id="rustle" class="primary" type="button"><span><strong>Rustle the leaves</strong><small>A focused listen, then recovery</small></span><span class="button-symbol" aria-hidden="true">↗</span></button>
+          <button id="flight" class="flight-action" type="button"><span><strong>Take flight</strong><small>Launch · glide · brake · alight</small></span><span class="button-symbol" aria-hidden="true">↗</span></button>
           <button id="call" type="button"><span class="cue-symbol" aria-hidden="true">⌁</span><span>Call across the perch</span></button>
           <button id="stretch" type="button"><span class="cue-symbol" aria-hidden="true">↔</span><span>Invite a wing stretch</span></button>
         </div>
 
         <fieldset class="guide-control"><legend>Guide a gaze <span>or use the arrow keys</span></legend><div class="guide-pad"><button data-guide="left" type="button" aria-label="Guide gaze left">←</button><button data-guide="up" type="button" aria-label="Guide gaze up">↑</button><button data-guide="down" type="button" aria-label="Guide gaze down">↓</button><button data-guide="right" type="button" aria-label="Guide gaze right">→</button></div><button id="release" class="release-button" type="button">Let attention wander</button></fieldset>
-        <p id="keyboard-help" class="keyboard-help">Focus the scene: arrows guide · Enter rustles · C calls · S stretches · Space pauses · Esc releases.</p>
+        <p id="keyboard-help" class="keyboard-help">Focus the scene: arrows guide · R or Enter listens · F flies · C calls · S stretches · Space pauses · Esc releases.</p>
 
         <div class="director-divider"></div>
         <div class="control"><label for="layout">Perch composition</label><select id="layout"><option value="bough">Shared bough · a broad view</option><option value="split">Split branches · call &amp; answer</option><option value="close">Close company · a quiet roost</option></select><p id="layout-help" class="control-note">Where they sit changes how their attention meets.</p></div>
@@ -115,15 +120,15 @@
     </section>
 
     <section class="field-notes" aria-label="What to notice">
-      <article><span class="note-number">01</span><h3>Someone notices first.</h3><p>A sentinel surveys. A curious owl follows. A dreamer takes a little longer to join the world.</p></article>
-      <article><span class="note-number">02</span><h3>Attention travels.</h3><p>A rustle has a place. A call has a listener. The pair responds in sequence, then finds its own quiet.</p></article>
-      <article><span class="note-number">03</span><h3>The perch is their anchor.</h3><p>The heads turn and the wings unfold. Feet stay planted; reduced motion keeps the scene in still poses.</p></article>
+      <article><span class="note-number">01</span><h3>The face finds the sound.</h3><p>A feathered disc turns toward a rustle. A pause and a small head tilt make the listening visible.</p></article>
+      <article><span class="note-number">02</span><h3>Feathers have an order.</h3><p>The rounded ruff, overlapping breast feathers and folded wing layers belong to one continuous silhouette.</p></article>
+      <article><span class="note-number">03</span><h3>Every flight has a landing.</h3><p>A crouch, an open wing, a held glide. Braking brings the feet back to the branch; reduced motion offers a still pose.</p></article>
     </section>
 
     <section class="keep-frame" aria-labelledby="keep-title"><div><p class="eyebrow">A moment worth keeping</p><h2 id="keep-title">Take the text with you.</h2><p>Save the exact displayed characters or the director settings behind this scene.</p></div><div class="export-actions"><button id="download" type="button">Download text frame <span aria-hidden="true">↓</span></button><button id="download-setup" type="button">Save director setup <span aria-hidden="true">↓</span></button></div></section>
     <details class="text-frame" id="text-frame"><summary>Inspect the selectable text frame</summary><textarea id="text-output" aria-label="Current owl scene as plain text" readonly spellcheck="false"></textarea><button id="refresh-text" type="button">Refresh text frame</button></details>
 
-    <footer class="footer"><p>OWL / An original study in attention.</p><p>One or two owls. A shared night. Seed 7.</p></footer>
+    <footer class="footer"><p>OWL / An original study in listening &amp; flight.</p><p>One or two owls. A shared night. Seed 7.</p></footer>
   </main>
   <script type="module" src="./demo.mjs"></script>
 </body>

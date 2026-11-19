@@ -186,7 +186,10 @@ export function makeOwlPoster(state: OwlState, poster: OwlPoster): OwlState {
   if (Object.keys(p).some(k => !allowed.includes(k))) throw new TypeError('Unknown Owl poster field');
   const target = p.kind === 'attention'
     ? Object.freeze({ active: true, x: clamp(finite(p.x, 'poster x'), -1, 1), y: clamp(finite(p.y, 'poster y'), -1, 1) }) : noTarget();
-  return seal({ ...state, attention: target, cycle: null,
+  // A caller may supply a director's displayed OwlState. A core poster must
+  // still be grounded, not inherit that display's in-flight transform.
+  const { presentation: _presentation, ...coreState } = state;
+  return seal({ ...coreState, attention: target, cycle: null,
     behavior: p.kind === 'react' ? { kind: 'response', phase: 'stretch', phaseTick: 0, sinceTick: state.tick } : { kind: target.active ? 'approach' : 'idle', sinceTick: state.tick },
     headYawDeg: target.x * state.config.headYawLimitDeg, headPitchDeg: target.y * state.config.headPitchLimitDeg,
     blink: 0, ruffle: p.kind === 'react' ? .25 * state.config.reactionStrength : 0,

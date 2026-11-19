@@ -41,10 +41,30 @@ export function renderOwlDirectorGrid(state: OwlDirectorState, options: OwlGridO
     if (col > 0 && col < cols - 1 && row > 0 && row < rows - 1) cells[row * cols + col] = glyph;
   };
   if (!options.silhouette) {
-    for (let i = 0; i < 24; i++) put(2 + noise(seed, i * 2) * (cols - 4), 2 + noise(seed, i * 2 + 1) * rows * .58, i % 6 === 0 ? '+' : '.');
-    const moonX = cols * .84, moonY = rows * .12;
-    for (let a = -2.0; a < 2.4; a += .16) put(moonX + Math.cos(a) * 4, moonY + Math.sin(a) * 2.1, '.');
-    put(moonX + 2, moonY, ')');
+    // Far woodland: sparse low-ink trunks behind the actors, never a starfield
+    // pasted across their faces. Stable seed-derived bends do not shimmer.
+    for (const [tree, fraction] of [.06, .29, .74, .94].entries()) {
+      const base = fraction * cols, lean = (noise(seed, tree + 91) - .5) * 3;
+      for (let row = Math.floor(rows * .12); row < rows * .87; row++) {
+        const x = base + lean * row / rows;
+        if (row % 3 !== 0) put(x, row, tree % 2 ? '.' : ':');
+        if (row % 13 === 0) for (let twig = 1; twig < 5; twig++)
+          put(x + (tree % 2 ? -twig : twig), row - twig * .5, '.');
+      }
+    }
+    // A broken middle-distance limb and two low foreground fern silhouettes.
+    // Most of the clearing remains empty, including the flight corridor.
+    for (let step = 0; step < 12; step++) {
+      const x = cols * .03 + step * .75, y = rows * .67 - step * .44;
+      put(x, y, step % 3 ? ':' : '/');
+    }
+    for (const side of [-1, 1]) {
+      const x = side < 0 ? cols * .07 : cols * .93;
+      for (let leaf = 0; leaf < 4; leaf++) {
+        put(x + side * leaf * 1.2, rows - 3 - leaf * .8, side < 0 ? '\\' : '/');
+        put(x - side * leaf * .7, rows - 3 - leaf * 1.1, '.');
+      }
+    }
   }
   if (layout === 'solo') renderActor(0, 0, 0, cols, rows);
   else if (layout === 'wide') {
@@ -95,7 +115,7 @@ export function renderOwlDirectorGrid(state: OwlDirectorState, options: OwlGridO
   }
   if (state.cue && !options.silhouette) {
     const age = state.tick - state.cue.startTick;
-    if (age < 130) {
+    if (age < 130 && state.cue.kind !== 'flight') {
       // Cue coordinates share the selected actor's normalized gaze space.
       const rect = rects[state.cue.target]!;
       const x = rect.left + (state.cue.x + 1) * .5 * (rect.width - 1);

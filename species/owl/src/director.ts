@@ -1,5 +1,6 @@
 import { createOwl, resolveOwlOptions, OWL_LIMITS } from './owl.js';
-import type { OwlInput, OwlInstance, OwlOptions, OwlOptionsPatch, OwlState } from './types.js';
+import type { OwlInput, OwlInstance, OwlOptions, OwlOptionsPatch, OwlPresentation, OwlState } from './types.js';
+import { OWL_REST_PRESENTATION, owlFlightPose, owlListeningPose } from './choreography.js';
 
 export type OwlScene = 'lookout' | 'duet' | 'roost';
 export type OwlRole = 'sentinel' | 'curious' | 'dreamer';
@@ -12,7 +13,7 @@ export type OwlDirectorConfig = Readonly<{
 }>;
 export type OwlDirectorOptions = Partial<OwlDirectorConfig>;
 /** x/y use the addressed actor's viewport, normalized -1..1; the DOM host maps scene pointers. */
-export type OwlDirectorCue = Readonly<{ kind: 'rustle' | 'call' | 'stretch'; target?: OwlActorId; x?: number; y?: number }>;
+export type OwlDirectorCue = Readonly<{ kind: 'rustle' | 'call' | 'stretch' | 'flight'; target?: OwlActorId; x?: number; y?: number }>;
 export type OwlResolvedCue = Readonly<{ kind: OwlDirectorCue['kind']; target: OwlActorId; x: number; y: number }>;
 export type OwlDirectorInput = Readonly<{ tick: number; seq: number } & (
   | { type: 'attention'; x: number; y: number; target?: OwlActorId }
@@ -20,7 +21,7 @@ export type OwlDirectorInput = Readonly<{ tick: number; seq: number } & (
   | { type: 'cue'; cue: OwlDirectorCue }
 )>;
 export type OwlDirectorPhase = Readonly<{
-  kind: 'survey' | 'listen' | 'alert' | 'settle' | 'call' | 'answer' | 'shared-watch' | 'stretch' | 'rest' | 'wake';
+  kind: 'survey' | 'listen' | 'alert' | 'settle' | 'call' | 'answer' | 'shared-watch' | 'stretch' | 'rest' | 'wake' | 'launch' | 'glide' | 'brake' | 'alight';
   progress: number; cycle: number;
 }>;
 export type OwlDirectorActor = Readonly<{ id: OwlActorId; name: 'Ash' | 'Ember'; role: OwlRole;
@@ -104,7 +105,7 @@ export function resolveOwlDirectorOptions(options: OwlDirectorOptions = {}): Owl
 export function validateOwlDirectorCue(cue: OwlDirectorCue): OwlResolvedCue {
   const input = record(cue, 'Owl cue');
   if (Object.keys(input).some(k => !['kind', 'target', 'x', 'y'].includes(k))) throw new TypeError('Unknown cue field');
-  if (typeof input.kind !== 'string' || !['rustle', 'call', 'stretch'].includes(input.kind)) throw new RangeError('Unknown Owl cue');
+  if (typeof input.kind !== 'string' || !['rustle', 'call', 'stretch', 'flight'].includes(input.kind)) throw new RangeError('Unknown Owl cue');
   const target = Object.hasOwn(input, 'target') ? actor(input.target) : 0;
   const x = Object.hasOwn(input, 'x') ? clamp(finite(input.x, 'cue x'), -1, 1) : (target === 0 ? -.65 : .65);
   const y = Object.hasOwn(input, 'y') ? clamp(finite(input.y, 'cue y'), -1, 1) : -.25;
@@ -127,12 +128,14 @@ function phaseAt(config: OwlDirectorConfig, beat: number): OwlDirectorPhase {
 }
 function cuePhase(cue: NonNullable<OwlDirectorState['cue']>, tick: number, cycle: number): OwlDirectorPhase {
   const age = tick - cue.startTick;
-  const kind = cue.kind === 'rustle' ? (age < 40 ? 'alert' : age < 180 ? 'listen' : 'settle')
+  const kind = cue.kind === 'flight' ? (age < 90 ? 'launch' : age < 198 ? 'glide' : age < 264 ? 'brake' : 'alight')
+    : cue.kind === 'rustle' ? (age < 40 ? 'alert' : age < 180 ? 'listen' : 'settle')
     : cue.kind === 'call' ? (age < 96 ? 'call' : age < 190 ? 'answer' : 'settle')
       : age < 180 ? 'stretch' : 'settle';
   return Object.freeze({ kind, progress: clamp(age / cue.duration), cycle });
 }
-type Directive = { x: number; y: number; blink: number; ruffle: number; left: number; right: number; motive: string };
+type Directive = { x: number; y: number; blink: number; ruffle: number; left: number; right: number; motive: string;
+  presentation: OwlPresentation; flight: boolean };
 function directive(id: OwlActorId, state: Pick<OwlDirectorState, 'config' | 'phase' | 'beat' | 'tick' | 'cue' | 'pointer'>, seedPhase: number): Directive {
   // The global cue label must not wake an unaddressed actor before its reply delay.
   // Each actor keeps its autonomous baseline until the local cue envelope starts.
@@ -141,10 +144,12 @@ function directive(id: OwlActorId, state: Pick<OwlDirectorState, 'config' | 'pha
   const d: Directive = { x: Math.sin(beat / 115 + seedPhase + id * 1.8) * amp,
     y: Math.sin(beat / 170 + seedPhase) * .22, blink: role === 'dreamer' ? .45 : 0,
     ruffle: c.breeze * (.5 + .5 * Math.sin(tick / 35 + seedPhase)) * .12,
-    left: 0, right: 0, motive: role === 'dreamer' ? 'Drowsy watch' : 'Surveying the clearing' };
+    left: 0, right: 0, motive: role === 'dreamer' ? 'Drowsy watch' : 'Surveying the clearing',
+    presentation: OWL_REST_PRESENTATION, flight: false };
   if (!c.autonomous) { d.x = 0; d.y = 0; d.blink = role === 'dreamer' ? .5 : 0; d.motive = 'Waiting for your direction'; }
   else switch (phase.kind) {
-    case 'listen': d.x = (id === 0 ? -.64 : .55) + .035 * Math.sin(beat / 20); d.y = -.45; d.blink = 0; d.motive = 'Listening above the bough'; break;
+    case 'listen': d.x = id === 0 ? -.64 : .55; d.y = -.45; d.blink = 0;
+      d.presentation = owlListeningPose(p * 300, d.x, c.alertness); d.motive = 'Holding the facial disc toward a sound'; break;
     case 'alert': d.x = id === 0 ? .9 : -.65; d.y = -.25; d.blink = 0; d.ruffle += hump(p) * .2; d.motive = 'Holding a sound in focus'; break;
     case 'settle': d.x *= .45; d.y = .25; d.blink = role === 'dreamer' ? .8 : hump(p) * .55; d.ruffle += hump(p) * .3; d.motive = role === 'dreamer' ? 'Drifting back to rest' : 'Smoothing the feathers'; break;
     case 'call':
@@ -176,6 +181,22 @@ function directive(id: OwlActorId, state: Pick<OwlDirectorState, 'config' | 'pha
   }
   if (state.cue) {
     const cue = state.cue, lead = id === cue.target, age = tick - cue.startTick;
+    if (cue.kind === 'flight') {
+      const envelope = smooth(age / 30) * (1 - smooth((age - 280) / 60));
+      if (lead) {
+        const flight = owlFlightPose(age, cue.x, cue.strength);
+        d.flight = true; d.presentation = flight.presentation;
+        d.left = flight.left; d.right = flight.right; d.ruffle = flight.ruffle;
+        d.x = lerp(d.x, cue.x * .4, envelope); d.y = lerp(d.y, -.3, envelope); d.blink *= 1 - envelope;
+        d.motive = age < 42 ? 'Crouching over the feet before launch' : age < 90 ? 'Pushing from the bough; wings opening'
+          : age < 198 ? 'Gliding on broad, quiet wings' : age < 264 ? 'Flaring the wings; both feet reaching'
+            : age < 290 ? 'Meeting the bough and absorbing the landing' : 'Folding the flight feathers back into place';
+      } else if (c.sociability > .15 && age >= 24) {
+        d.x = lerp(d.x, cue.target === 0 ? -.72 : .72, envelope);
+        d.y = lerp(d.y, -.4, envelope); d.blink *= 1 - envelope;
+        d.motive = 'Following the companion’s returning flight';
+      }
+    } else {
     const delay = lead ? 0 : cue.kind === 'call' ? 96 : 48;
     const a = age - delay;
     if ((lead || c.sociability > .15) && a >= 0) {
@@ -183,10 +204,15 @@ function directive(id: OwlActorId, state: Pick<OwlDirectorState, 'config' | 'pha
       d.x = lerp(d.x, lead ? cue.x : (cue.target === 0 ? -.75 : .75), envelope);
       d.y = lerp(d.y, cue.y, envelope); d.blink *= 1 - envelope;
       d.ruffle += (cue.kind === 'call' ? .5 : .22) * hump(a / 100) * (lead ? 1 : c.sociability);
+      if (cue.kind === 'rustle') {
+        d.presentation = owlListeningPose(a, lead ? cue.x : -cue.x, cue.strength);
+        d.ruffle += .18 * hump((a - 170) / 105) * (lead ? 1 : c.sociability);
+      }
       d.motive = a > 180 ? 'Settling back into the scene' : cue.kind === 'rustle' ? (lead ? 'Listening to the rustling leaves' : 'Checking the companion’s concern')
         : cue.kind === 'call' ? (lead ? 'Offering a quiet call' : 'Answering after a moment')
           : (lead ? 'Blink, ruffle, then a wing stretch' : 'Taking a turn to stretch');
     } else if (!lead) { d.motive = role === 'dreamer' ? 'Still drowsy; waiting for a reply' : 'Waiting for the companion'; }
+    }
   }
   d.x = clamp(d.x * (.45 + .55 * c.alertness), -1, 1); d.y = clamp(d.y, -1, 1);
   return d;
@@ -216,8 +242,9 @@ export function createOwlDirector(options: OwlDirectorOptions = {}, owlOptions: 
       const pose: OwlState = advancePose ? Object.freeze({ ...simulation,
         blink: clamp(lerp(previous.blink, Math.max(simulation.blink, d.blink), .25)),
         ruffle: clamp(lerp(previous.ruffle, Math.max(simulation.ruffle, d.ruffle), .16)),
-        leftWing: clamp(lerp(previous.leftWing, Math.max(simulation.leftWing, d.left * simulation.config.reactionStrength), .18)),
-        rightWing: clamp(lerp(previous.rightWing, Math.max(simulation.rightWing, d.right * simulation.config.reactionStrength), .18)),
+        leftWing: clamp(lerp(previous.leftWing, Math.max(simulation.leftWing, d.left * (d.flight ? 1 : simulation.config.reactionStrength)), .18)),
+        rightWing: clamp(lerp(previous.rightWing, Math.max(simulation.rightWing, d.right * (d.flight ? 1 : simulation.config.reactionStrength)), .18)),
+        presentation: d.presentation,
       }) : Object.freeze({ ...previous, config: simulation.config, tick: simulation.tick,
         headYawDeg: clamp(previous.headYawDeg, -simulation.config.headYawLimitDeg, simulation.config.headYawLimitDeg),
         headPitchDeg: clamp(previous.headPitchDeg, -simulation.config.headPitchLimitDeg, simulation.config.headPitchLimitDeg) });
@@ -265,11 +292,12 @@ export function createOwlDirector(options: OwlDirectorOptions = {}, owlOptions: 
         if (event.type === 'cue') {
           // Existing Owl timings can outlast the director's own cue window.
           // Reserve both requested turns before reporting a stretch as accepted.
-          const ready = event.cue.kind !== 'stretch' || (coreReadyAt(event.cue.target, tick)
-            && (config.count === 1 || config.sociability <= .15
-              || coreReadyAt((1 - event.cue.target) as OwlActorId, tick + 60)));
+          const ready = event.cue.kind === 'flight' ? coreReadyAt(event.cue.target, tick)
+            : event.cue.kind !== 'stretch' || (coreReadyAt(event.cue.target, tick)
+              && (config.count === 1 || config.sociability <= .15
+                || coreReadyAt((1 - event.cue.target) as OwlActorId, tick + 60)));
           if (!cue && tick >= cooldownUntil && acceptedCues === 0 && ready) {
-            const duration = event.cue.kind === 'stretch' ? 360 : 300;
+            const duration = event.cue.kind === 'stretch' || event.cue.kind === 'flight' ? 360 : 300;
             cue = Object.freeze({ ...event.cue, startTick: tick, duration, strength: config.alertness });
             cooldownUntil = tick + duration + 60; acceptedCues++;
           } else ignoredCues++;
@@ -326,7 +354,7 @@ export function makeOwlDirectorPoster(state: OwlDirectorState, poster: OwlDirect
   } else { const cue = validateOwlDirectorCue(poster as OwlDirectorCue); target = cue.target; x = cue.x; y = cue.y; }
   if (target >= state.config.count) throw new RangeError('Target Owl is not in this cast');
   const actors = state.actors.map(a => {
-    const lead = a.id === target, restful = input.kind === 'rest', stretch = input.kind === 'stretch';
+    const lead = a.id === target, restful = input.kind === 'rest', flight = input.kind === 'flight', stretch = input.kind === 'stretch' || flight;
     const pose = Object.freeze({ ...a.pose,
       headYawDeg: (restful ? a.id === 0 ? -.1 : .1 : lead ? x : a.id === 0 ? .6 : -.6) * a.pose.config.headYawLimitDeg,
       headPitchDeg: (restful ? state.config.scene === 'roost' ? .6 : 0 : y) * a.pose.config.headPitchLimitDeg,
@@ -335,10 +363,12 @@ export function makeOwlDirectorPoster(state: OwlDirectorState, poster: OwlDirect
       leftWing: stretch ? a.pose.config.reactionStrength * (lead ? .8 : .35) : 0,
       rightWing: stretch ? a.pose.config.reactionStrength * (lead ? .68 : .2) : 0,
       breath: 0,
+      presentation: flight && lead ? Object.freeze({ ...OWL_REST_PRESENTATION, wingSweep: .28, tailFan: .35 })
+        : input.kind === 'rustle' && lead ? owlListeningPose(80, x, 1) : OWL_REST_PRESENTATION,
     });
     return Object.freeze({ ...a, pose, motive: restful ? 'A deliberate quiet still' : lead ? `A still ${String(input.kind)} response` : 'A still companion response' });
   });
-  const kind = input.kind === 'rest' ? (state.config.scene === 'roost' ? 'rest' : 'survey') : input.kind === 'call' ? 'answer' : input.kind === 'stretch' ? 'stretch' : 'listen';
+  const kind = input.kind === 'rest' ? (state.config.scene === 'roost' ? 'rest' : 'survey') : input.kind === 'flight' ? 'glide' : input.kind === 'call' ? 'answer' : input.kind === 'stretch' ? 'stretch' : 'listen';
   return Object.freeze({ ...state, actors: Object.freeze(actors), poster: true,
     phase: Object.freeze({ ...state.phase, kind, progress: .5 }) });
 }

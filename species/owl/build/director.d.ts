@@ -17,7 +17,7 @@ export type OwlDirectorConfig = Readonly<{
 export type OwlDirectorOptions = Partial<OwlDirectorConfig>;
 /** x/y use the addressed actor's viewport, normalized -1..1; the DOM host maps scene pointers. */
 export type OwlDirectorCue = Readonly<{
-    kind: 'rustle' | 'call' | 'stretch';
+    kind: 'rustle' | 'call' | 'stretch' | 'flight';
     target?: OwlActorId;
     x?: number;
     y?: number;
@@ -43,7 +43,7 @@ export type OwlDirectorInput = Readonly<{
     cue: OwlDirectorCue;
 })>;
 export type OwlDirectorPhase = Readonly<{
-    kind: 'survey' | 'listen' | 'alert' | 'settle' | 'call' | 'answer' | 'shared-watch' | 'stretch' | 'rest' | 'wake';
+    kind: 'survey' | 'listen' | 'alert' | 'settle' | 'call' | 'answer' | 'shared-watch' | 'stretch' | 'rest' | 'wake' | 'launch' | 'glide' | 'brake' | 'alight';
     progress: number;
     cycle: number;
 }>;
