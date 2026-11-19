@@ -237,7 +237,9 @@ test('a deliberately perched member ignores pointer motion until a deliberate re
     f.pointer('pointermove',{clientX:i%2?20:880,clientY:i%2?30:580}); f.frame(5*1000/60);
     assert.equal(member(host).phase.kind,'perched'); assert.deepEqual(member(host).position,pose);
   }
-  host.cue('return'); f.frame(); assert.equal(member(host).phase.kind,'return');
+  // Releasing a held perch now includes a visible wing spool-up and lift before
+  // the route return. The public cue remains 'return'.
+  host.cue('return'); f.frame(); assert.equal(member(host).phase.kind,'launch');
   host.dispose();
 });
 

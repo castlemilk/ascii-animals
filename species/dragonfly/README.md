@@ -5,19 +5,22 @@ abdomen and four narrow, attached, independently phased wings. This extension
 adds a small directed pond around the existing integrated TypeScript model.
 
 The accepted `createDragonflyArtwork` adapter and `./dragonfly` package entry are
-already part of main. The new director is **pending integration review** on
-`feat/director-dragonfly`, based on `c06114404900884814bef879a02f1a49a3e7d590`.
-It changes only Dragonfly-owned source, generated demo/runtime, tests and docs.
-The public wrapper continues to borrow the canonical per-window scheduler.
+preserved. This Dragonfly-only flight study starts from main
+`b8f222dab868821f27bf2a64a98434f3483fc8e6`. It gives the four transparent wings
+clearer fore/hind separation, broader hindwing bases and restrained veins;
+adds a tail-first dart with braking; and articulates a six-foot twig landing
+followed by a deliberate relaunch.
 
-[Director API/defaults/validation](DIRECTOR-API.md) · [Pre-code brief and scene matrix](DIRECTOR.md) · [Actual evidence and remaining gates](DIRECTOR-VALIDATION.md) · [Integrated adapter](../../docs/DRAGONFLY-API.md)
+[Matched screenshots, motion and review manifest](evidence/flight-study/README.md) ·
+[Flight-study brief and references](UPLIFT.md) ·
+[Director API/defaults](DIRECTOR-API.md) ·
+[Integrated adapter](../../docs/DRAGONFLY-API.md)
 
-![Actual native Canvas recording of the deterministic pond sequence](evidence/director/pond-director.gif)
-
-This GIF contains 193 actual native Canvas frames at 12 fps, sampled from explicit
-60 Hz simulation ticks 0–960. It uses the same procedural geometry, projection,
-glyph compositor and painter as the demo. The replay resets at the GIF boundary;
-it is not a browser recording or a seamless-loop claim.
+The new review evidence is explicitly native Canvas, with fixed tick/input logs.
+Local Chromium launch was denied (`socket() failed: Operation not permitted`),
+and the cloud browser could not reach the local server. No real-browser CSS,
+physical touch, screen-reader or device-performance pass is claimed. The shipped
+API and lifecycle are also exercised with typed and instrumented host tests.
 
 ## Direct the pond
 
@@ -27,12 +30,12 @@ it is not a browser recording or a seamless-loop claim.
 - **Reed relay:** staggered short crossings, route following and rests.
 - Choose 1–4 visitors, select by name, and assign patroller/sentinel/skimmer/wanderer
   roles. Route, tempo, spacing, size and breeze shape the composition.
-- **Dart & return** sends the selected visitor on a deliberate short excursion,
-  stabilizes, then returns. **Land on a reed** holds a perch; **Resume route**
-  releases it. Pointer movement guides attention without triggering darts.
+- **Dart backward** anticipates, retreats tail-first, brakes and returns.
+  **Land on a twig** lowers six feet into a grip and quiets the wings.
+  **Relaunch** gathers wing power, releases the feet and returns to the route. Pointer movement guides attention without triggering darts.
 
 The demo provides keyboard/touch alternatives: native selectors and buttons,
-Guide, Pause/Reset, Slow/Still, and canvas-scoped 1–4/arrow/Space shortcuts.
+Guide, Pause/Reset, Slow/Still, and canvas-scoped 1–4/arrow/D/L/R/Space shortcuts and visible-anatomy touch selection.
 Reduced motion remains still; an explicit action changes the composed pose.
 Hidden/offscreen/zero-size hosts suspend work. There is one canvas/subscription
 per ensemble, not one animation callback per visitor.
@@ -74,16 +77,15 @@ positions, phases, clipping and label counts. It exports PNG/text posters,
 scene/motion contact sheets and an actual GIF. No font files or copied ASCII art
 are bundled; installed system monospace fonts may differ between platforms.
 
-![Actual native Canvas scenes and minimum-grid still alternative](evidence/director/contact-sheet.png)
+The earlier director captures in `evidence/director/` are historical baseline
+evidence; they do not show the flight-study changes.
 
 ## Evidence boundary and original provenance
 
-Numerical, type, instrumented host and offline package checks are recorded in
-[DIRECTOR-VALIDATION.md](DIRECTOR-VALIDATION.md). Native Canvas frames have been
-critiqued and corrected. The live baseline was inspected in Chrome; this new local
-demo was not browser-tested because the cloud browser could not reach the local
-server. Browser layout/input, real touch, screen readers, measured browser
-performance and deployment acceptance remain unrun for this extension.
+Historical checks are recorded in [DIRECTOR-VALIDATION.md](DIRECTOR-VALIDATION.md).
+The flight-study review manifest pins its exact source, commands, new captures
+and remaining acceptance. Native images are visual evidence of the geometry and
+painter, not browser layout acceptance. The package remains private/unpublished.
 
 The original anatomy/geometry/font-rights provenance remains in
 [AUTHORING.md](AUTHORING.md) and `authoring.json`. The original solo

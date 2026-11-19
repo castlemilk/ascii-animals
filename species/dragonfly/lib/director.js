@@ -50,8 +50,16 @@ function optionsWith(patch, base) {
 export function validateDragonflyDirectorOptions(input = {}) {
     return optionsWith(input, DRAGONFLY_DIRECTOR_DEFAULTS);
 }
+const poseOf = (m) => ({ position: m.position, heading: m.heading,
+    wingPhase: m.wingPhase, strength: m.strength, pitch: m.pitch, grip: m.grip });
+const angleMix = (a, b, u) => a + Math.atan2(Math.sin(b - a), Math.cos(b - a)) * u;
 /** One explicit scene clock; no DOM, scheduler, randomness, renderer or wall-clock reads. */
 export function createDragonflyDirector(input = {}, modelInput = {}) {
+    return createDragonflyDirectorHost(input, modelInput).director;
+}
+/** Species-internal presentation seam. The accepted public director is unchanged.
+ * Interpolation regenerates articulated geometry, never stretches sampled wings. */
+export function createDragonflyDirectorHost(input = {}, modelInput = {}) {
     let options = validateDragonflyDirectorOptions(input);
     const checkedModel = validateDragonflyOptions(modelInput);
     let seed = checkedModel.seed, tick = 0, lastSeq = -1, clock = 0, selected = 0;
@@ -77,9 +85,10 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
     function add(id, config) {
         const model = createDragonfly({ ...config, seed: seedFor(seed, id) });
         model.setPaused(paused);
-        members.push({ id, model, position: initial(id), velocity: v2(0, 0), heading: id === 1 ? -.18 : .12,
-            phase: phase(id === 1 ? 'perched' : 'hover'), wingPhase: model.getState().wingPhase,
-            strength: id === 1 ? 0 : 1, response: null, held: false });
+        const pose = { position: initial(id), heading: id === 1 ? -.18 : .12,
+            wingPhase: model.getState().wingPhase, strength: id === 1 ? 0 : 1, pitch: 0, grip: id === 1 ? 1 : 0 };
+        members.push({ id, model, ...pose, previous: poseOf(pose), velocity: v2(0, 0),
+            phase: phase(id === 1 ? 'perched' : 'hover'), response: null, held: false });
     }
     for (let id = 0; id < options.count; id++)
         add(id, checkedModel);
@@ -136,7 +145,7 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
         if (local < resting)
             return { goal: reed, phase: phase('perched', local, resting) };
         if (local < resting + 70)
-            return { goal: mix(reed, path, ease((local - resting) / 70)), phase: phase('launch', local - resting, 70) };
+            return { goal: mix(reed, path, ease((local - resting - 18) / 52)), phase: phase('launch', local - resting, 70) };
         if (local > period - 130)
             return { goal: reed, phase: phase(local > period - 55 ? 'land' : 'return', local - (period - 130), 130) };
         if (options.scene === 'relay' && local < resting + 170) {
@@ -152,22 +161,37 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
             return false;
         const reed = home(member.id), wasPerched = member.held || member.phase.kind === 'perched';
         member.held = false;
-        const requested = target ? v3(target.x * 1.12, .2 + target.y * .68, .25) :
-            bounded(v3(member.position.x + (member.id % 2 ? -.75 : .75), member.position.y - .28, .25));
-        let dx = requested.x - member.position.x, dy = requested.y - member.position.y;
-        const distance = Math.hypot(dx, dy);
-        // Deliberate darts must remain visible after the pointer has already been
-        // reached. Limit the excursion, with an inward fallback near a boundary.
-        if (distance < .05) {
-            dx = member.position.x >= 0 ? -1 : 1;
-            dy = -.25;
+        // Local head is -Y: retreat along +Y, keeping the animal facing its lookout.
+        // Near the lower bank, use the anticipation to make room before backing up.
+        const rear = v2(-Math.sin(member.heading), Math.cos(member.heading));
+        const room = Math.min(rear.x > 1e-6 ? (1.25 - member.position.x) / rear.x : rear.x < -1e-6 ? (-1.25 - member.position.x) / rear.x : Infinity, rear.y > 1e-6 ? (1.0 - member.position.y) / rear.y : rear.y < -1e-6 ? (-.6 - member.position.y) / rear.y : Infinity);
+        const preparation = clamp(.64 - room, .04, .55);
+        const ready = bounded(v3(member.position.x - rear.x * preparation, member.position.y - rear.y * preparation, .24));
+        let aim = bounded(v3(ready.x + rear.x * .64, ready.y + rear.y * .64, .25));
+        // Pick a tailward lane with room for the four wing lobes. This is a bounded
+        // choice made once per cue, not a per-frame avoidance force that adds jitter.
+        if (cue === 'dart' && members.length > 1) {
+            const side = v2(Math.cos(member.heading), Math.sin(member.heading));
+            let best = Infinity;
+            for (const offset of [0, .32, -.32, .64, -.64]) {
+                const candidate = bounded(v3(ready.x + rear.x * .64 + side.x * offset, ready.y + rear.y * .64 + side.y * offset, .25));
+                let cost = Math.abs(offset) * .035;
+                for (const other of members)
+                    if (other.id !== member.id) {
+                        const x = other.position.x + other.velocity.x * .6, y = other.position.y + other.velocity.y * .6;
+                        const separation = ((candidate.x - x) / (options.scale * 3.1)) ** 2 + ((candidate.y - y) / (options.scale * 1.55)) ** 2;
+                        cost += Math.max(0, 1 - separation) ** 2;
+                    }
+                if (cost < best) {
+                    best = cost;
+                    aim = candidate;
+                }
+            }
         }
-        const length = Math.hypot(dx, dy), excursion = clamp(distance, .55, .85);
-        let aim = bounded(v3(member.position.x + dx / length * excursion, member.position.y + dy / length * excursion, .25));
-        if (Math.hypot(aim.x - member.position.x, aim.y - member.position.y) < .35)
-            aim = bounded(v3(member.position.x + (member.position.x >= 0 ? -.65 : .65), member.position.y - .16, .25));
-        member.response = { cue, elapsed: 0, from: member.position, to: cue === 'perch' ? reed : cue === 'return' ? route(member) : aim,
-            home: wasPerched ? reed : member.position, wasPerched };
+        member.response = { cue, elapsed: 0, from: member.position, ready,
+            to: cue === 'perch' ? reed : cue === 'return' ? route(member) : aim,
+            home: wasPerched ? reed : member.position, wasPerched, heading: member.heading,
+            launchTicks: Math.max(24, Math.round(18 + preparation * 100)) };
         return true;
     }
     function responseGoal(member, advance) {
@@ -184,23 +208,28 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
             return { goal: r.to, phase: phase('perched') };
         }
         if (r.cue === 'return') {
-            if (e < 100)
-                return { goal: mix(r.from, r.to, ease(e / 100)), phase: phase('return', e, 100) };
-            if (e < 145)
-                return { goal: r.to, phase: phase('settle', e - 100, 45) };
+            // A held twig releases in an authored order: wings, feet, lift, cruise.
+            const lift = r.wasPerched ? 42 : 0;
+            if (e < lift)
+                return { goal: mix(r.from, r.ready, ease((e - 18) / 24)), phase: phase('launch', e, lift) };
+            if (e < lift + 100)
+                return { goal: mix(r.wasPerched ? r.ready : r.from, r.to, ease((e - lift) / 100)), phase: phase('return', e - lift, 100) };
+            if (e < lift + 145)
+                return { goal: r.to, phase: phase('settle', e - lift - 100, 45) };
             member.response = null;
             return autonomous(member);
         }
-        if (e < 24)
-            return { goal: mix(r.from, v3(r.from.x, r.from.y - .08, .24), ease(e / 24)), phase: phase('launch', e, 24) };
-        if (e < 48)
-            return { goal: r.to, phase: phase('dart', e - 24, 24) };
-        if (e < 96)
-            return { goal: r.to, phase: phase('settle', e - 48, 48) };
-        if (e < 186)
-            return { goal: mix(r.to, r.home, ease((e - 96) / 90)), phase: phase('return', e - 96, 90) };
-        if (e < 246)
-            return { goal: r.home, phase: phase(r.wasPerched ? 'land' : 'cooldown', e - 186, 60) };
+        const ready = r.launchTicks, brake = ready + 30, recover = brake + 54, home = recover + 90, done = home + 60;
+        if (e < ready)
+            return { goal: mix(r.from, r.ready, ease(e / ready)), phase: phase('launch', e, ready) };
+        if (e < brake)
+            return { goal: r.to, phase: phase('dart', e - ready, 30) };
+        if (e < recover)
+            return { goal: r.to, phase: phase('settle', e - brake, 54) };
+        if (e < home)
+            return { goal: mix(r.to, r.home, ease((e - recover) / 90)), phase: phase('return', e - recover, 90) };
+        if (e < done)
+            return { goal: r.home, phase: phase(r.wasPerched ? 'land' : 'cooldown', e - home, 60) };
         member.response = null;
         member.held = r.wasPerched;
         return { goal: r.home, phase: phase(r.wasPerched ? 'perched' : 'hover') };
@@ -230,11 +259,31 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
             vy = member.velocity.y + dvy / delta * maxAcceleration * DT;
         }
         let position = bounded(v3(member.position.x + vx * DT, member.position.y + vy * DT, member.position.z + (goal.z - member.position.z) * Math.min(1, .08 * pace)));
+        const distanceToGoal = Math.hypot(goal.x - position.x, goal.y - position.y);
+        const touching = landing || next.kind === 'land';
+        const backward = member.response?.cue === 'dart' && ['launch', 'dart', 'settle'].includes(next.kind);
+        const desired = touching ? -.18 + member.id * .08 : backward ? member.response.heading : clamp(vx * .75, -.55, .55);
+        member.heading += clamp(desired - member.heading, -.018 * pace, .018 * pace);
+        const pitch = touching ? 0 : next.kind === 'dart' ? -.32 : backward && next.kind === 'settle' ? .20 :
+            next.kind === 'launch' ? -.16 : clamp(-vy * .13, -.10, .10);
+        const blend = 1 - Math.exp(-8 * DT * pace);
+        member.pitch += (pitch - member.pitch) * blend;
+        const grip = touching ? 1 - clamp(distanceToGoal / .24, 0, 1) : 0;
+        member.grip += (grip - member.grip) * blend;
+        // Flight power tapers to zero at contact; declaration of 'perched' waits
+        // for the whole pose to settle, avoiding a final wing/attitude snap.
+        const wanted = touching ? clamp(distanceToGoal / .18, 0, 1) : next.kind === 'launch' ? ease(next.elapsed / 18) : 1;
+        member.strength += (wanted - member.strength) * (1 - Math.exp(-10 * DT * pace));
         if (landing) {
-            if (Math.hypot(dx, dy) < .003 && Math.hypot(vx, vy) < .015 && Math.abs(member.heading - (-.18 + member.id * .08)) < .019 * pace) {
+            if (distanceToGoal < .001 && Math.hypot(vx, vy) < .008 && Math.abs(member.heading - desired) < .002 &&
+                Math.abs(member.pitch) < .002 && member.strength < .002 && member.grip > .998) {
                 position = goal;
                 vx = 0;
                 vy = 0;
+                member.heading = desired;
+                member.pitch = 0;
+                member.grip = 1;
+                member.strength = 0;
             }
             else
                 next = phase('land', 0, 60);
@@ -242,15 +291,6 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
         member.velocity = v2(vx, vy);
         member.position = position;
         member.phase = next;
-        const desired = landing ? -.18 + member.id * .08 : clamp(vx * .75, -.8, .8);
-        member.heading += clamp(desired - member.heading, -.018 * pace, .018 * pace);
-        // A requested perch may still be far away. Keep beating through approach,
-        // taper only near contact, and stop only once the settled phase is reached.
-        const distanceToGoal = Math.hypot(goal.x - position.x, goal.y - position.y);
-        const wanted = next.kind === 'perched' ? 0 : next.kind === 'land' ? clamp(distanceToGoal / .18, .12, 1) : 1;
-        member.strength += clamp(wanted - member.strength, -.045 * pace, .045 * pace);
-        if (next.kind === 'perched')
-            member.strength = 0;
         member.wingPhase = (member.wingPhase + TAU * member.model.getOptions().wingHz * DT * pace * member.strength) % TAU;
     }
     function getState() {
@@ -320,6 +360,7 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
             const pace = options.tempo * (api.getModelOptions().motion === 'slow' ? .25 : 1);
             clock += pace;
             for (const member of members) {
+                member.previous = poseOf(member);
                 member.model.step(member.model.getState().tick + 1);
                 const plan = member.response ? responseGoal(member, pace) : autonomous(member);
                 move(member, plan.goal, plan.phase, pace);
@@ -364,8 +405,11 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
                 m.phase = phase(pose === 0 ? 'perched' : 'hover');
                 m.strength = pose === 0 ? 0 : 1;
                 m.wingPhase = m.model.getState().wingPhase;
+                m.pitch = 0;
+                m.grip = pose === 0 ? 1 : 0;
                 m.response = null;
                 m.held = false;
+                m.previous = poseOf(m);
             }
             target = null;
         },
@@ -388,26 +432,36 @@ export function createDragonflyDirector(input = {}, modelInput = {}) {
                 m.phase = phase(m.id === 1 ? 'perched' : 'hover');
                 m.wingPhase = m.model.getState().wingPhase;
                 m.strength = m.id === 1 ? 0 : 1;
+                m.pitch = 0;
+                m.grip = m.id === 1 ? 1 : 0;
                 m.response = null;
                 m.held = false;
+                m.previous = poseOf(m);
             }
         },
-        sample() {
-            alive();
-            return members.map(m => {
-                const state = m.model.getState(), config = m.model.getOptions();
-                const geometry = buildDragonflyGeometry({ ...state, position: v2(0, 0), heading: 0, wingPhase: m.wingPhase }, { ...config, motion: 'full', wingAmplitude: config.wingAmplitude * m.strength });
-                const scale = options.scale * (1 - m.id * .035), c = Math.cos(m.heading), s = Math.sin(m.heading);
-                const transform = (p) => v3(m.position.x + (c * p.x - s * p.y) * scale, m.position.y + (s * p.x + c * p.y) * scale, m.position.z + p.z * scale);
-                const mapped = { samples: geometry.samples.map(p => ({ ...p, ...transform(p) })),
-                    wings: geometry.wings.map(w => ({ ...w, root: transform(w.root), tip: transform(w.tip) })),
-                    eyes: [transform(geometry.eyes[0]), transform(geometry.eyes[1])], abdomenTip: transform(geometry.abdomenTip) };
-                return { id: m.id, label: names[m.id], role: options.roles[m.id], phase: m.phase, selected: m.id === selected, position: m.position, perch: home(m.id), geometry: mapped };
-            });
-        },
+        sample() { return sampleAt(1); },
         dispose() { if (disposed)
             return; disposed = true; paused = true; for (const m of members)
             m.model.dispose(); },
     };
-    return Object.freeze(api);
+    function sampleAt(alpha) {
+        alive();
+        finiteNumber(alpha, 'presentation fraction', 0, 1);
+        return members.map(m => {
+            const state = m.model.getState(), config = m.model.getOptions();
+            const prev = m.previous, position = alpha === 1 ? m.position : alpha === 0 ? prev.position : mix(prev.position, m.position, alpha);
+            const heading = alpha === 1 ? m.heading : angleMix(prev.heading, m.heading, alpha);
+            const wingPhase = alpha === 1 ? m.wingPhase : angleMix(prev.wingPhase, m.wingPhase, alpha);
+            const strength = prev.strength + (m.strength - prev.strength) * alpha;
+            const pitch = prev.pitch + (m.pitch - prev.pitch) * alpha, grip = prev.grip + (m.grip - prev.grip) * alpha;
+            const geometry = buildDragonflyGeometry({ ...state, position: v2(0, 0), heading: 0, wingPhase }, { ...config, motion: 'full', wingAmplitude: config.wingAmplitude * strength }, { pitch, grip });
+            const scale = options.scale * (1 - m.id * .035), c = Math.cos(heading), s = Math.sin(heading);
+            const transform = (p) => v3(position.x + (c * p.x - s * p.y) * scale, position.y + (s * p.x + c * p.y) * scale, position.z + p.z * scale);
+            const mapped = { samples: geometry.samples.map(p => ({ ...p, ...transform(p) })),
+                wings: geometry.wings.map(w => ({ ...w, root: transform(w.root), tip: transform(w.tip) })),
+                eyes: [transform(geometry.eyes[0]), transform(geometry.eyes[1])], abdomenTip: transform(geometry.abdomenTip) };
+            return { id: m.id, label: names[m.id], role: options.roles[m.id], phase: m.phase, selected: m.id === selected, position, perch: home(m.id), geometry: mapped };
+        });
+    }
+    return Object.freeze({ director: Object.freeze(api), samplePresentation: sampleAt });
 }
