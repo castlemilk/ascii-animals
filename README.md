@@ -6,6 +6,8 @@ A growing collection of reactive creatures made of characters. **ASCII Animals**
 
 ## Animal catalogue
 
+The [unified Next.js demo](demo/README.md) serves all 13 species from the built TypeScript package, with breadcrumbs and a shared navigation and playback flow. The table still points at the existing live Pages URLs until the unified build is deployed. Older studio URLs and their full controls are retained in the new export.
+
 | Animal | Status |
 | --- | --- |
 | Cuttlefish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) |
