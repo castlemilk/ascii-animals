@@ -83,7 +83,41 @@ export interface TurtleModel {
   direct(scene:TurtleScene):void;stage(act:TurtleAct):void;select(id:number):void;
   inspect(x:number,y:number,id?:number,poster?:boolean):void;clearGuide():void;frame():TurtleFrame;
 }
-interface Traveller {id:number;x:number;y:number;depth:number;heading:number;bank:number;stroke:number;motion:TurtleMotion;reactionStart:number|null;targetX:number;targetY:number;cooldown:number}
+type CueIntent='inspect'|'breath'|'dive';
+interface Traveller {
+  id:number;x:number;y:number;depth:number;heading:number;bank:number;stroke:number;motion:TurtleMotion;
+  reactionStart:number|null;targetX:number;targetY:number;cooldown:number;
+  pathX:number;pathY:number;intent:CueIntent;travel:number;cueTravel:number;excursion:number;beat:number;neck:number;breath:number;nextBreath:number;
+}
+/** One closed shoulder cycle: prepare, power, inward sweep, slow recovery, coast.
+ * The two foreflippers share this clock. Their geometry has a small fixed lag,
+ * never the old opposite-direction longitudinal paddling. */
+function flipperCycle(beat:number){
+  const p=((beat%1)+1)%1;
+  if(p<.12)return mix(.18,-.40,smooth(p/.12));
+  if(p<.29)return mix(-.40,.74,smooth((p-.12)/.17));
+  if(p<.42)return mix(.74,.88,smooth((p-.29)/.13));
+  if(p<.70)return mix(.88,.18,smooth((p-.42)/.28));
+  return .18;
+}
+function cueEnvelope(age:number,duration:number){
+  const a=age*280/duration;
+  return smooth((a-24)/72)*(1-smooth((a-136)/144));
+}
+function cueDistance(age:number,duration:number){
+  const a=age*280/duration;
+  return .50*smooth(a/100)+.10*smooth((a-100)/50)+.40*smooth((a-150)/130);
+}
+
+/** The same body projection supplies both shell-local rasterization and the
+ * breathing contact constraint. A screen-space centre guess cannot place a
+ * lifted, pitched snout at the surface reliably. */
+function turtleProjection(x:number,y:number,z:number,heading:number,bank:number,mirror:number,size:number){
+  const pitch=Math.atan(Math.tan(heading*mirror)/.57),cp=Math.cos(pitch),sp=Math.sin(pitch);
+  const cr=Math.cos(bank),sr=Math.sin(bank),ry=y*cr-z*sr,rz=y*sr+z*cr;
+  const px=x*cp+rz*sp,pz=-x*sp+rz*cp;
+  return {x:px*mirror*size,y:(ry*.82-pz*.57)*size,z:(ry*.57+pz*.82)*size};
+}
 const names=['Neri','Moss','Luma','Aster','Sol'];
 function identity(o:TurtleConfig,id:number){
   const item=o.individuals.find(i=>i.id===id);
@@ -108,23 +142,27 @@ const layouts:readonly (readonly (readonly [number,number,number])[])[]=[
 /** Only trusted built-in routes: no arbitrary user callbacks and no ambient clocks/randomness. */
 function routePose(o:TurtleConfig,id:number,time:number,life:number){
   const member=identity(o,id),slot=layouts[o.count-1]![id]!,p=(o.seed%997)*.013+id*1.73;
-  const quiet=o.scene==='blue-drift',drift=o.behavior==='rest'?0:1;
-  let x=clamp(slot[0]*o.spacing,-.75,.75),y=clamp(slot[1]*o.spacing,-.60,.60);
-  x+=Math.sin(life*(quiet?.13:.24)+p)*(.025+o.sway*.12)*drift+o.current*.10*(1-Math.exp(-life*.25));
-  y+=Math.cos(life*.22+p)*.024*drift;
-  if(o.route==='channel'){y+=x*.25;x*=.92;}
-  if(o.route==='arc')y+=.10*Math.cos(x*3+life*.16);
-  if(member.role==='forager'&&o.scene==='seagrass-stop'){y+=.10+Math.sin(life*.38+p)*.045;x+=Math.sin(life*.16+p)*.045;}
-  if(member.role==='lookout')y-=.07+Math.sin(life*.15+p)*.06;
-  if(member.role==='explorer'){x+=Math.sin(life*.23+p)*.06;y+=Math.sin(life*.33+p)*.055;}
-  let depth=clamp(slot[2]+(o.depth-.5)*.5+Math.sin(life*.16+p)*.045,0,1);
-  const dir=o.facing==='left'?-1:1,a=o.arrivalSeconds,l=o.lingerSeconds,d=o.departureSeconds;
-  const lag=id*.55,enter=smooth((time-lag)/Math.max(1,a-lag));
+  const quiet=o.scene==='blue-drift',moving=o.behavior!=='rest',dir=o.facing==='left'?-1:1;
+  if(o.scene==='study')return {x:0,y:moving?Math.sin(life*.40)*(.004+o.sway*.045):0,depth:.3,head:0};
+  // Forward progress survives the quiet portion of each stroke. Current changes
+  // the lane and effort, not the body's facing or the material's coordinates.
+  let x=clamp(slot[0]*o.spacing,-.75,.75)+o.current*.06;
+  const routeTime=o.director==='hold'?life:Math.max(0,time-o.arrivalSeconds);
+  const rate=quiet?.009:.013,cycle=(member.role==='drifter'?7.8:5.2);
+  const strokeDrift=rate*.28*cycle/TAU*(Math.sin(routeTime*TAU/cycle+p-1.25)-Math.sin(p-1.25));
+  x+=dir*(moving?rate*routeTime+strokeDrift:0);
+  let y=clamp(slot[1]*o.spacing,-.60,.60)+(moving?Math.sin(life*.20+p)*.018:0);
+  if(o.route==='channel')y+=x*.16;
+  if(o.route==='arc')y+=.07*Math.cos(x*2.4);
+  if(member.role==='forager'&&o.scene==='seagrass-stop')y+=.08+Math.sin(life*.22+p)*.025;
+  if(member.role==='lookout')y-=.05;
+  const depth=clamp(slot[2]+(o.depth-.5)*.5+Math.sin(life*.13+p)*.025,0,1);
+  const a=o.arrivalSeconds,l=o.lingerSeconds,d=o.departureSeconds,lag=id*.55;
+  const enter=smooth((time-lag)/Math.max(1,a-lag));
   const leave=smooth((time-a-l-lag)/Math.max(1,d-lag));
-  if(time<a){x=mix(-dir*(1.7+id*.12),x,enter);y+=Math.sin(enter*Math.PI)*(o.route==='arc'?-.24:.12);depth=mix(.95,depth,enter);}
-  if(time>=a+l){x=mix(x,dir*(1.7+id*.12),leave);y-=Math.sin(leave*Math.PI)*(o.route==='channel'?.18:.09);depth=mix(depth,.95,leave);}
-  const head=o.behavior==='rest'?0:Math.sin(life*.28+p)*.035+(o.route==='channel'?.12:0);
-  return {x,y,depth,head};
+  if(time<a){x=mix(-dir*(1.7+id*.12),x,enter);y+=Math.sin(enter*Math.PI)*(o.route==='arc'?-.14:.07);}
+  if(time>=a+l){x=mix(x,dir*(1.7+id*.12),leave);y-=Math.sin(leave*Math.PI)*(o.route==='channel'?.12:.05);}
+  return {x,y,depth:time<a?mix(.95,depth,enter):time>=a+l?mix(depth,.95,leave):depth,head:0};
 }
 function reactionAt(m:Traveller,tick:number):TurtleReaction {
   if(m.reactionStart===null)return Object.freeze({kind:'none'});
@@ -134,49 +172,69 @@ function reactionAt(m:Traveller,tick:number):TurtleReaction {
 export function createTurtleModel(input:TurtleOptions={}):TurtleModel {
   let options=normalizeTurtleOptions(input),tick=0,responseTick:number|null=null,targetX=0,targetY=0,guideActive=false;
   let sceneTime=options.director==='hold'?options.arrivalSeconds+options.lingerSeconds/2:0,life=0,cycle=0,selectedId=0;
-  const members:Traveller[]=Array.from({length:5},(_,id)=>({id,x:0,y:0,depth:0,heading:0,bank:0,stroke:0,motion:'gliding',reactionStart:null,targetX:0,targetY:0,cooldown:0}));
+  const members:Traveller[]=Array.from({length:5},(_,id)=>({id,x:0,y:0,depth:0,heading:0,bank:0,stroke:0,motion:'gliding',reactionStart:null,targetX:0,targetY:0,cooldown:0,pathX:0,pathY:0,intent:'inspect',travel:0,cueTravel:0,excursion:0,beat:0,neck:0,breath:0,nextBreath:5+id*.7}));
   const state=():TurtleState=>Object.freeze({tick,responseTick,targetX,targetY});
   const phase=():TurtlePhase=>responseTick===null?'idle':tick-responseTick<45?'inspect':tick-responseTick<110?'streamline':'settle';
+  function beginCue(m:Traveller,x:number,y:number,poster:boolean){
+    const route=routePose(options,m.id,sceneTime,life),duration=options.scene==='study'?180:280;
+    m.intent=y<=-.55?'breath':y>=.55?'dive':'inspect';
+    m.targetX=x;m.targetY=y;m.cueTravel=m.travel;
+    m.excursion=m.intent==='breath'?Math.min(-.06,-.42-route.y):m.intent==='dive'?Math.min(.36,.73-route.y):clamp(y-route.y,-.14,.14);
+    m.reactionStart=tick-(poster?(duration===180?70:110):0);m.cooldown=tick+(duration===180?180:340);
+    m.nextBreath=life+26+m.id*2;
+  }
   function sample(snap=false){
-    for(const m of members.slice(0,options.count)){
-      const spec=identity(options,m.id),p=(options.seed%997)*.013+m.id*1.73,route=routePose(options,m.id,sceneTime,life);
-      if(m.reactionStart!==null&&tick-m.reactionStart>=280)m.reactionStart=null;
-      const response=reactionAt(m,tick),age=m.reactionStart===null?0:tick-m.reactionStart;
-      const weight=response.kind==='none'?0:age<90?smooth(age/60):1-smooth((age-120)/160);
-      let x=route.x,y=route.y,heading=route.head;
-      const near=guideActive&&m.id===selectedId&&Math.hypot(targetX-x,targetY-y)<(options.behavior==='curious'?1.2:.75)&&scenePhase(options,sceneTime).phase==='linger';
-      if(near){const interest=(options.behavior==='curious'?.25:.10)*spec.interest;x+=(targetX-x)*interest;y+=(targetY-y)*interest;heading+=clamp((targetY-y)*-.25,-.15,.15);}
-      if(response.kind!=='none'){x+=clamp(m.targetX-route.x,-.36,.36)*weight;y+=clamp(m.targetY-route.y,-.27,.27)*weight;heading+=clamp((m.targetY-route.y)*-.8,-.26,.26)*weight;}
-      // An invitation may lean toward a point, but cannot collapse the authored
-      // separation between silhouettes. This limits the excursion, not the herd.
-      if(options.scene!=='study'&&options.count>1&&(near||response.kind!=='none')){
-        const worldW=Math.max(6,3.7*options.columns*.56/options.rows),worldH=worldW*options.rows/(options.columns*.56);
-        const scaleFor=(id:number,depth:number)=>options.scale*.84*(options.count>3?.70:1)*identity(options,id).size*(1-depth*.43);
-        const ownScale=scaleFor(m.id,route.depth);
-        for(let other=0;other<options.count;other++)if(other!==m.id){
-          const peer=routePose(options,other,sceneTime,life),sum=ownScale+scaleFor(other,peer.depth);
-          const rx=sum*3.2/worldW,ry=sum*3.0/worldH;
-          const distance=(xx:number,yy:number)=>((xx-peer.x)/rx)**2+((yy-peer.y)/ry)**2;
-          const minimum=Math.min(distance(route.x,route.y),1.12);
-          if(distance(x,y)<minimum){
-            let lo=0,hi=1;
-            for(let j=0;j<9;j++){const mid=(lo+hi)/2;if(distance(mix(route.x,x,mid),mix(route.y,y,mid))<minimum)hi=mid;else lo=mid;}
-            x=mix(route.x,x,lo);y=mix(route.y,y,lo);
-          }
-        }
+    const dir=options.facing==='left'?-1:1,duration=options.scene==='study'?180:280;
+    const worldW=Math.max(6,3.7*options.columns*.56/options.rows),worldH=worldW*options.rows/(options.columns*.56);
+    for(const m of members.slice(0,options.scene==='study'?1:options.count)){
+      const spec=identity(options,m.id),p=(options.seed%997)*.013+m.id*1.73;
+      const route=routePose(options,m.id,sceneTime,life),act=scenePhase(options,sceneTime).phase;
+      if(m.reactionStart!==null&&tick-m.reactionStart>=duration){
+        m.travel=m.cueTravel+(m.intent==='inspect'?.14:options.count===1?.46:.32);m.reactionStart=null;
       }
-      const assistance=options.current*(options.facing==='left'?-1:1);
-      const duration=(spec.role==='drifter'||options.scene==='blue-drift'?8.5:spec.role==='forager'?5.4:4.6)*(1+assistance*.28);
-      const duty=.29*(1-assistance*.25),beat=((life/duration+p/TAU)%1+1)%1,active=beat<duty;
-      const stroke=active?Math.sin(beat/duty*TAU)*.27*(1-assistance*.20):Math.sin((beat-duty)/(1-duty)*Math.PI)*.025;
-      const inspecting=(spec.role==='forager'&&scenePhase(options,sceneTime).phase==='linger'&&Math.sin(life*.5+p)>(options.scene==='seagrass-stop'?.15:.55))||near||response.kind==='inspect';
-      if(inspecting)heading-=.18;
-      const banking=response.kind==='bank'||scenePhase(options,sceneTime).phase==='departure'&&Math.sin(life*.6+p)>.1;
-      const bank=banking?Math.sin(life*.7+p)*.24:Math.sin(life*.25+p)*.06;
-      const k=snap?1:.075;
-      m.x=snap?x:mix(m.x,x,k);m.y=snap?y:mix(m.y,y,k);m.depth=snap?route.depth:mix(m.depth,route.depth,k);m.heading=snap?heading:mix(m.heading,heading,k);
-      m.bank=bank;m.stroke=options.behavior==='rest'?0:stroke;
-      m.motion=options.behavior==='rest'?'resting':response.kind==='recover'?'recovering':banking?'banking':inspecting?'inspecting':spec.role==='lookout'&&Math.sin(life*.15+p)>.5?'surfacing':active?'stroking':'gliding';
+      if(!snap&&options.behavior!=='rest'&&m.reactionStart===null&&tick>=m.cooldown&&life>=m.nextBreath&&(act==='linger'||act==='study')&&(spec.role==='lookout'||act==='study'))beginCue(m,m.x,-.9,false);
+      const age=m.reactionStart===null?0:tick-m.reactionStart,response=reactionAt(m,tick);
+      const active=m.reactionStart!==null,weight=active?cueEnvelope(age,duration):0;
+      const distance=m.intent==='inspect'?.14:options.count===1?.46:.32;
+      if(active)m.travel=m.cueTravel+distance*cueDistance(age,duration);
+      let x=route.x+dir*m.travel,y=route.y+m.excursion*weight;
+      // A held scene may make a fresh pass only after the whole animal is gone.
+      // Forward distance is never unwound to pull a recovering turtle backwards.
+      if(!active&&options.director==='hold'&&dir*x>1.72){m.travel-=3.44;x-=dir*3.44;}
+      const near=guideActive&&m.id===selectedId&&Math.hypot(targetX-m.x,targetY-m.y)<(options.behavior==='curious'?1.2:.75);
+      const assistance=options.current*dir;
+      const period=(spec.role==='drifter'||options.scene==='blue-drift'?7.8:spec.role==='forager'?5.8:5.2)*(1+assistance*.16);
+      const baseBeat=life/period+p/TAU;
+      // Cues borrow a pair of committed strokes; phase is continuous within the
+      // response and blends back to the ordinary cadence through recovery.
+      const cueBeat=age/duration*1.55+.08;
+      const effort=active?smooth(age/24)*(1-smooth((age-duration*.66)/(duration*.34))):0;
+      const stroke=mix(flipperCycle(baseBeat),flipperCycle(cueBeat),effort);
+      const vx=x-m.pathX,vy=y-m.pathY;
+      m.pathX=x;m.pathY=y;
+      const tangent=Math.abs(vx)+Math.abs(vy)>1e-7?Math.atan2(dir*vy*worldH,Math.max(.00002,dir*vx*worldW)):0;
+      const anticipated=active&&age<24?(m.intent==='breath'?dir*-.12:m.intent==='dive'?dir*.12:0)*Math.sin(age/24*Math.PI):0;
+      const desired=options.scene==='study'&&!active?0:clamp(tangent,-.78,.78)+anticipated;
+      m.heading=snap?(active?dir*(m.intent==='breath'?-.20:m.intent==='dive'?.20:0):0):m.heading+clamp((desired-m.heading)*.18,-.022,.022);
+      m.depth=clamp(route.depth+(m.intent==='breath'?-.22:m.intent==='dive'?.25:0)*weight,0,1);
+      m.bank=options.behavior==='rest'?0:Math.sin(life*.23+p)*.035+(active&&m.intent==='inspect'?Math.sin(age/duration*Math.PI)*.10:0);
+      m.beat=baseBeat;m.stroke=options.behavior==='rest'?0:stroke;
+      m.neck=active?(m.intent==='breath'?.28:m.intent==='dive'?-.10:.025)*weight:near?clamp((route.y-targetY)*.08,-.04,.05):0;
+      m.breath=active&&m.intent==='breath'?smooth((age*280/duration-82)/16)*(1-smooth((age*280/duration-126)/20)):0;
+      if(active&&m.intent==='breath'){
+        const size=options.scene==='study'?options.scale:options.scale*.92*(options.count>3?.70:1)*spec.size*(1-m.depth*.34);
+        const nose=turtleProjection(-1.50-Math.max(0,m.neck)*.30,.025,.105+m.neck,m.heading,m.bank,-dir,size);
+        // Only a nostril breaks the surface. The root may rise as the neck and
+        // shell level out; the head cannot float above its own surface ripple.
+        y=Math.max(y,-.50-nose.y*2/worldH);
+      }
+      // The original solo study is a horizontal tracking view. Internal forward
+      // progress still drives pitch and passing water; its screen-space centre
+      // remains stable through repeated automatic or explicit cues.
+      m.x=options.scene==='study'?0:x;m.y=y;
+      const working=((baseBeat%1)+1)%1<.42;
+      const foraging=spec.role==='forager'&&act==='linger'&&Math.sin(life*.5+p)>.15;
+      m.motion=options.behavior==='rest'?'resting':active&&age>=duration*160/280?'recovering':active&&m.intent==='breath'?'surfacing':active&&m.intent==='dive'?'banking':active||near||foraging?'inspecting':working?'stroking':'gliding';
     }
   }
   sample(true);
@@ -187,28 +245,27 @@ export function createTurtleModel(input:TurtleOptions={}):TurtleModel {
   }
   function checkId(id:number){bounded(id,0,(options.scene==='study'?1:options.count)-1,'selected id',true);}
   function guide(x:number,y:number){if(typeof x!=='number'||typeof y!=='number'||!Number.isFinite(x)||!Number.isFinite(y))throw new TypeError('Guide requires finite normalized coordinates');targetX=clamp(x,-1,1);targetY=clamp(y,-1,1);guideActive=true;}
-  function resetScene(){sceneTime=options.director==='hold'?options.arrivalSeconds+options.lingerSeconds/2:0;cycle=0;for(const m of members){m.reactionStart=null;m.cooldown=0;}sample(true);}
+  function resetScene(){sceneTime=options.director==='hold'?options.arrivalSeconds+options.lingerSeconds/2:0;cycle=0;for(const m of members){m.reactionStart=null;m.cooldown=0;m.travel=0;m.cueTravel=0;m.excursion=0;m.nextBreath=life+5+m.id*.7;}sample(true);}
   function inspect(x:number,y:number,id=selectedId,poster=false){
     checkId(id);if(typeof x!=='number'||typeof y!=='number'||!Number.isFinite(x)||!Number.isFinite(y))throw new TypeError('Inspection requires finite normalized coordinates');
     selectedId=id;guide(x,y);
-    if(options.scene==='study'){if(responseTick===null)responseTick=tick-(poster?70:0);return;}
     const m=members[id]!;
     if(!poster&&(m.reactionStart!==null||tick<m.cooldown))return;
-    m.targetX=targetX;m.targetY=targetY;m.reactionStart=tick-(poster?110:0);m.cooldown=tick+340;
-    if(responseTick===null)responseTick=tick-(poster?70:0);
+    beginCue(m,targetX,targetY,poster);
+    if(responseTick===null||poster)responseTick=tick-(poster?70:0);
     if(poster)sample(true);
   }
   function configure(patch:TurtleOptions,poster=false){
     const next=resolve(patch,options),previous=options;options=next;selectedId=Math.min(selectedId,(options.scene==='study'?1:options.count)-1);
     if(next.scene!==previous.scene)resetScene();
-    else if(next.count>previous.count){for(let id=previous.count;id<next.count;id++){const m=members[id]!,p=routePose(options,id,sceneTime,life);Object.assign(m,p,{heading:p.head,reactionStart:null,cooldown:0});}}
+    else if(next.count>previous.count){for(let id=previous.count;id<next.count;id++){const m=members[id]!,p=routePose(options,id,sceneTime,life);Object.assign(m,p,{heading:p.head,reactionStart:null,cooldown:0,pathX:p.x,pathY:p.y,travel:0,cueTravel:0,excursion:0,neck:0,breath:0,nextBreath:life+5+id*.7});}}
     if(poster)sample(true);
   }
   function stage(act:TurtleAct){
     if(!['arrival','linger','departure'].includes(act))throw new TypeError('Invalid turtle act');
     if(options.scene==='study')return;
     sceneTime=act==='arrival'?options.arrivalSeconds*.73:act==='linger'?options.arrivalSeconds+options.lingerSeconds*.45:options.arrivalSeconds+options.lingerSeconds+options.departureSeconds*.44;
-    for(const m of members){m.reactionStart=null;m.cooldown=0;}responseTick=null;sample(true);
+    for(const m of members){m.reactionStart=null;m.cooldown=0;m.travel=0;m.cueTravel=0;m.excursion=0;}responseTick=null;sample(true);
   }
   return Object.freeze({getOptions:()=>options,getState:state,getPhase:phase,getDirectorState:director,configure,
     advanceTicks(ticks:number){bounded(ticks,0,600,'ticks',true);if(!Number.isSafeInteger(tick+ticks))throw new RangeError('Tick capacity reached');
@@ -216,13 +273,13 @@ export function createTurtleModel(input:TurtleOptions={}):TurtleModel {
         if(options.scene!=='study'&&options.director!=='hold'){
           const total=options.arrivalSeconds+options.lingerSeconds+options.departureSeconds;
           sceneTime=Math.min(total,sceneTime+options.speed/60);
-          if(sceneTime>=total&&options.director==='loop'){sceneTime=0;cycle++;for(const m of members){m.reactionStart=null;m.cooldown=0;}sample(true);}
+          if(sceneTime>=total&&options.director==='loop'){sceneTime=0;cycle++;for(const m of members){m.reactionStart=null;m.cooldown=0;m.travel=0;m.cueTravel=0;m.excursion=0;m.nextBreath=life+5+m.id*.7;}sample(true);}
         }
         if(responseTick!==null&&tick-responseTick>=180)responseTick=null;sample();
       }
     },guide,
     clearGuide(){targetX=targetY=0;guideActive=false;},
-    greet(poster=false){if(options.scene==='study'){if(responseTick===null)responseTick=tick-(poster?70:0);}else{const m=members[selectedId]!;inspect(guideActive?targetX:m.x+(options.facing==='left'?-.18:.18),guideActive?targetY:m.y+.10,selectedId,poster);}},
+    greet(poster=false){const m=members[selectedId]!;inspect(guideActive?targetX:m.x+(options.facing==='left'?-.18:.18),guideActive?targetY:m.y+.10,selectedId,poster);},
     inspect,select(id:number){checkId(id);selectedId=id;},stage,
     direct(scene:TurtleScene){
       if(!scenes.includes(scene))throw new TypeError('Invalid turtle scene');
@@ -232,90 +289,141 @@ export function createTurtleModel(input:TurtleOptions={}):TurtleModel {
       configure({...preset,scene,behavior:'glide'});responseTick=null;guideActive=false;targetX=targetY=0;resetScene();
     },
     reset(){tick=0;responseTick=null;targetX=targetY=0;guideActive=false;life=0;selectedId=0;resetScene();},
-    frame(){return renderTurtle(options,state(),phase(),director());}
+    frame(){return renderTurtle(options,state(),phase(),director(),members,life);}
   });
 }
 /** Pure logical-cell rendering; no DOM, font, random or wall-clock dependency. */
-function renderTurtle(o:TurtleConfig,s:TurtleState,phase:TurtlePhase,d:TurtleDirectorState):TurtleFrame {
+function renderTurtle(o:TurtleConfig,s:TurtleState,phase:TurtlePhase,d:TurtleDirectorState,poses:readonly Traveller[],life:number):TurtleFrame {
   const cols=o.columns,rows=o.rows,worldW=Math.max(6,3.7*cols*.56/rows),worldH=worldW*rows/(cols*.56);
   const glyphs=new Array<string>(cols*rows).fill(' '),tones=new Uint8Array(cols*rows),owners=new Int8Array(cols*rows).fill(-1);
-  const directed=o.scene!=='study';
-  const t=s.tick/60*o.speed,seedPhase=(o.seed%997)/997*TAU;
-  const age=s.responseTick===null?0:s.tick-s.responseTick;
-  const lift=o.behavior==='rest'?0:s.responseTick===null?0:Math.sin(Math.PI*clamp(age/180,0,1));
+  const zbuffer=new Float64Array(cols*rows).fill(-Infinity),directed=o.scene!=='study';
   function cell(c:number,r:number,glyph:string,tone:number,owner=-1){
     if(c<0||r<0||c>=cols||r>=rows)return;const i=r*cols+c;glyphs[i]=glyph;tones[i]=clamp(Math.round(tone),0,9);owners[i]=owner;
   }
   function world(x:number,y:number,glyph:string,tone:number){cell(Math.round((x+1)/2*(cols-1)),Math.round((y+1)/2*(rows-1)),glyph,tone);}
-  if(directed){
-    // Sparse, stable glyph scenery. Flow moves independently of the animals.
-    const n=o.scene==='blue-drift'?28:55;
-    for(let i=0;i<n;i++){
-      const q=(i*197+o.seed*31)%1009,drift=(t*.018*o.current);
-      world(((q/1009+drift)%1+1)%1*2-1,((i*97+o.seed*13)%991)/991*1.8-.9,'.',1);
+  // Three quiet habitat layers. Their clock accumulates speed exactly as the
+  // animal's clock does. Nothing in the shell or skin material reads this clock.
+  const quiet=o.scene==='blue-drift'||o.scene==='study';
+  for(let i=0;i<(quiet?23:37);i++){
+    const q=(i*197+o.seed*31)%1009,flow=life*(.008*o.current+.004)+(directed?0:poses[0]!.travel*(o.facing==='left'?.5:-.5));
+    world(((q/1009+flow)%1+1)%1*2-1,((i*97+o.seed*13)%991)/991*1.6-.8,'.',1);
+  }
+  // Sparse grazing light at the surface, with long gaps rather than a frame.
+  for(let c=2;c<cols-2;c++){
+    const x=c/(cols-1)*2-1;
+    if((c+o.seed)%17<10)world(x,-.50+Math.sin(x*7+life*.16)*.005,'~',2);
+    if((c+5)%29<9)world(x,-.59+Math.sin(x*4)*.01,'.',1);
+  }
+  if(!quiet){
+    for(let c=0;c<cols;c+=2){
+      const x=c/(cols-1)*2-1,y=.87+Math.sin(x*5+o.seed)*.022+Math.sin(x*11)*.009;
+      world(x,y,(c%7===0)?':':'_',1);
     }
-    if(o.scene!=='blue-drift')for(let plant=0;plant<9;plant++){
-      const x=-.92+plant*.23,h=.07+((plant*17+o.seed)%7)*.014;
-      for(let k=0;k<10;k++){const y=.96-k/10*h;world(x+Math.sin(k*.36+t*.35+plant)*k*.0015,y,k<3?'|':'/',2);}
-      world(x,.96,'_',2);
+    for(let plant=0;plant<11;plant++){
+      const x=-.96+plant*.19,h=.07+((plant*17+o.seed)%7)*.013;
+      for(let k=0;k<9;k++)world(x+Math.sin(k*.23+life*.20+plant)*k*.002,.98-k/8*h,k<3?'|':'/',2);
     }
-    if(o.showRoute)for(let id=0;id<o.count;id++)for(let k=0;k<=32;k++){
-      const pose=routePose(o,id,k/32*(o.arrivalSeconds+o.lingerSeconds+o.departureSeconds),0);
-      world(pose.x,pose.y,k%4===0?':':'.',2);
-    }
+  }
+  // Foreground blades are confined to the two corners, outside the main animal.
+  for(const side of [-1,1])for(let blade=0;blade<(quiet?3:5);blade++){
+    const root=side*(.97-blade*.027),height=.09+blade*.024;
+    for(let k=0;k<8;k++)world(root-side*Math.sin(k*.22+blade*.4+life*.12)*.025,.99-k/7*height,side===1?'\\':'/',2);
+  }
+  if(directed&&o.showRoute)for(let id=0;id<o.count;id++)for(let k=0;k<=32;k++){
+    const pose=routePose(o,id,k/32*(o.arrivalSeconds+o.lingerSeconds+o.departureSeconds),0);
+    world(pose.x,pose.y,k%4===0?':':'.',2);
   }
   const painting=directed?[...d.members].sort((a,b)=>b.depth-a.depth||a.id-b.id):[d.members[0]!];
+  // Thirteen plate centres form a single connected shell-local partition:
+  // five vertebrals and four costals on each side. Marginals occupy the rim.
+  const plates:readonly (readonly [number,number])[]=[[-.78,0],[-.41,0],[0,0],[.40,0],[.76,0],
+    [-.63,-.53],[-.23,-.55],[.23,-.53],[.62,-.46],[-.63,.53],[-.23,.55],[.23,.53],[.62,.46]];
   for(const member of painting){
-  if(directed&&(Math.abs(member.x)>1.55||Math.abs(member.y)>1.6))continue;
-  const dx=directed?member.x*worldW/2:o.behavior==='curious'?s.targetX*.3:o.behavior==='glide'?Math.sin(t*.65+seedPhase)*o.sway:0;
-  const bounce=directed?member.y*worldH/2:o.behavior==='rest'?0:Math.sin(t*.7)*.06+(o.behavior==='curious'?s.targetY*.12:0);
-  const populationScale=o.count>3?.70:1;
-  const size=directed?o.scale*.84*populationScale*member.size*(1-member.depth*.43):o.scale;
-  const rotation=directed?member.heading:0,cos=Math.cos(rotation),sin=Math.sin(rotation);
-  const mirror=o.facing==='left'?1:-1, chars='.,:;+=*#%@';
-  function point(x:number,y:number,tone:number,glyph?:string){
-    const lx=x*size*mirror,ly=y*size*(directed?1-Math.abs(member.bank)*.4:1);
-    x=lx*cos-ly*sin+dx;y=lx*sin+ly*cos+bounce;
-    if(directed)tone*=1-member.depth*.26;
-    const c=Math.round((x/worldW+.5)*(cols-1)),r=Math.round((y/worldH+.5)*(rows-1));
-    if(c<0||c>=cols||r<0||r>=rows)return;const i=r*cols+c;
-    glyphs[i]=glyph??chars[clamp(Math.round(tone),0,9)]!;tones[i]=clamp(Math.round(tone),1,9);owners[i]=member.id;
-  }
-  const step=directed?worldH/rows*.40/Math.max(.35,size):worldH/rows*.32;
-  function disk(cx:number,cy:number,r:number,tone:number,glyph?:string){for(let y=-r;y<=r;y+=step)for(let x=-r;x<=r;x+=step)if(x*x+y*y<=r*r)point(cx+x,cy+y,tone,glyph);point(cx,cy,tone,glyph);}
-  function line(x:number,y:number,xx:number,yy:number,r:number,tone:number,glyph?:string){const n=Math.max(1,Math.ceil(Math.hypot(xx-x,yy-y)/step));for(let k=0;k<=n;k++){const a=k/n;disk(x+(xx-x)*a,y+(yy-y)*a,r,tone,glyph);}}
-  function ellipse(cx:number,cy:number,rx:number,ry:number,tone:number){for(let y=-ry;y<=ry;y+=step)for(let x=-rx;x<=rx;x+=step){const q=x*x/(rx*rx)+y*y/(ry*ry);if(q<=1)point(cx+x,cy+y,tone+(1-q)*1.8-y/ry*.4);}}
-  // A three-quarter top view: four tapered flippers, a domed scuted shell,
-  // projecting beaked head and a small tail. Streamlining folds flippers only:
-  // sea turtles cannot retract their heads into their shells.
-  function fin(points:readonly [number,number][],tone:number){
-    const minX=Math.min(...points.map(p=>p[0])),maxX=Math.max(...points.map(p=>p[0]));
-    const minY=Math.min(...points.map(p=>p[1])),maxY=Math.max(...points.map(p=>p[1]));
-    for(let y=minY;y<=maxY;y+=step)for(let x=minX;x<=maxX;x+=step){let inside=false;
-      for(let i=0,j=points.length-1;i<points.length;j=i++){const a=points[i]!,b=points[j]!;if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])inside=!inside;}
-      if(inside)point(x,y,tone+.5*Math.sin(x*18+y*9));}
-    for(let i=0;i<points.length;i++){const a=points[i]!,b=points[(i+1)%points.length]!;line(a[0],a[1],b[0],b[1],.02,tone+1);}
-  }
-  const stroke=directed?member.stroke:o.behavior==='rest'?0:Math.sin(t*1.5+seedPhase)*.19;
-  const finLift=directed?(member.reaction.kind==='bank'?.65:member.motion==='inspecting'?.25:member.motion==='gliding'?.13:0):lift;
-  for(const side of [-1,1]){
-    const extension=1-finLift*.48,tipX=-.42+stroke*side*(directed?(side===1?.86:1.12):1)+finLift*.5+(directed?member.bank*side*.45:0);
-    fin([[-.55,side*.35],[-.95,side*.85], [tipX,side*(.65+extension*.80)],[-.12,side*.77],[-.12,side*.40]],5.7);
-    fin([[.55,side*.34],[1.10,side*(.75+stroke*.2)],[1.27,side*.53],[.80,side*.21]],5.2);
-  }
-  line(.7,0,1.20,.04,.06,6);line(1.20,.04,1.36,.03,.025,7);
-  line(-.71,0,-1.05,-.03,.17,6);
-  ellipse(-1.23,-.04,.31,.24,6.4);
-  line(-1.48,.04,-1.56,.07,.045,8);point(-1.33,-.16,9,'@');
-  ellipse(0,0,.96,.67,4.8);
-  // Shell margin, central vertebral plates and paired costal scutes.
-  for(let k=0;k<120;k++){const a=k/120*TAU;point(Math.cos(a)*.94,Math.sin(a)*.65,8,'#');}
-  for(let k=0;k<5;k++){
-    const x=-.63+k*.31;
-    const hex:[[number,number],[number,number],[number,number],[number,number],[number,number],[number,number]]=[[x-.14,-.12],[x,-.23],[x+.14,-.12],[x+.14,.12],[x,.23],[x-.14,.12]];
-    for(let j=0;j<6;j++){const a=hex[j]!,b=hex[(j+1)%6]!;line(a[0],a[1],b[0],b[1],.015,3,':');}
-    for(const side of [-1,1]){const edge=Math.sqrt(Math.max(0,1-x*x/.90))*.61;line(x,side*.23,x+.08,side*edge,.018,3,':');}
-  }
+    const pose=poses[member.id]!;
+    if(Math.abs(member.x)>1.55||Math.abs(member.y)>1.6)continue;
+    const dx=member.x*worldW/2,dy=member.y*worldH/2;
+    const populationScale=o.count>3?.70:1;
+    const size=directed?o.scale*.92*populationScale*member.size*(1-member.depth*.34):o.scale;
+    const mirror=o.facing==='left'?1:-1,chars='.,:;+=*#%@';
+    const step=clamp(Math.min(worldW/cols,worldH/rows)*.42/size,.012,.085);
+    const detail=size*2.04/worldW*cols>=27;
+    function projected(x:number,y:number,z:number){
+      const p=turtleProjection(x,y,z,member.heading,member.bank,mirror,size);
+      return {x:p.x+dx,y:p.y+dy,z:p.z};
+    }
+    function point(x:number,y:number,z:number,tone:number,glyph?:string,layer=0){
+      const p=projected(x,y,z),c=Math.round((p.x/worldW+.5)*(cols-1)),r=Math.round((p.y/worldH+.5)*(rows-1));
+      if(c<0||c>=cols||r<0||r>=rows)return;
+      const index=r*cols+c,depth=5-member.depth*8+p.z+layer;
+      if(depth<zbuffer[index]!)return;
+      zbuffer[index]=depth;tone*=directed?1-member.depth*.17:1;
+      glyphs[index]=glyph??chars[clamp(Math.round(tone),0,9)]!;tones[index]=clamp(Math.round(tone),1,9);owners[index]=member.id;
+    }
+    function ellipsoid(cx:number,cy:number,cz:number,rx:number,ry:number,rz:number,tone:number){
+      for(let y=-ry;y<=ry;y+=step)for(let x=-rx;x<=rx;x+=step){
+        const q=(x/rx)**2+(y/ry)**2;if(q<=1)point(cx+x,cy+y,cz+rz*Math.sqrt(1-q),tone+1.0*(1-q)-.30*y/ry);
+      }
+    }
+    // Curved paddles, sampled in their own span/chord coordinates. Skin marks
+    // remain on the paddle as it rotates about a fixed shoulder or hip root.
+    function flipper(side:number,rear=false){
+      const stroke=member.stroke+(rear?0:side*.018),angle=rear?-.05+member.bank*.25:-stroke*.64-(side===-1?pose.breath*.65:0);
+      const breathing=pose.breath;
+      const span=rear?.38:(1.20-(side===-1?.38:.10)*breathing),rootX=rear?.65:-.68,rootY=side*(rear?.39:.43);
+      const sweep=rear?.29:.04+stroke*.35;
+      const spanSteps=Math.max(14,Math.ceil(span/step));
+      for(let j=0;j<=spanSteps;j++){
+        const u=j/spanSteps,width=rear?(.105*(1-u)+.12*Math.sin(Math.PI*u)):(.13*(1-u)+.16*Math.pow(Math.sin(Math.PI*u),.70));
+        const divisions=Math.max(2,Math.ceil(width*2/step));
+        for(let k=0;k<=divisions;k++){
+          const v=k/divisions*2-1;
+          const x=rootX+sweep*u+.09*Math.sin(Math.PI*u)+width*v;
+          const y=rootY+side*span*u*Math.cos(angle);
+          const z=-.055+span*u*Math.sin(angle)+.035*Math.sin(Math.PI*u)*(1-v*v);
+          const edge=k===0||k===divisions;
+          const scaleMark=detail&&u<.8&&Math.cos(u*38)*Math.cos(v*11)>.58;
+          const tone=(rear?4.9:side===1?6.2:5.4)+(edge?.65:scaleMark?-.85:.30*(1-v*v));
+          point(x,y,z,tone,edge?(detail?'+':undefined):undefined);
+        }
+      }
+    }
+    flipper(-1);flipper(1);flipper(-1,true);flipper(1,true);
+    ellipsoid(1.01,.01,-.04,.25,.065,.03,5.4);
+    // Continuous neck under the carapace. The breath lifts and extends the head;
+    // it never shrinks into the shell and the eye remains part of the skull.
+    const neck=pose.neck,headX=-1.25-Math.max(0,neck)*.30,headZ=.045+neck;
+    ellipsoid(-.97,-.005,neck*.40,.30,.145,.11,5.4);
+    ellipsoid(headX,-.006,headZ,.245,.188,.13,6.1);
+    ellipsoid(headX-.205,.015,headZ+.02,.085,.105,.055,6.7);
+    if(detail){
+      for(const [x,y] of [[-.10,-.07],[.045,-.075],[.09,.045]] as const)point(headX+x,y,headZ+.135,4.1,':',.02);
+    }
+    point(headX-.075,.139,headZ+.10,8.5,'o',.06);
+    point(headX-.245,.075,headZ+.04,3.0,'-',.07);
+    // One surface owns the shell fill, scutes, streaks and margin. There is no
+    // screen-space texture, independently rotating seam layer or animated noise.
+    for(let v=-1;v<=1;v+=step/.70)for(let u=-1;u<=1;u+=step/1.02){
+      const q=u*u+v*v;if(q>1)continue;
+      const x=u*1.02,y=v*.70*(1-.14*u),z=.31*Math.pow(1-q,.62);
+      let first=Infinity,second=Infinity,plate=0;
+      for(let j=0;j<plates.length;j++){
+        const seed=plates[j]!,distance=(u-seed[0])**2+(v-seed[1])**2*.93;
+        if(distance<first){second=first;first=distance;plate=j;}else if(distance<second)second=distance;
+      }
+      const seed=plates[plate]!,a=Math.atan2(v-seed[1],u-seed[0]);
+      const ray=detail?.22*Math.sin(a*8+plate*1.7+Math.sqrt(first)*4):0;
+      const shade=4.8+(z/.31)*1.45-v*.52-u*.18+ray;
+      const seam=q<.83&&second-first<(detail?.030:.042),rim=q>.91;
+      const marginal=q>.80&&q<.94&&Math.abs(Math.sin(Math.atan2(v,u)*11))<.13;
+      point(x,y,z,seam?2.7:rim?7.0-v*.55:marginal?4.0:shade,seam?':':rim?(detail?'*':undefined):undefined,seam?.19:.035);
+    }
+    if(pose.breath>.25){
+      const nose=projected(headX-.25,.025,headZ+.06),nx=nose.x/worldW*2,ny=nose.y/worldH*2;
+      // A small surface break anchored at the actual snout, not an effect at the
+      // target marker. Long disconnected bubbles would obscure the anatomy.
+      for(let k=-3;k<=3;k++)if(Math.abs(k)>1)world(nx+k/cols*2,ny-.022+(Math.abs(k)-2)*.007,'~',4);
+      world(nx,ny-.035,'.',5);
+    }
   }
   if(directed&&o.showLabels)for(const member of d.members){
     if(Math.abs(member.x)>.95||Math.abs(member.y)>.9)continue;
@@ -417,10 +525,11 @@ export function createTurtleArtwork(canvas:HTMLCanvasElement,input:TurtleBrowser
   function greet(){if(disposed)return;pointerGuide=false;model.greet(blocked());draw();notify(true);}
   function keyboard(e:KeyboardEvent){
     if(disposed||e.altKey||e.ctrlKey||e.metaKey)return;
-    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter','Escape'].includes(e.key))return;
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter','Escape','b','B','d','D'].includes(e.key))return;
     e.preventDefault();pendingGuide=null;pointerGuide=false;
     const d=model.getDirectorState(),m=d.members[d.selectedId]!,x=d.marker.active?d.marker.x:m.x,y=d.marker.active?d.marker.y:m.y;
-    if(e.key==='Enter')model.inspect(clamp(x,-1,1),clamp(y,-1,1),d.selectedId,blocked());
+    if(e.key.toLowerCase()==='b'||e.key.toLowerCase()==='d')model.inspect(clamp(m.x,-1,1),e.key.toLowerCase()==='b'?-.9:.9,d.selectedId,blocked());
+    else if(e.key==='Enter')model.inspect(clamp(x,-1,1),clamp(y,-1,1),d.selectedId,blocked());
     else if(e.key==='Escape')model.clearGuide();
     else model.guide(clamp(x+(e.key==='ArrowRight'?.12:e.key==='ArrowLeft'?-.12:0),-1,1),clamp(y+(e.key==='ArrowDown'?.12:e.key==='ArrowUp'?-.12:0),-1,1));
     draw();notify(true);
