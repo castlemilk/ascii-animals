@@ -106,3 +106,9 @@ export declare const DRAGONFLY_DIRECTOR_LIMITS: Readonly<{
 export declare function validateDragonflyDirectorOptions(input?: Partial<DragonflyDirectorOptions>): Readonly<DragonflyDirectorOptions>;
 /** One explicit scene clock; no DOM, scheduler, randomness, renderer or wall-clock reads. */
 export declare function createDragonflyDirector(input?: Partial<DragonflyDirectorOptions>, modelInput?: Partial<DragonflyOptions>): DragonflyDirector;
+/** Species-internal presentation seam. The accepted public director is unchanged.
+ * Interpolation regenerates articulated geometry, never stretches sampled wings. */
+export declare function createDragonflyDirectorHost(input?: Partial<DragonflyDirectorOptions>, modelInput?: Partial<DragonflyOptions>): {
+    readonly director: DragonflyDirector;
+    readonly samplePresentation: (alpha: number) => readonly DragonflyDirectedGeometry[];
+};

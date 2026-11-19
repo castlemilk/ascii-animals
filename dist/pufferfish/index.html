@@ -24,10 +24,10 @@
     <div class="study">
       <section class="specimen" aria-label="Interactive pufferfish scene">
         <div class="stage">
-          <canvas id="pufferfish" tabindex="0" role="img" aria-describedby="description keyboard-guide motion-note" aria-label="Interactive ASCII pufferfish scene. Round visitors have bright eyes, paddle fins and short tails. Choose an individual with the controls or the number keys, then invite it, approach it, or give the group space."></canvas>
+          <canvas id="pufferfish" tabindex="0" role="img" aria-describedby="description keyboard-guide motion-note" aria-label="Interactive ASCII pufferfish scene. Spotted fish have oblong bodies, pale bellies, fine spines and small paddle fins. Choose a fish, invite it to inspect a point, approach to see inflation, or give it space to recover."></canvas>
           <div class="stage-header" aria-hidden="true"><span id="scene-title">Reef ramble</span><span id="motion-label">IN THE CURRENT</span></div>
           <div class="stage-footer" aria-hidden="true"><span id="phase">Small discoveries</span><span>ORIGINAL PROCEDURAL STUDY</span></div>
-          <p id="fallback" hidden>The animation could not start. Small round pufferfish have bright eyes, paddle fins and short fan tails. They explore, shelter from the tide and watch for a passing shadow. A close approach makes a fish expand into a spiny ball, then gradually settle when given space.</p>
+          <p id="fallback" hidden>The animation could not start. Spotted pufferfish drift above a quiet reef. Small fins carry their oblong bodies toward a discovery, then brake for an inspection. A close approach rounds the belly and lifts fine spines; giving space lets the fish release volume in stages and return to the current.</p>
         </div>
         <div class="scene-caption"><div><p class="eyebrow">In this moment</p><h2 id="scene-beat">Small discoveries</h2></div><p id="scene-description">Separate discoveries, a shared meeting place. Invite one visitor into the open water.</p></div>
         <p id="description" class="description">Tap a fish to select it. Tap open water to invite your selected visitor there, or use the buttons. Lingering nearby gives it time to notice you; moving away lets it settle. No hovering or dragging is required.</p>
@@ -48,9 +48,9 @@
         </section>
         <section class="control-section" aria-labelledby="introduction-title">
           <h2 id="introduction-title" class="eyebrow">Make an introduction</h2>
-          <button id="invite" class="primary action-button" type="button">Invite closer <span aria-hidden="true">↗</span></button>
-          <div class="button-row"><button id="approach" type="button">Approach</button><button id="retreat" type="button">Give space</button></div>
-          <p class="small">Invite and Approach address your selected visitor. Give space lets the whole group recover. Touch and keyboard welcome.</p>
+          <button id="invite" class="primary action-button" type="button">Invite an inspection <span aria-hidden="true">↗</span></button>
+          <div class="button-row"><button id="approach" type="button">Approach / inflate</button><button id="retreat" type="button">Give space</button></div>
+          <p class="small">Invite a calm inspection or approach to trigger defence. Give space releases the group. Each action works with touch or keyboard.</p>
           <div class="button-row playback"><button id="pause" type="button" aria-pressed="false">Pause</button><button id="reset" type="button">Reset scene</button></div>
         </section>
         <details class="control-section tuning" open>
@@ -66,7 +66,7 @@
           <summary>Look &amp; character</summary>
           <label for="mode">Mark making</label><select id="mode"><option value="ascii" selected>Characters · ASCII</option><option value="points">Points</option></select>
           <label for="view">View</label><select id="view"><option value="right" selected>Right three-quarter</option><option value="front">Face to face</option><option value="left">Left three-quarter</option></select>
-          <label for="quality">Character detail</label><select id="quality"><option value="small">Small · 72 columns</option><option value="standard">Standard · 120 columns</option><option value="fine" selected>Fine · 160 columns</option></select>
+          <label for="quality">Character detail</label><select id="quality"><option value="small">Small · 72 columns</option><option value="standard">Standard · up to 120 columns</option><option value="fine" selected>Fine · up to 160 columns</option></select>
           <label class="check"><input id="labels" type="checkbox" checked> Individual labels</label><label class="check"><input id="monochrome" type="checkbox"> Neutral tones</label>
           <div class="character-settings"><label for="seed">Seed</label><input id="seed" type="number" min="0" max="4294967295" step="1" value="23"><label for="inflation">Maximum inflation</label><select id="inflation"><option value="1.3">Gentle · 1.30×</option><option value="1.65" selected>Default · 1.65×</option><option value="1.8">Full · 1.80×</option></select><label class="check"><input id="wobble" type="checkbox" checked> Buoyant wobble</label><button id="apply-character" type="button">Apply character &amp; reset</button><p class="small">Seed and character changes restart the scene. View and detail changes preserve the moment.</p></div>
         </details>

@@ -171,11 +171,12 @@ footer { display: flex; justify-content: space-between; gap: 24px; border-top: 1
   .intro-note>p { font-size: 13px; }
   .intro-note>p br { display: none; }
   .intro-note .fine { display: none; }
-  .scene-picker { grid-template-columns: 1fr; gap: 8px; margin-bottom: 16px; }
-  .scene-card { padding: 15px 16px; }
+  .scene-picker { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: 16px; }
+  .scene-card { padding: 12px 9px; }
   .scene-kicker { margin-bottom: 7px; }
-  .scene-name { font-size: 23px; margin-bottom: 5px; }
-  .scene-copy { max-width: none; font-size: 11px; }
+  .scene-kicker>span:first-child { display: none; }
+  .scene-name { font-size: 17px; line-height: 1.2; margin-bottom: 0; }
+  .scene-copy { display: none; }
   .stage-top { padding: 15px 12px; font-size: 8px; letter-spacing: .04em; min-height: 48px; gap: 8px; }
   .story-strip { grid-template-columns: 1fr; gap: 9px; margin-inline: 14px; padding-block: 18px; }
   .story-strip h2 { font-size: 26px; }

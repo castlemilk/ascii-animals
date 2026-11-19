@@ -1,11 +1,11 @@
-export const DRAGONFLY_GLYPHS = ' .,:;-=+x*oO#@';
+export const DRAGONFLY_GLYPHS = " .,:;-=+x*oO#@/\\|_~'";
 export const DRAGONFLY_FONT = 'ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace';
 export const DRAGONFLY_CELL_ASPECT = 0.68;
 const MATERIALS = ['body', 'band', 'wing', 'vein', 'eye', 'leg'];
 const RAMPS = {
-    body: '+xoO#', band: '.,:;', wing: '.,:;-=', vein: '-=+x*', eye: 'oO#@', leg: '-=+x',
+    body: ':+xoO', band: '.,:;', wing: '.,:', vein: '.:-=', eye: 'oO', leg: '-=+',
 };
-const COLORS = ['#b4e4b3', '#637e57', '#78b9ad', '#b6dbcd', '#eddda0', '#90ab91'];
+const COLORS = ['#9acdc3', '#506b58', '#517d79', '#a9c9bf', '#e3c68a', '#9baf89'];
 /** The same orthographic projection for animal samples and their reed contacts.
  * Pass an output object to reuse it while sampling; no per-point allocation is required. */
 export function createDragonflyProjector(options) {

@@ -149,3 +149,10 @@ pre { overflow: auto; color: var(--gold); background: #071218; border: 1px solid
   .field-note h2 { font-size: 27px; }
   footer { flex-direction: column; gap: 4px; font-size: 8px; }
 }
+
+/* The two species cues stay beside the artwork at every viewport size. */
+.cue-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 0 24px 20px; }
+.cue-bar button { flex: 1 1 150px; border-color: #537367; background: #18332f; color: #ead2a4; }
+.cue-bar kbd { margin-left: 12px; font: 10px ui-monospace, monospace; color: #a4bcb5; }
+.cue-bar p { flex-basis: 100%; color: var(--muted); margin: 0; font-size: 11px; }
+@media (max-width: 560px) { .cue-bar { padding: 0 16px 18px; gap: 8px; } .cue-bar button { flex-basis: 120px; padding-inline: 9px; } }

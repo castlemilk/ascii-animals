@@ -1,19 +1,24 @@
 # Crab API — tidepool theatre
 
-This additive crab implementation was inspected and started from `main` commit
-`c06114404900884814bef879a02f1a49a3e7d590` on the new `feat/director-crab`
-branch. The final patch base is the rechecked current `main`,
-`c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`; its intervening change is README-only.
-It extends the newly authored integrated crab; it does not recover the
-unavailable earlier conversation. The package remains the private, unpublished
+The tidal-flat revision starts from verified `main` commit
+`b8f222dab868821f27bf2a64a98434f3483fc8e6` and preserves the existing crab
+public types and director API. The package remains the private, unpublished
 `ascii-animals-review` review candidate. Use a local build or tarball for these
 examples, not an assumed npm release.
 
 The canonical implementation is [`src/public/crab.ts`](../src/public/crab.ts).
-The default remains the original single-crab **`study`**. The revised demo opts
-into a three-resident theatre; existing calls do not silently become ensembles.
-See [authoring and evidence notes](../species/crab/AUTHORING.md) for the baseline
-comparison, anatomy anchors and remaining acceptance gates.
+The default remains the single-crab **`study`**. The demo starts with one resident
+on the tidal flat; its resident control still supports all five. It selects an
+80×32 grid on narrow canvases, 112×45 at intermediate widths, and 140×56 on wide
+canvases. Names start hidden to leave the silhouette clear.
+See the [tidal-flat authoring record](../species/crab/TIDAL-FLAT-AUTHORING.md)
+and [review manifest](../species/crab/evidence/tidal-flat/review-manifest.json).
+
+The new anatomy uses a continuous grooved shield, an underside rim, modestly
+unequal palms, hooked movable fingers and four jointed walking legs on each side.
+Theatre feet stay fixed in world space through stance and finish their airborne
+step even when the body stops. Rock ledges keep fixed world geometry; body height
+and crouch determine whether a crab appears in front of or behind the lip.
 
 ## Typed entry points
 
@@ -193,8 +198,12 @@ Explicit cues override that resident's chapter and proximity plan. Otherwise
 nearby guidance can adjust the authored plan, except during bracing, retreat or
 shelter. Clearing guidance does not cancel an accepted cue. Forage approaches a
 bounded lure, works the claw and returns toward the scene's intended position.
-Shelter retreats, hides, checks outside and returns. Signals raise a claw and
-settle. Completion restores current scene motives.
+Forage holds a short anticipation before its sideways approach. Shelter braces
+for 18 ticks, retreats through tick 90, hides to tick 150, checks outside to tick
+195, then returns. A signal prepares a low pose, raises its lead claw before the
+second claw, holds the open display and lowers both with separate timing.
+Completion restores current scene motives. These durations are authored, not
+biological measurements.
 
 The model's optional `poster` flag composes an informative still: cues use their
 120-tick pose, chapters their midpoint. It may replace an active cue. The browser
@@ -242,7 +251,8 @@ animation loop or polling timer.
 Coordinates run from `(-1,-1)` at canvas top-left to `(1,1)` at bottom-right.
 Pointerdown resolves visible ownership before changing guidance: a crab glyph
 selects its resident and requests a role-specific cue. Rocks, labels and covered
-anatomy are not invisible creature hitboxes. Sand taps choose the nearest curious
+anatomy are not invisible creature hitboxes. A visible rock tap instead selects
+the nearest shelter's resident and requests its shelter cue. Sand taps choose the nearest curious
 resident, or nearest resident when none is curious. Touch/pen release, cancel,
 leave and lost capture clear guidance. Nonprimary pointer events are ignored.
 
@@ -279,33 +289,31 @@ assistive-technology acceptance.
 
 ## Validation and remaining gates
 
-There are 10 legacy crab tests and 22 director tests for replay, recovery, manual
-stages, roles, cues, validation, immutability, bounds, planted feet, ownership,
-scheduler lifetime, subscriptions, disposal and reduced-motion posters. The
-strict consumer fixture covers existing usage and positive/negative additive
-types. The aggregate `npm test` run passed 329 tests; `npm run typecheck` and the
-crab-specific type fixture passed. Run species checks on a fresh build:
+The 42 crab checks cover the existing model/lifecycle/director contracts plus
+anticipation, held display, shelter visibility, toe continuity at three speeds,
+rock input, replay batches, current direction and fitted shelter reachability.
+The strict consumer fixture covers existing usage and positive/negative types.
+The public crab declaration file is byte-identical to the pinned baseline.
+Run species checks on a fresh build:
 
 ```sh
 npm run build
-node --test test/crab.test.mjs test/crab-director.test.mjs
+node --test test/crab.test.mjs test/crab-director.test.mjs test/crab-tidal-flat.test.mjs
 node node_modules/typescript/bin/tsc -p species/crab/tests/tsconfig.json
 ```
 
-The live original cuttlefish and integrated crab were inspected in a browser.
-The revised demo has **not** received DOM/browser acceptance: the cloud browser
-could not reach the local preview, and local Chromium failed with
-`Operation not permitted` while creating its socket. No permission bypass was
-attempted.
+The revision has **not** received DOM/browser acceptance. Local Chromium could
+not create a socket; the cloud browser could not reach localhost and policy
+blocked further observation. No bypass or Work conversion was attempted.
 
-Actual adapter Canvas2D output was rendered through `@napi-rs/canvas` with a
-mocked lifecycle window and installed DejaVu Sans Mono. Evidence comprises eight
-comparison/composition panels and a 16-second fixed-tick sequence sampled at 10
-frames per second. That sampling rate is not measured performance. The native
-manifest records backend, font/source hashes, logical frame hashes and explicit
-exclusions. It verifies real adapter pixels, not browser CSS or event delivery.
+Actual adapter Canvas2D output was rendered through `@napi-rs/canvas` 0.1.100 with
+a mocked lifecycle and installed DejaVu Sans Mono. The capture has 64 matched
+fixtures at desktop (980×700, 140×56 cells) and phone canvas size (390×280, 80×32),
+plus 18 seconds of ordered actions sampled every six ticks. That 10 Hz sampling
+is an evidence export rate, not measured device performance. Full-size originals,
+ASCII frames, comparison sheets and MP4/GIF motion are in the review bundle.
 
-Consult the delivered validation manifest for the final aggregate results and
-head hash. Browser acceptance, touch/keyboard UX, font variation, responsive
-layouts, screen-reader behavior, downloads and device performance remain gates.
-No merge, deployment or npm publication is implied.
+The compact manifest records final commands, results, exact hashes and remaining
+gates. Browser CSS, actual pointer/touch/keyboard delivery, screen readers,
+downloads and device performance remain unverified. Generated `dist` files are
+excluded from this crab-only patch; central integration runs `npm run build`.

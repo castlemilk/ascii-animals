@@ -1,0 +1,33 @@
+{
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "node": "v24.22.3",
+  "canonical": {
+    "species/frog/src/choreography.mts": "aae9b96faf190e654a3e3534e19d5a6a11aa4ff175bc61e36886bd45b7723d72",
+    "species/frog/src/controller.mts": "f197191f1c58739f6b2cb2d42afef734e8e745cb1f062d503dfa498d2e5f451e",
+    "species/frog/src/demo.mts": "b1b9e0d2396837a442ee874ac597e094d941c8fe72d9016606dbd742d3faeb25",
+    "species/frog/src/frog.mts": "f7a81aa636cb26be5ae41924fd57ae5d281c18d8e56990cbae014ce651999c33",
+    "species/frog/src/geometry.mts": "c180907d120c1f305cc7559252376c3b6d29cc9d31a8c6b5968a3963a039600e",
+    "species/frog/src/index.mts": "eb0efaee85b34d52df3c73689ae241a66f3d7a0779a5bcd068e8a4e5866ed787",
+    "species/frog/src/legacy-preview.mts": "5e3676b64d5f173d4e0603b6764219a12293617b968f688dfedd226fd2c5e482",
+    "species/frog/src/pond-types.mts": "8a3f7af8dedf3f778a55a04848af5814d75a2e42d84e209f128511445e0d5ae1",
+    "species/frog/src/pond.mts": "3a4c537e8fc485b590eef381462b0f8dd61f4f22611a017b8a247c9299c00eae",
+    "species/frog/src/types.mts": "bdc434832cd5c01c0d36585c3f7ba066b178217ab68bab03f6e50a9a4cc0ddb7"
+  },
+  "generated": {
+    "species/frog/generated/choreography.mjs": "20486fbaf1fb5ba0742c8745c6604cb32bfc8c45f9b09e8d8fe949b61f9312bf",
+    "species/frog/generated/controller.mjs": "556d90774c2b0509ef7fd7a7e1b3fa8cb61a676b097ac1d60498d7689212e171",
+    "species/frog/generated/demo.mjs": "feee2e5e3f638bd3981062c919aea022957f3da94c48758c01a9c88d6efd1bfc",
+    "species/frog/generated/frog.mjs": "e7cc5ed0daa435fcb529cdb206120c1206c36d0f74d6d65f0952dbe0390e2d17",
+    "species/frog/generated/geometry.mjs": "a82a6cf867da773a7dc0e60c6449dc66337c689dfc15d4c7775a0701374346c0",
+    "species/frog/generated/index.mjs": "d4aa8155a1694b2740f0ce79dd8c12911ebb9fe8b1452f639fbbafa77d61ab40",
+    "species/frog/generated/legacy-preview.mjs": "d6cefc773380830fbc05198aacea4c75b1214a46c0ce549504adfd57fd034877",
+    "species/frog/generated/pond-types.mjs": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/frog/generated/pond.mjs": "c36f4bdb4b9f565c2c90e2d6167309951029bc6da4da8ed46adfb1a37cbc8467",
+    "species/frog/generated/types.mjs": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+  },
+  "tests": {
+    "species/frog/tests/native-regressions.test.mjs": "3d596066ea11ca4eb61e52a0a38a71f7793be410d82b9d0bab72cc771e6c1604",
+    "species/frog/tests/feeding-endpoint.test.mjs": "38fc5a8f87f8c0735587333b475fb2bccb82c661e8995437f053100d5980515b",
+    "species/frog/scripts/check-browser-regressions.mjs": "660fbd2ca52fab10845add9fdace65dd8d9e98d3c57bebb456c495a88164e9e6"
+  }
+}

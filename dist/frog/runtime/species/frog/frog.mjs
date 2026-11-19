@@ -165,7 +165,9 @@ export function poseFrog(state, options = {}) {
         const u = b.age / c.flightTicks;
         height = 4 * c.jumpHeight * u * (1 - u);
         compression = .72 * (1 - ease(u / .18));
-        extension = Math.pow(Math.sin(Math.PI * u), .7);
+        // Unfold early after takeoff, then gather before contact. The original
+        // symmetric sine kept the hindlegs folded through most of the launch.
+        extension = ease(u / .26) * (1 - ease((u - .56) / .44));
         throatEnvelope = 0;
     }
     if (b.kind === 'landing') {

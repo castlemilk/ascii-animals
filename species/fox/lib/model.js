@@ -80,7 +80,10 @@ function walkFeet(state, rootX, dx, gait, options) {
         const p = (gait + offsets[i]) % 1;
         const moving = Math.abs(dx) > .000015;
         let f = foot;
-        if (f.mode === 'planted' && moving && p < .22 && Math.abs(f.x - rest.x) > .012) {
+        // Only a trailing paw begins another step. A paw already planted ahead
+        // of the shoulder must bear weight while the body catches up; absolute
+        // distance used to retrigger it during the same slow gait window.
+        if (f.mode === 'planted' && moving && p < .22 && (rest.x - f.x) * Math.sign(dx) > .012) {
             f = { ...f, mode: 'swing', progress: 0, fromX: f.x, toX: rest.x + Math.sign(dx) * .035 };
         }
         // Finish a started swing even when guidance stops. No paw freezes in the air.

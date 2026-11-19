@@ -1,0 +1,161 @@
+{
+  "evidence": "Native @napi-rs/canvas pixels only; not browser or physical-phone evidence.",
+  "captureChecks": [
+    {
+      "name": "before-desktop",
+      "viewport": [
+        1200,
+        700
+      ],
+      "stills": 23,
+      "frames": 344,
+      "sourceHashesMatchCurrentTree": true,
+      "maxSamples": 57942,
+      "minimumActorGlyphs": 271,
+      "minimumForegroundPixels": 18787
+    },
+    {
+      "name": "before-phone",
+      "viewport": [
+        390,
+        520
+      ],
+      "stills": 23,
+      "frames": 344,
+      "sourceHashesMatchCurrentTree": true,
+      "maxSamples": 57942,
+      "minimumActorGlyphs": 134,
+      "minimumForegroundPixels": 5975
+    },
+    {
+      "name": "after-desktop",
+      "viewport": [
+        1200,
+        700
+      ],
+      "stills": 23,
+      "frames": 344,
+      "sourceHashesMatchCurrentTree": true,
+      "maxSamples": 58499,
+      "minimumActorGlyphs": 248,
+      "minimumForegroundPixels": 15510
+    },
+    {
+      "name": "after-phone",
+      "viewport": [
+        390,
+        520
+      ],
+      "stills": 23,
+      "frames": 344,
+      "sourceHashesMatchCurrentTree": true,
+      "maxSamples": 58499,
+      "minimumActorGlyphs": 113,
+      "minimumForegroundPixels": 5071
+    }
+  ],
+  "motionChecks": [
+    {
+      "file": "frog-hop-desktop.gif",
+      "dimensions": [
+        1200,
+        386
+      ],
+      "frames": 71,
+      "uniqueFrames": 71,
+      "durationMs": 3550,
+      "bytes": 596019
+    },
+    {
+      "file": "frog-hunt-desktop.gif",
+      "dimensions": [
+        1200,
+        386
+      ],
+      "frames": 101,
+      "uniqueFrames": 101,
+      "durationMs": 5050,
+      "bytes": 656634
+    },
+    {
+      "file": "frog-solo-hop-desktop.gif",
+      "dimensions": [
+        1200,
+        386
+      ],
+      "frames": 71,
+      "uniqueFrames": 71,
+      "durationMs": 3550,
+      "bytes": 775218
+    },
+    {
+      "file": "frog-solo-hunt-desktop.gif",
+      "dimensions": [
+        1200,
+        386
+      ],
+      "frames": 101,
+      "uniqueFrames": 101,
+      "durationMs": 5050,
+      "bytes": 912811
+    },
+    {
+      "file": "frog-hop-phone.gif",
+      "dimensions": [
+        780,
+        556
+      ],
+      "frames": 71,
+      "uniqueFrames": 71,
+      "durationMs": 3550,
+      "bytes": 333748
+    },
+    {
+      "file": "frog-hunt-phone.gif",
+      "dimensions": [
+        780,
+        556
+      ],
+      "frames": 101,
+      "uniqueFrames": 101,
+      "durationMs": 5050,
+      "bytes": 349580
+    },
+    {
+      "file": "frog-solo-hop-phone.gif",
+      "dimensions": [
+        780,
+        556
+      ],
+      "frames": 71,
+      "uniqueFrames": 71,
+      "durationMs": 3550,
+      "bytes": 433584
+    },
+    {
+      "file": "frog-solo-hunt-phone.gif",
+      "dimensions": [
+        780,
+        556
+      ],
+      "frames": 101,
+      "uniqueFrames": 101,
+      "durationMs": 5050,
+      "bytes": 503630
+    }
+  ],
+  "matchingPolicyPassed": true,
+  "derivedCrownPngsAreByteForByteFrameCopies": true,
+  "comparisonSheets": [
+    "frog-before-after-desktop.png",
+    "frog-before-after-phone.png",
+    "frog-anatomy-comparison.png",
+    "frog-hop-contact-sheet.png",
+    "frog-hunt-contact-sheet.png",
+    "frog-phone-motion.png",
+    "frog-solo-hop-contact-sheet.png",
+    "frog-solo-hunt-contact-sheet.png",
+    "frog-solo-phone-motion.png"
+  ],
+  "curatedEvidenceBytesExcludingFrames": 19205392
+}

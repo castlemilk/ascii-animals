@@ -58,9 +58,20 @@ test('focused scene keyboard routes explicit targets and ignores repeats, modifi
  const f=fixture(),host=f.ids.get('owl-host');f.ids.get('target').value='1';
  host.dispatch('keydown',{key:'ArrowRight'});assert.deepEqual(Array.from(f.calls.at(-1)),['guide',.85,0,1]);
  host.dispatch('keydown',{key:'c'});assert.equal(f.calls.at(-1)[1].kind,'call');assert.equal(f.calls.at(-1)[1].target,1);
+ host.dispatch('keydown',{key:'F'});assert.equal(f.calls.at(-1)[1].kind,'flight');assert.equal(f.calls.at(-1)[1].target,1);
+ host.dispatch('keydown',{key:'r'});assert.equal(f.calls.at(-1)[1].kind,'rustle');assert.equal(f.calls.at(-1)[1].target,1);
  const count=f.calls.length;
- host.dispatch('keydown',{key:'c',repeat:true});host.dispatch('keydown',{key:'s',ctrlKey:true});host.dispatch('keydown',{key:'s',target:f.ids.get('target')});
+ host.dispatch('keydown',{key:'c',repeat:true});host.dispatch('keydown',{key:'f',repeat:true});host.dispatch('keydown',{key:'s',ctrlKey:true});host.dispatch('keydown',{key:'f',target:f.ids.get('target')});
  assert.equal(f.calls.length,count);host.dispatch('keydown',{key:'Escape'});assert.equal(f.calls.at(-1)[0],'leave');
+});
+test('flight and stage touch controls retain target selection and paused still policy',()=>{
+ const f=fixture({paused:true});f.ids.get('target').value='1';
+ f.ids.get('flight').dispatch('click');
+ assert.equal(f.calls.at(-1)[1].kind,'flight');assert.equal(f.calls.at(-1)[1].target,1);
+ const quick=f.all.find(n=>n.dataset.cue==='flight');quick.dispatch('click');
+ assert.equal(f.calls.at(-1)[1].kind,'flight');assert.equal(f.calls.at(-1)[1].target,1);
+ assert.equal(f.controller.getStatus().paused,true);assert.equal(f.calls.some(c=>c[0]==='pause'),false);
+ assert.match(f.ids.get('announcement').textContent,/still response/);
 });
 test('paused scene selection requests a deliberate still without starting playback',()=>{
  const f=fixture({paused:true});

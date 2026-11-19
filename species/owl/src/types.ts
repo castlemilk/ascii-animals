@@ -32,6 +32,18 @@ export type OwlBehavior = Readonly<
   | { kind: 'cooldown'; sinceTick: number; untilTick: number }
 >;
 export type OwlCycle = Readonly<Pick<OwlConfig, 'blinkTicks' | 'ruffleTicks' | 'stretchTicks' | 'recoveryTicks' | 'cooldownTicks' | 'reactionStrength'> & { startTick: number }>;
+/** Optional director presentation. Core v1 snapshots and their reaction contract stay unchanged. */
+export type OwlPresentation = Readonly<{
+  headRollDeg: number;
+  airborne: number;
+  lift: number;
+  travel: number;
+  bankDeg: number;
+  crouch: number;
+  wingSweep: number;
+  tailFan: number;
+  feetReach: number;
+}>;
 export type OwlState = Readonly<{
   species: 'owl';
   version: 1;
@@ -51,6 +63,8 @@ export type OwlState = Readonly<{
   leftWing: number;
   rightWing: number;
   breath: number;
+  /** Absent for the original solo core; authored listening/flight affects pose only. */
+  presentation?: OwlPresentation;
 }>;
 export type OwlStepResult = Readonly<{ state: OwlState; acceptedReactions: number; ignoredReactions: number }>;
 export type OwlPart = 'body' | 'head' | 'face' | 'eye-left' | 'eye-right' | 'pupil-left' | 'pupil-right' | 'beak' | 'wing-left' | 'wing-right' | 'foot-left' | 'foot-right' | 'tail' | 'perch';

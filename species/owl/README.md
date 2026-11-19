@@ -4,6 +4,52 @@ An original perched owl built from analytic geometry and printable characters. M
 
 **TypeScript source first. Integrated private review candidate.** The explicit `ascii-animals-review/owl` package factory and generated `dist/owl/` demo wrap this original source. See [current integration API/evidence](../../docs/OWL-API.md). Historical authoring evidence below remains separately labelled. The shared Cuttlefish renderer is unchanged.
 
+## Facial disc and returning flight candidate
+
+The owl now has an original tawny-inspired facial ruff, fine disc feathers,
+overlapping breast/shoulder feathers and broad layered flight wings. Its sparse
+woodland backdrop separates the distant trunks, intermediate limb and fixed
+foreground perch. The [authoring brief](UPLIFT-BRIEF.md) records anatomical
+references, design limits and the exact integration base.
+
+With the optional director, `cue({ kind: 'rustle', target, x, y })` now turns and
+cants the whole facial disc, holds a fixation, makes a second adjustment and
+recovers. The new additive `cue({ kind: 'flight', target, x, y })` runs a returning
+flight: crouch/push-off → held glide → wing flare and both feet reaching → branch
+contact, absorption and feather folding. Only the selected owl flies; a companion
+can watch. The original core `react`, director `stretch` and `call`, options and
+autonomous scene sequences retain their contracts.
+
+| Flight cue age (ticks) | Phase | Visible action |
+| --- | --- | --- |
+| 0–89 | `launch` | Planted crouch through tick 42, then feet release and wings open |
+| 90–197 | `glide` | Broad wing hold, slight bank, foreshortened torso |
+| 198–263 | `brake` | Upright body, cupped wings, fanned tail and reaching feet |
+| 264–359 | `alight` | Same-bough contact, compression, folding and recovery |
+
+Flight lasts 360 fixed ticks at 60 ticks/s, followed by the existing 60-tick cue
+cooldown. These are authored timings, not measured animal kinematics. Direction
+sets the small lateral excursion; flight always returns to the same local perch.
+An unusually long configured core stretch must finish its own cooldown before
+that owl can accept flight, so the two wing sequences cannot compete.
+The geometry remains a frontal/three-quarter 2.5D text study.
+`actors[].pose.presentation` carries optional immutable director transforms;
+`actors[].simulation` remains the original core state without those transforms.
+See [the typed example](examples/typed-flight.ts).
+
+The demo supports R/Enter for listening, F for flight, C for call, S for stretch,
+arrow guidance, Space for pause and Escape for release while the stage is focused.
+Native buttons provide touch equivalents. A touch on the artwork becomes a rustle
+only after a completed stationary tap; scrolling or cancellation discards it.
+Pause/reduced motion retains deliberate still controls. A stopped flight cue
+shows grounded open wings without starting travel or advancing either core.
+
+Narrow solo director hosts use 64×36 cells; narrow duets use 80×90 with the same
+two actors. A 320px-wide host is supported, including the stage inside a 360px
+page; smaller or shorter-than-330px hosts remain static. Browser typography and
+physical-device interaction still need coordinator acceptance. The accompanying
+native-raster evidence is precisely labelled and is not browser screenshots.
+
 ## Twilight director / The night shift
 
 The current demo adds three authored scenes, one or two stable Owl identities,

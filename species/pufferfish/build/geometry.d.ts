@@ -7,7 +7,7 @@ export declare const PUFFERFISH_SPINES = 42;
  * all phases at tick zero without changing the chosen inflation amount.
  */
 export declare function posePufferfish(state: PufferfishState, staticPose?: boolean): PufferfishPose;
-/** A bounded closed ellipsoid, attached fans, raised eyes, a lip and 42 cones.
+/** An oblong Arothron-inspired trunk, fine skin relief and 42 short spine roots.
  * +z faces the observer; y points down. The painter owns camera/view/projection.
  * Every shape is authored parametrically here; no ASCII drawing is embedded.
  */

@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "species": "frog",
+  "repository": "https://github.com/castlemilk/ascii-animals",
+  "baseMain": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "baseVerifiedDate": "2026-11-19",
+  "branch": "frog/wetland-choreography-20261119",
+  "scope": [
+    "species/frog/"
+  ],
+  "status": "ready-for-central-code-review; draft until real-browser acceptance",
+  "sourceFingerprintSha256": "0558e1087d95e317ea0b1e2a7f83dfa0bb1ddfbb685657e8940a3c58ddd2a275",
+  "sourceHashes": "evidence/source-hashes.json#candidate",
+  "publicApi": {
+    "signaturesOptionsStateAndInputShapes": "unchanged",
+    "documentedConstantChange": "FROG_POND_LIMITS.strikeTicks: 12 -> 30",
+    "sharedFiles": "no changes"
+  },
+  "directions": [
+    "planted crouch / early hindleg extension / gathered arc / touchdown crown / recovery",
+    "supported stalk / safe approach and recovery / mouth-root projection / contact / attached return / settle"
+  ],
+  "tests": [
+    {
+      "command": "npm test",
+      "result": "pass",
+      "tests": 618,
+      "log": "logs/npm-test.log",
+      "includes": "npm run build"
+    },
+    {
+      "command": "node --test species/frog/tests/pond.test.mjs species/frog/tests/director-lifecycle.test.mjs species/frog/tests/director-demo.test.mjs species/frog/tests/wetland-choreography.test.mjs species/frog/tests/feeding-endpoint.test.mjs",
+      "result": "pass",
+      "tests": 39,
+      "log": "logs/frog-director-tests.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass",
+      "log": "logs/typecheck.log"
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p species/frog/tests/tsconfig.director.json",
+      "result": "pass",
+      "log": "logs/typecheck.log"
+    },
+    {
+      "command": "npm run check:package",
+      "result": "passed-with-unrun-optional-checks",
+      "log": "logs/package-check.json",
+      "unrun": [
+        "esbuild",
+        "rollup",
+        "webpack",
+        "browser"
+      ]
+    },
+    {
+      "command": "compare final tarball lib/species/frog/{choreography,legacy-preview,geometry,frog,pond}.mjs with generated counterparts",
+      "result": "all five byte-identical",
+      "packageSha256": "dcbd6e7dfd07d067d6dbd01b343cc8443a7172fa4ae9dca807bb73336ce36688"
+    },
+    {
+      "command": "FROG_TEST_ROOT=../frog-baseline node --test --test-reporter=tap species/frog/tests/native-regressions.test.mjs",
+      "result": "pass",
+      "tests": 2,
+      "log": "logs/regression-baseline-native.log"
+    },
+    {
+      "command": "node --test --test-reporter=tap species/frog/tests/native-regressions.test.mjs",
+      "result": "pass",
+      "tests": 2,
+      "log": "logs/regression-candidate-native.log"
+    },
+    {
+      "command": "node --check species/frog/scripts/check-browser-regressions.mjs",
+      "result": "pass",
+      "runtimeExecution": "not run"
+    },
+    {
+      "command": "node --expose-gc species/frog/scripts/render-wetland-review.mjs --root=../frog-baseline --variant=before",
+      "result": "pass"
+    },
+    {
+      "command": "node --expose-gc species/frog/scripts/render-wetland-review.mjs --root=. --variant=after",
+      "result": "pass"
+    },
+    {
+      "command": "node --expose-gc species/frog/scripts/render-wetland-review.mjs --compose=true",
+      "result": "pass"
+    }
+  ],
+  "nativeCanvas": {
+    "backend": "@napi-rs/canvas",
+    "viewports": [
+      [
+        1200,
+        700
+      ],
+      [
+        390,
+        520
+      ]
+    ],
+    "dpr": 1,
+    "seed": 23,
+    "modelHz": 60,
+    "captureFps": 20,
+    "rawSelectedPngs": 92,
+    "derivedCrownPngs": 8,
+    "comparisonSheets": 9,
+    "gifs": 8,
+    "motionFramesPerRevisionViewport": 344,
+    "audit": "evidence/capture-audit.json",
+    "composition": "evidence/composition.json",
+    "atlasBridge": "immutable native Image decoded from exact completed atlas PNG; both revisions use same host; production unchanged",
+    "pixelParity": "not exact; see evidence/native-atlas-parity.json",
+    "phoneQualification": "390px native canvas stress view; not CSS page screenshot or physical device"
+  },
+  "regressions": {
+    "nativeBitmapAndSceneLabels": "2/2 baseline and candidate pass with real generated controller/demo and controlled DOM/layout/observer doubles",
+    "viewports": [
+      [
+        720,
+        440,
+        1
+      ],
+      [
+        390,
+        520,
+        1
+      ],
+      [
+        360,
+        260,
+        2
+      ]
+    ],
+    "controllerAndDemo": "unchanged from base",
+    "qualification": "logs/regression-qualification.md"
+  },
+  "bounds": {
+    "anatomicalSamplesPerActor": 17918,
+    "maxActors": 3,
+    "workspaceSampleLimit": 32000,
+    "sceneSampleLimit": 60000,
+    "environmentSampleLimit": 6246,
+    "cellLimit": 18000,
+    "backingLimit": [
+      2400,
+      1400
+    ],
+    "capturedScenePeak": 58499,
+    "compositeNumericalPeak": 59075,
+    "compositeEnvironmentPeak": 5321,
+    "independentSixCrownNumericalPeak": 59791,
+    "independentSixCrownEnvironmentPeak": 6037
+  },
+  "continuity": {
+    "contactsChecked": 96,
+    "contactsAtReachCap": 28,
+    "maximumContactTravelBodyScales": 0.0033692591779239897,
+    "predeclaredLimitBodyScales": 0.05
+  },
+  "acceptance": {
+    "singleFrogNativeAnatomyAndSequences": "reviewed; readable at both captured widths",
+    "threeFrog390pxReadability": "partial: small limb gaps and overlap at rear/right pad in unchanged front camera",
+    "realBrowser": "blocked; not passed",
+    "physicalPhoneTouchAccessibilityPerformance": "unverified"
+  },
+  "browserBlockers": [
+    "ordinary local Chromium process-singleton socket denied: Operation not permitted",
+    "cloud browser localhost ERR_CONNECTION_REFUSED; browsing-issue path then rejected by URL authority policy"
+  ],
+  "centralIntegration": [
+    "npm run build",
+    "npm test",
+    "npm run typecheck",
+    "node --test species/frog/tests/native-regressions.test.mjs",
+    "node species/frog/scripts/check-browser-regressions.mjs http://127.0.0.1:8000/frog/ /absolute/review/browser"
+  ],
+  "excluded": [
+    "shared engines and entry points",
+    "dist/ and lib/ generated package/demo outputs",
+    "other species",
+    "workflows",
+    "intermediate motion PNG frames"
+  ],
+  "publication": "working branch and draft PR only; no merge/deployment/settings/Work conversion"
+}

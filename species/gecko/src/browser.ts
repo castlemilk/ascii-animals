@@ -228,7 +228,7 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
   function grid(): GeckoGrid {
     if (sceneSnapshot) {
       const close = cssWidth < 640 || sceneSnapshot.individuals.length === 1;
-      const dimensions = view.grid === 'auto' ? close ? { cols: 112, rows: 72 } : { cols: 224, rows: 144 } : view.grid;
+      const dimensions = view.grid === 'auto' ? close ? { cols: 112, rows: 72 } : { cols: 224, rows: 112 } : view.grid;
       const state = stillCue ? geckoDirectorPoster(sceneSnapshot, stillCue) : sceneSnapshot;
       return renderGeckoDirectorGrid(state, { ...dimensions, neutral: view.neutral,
         focus: close ? state.selectedId ?? state.individuals[0]!.id : null });
@@ -400,6 +400,15 @@ export function mountGecko(canvas: HTMLCanvasElement, options: GeckoMountOptions
     const point = points[event.key];
     if (point) { event.preventDefault(); guide(...point); }
     else if (event.code === 'Space' || event.key === ' ') { event.preventDefault(); setPaused(!paused); }
+    else if (event.key === 'Escape') { event.preventDefault(); clearGuide(); }
+    else if (director && event.key.toLowerCase() === 'm' && !event.repeat) { event.preventDefault(); direct({type:'moth'}); }
+    else if (director && event.key.toLowerCase() === 'c' && !event.repeat) {
+      event.preventDefault();
+      const state=sceneSnapshot!,actor=state.individuals.find(a=>a.id===state.selectedId)??state.individuals[0]!;
+      if(state.options.scene!=='moonlit-wall')controller.configureDirector({scene:'moonlit-wall'});
+      direct({type:'inspect',id:actor.id,x:Math.max(-1,Math.min(1,actor.body.position.x*actor.scale/3.3)),
+        y:Math.max(-1,Math.min(1,(actor.body.position.y*actor.scale-.55)/2.2))});
+    }
   }
 
   const controller: GeckoController = {

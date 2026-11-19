@@ -90,7 +90,9 @@ export interface OwlBrowserController {
 
 const STEP_MS = 1000 / 60;
 const MAX_STEPS = 5;
-const MIN_WIDTH = 350;
+// A 360px phone leaves ~326px after ordinary page padding and borders.
+// Keep the reviewed minimum cells; suspend only below a 320px artwork host.
+const MIN_WIDTH = 320;
 const MIN_HEIGHT = 330;
 const DEFAULT_DESCRIPTION = 'A round-faced owl perched on a branch, with two forward-facing eyes, folded wings and planted feet.';
 const optionKeys = new Set(['owl', 'director', 'grid', 'paused', 'frameSource', 'onStatus', 'environment']);
@@ -187,6 +189,7 @@ export function mountOwl(host: HTMLElement, options: OwlBrowserOptions = {}): Ow
   let targetAction: { type: 'attention'; x: number; y: number; target?: 0 | 1; order: number } | { type: 'leave'; order: number } | null = null;
   let reactOrder: number | null = null;
   let cueAction: { cue: OwlDirectorCue; order: number } | null = null;
+  let touchStart: { x: number; y: number; id: number } | null = null;
   let resizeObserver: ResizeObserver | null = null;
   let intersectionObserver: IntersectionObserver | null = null;
   let statusSignature = '';
@@ -219,6 +222,7 @@ export function mountOwl(host: HTMLElement, options: OwlBrowserOptions = {}): Ow
     targetAction = null;
     reactOrder = null;
     cueAction = null;
+    touchStart = null;
     actionOrder = 0;
     clearTargetOnStep = true;
   }
@@ -248,7 +252,7 @@ export function mountOwl(host: HTMLElement, options: OwlBrowserOptions = {}): Ow
     if (gridOptions) return gridOptions;
     if (scene) return scene.config.count === 2
       ? (width < 700 ? { cols: 80, rows: 90 } : { cols: 144, rows: 60 })
-      : { cols: 96, rows: 54 };
+      : (width < 550 || height < 440 ? { cols: 64, rows: 36 } : { cols: 96, rows: 54 });
     return width < 550 || height < 440 ? { cols: 64, rows: 36 } : { cols: 96, rows: 54 };
   }
   function draw(next?: OwlGrid): void {
@@ -421,15 +425,18 @@ export function mountOwl(host: HTMLElement, options: OwlBrowserOptions = {}): Ow
       y: normalized(2 * (row - rect.top) / (rect.height - 1) - 1, 'Actor gaze y') };
   }
   function pointer(event: Event): void {
-    if (disposed || !running) return;
+    if (disposed) return;
+    const e = event as PointerEvent;
+    if (e.pointerType === 'touch' && touchStart && Math.hypot(e.clientX - touchStart.x, e.clientY - touchStart.y) > 12) touchStart = null;
+    if (!running) return;
     reconcile();
     if (!running) return;
-    const e = event as PointerEvent;
     const point = eventPoint(e);
     if (point) queueTarget({ type: 'attention', ...(director ? actorPoint(point) : point) });
   }
   function pointerLeave(event?: Event): void {
     if (disposed) return;
+    touchStart = null;
     targetAction = null;
     if (director && (event?.type === 'pointercancel' || event?.type === 'lostpointercapture')) cueAction = null;
     clearTargetOnStep = true;
@@ -462,15 +469,33 @@ export function mountOwl(host: HTMLElement, options: OwlBrowserOptions = {}): Ow
     if (disposed || !director) return;
     const e = event as PointerEvent;
     if (typeof e.button === 'number' && e.button !== 0) return;
+    if (e.pointerType === 'touch') {
+      // A scroll is not a rustle. Wait for a short stationary tap, without
+      // capture/preventDefault/touch-action changes that would trap page scroll.
+      touchStart = { x: e.clientX, y: e.clientY, id: e.pointerId };
+      return;
+    }
     const point = eventPoint(e);
     if (!point) return;
     cue({ kind: 'rustle', ...actorPoint(point) });
+  }
+  function pointerUp(event: Event): void {
+    if (disposed || !director) return;
+    const e = event as PointerEvent, start = touchStart;
+    touchStart = null;
+    if (e.pointerType !== 'touch' || !start || e.pointerId !== start.id
+      || Math.hypot(e.clientX - start.x, e.clientY - start.y) > 12) return;
+    const point = eventPoint(e);
+    if (point) cue({ kind: 'rustle', ...actorPoint(point) });
   }
 
   try {
     host.appendChild(shell);
     listen(host, 'pointermove', pointer, { passive: true });
-    if (director) listen(host, 'pointerdown', pointerDown, { passive: true });
+    if (director) {
+      listen(host, 'pointerdown', pointerDown, { passive: true });
+      listen(host, 'pointerup', pointerUp, { passive: true });
+    }
     for (const event of ['pointerleave', 'pointercancel', 'lostpointercapture']) listen(host, event, pointerLeave, { passive: true });
     listen(doc, 'visibilitychange', () => reconcile(true));
     if (media?.addEventListener) listen(media, 'change', () => reconcile(true));

@@ -1,6 +1,6 @@
 import { getBrowserScheduler } from '../core/scheduler.js';
 import { createGardenDirector, resolveButterflyDirectorOptions, BUTTERFLY_DIRECTOR_DEFAULTS, BUTTERFLY_SCENES } from './butterfly/director.js';
-import { renderButterflyGarden } from './butterfly/render-garden.js';
+import { renderButterflyGarden, renderButterflySpecimen } from './butterfly/render-garden.js';
 export const BUTTERFLY_DEFAULTS = Object.freeze({ columns: 120, rows: 50, seed: 7,
     speed: 1, scale: 1, sway: .18, facing: 'left', behavior: 'hover', palette: 'brass', paused: false, reducedMotion: 'system', director: BUTTERFLY_DIRECTOR_DEFAULTS });
 const ranges = { columns: [80, 180], rows: [32, 90], seed: [0, 2147483647], speed: [.25, 2], scale: [.6, 1.3], sway: [0, .4] };
@@ -28,16 +28,17 @@ function resolve(patch, base) {
 }
 /** The base-taking merge helper is private; all public configuration is validated. */
 export function normalizeButterflyOptions(patch = {}) { return resolve(patch, BUTTERFLY_DEFAULTS); }
-const TAU = Math.PI * 2, clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 /** Pure 60Hz model. The specimen defaults and its legacy response phases are unchanged. */
 export function createButterflyModel(input = {}) { return makeModel(input).model; }
 function makeModel(input) {
     let options = normalizeButterflyOptions(input), tick = 0, responseTick = null, targetX = 0, targetY = 0;
-    const garden = createGardenDirector(options.director, options.seed);
+    const garden = createGardenDirector(options.director, options.seed, options);
     const state = () => Object.freeze({ tick, responseTick, targetX, targetY });
     const phase = () => responseTick === null ? 'idle' : tick - responseTick < 45 ? 'approach' : tick - responseTick < 110 ? 'display' : 'settle';
+    const render = (still = false) => options.director.scene === 'specimen' ? renderButterflySpecimen(options, state(), phase(), still) : renderButterflyGarden(options, garden.getState(), phase(), still);
     const model = Object.freeze({ getOptions: () => options, getState: state, getPhase: phase, getGarden: () => garden.getState(), getScenes: () => BUTTERFLY_SCENES,
-        configure(patch) { const next = resolve(patch, options); garden.configure(next.director, next.seed); options = next; },
+        configure(patch) { const next = resolve(patch, options); garden.configure(next.director, next.seed, next); options = next; },
         advanceTicks(ticks) {
             if (!Number.isInteger(ticks) || ticks < 0 || ticks > 600 || !Number.isSafeInteger(tick + ticks))
                 throw new RangeError('Ticks must be an integer0..600');
@@ -62,108 +63,15 @@ function makeModel(input) {
         cue(action, poster = false) { garden.cue(action, poster); }, nextAct(poster = false) { garden.nextAct(poster); },
         release() { targetX = targetY = 0; garden.release(); },
         reset() { tick = 0; responseTick = null; targetX = targetY = 0; garden.reset(); },
-        frame() { return options.director.scene === 'specimen' ? renderButterfly(options, state(), phase()) : renderButterflyGarden(options, garden.getState(), phase()); } });
-    return { model, still: () => garden.still(), unhover: () => { targetX = targetY = 0; garden.release(false); } };
-}
-/** Pure logical-cell rendering; no DOM, font, random or wall-clock dependency. */
-function renderButterfly(o, s, phase) {
-    const cols = o.columns, rows = o.rows, worldW = Math.max(6, 3.7 * cols * .56 / rows), worldH = worldW * rows / (cols * .56);
-    const glyphs = new Array(cols * rows).fill(' '), tones = new Uint8Array(cols * rows);
-    const t = s.tick / 60 * o.speed, seedPhase = (o.seed % 997) / 997 * TAU;
-    const age = s.responseTick === null ? 0 : s.tick - s.responseTick;
-    const lift = s.responseTick === null ? 0 : Math.sin(Math.PI * clamp(age / 180, 0, 1));
-    const dx = o.behavior === 'curious' ? s.targetX * .3 : o.behavior === 'hover' ? Math.sin(t * .65 + seedPhase) * o.sway : 0;
-    const bounce = o.behavior === 'perch' ? 0 : Math.sin(t * 1.2) * .08 + (o.behavior === 'curious' ? s.targetY * .15 : 0);
-    const mirror = o.facing === 'left' ? 1 : -1, chars = '.,:;+=*#%@';
-    function point(x, y, tone, glyph) {
-        x = x * o.scale * mirror + dx;
-        y = y * o.scale + bounce;
-        const c = Math.round((x / worldW + .5) * (cols - 1)), r = Math.round((y / worldH + .5) * (rows - 1));
-        if (c < 0 || c >= cols || r < 0 || r >= rows)
-            return;
-        const i = r * cols + c;
-        glyphs[i] = glyph ?? chars[clamp(Math.round(tone), 0, 9)];
-        tones[i] = clamp(Math.round(tone), 1, 9);
-    }
-    const step = worldH / rows * .32;
-    function disk(cx, cy, r, tone, glyph) { for (let y = -r; y <= r; y += step)
-        for (let x = -r; x <= r; x += step)
-            if (x * x + y * y <= r * r)
-                point(cx + x, cy + y, tone, glyph); point(cx, cy, tone, glyph); }
-    function line(x, y, xx, yy, r, tone, glyph) { const n = Math.max(1, Math.ceil(Math.hypot(xx - x, yy - y) / step)); for (let k = 0; k <= n; k++) {
-        const a = k / n;
-        disk(x + (xx - x) * a, y + (yy - y) * a, r, tone, glyph);
-    } }
-    function ellipse(cx, cy, rx, ry, tone) { for (let y = -ry; y <= ry; y += step)
-        for (let x = -rx; x <= rx; x += step) {
-            const q = x * x / (rx * rx) + y * y / (ry * ry);
-            if (q <= 1)
-                point(cx + x, cy + y, tone + (1 - q) * 1.8 - y / ry * .4);
-        } }
-    // Four separate lobes: tall pointed forewings above rounded hindwings.
-    // Projection stays at least 38% open so the small-grid silhouette remains legible.
-    const opening = o.behavior === 'perch' ? .72 : lift > .2 ? .96 : .38 + .62 * (.5 + .5 * Math.cos(t * 7 + seedPhase));
-    function wing(side, upper) {
-        const cx = upper ? .70 : .61, cy = upper ? -.48 : .55, rx = upper ? .83 : .64, ry = upper ? .80 : .57;
-        const angle = upper ? -.45 : .32, co = Math.cos(angle), si = Math.sin(angle);
-        for (let y = -ry; y <= ry; y += step)
-            for (let x = -rx; x <= rx; x += step) {
-                const q = x * x / (rx * rx) + y * y / (ry * ry);
-                if (q > 1)
-                    continue;
-                const xx = cx + x * co - y * si, yy = cy + x * si + y * co;
-                if (xx < .13 + Math.max(0, -yy - .4) * .22)
-                    continue;
-                const edge = q > .79;
-                const vein = Math.abs(Math.sin(Math.atan2(yy, xx) * 8)) < .16;
-                const eye = ((x + .05) / (.20)) ** 2 + ((y - (upper ? -.1 : .06)) / .23) ** 2;
-                let tone = edge ? 8 : vein ? 3 : 5 + (1 - q) * 1.4;
-                let glyph;
-                if (eye < 1.0) {
-                    tone = eye < .35 ? 3 : 9;
-                    glyph = eye < .35 ? 'o' : '@';
-                }
-                if (edge && Math.floor((Math.atan2(y, x) + Math.PI) * 11) % 3 === 0) {
-                    tone = 9;
-                    glyph = '.';
-                }
-                point(side * xx * opening, yy, tone, glyph);
-            }
-    }
-    for (const side of [-1, 1]) {
-        wing(side, false);
-        wing(side, true);
-    }
-    // Six fine legs fan from the thorax; clubbed antennae curve above the head.
-    for (const side of [-1, 1]) {
-        for (let k = 0; k < 3; k++) {
-            const y = -.04 + k * .17;
-            line(side * .07, y, side * .28, y + .12, .014, 5);
-            line(side * .28, y + .12, side * .40, y + .08, .012, 5);
-        }
-        line(side * .05, -.57, side * .16, -1.15, .018, 8);
-        line(side * .16, -1.15, side * .30, -1.47, .018, 8);
-        disk(side * .31, -1.49, .047, 9, 'o');
-    }
-    ellipse(0, .28, .09, .54, 6.4);
-    for (let k = 0; k < 6; k++)
-        line(-.07, .05 + k * .13, .07, .05 + k * .13, .014, 8, '=');
-    ellipse(0, -.16, .15, .25, 7);
-    ellipse(0, -.48, .12, .13, 8);
-    point(-.075, -.50, 9, 'o');
-    point(.075, -.50, 9, 'o');
-    const cells = Object.freeze(glyphs.map((glyph, i) => Object.freeze({ glyph, tone: tones[i] })));
-    let text = '';
-    for (let r = 0; r < rows; r++)
-        text += glyphs.slice(r * cols, (r + 1) * cols).join('') + (r === rows - 1 ? '' : '\n');
-    return Object.freeze({ columns: cols, rows, cells, text, phase });
+        frame() { return render(options.paused); } });
+    return { model, render, still: () => garden.still(), unhover: () => { targetX = targetY = 0; garden.release(false); } };
 }
 /** Browser-only mount, SSR-safe import. Reduced-motion policy stays authoritative. */
 export function createButterflyArtwork(canvas, input = {}) {
     if (!input || typeof input !== 'object' || Array.isArray(input))
         throw new TypeError('Options must be an object');
     const { frameSource, ...raw } = input;
-    const { model, still, unhover } = makeModel(raw), view = canvas?.ownerDocument?.defaultView, doc = canvas?.ownerDocument;
+    const { model, render, still, unhover } = makeModel(raw), view = canvas?.ownerDocument?.defaultView, doc = canvas?.ownerDocument;
     if (!view || !doc)
         throw new TypeError('Canvas must belong to a browser document');
     const context = canvas.getContext('2d');
@@ -184,7 +92,7 @@ export function createButterflyArtwork(canvas, input = {}) {
     function draw() {
         if (disposed || width <= 0 || height <= 0)
             return;
-        const frame = model.frame(), o = model.getOptions();
+        const frame = render(blocked()), o = model.getOptions();
         // Preserve the declared logical .56 cell aspect on every host size; do not stretch anatomy.
         const ch = Math.min(height / frame.rows, width / (frame.columns * .56)), cw = ch * .56;
         const ox = (width - frame.columns * cw) / 2, oy = (height - frame.rows * ch) / 2;
@@ -193,11 +101,11 @@ export function createButterflyArtwork(canvas, input = {}) {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = `${Math.max(1, ch * .96)}px ui-monospace,SFMono-Regular,Consolas,monospace`;
-        const main = o.palette === 'brass' ? [241, 193, 133] : o.palette === 'lagoon' ? [151, 221, 202] : [238, 166, 189];
-        const inks = [main, main, [199, 220, 161], [242, 173, 145], [153, 208, 201], [218, 183, 226], [224, 205, 155],
-            [114, 151, 121], [233, 215, 165], [142, 183, 169]];
-        const tinted = inks.map((rgb, index) => index < 2 ? rgb : rgb.map((value, c) => Math.round(value * .63 + main[c] * .37)));
-        const colors = tinted.map(rgb => Array.from({ length: 10 }, (_, tone) => `rgb(${rgb.map(c => Math.round(c * (.26 + tone / 12))).join(',')})`));
+        const main = o.palette === 'brass' ? [239, 156, 72] : o.palette === 'lagoon' ? [139, 214, 187] : [235, 145, 170];
+        const inks = [main, main, [227, 164, 84], [243, 177, 97], [220, 144, 72], [231, 174, 95], [235, 154, 79],
+            [94, 136, 102], [220, 157, 151], [112, 157, 143], [139, 117, 79], [252, 229, 180], [115, 142, 123]];
+        const tinted = inks.map((rgb, index) => index >= 2 && index <= 6 ? rgb.map((value, c) => Math.round(value * .28 + main[c] * .72)) : rgb);
+        const colors = tinted.map(rgb => Array.from({ length: 10 }, (_, tone) => `rgb(${rgb.map(c => Math.round(c * (.20 + tone / 11.25))).join(',')})`));
         let prior = '';
         for (let i = 0; i < frame.cells.length; i++) {
             const cell = frame.cells[i];
@@ -325,7 +233,7 @@ export function createButterflyArtwork(canvas, input = {}) {
         dispose();
         throw error;
     }
-    return Object.freeze({ species: 'butterfly', canvas, get disposed() { return disposed; }, getOptions: () => Object.freeze({ ...model.getOptions(), paused: requestedPaused }), getStatus: status, getFrame: () => model.frame(), getGarden: () => model.getGarden(), getScenes: () => model.getScenes(),
+    return Object.freeze({ species: 'butterfly', canvas, get disposed() { return disposed; }, getOptions: () => Object.freeze({ ...model.getOptions(), paused: requestedPaused }), getStatus: status, getFrame: () => render(blocked()), getGarden: () => model.getGarden(), getScenes: () => model.getScenes(),
         update(patch) {
             if (disposed)
                 return;

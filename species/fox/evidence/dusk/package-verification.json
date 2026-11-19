@@ -1,0 +1,82 @@
+{
+  "scope": "Disposable copy of working bytes; canonical source unchanged; no publication or deployment.",
+  "cwd": "/workspace/scratch/b91a06885f33/fox-package-check",
+  "started": "2026-11-19T11:24:42.220881+00:00",
+  "commands": [
+    {
+      "name": "build",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 25.359,
+      "log": "build.log"
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "exitCode": 0,
+      "seconds": 15.711,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "fox-integration",
+      "argv": [
+        "node",
+        "--test",
+        "test/fox-integration.test.mjs",
+        "test/fox-director-integration.test.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 1.285,
+      "log": "fox-integration.log"
+    },
+    {
+      "name": "pack",
+      "argv": [
+        "npm",
+        "pack",
+        "--ignore-scripts",
+        "--offline",
+        "--json",
+        "--pack-destination",
+        "/workspace/scratch/b91a06885f33/fox-evidence/package"
+      ],
+      "exitCode": 0,
+      "seconds": 1.51,
+      "log": "pack.log"
+    },
+    {
+      "name": "fox-package-consumer",
+      "argv": [
+        "node",
+        "species/fox/scripts/check-director-package.mjs",
+        "/workspace/scratch/b91a06885f33/fox-evidence/package/ascii-animals-review-0.0.0-review.0.tgz"
+      ],
+      "exitCode": 0,
+      "seconds": 6.213,
+      "log": "fox-package-consumer.log"
+    }
+  ],
+  "tarball": {
+    "path": "/workspace/scratch/b91a06885f33/fox-evidence/package/ascii-animals-review-0.0.0-review.0.tgz",
+    "bytes": 495158,
+    "sha256": "e9329151f290714becf832c25b4b9a764a1010dfc97de0cf517e2abf87128d53",
+    "unpackedBytes": 1861736,
+    "entryCount": 190
+  },
+  "sourceHashes": {
+    "files": 9,
+    "workingUnchanged": true,
+    "copyUnchanged": true,
+    "workingMatchesCopy": true
+  },
+  "finished": "2026-11-19T11:25:32.303470+00:00",
+  "status": "passed"
+}

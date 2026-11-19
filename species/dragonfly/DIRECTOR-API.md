@@ -1,10 +1,11 @@
 # Dragonfly pond director API
 
-This additive API is implemented on `feat/director-dragonfly`, based on integrated
-main `c06114404900884814bef879a02f1a49a3e7d590`. It is a Dragonfly-specific extension
-of the existing `./dragonfly` entry. Integration acceptance is pending review; it
-does not define a shared animal director, alter the export map, or replace the
-central scheduler. The original solo factory, model, replay and aliases remain.
+The existing typed `./dragonfly` entry and opt-in pond director are preserved.
+This flight study is based on main `b8f222dab868821f27bf2a64a98434f3483fc8e6`.
+It changes Dragonfly-owned geometry, choreography, presentation and controls;
+public factories, method signatures, option fields and cue/phase unions remain.
+The original solo factory, model, replay and aliases remain. Shared scheduling,
+entry points and generated distributions are central integration concerns.
 
 ## Browser usage
 
@@ -32,8 +33,8 @@ pond.setTarget(.6, -.35);        // normalized canvas coordinates, y increases d
 pond.cue('dart');               // selection → pointer → cue in the same host batch
 pond.configureDirector({ scene: 'relay', count: 4, tempo: .8 });
 pond.clearTarget();             // resume authored autonomous motives
-pond.cue('perch');              // selected visitor lands and holds its own reed
-pond.cue('return');             // release/cancel toward its assigned route
+pond.cue('perch');              // selected visitor lands and grips its twig
+pond.cue('return');             // spool wings, release grip and relaunch; or cancel toward route
 pond.pause();
 pond.pulse();                   // an explicit alternate still arrangement
 pond.restart();                 // retains configuration and user pause
@@ -106,15 +107,20 @@ during crossings. Default territory spacing and a two-row still/perch arrangemen
 protect the main silhouettes. Four visitors at minimum spacing and maximum size
 can be crowded; labels may be omitted when no nonoverlapping position fits.
 
-A manual dart requests a .55–.85 scene-unit excursion. Boundary clipping can
-shorten this to .35–.55; a closer/coincident target receives a deterministic
-inward fallback so attention at the pointer does not erase the deliberate cue.
-A manual dart has launch 24 → dart 24 → settle 48 → return 90 → cooldown/land 60
-authored ticks. It returns toward the captured pre-cue point, or its reed if it
-started perched. Perch uses 100 return + 60 landing ticks, then waits for actual
-near-contact settling before declaring `perched`. Return uses 100 return + 45
-settle ticks before resuming the route. Those are goal windows, not promises of
-exact arrival at a timestamp; acceleration and settling remain bounded.
+A manual dart captures the current heading and retreats tail-first along its
+rear axis. Anticipation creates room near the lower bank. In an ensemble, a
+bounded, one-time choice of lateral lane reduces overlap with nearby wings;
+there is no per-frame avoidance noise. Pointer position directs hovering but
+does not turn the explicit backward cue into forward pursuit.
+
+The cue runs anticipation/launch (24–73 authored ticks depending on clearance),
+dart 30, brake/settle 54, return 90, then cooldown/land 60. It returns toward the
+captured pre-cue point, or its twig if it started perched. Perch uses 100 approach
++ 60 landing ticks, then waits for actual position, velocity, attitude, six-foot
+grip and wing-power convergence before declaring `perched`. Return from a held
+perch begins with a 42-tick wing spool-up/grip release/lift, then 100 return + 45
+settle ticks. A return from flight omits that takeoff. These are goal windows,
+not promises of exact arrival at a timestamp; acceleration stays bounded.
 
 Scene `arc` is a coarse summary: `arrive`, `patrol`, `intercept`, `return`, `rest`.
 Per-member tagged phases are `patrol`, `attention`, `hover`, `launch`, `dart`,
@@ -193,16 +199,30 @@ System reduced motion wins over Play and remembered requested full motion.
 
 The demo provides native scene/population/role/route controls and named cast
 selection. While the canvas has focus, keys 1–4 select existing visitors, arrows
-guide, and Space toggles pause. Buttons/selectors provide the equivalent touch
-and keyboard actions without requiring a drag. Pointer movement never resumes a
-still pond. Native scrolling remains available on touch. Selected identity has
+guide, D darts backward, L lands, R relaunches, and Space toggles pause. Buttons/selectors provide the equivalent touch
+and keyboard actions without requiring a drag. Tapping visible anatomy selects its actual frontmost owner before guiding it.
+Pointer movement never resumes a still pond. Native scrolling remains available on touch. Selected identity has
 corner markers as well as color and a named semantic control. The live region
 announces explicit user actions; animation phase changes are not announced each
 frame. Labels and neutral silhouettes are configurable. PNG/text capture uses
 the actual current canvas/cell grid. There is no browser video recorder in this
 extension; the reproducible offline GIF is evidence, not a new runtime API.
 
-Limits: ≤24,576 samples overall (currently 4,348 per visitor), ≤160×88 cells,
+Fractional browser frames interpolate private root/heading/wing-phase/attitude/
+grip poses before generating geometry. Blade spans remain rigid. Public
+`director.sample()` remains exact-tick and read-only. The species-internal host
+seam is not added to the public package entry. `exportText()` captures the last
+painted cells, so a fractional frame agrees with a simultaneous PNG; an unpainted
+host falls back to exact sampling. Same seed, options, tick/input log and engine
+version reproduce the same state and cells. Old-version pixels are not promised.
+
+On a narrow page, semantic controls can sit below the canvas. The demo brings the
+pond into view and retains at most one pending selection, guide and cue, applied
+in that order after visibility is confirmed. It clears the intent before applying
+it, and cancels it on hiding, reset, configuration or disposal. The host's own
+hidden/offscreen/zero-size input discard policy is unchanged.
+
+Limits: ≤24,576 samples overall (currently 3,874 per visitor), ≤160×88 cells,
 72×44 minimum grid, logical paint bounds 1,200×700, DPR 1–2, no trails/history or
 particle growth. Root bounds are x ±1.3, y −.65..1.05, z .04–.32. Pace is tempo
 times .25 in slow mode (otherwise tempo). Desired cruise speed is .9×pace and dart speed is 2.6×pace. The spring uses

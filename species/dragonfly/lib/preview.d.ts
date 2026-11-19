@@ -1,6 +1,6 @@
 /** Deliberately small, Dragonfly-only review surface. Not a shared renderer API. */
 import type { DragonflyGeometry, DragonflyGrid, DragonflyPreviewOptions, Vec3 } from './types.js';
-export declare const DRAGONFLY_GLYPHS = " .,:;-=+x*oO#@";
+export declare const DRAGONFLY_GLYPHS = " .,:;-=+x*oO#@/\\|_~'";
 export declare const DRAGONFLY_FONT = "ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace";
 export declare const DRAGONFLY_CELL_ASPECT = 0.68;
 export interface DragonflyProjectedPoint {

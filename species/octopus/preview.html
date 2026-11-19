@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="A reactive ASCII octopus study: a quiet den, inquisitive arms and an ink-cloud departure.">
+  <title>The dim den — Octopus / ASCII Animals</title>
+  <link rel="stylesheet" href="./preview.css">
+</head>
+<body>
+  <a class="skip-link" href="#study-controls">Skip to the controls</a>
+  <main class="study-shell">
+    <header class="study-header">
+      <a class="collection-link" href="https://github.com/castlemilk/ascii-animals">ASCII Animals</a>
+      <span class="study-kind">A marine field study</span>
+    </header>
+
+    <section aria-labelledby="study-title">
+      <div class="study-heading">
+        <div>
+          <p class="eyebrow">Octopus</p>
+          <h1 id="study-title">The dim <em>den</em></h1>
+        </div>
+        <p class="introduction">Watch the small movements first.<br>An arm tests the water; the others keep their hold.</p>
+      </div>
+
+      <figure class="specimen">
+        <div class="canvas-frame">
+          <canvas id="octopus-canvas" tabindex="0" role="img"
+            aria-label="An interactive, stylized ASCII octopus resting in a dim rocky den. It has eight articulated arms, paired suckers, and slowly travelling skin markings."
+            aria-describedby="interaction-help keyboard-help"
+            aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter J Space Escape">
+            A stylized octopus waits in a rocky den. Use Examine to invite a reach, or Startle to see it gather its arms and depart in an ink cloud. Canvas 2D is required to display this artwork.
+          </canvas>
+          <div class="canvas-caption" aria-hidden="true">
+            <span>Octopus · a stylized study</span>
+            <span id="playback-state">Loading</span>
+          </div>
+        </div>
+        <figcaption id="interaction-help">Move gently across the water to invite a closer look. Tap the water to leave an invitation; tap the animal to startle it.</figcaption>
+      </figure>
+
+      <div class="control-shelf" id="study-controls" tabindex="-1">
+        <div class="actions" role="group" aria-label="Octopus interactions">
+          <button id="examine" class="button button-primary" type="button" data-action>Examine</button>
+          <button id="release" class="button" type="button" data-action>Release</button>
+          <button id="startle" class="button" type="button" data-action>Startle</button>
+        </div>
+        <div class="playback-actions" role="group" aria-label="Animation playback">
+          <button id="pause" class="button button-quiet" type="button" data-action aria-label="Pause animation">Pause</button>
+          <button id="restart" class="button button-quiet" type="button" data-action>Restart</button>
+        </div>
+      </div>
+      <p id="action-status" class="action-status" role="status" aria-live="polite" aria-atomic="true">Preparing the study.</p>
+      <p id="motion-note" class="motion-note" hidden>Reduced motion is on. The study starts still. Choose Play when you want to animate it.</p>
+
+      <details class="field-notes">
+        <summary>How to watch</summary>
+        <div class="notes-content">
+          <p><strong>Examine.</strong> A small turn comes before the reach. Neighbouring arms unfold toward the invitation while supporting arms keep their place. Release lets the tips peel back.</p>
+          <p><strong>Startle.</strong> The arms gather, release their contacts, and stream behind a mantle-first jet. The return is slower; the arms find their footing at different moments.</p>
+          <p id="keyboard-help"><strong>Keyboard.</strong> Focus the artwork with Tab. Arrow keys move the invitation; Enter examines, J startles, Space pauses or plays, and Escape releases. All actions also have ordinary buttons. Tab always leaves the artwork.</p>
+          <p class="interpretation-note">Original procedural artwork, inspired by octopus anatomy. Motion timing, visible skin waves and the pale ink treatment are artistic interpretations.</p>
+        </div>
+      </details>
+    </section>
+
+    <footer class="study-footer">
+      <span>Eight arms. One quiet place.</span>
+      <a href="https://github.com/castlemilk/ascii-animals">About the collection</a>
+    </footer>
+  </main>
+  <script type="module" src="./preview.js"></script>
+</body>
+</html>

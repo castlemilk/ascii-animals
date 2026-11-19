@@ -1,5 +1,13 @@
 # Frog / A pond with its own rhythm
 
+## Wetland movement revision
+
+The latest frog-local revision gives the body a lower broad head, horizontal pupils, fuller folded thighs and stable planted feet. Coherent wet highlights, restrained gold markings and a pale jaw make the connected forms easier to read. The hop now unfolds and gathers its hindlegs along the existing ballistic arc, then raises a short splash crown at touchdown. Hunting waits for a supported perch, projects from the transformed mouth, holds the insect at contact and carries it back before settling.
+
+See [the wetland review](review/README.md) for matched desktop and phone-width native Canvas captures, motion replays, the exact-source manifest, commands and outstanding real-browser acceptance. The review keeps native Canvas evidence separate from browser layout, physical touch and performance claims. The public options, event and state shapes remain intact; the documented authored strike constant changes from 12 to 30 ticks for readability.
+
+## Pond director
+
 The integrated TypeScript frog now has an optional **pond director**: one to three named frogs, six original lily pads, individual roles, safe hops and landings, a firefly hunt, water attention, and a bounded call-and-answer chorus. The existing single-frog factory remains the default when `director` is omitted.
 
 ![Native Canvas pond contact sheet](director/evidence/frog-director-contact-sheet.png)

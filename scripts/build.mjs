@@ -61,4 +61,10 @@ const seahorse = await buildSeahorseDemo();
 await buildCrabDemo();
 await buildTurtleDemo();
 await buildButterflyDemo();
-console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, seahorse, output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));
+const octopusDen = JSON.parse(execFileSync(process.execPath, [
+  path.join(root, 'species/octopus/scripts/build-preview.mjs'),
+  '--out', path.join(root, 'dist/octopus-den.html'),
+], { encoding: 'utf8' }));
+console.log(JSON.stringify({ demo, fox, dragonfly, gecko, pufferfish, frog, seahorse,
+  octopusDen: { entry: 'dist/octopus-den.html', sourceSha256: octopusDen.sourceSha256 },
+  output: 'lib', modules, declarations, tool: 'tsc + private-renderer copy', runtimeDependencies: 0 }));

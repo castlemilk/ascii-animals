@@ -1,0 +1,17 @@
+{
+  "evidence": "Independent read-only numerical sweep; no browser or performance claim",
+  "node": "v24.22.3",
+  "sourceSha256": {
+    "species/dragonfly/lib/director.js": "b1bc5f8faa5a581d8203e012396cee70910ac7fecc7db0e3bee8d5dcf4885ef0",
+    "species/dragonfly/lib/model.js": "d99009209550c57808852e9df075300fd2c4e169ee85b40c950a131e7998fcfb",
+    "species/dragonfly/lib/geometry.js": "2ed68847e2787a850df041c92b55e4835056923b7a03d0b3f33776fdb0d30e4c",
+    "species/dragonfly/lib/preview.js": "bb4bdb40fb4131eb5178c7126be5bc1d0ea61bc2b488a78d79fd23c581477c0f",
+    "species/dragonfly/lib/pond-preview.js": "60688c582b692a894080a1a9abdbedbfce8ba8e54e3d958222a9bf52620b2dca"
+  },
+  "cases": 16,
+  "maxClip": 0,
+  "maxAcc": 9.000000000000007,
+  "leastRear": 0.4528630508461057,
+  "fail": [],
+  "failures": 0
+}

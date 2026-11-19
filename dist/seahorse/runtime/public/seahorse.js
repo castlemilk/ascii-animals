@@ -166,11 +166,22 @@ export function createSeahorseModel(input = {}) {
         reset() { tick = 0; sceneTicks = options.choreography === 'hold' ? options.duration * 60 * .42 : 0; responseTick = null; selected = 0; cues.fill(null); clear(); },
         frame() { return options.scene === 'study' && options.count === 1 ? renderStudy(options, state(), phase()) : renderGarden(options, state(), phase(), director()); }, });
 }
-/** The end of the same spiral used by the renderer, before the body transform. */
-function tailContact(curl) {
-    const radius = .43 - curl * .13, angle = -.15 + Math.PI * 2.05;
-    return { x: .27 - radius + radius * .32 * Math.cos(angle), y: 1.34 + radius * .32 * Math.sin(angle) };
+/** One continuous, tapered tail curve shared by contact solving and both renderers.
+ * Opening the coil changes its sweep as well as its radius: release is an unroll,
+ * not a smaller copy of the same spiral. The distal end remains a true point.
+ */
+function tailPoint(curl, u) {
+    const radius = .46 - curl * .115, start = -.14;
+    const join = { x: .29 - radius + radius * Math.cos(start), y: 1.32 + radius * Math.sin(start) };
+    if (u <= .34) {
+        const a = u / .34, b = 1 - a;
+        return { x: b ** 3 * .16 + 3 * b * b * a * .25 + 3 * b * a * a * .31 + a ** 3 * join.x,
+            y: b ** 3 * .64 + 3 * b * b * a * .90 + 3 * b * a * a * 1.08 + a ** 3 * join.y };
+    }
+    const a = (u - .34) / .66, angle = start + a * Math.PI * (1.20 + 1.43 * curl), r = radius * (1 - a * .76);
+    return { x: .29 - radius + r * Math.cos(angle), y: 1.32 + r * Math.sin(angle) };
 }
+function tailContact(curl) { return tailPoint(curl, 1); }
 function rotateLocal(p, angle, facing, scale) {
     const co = Math.cos(angle), si = Math.sin(angle), mirror = facing === 'left' ? 1 : -1;
     return { x: (p.x * co - p.y * si) * scale * mirror, y: (p.x * si + p.y * co) * scale };
@@ -180,10 +191,25 @@ function gardenSlot(o, id, worldWidth) {
     const down = Math.ceil(o.count / across);
     const row = Math.floor(id / across), col = id % across, columnsHere = Math.min(across, o.count - row * across);
     const requested = (o.count === 1 ? 1.12 : o.count === 2 ? .9 : o.count === 3 ? .81 : .72) * o.scale * (o.individuals[id]?.scale ?? 1);
-    const scale = Math.min(requested, worldWidth / across / 2.5, 6.2 / down / 6.6);
+    const scale = Math.min(requested, worldWidth / across / 3.2, 6.2 / down / (o.count === 1 ? 5.7 : 6.6));
     const x = (col - (columnsHere - 1) / 2) * worldWidth / across * .82;
     const y = (row - (down - 1) / 2) * 6.2 / down + (down === 1 && o.count > 1 ? (id % 2 ? -.25 : .18) : 0);
     return { x, y, scale, anchor: { x: x - .10 * scale, y: y + 1.35 * scale } };
+}
+/** Eelgrass is a ribbon rooted on the bed. The hold is a material position on
+ * this very curve, so neither the plant nor the tail can slide through the other.
+ * The old public `kelp` layer/scene names remain compatibility identifiers.
+ */
+function eelgrassPoint(o, slot, id, t, y) {
+    const bottom = 6.2 * .465, top = slot.anchor.y - 3.05 * slot.scale;
+    const u = clamp((bottom - y) / (bottom - top), 0, 1);
+    const holdU = clamp((bottom - slot.anchor.y) / (bottom - top), 0, 1);
+    const phase = ((o.seed * 31 + id * 233) % 997) / 997 * TAU;
+    const bend = (.34 + o.current * .38) * slot.scale;
+    const wave = (.14 + Math.abs(o.current) * .18) * slot.scale * Math.sin(t * .72 + phase);
+    const x = slot.anchor.x - bend * holdU ** 1.65 + (bend + wave) * u ** 1.65 +
+        .05 * slot.scale * Math.sin(t * .95 - u * 2 + phase) * u;
+    return { x, y };
 }
 /** Authored routes are bounded analytic curves; individual cues overlay then recover. */
 function sampleDirector(o, s, d) {
@@ -197,9 +223,10 @@ function sampleDirector(o, s, d) {
         const p = wrap(progress - (o.choreography === 'hold' ? 0 : id * o.stagger / o.duration));
         const arc = arcAt(p), flow = Math.tanh(o.current * 3);
         let facing = o.individuals[id]?.facing ?? (o.scene === 'tidal-duet' ? (id % 2 ? 'left' : 'right') : o.facing);
-        let grip = 1, freeX = slot.x, freeY = slot.y, curl = 1;
+        let grip = 1, freeX = slot.x, freeY = slot.y, curlOffset = 0;
         let motive = { kind: 'anchored', anchorId: id };
-        let rotation = .035 * Math.sin(t * .55 + individuality) + o.current * .09;
+        const mirror = facing === 'left' ? 1 : -1;
+        let rotation = .028 * Math.sin(t * .55 + individuality) + o.current * .09 * mirror;
         const rest = clamp((p - .18) / .5, 0, 1), restWave = Math.sin(Math.PI * rest) ** 2;
         if (o.scene === 'study') {
             grip = o.behavior === 'holdfast' ? 1 : 0;
@@ -256,8 +283,9 @@ function sampleDirector(o, s, d) {
         }
         let attention = 0;
         if (d.attention && id === d.selected) {
-            attention = clamp((s.targetX * worldWidth / 2 - freeX) * .22, -.16, .16);
-            rotation += attention;
+            // The head and rigid tubular snout turn together; no flexible-straw snout.
+            attention = clamp((freeY - 1.35 * slot.scale - s.targetY * worldHeight / 2) * .16, -.16, .16);
+            rotation += clamp((s.targetX * worldWidth / 2 - freeX) * .10, -.10, .10) * mirror;
             freeY += clamp(s.targetY * worldHeight / 2 - freeY, -1, 1) * .10 * slot.scale * (1 - grip);
             if (motive.kind === 'drifting')
                 motive = { kind: 'inspecting' };
@@ -265,38 +293,54 @@ function sampleDirector(o, s, d) {
         const cue = d.cues[id];
         if (cue) {
             const age = s.tick - cue.start + cue.posterAge, u = clamp(age / cueDuration[cue.type], 0, 1);
-            const envelope = smooth(u / .18) * (1 - smooth((u - .65) / .35));
             const recovering = u >= .65;
             if (cue.type === 'release') {
-                grip *= 1 - envelope;
-                freeX += flow * .62 * slot.scale * envelope;
-                freeY -= .32 * slot.scale * envelope;
-                motive = { kind: recovering ? 'recovering' : 'drifting' };
+                // 0–24: look/uncurl while held. 24–66: let go. 66–145: hover.
+                // 145–210: tail leads back to the moving blade. 210–240: rewrap/settle.
+                const travel = smooth((age - 24) / 42) * (1 - smooth((age - 145) / 65));
+                const unroll = smooth((age - 8) / 46) * (1 - smooth((age - 180) / 60));
+                curlOffset -= .72 * unroll;
+                grip *= 1 - travel;
+                freeX += flow * .64 * slot.scale * travel;
+                freeY -= .32 * slot.scale * travel;
+                attention += .10 * smooth(age / 24) * (1 - smooth((age - 145) / 95));
+                motive = { kind: age >= 145 ? 'recovering' : 'drifting' };
             }
             else if (cue.type === 'anchor') {
+                const envelope = smooth(age / 54) * (1 - smooth((age - 120) / 60));
                 grip = mix(grip, 1, envelope);
+                curlOffset += .08 * envelope;
                 motive = recovering ? { kind: 'recovering' } : { kind: 'anchored', anchorId: id };
             }
             else if (cue.type === 'inspect') {
-                grip *= 1 - envelope * .65;
-                freeX += clamp(s.targetX * worldWidth / 2 - freeX, -.65, .65) * envelope * .6;
-                freeY -= .22 * slot.scale * envelope;
-                attention += .1 * envelope;
-                rotation += .08 * envelope;
+                // Notice first, then pivot the stiff trunk from the held tail. Visitors
+                // already in open water keep their route instead of snapping to a hold.
+                const notice = smooth(age / 30) * (1 - smooth((age - 130) / 50));
+                const approach = smooth((age - 24) / 50) * (1 - smooth((age - 112) / 68));
+                const direction = d.attention ? clamp(s.targetX * worldWidth / 2 - freeX, -.7, .7) : -.5 * mirror;
+                freeX += direction * .26 * slot.scale * approach * (1 - grip);
+                rotation += direction * .16 * mirror * approach;
+                attention += .14 * notice;
+                curlOffset += .05 * notice;
                 motive = { kind: recovering ? 'recovering' : 'inspecting' };
             }
             else {
-                grip = mix(grip, 1, envelope);
-                rotation -= flow * .18 * envelope;
-                freeY += .16 * slot.scale * envelope;
+                // Coil tension anticipates the lean by 24 ticks; release that tension
+                // after the torso has eased back. Direction remains continuous at zero.
+                const tension = smooth(age / 28) * (1 - smooth((age - 174) / 66));
+                const brace = smooth((age - 24) / 48) * (1 - smooth((age - 144) / 72));
+                grip = mix(grip, 1, tension);
+                curlOffset += .18 * tension;
+                rotation -= flow * .21 * mirror * brace;
+                attention += flow * .09 * mirror * brace;
                 motive = { kind: recovering ? 'recovering' : 'startled' };
             }
         }
         grip = clamp(grip, 0, 1);
-        curl = .18 + grip * .82;
+        const curl = clamp(.18 + grip * .82 + curlOffset, .10, 1.18);
         const contact = rotateLocal(tailContact(curl), rotation, facing, slot.scale);
         // Solve translation around the actual tail endpoint. Mirroring and scale cannot detach it.
-        const anchor = slot.anchor;
+        const anchor = eelgrassPoint(o, slot, id, t, slot.anchor.y);
         // Reserve the transformed anatomy and label footprint before blending toward a grip.
         // This also protects narrow permitted grids and a four-visitor rising duet.
         const corners = [[-1.06, -2.15], [1.04, -2.15], [-1.06, 1.90], [1.04, 1.90]];
@@ -318,246 +362,251 @@ function sampleDirector(o, s, d) {
     return Object.freeze({ scene: o.scene, arc: arcAt(progress), progress, selected: d.selected, current: o.current,
         worldWidth, worldHeight, members: Object.freeze(members) });
 }
+/** Original surface construction. The relatively rigid trunk has eleven
+ * stylized plate rows and two longitudinal ridges; counts are an artistic LOD,
+ * not a taxonomic claim. Fins, head and tail are attached in local coordinates.
+ */
+const trunkProfile = [
+    [-1.29, -.40, -.08], [-1.13, -.43, -.05], [-.96, -.36, .07],
+    [-.78, -.25, .24], [-.59, -.31, .36], [-.37, -.43, .40],
+    [-.13, -.46, .43], [.12, -.38, .43], [.35, -.25, .39],
+    [.56, -.06, .32], [.78, .11, .22],
+];
+function trunkAt(y) {
+    for (let i = 1; i < trunkProfile.length; i++) {
+        const a = trunkProfile[i - 1], b = trunkProfile[i];
+        if (y <= b[0]) {
+            const u = smooth((y - a[0]) / (b[0] - a[0]));
+            return { left: mix(a[1], b[1], u), right: mix(a[2], b[2], u) };
+        }
+    }
+    return { left: .11, right: .22 };
+}
+function paintSeahorse(m, step, t, tick, seed, ink) {
+    const localTime = t + m.id * .53 + ((seed * 31 + m.id * 233) % 997) / 997 * TAU;
+    const disk = (x, y, radius, tone, glyph, depth = 4) => {
+        for (let yy = -radius; yy <= radius; yy += step)
+            for (let xx = -radius; xx <= radius; xx += step)
+                if (xx * xx + yy * yy <= radius * radius)
+                    ink(x + xx, y + yy, tone, glyph, depth);
+        ink(x, y, tone, glyph, depth);
+    };
+    const line = (a, b, radius, tone, glyph, depth = 4) => {
+        const n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / step));
+        for (let i = 0; i <= n; i++)
+            disk(mix(a.x, b.x, i / n), mix(a.y, b.y, i / n), radius, tone, glyph, depth);
+    };
+    // A fan, not a rectangle: all rays originate on the lower dorsal seam.
+    const finEnergy = 1 + Math.abs(m.attention) * 1.5 + Math.max(0, m.curl - 1) * 2;
+    for (let k = 0; k < 13; k++) {
+        const a = k / 12, flutter = .035 * Math.sin(localTime * 16 + k * .6) * finEnergy;
+        line({ x: .38, y: -.53 + a * .75 }, { x: .41 + (.35 + flutter) * Math.sin(a * Math.PI), y: -.57 + a * .84 }, .008, 3, ':', 3.5);
+    }
+    // A tapered segmented tail. The distal back arc is behind the actual blade;
+    // the remaining arc and tip return in front. No contact dot is drawn.
+    let last = tailPoint(m.curl, 0), distanceSinceRing = 0;
+    for (let k = 1; k <= 100; k++) {
+        const u = k / 100, p = tailPoint(m.curl, u), radius = .096 * (1 - u) + .016;
+        const coilAngle = -.14 + (u - .34) / .66 * Math.PI * (1.20 + 1.43 * m.curl);
+        const rearArc = u > .34 && u < .94 && Math.sin(coilAngle) < -.2;
+        const depth = m.anchorId !== null && rearArc ? 2.5 : 4;
+        line(last, p, radius, 5.6 + u * .6, '*', depth);
+        const length = Math.hypot(p.x - last.x, p.y - last.y);
+        distanceSinceRing += length;
+        if (distanceSinceRing >= .09 && u < .94) {
+            const nx = -(p.y - last.y) / length, ny = (p.x - last.x) / length;
+            line({ x: p.x - nx * radius, y: p.y - ny * radius }, { x: p.x + nx * radius, y: p.y + ny * radius }, .006, 8, Math.abs(nx) > .65 ? '#' : '+', depth + .01);
+            distanceSinceRing = 0;
+        }
+        last = p;
+    }
+    // Continuous neck / breast / pelvis profile, with faceted plate faces.
+    for (let y = -1.29; y <= .78; y += step) {
+        const { left, right } = trunkAt(y), width = right - left;
+        for (let x = left; x <= right; x += step) {
+            const a = (x - left) / width;
+            const tone = 4.5 + 1.9 * Math.sin(a * Math.PI) + (1 - a) * .65;
+            ink(x, y, tone, a > .82 ? '+' : a < .3 ? '#' : '*', 4.1);
+        }
+    }
+    // Plate seams curve around the volume; short side ridges meet them at nodes.
+    for (let k = 0; k < 14; k++) {
+        const y = -1.19 + k * .143, { left, right } = trunkAt(y);
+        const n = Math.max(5, Math.ceil((right - left) / step));
+        for (let j = 0; j <= n; j++) {
+            const a = j / n, x = mix(left, right, a), curve = .065 * Math.sin(a * Math.PI);
+            ink(x, y + curve + .035, 4.3, '+', 4.2);
+            ink(x, y + curve, 8.1 - a * 1.2, j === 0 || j === n ? '+' : a < .55 ? '#' : '=', 4.3);
+        }
+        for (const a of [.27, .76]) {
+            const x = mix(left, right, a), next = trunkAt(Math.min(.78, y + .143));
+            line({ x, y: y + .035 }, { x: mix(next.left, next.right, a), y: Math.min(.78, y + .143) }, .009, a < .5 ? 6.8 : 5.8, a < .5 ? '#' : '+', 4.25);
+            ink(x, y + .018, 8, '+', 4.35);
+        }
+        // Unequal low tubercles articulate the back edge without becoming spikes.
+        if (k > 2 && k < 12)
+            disk(right + .020, y, .028, 7, '+', 4.3);
+    }
+    // Pectoral fin immediately behind the head, independently phased.
+    for (let k = 0; k < 6; k++) {
+        const a = k / 5;
+        line({ x: -.05, y: -1.19 }, { x: .19 + .025 * Math.sin(localTime * 21 + k), y: -1.21 + a * .24 }, .007, 3, '.', 4.4);
+    }
+    // Aim the entire skull, crown, eye and tube around one short neck joint.
+    const headAngle = clamp(m.attention - m.rotation * .12, -.24, .24);
+    function head(x, y, tone, glyph, depth = 4.6) {
+        const px = x + .12, py = y + 1.25, co = Math.cos(headAngle), si = Math.sin(headAngle);
+        ink(-.12 + px * co - py * si, -1.25 + px * si + py * co, tone, glyph, depth);
+    }
+    const headDisk = (x, y, rx, ry, tone) => {
+        for (let yy = -ry; yy <= ry; yy += step)
+            for (let xx = -rx; xx <= rx; xx += step) {
+                const q = xx * xx / (rx * rx) + yy * yy / (ry * ry);
+                if (q <= 1)
+                    head(x + xx, y + yy, tone + (1 - q) * 1.3 - xx / rx * .4);
+            }
+    };
+    headDisk(-.21, -1.43, .31, .24, 5.8);
+    // Small swept coronet integrated into the rear skull, not four antlers.
+    const crown = [[-.14, -1.61], [-.08, -1.76], [-.01, -1.69], [.10, -1.83], [.16, -1.65], [.10, -1.53]];
+    for (let y = -1.83; y <= -1.53; y += step) {
+        const crossings = [];
+        for (let i = 0; i < crown.length; i++) {
+            const a = crown[i], b = crown[(i + 1) % crown.length];
+            if ((a[1] <= y && b[1] > y) || (b[1] <= y && a[1] > y))
+                crossings.push(a[0] + (y - a[1]) / (b[1] - a[1]) * (b[0] - a[0]));
+        }
+        crossings.sort((a, b) => a - b);
+        for (let i = 0; i + 1 < crossings.length; i += 2)
+            for (let x = crossings[i]; x <= crossings[i + 1]; x += step)
+                head(x, y, 7.4 - (x + .13) * 3, x < 0 ? '+' : undefined);
+    }
+    for (let k = 0; k <= 30; k++) {
+        const a = k / 30, x = mix(-.43, -1.0, a), y = mix(-1.43, -1.33, a);
+        for (let v = -.063; v <= .063; v += step)
+            head(x, y + v, v < 0 ? 8 : 5.7, v < -.025 ? '=' : undefined);
+        head(x, y - .065, 8, '=');
+    }
+    for (let y = -1.42; y <= -1.24; y += step * .7)
+        head(-1.015, y, 8, '|');
+    // Eye socket and one pupil remain legible when the cell grid is small.
+    headDisk(-.36, -1.48, .092, .085, 3.7);
+    const blink = (tick + m.id * 107 + seed * 3) % 347 < 6;
+    head(-.37, -1.49, 9, blink ? '-' : 'o', 4.8);
+    head(-.30, -1.37, 7, '/', 4.8);
+}
 /** Pure logical-cell rendering; no DOM, font, random or wall-clock dependency. */
 function renderStudy(o, s, phase) {
     const cols = o.columns, rows = o.rows, worldH = 5.05, worldW = worldH * cols * .56 / rows;
-    const glyphs = new Array(cols * rows).fill(' '), tones = new Uint8Array(cols * rows);
+    const glyphs = new Array(cols * rows).fill(' '), tones = new Uint8Array(cols * rows), depths = new Float64Array(cols * rows);
     const t = s.tick / 60 * o.speed, seedPhase = (o.seed % 997) / 997 * TAU;
     const response = s.responseTick === null ? 0 : Math.sin(Math.PI * clamp((s.tick - s.responseTick) / 180, 0, 1));
     const sway = o.behavior === 'holdfast' ? o.sway * .15 : o.sway;
     const lean = .045 * Math.sin(t * .7 + seedPhase) + (o.behavior === 'curious' ? .08 * s.targetX : 0) + response * .065;
     const dx = sway * Math.sin(t * .45 + seedPhase), dy = sway * .6 * Math.sin(t * .68 + seedPhase) + (o.behavior === 'curious' ? s.targetY * .1 : 0);
-    const co = Math.cos(lean), si = Math.sin(lean), mirror = o.facing === 'left' ? 1 : -1;
     const chars = '.,:;+=*#%@';
-    function point(x, y, tone, glyph, animal = true) {
-        if (animal) {
-            const xx = (x * co - y * si) * o.scale * mirror + dx;
-            y = (x * si + y * co) * o.scale + dy;
-            x = xx;
-        }
-        const c = Math.round((x / worldW + .5) * (cols - 1)), r = Math.round((y / worldH + .5) * (rows - 1));
+    const point = (x, y, tone, glyph, depth = 4) => {
+        const p = rotateLocal({ x, y }, lean, o.facing, o.scale);
+        const c = Math.round(((p.x + dx) / worldW + .5) * (cols - 1)), r = Math.round(((p.y + dy) / worldH + .5) * (rows - 1));
         if (c < 0 || c >= cols || r < 0 || r >= rows)
             return;
         const i = r * cols + c;
-        glyphs[i] = glyph ?? chars[clamp(Math.round(tone), 0, chars.length - 1)];
+        if (depth < depths[i])
+            return;
+        depths[i] = depth;
+        glyphs[i] = glyph ?? chars[clamp(Math.round(tone), 0, 9)];
         tones[i] = clamp(Math.round(tone), 1, 9);
-    }
-    function disk(x, y, r, tone, glyph) {
-        const step = worldH / rows * .35;
-        for (let yy = -r; yy <= r; yy += step)
-            for (let xx = -r; xx <= r; xx += step)
-                if (xx * xx + yy * yy <= r * r)
-                    point(x + xx, y + yy, tone, glyph);
-        point(x, y, tone, glyph);
-    }
-    function line(x1, y1, x2, y2, r, tone, glyph) {
-        const n = Math.max(1, Math.ceil(Math.hypot(x2 - x1, y2 - y1) / (.6 * worldH / rows)));
-        for (let k = 0; k <= n; k++) {
-            const a = k / n;
-            disk(x1 + (x2 - x1) * a, y1 + (y2 - y1) * a, r, tone, glyph);
+    };
+    if (o.behavior === 'holdfast') {
+        for (let k = 0; k < 100; k++) {
+            const y = -.7 + k * .031;
+            point(.025 + .07 * Math.sin((y - 1.34) * 1.3), y, 2, '|', 3);
         }
     }
-    function ellipse(cx, cy, rx, ry, tone, rings = false) {
-        const step = worldH / rows * .35;
-        for (let y = -ry; y <= ry; y += step)
-            for (let x = -rx; x <= rx; x += step) {
-                const q = x * x / (rx * rx) + y * y / (ry * ry);
-                if (q > 1)
-                    continue;
-                const lighting = tone + (1 - q) * 2 - x / rx * .6;
-                const band = rings && Math.floor((y + ry) * 25) % 4 === 0;
-                point(cx + x, cy + y, band ? lighting + 1.7 : lighting, band ? '=' : undefined);
-            }
-    }
-    // A quiet holdfast frond is an environmental attachment, never a replacement tail.
-    if (o.behavior === 'holdfast')
-        for (let k = 0; k < 60; k++) {
-            const y = .9 + k * .026, x = .24 + .08 * Math.sin(k * .08);
-            point(x, y, 2, '|', false);
-            if (k % 10 === 0)
-                for (let j = 1; j < 7; j++)
-                    point(x + j * .05, y - j * .02, 2, '/', false);
-        }
-    // Dorsal fin sits behind the bony trunk. Its independently phased rays flutter.
-    for (let k = 0; k < 14; k++) {
-        const a = k / 13, flutter = .05 * Math.sin(t * 15 + k * .55);
-        line(.37, -.60 + a * .72, .80 + flutter + .12 * Math.sin(a * Math.PI), -.66 + a * .85, .014, 3, ':');
-    }
-    // Tapering curved tail with a visible interior and a rounded spiral end.
-    const curl = o.behavior === 'holdfast' ? 1 : response * .75;
-    const tail = [];
-    for (let k = 0; k <= 30; k++) {
-        const a = k / 30;
-        tail.push([.20 + .10 * Math.sin(a * Math.PI), .65 + a * .65]);
-    }
-    const radius = .43 - curl * .10;
-    for (let k = 0; k <= 100; k++) {
-        const a = k / 100, angle = -.15 + a * Math.PI * 2.05, r = radius * (1 - a * .68);
-        tail.push([.27 - radius + r * Math.cos(angle), 1.34 + r * Math.sin(angle)]);
-    }
-    for (let k = 1; k < tail.length; k++) {
-        const a = tail[k - 1], b = tail[k], f = k / tail.length;
-        line(a[0], a[1], b[0], b[1], .12 * (1 - f) + .025, 5.5 + f * 1.5);
-    }
-    ellipse(.17, -.10, .37, .91, 5.4, true);
-    // Slender S-shaped neck rises from the breast into the head.
-    const neck = [[.10, -.70], [-.12, -.91], [-.29, -1.10], [-.23, -1.30], [-.07, -1.42]];
-    for (let k = 1; k < neck.length; k++) {
-        const a = neck[k - 1], b = neck[k];
-        line(a[0], a[1], b[0], b[1], .15, 6.2);
-    }
-    ellipse(-.24, -1.41, .30, .23, 6.5);
-    line(-.44, -1.40, -.90, -1.29, .085, 6.8);
-    line(-.90, -1.34, -.91, -1.24, .02, 9, '|');
-    // Coronet and small back spines establish a seahorse rather than a generic fish.
-    for (let k = 0; k < 4; k++) {
-        const x = -.35 + k * .105;
-        line(x, -1.58, x + .025, -1.76 + (k % 2) * .07, .028, 7);
-    }
-    for (let k = 0; k < 9; k++) {
-        const y = -.67 + k * .15;
-        line(.39, y, .48, y + .05, .024, 6);
-    }
-    // Pectoral fin below the head has a faster rhythm than the dorsal fan.
-    for (let k = 0; k < 7; k++)
-        line(-.13, -1.22, .12 + .045 * Math.sin(t * 19 + k), -1.20 + k * .045, .013, 3, '.');
-    point(-.36, -1.46, 9, '@');
-    point(-.35, -1.48, 9, 'o');
+    paintSeahorse({ id: 0, rotation: lean, curl: o.behavior === 'holdfast' ? 1 : .35 + response * .65,
+        attention: (o.behavior === 'curious' ? -.12 * s.targetY : 0) + response * .12, anchorId: o.behavior === 'holdfast' ? 0 : null }, Math.max(.015, worldH / rows / o.scale * .32), t, s.tick, o.seed, point);
     const cells = Object.freeze(glyphs.map((glyph, i) => Object.freeze({ glyph, tone: tones[i] })));
-    let text = '';
-    for (let r = 0; r < rows; r++)
-        text += glyphs.slice(r * cols, (r + 1) * cols).join('') + (r === rows - 1 ? '' : '\n');
+    const text = Array.from({ length: rows }, (_, row) => glyphs.slice(row * cols, (row + 1) * cols).join('')).join('\n');
     return Object.freeze({ columns: cols, rows, cells, text, phase });
 }
-/** One bounded logical grid for the whole ensemble; ownership follows visible glyphs. */
+/** One bounded ASCII grid, with depth-tested eelgrass and visible ownership. */
 function renderGarden(o, s, phase, director) {
     const cols = o.columns, rows = o.rows, worldW = director.worldWidth, worldH = director.worldHeight;
     const glyphs = new Array(cols * rows).fill(' '), tones = new Uint8Array(cols * rows);
-    const owners = new Int8Array(cols * rows).fill(-1), layers = new Uint8Array(cols * rows);
-    const chars = '.,:;+=*#%@', t = s.tick / 60 * o.speed;
-    function world(x, y, tone, glyph, layer = 2, owner = -1) {
+    const owners = new Int8Array(cols * rows).fill(-1), layers = new Uint8Array(cols * rows), depths = new Float64Array(cols * rows);
+    const chars = '.,:;+=*#%@', t = s.tick / 60 * o.speed, cellW = worldW / (cols - 1), cellH = worldH / (rows - 1);
+    function world(x, y, tone, glyph, layer = 2, owner = -1, depth = 3) {
         const col = Math.round((x / worldW + .5) * (cols - 1)), row = Math.round((y / worldH + .5) * (rows - 1));
         if (col < 0 || col >= cols || row < 0 || row >= rows)
             return;
         const i = row * cols + col;
-        if (layer < layers[i])
+        if (depth < depths[i])
             return;
+        depths[i] = depth;
         layers[i] = layer;
         owners[i] = owner;
         glyphs[i] = glyph ?? chars[clamp(Math.round(tone), 0, 9)];
         tones[i] = clamp(Math.round(tone), 1, 9);
     }
-    // Sparse current tracers and the sea bed: deterministic, bounded, behind the animals.
-    for (let k = 0; k < 28; k++) {
+    // Suspended matter is sparse; fixed seed spacing avoids per-frame sparkle.
+    for (let k = 0; k < 24; k++) {
         const x = (wrap(k * .6180339 + o.seed * .013 + t * o.current * .013) - .5) * worldW;
-        const y = -worldH * .43 + ((k * 37 + o.seed) % 101) / 101 * worldH * .80;
-        world(x, y, 1, k % 7 === 0 ? ':' : '.', 1);
+        const y = -worldH * .44 + ((k * 37 + o.seed) % 101) / 101 * worldH * .81;
+        world(x, y, 1, k % 9 === 0 ? ':' : '.', 1, -1, .5);
     }
-    for (let k = 0; k < cols; k += 2)
-        world((k / (cols - 1) - .5) * worldW, worldH * .465 + .025 * Math.sin(k * .3), 1, k % 6 ? '.' : '_', 1);
-    for (const member of (o.scene === 'study' && o.behavior !== 'holdfast' ? [] : director.members)) {
-        const slot = gardenSlot(o, member.id, worldW), anchor = slot.anchor;
-        const top = anchor.y - 2.65 * slot.scale, bottom = worldH * .465;
-        const stemX = (y) => {
-            const distance = anchor.y - y;
-            return anchor.x + Math.sin(distance * 1.3) * .12 * slot.scale + distance * (.19 + o.current * .10) +
-                Math.sin(t * .7 + member.id) * .035 * distance;
-        };
-        const n = Math.ceil((bottom - top) / (worldH / rows * .45));
-        for (let k = 0; k <= n; k++) {
-            const y = mix(top, bottom, k / n), x = stemX(y);
-            world(x, y, 3, '|', 2);
-            if (k % 10 === 3) {
-                const side = Math.floor(k / 10) % 2 ? 1 : -1;
-                for (let j = 1; j <= 8; j++) {
-                    const a = j / 8, leafY = y - Math.sin(a * Math.PI) * .14 * slot.scale;
-                    world(x + side * a * .42 * slot.scale, leafY, 2, side > 0 ? '/' : '\\', 2);
-                }
+    // Far ribbons establish depth without competing with the cream plate ridges.
+    for (let k = 0; k < 11; k++) {
+        const base = (k / 10 - .5) * worldW, height = 1.5 + ((k * 37 + o.seed) % 13) * .24;
+        const count = Math.ceil(height / (cellH * .65));
+        for (let j = 0; j <= count; j++) {
+            const u = j / count, y = worldH * .465 - height * u;
+            const x = base + (.11 * Math.sin(t * .4 + k) + o.current * .18) * u * u;
+            world(x, y, k % 3 ? 1 : 2, j % 3 ? ':' : '.', 1, -1, .8);
+            if (k % 3 === 0 && u < .7)
+                world(x + cellW, y, 1, '.', 1, -1, .8);
+        }
+    }
+    for (let k = 0; k < cols; k++) {
+        const x = (k / (cols - 1) - .5) * worldW, y = worldH * .465 + .025 * Math.sin(k * .31);
+        world(x, y, 1, k % 5 === 0 ? '_' : '.', 1, -1, .9);
+        if (k % 7 === 0)
+            world(x, y - .06, 2, ',', 2, -1, 1);
+    }
+    // Midground holdfast blades share their exact curve with the tail constraint.
+    if (o.scene !== 'study' || o.behavior === 'holdfast')
+        for (const member of director.members) {
+            const slot = gardenSlot(o, member.id, worldW), top = slot.anchor.y - 3.05 * slot.scale, bottom = worldH * .465;
+            const n = Math.ceil((bottom - top) / (cellH * .40));
+            for (let k = 0; k <= n; k++) {
+                const u = k / n, y = mix(top, bottom, u), p = eelgrassPoint(o, slot, member.id, t, y);
+                const halfWidth = (.025 + .030 * Math.sin(u * Math.PI)) * slot.scale;
+                for (let x = p.x - halfWidth; x <= p.x + halfWidth; x += cellW * .4)
+                    world(x, y, x < p.x ? 4 : 2, x < p.x ? '/' : ':', 2, -1, 3);
+                world(p.x, y, 3, '|', 2, -1, 3);
             }
         }
-        // A visible attachment node has the exact coordinates used by the constraint.
-        world(anchor.x, anchor.y, member.anchorId === null ? 3 : 6, member.anchorId === null ? '+' : '*', 2);
-    }
     for (const m of director.members) {
-        const seedPhase = ((o.seed * 31 + m.id * 233) % 997) / 997 * TAU;
-        const localTime = t + m.id * .53 + seedPhase;
-        const step = Math.max(.018, worldH / rows / m.scale * .42);
-        function point(x, y, tone, glyph) {
+        const step = Math.max(.015, cellH / m.scale * .32);
+        paintSeahorse(m, step, t, s.tick, o.seed, (x, y, tone, glyph, depth = 4) => {
             const p = rotateLocal({ x, y }, m.rotation, m.facing, m.scale);
-            world(p.x + m.x, p.y + m.y, tone, glyph, 3, m.id);
-        }
-        function disk(x, y, radius, tone, glyph) {
-            for (let yy = -radius; yy <= radius; yy += step)
-                for (let xx = -radius; xx <= radius; xx += step) {
-                    if (xx * xx + yy * yy <= radius * radius)
-                        point(x + xx, y + yy, tone, glyph);
-                }
-            point(x, y, tone, glyph);
-        }
-        function line(x1, y1, x2, y2, radius, tone, glyph) {
-            const n = Math.max(1, Math.ceil(Math.hypot(x2 - x1, y2 - y1) / step));
-            for (let k = 0; k <= n; k++)
-                disk(mix(x1, x2, k / n), mix(y1, y2, k / n), radius, tone, glyph);
-        }
-        function ellipse(cx, cy, rx, ry, tone, bands = false) {
-            for (let y = -ry; y <= ry; y += step)
-                for (let x = -rx; x <= rx; x += step) {
-                    const q = x * x / (rx * rx) + y * y / (ry * ry);
-                    if (q > 1)
-                        continue;
-                    const band = bands && Math.floor((y + ry) * 21) % 4 === 0;
-                    point(cx + x, cy + y, tone + (1 - q) * 1.4 - x / rx * .6 + (band ? .7 : 0), band ? '=' : undefined);
-                }
-        }
-        // Flutter is local to the fin; trunk, neck and tail keep their attachment points.
-        for (let k = 0; k < 12; k++) {
-            const a = k / 11, flutter = .05 * Math.sin(localTime * 15 + k * .55);
-            line(.37, -.60 + a * .72, .76 + flutter + .10 * Math.sin(a * Math.PI), -.66 + a * .85, .012, 3, ':');
-        }
-        const tail = [];
-        for (let k = 0; k <= 22; k++) {
-            const a = k / 22;
-            tail.push({ x: .20 + .10 * Math.sin(a * Math.PI), y: .65 + a * .65 });
-        }
-        const radius = .43 - m.curl * .13;
-        for (let k = 0; k <= 70; k++) {
-            const a = k / 70, angle = -.15 + a * Math.PI * 2.05, r = radius * (1 - a * .68);
-            tail.push({ x: .27 - radius + r * Math.cos(angle), y: 1.34 + r * Math.sin(angle) });
-        }
-        for (let k = 1; k < tail.length; k++) {
-            const a = tail[k - 1], b = tail[k], f = k / tail.length;
-            line(a.x, a.y, b.x, b.y, .105 * (1 - f) + .02, 5.5 + f * 1.5);
-        }
-        ellipse(.17, -.10, .37, .91, 5.4, true);
-        const neck = [[.10, -.70], [-.12, -.91], [-.29, -1.10], [-.23, -1.30], [-.07, -1.42]];
-        for (let k = 1; k < neck.length; k++) {
-            const a = neck[k - 1], b = neck[k];
-            line(a[0], a[1], b[0], b[1], .15, 6.2);
-        }
-        // The short articulated snout aims without stretching the neck or moving the tail grip.
-        const snoutLift = m.attention * .42;
-        ellipse(-.24, -1.41, .30, .23, 6.5);
-        line(-.44, -1.40, -.90, -1.29 + snoutLift, .075, 7);
-        line(-.90, -1.34 + snoutLift, -.91, -1.24 + snoutLift, .015, 9, '|');
-        for (let k = 0; k < 4; k++) {
-            const x = -.35 + k * .105;
-            line(x, -1.58, x + .025, -1.76 + (k % 2) * .07, .023, 7);
-        }
-        for (let k = 0; k < 9; k++) {
-            const y = -.67 + k * .15;
-            line(.39, y, .48, y + .05, .02, 6);
-        }
-        for (let k = 0; k < 6; k++)
-            line(-.13, -1.22, .12 + .035 * Math.sin(localTime * 19 + k), -1.20 + k * .045, .01, 3, '.');
-        const blink = (s.tick + m.id * 107 + o.seed * 3) % 347 < 8;
-        point(-.36, -1.46, 9, blink ? '-' : '@');
+            world(p.x + m.x, p.y + m.y, tone, glyph, 3, m.id, depth);
+        });
         if (o.labels) {
             const label = `${String(m.id + 1).padStart(2, '0')}${m.id === director.selected ? '*' : ''}`;
             const y = m.y - 2.04 * m.scale;
             for (let i = 0; i < label.length; i++)
-                world(m.x + (i - (label.length - 1) / 2) * worldW / cols, y, 7, label[i], 4, m.id);
+                world(m.x + (i - (label.length - 1) / 2) * worldW / cols, y, 7, label[i], 4, m.id, 6);
         }
     }
+    // Two low near-edge leaves frame the clearing. They do not cross the contact.
+    for (const side of [-1, 1])
+        for (let k = 0; k <= 32; k++) {
+            const u = k / 32, y = worldH * .47 - u * 1.45;
+            const x = side * worldW * (.43 - .045 * u * u) + .035 * Math.sin(t * .56 + side) * u;
+            world(x, y, 3, side < 0 ? '/' : '\\', 2, -1, 5);
+            if (u < .7)
+                world(x + cellW * side, y, 2, '|', 2, -1, 5);
+        }
     const layerNames = ['water', 'water', 'kelp', 'animal', 'label'];
     const cells = Object.freeze(glyphs.map((glyph, i) => Object.freeze({ glyph, tone: tones[i], owner: owners[i], layer: layerNames[layers[i]] })));
     const text = Array.from({ length: rows }, (_, row) => glyphs.slice(row * cols, (row + 1) * cols).join('')).join('\n');
@@ -598,7 +647,7 @@ export function createSeahorseArtwork(canvas, input = {}) {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = `${Math.min(ch * .94, cw / .60)}px ui-monospace,SFMono-Regular,Consolas,monospace`;
-        const palette = o.palette === 'brass' ? [232, 185, 105] : o.palette === 'lagoon' ? [119, 218, 204] : [227, 154, 180];
+        const palette = o.palette === 'brass' ? [235, 204, 154] : o.palette === 'lagoon' ? [119, 218, 204] : [227, 154, 180];
         for (let i = 0; i < frame.cells.length; i++) {
             const cell = frame.cells[i];
             if (cell.glyph === ' ')

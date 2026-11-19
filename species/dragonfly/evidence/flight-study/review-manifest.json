@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "species": "dragonfly",
+  "baseCommit": "b8f222dab868821f27bf2a64a98434f3483fc8e6",
+  "branch": "feat/dragonfly-flight-study",
+  "scope": "Only species/dragonfly; no shared engines, public entry points, root distributions, workflows, merge or deployment.",
+  "runtime": {
+    "node": "24.22.3",
+    "typescript": "5.9.3",
+    "npm": "11.9.0",
+    "nativeCanvas": "@napi-rs/canvas 0.1.100",
+    "ffmpeg": "7.1.5"
+  },
+  "appSourceSha256": {
+    "species/dragonfly/src/types.ts": "c89ac7f1b81e9f299830ff6e3d5a30575c329c6f5d1bd408f1f032fa4d76c3cd",
+    "species/dragonfly/lib/types.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "species/dragonfly/src/model.ts": "99e42872a38a99902e74fce5612ffa328682d291ec63d550c697d0bd854290fe",
+    "species/dragonfly/lib/model.js": "d99009209550c57808852e9df075300fd2c4e169ee85b40c950a131e7998fcfb",
+    "species/dragonfly/src/geometry.ts": "cb7b91d18bd7d994d717147e3065516f406c00afa639b53d01fcafa60c0364f6",
+    "species/dragonfly/lib/geometry.js": "2ed68847e2787a850df041c92b55e4835056923b7a03d0b3f33776fdb0d30e4c",
+    "species/dragonfly/src/director.ts": "335effa7aaaaf400799d5ac1a515485a70628cb131125829fad9d90e3e9d4378",
+    "species/dragonfly/lib/director.js": "b1bc5f8faa5a581d8203e012396cee70910ac7fecc7db0e3bee8d5dcf4885ef0",
+    "species/dragonfly/src/preview.ts": "12536c5aae73cc98bf1a690b919369a9914cf0893be2a2f43f9fde75d2933611",
+    "species/dragonfly/lib/preview.js": "bb4bdb40fb4131eb5178c7126be5bc1d0ea61bc2b488a78d79fd23c581477c0f",
+    "species/dragonfly/src/pond-preview.ts": "9a1a6a3fab7f3ac61bc5f1215ab7ba64bf41e305deb6ca2113d56603f6f8c12a",
+    "species/dragonfly/lib/pond-preview.js": "60688c582b692a894080a1a9abdbedbfce8ba8e54e3d958222a9bf52620b2dca",
+    "species/dragonfly/src/browser.ts": "b2a382fe73152c9f0b0480b5d70545813956c99fbbc7a2890046a310968a5808",
+    "species/dragonfly/lib/browser.js": "b5c7245ad60183c29ea05e5c03608bf1a72c9d2c5671bae8e9ef7851aa27f936",
+    "species/dragonfly/src/demo.ts": "a1d80aa068305a86b20aa8a464f8b0af9ebf2f2daf75654aa64b71cb7868ef60",
+    "species/dragonfly/lib/demo.js": "24b5f34a9042b456d678db2635ac8fc2ea0173665b8e60c8dfba1274a1c69a0d"
+  },
+  "testedSourcePatchSha256": "21292c4f0e99726ba66a85a66b134f50a93accce41498f84a598d9644af97077",
+  "tests": {
+    "repository": {
+      "command": "npm test",
+      "pass": 628,
+      "fail": 0,
+      "skip": 0
+    },
+    "types": {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    "package": {
+      "command": "node scripts/check-package.mjs --report package-check.json",
+      "exitCode": 0,
+      "status": "passed-with-unrun-optional-checks",
+      "passed": [
+        "repeatable tarball",
+        "offline consumer",
+        "SSR",
+        "NodeNext types",
+        "Bundler types",
+        "core-server types"
+      ],
+      "unrun": [
+        "esbuild",
+        "Rollup",
+        "Webpack",
+        "browser harness"
+      ]
+    },
+    "independentBoundarySweep": {
+      "cases": 16,
+      "clippedSamples": 0,
+      "failures": 0,
+      "maxAccelerationDividedByPace": 9.000000000000007,
+      "minimumTailwardExcursion": 0.4528630508461057
+    },
+    "compiledDemoMock": {
+      "checksPassed": 7,
+      "scope": "offscreen intent, ordered coalescing, reentrancy and cancellation; instrumented DOM, not browser"
+    }
+  },
+  "visualEvidence": {
+    "engine": "native Canvas, exact compiled source",
+    "browserScreenshot": false,
+    "cssLayoutVerified": false,
+    "physicalTouchVerified": false,
+    "seed": 17,
+    "view": "oblique",
+    "desktop": {
+      "canvas": [
+        1174,
+        640
+      ],
+      "grid": [
+        156,
+        68
+      ],
+      "intendedViewport": [
+        1440,
+        1000
+      ]
+    },
+    "phone": {
+      "canvas": [
+        356,
+        360
+      ],
+      "grid": [
+        72,
+        44
+      ],
+      "intendedViewport": [
+        390,
+        844
+      ]
+    },
+    "animations": {
+      "files": [
+        "pond-motion.gif",
+        "attention-motion.gif"
+      ],
+      "framesEach": 256,
+      "captureFps": 15,
+      "simulationHz": 60,
+      "ticks": [
+        0,
+        1020
+      ],
+      "clippedSamplesAcrossBoth": 0,
+      "boundary": "The GIF reset is a replay restart, not a seamless-loop claim."
+    },
+    "eventLog": [
+      {
+        "type": "pointer",
+        "tick": 60,
+        "seq": 0,
+        "x": 0.3,
+        "y": -0.3
+      },
+      {
+        "type": "cue",
+        "tick": 120,
+        "seq": 1,
+        "cue": "dart"
+      },
+      {
+        "type": "leave",
+        "tick": 400,
+        "seq": 2
+      },
+      {
+        "type": "cue",
+        "tick": 480,
+        "seq": 3,
+        "cue": "perch"
+      },
+      {
+        "type": "cue",
+        "tick": 780,
+        "seq": 4,
+        "cue": "return"
+      }
+    ],
+    "comparisonFiles": [
+      "dragonfly-desktop-before-after.png",
+      "dragonfly-phone-before-after.png",
+      "dragonfly-solo-before-after.png",
+      "dragonfly-phone-brake-before-after.png",
+      "dragonfly-phone-perch-before-after.png"
+    ],
+    "critiqueFix": "At phone braking tick177, a one-time retreat-lane choice reduced Azure/Ember overlap20 to8cells; Ember retained60/68cells instead of49/68. Selected Azure retained72/72."
+  },
+  "budgets": {
+    "samplesPerAnimalBefore": 4348,
+    "samplesPerAnimalAfter": 3874,
+    "maxPerAnimal": 6144,
+    "maxAnimals": 4,
+    "maxGrid": [
+      160,
+      88
+    ],
+    "maxLogicalCanvas": [
+      1200,
+      700
+    ],
+    "maxDpr": 2,
+    "maxCatchUpTicks": 5
+  },
+  "browserBoundary": {
+    "localChromium": "Launch failed before page creation: socket() failed: Operation not permitted.",
+    "cloudBrowser": "Local preview navigation failed: net::ERR_CONNECTION_REFUSED.",
+    "unrun": [
+      "real browser layout and input",
+      "physical device performance",
+      "screen-reader checks"
+    ]
+  },
+  "centralGenerationCommands": [
+    "npm ci --ignore-scripts --no-audit --no-fund",
+    "node scripts/build.mjs",
+    "npm run typecheck",
+    "npm test",
+    "node scripts/check-package.mjs --report artifacts/dragonfly-package-check.json"
+  ],
+  "references": [
+    "https://australian.museum/learn/species-identification/ask-an-expert/what-do-dragonflies-and-damselflies-look-like/",
+    "https://australian.museum/learn/animals/insects/dragonflies-and-damselflies-order-odonata/",
+    "https://www.museum.qld.gov.au/learn-and-discover/animals-of-queensland/insects/dragonflies-and-damselflies"
+  ],
+  "rights": "Original procedural geometry and habitat; no reference photography, ASCII drawings, meshes or font binaries copied. Existing project licensing retained."
+}

@@ -1,6 +1,10 @@
 # Pufferfish: explicit typed adapter and optional director
 
-`createPufferfishArtwork` is available from `ascii-animals-review/pufferfish` and the package root. Omit `director` to keep the original centered solo encounter and its existing defaults. Supplying `director` opts into one to three visitors with individual roles and a shared scene clock.
+## Current uplift and compatibility
+
+The fine-spine and recovery uplift starts from main `b8f222dab868821f27bf2a64a98434f3483fc8e6`, verified on **2026-11-19 UTC**. Public types, factory names, options, validation, input events and lifecycle semantics are unchanged. The revised geometry, material, reef composition and choreography are described in [the uplift brief](../species/pufferfish/UPLIFT-BRIEF.md). Exact-source verification and evidence belong to [the uplift review](../species/pufferfish/UPLIFT-REVIEW.md); earlier director and solo evidence is historical.
+
+`createPufferfishArtwork` is available from `ascii-animals-review/pufferfish` and the package root. Omit `director` to keep the centered solo encounter and its existing configuration defaults. Supplying `director` opts into one to three visitors with individual roles and a shared scene clock.
 
 ```ts
 import { createPufferfishArtwork } from 'ascii-animals-review/pufferfish';
@@ -57,6 +61,8 @@ When roles are omitted, their order is explorer, sentinel, drifter, truncated to
 
 A cycle spans 1,200 scene ticks. At tempo 1 that is 20 simulated seconds. Actor movement approaches targets with bounded velocity. Each actor retains the original deliberate dwell, belly inflation, short-spine extension, hold, recovery and cooldown. Scene tempo does not shorten those safety timings. There is no growing pulse, particle or action queue.
 
+The current uplift develops two distinct encounters within those existing scenes and inputs. A reef invitation begins with 30 ticks of braking, then a cautious approach, inspection and backing away into drift. A defensive approach produces a short recoil before belly expansion and spine erection, holds position while guarded, then releases volume across three stages with two hesitation shelves before controlled drift resumes. Default notice/belly/spine/hold/recovery/cooldown durations remain **30 / 42 / 36 / 180 / 150 / 180 ticks**. The recovery shelves are authored animation, not a claim about the timing of real pufferfish recovery.
+
 ## Input, snapshots and controls
 
 `invite(x = 0, y = -0.25)` and `approach()` address the selected visitor. `retreat()` clears invitations/proximity and gives the whole scene space; the pure director gives retreat precedence over simultaneous cues and suppresses automatic threat cues for 240 simulation ticks. The `pulse()` factory alias remains an approach. These actions return a discriminated `PufferfishActionResult`: `queued`, `static-poster`, or `suspended`.
@@ -80,12 +86,12 @@ Species options remain `seed`, `approachRadius`, `retreatRadius`, `dwellTicks`, 
 Rendering supports:
 
 - `view`: `front`, `left`, `right`; default `right`.
-- `quality`: `small` (72 columns), `standard` (120), `fine` (160); library default `standard`, director demo default `fine`.
+- `quality`: `small` (up to 72 columns), `standard` (up to 120), `fine` (up to 160); library default `standard`, director demo default `fine`. At logical widths up to 520 pixels, both `standard` and `fine` use a 96-column ceiling. That ceiling interpolates to the selected wide-view maximum at 700 pixels. The 90-row ceiling may reduce the effective column count further.
 - `mode`: `ascii` or `points`; default `ascii`. Both use the canonical render path.
 - `monochrome`: boolean, default `false`.
 - `maxDpr`: finite `1…2`, default `2`.
 
-The original sample geometry remains parametric: round bodies, readable eyes, broad fins, short tails and radial spines. The scene uses bounded ensemble detail and original sparse reef geometry, with a whole-scene ceiling of 16,000 samples. Grid and render limits remain 160×90 cells, 1,200×675 logical pixels and DPR at most 2. These are allocation/work budgets, not a measured FPS claim.
+Geometry remains procedural and species-local. The revised animal has an oblong Arothron-inspired resting trunk, disproportionate belly/flank expansion, fixed surface spots, a pale underside and fine skin spinules. The muzzle, lateral iris caps, small fins and short fan tail remain readable as the trunk changes shape. Surface markings stay attached to the stretching skin; they are not randomized each frame. The scene uses bounded ensemble detail with sparse reef relief and particulate depth. Its whole-scene ceiling remains 16,000 samples; the latest reviewed three-actor frame used 15,622. Grid and render limits remain 160×90 cells, 1,200×675 logical pixels and DPR at most 2. These are allocation/work budgets, not a measured FPS claim.
 
 Three-visitor compositions apply a visual geometry multiplier of `0.72` through 520 logical pixels wide, interpolating smoothly to `1` at 700 pixels. Centers stay in the same normalized coordinates; visible-cell selection uses the actual reduced geometry. The private painter reports that multiplier as `sceneScale`. The director's proximity threshold remains a logical interaction radius around the actor center, not an exact pixel-silhouette hit test. Narrow ensemble labels show names; the semantic roster retains roles and motives. This bounded correction addresses the recorded mobile crowding without changing solo geometry.
 
@@ -99,11 +105,13 @@ Pause, reduced motion, hidden/offscreen state, zero size and compact view suspen
 
 The original controller names remain available: `configure`, `setPaused`, `reset`, `approach`, `retreat`, `getSnapshot`, `getStatus`, `exportText`, `destroy`. Factory aliases remain `update`, `play`, `pause`, `restart`, `pulse`, `dispose`. Disposal is idempotent; other mutations reject afterwards, while state/status remain inspectable. No seconds-based `advance` alias is invented.
 
-The private painter calls actual canonical `render`, `makeAtlas`, `_put` and `_rasterize` methods without constructing a marine animal or copying a renderer. Future canonical changes must rerun compatibility checks. `npm run build` compiles authoritative `species/pufferfish/src` and generates `dist/pufferfish/` with its canonical ESM dependencies. The source demo's legacy-shaped mount is transformed by the Pufferfish-specific builder; the generated integrated demo has no global renderer dependency.
+The private painter calls actual canonical `render`, `makeAtlas`, `_put` and `_rasterize` methods without constructing a marine animal or copying a renderer. Future canonical changes must rerun compatibility checks. `npm run build` compiles authoritative `species/pufferfish/src` and generates package modules, species builds and `dist/pufferfish/` with its canonical ESM dependencies. The source demo's legacy-shaped mount is transformed by the Pufferfish-specific builder; the generated integrated demo has no global renderer dependency. This uplift patch includes source only; central integration must run `npm run build` to regenerate the outputs, none of which are included in the patch.
 
 ## Provenance and acceptance boundary
 
-This director starts from current integrated main `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`, after release `c06114404900884814bef879a02f1a49a3e7d590`. It extends the integrated species rather than replaying the historical handoff branch. The pre-implementation [director brief](../species/pufferfish/DIRECTOR-BRIEF.md) records anatomy, scenes, deterministic inputs, budgets and acceptance gates.
+The current uplift uses the `b8f222dab868821f27bf2a64a98434f3483fc8e6` base stated above. Its [native capture script](../species/pufferfish/scripts/capture-uplift-native.mjs) records the exact freshly built source/runtime hashes, matched desktop and phone settings, state/cell/pixel hashes and motion excerpts through native Skia Canvas. Those captures are not browser evidence. The separate [real-Chromium harness](../species/pufferfish/scripts/review-uplift.mjs) is supplied for central review, but local Chromium was blocked before loading a page, and the cloud-browser route could not reach the local service and encountered a policy block. No new browser acceptance is claimed. Syntax validation alone is not a pass of the harness or its assertions.
+
+The **earlier shipped director** started from integrated main `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`, after release `c06114404900884814bef879a02f1a49a3e7d590`. Its [director brief](../species/pufferfish/DIRECTOR-BRIEF.md) records that revision's anatomy, scenes, deterministic inputs, budgets and acceptance gates.
 
 The original recovered handoff had head `35b9e643037ac39b9db18563828beaf7ca2b458a`, tree `88d7136f980b3366439118617fba3045975346fd`, and tested base `0e446c47b491b751d484e40db753ec725652b515`. Only its species paths were integrated. The original renderer hash is retained as historical provenance against a frozen oracle; the current demo uses the canonical module.
 
@@ -111,4 +119,4 @@ The released solo integration received the bounded Chrome review recorded in [vi
 
 The package remains private and unpublished. This implementation does not authorize npm publication, deployment or changes to the shared catalogue.
 
-See [director verification](../species/pufferfish/DIRECTOR-VERIFICATION.md) for the current test results and remaining gates, and [native evidence](../species/pufferfish/evidence/director/README.md) for actual rendered artifacts and the bounded critique loop.
+See [uplift review](../species/pufferfish/UPLIFT-REVIEW.md) for this revision's exact commands, evidence and remaining gates. [Director verification](../species/pufferfish/DIRECTOR-VERIFICATION.md) and [director native evidence](../species/pufferfish/evidence/director/README.md) remain historical records of the earlier director revision.

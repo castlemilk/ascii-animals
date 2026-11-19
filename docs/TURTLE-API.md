@@ -25,7 +25,10 @@ const art = createTurtleArtwork(canvas, {
 
 art.stage('arrival'); // Deliberately compose a visible moment in the arrival.
 art.select(1);
-art.inspect(0.15, 0.35); // Invite only the selected traveler toward this point.
+art.inspect(0.15, 0.35); // Midwater: inspect while continuing forward.
+// Upper/lower water are contextual species cues through the same API:
+// art.inspect(0, -0.9); // Surface for air, then recover.
+// art.inspect(0,  0.9); // Dive, level out, and recover.
 art.update({ current: -0.65, route: 'channel' });
 const unsubscribe = art.subscribe(status => {
   // Semantic changes, not a second animation loop.
@@ -48,15 +51,18 @@ the existing four turtle values remain `createTurtleArtwork`, `createTurtleModel
 ## Compatibility
 
 Calling `createTurtleModel()` or `createTurtleArtwork(canvas)` still selects the
-original **single, centered study**. Existing option names, methods, tick bounds,
+**single, centered study** with a horizontal tracking view. Existing option names, methods, tick bounds,
 and the `idle → inspect → streamline → settle` response remain available.
 `getState()` keeps exactly `{ tick, responseTick, targetX, targetY }`.
 Director state is returned separately by `getDirectorState()`.
 
-The demo opts into the ensemble explicitly. `direct('study')` returns to the
-original composition. Director-only controls are disabled there; `count`, routes,
+The demo opts into the ensemble explicitly (one traveler on an initially narrow
+screen). `direct('study')` returns to the centered composition. Director-only controls are disabled there; `count`, routes,
 individual overrides, labels, and scene timing affect authored scenes. `scale`,
-`behavior`, `facing`, `palette`, `guide`, and `pulse` retain their study behavior.
+`behavior`, `facing`, `palette`, `guide`, and `pulse` remain available in the study.
+Its art and motion are intentionally improved; pixel parity with the flat-shell
+baseline is not promised. The tracking view keeps the turtle visible through
+repeated breaths while passing water expresses its forward progress.
 
 Frames keep `columns`, `rows`, `cells`, `text`, and the legacy `phase`. Produced
 cells additionally include `ownerId: number | null` for visible-glyph targeting.
@@ -101,7 +107,7 @@ caller-owned override arrays are copied.
 | `seed` | 7 | Integer 0–2,147,483,647; deterministic identities/cadence |
 | `speed` | 1 | .25–2; director and local-motion pace |
 | `scale` | 1 | .6–1.3; overall geometry scale |
-| `sway` | .18 | 0–.4; bounded idle path variation |
+| `sway` | .18 | 0–.4; bounded vertical trim in the solo study |
 | `facing` | `left` | `left`, `right`; passage direction |
 | `behavior` | `glide` | `glide`, `curious`, `rest`; curious gives guide interest a wider reach, rest quiets flippers |
 | `palette` | `brass` | `brass`, `lagoon`, `rose` |
@@ -112,7 +118,7 @@ caller-owned override arrays are copied.
 | `route` | `shelf` | `shelf`, `channel`, `arc`; lane shape/composition |
 | `spacing` | 1 | .6–1.6; lane separation, bounded at outer stage margins |
 | `depth` | .5 | 0–1; overall water depth, keeping per-member depth differences |
-| `current` | -.25 | -1–1; west to east. Shared signed drift, scenery flow, and stroke effort/duty change with assistance relative to travel direction |
+| `current` | -.25 | -1–1; west to east. Signed lane offset, scenery flow and stroke cadence change with assistance relative to travel direction |
 | `director` | `loop` | `loop`, `once`, `hold` |
 | `arrivalSeconds` | 8 | 4–20 scene seconds |
 | `lingerSeconds` | 18 | 6–45 scene seconds |
@@ -168,10 +174,12 @@ console.log(model.frame().text);
 Directed responses use raw ticks: **inspect 0–89 → bank 90–159 → recover 160–279**,
 then ordinary motion. Repeated moving invitations during the response and until
 tick 340 from its trigger do not restart it or enqueue work. Deliberate static
-invitations may replace a previous still pose. Inspection displacement is limited
-against the authored neighbor footprints so a request does not collapse the
-existing silhouette separation. It is not a collision physics engine; extreme
-user compositions can intentionally overlap.
+invitations may replace a previous still pose. A cue advances along the facing direction and recovers depth/attitude along the
+continuing path. Earned forward distance is retained instead of pulling the body
+back to its old slot. Midwater interest is a smaller excursion; breathing and
+diving can cross another traveler’s lane. Depth compositing resolves their
+visibility; this is not a collision physics engine, and user compositions can
+overlap.
 
 Autonomous member `motion` is one of `gliding`, `stroking`, `banking`, `inspecting`,
 `resting`, `recovering`, or `surfacing`. `reaction` is the discriminated union
@@ -183,12 +191,54 @@ The legacy study response remains inspect at ages 0–44, streamline at 45–109
 settle at 110–179, then idle. It still ignores repeated greetings while active;
 `greet(true)` selects the age-70 streamline poster.
 
+
+## Shell, strokes and contextual cues
+
+The independently authored green-turtle geometry uses one domed shell surface
+for its silhouette, five central scutes, four paired side scutes, rim and material
+streaks. Flippers rotate about fixed shoulder roots and carry their own local skin
+coordinates. A shared foreflipper cycle has a short working stroke, inward sweep,
+slow recovery and extended coast; the rear paddles make smaller trim movements.
+No texture uses screen coordinates or animated noise.
+
+`inspect(x, y, id?)` interprets the finite normalized target as follows:
+
+| Target | Directed intention |
+| --- | --- |
+| `y <= -.55` | Lift the head, ascend, meet the surface with the projected snout, breathe briefly, then recover forward |
+| `y >= .55` | Anticipate, commit to a downward stroke, level out and regain the cruising depth |
+| Between these values | Make a smaller inspection while continuing forward |
+
+The original public phase names and raw-tick durations above remain unchanged.
+They are compatibility phases, not labels for physiological stages. The exact
+breath duration is deliberately compressed for the artwork. The snout's contact
+constraint uses the same body projection as rendering; specimen scale, lifted
+neck and pitched shell cannot move the ripple away from its water surface.
+
+Lookouts and the single study can breathe autonomously between deliberate cues.
+A deliberate cue has priority over a later autonomous breath. No queued cue is
+created when another is active. Pointer hover only suggests head interest;
+pressing/tapping upper or lower water, B/D on the focused canvas, and the two demo
+buttons all reach the same `inspect()` path. Paused/reduced-motion cues choose
+static poses without advancing a tick or starting a scheduler.
+
+Nominal route progress resets at offstage cycle boundaries, independently of the
+continuing flipper clock. Held scenes wrap only while the whole turtle is outside
+the view; the solo tracking view remains centered. Changing a removed member back
+to active resets its private travel state while preserving its configured identity.
+
+References and the authoring/acceptance record are in
+[`species/turtle/UPLIFT.md`](../species/turtle/UPLIFT.md). All images are original
+procedural renders; no reference photographs, models or font files are included.
+
 ## Clocks, loops, and reproducibility
 
 The model uses integer simulation ticks at 60 Hz. Director/local-motion time
 accumulates `speed / 60` per tick, so changing pace does not re-evaluate a previous
 clock through a new multiplier. Reaction timing uses raw ticks independently of
-pace. The original study retains its historical sampled `tick * speed` motion.
+pace. The study, habitat and director all use accumulated motion time, so a speed
+change does not re-evaluate previous time through a new multiplier. Materials
+use only local coordinates and contain no time input.
 
 `loop` resets the route only after all travelers have departed offstage. `once`
 ends with `phase: 'complete'`; the browser then releases its scheduler subscription.
@@ -219,8 +269,8 @@ are synchronous consumer code and should not throw or reconfigure recursively.
 - Pointer leave, cancel, lost capture, or blocking clears transient hover guidance.
   Deliberate keyboard/control/inspection markers remain until cleared. The adapter
   does not capture pointers or prevent touch scrolling.
-- On a focusable canvas only, arrows place a guide, Enter invites inspection, and
-  Escape clears it. Tab and modified keys are untouched. Consumers own `tabindex`,
+- On a focusable canvas only, B invites a breath and D a dive (case-insensitive).
+  Arrows place a guide, Enter responds to it, and Escape clears it. Tab and modified keys are untouched. Consumers own `tabindex`,
   semantic labels, the pause button, and the surrounding control surface.
 - User pause, reduced motion, hidden document, offscreen state, zero size, completed
   one-pass scene, and disposal compose independently. Clearing one cannot clear
@@ -247,7 +297,7 @@ slot; no queued invitations, particle pool, timer, downloaded font, or runtime
 package dependency. Backing dimensions retain the integrated limits of 2048 per
 logical axis and DPR ≤2: at most 4096×4096 pixels. These are bounds, not FPS claims.
 
-The demo chooses 160×64 cells on desktop or 100×40 on an initially narrow screen.
+The demo chooses 160×64 cells on desktop or 100×40 and one initial traveler on a narrow screen.
 At 390px native capture the small names are supplementary; the readable HTML
 roster is the primary selection surface. Actual phone/browser accessibility is a
 remaining gate.
@@ -257,19 +307,25 @@ Reproduce the implemented checks from a fresh checkout:
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
-node --test test/turtle.test.mjs test/turtle-director.test.mjs
+node --test test/turtle.test.mjs test/turtle-director.test.mjs species/turtle/tests/uplift.test.mjs
 node node_modules/typescript/bin/tsc -p species/turtle/tests/tsconfig.json
 npm run typecheck
 npm test
 npm run check:package
 ```
 
-`node species/turtle/scripts/render-evidence.mjs <directory> --gif` captures the
+`node species/turtle/scripts/render-uplift.mjs <directory> --motion` captures the
 actual controller with a real native Canvas context and a mocked document/scheduler
 host. It requires the optional installed `@napi-rs/canvas` verification
 tool (and `ffmpeg` for GIF); these are not production dependencies. The runner
 checks compiled source-map parity before capturing and records exact options,
 ticks, hashes, native version and resource cleanup in its manifest.
+
+The uplift runner pins the baseline to `b8f222dab868821f27bf2a64a98434f3483fc8e6`
+and uses identical options, seed, ticks and events for both revisions. Its motion
+comparison contains two explicit seven-second takes separated by public restart
+and stage calls, so the entire recovery remains visible. Encoded frame rate is
+not measured browser performance.
 
 Native Canvas pictures support geometry/composition critique. They are **not
 browser screenshots, responsive CSS acceptance, phone tests, or performance

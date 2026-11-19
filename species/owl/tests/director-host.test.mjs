@@ -235,6 +235,123 @@ test('director updates retain sparse status, lifecycle policy and late-callback 
   assert.throws(() => c.cue({ kind: 'call' }), /disposed/);
 });
 
+test('flight freezes in place on pause and reduced motion, with grounded deliberate stills and complete disposal', () => {
+  const h = browserHarness(), c = h.mount({ director: { count: 1, autonomous: false } });
+  h.intersect(); h.frame(0);
+  assert.equal(c.cue({ kind: 'flight' }).kind, 'queued');
+  for (let frame = 1; frame <= 125; frame++) h.frame(frame * STEP);
+  assert(c.getSnapshot().displayed.presentation.airborne > .9);
+  const simulation = c.getDirectorSnapshot(), text = c.exportText();
+  c.setPaused(true); h.reduced(true);
+  assert.deepEqual(c.getStatus().blockedBy, ['paused', 'reduced-motion']);
+  assert.equal(c.getDirectorSnapshot(), simulation);
+  assert.equal(c.exportText(), text, 'suspension freezes the complete flight composition');
+  assert.equal(h.queue.size, 0);
+  h.pointer('pointermove'); h.frame(10000);
+  assert.equal(c.exportText(), text);
+  assert.equal(c.cue({ kind: 'flight' }).kind, 'poster');
+  assert.equal(c.getDirectorSnapshot(), simulation);
+  assert.equal(c.getSnapshot().director.poster, true);
+  assert.equal(c.getSnapshot().displayed.presentation.airborne, 0);
+  assert.equal(c.getSnapshot().displayed.presentation.lift, 0);
+  c.reset(); c.setPaused(false);
+  assert.equal(c.getDirectorSnapshot().tick, 0);
+  assert.equal(c.getStatus().running, false, 'Play/Reset do not override reduced motion');
+  assert.equal(h.queue.size, 0);
+  h.reduced(false);
+  const savedCallbacks = [...h.queue.values()], savedObservers = [...h.allObservers];
+  c.dispose(); c.dispose();
+  for (const callback of savedCallbacks) callback(20000);
+  for (const observer of savedObservers) observer.callback([{ target: h.host, isIntersecting: true, intersectionRatio: 1 }]);
+  assert.equal(h.resourceCount, 0);
+  assert.equal(h.host.children.length, 0);
+  assert.throws(() => c.cue({ kind: 'flight' }), /disposed/);
+});
+
+test('a 326px host keeps solo and stacked duet running with their intended minimum grids', () => {
+  for (const count of [1, 2]) {
+    const h = browserHarness(); h.host.rect.width = 326; h.host.rect.height = count === 1 ? 470 : 844;
+    const c = h.mount({ director: { count, autonomous: false } });
+    h.intersect(); h.frame(0); h.frame(STEP);
+    assert.equal(c.getStatus().running, true);
+    assert.equal(c.getDirectorSnapshot().tick, 1);
+    assert(!c.getStatus().blockedBy.includes('small-container'));
+    assert.equal(c.getStatus().cols, count === 1 ? 64 : 80);
+    assert.equal(c.getStatus().rows, count === 1 ? 36 : 90);
+    assert.equal(c.getSnapshot().grid.layout, count === 1 ? 'solo' : 'stacked');
+    assert.equal(c.getSnapshot().director.actors.length, count);
+    h.resize(319, 470); assert(c.getStatus().blockedBy.includes('small-container'));
+    h.resize(326, count === 1 ? 470 : 844); assert.equal(c.getStatus().running, true);
+    c.dispose(); assert.equal(h.resourceCount, 0);
+  }
+});
+
+test('touch rustles only after a stationary pointerup and never prevents the pointer default', () => {
+  const h = browserHarness(), c = h.mount({ director: { autonomous: false } });
+  h.intersect(); h.frame(0);
+  const touch = (type, x, y) => {
+    const event = new Event(type, { cancelable: true });
+    Object.assign(event, { pointerType: 'touch', pointerId: 11, button: 0, clientX: x, clientY: y });
+    h.host.dispatchEvent(event); assert.equal(event.defaultPrevented, false);
+  };
+  touch('pointerdown', 220, 200);
+  assert.equal(c.getStatus().queuedInputs, 0, 'contact alone is not a deliberate tap');
+  h.frame(STEP); assert.equal(c.getDirectorSnapshot().cue, null);
+  touch('pointermove', 225, 203);
+  touch('pointerup', 225, 203);
+  assert.equal(c.getStatus().queuedInputs, 2, 'one coalesced guide plus the completed tap');
+  h.frame(STEP * 2);
+  assert.equal(c.getDirectorSnapshot().cue.kind, 'rustle');
+  assert.equal(c.getDirectorSnapshot().cue.target, 0);
+  c.dispose(); assert.equal(h.resourceCount, 0);
+});
+
+test('touch scrolling, cancellation and mismatched contacts do not enqueue a rustle', () => {
+  for (const scenario of ['scroll', 'return-after-scroll', 'pointercancel', 'lostpointercapture', 'pointerleave', 'other-contact']) {
+    const h = browserHarness(), c = h.mount({ director: { autonomous: false } });
+    h.intersect(); h.frame(0);
+    const touch = (type, x = 220, y = 200, pointerId = 11) => {
+      const event = new Event(type, { cancelable: true });
+      Object.assign(event, { pointerType: 'touch', pointerId, button: 0, clientX: x, clientY: y });
+      h.host.dispatchEvent(event); assert.equal(event.defaultPrevented, false);
+    };
+    touch('pointerdown');
+    if (scenario.includes('scroll')) {
+      touch('pointermove', 220, 235);
+      if (scenario === 'return-after-scroll') touch('pointermove');
+      touch('pointerup', 220, scenario === 'scroll' ? 235 : 200);
+    } else if (scenario === 'other-contact') touch('pointerup', 220, 200, 22);
+    else { touch(scenario); touch('pointerup'); }
+    h.frame(STEP);
+    assert.equal(c.getDirectorSnapshot().cue, null, `${scenario} must not become a tap`);
+    c.dispose(); assert.equal(h.resourceCount, 0);
+  }
+});
+
+test('pause, reset and reduced-motion changes discard an unfinished touch before pointerup', () => {
+  for (const interruption of ['pause', 'reset', 'reduced-motion']) {
+    const h = browserHarness(), c = h.mount({ director: { count: 1, autonomous: false } });
+    h.intersect(); h.frame(0);
+    const touch = type => {
+      const event = new Event(type, { cancelable: true });
+      Object.assign(event, { pointerType: 'touch', pointerId: 11, button: 0, clientX: 220, clientY: 200 });
+      h.host.dispatchEvent(event);
+    };
+    touch('pointerdown');
+    if (interruption === 'pause') c.setPaused(true);
+    else if (interruption === 'reset') c.reset();
+    else h.reduced(true);
+    const before = c.exportText();
+    touch('pointerup');
+    assert.equal(c.getStatus().queuedInputs, 0, `${interruption} must discard contact begun before it`);
+    assert.equal(c.exportText(), before, 'a stale release must not select a deliberate still');
+    assert.equal(c.getSnapshot().director.poster, false);
+    c.setPaused(false); h.reduced(false); h.frame(10000); h.frame(10000 + STEP);
+    assert.equal(c.getDirectorSnapshot().cue, null);
+    c.dispose(); assert.equal(h.resourceCount, 0);
+  }
+});
+
 function browserHarness() {
   const queue = new Map();
   let nextFrame = 1;

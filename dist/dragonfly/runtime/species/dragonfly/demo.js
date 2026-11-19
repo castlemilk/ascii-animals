@@ -39,12 +39,13 @@ function initializeDragonflyDemo() {
     const sceneNames = { patrol: 'Pond patrol', attention: 'Hovering attention', relay: 'Reed relay' };
     const phaseNames = { patrol: 'Patrolling', attention: 'Watching', hover: 'Hovering', launch: 'Lifting off', dart: 'Darting', settle: 'Settling', return: 'Returning', land: 'Landing', perched: 'Perched', cooldown: 'Resting' };
     let host = null;
+    let pendingVisibleActions = {};
     const teardown = [];
     function status(value) {
         pause.textContent = value.paused ? 'Resume' : 'Pause';
         pause.setAttribute('aria-pressed', String(value.paused));
         const still = value.reducedMotion || value.motion === 'static' || value.paused;
-        dartLabel.textContent = still ? 'Change still pose' : 'Dart & return';
+        dartLabel.textContent = still ? 'Change still pose' : 'Dart backward';
         perch.disabled = still;
         resume.disabled = still;
         perch.title = resume.title = still ? 'Flight cues are available in Natural or Slow motion. Change still pose remains available.' : '';
@@ -82,16 +83,44 @@ function initializeDragonflyDemo() {
         const chosen = pond.members.find(member => member.id === pond.selected);
         selectedLabel.textContent = chosen ? `${chosen.label} / ${String(pond.selected + 1).padStart(2, '0')}` : 'a visitor';
         selectedState.textContent = chosen ? `${chosen.role[0].toUpperCase()}${chosen.role.slice(1)} · ${still ? 'A moment of stillness.' : phaseNames[chosen.phase.kind] ?? chosen.phase.kind}` : 'Choose a visitor.';
+        if (host && !value.hidden && !value.offscreen && !value.zeroSized && !value.disposed)
+            flushVisibleActions();
     }
     function listen(target, event, action) { target.addEventListener(event, action); teardown.push(() => target.removeEventListener(event, action)); }
     function announce(message) { actionStatus.textContent = message; }
-    function applyDirector(patch, message) { host?.configureDirector(patch); announce(message); }
+    function flushVisibleActions() {
+        const actions = pendingVisibleActions;
+        pendingVisibleActions = {};
+        // Selection precedes guide/cue, even if an offscreen control scrolled the
+        // canvas and another control was used before IntersectionObserver delivered.
+        for (const kind of ['selection', 'guide', 'cue'])
+            actions[kind]?.();
+    }
+    function withVisiblePond(kind, action) {
+        if (!host)
+            return;
+        const value = host.getStatus();
+        if (value.hidden || value.zeroSized || value.disposed)
+            return;
+        pendingVisibleActions[kind] = action;
+        if (value.offscreen) {
+            announce('Bringing the pond into view.');
+            canvas.scrollIntoView({ block: 'center', behavior: 'auto' });
+        }
+        else
+            flushVisibleActions();
+    }
+    function applyDirector(patch, message) { pendingVisibleActions = {}; host?.configureDirector(patch); announce(message); }
     function cue(action) {
         if (!host)
             return;
-        const before = host.getStatus();
-        host.cue(action);
-        announce(before.paused || before.motion === 'static' || before.reducedMotion ? 'An alternate still pose. The pond remains paused.' : ({ dart: 'A short dart, a steady hover, then a return to the route.', perch: 'The selected visitor is settling onto a reed.', return: 'The selected visitor is returning to its route.' }[action]));
+        withVisiblePond('cue', () => {
+            if (!host)
+                return;
+            const before = host.getStatus();
+            host.cue(action);
+            announce(before.paused || before.motion === 'static' || before.reducedMotion ? 'An alternate still pose. The pond remains paused.' : ({ dart: 'A poised lift, a backward dart, then a brake and return to hover.', perch: 'The selected visitor is lowering its feet onto the twig.', return: 'Wings gather speed, feet release, and the visitor returns to flight.' }[action]));
+        });
     }
     try {
         host = mountDragonfly(canvas, { director: { scene: 'patrol', count: 3 }, onStatus: status });
@@ -104,7 +133,7 @@ function initializeDragonflyDemo() {
         listen(route, 'change', () => applyDirector({ route: route.value }, 'The visitors are finding their new route.'));
         listen(labels, 'change', () => applyDirector({ labels: labels.checked }, labels.checked ? 'Visitor labels shown.' : 'Visitor labels hidden.'));
         for (const button of document.querySelectorAll('[data-select]'))
-            listen(button, 'click', () => { host?.selectIndividual(Number(button.dataset.select)); announce(`Visitor ${String(Number(button.dataset.select) + 1).padStart(2, '0')} selected for your next cue.`); });
+            listen(button, 'click', () => { withVisiblePond('selection', () => { host?.selectIndividual(Number(button.dataset.select)); announce(`Visitor ${String(Number(button.dataset.select) + 1).padStart(2, '0')} selected for your next cue.`); }); });
         for (const role of roleSelects)
             listen(role, 'change', () => {
                 if (!host)
@@ -126,7 +155,7 @@ function initializeDragonflyDemo() {
         listen(dart, 'click', () => cue('dart'));
         listen(perch, 'click', () => cue('perch'));
         listen(resume, 'click', () => cue('return'));
-        listen(reset, 'click', () => { host?.reset(); guide.value = 'free'; announce('Returned to the original seed and arrangement. Scene choices and pause are preserved.'); });
+        listen(reset, 'click', () => { pendingVisibleActions = {}; host?.reset(); guide.value = 'free'; announce('Returned to the original seed and arrangement. Scene choices and pause are preserved.'); });
         listen(motion, 'change', () => { host?.configure({ motion: motion.value }); announce(host?.getStatus().reducedMotion ? 'Your system requests reduced motion. The pond stays still.' : `${motion.selectedOptions[0]?.textContent ?? 'Motion'} selected.`); });
         listen(view, 'change', () => { host?.setView(view.value); announce('View changed.'); });
         listen(neutral, 'change', () => { host?.setNeutral(neutral.checked); announce(neutral.checked ? 'Neutral silhouettes. Pond context and labels are hidden for this view.' : 'Pond tones restored.'); });
@@ -136,10 +165,12 @@ function initializeDragonflyDemo() {
             const targets = { left: [-.8, 0], right: [.8, 0], up: [0, -.8], down: [0, .8], center: [0, 0] };
             const target = targets[guide.value];
             if (target)
-                host.setTarget(target[0], target[1]);
-            else
+                withVisiblePond('guide', () => { host?.setTarget(target[0], target[1]); announce(`Guiding the selected visitor ${guide.selectedOptions[0]?.textContent?.toLowerCase() ?? 'toward the center'}.`); });
+            else {
+                delete pendingVisibleActions.guide;
                 host.clearTarget();
-            announce(target ? `Guiding the selected visitor ${guide.selectedOptions[0]?.textContent?.toLowerCase() ?? 'toward the center'}.` : 'The selected visitor has returned to free flight.');
+                announce('The selected visitor has returned to free flight.');
+            }
         });
         listen(capture, 'click', () => { if (host)
             textFrame.textContent = host.exportText(); announce('Captured the pond’s character cells.'); });
@@ -158,7 +189,9 @@ function initializeDragonflyDemo() {
             }
         });
         textFrame.textContent = host.exportText();
-        listen(window, 'pagehide', () => { for (const remove of teardown.splice(0))
+        listen(document, 'visibilitychange', () => { if (document.hidden)
+            pendingVisibleActions = {}; });
+        listen(window, 'pagehide', () => { pendingVisibleActions = {}; for (const remove of teardown.splice(0))
             remove(); host?.dispose(); host = null; });
         Object.defineProperty(window, 'dragonflyPreview', { value: host, configurable: true });
     }

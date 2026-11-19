@@ -1,0 +1,16 @@
+{
+  "attempted": true,
+  "executedBrowser": false,
+  "capturedBrowserScreenshots": false,
+  "runtime": "Node v24.22.3; Playwright 1.62.1; installed Chromium 156.0.8078.79",
+  "command": "node --input-type=module -e 'import {chromium} from \"/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs\"; const browser=await chromium.launch({executablePath:\"/usr/bin/chromium\",headless:true}); console.log(await browser.version()); await browser.close();'",
+  "exitCode": 1,
+  "error": "browserType.launch: Target page, context or browser has been closed",
+  "fatal": "FATAL:chrome/browser/process_singleton_posix.cc:297 Check failed: . socket() failed: Operation not permitted (1)",
+  "boundary": "The installed browser could not launch under the environment's process/socket permissions. No security override was attempted. All generated before images are native @napi-rs/canvas renders, not browser screenshots.",
+  "cloudBrowserAttempt": {
+    "url": "http://127.0.0.1:8713/species/dragonfly/",
+    "result": "net::ERR_CONNECTION_REFUSED",
+    "pageExecuted": false
+  }
+}

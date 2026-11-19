@@ -6,8 +6,9 @@
  * Its buffer/layout contract remains internal; the public factory owns lifecycle.
  */
 import { clamp, finite, integer, landingTarget, ownKeys } from './frog.mjs';
-import { sampleFrog, sampleFrogPose } from './geometry.mjs';
+import { frogMouthPoint, sampleFrog, sampleFrogPose } from './geometry.mjs';
 import { pondPointToWorld, posePondFrog } from './pond.mjs';
+import { insectHover, tongueMotion, tonguePoint, tongueTarget } from './choreography.mjs';
 import type { FrogPondState } from './pond-types.mjs';
 import type { FrogGeometryResult, FrogPose, FrogPreview, FrogPreviewFrame, FrogPreviewOptions, FrogState, FrogView, GeometryOptions, Vec2, Vec3 } from './types.mjs';
 
@@ -38,7 +39,7 @@ const methods: LegacyMethods = {
     a.font = `${Math.max(6, this.cellH * .94) * this.dpr}px "SFMono-Regular", Consolas, "Liberation Mono", monospace`;
     a.textAlign = 'center'; a.textBaseline = 'middle'; this.colors = []; this.colorBytes = [];
     for (let k = 0; k < 3; k++) for (let i = 0; i < 24; i++) {
-      const t = i / 23, p = k === 2 ? {low:[17,24,24],middle:[139,153,139],high:[248,241,207],fin:[139,153,139]} : this.palette;
+      const t = i / 23, p = k === 2 ? {low:[27,29,19],middle:[151,140,83],high:[255,246,211],fin:[151,140,83]} : this.palette;
       const mid = k === 1 ? p.fin : p.middle;
       const rgb = p.low.map((v,j) => Math.round(t < .49 ? v + (mid[j]! - v) * t / .49 : mid[j]! + (p.high[j]! - mid[j]!) * (t - .49) / .51));
       const color = `rgb(${rgb.join(',')})`; this.colors.push(color); this.colorBytes.push(rgb); a.fillStyle = color;
@@ -89,7 +90,7 @@ export function createLegacyFrogPreview(canvas: HTMLCanvasElement, options: Frog
   if (!atlasCtx) throw new Error('Canvas atlas unavailable.');
   const h: LegacyHost = {
     width: 1, height: 1, dpr: 1, cols: 1, rows: 1, cellW: 1, cellH: 1.35, atlas, atlasCtx, sprite: 1,
-    palette: { low: [24, 63, 47], middle: [102, 183, 117], high: [230, 248, 190], fin: [145, 187, 115] },
+    palette: { low: [16, 48, 42], middle: [83, 156, 103], high: [224, 247, 211], fin: [92, 128, 105] },
     colors: [], colorBytes: [], samples: new Float32Array(32000 * 6), sampleCount: 0,
     depth: new Float32Array(1), tones: new Uint8Array(1), glyphs: new Uint8Array(1), kinds: new Uint8Array(1), owners: new Int16Array(1), visibility: new Float32Array(1),
     cx: 0, cyScreen: 0, scale: 1, worldX: 0, worldY: 0, worldZ: 0, objectScale: 1,
@@ -256,11 +257,31 @@ export function createLegacyFrogPreview(canvas: HTMLCanvasElement, options: Frog
         if (i > 20) environment(x + .025, 1.40 - length * u, -3.39, .34, 2);
       }
     }
-    // Sparse water glints stay far below the contrast of eyes and limb edges.
-    for (let i = 0; i < 42; i++) {
+    // Horizontal fragments establish a water plane; the animal remains the
+    // brightest surface. Stable clusters replace scattered star-like dots.
+    for (let i = 0; i < 28; i++) {
       const x = -2.9 + ((i * 53) % 97) / 96 * 5.8;
       const y = .15 + ((i * 31) % 79) / 78 * 1.1;
-      environment(x, y, -3.6, .10 + (i % 3) * .018);
+      for (let j = 0; j < 3; j++) environment(x + j * .038, y, -3.6, .10 + (i % 3) * .014);
+    }
+    // Quiet far bank and reed silhouettes: a distinct depth layer without
+    // filling the negative space above the animals with decorative glyphs.
+    for (let i = 0; i < 88; i++) {
+      const x = -3.10 + i / 87 * 6.2;
+      environment(x, -.12 + .045 * Math.cos(x * 2.2), -3.8, .12);
+    }
+    for (const actor of state.actors) {
+      const c = contact(actor.model.position), scale = poses.get(actor.id)!.scale;
+      // Broken reflected light under the support, and a small contact shadow.
+      for (let band = 0; band < 4; band++) for (let i = 0; i < 12; i++) {
+        if ((i + band) % 4 === 0) continue;
+        environment(c.x + (i / 11 - .5) * (1.45 - band * .14) * scale,
+          c.y + (.22 + band * .072) * scale, -3.3, .095 + (3 - band) * .009, 0);
+      }
+      for (let i = 0; i < 42; i++) {
+        const a = i / 42 * Math.PI * 2;
+        environment(c.x + Math.cos(a) * .88 * scale, c.y + Math.sin(a) * .067 * scale, -2.94, .075, 0);
+      }
     }
     if (state.config.scene === 'moonlit-chorus') {
       // Two short crescent arcs, sampled as characters in the background.
@@ -274,6 +295,23 @@ export function createLegacyFrogPreview(canvas: HTMLCanvasElement, options: Frog
       const progress = clamp(ripple.age / ripple.ttl, 0, 1);
       const radius = .12 + progress * (.7 + ripple.strength * .35);
       ring(ripple.point, radius, (.22 + ripple.strength * .12) * (1 - progress) + .05);
+      if (ripple.kind === 'landing') {
+        // The wet landing pushes a crown from the pad's waterline, not from
+        // midair. The bounded droplets rise, fall and vanish before the rings.
+        const c = contact(ripple.point), u = clamp(ripple.age / 24, 0, 1);
+        if (ripple.age < 24) for (let drop = 0; drop < 10; drop++) {
+          const a = drop / 10 * Math.PI * 2 + .17;
+          const radius = commonScale * (1.32 + .60 * u);
+          const lift = 4 * (.42 + .07 * (drop % 3)) * commonScale * u * (1 - u);
+          for (let bead = 0; bead < 5; bead++) {
+            const trail = bead / 4;
+            environment(c.x + Math.cos(a) * (radius - .085 * commonScale * trail),
+              c.y + Math.sin(a) * radius * .18 - lift * (1 - .50 * trail),
+              1.85 + Math.sin(a) * .02, (.38 + .58 * (1 - u)) * (1 - .24 * trail), 2);
+          }
+        }
+        ring(ripple.point, commonScale * 1.3 + progress * .85, .33 * (1 - progress) + .04, -2.65, 48);
+      }
     }
     if (geometryOptions.pondStill === 'ripple') {
       const p = state.target ?? state.actors.find(a => a.id === state.selectedId)!.model.position;
@@ -298,20 +336,45 @@ export function createLegacyFrogPreview(canvas: HTMLCanvasElement, options: Frog
     const selected = state.actors.find(a => a.id === state.selectedId)!;
     const stillHunt = geometryOptions.pondStill === 'hunt';
     if (state.firefly || stillHunt) {
+      const hunter = stillHunt ? selected : state.actors.find(a => a.id === state.firefly!.ownerId)!;
+      const pose = poses.get(hunter.id)!;
       const insectPoint = state.firefly?.point ?? state.target ?? { x: clamp(selected.model.position.x + .3, -.9, .9), y: selected.model.position.y };
-      const c = contact(insectPoint), flutter = quietTick / 11;
-      const flyX = c.x + (motion ? .06 * Math.sin(flutter * .7) : 0);
-      const flyY = c.y - .78 - (motion ? .06 * Math.cos(flutter) : 0);
+      const c = contact(stillHunt ? hunter.model.position : insectPoint);
+      const strike = hunter.motive.kind === 'strike' ? hunter.motive : null;
       const caught = state.firefly?.phase === 'caught';
-      const energy = caught ? .35 : .95;
-      for (let i = 0; i < 24; i++) {
-        const a = i / 24 * Math.PI * 2;
-        environment(flyX + .070 * Math.cos(a), flyY + .070 * Math.sin(a), 2.0, energy, 2);
-        if (!caught) environment(flyX + .18 * Math.cos(a), flyY + .10 * Math.sin(a), 1.99, .48, 2);
+      const envelope = stillHunt ? { reach: 1, contact: true, phase: 'contact' as const }
+        : strike ? tongueMotion(strike.age, strike.duration, state.firefly?.phase === 'hover') : null;
+      const hoverTick = caught && strike ? state.tick - strike.age + Math.ceil(strike.duration * .3) : quietTick;
+      const hover = insectHover(c, pose.scale, hoverTick, hunter.id === 2 ? -1 : 1, motion);
+      const mouth = frogMouthPoint(pose, resolvedGeometry.view);
+      const aim = tongueTarget(mouth, hover, pose.scale);
+      if (envelope && envelope.reach > .001) {
+        // One soft tongue, a wider adhesive tip, and a mouth-root opening. All
+        // are character samples. Endpoints use the exact posed mouth and fly.
+        for (let i = 0; i <= 32; i++) {
+          const u = i / 32, p = tonguePoint(mouth, aim, envelope.reach, u, pose.scale);
+          const width = pose.scale * (.020 + .024 * Math.exp(-(((u - .93) / .14) ** 2)));
+          for (const side of [-1, 0, 1]) environment(p.x, p.y + side * width, 2.12, side === 0 ? .83 : .51, 2);
+        }
+        for (let i = 0; i < 20; i++) {
+          const a = i / 20 * Math.PI * 2;
+          environment(mouth.x + Math.cos(a) * .13 * pose.scale,
+            mouth.y + Math.sin(a) * .038 * pose.scale, 2.10, .055, 0);
+        }
       }
-      if (!caught) for (let i = -4; i <= 4; i++) {
-        environment(flyX + i * .030, flyY, 2.01, .96, 2);
-        environment(flyX, flyY + i * .022, 2.01, .87, 2);
+      const prey = caught && envelope ? tonguePoint(mouth, aim, envelope.reach, 1, pose.scale) : aim;
+      const swallowed = caught && envelope?.phase === 'swallow';
+      if (!swallowed) {
+        const radius = .050 * pose.scale;
+        for (let i = 0; i < 18; i++) {
+          const a = i / 18 * Math.PI * 2;
+          environment(prey.x + radius * Math.cos(a), prey.y + radius * Math.sin(a), 2.15, .96, 2);
+          if (!caught) environment(prey.x + .14 * pose.scale * Math.cos(a), prey.y + .075 * pose.scale * Math.sin(a), 2.14, .45, 2);
+        }
+        if (!caught) for (let i = -3; i <= 3; i++) {
+          environment(prey.x + i * .025 * pose.scale, prey.y, 2.16, .91, 2);
+          environment(prey.x, prey.y + i * .022 * pose.scale, 2.16, .84, 2);
+        }
       }
     }
     if (environmentSamples !== h.sampleCount) throw new Error('Pond environment sample rejected');

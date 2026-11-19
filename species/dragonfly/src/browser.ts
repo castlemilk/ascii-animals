@@ -1,9 +1,10 @@
 /** Browser ownership for the local Dragonfly specimen; no shared scheduler or package API is assumed. */
 import { createDragonfly } from './model.js';
-import { createDragonflyDirector } from './director.js';
+import { createDragonflyDirectorHost } from './director.js';
+import { buildDragonflyGeometry } from './geometry.js';
 import type { DragonflyCue, DragonflyDirectorInput, DragonflyDirectorOptions, DragonflyDirectorState } from './director.js';
 import { rasterizeDragonflyPond, paintDragonflyPond } from './pond-preview.js';
-import { gridToText, paintDragonfly, rasterizeDragonfly } from './preview.js';
+import { DRAGONFLY_CELL_ASPECT, gridToText, paintDragonfly, rasterizeDragonfly } from './preview.js';
 import type { DragonflyBehavior, DragonflyState, DragonflyConfigPatch, DragonflyGrid, DragonflyInput, DragonflyOptions, DragonflyView, MotionMode, Vec2 } from './types.js';
 
 export interface DragonflyBrowserEnvironment {
@@ -88,7 +89,8 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
   let view = options.view ?? 'oblique';
   if (view !== 'oblique' && view !== 'dorsal') throw new TypeError('Unknown Dragonfly view');
   let neutral = options.neutral ?? false;
-  const director = options.director === undefined ? null : createDragonflyDirector(options.director, options.model);
+  const directorHost = options.director === undefined ? null : createDragonflyDirectorHost(options.director, options.model);
+  const director = directorHost?.director ?? null;
   const model = director ? null : createDragonfly(options.model);
   const media = win.matchMedia('(prefers-reduced-motion: reduce)');
   let requestedMotion = speciesOptions().motion;
@@ -103,6 +105,7 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
   let guide: Vec2 = { x: 0, y: 0 };
   let droppedMilliseconds = 0, renderedFrames = 0, sampleCount = 0;
   let lastGrid: DragonflyGrid | null = null;
+  let previousSolo: DragonflyState | null = null, interpolationReady = false;
   let lastTick = 0;
   let lastBehavior: DragonflyBehavior['kind'] = 'idle';
   let resizeObserver: ResizeObserver | null = null, intersectionObserver: IntersectionObserver | null = null;
@@ -145,7 +148,7 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
   function stopFrame(): void {
     const unsubscribe = releaseFrame; releaseFrame = null; subscribed = false; unsubscribe?.();
     if (frameId !== null) { win.cancelAnimationFrame(frameId); frameId = null; }
-    previousTime = null; remainder = 0;
+    previousTime = null; remainder = 0; interpolationReady = false; previousSolo = null;
   }
   function dropInput(): void {
     pendingTarget = null; pendingDart = false; pendingSelection = null; pendingCue = null;
@@ -171,16 +174,22 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
     target.addEventListener(type, callback, listenerOptions);
     removeListeners.push(() => target.removeEventListener(type, callback, listenerOptions));
   }
-  function draw(): void {
+  function draw(alpha = 1): void {
     if (disposed || zeroSized || doc.hidden || offscreen) return;
     if (director) {
-      const members = director.sample();
+      const members = directorHost!.samplePresentation(alpha);
       sampleCount = members.reduce((sum, member) => sum + member.geometry.samples.length, 0);
       const pond = rasterizeDragonflyPond(members, { cols, rows, view, neutral });
       lastGrid = pond;
       paintDragonflyPond(context!, pond, { width, height, dpr, neutral, labels: director.getOptions().labels });
     } else {
-      const geometry = model!.sample();
+      const state=model!.getState(),previous=previousSolo;
+      const angle=(a:number,b:number):number=>a+Math.atan2(Math.sin(b-a),Math.cos(b-a))*alpha;
+      const rendered=previous&&alpha<1?{...state,
+        position:{x:previous.position.x+(state.position.x-previous.position.x)*alpha,
+          y:previous.position.y+(state.position.y-previous.position.y)*alpha},
+        heading:angle(previous.heading,state.heading),wingPhase:angle(previous.wingPhase,state.wingPhase)}:state;
+      const geometry = buildDragonflyGeometry(rendered,model!.getOptions());
       sampleCount = geometry.samples.length;
       lastGrid = rasterizeDragonfly(geometry, { cols, rows, view, neutral });
       paintDragonfly(context!, lastGrid, { width, height, dpr, neutral });
@@ -235,11 +244,12 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
         for (let step = 0; step < steps; step++) {
           const tick = currentTick() + 1;
           if (director) director.step(tick, collectDirectorEvents(tick));
-          else model!.step(tick, collectEvents(tick));
+          else { previousSolo=model!.getState();model!.step(tick, collectEvents(tick)); }
+          interpolationReady=true;
         }
       }
       previousTime = time;
-      draw();
+      draw(interpolationReady?Math.max(0,Math.min(1,remainder/tickMilliseconds)):1);
       enqueueFrame();
       if (oldBehavior !== phaseSignature()) notify();
     } catch (error) { release(); throw error; }
@@ -275,7 +285,24 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
     if (!isActive()) return;
     const p = event as PointerEvent;
     if (event.type === 'pointerdown' && p.button !== 0 && p.pointerType !== 'touch') return;
-    const target = normalizeDragonflyPointer(p.clientX, p.clientY, canvas.getBoundingClientRect());
+    const rect=canvas.getBoundingClientRect();
+    // Pick the actual visible owner, including a small touch allowance, rather
+    // than selecting by a moving bounding rectangle or an invisible label.
+    if(event.type==='pointerdown' && director && lastGrid && 'owners' in lastGrid && rect.width>0 && rect.height>0) {
+      const grid=lastGrid as ReturnType<typeof rasterizeDragonflyPond>;
+      const cellH=Math.min(height/rows,width/(cols*DRAGONFLY_CELL_ASPECT)),cellW=cellH*DRAGONFLY_CELL_ASPECT;
+      const px=(p.clientX-rect.left)*width/rect.width,py=(p.clientY-rect.top)*height/rect.height;
+      const col=Math.floor((px-(width-cols*cellW)/2)/cellW),row=Math.floor((py-(height-rows*cellH)/2)/cellH);
+      const radius=p.pointerType==='touch'?2:1;let closest=Infinity,owner=-1;
+      for(let dy=-radius;dy<=radius;dy++)for(let dx=-radius;dx<=radius;dx++) {
+        const x=col+dx,y=row+dy,distance=dx*dx+dy*dy;
+        if(x<0||x>=cols||y<0||y>=rows||distance>=closest)continue;
+        const candidate=grid.owners[y*cols+x]!;
+        if(candidate>=0){owner=candidate;closest=distance;}
+      }
+      if(owner>=0)pendingSelection=owner;
+    }
+    const target = normalizeDragonflyPointer(p.clientX, p.clientY, rect);
     if (target) { guide = target; pendingTarget = target; }
   }
   function setPaused(value: boolean): void {
@@ -297,6 +324,9 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
       return;
     }
     if (key.code === 'Space' || key.key === ' ') { key.preventDefault(); setPaused(!userPaused); return; }
+    if(director && ['d','l','r'].includes(key.key.toLowerCase())) {
+      key.preventDefault();cueAction(key.key.toLowerCase()==='d'?'dart':key.key.toLowerCase()==='l'?'perch':'return');return;
+    }
     let x = guide.x, y = guide.y;
     if (key.key === 'ArrowLeft') x -= 0.2;
     else if (key.key === 'ArrowRight') x += 0.2;
@@ -368,6 +398,9 @@ export function mountDragonfly(canvas: HTMLCanvasElement, options: DragonflyMoun
     render() { assertAlive(); draw(); },
     exportText() {
       assertAlive();
+      // Capture exactly the cells shown by fractional presentation, so text and
+      // PNG describe the same moment. A zero-size/unpainted host has a fallback.
+      if(lastGrid)return gridToText(lastGrid);
       return gridToText(director ? rasterizeDragonflyPond(director.sample(), { cols, rows, view, neutral }) :
         rasterizeDragonfly(model!.sample(), { cols, rows, view, neutral }));
     },

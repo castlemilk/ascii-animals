@@ -1,6 +1,6 @@
-# Butterfly API — garden director
+# Butterfly API — veined flight study
 
-This extends the newly authored butterfly integrated on main; it does not recover code from an unavailable conversation. The package remains `ascii-animals-review`, private and unpublished. These examples use its existing local package subpath.
+This Butterfly-only study preserves the typed model/controller and extends its existing garden choreography with original veined wing geometry and contact-aware flight. The package remains `ascii-animals-review`, private and unpublished. These examples use its existing local package subpath.
 
 ## Start a garden
 
@@ -19,7 +19,7 @@ const art = createButterflyArtwork(canvas, {
 });
 art.update({director: {path: 'ribbon', breeze: -0.5}}); // nested merge
 art.guide(0.4, -0.2); // normalized logical garden coordinates
-art.cue('gather');   // inspect the invitation, then recover
+art.cue('gather');   // visit a bloom, or inspect an open-air invitation, then recover
 art.release();      // cancel attention/cue; return to the authored scene
 art.pause();
 art.nextAct();      // a deliberate still composition, never an implicit Play
@@ -34,7 +34,7 @@ art.dispose();
 
 ## Compatibility and defaults
 
-Calling `createButterflyArtwork(canvas)` or `createButterflyModel()` still selects the original single `specimen`. Its `behavior`, `sway`, guide, greeting phases, and logical geometry remain available. Garden direction is opt-in in the library; the demo opts into First light. `specimen` intentionally renders the original one-animal close study; stored director population/roles/path apply when a garden scene is selected.
+Calling `createButterflyArtwork(canvas)` or `createButterflyModel()` still selects the original single `specimen`. Its `behavior`, `sway`, guide and greeting phases remain available; the close study now uses the same veined wing geometry as the garden. Garden direction is opt-in in the library; the demo opts into First light. `specimen` intentionally renders one close-study animal; stored director population/roles/path apply when a garden scene is selected.
 
 | Existing option | Default | Valid values |
 | --- | --- | --- |
@@ -72,25 +72,25 @@ Each scene repeats four equal-length acts. Role-specific timing and targets make
 | Scene | Act 1 | Act 2 | Act 3 | Act 4 |
 | --- | --- | --- | --- | --- |
 | First light | Forager/basker warm; scout/wanderer are already airborne | Staggered first flight | Forager inspects then feeds; scout explores; wanderer glides; basker rests | Settle into sun |
-| Nectar rounds | Follow the scent | Inspect blooms | Sip nectar; scout can depart early | Glide to another bloom |
+| Nectar rounds | Search in powered bouts and held glides | Bank, brake, align and land | Sip, then fan the wings while holding contact; scout can depart early | Fold briefly, lift, then glide to another bloom |
 | Passing breeze | Read the air | Ride an undulating ribbon | Fold into shelter | Inspect and return to flowers |
 | Evening roost | Last forage | Lantern-like ascent | Choose individual stems | Fold to rest |
 
-The continuous wing clock is separate from scene progress. `nextAct()` changes the act without advancing the global tick or jumping the wing clock. Live actors ease toward new targets with bounded separation and heading interpolation. The repeat seam retains positions and eases into the next act; it does not teleport the ensemble. These are stylized authored behaviors, not biological simulation claims.
+Powered flight occurs in short bouts separated by sustained broad-wing glides. The body path, bank and wingbeat are separate. A feeding/perching activity is admitted only after the actor is close to its target and aligned; the first contact damps the wings before a slow fan. Landing anchors account for the logical aspect ratio and rendered body scale. The short feeding tube also has a render-space reach limit, so an arriving or edge-fitted visitor cannot draw a long line to a distant bloom. The continuous wing clock is separate from scene progress. `nextAct()` changes the act without advancing the global tick or jumping the wing clock. Live actors ease toward new targets with bounded separation and heading interpolation. The repeat seam retains positions and eases into the next act; it does not teleport the ensemble. These are stylized authored behaviors, not biological simulation claims.
 
 ## Inputs and contextual recovery
 
 `guide(x, y)` accepts finite coordinates clamped to −1…1. Browser pointer coordinates are mapped through the canvas CSS rectangle **and** any letterboxing; DPR does not alter input. Pointer motion coalesces to the latest coordinate before each animation callback, with no event queue growth. Automatic pointer motion is ignored while blocked; explicit API/keyboard actions may select a still pose.
 
-Attraction interests nearby foragers/scouts; a basker keeps its place unless it is the only visitor. Breeze produces a local lift and glide. A tap starts the chosen cue at the tap's actual location. A successful touch release, ordinary pointer leave, or lost capture ends pointer attention while allowing the explicit cue to complete. `pointercancel` cancels it. Explicit `release()` cancels attention and cues and starts a 90-tick recovery; while paused it selects a static recovery composition.
+Attraction interests nearby foragers/scouts; a basker keeps its place unless it is the only visitor. Breeze produces a local lift and glide. A tap starts the chosen cue at the tap's actual location. In attraction mode a tap within 0.13 normalized units of a flower selects a physical flower visit; other invited visitors use neighboring blooms. A tap in open air retains invitation inspection. `cue('gather')` without a pointer selects a deterministic flower without creating a persistent hover target. A successful touch release, ordinary pointer leave, or lost capture ends pointer attention while allowing the explicit cue to complete. `pointercancel` cancels it. Explicit `release()` cancels attention and cues and starts a 90-tick recovery; while paused it selects a static recovery composition.
 
 | Cue | Live sequence | Total duration | Paused/reduced alternative |
 | --- | --- | --- | --- |
-| `'gather'` | Inspect the invitation, then recover; baskers remain independent | 300 ticks | Curious visitors gathered around the invitation |
-| `'breeze'` | Flutter into the lift → glide → shelter → recover | 300 ticks | Folded shelter pose with character breeze marks |
+| `'gather'` | Inspect/land/sip at a nearby or default bloom, or inspect an open-air invitation; recover in the final 70 ticks | 300 ticks | A bloom visit or curious visitors around the explicit open-air invitation |
+| `'breeze'` | Brace 0–23 → powered escape 24–91 → held glide 92–169 → shelter 170–229 → recover 230–299 | 300 ticks | Clean folded shelter pose, without motion echoes or breeze trails |
 | `'rest'` | Inspect a stem → perch → recover | 420 ticks | Folded resting visitors on distinct stems |
 
-The same live cue cannot repeatedly reset its own clock. A different cue replaces it; there is no queued backlog. The same cue **can** be retargeted in a still view, because no ticks would otherwise expire it. `ButterflyActivity` distinguishes flower inspection (`target: 'flower', flower`) from invitation inspection (`target: 'invitation'`); `nectar`/`perch` carry a flower ID. Flutter, glide, bask, shelter and recover are separate states.
+An escape captures each launch origin. A pointer disturbance sends actors away from that point; a cue without pointer attention follows the configured breeze direction. Position changes are capped at 0.07 normalized units per tick, including the scene-loop seam. The same live cue cannot repeatedly reset its own clock. A different cue replaces it; there is no queued backlog. The same cue **can** be retargeted in a still view, because no ticks would otherwise expire it. `ButterflyActivity` distinguishes flower inspection (`target: 'flower', flower`) from invitation inspection (`target: 'invitation'`); `nectar`/`perch` carry a flower ID. Flutter, glide, bask, shelter and recover are separate states.
 
 The demo provides native controls and canvas-scoped keys: arrows move the invitation; Enter offers nectar; B sends breeze; N advances the act; Space toggles pause; Escape releases. Tab is never trapped. Touch keeps `pan-y` scrolling. The role ledger does not announce every frame; user actions have a separate polite status region.
 
@@ -106,22 +106,22 @@ System reduced motion remains authoritative even after Play, updates, reset or c
 
 ## Rendering and budgets
 
-A single shared grid holds at most 180×90 = **16,200 cells**. The garden has at most **6 actors**, **6 flowers**, **22 pollen marks** and **3×23 breeze samples**. There is no unbounded particle pool or input queue. Per-actor inverse rasterization is limited to its local cell rectangle. Backing dimensions remain at most 2048×2048 CSS pixels with DPR capped at 2 (4096×4096 backing pixels).
+A single shared grid holds at most 180×90 = **16,200 cells**. The garden has at most **6 actors**, **6 focal flowers**, **22 pollen marks**, **3 distant seed stems**, **17 grass strokes/groups**, **6 foreground leaves** and **3×23 breeze samples**. There is no unbounded particle pool or input queue. Per-actor inverse rasterization is limited to its local cell rectangle. Backing dimensions remain at most 2048×2048 CSS pixels with DPR capped at 2 (4096×4096 backing pixels).
 
-The renderer emits printable ASCII only, preserves a 0.56 cell aspect through letterboxing, and keeps anatomy attached through opening and rotation. Numbered colors identify individuals; palette treatment applies throughout the garden. A garden-only LOD floor gives fully open forewings about 13 columns at sparse settings; folded wings are intentionally narrower. Conservative edge fitting insets the visual root and label at extreme positions/scales. `getGarden()` reports intended normalized simulation positions, before this visual fitting. The world is not a pixel-accurate picking API.
+The renderer emits printable ASCII only, preserves a 0.56 cell aspect through letterboxing, and keeps anatomy attached through opening and rotation. Amber scale fields, dark branching veins and pale rim spots establish a monarch-inspired identity; lagoon/rose remain intentional alternate palettes. No central eyespots or external imagery are used. Optional numbered labels identify individuals; they are off in the demo by default. A garden-only LOD floor gives fully open forewings about 16 columns at sparse settings; folded wings are intentionally narrower. Conservative edge fitting insets the visual root and label at extreme positions/scales. `getGarden()` reports intended normalized simulation positions, before this visual fitting. The world is not a pixel-accurate picking API.
 
-The text export is the logical character grid, not a terminal emulator. Canvas pixels use the installed monospace fallback; no fonts or external images are bundled. The demo exports a PNG and plain text. Video recording/export, an alternative particle renderer, and framework wrappers are not implemented by this change.
+Fast powered strokes may show one faint wing-edge echo, computed from the current tick with no frame-history buffer. The body and antennae stay sharp. Semantic ink 12 is reserved for that echo; paused and reduced-motion browser frames omit it. The text export is the logical character grid, not a terminal emulator. Canvas pixels use the installed monospace fallback; no fonts or external images are bundled. The demo exports a PNG and plain text. Video recording/export, an alternative particle renderer, and framework wrappers are not implemented by this change.
 
 ## Validation and remaining gates
 
-See [the authoring/review record](BUTTERFLY-DIRECTOR-REVIEW.md) and the handoff validation manifest for exact commands, hashes and evidence categories. Numerical and lifecycle tests are separate from actual browser validation.
+See [the flight-study authoring record](../species/butterfly/review/AUTHORING.md) and the handoff review manifest for exact commands, hashes and evidence categories. The earlier [director review](BUTTERFLY-DIRECTOR-REVIEW.md) remains a historical record. Numerical and lifecycle tests are separate from actual browser validation.
 
 ```sh
 npm ci --ignore-scripts
 npm test
 npm run typecheck
 node node_modules/typescript/bin/tsc -p species/butterfly/tests/tsconfig.json
-node --test test/butterfly.test.mjs test/butterfly-director.test.mjs
+node --test test/butterfly.test.mjs test/butterfly-director.test.mjs test/butterfly-flight-study.test.mjs
 npm run check:package
 # Optional, in a normal environment with installed Playwright/Chromium:
 node species/butterfly/tests/browser-check.mjs
@@ -129,4 +129,27 @@ node species/butterfly/tests/browser-check.mjs
 node species/butterfly/tests/render-native.mjs
 ```
 
-This review environment blocked a normal Chromium launch with `socket() failed: Operation not permitted`; its cloud browser could inspect the live reference but could not reach the local demo. The supplied images are **native Canvas renders through the real renderer with a simulated lifecycle host**. They do not prove CSS reflow, real browser keyboard/touch, screen-reader behavior, phone usability, memory behavior or performance. Browser/device acceptance remains a coordinator gate; no FPS or WCAG certification is claimed.
+This flight-study review environment blocked a normal Chromium launch with `socket() failed: Operation not permitted`; the cloud browser could not reach the local review server (`ERR_CONNECTION_REFUSED`). The supplied images are **native Canvas renders through the real renderer with a simulated lifecycle host**. They do not prove CSS reflow, real browser keyboard/touch, screen-reader behavior, phone usability, memory behavior or performance. Browser/device acceptance remains a coordinator gate; no FPS or WCAG certification is claimed.
+
+
+## Central generation boundary
+
+The review patch contains Butterfly source, tests, demo source and documentation.
+It deliberately omits compiled `lib/`, generated `dist/butterfly/`, shared root
+entries and workflows. Central integration regenerates those from the accepted
+source with the existing commands:
+
+```sh
+npm ci --ignore-scripts
+npm run build
+node --test test/butterfly.test.mjs test/butterfly-director.test.mjs test/butterfly-flight-study.test.mjs
+node node_modules/typescript/bin/tsc -p species/butterfly/tests/tsconfig.json
+npm run typecheck
+npm run check:package
+```
+
+`npm run build` already invokes `buildButterflyDemo`; its existing file list needs
+no change. The new shared-within-Butterfly wing implementation lives in the
+already included `public/butterfly/render-garden.js`. The full package validation
+was run in an isolated validation copy so no generated shared entries enter this
+species patch. Browser/device checks remain a distinct central acceptance gate.

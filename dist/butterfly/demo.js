@@ -107,9 +107,9 @@ function syncSettings() {
   for (let i = 0; i < director.count; i++) $(`role-${i}`).value = director.roles[i] ?? 'auto';
   if (timelineScene !== director.scene) makeTimeline(director.scene);
   const hint = director.pointerMode === 'attract'
-    ? 'Move gently to invite a closer look. Tap to gather the visitors. Leaving the garden lets them return to their own paths.'
+    ? 'Move gently to invite a closer look. Tap a flower to land, sip and fan; tap open air to gather. B sends a breeze, then a recovery glide.'
     : director.pointerMode === 'breeze'
-      ? 'Move across the garden to bend the air. Tap to send a passing breeze. Leaving the garden lets the meadow settle.'
+      ? 'Move across the garden to bend the air. Tap to start a brief brace, powered escape, glide and return to shelter.'
       : 'You are a quiet observer. The visitors follow their own paths; use the director cues whenever you want to join in.';
   $('canvas-help').textContent = hint;
   canvas.setAttribute('aria-label', `${director.count} ASCII ${director.count === 1 ? 'butterfly' : 'butterflies'} in ${sceneNames[director.scene] ?? 'the garden'}, with four patterned wings and individual habits. Use the adjacent controls or focus the artwork for keyboard direction.`);
@@ -159,7 +159,7 @@ function change(options, message) {
 function cue(name) {
   art.cue(name);
   syncStatus();
-  announce(({ gather: 'A nectar invitation. The visitors take a closer look.', breeze: 'A passing breeze. Watch the garden ride, shelter, then recover.', rest: 'A quiet invitation. The visitors choose a resting pose.' })[name]);
+  announce(({ gather: 'A nectar invitation. Watch the approach, landing and slow wing fan.', breeze: 'A passing breeze. Watch the wings brace, escape, glide and recover.', rest: 'A quiet invitation. The visitors choose a resting pose.' })[name]);
 }
 
 function togglePause() {
@@ -195,7 +195,7 @@ function dispose() {
 try {
   art = createButterflyArtwork(canvas, {
     ...grid(),
-    director: { scene: 'morning', ...presets.morning, sceneSeconds: 32, spread: 1, pointerMode: 'attract', showLabels: true }
+    director: { scene: 'morning', ...presets.morning, sceneSeconds: 32, spread: 1, pointerMode: 'attract', showLabels: false }
   });
   for (const button of sceneButtons) listen(button, 'click', () => {
     const scene = button.dataset.scene;

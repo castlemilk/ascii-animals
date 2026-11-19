@@ -13,7 +13,7 @@
   <main>
     <section class="intro" aria-labelledby="title">
       <div><p class="eyebrow">SLOW TRAVEL. SMALL DISCOVERIES.</p><h1 id="title">The long way home<span>.</span></h1></div>
-      <p class="intro-note">A reef passage in characters. Give each turtle a reason to linger, then let the current carry the story.</p>
+      <p class="intro-note">A reef passage in characters. A measured stroke, a long glide, a breath at the surface. Guide a turtle through the quiet water.</p>
     </section>
     <section class="scenes" aria-label="Authored scenes">
       <button class="scene-card" data-scene="reef-passage" aria-pressed="true"><span class="scene-number">01 / TRAVEL</span><strong>Reef passage</strong><span>A staggered arrival. A shared crossing. Different reasons to pause.</span></button>
@@ -23,8 +23,13 @@
     <div class="layout">
         <section class="stage" aria-labelledby="scene-title">
           <div class="stage-top"><div><span class="eyebrow">NOW OBSERVING</span><h2 id="scene-title">Reef passage</h2></div><output id="status" aria-live="off">ARRIVING</output></div>
-          <canvas id="animal" tabindex="0" role="img" aria-label="A directed ASCII sea turtle scene: domed patterned shells, projecting heads, and four tapered flippers. Focus this canvas to guide with arrow keys and inspect with Enter." aria-describedby="interaction-help motion-note"></canvas>
+          <canvas id="animal" tabindex="0" role="img" aria-label="A directed ASCII sea turtle scene: domed patterned shells, projecting heads, and four tapered flippers. Focus this canvas: B invites a surface breath, D a dive; arrows place a guide and Enter responds." aria-describedby="interaction-help motion-note"></canvas>
           <div class="stage-caption"><span id="scene-description">Three travelers trace the shelf at different depths.</span><span id="current-caption">CURRENT / WEST</span></div>
+          <div class="cue-bar" aria-label="Direct the selected turtle">
+            <button id="surface" type="button">Surface for air <kbd>B</kbd></button>
+            <button id="dive" type="button">Dive &amp; recover <kbd>D</kbd></button>
+            <p id="cue-help">Select a traveler, then give it a moment to finish.</p>
+          </div>
           <div class="timeline" aria-label="Choose a scene act">
             <div class="timeline-heading"><span>SCENE ARC</span><output id="cycle-label" aria-live="off">PASSAGE 01</output></div>
             <div class="act-buttons"><button data-act="arrival" aria-pressed="true"><span>01</span> Arrive</button><button data-act="linger" aria-pressed="false"><span>02</span> Linger</button><button data-act="departure" aria-pressed="false"><span>03</span> Depart</button></div>
@@ -70,12 +75,12 @@
         <section class="cast" aria-labelledby="cast-title">
           <div class="section-heading"><h2 id="cast-title">Traveling companions</h2><span>SELECT A TURTLE</span></div>
           <div id="roster" class="roster" aria-label="Turtles in this scene"></div>
-          <p id="interaction-help" class="interaction-help">Move gently near the selected turtle to invite curiosity. Tap a turtle to select it; tap open water to offer an inspection point. On the focused canvas, use arrow keys to place a guide, Enter to inspect, and Escape to clear it.</p>
+          <p id="interaction-help" class="interaction-help">Hover near a traveler to catch its attention. Tap upper water for a breath or lower water for a dive; a turtle glyph selects its owner. On the focused canvas, B invites a breath, D a dive, arrows place a guide, Enter responds, and Escape clears. Each cue finishes before another begins.</p>
         </section>
         <section class="field-note" aria-labelledby="field-note-title">
           <p class="eyebrow">A NOTE ON THE MOVEMENT</p><h2 id="field-note-title">A flipper stroke has an aftermath.</h2>
-          <p>Watch for the quieter glide between efforts: a slight bank, an inspection, a measured return to the passage. Roles change the intention; depth and spacing change how the group reads.</p>
-          <div class="export-actions"><button id="capture">Capture ASCII text</button><button id="download-png">Save canvas PNG</button><button id="classic">Open the original solo study</button></div>
+          <p>The front paddles work together, then recover slowly as the body keeps gliding. A raised head leads the ascent for air. A lowered head leads the dive, then the shell levels into the same forward journey. The scutes belong to that curved shell through every pose.</p>
+          <div class="export-actions"><button id="capture">Capture ASCII text</button><button id="download-png">Save canvas PNG</button><button id="classic">Open the solo study</button></div>
           <p class="fine-print">Original procedural geometry, built on the integrated turtle study. Stylized behavior and scene timing; this is an artwork, not a biological simulation.</p>
         </section>
     </div>
@@ -83,7 +88,7 @@
     <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
     <p id="error" class="error" role="alert" hidden></p>
   </main>
-  <footer><span>MADE OF CHARACTERS. GIVEN TIME TO WANDER.</span><span>CHELONIOIDEA / A STYLIZED STUDY</span></footer>
+  <footer><span>MADE OF CHARACTERS. GIVEN TIME TO WANDER.</span><span>CHELONIA MYDAS / A STYLIZED STUDY</span></footer>
   <script type="module" src="demo.js"></script>
 </body>
 </html>

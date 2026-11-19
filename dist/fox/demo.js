@@ -17,9 +17,9 @@ const sceneCopy = {
   },
   'moon-play': {
     title: 'Moonlit mischief', cue: 'play', cueLabel: 'Invite a little mischief',
-    invitation: 'Invite the selected fox into a play bow and a short answering hop. Its companions watch before joining in.',
+    invitation: 'The tail rises first. Ears and head follow, then a bow, careful steps and a short answering hop. Its companions take a moment before joining in.',
     headings: ['Company in the moonlight', 'An invitation to play', 'Follow the mischief', 'One hop, then another', 'A well-earned pause'],
-    stories: ['There is room for a small game between the meadow paths.', 'A lifted tail and attentive ears give the game away.', 'A playmate bows and takes a winding approach; another keeps watch.', 'Short hops have a beginning, a landing, and space for an answer.', 'Even a playful fox needs a quiet moment before the next invitation.'],
+    stories: ['There is room for a small game between the meadow paths.', 'A lifted tail and attentive ears give the game away.', 'A playmate bows and takes measured steps; another keeps watch.', 'Short hops have a beginning, a landing, and space for an answer.', 'Even a playful fox needs a quiet moment before the next invitation.'],
   },
   'den-watch': {
     title: 'Den watch', cue: 'rustle', cueLabel: 'Make a gentle rustle',
@@ -145,6 +145,7 @@ try {
     });
   }
   on('scene-cue', 'click', () => cue(sceneCopy[lastScene].cue));
+  on('tail-curiosity', 'click', () => cue('play'));
   on('pounce', 'click', () => cue('pounce'));
   on('rest', 'click', () => cue('rest'));
   on('pause', 'click', () => {
@@ -165,6 +166,7 @@ try {
       keyboardGuide = { x: Math.max(-1, Math.min(1, keyboardGuide.x + delta[0])), y: Math.max(-1, Math.min(1, keyboardGuide.y + delta[1])) };
       controller.guide(keyboardGuide.x, keyboardGuide.y);
     } else if (event.key === 'Enter') { event.preventDefault(); if (!event.repeat) cue('rustle', keyboardGuide); }
+    else if (event.key.toLowerCase() === 'c') { event.preventDefault(); if (!event.repeat) cue('play', keyboardGuide); }
     else if (event.key.toLowerCase() === 'p') { event.preventDefault(); if (!event.repeat) cue('pounce', keyboardGuide); }
     else if (event.key === ' ') { event.preventDefault(); if (!event.repeat) byId('pause').click(); }
     else if (event.key === 'Escape') { controller.leave(); announce('The guide is cleared. Each fox returns to its own instinct.'); }
