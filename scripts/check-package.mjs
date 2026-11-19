@@ -48,7 +48,7 @@ try {
   assert.equal(candidate.license, 'UNLICENSED', 'Do not assign licensing without an owner decision');
   assert.equal(Object.keys(candidate.dependencies ?? {}).length, 0, 'Runtime dependencies must remain zero');
   assert.equal(candidate.sideEffects, false);
-  assert.deepEqual(Object.keys(candidate.exports), [".", "./cuttlefish", "./core", "./fox", "./dragonfly", "./gecko", "./pufferfish", "./frog", "./owl", "./seahorse", "./crab", "./turtle", "./butterfly"]);
+  assert.deepEqual(Object.keys(candidate.exports), [".", "./cuttlefish", "./core", "./fox", "./dragonfly", "./gecko", "./pufferfish", "./frog", "./owl", "./seahorse", "./crab", "./turtle", "./butterfly", "./movement", "./movement/marine"]);
   report.npm = run(npm, ['--version']).stdout;
   report.checks.build = JSON.parse(run(process.execPath, ['scripts/build.mjs']).stdout);
 

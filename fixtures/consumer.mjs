@@ -5,6 +5,20 @@ assert.equal(typeof globalThis.document, 'undefined');
 const root = await import('ascii-animals-review');
 const animal = await import('ascii-animals-review/cuttlefish');
 const core = await import('ascii-animals-review/core');
+const movement = await import('ascii-animals-review/movement');
+const marineMovement = await import('ascii-animals-review/movement/marine');
+const journey = movement.createMovementDirector(
+  { enabled: true, path: 'vertical', seed: 11, timing: { mode: 'duration', seconds: 10 } },
+  { width: 390, height: 500 },
+);
+journey.advanceTicks(300);
+assert.equal(journey.sample().members.length, 1);
+assert.equal(journey.sample().members[0].phase, 'traverse');
+const atTurn = journey.sample().members[0].y;
+journey.reverse();
+assert.equal(journey.sample().members[0].y, atTurn);
+journey.dispose();
+assert.equal(typeof marineMovement.createMarineMovementArtwork, 'function');
 const fox = await import('ascii-animals-review/fox');
 const dragonfly = await import('ascii-animals-review/dragonfly');
 assert.equal(root.createDragonflyArtwork, dragonfly.createDragonflyArtwork);
@@ -32,10 +46,10 @@ for (const method of ['setOptions', 'setPaused', 'getStats', 'restart', 'pulse',
 }
 assert.equal(typeof globalThis.window, 'undefined');
 assert.equal(typeof globalThis.document, 'undefined');
-for (const specifier of ['ascii-animals-review/package.json', 'ascii-animals-review/lib/animals/cuttlefish.js']) {
+for (const specifier of ['ascii-animals-review/package.json', 'ascii-animals-review/lib/animals/cuttlefish.js', 'ascii-animals-review/lib/movement/marine-engine.js']) {
   await assert.rejects(import(specifier), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
 }
-console.log(JSON.stringify({ ssrImport: 'passed', identity: 'passed', declaredMethods: 'present', privateSubpaths: 'blocked', exports: Object.keys(root).sort() }));
+console.log(JSON.stringify({ ssrImport: 'passed', movementSubpaths: 'passed', identity: 'passed', declaredMethods: 'present', privateSubpaths: 'blocked', exports: Object.keys(root).sort() }));
 const geckoModule = await import('ascii-animals-review/gecko');
 assert.equal(root.createGeckoArtwork, geckoModule.createGeckoArtwork);
 const geckoModel = geckoModule.createGecko({seed: 7});

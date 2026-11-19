@@ -13,3 +13,12 @@ pending?.(100);
 unsubscribe();
 scheduler.dispose();
 void [observed, scheduler.size];
+
+
+// The pure path module must also work with no DOM or Node declarations.
+import { createMovementDirector, type MovementSnapshot } from 'ascii-animals-review/movement';
+const director = createMovementDirector({ path: 'free', seed: 19 }, { width: 390, height: 500 });
+director.advanceTicks(60);
+const sample: MovementSnapshot = director.sample();
+director.dispose();
+void sample;

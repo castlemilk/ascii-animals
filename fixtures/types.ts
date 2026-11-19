@@ -186,3 +186,18 @@ import {createButterflyModel} from 'ascii-animals-review/butterfly';
 createButterflyModel({behavior:'perch'}).greet();
 // @ts-expect-error butterfly does not accept turtle behavior
 createButterflyModel({behavior:'glide'});
+
+
+// Both movement subpaths are supported by the actual packed consumer.
+import { createMovementDirector, type MovementSnapshot } from 'ascii-animals-review/movement';
+import { createMarineMovementArtwork, type MarineMovementArtwork } from 'ascii-animals-review/movement/marine';
+const movement = createMovementDirector({ path: 'horizontal', timing: { mode: 'duration', seconds: 8 } }, { width: 390, height: 500 });
+const voyage: MovementSnapshot = movement.sample();
+const marine: MarineMovementArtwork = createMarineMovementArtwork(canvas, { enabled: true, path: 'diagonal' }, { count: 2, species: 'manta' });
+marine.configureMovement({ timing: { mode: 'speed', pixelsPerSecond: 75 } });
+marine.showMovementStill(.4); marine.reverseMovement(); marine.dispose();
+void voyage;
+// @ts-expect-error the adapter derives cast from the native marine artwork
+marine.configureMovement({ cast: ['octopus'] });
+// @ts-expect-error movement duration cannot mix speed and duration fields
+movement.configure({ timing: { mode: 'speed', pixelsPerSecond: 75, seconds: 8 } });
