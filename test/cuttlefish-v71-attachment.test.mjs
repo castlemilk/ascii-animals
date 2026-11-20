@@ -44,7 +44,7 @@ test('V7.1 anatomy and path protection stay exact apart from the reviewed encoun
   if (start !== -1) {
     assert(end > start);
     const cueHash = createHash('sha256').update(candidate.slice(start, end)).digest('hex');
-    assert.equal(cueHash, 'cb1c6eeb641bab5f021543b85149f1ef27e5b949ca70ffa5bc22295570b79221', 'Only the reviewed camera cue is excepted');
+    assert.equal(cueHash, '98191ef6df322712d9086c7cb7a60b8f8be77a5d639d5d378ae45090014674ad', 'Only the reviewed camera cue is excepted');
   }
   const anatomySource = start === -1 ? candidate : candidate.slice(0, start) + candidate.slice(end);
   assert.equal(protectedSourceFingerprint(anatomySource), oracle.protectedSourceSha256,

@@ -1,33 +1,59 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Locator } from '@playwright/test';
 
-test('original Cuttlefish studio keeps mid-size arms within the lens frame', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 940 });
-  await page.clock.install({ time: new Date('2026-11-20T00:00:00Z') });
-  expect((await page.goto('/ascii-animals/cuttlefish-demo.html'))?.status()).toBe(200);
-  await page.locator('[data-school-preset="solo"]').click();
-  await page.locator('#size').fill('0.7');
-  const canvas = page.locator('#artwork');
-  await canvas.scrollIntoViewIfNeeded();
-  await page.clock.runFor(10_200);
-  await page.locator('#pause-btn').click();
-  await expect(page.locator('#scene-phase')).toHaveText('Exploring the lens');
-  const ink = await canvas.evaluate(node => {
+function footprint(canvas: Locator) {
+  return canvas.evaluate(node => {
     const surface = node as HTMLCanvasElement;
     const { width, height } = surface;
     const pixels = surface.getContext('2d')!.getImageData(0, 0, width, height).data;
-    let left = width, top = height, right = -1, bottom = -1;
+    let left = width, top = height, right = -1, bottom = -1, brightPixels = 0;
     for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
       const i = (y * width + x) * 4;
       if (Math.max(pixels[i], pixels[i + 1], pixels[i + 2]) < 120) continue;
       left = Math.min(left, x); right = Math.max(right, x);
       top = Math.min(top, y); bottom = Math.max(bottom, y);
+      brightPixels++;
     }
-    return {
-      widthSpan: (right - left + 1) / width, heightSpan: (bottom - top + 1) / height,
-      margin: Math.min(left, top, width - 1 - right, height - 1 - bottom),
-    };
+    return { widthSpan: (right - left + 1) / width, heightSpan: (bottom - top + 1) / height, brightPixels };
   });
-  expect(ink.widthSpan).toBeGreaterThan(.65);
-  expect(ink.heightSpan).toBeGreaterThan(.58);
-  expect(ink.margin).toBeGreaterThanOrEqual(5);
-});
+}
+
+for (const [device, width, height] of [['desktop', 1280, 940], ['touch phone', 390, 844]] as const) {
+  test(`original Cuttlefish lens: small approach and shared full-frame contact on ${device}`, async ({ browser, baseURL }, info) => {
+    const measures = [];
+    for (const size of ['0.35', '1.4']) {
+      const context = await browser.newContext({ baseURL, viewport: {width, height},
+        isMobile: device === 'touch phone', hasTouch: device === 'touch phone', deviceScaleFactor: 1 });
+      try {
+        const page = await context.newPage();
+        const errors: string[] = [];
+        page.on('pageerror', error => errors.push(error.message));
+        const now = new Date('2026-11-20T00:00:00Z');
+        await page.clock.install({time: now});
+        await page.clock.pauseAt(new Date(now.getTime() + 3000));
+        expect((await page.goto('/ascii-animals/cuttlefish-demo.html'))?.status()).toBe(200);
+        await page.locator('[data-school-preset="solo"]').click({force: true});
+        await page.locator('#size').fill(size);
+        const canvas = page.locator('#artwork');
+        await canvas.scrollIntoViewIfNeeded();
+        await page.clock.runFor(3500);
+        const approach = await footprint(canvas);
+        await page.clock.runFor(6700);
+        await expect(page.locator('#scene-phase')).toHaveText('Exploring the lens');
+        const contact = await footprint(canvas);
+        await info.attach(`${device} lens ${size}`, {body: await canvas.screenshot(), contentType: 'image/png'});
+        await page.locator('#pause-btn').click({force: true});
+        await expect(page.locator('#pause-btn')).toHaveAttribute('aria-label', 'Play animation');
+        await page.clock.runFor(650);
+        expect(await footprint(canvas)).toEqual(contact);
+        expect(errors).toEqual([]);
+        measures.push({approach, contact});
+      } finally { await context.close(); }
+    }
+    const [small, large] = measures;
+    expect(small.approach.widthSpan).toBeLessThan(large.approach.widthSpan * .55);
+    expect(small.approach.heightSpan).toBeLessThan(large.approach.heightSpan * .55);
+    expect(small.contact).toEqual(large.contact);
+    expect(small.contact.widthSpan).toBeGreaterThan(.97);
+    expect(small.contact.heightSpan).toBeGreaterThan(.97);
+  });
+}
