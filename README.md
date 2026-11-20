@@ -2,29 +2,44 @@
 
 A growing collection of reactive creatures made of characters. **ASCII Animals** is the product; each animal has its own study, behaviour and release status.
 
-[Browse the animal catalogue](https://castlemilk.github.io/ascii-animals/) · [Open Cuttlefish](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html)
+[Browse the animal catalogue](https://castlemilk.github.io/ascii-animals/) · [Open Cuttlefish](https://castlemilk.github.io/ascii-animals/animals/cuttlefish/)
 
-## Animal catalogue
+## Meet the animals
 
-The [unified Next.js demo](demo/README.md) serves all 13 species from the built TypeScript package, with breadcrumbs and a shared navigation and playback flow. The table still points at the existing live Pages URLs until the unified build is deployed. Older studio URLs and their full controls are retained in the new export.
+Thirteen characters. Thirteen personalities. Choose a moving preview to open its interactive study, with shared navigation and playback controls.
 
-| Animal | Status |
-| --- | --- |
-| Cuttlefish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) |
-| Manta ray | Available: [interactive study](https://castlemilk.github.io/ascii-animals/animals.html?species=manta) |
-| Octopus | Available: [interactive study](https://castlemilk.github.io/ascii-animals/animals.html?species=octopus) |
-| Seahorse | Available: [interactive study](https://castlemilk.github.io/ascii-animals/seahorse/index.html) |
-| Crab | Available: [interactive study](https://castlemilk.github.io/ascii-animals/crab/index.html) |
-| Sea turtle | Available: [interactive study](https://castlemilk.github.io/ascii-animals/turtle/index.html) |
-| Pufferfish | Available: [interactive study](https://castlemilk.github.io/ascii-animals/pufferfish/index.html) |
-| Frog | Available: [interactive study](https://castlemilk.github.io/ascii-animals/frog/index.html) |
-| Butterfly | Available: [interactive study](https://castlemilk.github.io/ascii-animals/butterfly/index.html) |
-| Dragonfly | Available: [interactive study](https://castlemilk.github.io/ascii-animals/dragonfly/index.html) |
-| Gecko | Available: [interactive study](https://castlemilk.github.io/ascii-animals/gecko/index.html) |
-| Owl | Available: [interactive study](https://castlemilk.github.io/ascii-animals/owl/index.html) |
-| Fox | Available: [interactive study](https://castlemilk.github.io/ascii-animals/fox/index.html) |
+These short loops are captured from the actual upgraded renderers, not concept art. The live studies offer pause and reduced-motion support; GIF previews loop automatically. [Capture details and reproducible workflow](docs/GALLERY-CAPTURES.md).
 
-All thirteen studies are deployed from [PR #20](https://github.com/castlemilk/ascii-animals/pull/20), release commit `c06114404900884814bef879a02f1a49a3e7d590`, via the successful [manual Pages run](https://github.com/castlemilk/ascii-animals/actions/runs/44296685081). All 103 shipped HTML/JS/CSS/JSON assets were verified byte-identical to the reviewed build. The studies passed bounded independent Chrome visual acceptance; see [scope and limitations](docs/VISUAL-ACCEPTANCE.md). This establishes functional demo readiness, not parity with Cuttlefish’s expressive director or the owner’s creative bar. Richer species-specific scenes, ensembles, individual roles and interactions remain active follow-up work. Typed APIs and configuration are documented in the API map below; species intentionally preserve their own interaction contracts. The TypeScript foundation was merged in [PR #2](https://github.com/castlemilk/ascii-animals/pull/2). It remains private and unpublished to npm. Availability changes only when a reviewed demo is merged and deployed.
+| **Cuttlefish** | **Manta ray** | **Octopus** |
+| --- | --- | --- |
+| [![Cuttlefish animated character study](docs/media/animals/cuttlefish.gif)](https://castlemilk.github.io/ascii-animals/animals/cuttlefish/) | [![Manta ray animated character study](docs/media/animals/manta.gif)](https://castlemilk.github.io/ascii-animals/animals/manta/) | [![Octopus animated character study](docs/media/animals/octopus.gif)](https://castlemilk.github.io/ascii-animals/animals/octopus/) |
+| [Explore Cuttlefish ↗](https://castlemilk.github.io/ascii-animals/animals/cuttlefish/) | [Explore Manta ray ↗](https://castlemilk.github.io/ascii-animals/animals/manta/) | [Explore Octopus ↗](https://castlemilk.github.io/ascii-animals/animals/octopus/) |
+
+| **Seahorse** | **Crab** | **Sea turtle** |
+| --- | --- | --- |
+| [![Seahorse animated character study](docs/media/animals/seahorse.gif)](https://castlemilk.github.io/ascii-animals/animals/seahorse/) | [![Crab animated character study](docs/media/animals/crab.gif)](https://castlemilk.github.io/ascii-animals/animals/crab/) | [![Sea turtle animated character study](docs/media/animals/turtle.gif)](https://castlemilk.github.io/ascii-animals/animals/turtle/) |
+| [Explore Seahorse ↗](https://castlemilk.github.io/ascii-animals/animals/seahorse/) | [Explore Crab ↗](https://castlemilk.github.io/ascii-animals/animals/crab/) | [Explore Sea turtle ↗](https://castlemilk.github.io/ascii-animals/animals/turtle/) |
+
+| **Pufferfish** | **Frog** | **Butterfly** |
+| --- | --- | --- |
+| [![Pufferfish animated character study](docs/media/animals/pufferfish.gif)](https://castlemilk.github.io/ascii-animals/animals/pufferfish/) | [![Frog animated character study](docs/media/animals/frog.gif)](https://castlemilk.github.io/ascii-animals/animals/frog/) | [![Butterfly animated character study](docs/media/animals/butterfly.gif)](https://castlemilk.github.io/ascii-animals/animals/butterfly/) |
+| [Explore Pufferfish ↗](https://castlemilk.github.io/ascii-animals/animals/pufferfish/) | [Explore Frog ↗](https://castlemilk.github.io/ascii-animals/animals/frog/) | [Explore Butterfly ↗](https://castlemilk.github.io/ascii-animals/animals/butterfly/) |
+
+| **Dragonfly** | **Gecko** | **Owl** |
+| --- | --- | --- |
+| [![Dragonfly animated character study](docs/media/animals/dragonfly.gif)](https://castlemilk.github.io/ascii-animals/animals/dragonfly/) | [![Gecko animated character study](docs/media/animals/gecko.gif)](https://castlemilk.github.io/ascii-animals/animals/gecko/) | [![Owl animated character study](docs/media/animals/owl.gif)](https://castlemilk.github.io/ascii-animals/animals/owl/) |
+| [Explore Dragonfly ↗](https://castlemilk.github.io/ascii-animals/animals/dragonfly/) | [Explore Gecko ↗](https://castlemilk.github.io/ascii-animals/animals/gecko/) | [Explore Owl ↗](https://castlemilk.github.io/ascii-animals/animals/owl/) |
+
+| **Fox** |  |  |
+| --- | --- | --- |
+| [![Fox animated character study](docs/media/animals/fox.gif)](https://castlemilk.github.io/ascii-animals/animals/fox/) |  |  |
+| [Explore Fox ↗](https://castlemilk.github.io/ascii-animals/animals/fox/) |  |  |
+
+### One collection, individual experiences
+
+The [Next.js demo](demo/README.md) consumes the built TypeScript package, with a canonical route for every species. Original studio URLs and their detailed controls remain available for compatibility. [All animal APIs and configuration guides](docs/ANIMAL-APIS.md) describe each species’ own interactions.
+
+The package remains **private and unpublished to npm**. The original thirteen-species release and bounded visual checks are recorded in [visual acceptance](docs/VISUAL-ACCEPTANCE.md); newer renderer work builds on that baseline. Gallery captures document the current source, not a claim that every animation or device has been exhaustively tested.
 
 
 ## Dragonfly artwork
@@ -91,7 +106,7 @@ Procedural animals drawn with moving characters, using a framework-neutral Canva
 ## Review status and source
 
 Current collection evidence: [all-species integration](docs/ALL-SPECIES-INTEGRATION.md) and [bounded visual acceptance](docs/VISUAL-ACCEPTANCE.md). The [original package integration review](docs/INTEGRATION-REVIEW.md) is historical and retains its then-open checks; it is not the current deployment status. The TypeScript foundation is merged. It remains private and is not a released npm package.
-[Open the Cuttlefish study](https://castlemilk.github.io/ascii-animals/cuttlefish-demo.html) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
+[Open the Cuttlefish study](https://castlemilk.github.io/ascii-animals/animals/cuttlefish/) · [Original microsite](https://cuttlefish-in-the-current.shorted-com-au.chatgpt.site/) · [Download the standalone HTML](https://github.com/castlemilk/ascii-animals/raw/refs/heads/main/dist/cuttlefish.html) · [Explore the renderer](dist/artwork.js)
 
 The original package review was based on [PR #1's import commit `7e5984d34a139b8de4643f1ed0607897a42d88dc`](https://github.com/castlemilk/ascii-animals/commit/7e5984d34a139b8de4643f1ed0607897a42d88dc), branch `feat/cuttlefish-microsite-import`. Its imported files match the inspected local site snapshot `afcce9941c5fa13ca5c658564e73388e603dff14`; local hosting metadata is excluded from the import. The original `main` read contained only `.gitignore` at `84bd1f84fab0f5f5dec053c0d10562c10be8c188`.
 
