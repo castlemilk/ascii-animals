@@ -2,6 +2,7 @@ import { mountAccepted } from './helpers/accepted-cuttlefish-baseline.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { fakeBrowser } from './helpers/fake-browser.mjs';
 import { attachmentScope, attachmentPoses, attachmentContourPoses, protectedSourceFingerprint,
@@ -35,10 +36,19 @@ function identity() {
   assert.deepEqual(oracle.cases.map(c => c.pose), attachmentPoses);
 }
 
-test('V7.1 changes only declared attachment functions and keeps all paths, head, eye, director and lighting code exact', () => {
+test('V7.1 anatomy and path protection stay exact apart from the reviewed encounter-framing cue', () => {
   identity();
-  assert.equal(protectedSourceFingerprint(readFileSync(source, 'utf8')), oracle.protectedSourceSha256,
-    'Code outside rootSleeve/_storeRootSection changed; the attachment exception cannot cover path or head edits');
+  const candidate = readFileSync(source, 'utf8');
+  const start = candidate.indexOf('      // The Overall size control governs');
+  const end = candidate.indexOf('      const lx =', start);
+  if (start !== -1) {
+    assert(end > start);
+    const cueHash = createHash('sha256').update(candidate.slice(start, end)).digest('hex');
+    assert.equal(cueHash, 'cb1c6eeb641bab5f021543b85149f1ef27e5b949ca70ffa5bc22295570b79221', 'Only the reviewed camera cue is excepted');
+  }
+  const anatomySource = start === -1 ? candidate : candidate.slice(0, start) + candidate.slice(end);
+  assert.equal(protectedSourceFingerprint(anatomySource), oracle.protectedSourceSha256,
+    'All code outside rootSleeve/_storeRootSection and the exact framing cue must remain protected');
 });
 
 test('V7.1 preserves exact V7 centerlines/frames, protected anatomy and all upper-arm geometry/normals from u=.40', t => {

@@ -388,7 +388,7 @@ footer p {
     </section>
     <footer><p>Original procedural geometry. A dorsal study with lateral eyes omitted.</p><p>The barrel bank is authored motion, inspired by manta turns.</p></footer>
   </main>
-  <!-- Generated manta study; source-sha256: 45fe8660f92f973f0c40063315e0c9274c265d32ae20e46cfd31c8d84a763e8b -->
+  <!-- Generated manta study; source-sha256: 4d58b5df6fab4bbbaa124a2f0746e34ef904020caccfa937b2f7c90ede35f4dc -->
 <script data-manta-bundle>
 (function(){'use strict';const modules={"species/manta/study.mjs":[function(require,module,exports){
 "use strict";
@@ -2552,6 +2552,22 @@ class CuttlefishArtwork {
             // Turning starts with the escape, so near-plane protection cannot pull
             // the animal backward before its ink jet has finished.
             [this.r00, this.r01, this.r02, this.r10, this.r11, this.r12, this.r20, this.r21, this.r22] = r.rotation;
+        }
+        // The Overall size control governs the approach and the other swimmers.
+        // At the lens, bring a small lead cuttlefish closer to the authored 1×
+        // close-up coverage without erasing the chosen difference in size. This is a
+        // per-subject framing cue; the rest of the school and its camera stay put.
+        // Apply it before the near-plane guard and fade it with the held pose's
+        // grip, including during the stationary warning and subsequent escape.
+        if (!this._director && !definition && scene === 'encounter'
+            && this.options.formation === 'independent' && this.activeFish.id === 0
+            && this.activeFish.behavior === 'encounter' && this.objectScale < 1) {
+            const closeFrame = smooth(.15, 1, this.encounterGrip) * Math.min(1, motion);
+            // Monotone curve with unit slope at 1×: strong help at .35, but
+            // only .095 of lift at .70, where long arms need the extra margin.
+            const u = clamp((this.objectScale - .35) / .65, 0, 1);
+            const framed = .74 + .26 * Math.pow(u, 2.5);
+            this.objectScale = mix(this.objectScale, framed, closeFrame);
         }
         const lx = -.38, ly = -.48, lz = .790, hx = -.204, hy = -.258, hz = .944;
         this.lx = this.r00 * lx + this.r10 * ly + this.r20 * lz;

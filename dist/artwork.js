@@ -1,5 +1,5 @@
 // GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js, src/animals/manta.js, src/animals/octopus.js. Do not edit.
-// source-sha256: b7c8f086060fa55fa516a25163b75faae306e16c1ba84976a27bb26d40c55c62
+// source-sha256: 0623f4cadd27226752f266492051a66764396759e376e807b29cab77392881f2
 (function () {
 'use strict';
 /** A framework-neutral, injectable requestAnimationFrame multiplexer. */
@@ -2401,6 +2401,22 @@ class CuttlefishArtwork {
         // Turning starts with the escape, so near-plane protection cannot pull
         // the animal backward before its ink jet has finished.
         [this.r00, this.r01, this.r02, this.r10, this.r11, this.r12, this.r20, this.r21, this.r22] = r.rotation;
+      }
+      // The Overall size control governs the approach and the other swimmers.
+      // At the lens, bring a small lead cuttlefish closer to the authored 1×
+      // close-up coverage without erasing the chosen difference in size. This is a
+      // per-subject framing cue; the rest of the school and its camera stay put.
+      // Apply it before the near-plane guard and fade it with the held pose's
+      // grip, including during the stationary warning and subsequent escape.
+      if (!this._director && !definition && scene === 'encounter'
+        && this.options.formation === 'independent' && this.activeFish.id === 0
+        && this.activeFish.behavior === 'encounter' && this.objectScale < 1) {
+        const closeFrame = smooth(.15, 1, this.encounterGrip) * Math.min(1, motion);
+        // Monotone curve with unit slope at 1×: strong help at .35, but
+        // only .095 of lift at .70, where long arms need the extra margin.
+        const u = clamp((this.objectScale - .35) / .65, 0, 1);
+        const framed = .74 + .26 * Math.pow(u, 2.5);
+        this.objectScale = mix(this.objectScale, framed, closeFrame);
       }
       const lx = -.38, ly = -.48, lz = .790, hx = -.204, hy = -.258, hz = .944;
       this.lx = this.r00 * lx + this.r10 * ly + this.r20 * lz; this.ly = this.r01 * lx + this.r11 * ly + this.r21 * lz; this.lz = this.r02 * lx + this.r12 * ly + this.r22 * lz;
