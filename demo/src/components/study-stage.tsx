@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { BASE_PATH, apiPath, originalPath, type Animal } from '../lib/catalogue';
 import { isMarineSpecies, mountRenderer, type RendererSession } from '../lib/renderers';
 import { movementControls } from '../extensions/movement-controls';
@@ -18,7 +18,9 @@ export function StudyStage({ animal }: { animal: Animal }) {
   const [notice, setNotice] = useState('');
   const descriptionId = `description-${animal.id}`;
 
-  useEffect(() => {
+  // Release the renderer during the commit, before React detaches its canvas.
+  // Passive cleanup can let a queued frame paint a detached route on a slow client.
+  useLayoutEffect(() => {
     const element = host.current;
     if (!element || !motion.ready) return;
     const cancellation = new AbortController();

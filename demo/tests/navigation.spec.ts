@@ -145,3 +145,27 @@ test.describe('without JavaScript', () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
 });
+
+test('landing uses renderer stills and a clear primary directory action without mounting a renderer', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(`${base}/`);
+  await expect(page.getByRole('heading', { level: 1, name: 'ASCII by nature.' })).toBeVisible();
+  const hero = page.getByRole('img', { name: /ASCII cuttlefish/i });
+  await expect(hero).toBeVisible();
+  expect(await hero.evaluate((image: HTMLImageElement) => image.decode().then(() => image.naturalWidth))).toBe(768);
+  await expect(page.locator('canvas')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Browse the animals', exact: true }).click();
+  await expect(page).toHaveURL(`${base}/#catalogue`);
+  await expect(page.getByRole('searchbox')).toBeVisible();
+  const thumbnails = page.locator('#catalogue article img');
+  await expect(thumbnails).toHaveCount(13);
+  expect(await thumbnails.evaluateAll(async images => await Promise.all(images.map(async element => {
+    const image = element as HTMLImageElement;
+    image.loading = 'eager'; await image.decode();
+    return [image.naturalWidth, image.naturalHeight, image.alt === ''];
+  })))).toEqual(animals.map(([slug]) => [slug === 'cuttlefish' ? 768 : 384, slug === 'cuttlefish' ? 432 : 216, true]));
+  await page.getByRole('link', { name: 'Open Manta ray study' }).click();
+  await ready(page, 'manta', 'Manta ray');
+  expect(errors).toEqual([]);
+});

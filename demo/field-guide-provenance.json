@@ -1,0 +1,98 @@
+{
+  "revision": "bea7753bcb0c998e744effd11421b16ddeaa5bbc",
+  "source": "Canonical Next.js renderer, first frame of independently captured Chrome sequences, real canvas or text stage. No screenshots include UI chrome.",
+  "transformation": "Preserve aspect ratio, resample onto dark 16:9 matte (hero 768x432, others 384x216), encode WebP quality 85.",
+  "assets": [
+    {
+      "species": "butterfly",
+      "capture_frame": 0,
+      "original_png_sha256": "2d403efd571fcaabd4789cdcdc22fcde434d7d2745b03097a3c4fab506cba983",
+      "webp_sha256": "3c9796a38860c83d7ede6470c0c1b09f6d0fbc4059dc3761adaa5ef79c96c95b",
+      "bytes": 3310
+    },
+    {
+      "species": "crab",
+      "capture_frame": 0,
+      "original_png_sha256": "1cea092e48b38157837c4bf99835afcf5cd68ffc1659ddf3a6048d56d0acfdbb",
+      "webp_sha256": "8ec828700bef17b523b529003035d36f347464ce7dc2db4f5a7374e3747a4de9",
+      "bytes": 4220
+    },
+    {
+      "species": "cuttlefish",
+      "capture_frame": 0,
+      "original_png_sha256": "869fc6d99e6991d2491d4113000c7c07cb4f4abf81d151b52fcee6cc4a344658",
+      "webp_sha256": "2fab0c06194bb1040d7cc08b8937e2edd95217b5080c582bb518a97545a909a9",
+      "bytes": 13388
+    },
+    {
+      "species": "dragonfly",
+      "capture_frame": 0,
+      "original_png_sha256": "c1210cb36915f60230de9021f4bf663488017eed70f87179c6252264851622f3",
+      "webp_sha256": "d1cbf02890ce083962477adc2c530c4b123d4b4191da623cd667ba816341b60f",
+      "bytes": 2214
+    },
+    {
+      "species": "fox",
+      "capture_frame": 0,
+      "original_png_sha256": "9ac4badfb331cc4e7daed3b188d14c214c9609d0e45366f14312820e3c465444",
+      "webp_sha256": "4edb5cdfc3fab01a60c584cc1cc66eb1992e2fcd4c4d7e98a0ac407749e4d817",
+      "bytes": 2312
+    },
+    {
+      "species": "frog",
+      "capture_frame": 0,
+      "original_png_sha256": "ce59c8016ab7d218dffdcf570926d1151fe9ff3dcb14d68666a7be76f723b149",
+      "webp_sha256": "9c0a287085c5352a08dae131a79f48f63c6d2338173bfa5027700942206a8e4d",
+      "bytes": 2124
+    },
+    {
+      "species": "gecko",
+      "capture_frame": 0,
+      "original_png_sha256": "0cb898e933ba64046c5911329f63cf5a6d0c6f76d99519b2e10d084849f72d1d",
+      "webp_sha256": "daf911f56d3d04e4aeaf1fa31c2520eadff5d7b68635ccfd993c8eac3ef3ee15",
+      "bytes": 1730
+    },
+    {
+      "species": "manta",
+      "capture_frame": 0,
+      "original_png_sha256": "354b407adb1ad49d71b6fe788965207572c2fdfe8ba31f3592a90444df0946f6",
+      "webp_sha256": "942f889c994be542c55ef24c7ea6c570db268f6b67ed63a8dee3dc93c8ad0ffb",
+      "bytes": 2788
+    },
+    {
+      "species": "octopus",
+      "capture_frame": 0,
+      "original_png_sha256": "28df3f6ddfffa41e2308fdc67d96413d3018807843a86d58046565bde2bdca88",
+      "webp_sha256": "a3270ff5ca6ac49ce5b5b084b92d253dd0ac232acc03a0cfcdf94577169fa197",
+      "bytes": 3200
+    },
+    {
+      "species": "owl",
+      "capture_frame": 0,
+      "original_png_sha256": "cb824b15dac5e36f7c853f530395bd3b230c6329e7b3ec36eea2a2a3f3bee177",
+      "webp_sha256": "7c347d48bce4ca5b4dd64ff0a8ac7e0badfb67e744941014cfe70c7358bf4c85",
+      "bytes": 6676
+    },
+    {
+      "species": "pufferfish",
+      "capture_frame": 0,
+      "original_png_sha256": "4287e8ed9cc57edfaf83a18cc44f210351b6ddcf9b722b02694ea351b6ff691b",
+      "webp_sha256": "9ddf8079cf7bc0c1c839be26665ab58f3a4c6b15e9ec55e4e424dfe9a6dd0d83",
+      "bytes": 2588
+    },
+    {
+      "species": "seahorse",
+      "capture_frame": 0,
+      "original_png_sha256": "cef1c5db4760551a6457b275955454bc154d4127951ad97b46a6733879af86dc",
+      "webp_sha256": "7954407f86c5eda9791d8df9893c6315262a52c81a0a01115e62a79b654fa5be",
+      "bytes": 3166
+    },
+    {
+      "species": "turtle",
+      "capture_frame": 0,
+      "original_png_sha256": "d7f83b0f7dfd0c57830983ef78a4bcda4d9903a8d117f49aff3a70023b62e337",
+      "webp_sha256": "43a4f9ebc39f959ea855427570ccb0f02f00e3165c67dd1d238674c82ff594d5",
+      "bytes": 2958
+    }
+  ]
+}

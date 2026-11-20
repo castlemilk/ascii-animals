@@ -266,3 +266,40 @@
 .journey-repeat input { accent-color: var(--accent); }
 .journey-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 @media (max-width: 360px) { .journey-settings { grid-template-columns: 1fr; } }
+
+.discovery-hero { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(30px,5vw,86px); padding: clamp(18px,3vw,44px) 0 clamp(32px,4vw,53px); }
+.discovery-copy { min-width: 0; }
+.discovery-hero h1 { font-size: clamp(48px,7vw,112px); max-width: 10ch; text-wrap: balance; }
+.discovery-hero .hero-description { max-width: 36ch; line-height: 1.6; }
+.discovery-hero .hero-actions { gap: 12px; }
+.featured-specimen { overflow: hidden; min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: #080d0f; }
+.specimen-top,.featured-specimen > figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 18px; font: 10px/1.4 var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.specimen-top { border-bottom: 1px solid var(--line); }
+.featured-specimen > img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; }
+.featured-specimen > figcaption { border-top: 1px solid var(--line); padding-block: 0; }
+.featured-specimen > figcaption a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--accent); }
+.animal-card { overflow: hidden; padding: 0; }
+.card-art { background: #080d0f; border-bottom: 1px solid var(--line); }
+.card-art img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; }
+.card-copy { padding: 18px 22px 14px; flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.card-copy .card-meta { margin-bottom: 10px; }
+.card-copy p { margin-block: 8px 14px; }
+.card-copy .study-link { padding-top: 6px; }
+@media (max-width: 720px) {
+  .discovery-hero { display: grid; grid-template-columns: minmax(0,1fr); gap: 23px; padding: 16px 0 36px; }
+  .discovery-hero h1 { max-width: none; font-size: clamp(43px,10vw,64px); }
+  .discovery-hero .hero-description { margin-top: 14px; }
+  .discovery-hero .hero-actions { margin-top: 18px; }
+  .mobile-species { grid-template-columns: minmax(0,1fr) auto; align-items: end; gap: 10px; }
+  .mobile-species label { display: grid; gap: 5px; min-width: 0; }
+  .mobile-species button { margin: 0; padding-inline: 12px; }
+}
+@media (max-width: 480px) {
+  .discovery-hero .hero-actions .button { font-size: 13px; padding-inline: 12px; gap: 8px; }
+  .card-copy { padding: 14px 15px 12px; }
+  .animal-card { display: grid; grid-template-columns: minmax(88px,35%) minmax(0,1fr); min-height: 150px; }
+  .card-art { display: grid; align-items: center; border-bottom: 0; border-right: 1px solid var(--line); }
+  .card-copy h3 { font-size: 22px; }
+  .card-copy p { font-size: 12px; margin-bottom: 8px; }
+  .card-copy .study-link { min-height: 44px; padding-top: 2px; }
+}
