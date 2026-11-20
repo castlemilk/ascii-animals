@@ -1,7 +1,7 @@
 {
   "output": "dist/cuttlefish-study.html",
-  "sha256": "4c0fcd2ff40ce09e51acd2a459d36e4165adbdda1ff6408ba3780889665175c4",
-  "bytes": 577633,
+  "sha256": "078781375e2802fc181728fedb07f3968b9230dfaa576301c8154be2d7e0b3a2",
+  "bytes": 577057,
   "type": "self-contained local HTML preview",
   "browserVerified": false,
   "sources": [
@@ -22,8 +22,8 @@
     },
     {
       "path": "lib/animals/cuttlefish.js",
-      "sha256": "2f90e5f33a3c07aa46bdeb5e32a6681126a325620ffb69e639edf06cd3958c16",
-      "bytes": 139871
+      "sha256": "1db187baef39a9f32183ba149d1e284aecd8390cb7258cf63c2b3658e874db15",
+      "bytes": 139627
     },
     {
       "path": "lib/animals/manta.js",
