@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1820" viewBox="0 0 1600 1820" role="img" aria-labelledby="title desc">
+  <title id="title">ASCII Animals — pinned demo shell wireframe</title>
+  <desc id="desc">Three labelled layout studies: desktop catalogue, desktop species study, and mobile species study. The active renderer area is intentionally blank. This is a layout specification, not a screenshot or evidence of animal rendering.</desc>
+  <defs>
+    <style>
+      text{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#edf3e8}
+      .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.muted{fill:#adbbaf}.lime{fill:#d9eea0}.ink{fill:#101713}.title{font-size:29px;font-weight:600}.label{font-size:13px;letter-spacing:1px}.body{font-size:15px}.small{font-size:12px}.tiny{font-size:11px}.h{font-size:23px;font-weight:500}.line{stroke:#35483b;stroke-width:1}.panel{fill:#17221b;stroke:#35483b}.button{fill:#101713;stroke:#526657}.accent{fill:#d9eea0}.note{fill:#f0f3ed}.noteText{fill:#203428}
+    </style>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#17251e" stroke-width=".8"/></pattern>
+  </defs>
+  <rect width="1600" height="1820" fill="#e6ebe4"/>
+  <text x="40" y="48" class="title noteText">ASCII Animals / demo shell</text>
+  <text x="40" y="76" class="body noteText">Pinned design · 19 Nov 2026, 10:17 AEDT · base b8f222dab868821f27bf2a64a98434f3483fc8e6</text>
+  <text x="40" y="101" class="small noteText">Layout specification only. No animal illustrations, rendered frames or browser-result claims.</text>
+  <text x="40" y="139" class="label noteText mono">01 / DESKTOP CATALOGUE</text>
+  <rect x="40" y="157" width="1080" height="617" rx="12" fill="#101713"/>
+  <text x="70" y="197" class="h mono">{a} ascii-animals</text><text x="780" y="195" class="body lime">Catalogue</text><text x="900" y="195" class="body muted">API</text><text x="980" y="195" class="body muted">Source ↗</text>
+  <path d="M70 219H1090" class="line"/>
+  <text x="70" y="249" class="small muted">ASCII Animals  /  </text><text x="178" y="249" class="small lime">Catalogue</text>
+  <text x="70" y="285" class="label lime mono">A LIVING CHARACTER COLLECTION</text>
+  <text x="70" y="334" font-size="43" font-weight="500">Small characters.</text><text x="70" y="382" font-size="43" font-weight="400" class="lime">Wild personalities.</text>
+  <text x="650" y="325" class="body muted">Thirteen reactive studies.</text><text x="650" y="352" class="body muted">Original anatomy, expressive movement</text><text x="650" y="379" class="body muted">and a little room for the unexpected.</text>
+  <text x="70" y="422" class="small muted">Find an animal</text><rect x="70" y="433" width="475" height="45" rx="5" class="button"/><text x="85" y="461" class="body muted">Search by name…</text>
+  <text x="565" y="422" class="small muted">Habitat</text><rect x="565" y="433" width="345" height="45" rx="5" class="button"/><text x="580" y="461" class="body">All habitats</text><text x="882" y="461" class="body">⌄</text>
+  <rect x="930" y="433" width="160" height="45" rx="5" class="button"/><text x="975" y="461" class="body">Reset</text>
+  <text x="70" y="506" class="small muted mono">13 animals · Select a study</text>
+  <rect x="70" y="522" width="328" height="195" rx="7" class="panel"/><text x="90" y="550" class="small lime mono">01 / OCEAN</text><text x="90" y="592" class="h">Cuttlefish</text><text x="90" y="621" class="body muted">Curious encounters and character ink.</text><text x="90" y="686" class="body lime">Open study ↗</text>
+  <rect x="416" y="522" width="328" height="195" rx="7" class="panel"/><text x="436" y="550" class="small lime mono">02 / OCEAN</text><text x="436" y="592" class="h">Manta ray</text><text x="436" y="621" class="body muted">Wide wings. Unhurried glides.</text><text x="436" y="686" class="body lime">Open study ↗</text>
+  <rect x="762" y="522" width="328" height="195" rx="7" class="panel"/><text x="782" y="550" class="small lime mono">03 / OCEAN</text><text x="782" y="592" class="h">Octopus</text><text x="782" y="621" class="body muted">Eight arms, each with a personality.</text><text x="782" y="686" class="body lime">Open study ↗</text>
+  <text x="70" y="749" class="tiny muted">Continues through all thirteen species in the existing catalogue order. Static cards; no background renderers.</text>
+  <text x="1160" y="139" class="label noteText mono">03 / MOBILE STUDY</text>
+  <rect x="1160" y="157" width="400" height="1236" rx="16" fill="#101713"/>
+  <text x="1180" y="196" class="h mono">{a} ascii-animals</text><text x="1180" y="234" class="body lime">Catalogue</text><text x="1320" y="234" class="body muted">API</text><text x="1390" y="234" class="body muted">Source ↗</text><path d="M1180 253H1540" class="line"/>
+  <text x="1180" y="285" class="small muted">ASCII Animals / Catalogue / </text><text x="1180" y="306" class="small lime">Cuttlefish</text>
+  <text x="1180" y="347" class="body lime">← Back to catalogue</text><text x="1180" y="389" class="small muted mono">01 / 13 · OCEAN</text><text x="1180" y="436" font-size="39" font-weight="500">Cuttlefish</text>
+  <text x="1180" y="475" class="small muted">Choose an animal</text><rect x="1180" y="486" width="360" height="48" rx="5" class="button"/><text x="1195" y="516" class="body">Cuttlefish</text><text x="1510" y="516" class="body">⌄</text>
+  <rect x="1180" y="554" width="360" height="275" rx="7" fill="#080d0f" stroke="#35483b"/><rect x="1180" y="554" width="360" height="275" rx="7" fill="url(#grid)"/>
+  <text x="1360" y="665" text-anchor="middle" class="body muted">Active study</text><text x="1360" y="692" text-anchor="middle" class="small muted">Canvas or DOM-text host</text><text x="1360" y="720" text-anchor="middle" class="tiny muted">No illustrative animal in this wireframe</text>
+  <rect x="1180" y="847" width="360" height="48" rx="5" class="accent"/><text x="1360" y="877" text-anchor="middle" class="body ink">Pause animation</text>
+  <rect x="1182" y="916" width="19" height="19" rx="3" class="button"/><text x="1213" y="931" class="body">Still mode</text><text x="1180" y="963" class="small muted">System reduced motion is always respected.</text>
+  <rect x="1180" y="988" width="360" height="127" rx="7" fill="#17221b" stroke="#526657" stroke-dasharray="5 5"/><text x="1196" y="1021" class="body">Movement</text><text x="1196" y="1049" class="small muted">Species-owned controls, when available.</text><text x="1196" y="1081" class="tiny muted">Reserved integration area, not a new API.</text>
+  <path d="M1180 1140H1540" class="line"/><text x="1180" y="1174" class="body muted">First in the collection</text><rect x="1180" y="1193" width="360" height="48" rx="5" class="button"/><text x="1360" y="1223" text-anchor="middle" class="body lime">Next: Manta ray →</text>
+  <text x="1180" y="1285" class="body lime">Open original studio ↗</text><text x="1180" y="1324" class="body muted">Species API ↗</text><text x="1180" y="1366" class="tiny muted">One column · no fixed footer · natural scroll</text>
+  <text x="40" y="816" class="label noteText mono">02 / DESKTOP SPECIES STUDY</text>
+  <rect x="40" y="834" width="1080" height="747" rx="12" fill="#101713"/>
+  <text x="70" y="875" class="h mono">{a} ascii-animals</text><text x="780" y="873" class="body lime">Catalogue</text><text x="900" y="873" class="body muted">API</text><text x="980" y="873" class="body muted">Source ↗</text><path d="M70 897H1090" class="line"/>
+  <text x="70" y="929" class="small muted">ASCII Animals / Catalogue / </text><text x="248" y="929" class="small lime">Cuttlefish</text>
+  <text x="70" y="969" class="body lime">← Back to catalogue</text><text x="304" y="969" class="small muted mono">01 / 13 · OCEAN</text><text x="304" y="1014" font-size="39" font-weight="500">Cuttlefish</text>
+  <text x="70" y="1030" class="label muted mono">THE COLLECTION</text>
+  <rect x="62" y="1045" width="210" height="36" rx="5" fill="#d9eea0"/><text x="77" y="1068" class="body ink">01  Cuttlefish</text>
+  <text x="77" y="1104" class="body muted">02  Manta ray</text><text x="77" y="1140" class="body muted">03  Octopus</text><text x="77" y="1176" class="body muted">04  Seahorse</text><text x="77" y="1212" class="body muted">05  Crab</text><text x="77" y="1248" class="body muted">06  Sea turtle</text><text x="77" y="1284" class="body muted">07  Pufferfish</text><text x="77" y="1320" class="body muted">08  Frog</text><text x="77" y="1356" class="body muted">09  Butterfly</text><text x="77" y="1392" class="body muted">10  Dragonfly</text><text x="77" y="1428" class="body muted">11  Gecko</text><text x="77" y="1464" class="body muted">12  Owl</text><text x="77" y="1500" class="body muted">13  Fox</text>
+  <rect x="304" y="1045" width="786" height="298" rx="7" fill="#080d0f" stroke="#35483b"/><rect x="304" y="1045" width="786" height="298" rx="7" fill="url(#grid)"/>
+  <text x="697" y="1167" text-anchor="middle" font-size="22" class="muted">Active package renderer</text><text x="697" y="1200" text-anchor="middle" class="body muted">Canvas or semantic DOM-text host</text><text x="697" y="1232" text-anchor="middle" class="small muted">One mounted study · disposed on route change</text><text x="322" y="1321" class="tiny muted">Loading / static / error messages live outside the drawing output.</text>
+  <rect x="304" y="1360" width="204" height="48" rx="5" class="accent"/><text x="406" y="1390" text-anchor="middle" class="body ink">Pause animation</text><rect x="529" y="1374" width="19" height="19" rx="3" class="button"/><text x="560" y="1390" class="body">Still mode</text><text x="814" y="1390" class="small muted">Honours system reduced motion</text>
+  <rect x="304" y="1427" width="786" height="65" rx="7" class="panel" stroke-dasharray="5 5"/><text x="322" y="1454" class="body">Movement</text><text x="456" y="1454" class="small muted">Species-owned controls, when available.</text><text x="322" y="1477" class="tiny muted">Reserved plug-in area. Omit the empty panel when no controls are installed.</text>
+  <text x="304" y="1530" class="body muted">First in the collection</text><text x="901" y="1530" class="body lime">Next: Manta ray →</text><text x="304" y="1561" class="small lime">Open original studio ↗</text><text x="504" y="1561" class="small muted">Species API ↗</text>
+  <rect x="1160" y="1420" width="400" height="161" rx="10" fill="#f6f8f3"/>
+  <text x="1180" y="1453" class="label noteText mono">ACCESSIBILITY NOTES</text><text x="1180" y="1485" class="body noteText">Visible breadcrumb + current species</text><text x="1180" y="1514" class="body noteText">44 px targets · native mobile selector</text><text x="1180" y="1543" class="body noteText">Keyboard focus ring · reduced motion</text>
+  <rect x="40" y="1611" width="1520" height="169" rx="10" fill="#f6f8f3"/>
+  <text x="64" y="1646" class="label noteText mono">PINNED RULES / IMPLEMENTATION BOUNDARIES</text>
+  <text x="64" y="1680" class="body noteText">Catalogue cards remain static. The shell imports built package exports and mounts only the selected species. No copied renderer or iframe.</text>
+  <text x="64" y="1711" class="body noteText">The movement owner supplies controls through a typed demo-only slot; the shell does not invent choreography or modify anatomy.</text>
+  <text x="64" y="1742" class="body noteText">Deep links, legacy URLs, keyboard focus, motion preference and disposal require implementation tests. This wireframe is not test evidence.</text>
+</svg>

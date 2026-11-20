@@ -1,6 +1,6 @@
 # Typed animal API map
 
-The package is currently named `ascii-animals-review` and is private/unpublished. Install the local tarball for the examples; these are not npm-registry installation instructions. All factories are also named exports from the package root. Importing modules is SSR-safe; mount only after a browser element exists.
+The package is currently named `ascii-animals-review` and is private/unpublished. Install the local tarball for the examples; these are not npm-registry installation instructions. All factories in this table are also named exports from the package root. Importing modules is SSR-safe; mount only after a browser element exists.
 
 | Animal | Factory | Typed import | Host | Full configuration |
 |---|---|---|---|---|
@@ -27,3 +27,13 @@ All browser adapters use the shared per-window scheduler. Pause, reduced-motion 
 The marine renderer bundles its three built-ins. Pufferfish currently depends on that private renderer implementation; it is not a zero-cost/lazy-isolated import. Other typed subpaths preserve their own model and rendering implementation. See measured package fixtures rather than assuming equal size or performance.
 
 Implementation availability is separate from visual acceptance and live deployment; consult the catalogue and integration review for current status.
+
+## Across-screen journeys
+
+The separate `ascii-animals-review/movement` subpath provides typed, seeded
+viewport paths. `ascii-animals-review/movement/marine` connects them to the
+existing cuttlefish, manta and octopus renderer. Movement owns travel and lanes
+when enabled; natural scene/formation options remain saved for disabling it.
+Other species keep their existing pose contracts. See [Movement](MOVEMENT.md)
+for timing, reverse, resize, reduced-motion policy, tests and the isolated controls
+consumer that the navigation shell can mount.

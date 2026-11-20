@@ -1,0 +1,153 @@
+{
+  "sourceCommit": "bea7753bcb0c998e744effd11421b16ddeaa5bbc",
+  "capture": "Actual Chromium canonical Next.js study, normal motion, fixed browser clock; canvas/DOM pixels, not mock or illustrative artwork.",
+  "fps": 10,
+  "frames": 40,
+  "animals": [
+    {
+      "id": "cuttlefish",
+      "route": "/ascii-animals/animals/cuttlefish/",
+      "bytes": 1124237,
+      "sha256": "e3d872bc37aa919c5ebe8198251fa1bdcc7658fe7c3e6d4b62c83ac792694594",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "manta",
+      "route": "/ascii-animals/animals/manta/",
+      "bytes": 818273,
+      "sha256": "7d6d920a22894402932aa6e4facefca55f6e52fc144377251a3dc77b1d413321",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "octopus",
+      "route": "/ascii-animals/animals/octopus/",
+      "bytes": 413455,
+      "sha256": "6bcd1919542ea45f53ff334046615610cbabbde9482e874ca64c653687ef6157",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "seahorse",
+      "route": "/ascii-animals/animals/seahorse/",
+      "bytes": 102974,
+      "sha256": "a4707493b45f8c3201ba54eedbf6a566b4b87c7ac8eadaa0b8a0ce8af2bd5544",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "crab",
+      "route": "/ascii-animals/animals/crab/",
+      "bytes": 132242,
+      "sha256": "946032821121caa4a30d8f1a27074ae4850adfefb2b465f3de04c6a5aa9362f8",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "turtle",
+      "route": "/ascii-animals/animals/turtle/",
+      "bytes": 118368,
+      "sha256": "dab2a0d25236c1ff93657e70b2164609712013e7bdef7c6caf6e7cae369bf61e",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "pufferfish",
+      "route": "/ascii-animals/animals/pufferfish/",
+      "bytes": 181486,
+      "sha256": "8e24d8d81c7c5ef56c05d24b96f589274b8bd4b2e68b287fdb6d9e0d600c2a89",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "frog",
+      "route": "/ascii-animals/animals/frog/",
+      "bytes": 41090,
+      "sha256": "209bdbef95503d8b353096b590bfcf75f3e04181df1a7dae2368ad22bf430a99",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "butterfly",
+      "route": "/ascii-animals/animals/butterfly/",
+      "bytes": 221775,
+      "sha256": "676ed9b2e27d785c565717f950fb1ce9f93acd5bc2db5c4d5b691f5513f224d4",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "dragonfly",
+      "route": "/ascii-animals/animals/dragonfly/",
+      "bytes": 118183,
+      "sha256": "0584386936da2a9de88757c8e9b896d417d4a67bb7cd49c8b4b5bbc66e5a31f6",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "gecko",
+      "route": "/ascii-animals/animals/gecko/",
+      "bytes": 18136,
+      "sha256": "5295fa3ad8a13c0f25d416dede4c92cb70445b1b08fb3164e5bc61266e734bf7",
+      "uniqueSourceFrames": 40,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 40,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "owl",
+      "route": "/ascii-animals/animals/owl/",
+      "bytes": 24919,
+      "sha256": "9083a8c70b8092b50cb9be4012030402226d03f0170d3a8e1a6ae9c7707dedd0",
+      "uniqueSourceFrames": 15,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 15,
+      "width": 561,
+      "height": 361
+    },
+    {
+      "id": "fox",
+      "route": "/ascii-animals/animals/fox/",
+      "bytes": 20359,
+      "sha256": "72a0ccda5c300b58ef7f2102242d1ee7fbdef4c2c46a6516645b6867a0ee8dcc",
+      "uniqueSourceFrames": 38,
+      "decodedFrames": 40,
+      "uniqueDecodedFrames": 38,
+      "width": 561,
+      "height": 361
+    }
+  ],
+  "hostWidthCss": 560,
+  "hostHeightCss": 360
+}

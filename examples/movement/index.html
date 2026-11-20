@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Across-screen journeys · ASCII Animals</title>
+  <link rel="stylesheet" href="./controls.css">
+  <link rel="stylesheet" href="./sample.css">
+  <script type="importmap">
+    {"imports":{"ascii-animals-review/movement/marine":"../../lib/public/movement-marine.js"}}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#movement-stage">Skip to the scene</a>
+  <main>
+    <header class="heading">
+      <p class="eyebrow">ASCII ANIMALS <span> / </span> MOVEMENT STUDY 01</p>
+      <h1>Give the current<br>a direction.</h1>
+      <p class="lede">Three familiar creatures. One journey you can direct. Set a path, let them linger, then follow them out of view.</p>
+    </header>
+    <div class="workspace">
+      <section class="stage-panel" aria-labelledby="stage-title">
+        <div class="stage-header">
+          <h2 id="stage-title">Open water</h2>
+          <span class="cast">MANTA <i>·</i> CUTTLEFISH <i>·</i> OCTOPUS</span>
+        </div>
+        <canvas id="movement-stage" tabindex="0" role="img" aria-label="Three procedural ASCII sea creatures travelling across open water. Move the pointer to invite attention, or tap a visible animal for a reaction." aria-describedby="stage-help"></canvas>
+        <div class="stage-footer">
+          <p id="stage-help">Move or tap to interact. With the scene focused, <kbd>Space</kbd> pauses and <kbd>Enter</kbd> invites a reaction.</p>
+          <button id="reaction" type="button">Invite a reaction <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="presets" role="group" aria-label="Journey presets">
+          <button type="button" data-path="horizontal"><span>01</span> Current crossing</button>
+          <button type="button" data-path="vertical"><span>02</span> Rising current</button>
+          <button type="button" data-path="free"><span>03</span> Wandering passage</button>
+        </div>
+        <p class="note">Movement sets the route and arrival timing. The creatures keep their native wings, arms, curiosity and recovery. Turn travel off to return to their natural scene.</p>
+      </section>
+      <aside id="controls-host" aria-label="Movement settings"></aside>
+    </div>
+    <p id="failure" role="alert" hidden></p>
+    <footer class="page-footer"><span>LOCAL PACKAGE EXAMPLE</span><a href="../../docs/MOVEMENT.md">Movement contract & integration notes</a></footer>
+  </main>
+  <script type="module">
+    import { mountMarineJourneyDemo } from './main.mjs';
+    const signal = new AbortController();
+    const disposers = [];
+    function listen(node, event, handler) {
+      node.addEventListener(event, handler);
+      disposers.push(() => node.removeEventListener(event, handler));
+    }
+    try {
+      const demo = await mountMarineJourneyDemo({ canvas: document.getElementById('movement-stage'), controlsHost: document.getElementById('controls-host'), signal: signal.signal });
+      listen(document.getElementById('reaction'), 'click', () => { demo.artwork.pulse(); demo.refresh(); });
+      for (const button of document.querySelectorAll('[data-path]')) listen(button, 'click', () => {
+        demo.port.configureMovementControls({ enabled: true, path: button.dataset.path, direction: button.dataset.path === 'vertical' ? 'reverse' : 'forward' });
+        if (demo.artwork.getStats().paused) demo.artwork.showMovementStill(.5);
+        demo.refresh();
+      });
+      // Read-only inspection handle for this standalone sample's browser checks.
+      window.movementDemo = demo;
+      listen(window, 'pagehide', () => { signal.abort(); for (const remove of disposers.splice(0)) remove(); });
+    } catch (error) {
+      signal.abort();
+      const output = document.getElementById('failure');
+      output.hidden = false;
+      output.textContent = `The movement sample could not mount: ${error.message}. Run npm run build and serve the repository over HTTP.`;
+    }
+  </script>
+</body>
+</html>
