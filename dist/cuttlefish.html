@@ -250,7 +250,7 @@
   </dialog>
 <script data-artwork-source>
 // GENERATED from src/core/scheduler.js, src/animals/cuttlefish.js, src/animals/manta.js, src/animals/octopus.js. Do not edit.
-// source-sha256: b4ede62dd698e4cfd7000a838b2327477329eb4562ba5f944e7ad6da0d8dcfc2
+// source-sha256: 262e0db8c9d52bed4f10327caeecb0aeed2d503a4796d1992a4edd624def7a23
 (function () {
 'use strict';
 /** A framework-neutral, injectable requestAnimationFrame multiplexer. */
@@ -2448,6 +2448,28 @@ class CuttlefishArtwork {
       }
     }
 
+    _independentPatrol(clock, direction, anchor) {
+      const fish = this.activeFish, single = this._legacySingle();
+      const fit = fish.definition && this.options.count === 1
+        ? Math.min(this.width / 8, this.height / 6.8)
+        : Math.min(this.width / (single ? 7.4 : 9.8), this.height / (single ? 4.6 : 6.8));
+      const depth = -.95 - .65 * fish.seed, bob = .38;
+      const lens = .28 * this.depthAmount / (1 + .55 * this.depthAmount);
+      const depthMargin = 1 - (depth + bob) * lens;
+      // Leave space around the body without fitting the camera to the actor.
+      // Aspect changes the route extents, not the renderer's projection.
+      const rx = this.width / (2 * fit) * depthMargin * .57;
+      const ry = this.height / (2 * fit) * depthMargin * .32;
+      const u = clock * .32 * direction + fish.offset;
+      const heading = unit([rx * Math.cos(u) * direction, -ry * Math.sin(u) * direction,
+        bob * Math.cos(u + .72) * direction]);
+      return {
+        position: [rx * Math.sin(u), ry * Math.cos(u), depth + bob * Math.sin(u + .72)],
+        forward: heading, bank: -.09 * direction, patrol: true,
+        anchor: single ? [-.35, 0, -.7] : anchor,
+      };
+    }
+
     _schoolPose(t) {
       const fish = this.activeFish, id = fish.id, o = this.options;
       const travelScale = clamp(this.motionAmount / 1.2, 0, 1.2);
@@ -2499,6 +2521,11 @@ class CuttlefishArtwork {
         this.phase = beat < 3.8 ? 'Turning toward you' : beat < 7.5 ? 'Coming closer' : beat < 10 ? 'Finding a hold' : 'Exploring the lens';
         this.progress = Math.min(1, beat / 10);
       } else if (fish.behavior === 'cruise') {
+        if (o.scene === 'swimby' && !this._director) {
+          this.phase = 'Swimming in view';
+          this.progress = ((clock * .32 / TAU) % 1 + 1) % 1;
+          return this._independentPatrol(clock, (id % 2 ? -1 : 1) * direction, anchor);
+        }
         const extent = halfW + 3.5 * fish.size + 1;
         const cruiseDirection = (id % 2 ? -1 : 1) * direction;
         const travel = ((clock * 1.05 + phase * 1.1 + extent * .55) % (2 * extent)) - extent;
@@ -2535,9 +2562,10 @@ class CuttlefishArtwork {
       this.encounterGrip = 0; this.encounterFront = 0; this.startleTension = 0; this.escapeAmount = 0;
       this.subjectVisibility = 1;
       let position, forward, acceleration = [0, 0, 0], bank = 0, lingering = 0;
-      let schoolAnchor = null;
-      if (!this._legacySingle()) {
+      let schoolAnchor = null, patrol = false;
+      if (!this._legacySingle() || (scene === 'swimby' && !this._director)) {
         const pose = this._schoolPose(t); position = pose.position; forward = pose.forward; bank = pose.bank; schoolAnchor = pose.anchor;
+        patrol = Boolean(pose.patrol);
       } else if (scene === 'reactive') {
         position = [Math.sin(t * .24) * .38 + this.pointer.x * .16,
           Math.sin(t * .38) * .11 + this.pointer.y * .09, -.75 + Math.sin(t * .21) * .22];
@@ -2576,7 +2604,7 @@ class CuttlefishArtwork {
         || (this.options.formation === 'independent' && this.activeFish.behavior === 'cruise'));
       // A through-route slows down with Motion; it never shrinks its wrapping
       // boundary into the view. Zero Motion holds a distributed resting pose.
-      const positionAmount = throughRoute && motion > .001 ? 1 : motion;
+      const positionAmount = patrol ? Math.min(1, motion) : throughRoute && motion > .001 ? 1 : motion;
       position = position.map((v, j) => mix(rest[j], v, positionAmount));
       forward = unit(forward.map((v, j) => mix(restForward[j], v, Math.min(1, positionAmount))));
       if (scene !== 'reactive') {
@@ -2640,7 +2668,7 @@ class CuttlefishArtwork {
       if (motion < .001) { this.phase = r.active ? this.phase : 'Holding position'; this.subjectVisibility = 1; }
       let dorsal = unit(reference.map((v, j) => v - forward[j] * dot(reference, forward)), [0, -1, 0]);
       let lateral = unit(cross(dorsal, forward), [0, 1, 0]);
-      if (!this._director && !definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
+      if (!patrol && !this._director && !definition && this._legacySingle() && scene !== 'reactive' && !r.active) bank = clamp(Math.atan2(dot(acceleration, lateral), 2.4), -.3, .3) * (1 - .85 * lingering);
       bank *= (1 - this.encounterFront) * Math.min(1, motion);
       const cb = Math.cos(bank), sb = Math.sin(bank), l = lateral.slice(), z = dorsal.slice();
       lateral = l.map((v, j) => v * cb - z[j] * sb); dorsal = z.map((v, j) => v * cb + l[j] * sb);

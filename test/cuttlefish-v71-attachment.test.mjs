@@ -36,7 +36,7 @@ function identity() {
   assert.deepEqual(oracle.cases.map(c => c.pose), attachmentPoses);
 }
 
-test('V7.1 anatomy and path protection stay exact apart from the reviewed encounter-framing cue', () => {
+test('V7.1 protected source is historical or the exact reviewed Independent route revision', () => {
   identity();
   const candidate = readFileSync(source, 'utf8');
   const start = candidate.indexOf('      // The Overall size control governs');
@@ -47,8 +47,11 @@ test('V7.1 anatomy and path protection stay exact apart from the reviewed encoun
     assert.equal(cueHash, '98191ef6df322712d9086c7cb7a60b8f8be77a5d639d5d378ae45090014674ad', 'Only the reviewed camera cue is excepted');
   }
   const anatomySource = start === -1 ? candidate : candidate.slice(0, start) + candidate.slice(end);
-  assert.equal(protectedSourceFingerprint(anatomySource), oracle.protectedSourceSha256,
-    'All code outside rootSleeve/_storeRootSection and the exact framing cue must remain protected');
+  const protectedHash = protectedSourceFingerprint(anatomySource);
+  // This second exact source seal covers the reviewed Independent pose changes.
+  // The separate exact geometry/raw-sample oracles still run unchanged.
+  assert([oracle.protectedSourceSha256, '3d378f3fe130b84e3bba9b338f27d8b7c61b9d1f5364895e14fddfcf4d6de7c8'].includes(protectedHash),
+    'Anything outside the reviewed attachment, framing and Independent path changes must remain protected');
 });
 
 test('V7.1 preserves exact V7 centerlines/frames, protected anatomy and all upper-arm geometry/normals from u=.40', t => {
