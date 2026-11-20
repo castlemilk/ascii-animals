@@ -17,7 +17,8 @@ const sourceSHA256 = createHash('sha256').update(canonicalSource).digest('hex');
 const supportedSources = new Map([
   ['c09382ee6847bdfc269d4b55bf44e24e92d7dd46fe53be7e46b34f6891c6b94f', 'public b8f222dab868821f27bf2a64a98434f3483fc8e6'],
   ['de98d21f593751cdd69e66b2425ff72c064508e9af1d856fb434dd60099d569d', 'reviewed V7.1 tree 7bf307ddaee15040f883262d2b3dd4907e5eb79e'],
-  ['1db187baef39a9f32183ba149d1e284aecd8390cb7258cf63c2b3658e874db15', 'V7.1 with reviewed classic encounter framing only; arm-loop seam unchanged']
+  ['1db187baef39a9f32183ba149d1e284aecd8390cb7258cf63c2b3658e874db15', 'V7.1 with reviewed classic encounter framing only; arm-loop seam unchanged'],
+  ['de394dc99c7d6455b9bc7fd942a810372a3c22fe65fc739ef7cd1dc672c1f8fe', 'reviewed Independent patrol revision; arm-loop seam unchanged']
 ]);
 const armsStart = canonicalSource.indexOf('\n    _arms(t) {');
 const armsEnd = canonicalSource.indexOf('\n    _beak(t) {', armsStart);

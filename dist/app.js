@@ -13,9 +13,9 @@
   };
   const scenes = {
     swimby: {
-      name:'Swim-by',hint:'A quick arrival. A little time together.',phase:'Arriving',
-      description:'An animated ASCII cuttlefish enters a fixed diver’s view quickly, lingers nearby with moving fins and arms, then swims away. Choose another scene or use the adjacent controls to explore.',
-      action:'Invite a visit',note:'Replay its arrival, pause, and departure.'
+      name:'Swim-by',hint:'Free swimming with turns back into view.',phase:'Swimming in view',
+      description:'An animated ASCII cuttlefish roams through a fixed diver’s view, turning back into frame. Turn on Follow your cursor to draw it toward your movement.',
+      action:'Restart swim',note:'Restart the swim from its first position.'
     },
     encounter: {
       name:'Close encounter',hint:'Watch the arms crawl. Click for ink toward the lens.',phase:'Approaching',
@@ -59,6 +59,7 @@
     if (state.formation !== 'independent') hint = 'A shared ' + formationNames[state.formation].toLowerCase() + ' current. Click a visitor for ink.';
     else if (state.count > 1) hint = state.scene === 'encounter'
       ? 'A visitor meets the lens. Its neighbors keep drifting.'
+      : state.scene === 'swimby' ? 'Each animal has its own path and stays nearby.'
       : 'Different lives in the current. Click a visitor to startle it.';
     $('scene-hint').textContent = paused ? 'Still waters. Press play to animate.' : hint;
   }
@@ -181,11 +182,13 @@
     $('follow').disabled = reactive;
     $('follow-row').classList.toggle('inherent', reactive);
     $('follow-label').textContent = reactive ? 'Mouse-reactive' : 'Follow your cursor';
-    $('follow-help').textContent = reactive ? 'Gentle movement keeps it calm.' : 'Invite a little curiosity.';
+    $('follow-help').textContent = reactive ? 'Gentle movement keeps it calm.'
+      : state.scene === 'swimby' && state.formation === 'independent' ? 'Gently draw swimmers toward your cursor.'
+      : 'Invite a little curiosity.';
     $('disturbance').hidden = !reactive;
     $('ink-label').textContent = scenes[state.scene].action;
     const school = state.count > 1 || state.formation !== 'independent';
-    $('ink-note').textContent = school ? (state.scene === 'swimby' ? 'Replay the school’s arrival and movement.' : 'Click a visitor for its own ink escape.') : scenes[state.scene].note;
+    $('ink-note').textContent = school ? (state.scene === 'swimby' ? 'Restart the school’s movement.' : 'Click a visitor for its own ink escape.') : scenes[state.scene].note;
     canvas.setAttribute('aria-label', school
       ? state.count + ' animated ASCII cuttlefish with ' + formationNames[state.formation].toLowerCase() + ' movement. Click or tap a visible visitor to make that animal react, spray black ASCII ink, then escape. Use School director to change the population, sizes, formation and individual roles.'
       : scenes[state.scene].description);
