@@ -142,7 +142,7 @@
         <button class="scene-choice selected" data-scene="swimby" type="button" aria-pressed="true">
           <span class="scene-choice-top"><span class="scene-choice-number">01 / OBSERVE</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
           <span class="scene-choice-title">Swim-by</span>
-          <span class="scene-choice-description">Arrives quickly, lingers, then slips away.</span>
+          <span class="scene-choice-description">Swims freely and turns back into view.</span>
         </button>
         <button class="scene-choice" data-scene="encounter" type="button" aria-pressed="false">
           <span class="scene-choice-top"><span class="scene-choice-number">02 / ENCOUNTER</span><span class="scene-choice-dot" aria-hidden="true"></span></span>
@@ -170,7 +170,7 @@
           <div class="range-control"><label for="count">Cuttlefish <output id="count-value" for="count">4</output></label><input id="count" type="range" min="1" max="12" step="1" value="4"><div class="range-endpoints"><span>Solo</span><span>A school of 12</span></div></div>
           <div class="range-control"><label for="size">Overall size <output id="size-value" for="size">70%</output></label><input id="size" type="range" min="0.35" max="1.4" step="0.05" value="0.7"><div class="range-endpoints"><span>Small visitors</span><span>Up close</span></div></div>
           <fieldset class="control-group school-formations"><legend>Direction <span id="formation-name">Independent</span></legend><div class="formation-options" role="group" aria-label="Swimming formation">
-            <button class="formation-choice selected" data-formation="independent" type="button" aria-pressed="true" title="Independent paths and individual roles"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 17l9-9m-4 0h4v4M17 19l4-10m-4 2 4-2 2 4M25 5l7 9m-4-1 4 1v-4"/></svg><span>Independent</span></button>
+            <button class="formation-choice selected" data-formation="independent" type="button" aria-pressed="true" title="Free swimming and individual roles"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 17l9-9m-4 0h4v4M17 19l4-10m-4 2 4-2 2 4M25 5l7 9m-4-1 4 1v-4"/></svg><span>Independent</span></button>
             <button class="formation-choice" data-formation="horizontal" type="button" aria-pressed="false" title="A horizontal procession"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 7h26m-4-4 4 4-4 4M4 17h26m-4-4 4 4-4 4"/></svg><span>Horizontal</span></button>
             <button class="formation-choice" data-formation="vertical" type="button" aria-pressed="false" title="A vertical procession, from bottom to top"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M12 21V3m-4 4 4-4 4 4M25 21V3m-4 4 4-4 4 4"/></svg><span>Vertical</span></button>
             <button class="formation-choice" data-formation="diagonal" type="button" aria-pressed="false" title="A diagonal drift, from bottom left to top right"><svg class="formation-icon" viewBox="0 0 36 24" aria-hidden="true"><path d="M4 20 19 5m-6 0h6v6M17 20 32 5m-6 0h6v6"/></svg><span>Diagonal</span></button>
@@ -222,8 +222,8 @@
           </div>
           <label class="switch-row" id="follow-row" for="follow"><span><span id="follow-label">Follow your cursor</span><small id="follow-help">Invite a little curiosity.</small></span><input type="checkbox" id="follow" role="switch"><span class="switch" aria-hidden="true"></span></label>
           <div class="disturbance" id="disturbance" hidden><div class="disturbance-label"><span>Disturbance</span><output id="disturbance-state" aria-live="off">Calm</output></div><div class="disturbance-track" id="disturbance-meter" role="meter" aria-label="Disturbance around the cuttlefish" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Calm"><span id="disturbance-fill"></span></div></div>
-          <button class="ink-button" id="ink-btn" type="button"><span class="ink-icon" aria-hidden="true"><svg class="symbol-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M2 10h16M4.35 4.35l11.3 11.3M4.35 15.65l11.3-11.3"/></svg></span><span id="ink-label">Invite a visit</span><span class="ink-arrow" aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 15 10-10M5 5h10v10"/></svg></span></button>
-          <p class="control-footnote" id="ink-note">Replay its arrival, pause, and departure.</p>
+          <button class="ink-button" id="ink-btn" type="button"><span class="ink-icon" aria-hidden="true"><svg class="symbol-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v16M2 10h16M4.35 4.35l11.3 11.3M4.35 15.65l11.3-11.3"/></svg></span><span id="ink-label">Restart swim</span><span class="ink-arrow" aria-hidden="true"><svg class="symbol-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 15 10-10M5 5h10v10"/></svg></span></button>
+          <p class="control-footnote" id="ink-note">Restart the swim from its first position.</p>
         </aside>
       </div>
       <div class="experiment-caption"><p><span class="caption-dot"></span> Drawn live, one character at a time.</p><span>NO VIDEO. JUST CODE.</span></div>
@@ -3486,9 +3486,9 @@ window.createCuttlefish = createCuttlefish;
   };
   const scenes = {
     swimby: {
-      name:'Swim-by',hint:'A quick arrival. A little time together.',phase:'Arriving',
-      description:'An animated ASCII cuttlefish enters a fixed diver’s view quickly, lingers nearby with moving fins and arms, then swims away. Choose another scene or use the adjacent controls to explore.',
-      action:'Invite a visit',note:'Replay its arrival, pause, and departure.'
+      name:'Swim-by',hint:'Free swimming with turns back into view.',phase:'Swimming in view',
+      description:'An animated ASCII cuttlefish roams through a fixed diver’s view, turning back into frame. Turn on Follow your cursor to draw it toward your movement.',
+      action:'Restart swim',note:'Restart the swim from its first position.'
     },
     encounter: {
       name:'Close encounter',hint:'Watch the arms crawl. Click for ink toward the lens.',phase:'Approaching',
@@ -3532,6 +3532,7 @@ window.createCuttlefish = createCuttlefish;
     if (state.formation !== 'independent') hint = 'A shared ' + formationNames[state.formation].toLowerCase() + ' current. Click a visitor for ink.';
     else if (state.count > 1) hint = state.scene === 'encounter'
       ? 'A visitor meets the lens. Its neighbors keep drifting.'
+      : state.scene === 'swimby' ? 'Each animal has its own path and stays nearby.'
       : 'Different lives in the current. Click a visitor to startle it.';
     $('scene-hint').textContent = paused ? 'Still waters. Press play to animate.' : hint;
   }
@@ -3654,11 +3655,13 @@ window.createCuttlefish = createCuttlefish;
     $('follow').disabled = reactive;
     $('follow-row').classList.toggle('inherent', reactive);
     $('follow-label').textContent = reactive ? 'Mouse-reactive' : 'Follow your cursor';
-    $('follow-help').textContent = reactive ? 'Gentle movement keeps it calm.' : 'Invite a little curiosity.';
+    $('follow-help').textContent = reactive ? 'Gentle movement keeps it calm.'
+      : state.scene === 'swimby' && state.formation === 'independent' ? 'Gently draw swimmers toward your cursor.'
+      : 'Invite a little curiosity.';
     $('disturbance').hidden = !reactive;
     $('ink-label').textContent = scenes[state.scene].action;
     const school = state.count > 1 || state.formation !== 'independent';
-    $('ink-note').textContent = school ? (state.scene === 'swimby' ? 'Replay the school’s arrival and movement.' : 'Click a visitor for its own ink escape.') : scenes[state.scene].note;
+    $('ink-note').textContent = school ? (state.scene === 'swimby' ? 'Restart the school’s movement.' : 'Click a visitor for its own ink escape.') : scenes[state.scene].note;
     canvas.setAttribute('aria-label', school
       ? state.count + ' animated ASCII cuttlefish with ' + formationNames[state.formation].toLowerCase() + ' movement. Click or tap a visible visitor to make that animal react, spray black ASCII ink, then escape. Use School director to change the population, sizes, formation and individual roles.'
       : scenes[state.scene].description);
