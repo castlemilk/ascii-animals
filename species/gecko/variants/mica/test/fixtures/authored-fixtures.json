@@ -1,0 +1,235 @@
+{
+  "classification": "Recovered authored glyph and recorded painter fixtures. Numerical render evidence, not native browser evidence.",
+  "hashFormat": "SHA-256; glyphs/materials are raw Uint8 bytes; tones are IEEE-754 Float32 little-endian bytes; commands are JSON.stringify in glyph/x/y/color order.",
+  "fixtures": [
+    {
+      "name": "after-solo-phone",
+      "source": "gecko-mica-review/evidence/final-review/cells/after-solo-phone.json",
+      "sourceSha256": "83a40eb658bf50eb268eead05c96694ade053a34c123158bdd9a454faf623c3d",
+      "kind": "solo",
+      "config": {
+        "seed": 37
+      },
+      "tick": 0,
+      "events": [],
+      "view": {
+        "cols": 64,
+        "rows": 40
+      },
+      "expected": {
+        "occupied": 249,
+        "samples": 8088,
+        "glyphsSha256": "6c5926417b06d535aecf11e58b8be8a06c38264d1b0b75f943c2e33a61bfe649",
+        "materialsSha256": "ba0a9a7c47b1322cf2712296f5d79441cabbd428232f91e8ba51073737e98afa",
+        "tonesFloat32LESha256": "fee42dfdf7b1a3d21cdb85bf3b950f5e8946655ad99a47d5f1f6056fff601888"
+      },
+      "paint": {
+        "width": 372,
+        "height": 360,
+        "background": "#10251f",
+        "fontCss": "700 6.9695294117647055px ui-monospace, \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace",
+        "backgroundRect": {
+          "x": 0,
+          "y": 0,
+          "width": 372,
+          "height": 360
+        },
+        "commandsSha256": "2f41838f6ec3525af2d0932a34d956265766bead9794a7783980033add7add0e"
+      }
+    },
+    {
+      "name": "after-solo-desktop",
+      "source": "gecko-mica-review/evidence/final-review/cells/after-solo-desktop.json",
+      "sourceSha256": "d32d09d3e13e6e8b163962191ef77beaeb81dc7904dc42fc6204f1742ac8319a",
+      "kind": "solo",
+      "config": {
+        "seed": 37
+      },
+      "tick": 0,
+      "events": [],
+      "view": {
+        "cols": 112,
+        "rows": 60
+      },
+      "expected": {
+        "occupied": 552,
+        "samples": 8088,
+        "glyphsSha256": "4149f0537279543cf4bb62722d98e9d3f34bc1abea4d74998f43e3507fef33fc",
+        "materialsSha256": "2e710b84304ea496828fe9ee67f300993038eb980fe36e03b32bcb8f1e8e7244",
+        "tonesFloat32LESha256": "477f3bcb34466e530b3df4a7a09f83b1089877798bd743888fc85bbf1463b120"
+      },
+      "paint": {
+        "width": 840,
+        "height": 540,
+        "background": "#10251f",
+        "fontCss": "700 8.82px ui-monospace, \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace",
+        "backgroundRect": {
+          "x": 0,
+          "y": 0,
+          "width": 840,
+          "height": 540
+        },
+        "commandsSha256": "fe7409d3166433926e4ced3acc7733b0571ae64e675c01bba361bea467531ba5"
+      }
+    },
+    {
+      "name": "after-classic-phone",
+      "source": "gecko-mica-review/evidence/final-review/cells/after-classic-phone.json",
+      "sourceSha256": "b55ad2087c93854bd397bd550398a9cce71e7f898caf2befa60c6e0cc0d1ceb6",
+      "kind": "director",
+      "config": {
+        "seed": 37,
+        "options": {
+          "population": 3
+        }
+      },
+      "tick": 0,
+      "events": [],
+      "view": {
+        "cols": 64,
+        "rows": 48,
+        "focus": "mica"
+      },
+      "expected": {
+        "occupied": 392,
+        "samples": 8088,
+        "viewport": {
+          "width": 2.6,
+          "height": 2.7,
+          "centerX": -1.6,
+          "centerY": 0.68
+        },
+        "theme": "moonlight",
+        "glyphsSha256": "465a857fa57a352a90c86cb8666d5e17d086c624cb05c2d365f777506c4e33c5",
+        "materialsSha256": "0b6bca5bd79a6a9999a83157c1e59819bf2f263a994794444230cf3341010822",
+        "tonesFloat32LESha256": "2cdddecdc9dcc0d4a28340e8c6cce81da0fb15868c4e780fd174b5ade9e133a8"
+      },
+      "paint": {
+        "width": 390,
+        "height": 390,
+        "background": "#10251f",
+        "fontCss": "700 7.9624999999999995px ui-monospace, \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace",
+        "backgroundRect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 390
+        },
+        "commandsSha256": "14f4cfe0b8e35b96a8194b13b42802f8f8d5a42f7abb95ed0766813d5217006e"
+      }
+    },
+    {
+      "name": "after-moth-ahead-gather",
+      "source": "gecko-mica-review/evidence/final-review/cells/after-moth-ahead-gather.json",
+      "sourceSha256": "5442d8cbfc9d7d970633b828db0bb20729444407e27628dfd3c084f29ae56477",
+      "kind": "director",
+      "config": {
+        "seed": 37,
+        "options": {
+          "population": 1,
+          "autonomy": false
+        }
+      },
+      "tick": 57,
+      "events": [
+        {
+          "type": "moth",
+          "id": "mica",
+          "tick": 1,
+          "seq": 1,
+          "x": -0.42810630907963304,
+          "y": 0.0025042137308931766
+        }
+      ],
+      "view": {
+        "cols": 64,
+        "rows": 48,
+        "focus": "mica"
+      },
+      "expected": {
+        "occupied": 373,
+        "samples": 8088,
+        "viewport": {
+          "width": 2.6,
+          "height": 2.7,
+          "centerX": -1.6,
+          "centerY": 0.68
+        },
+        "theme": "moonlight",
+        "glyphsSha256": "43fea93fc31f6e6d7e578db4dc3f5c3abb0302e606bc9aac0b0ae96e42a7d4eb",
+        "materialsSha256": "1eded14685802eef084a2be67b45380504ae5570cc7dea20c3ac443a8e08bb38",
+        "tonesFloat32LESha256": "b3bfef722f494e63817a7408646825c925f7f195a2acdec94c395abc64952aab"
+      },
+      "paint": {
+        "width": 390,
+        "height": 390,
+        "background": "#10251f",
+        "fontCss": "700 7.9624999999999995px ui-monospace, \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace",
+        "backgroundRect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 390
+        },
+        "commandsSha256": "548debf2041242db22260bfc18b5f72f4c25abf59c6e467e76e7d67f04513adf"
+      }
+    },
+    {
+      "name": "after-moth-behind-snap",
+      "source": "gecko-mica-review/evidence/final-review/cells/after-moth-behind-snap.json",
+      "sourceSha256": "7da35731813ec3fac6e7839106b73280f7c4529344cc0e38d2e2ca0bd7765d1a",
+      "kind": "director",
+      "config": {
+        "seed": 37,
+        "options": {
+          "population": 1,
+          "autonomy": false
+        }
+      },
+      "tick": 382,
+      "events": [
+        {
+          "type": "moth",
+          "id": "mica",
+          "tick": 1,
+          "seq": 1,
+          "x": -0.6060606060606061,
+          "y": 0.45454545454545453
+        }
+      ],
+      "view": {
+        "cols": 64,
+        "rows": 48,
+        "focus": "mica"
+      },
+      "expected": {
+        "occupied": 374,
+        "samples": 8088,
+        "viewport": {
+          "width": 2.6,
+          "height": 2.7,
+          "centerX": -1.6,
+          "centerY": 0.68
+        },
+        "theme": "moonlight",
+        "glyphsSha256": "7aaefd66b1da5688ece452ba53f225cc5d0db2f9fc8c49d37210b02c5dd2eaf2",
+        "materialsSha256": "b52f26a858815cf24372c32f4991a5afe82387561ce806686ad08713767f0a92",
+        "tonesFloat32LESha256": "65407540c87571a247b7b2531f23c2aa0bab361567decacbf46c54243a4c80ea"
+      },
+      "paint": {
+        "width": 390,
+        "height": 390,
+        "background": "#10251f",
+        "fontCss": "700 7.9624999999999995px ui-monospace, \"SFMono-Regular\", Consolas, \"Liberation Mono\", monospace",
+        "backgroundRect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 390
+        },
+        "commandsSha256": "3a2a2d58363abc323d3ea2858f097f3546999dd6e2bb610b0be164a984de32f3"
+      }
+    }
+  ],
+  "textFormat": "One logical row per line; trailing spaces and bottom empty rows omitted; final newline present. Tests restore bottom rows to view.rows and pad every line to view.cols with ASCII spaces. Raw glyph hashes still require exact cells."
+}
