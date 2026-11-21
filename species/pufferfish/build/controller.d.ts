@@ -1,4 +1,4 @@
-import type { PufferfishLegacyDependency, PufferfishRenderOptions } from './legacy-painter.js';
+import type { PufferfishPainter, PufferfishLegacyDependency, PufferfishRenderConfig, PufferfishRenderOptions } from './legacy-painter.js';
 import type { PufferfishInput, PufferfishOptions, PufferfishPhase, PufferfishState } from './types.js';
 import type { PufferfishDirectorOptions, PufferfishDirectorState, PufferfishSceneStatus } from './director-types.js';
 export interface PufferfishFrameSource {
@@ -63,3 +63,5 @@ export interface PufferfishRect {
 export declare function normalizePufferfishPointer(clientX: number, clientY: number, rect: PufferfishRect): PufferfishInput | null;
 /** Browser lifecycle only. No legacy constructor/listener/RAF is created by the painter. */
 export declare function mountPufferfish(canvas: HTMLCanvasElement, legacy: PufferfishLegacyDependency, options?: PufferfishMountOptions): PufferfishController;
+/** Internal dependency injection for art variations. All variants share this lifecycle. */
+export declare function mountPufferfishWithPainter(canvas: HTMLCanvasElement, options: PufferfishMountOptions, createPainter: (surface: HTMLCanvasElement, config: PufferfishRenderConfig) => PufferfishPainter): PufferfishController;

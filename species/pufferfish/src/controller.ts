@@ -1,7 +1,7 @@
 import { configurePufferfish, createPufferfish, describePufferfish, finite, pufferfishPoster,
   PUFFERFISH_LIMITS, record, resetPufferfish, stepPufferfish } from './model.js';
 import { createPufferfishPainter, resolveRenderOptions } from './legacy-painter.js';
-import type { PufferfishPainter, PufferfishLegacyDependency, PufferfishRenderOptions, PufferfishRenderResult } from './legacy-painter.js';
+import type { PufferfishPainter, PufferfishLegacyDependency, PufferfishRenderConfig, PufferfishRenderOptions, PufferfishRenderResult } from './legacy-painter.js';
 import type { PufferfishEvent, PufferfishInput, PufferfishOptions, PufferfishPhase, PufferfishState } from './types.js';
 import { configurePufferfishDirector, createPufferfishDirector, describePufferfishDirector,
   pufferfishDirectorPoster, resetPufferfishDirector, selectPufferfishActor, stepPufferfishDirector } from './director.js';
@@ -61,6 +61,12 @@ export function normalizePufferfishPointer(clientX: number, clientY: number, rec
 /** Browser lifecycle only. No legacy constructor/listener/RAF is created by the painter. */
 export function mountPufferfish(canvas: HTMLCanvasElement, legacy: PufferfishLegacyDependency,
   options: PufferfishMountOptions = {}): PufferfishController {
+  return mountPufferfishWithPainter(canvas, options, (surface, config) => createPufferfishPainter(surface, legacy, config));
+}
+
+/** Internal dependency injection for art variations. All variants share this lifecycle. */
+export function mountPufferfishWithPainter(canvas: HTMLCanvasElement, options: PufferfishMountOptions,
+  createPainter: (surface: HTMLCanvasElement, config: PufferfishRenderConfig) => PufferfishPainter): PufferfishController {
   record(options, ['species', 'director', 'render', 'paused', 'onChange', 'onError', 'frameSource'], 'mount options');
   if (options.paused !== undefined && typeof options.paused !== 'boolean') throw new TypeError('paused must be boolean');
   for (const cb of ['onChange', 'onError'] as const)
@@ -286,7 +292,7 @@ export function mountPufferfish(canvas: HTMLCanvasElement, legacy: PufferfishLeg
     exportText() { alive(); return lastRender?.text ?? ''; }, destroy,
   };
   try {
-    painter = createPufferfishPainter(canvas, legacy, renderConfig);
+    painter = createPainter(canvas, renderConfig);
     listen(canvas, 'pointermove', event => {
       const pointer = event as PointerEvent;
       if (resting() || pointer.pointerType === 'touch') return;
