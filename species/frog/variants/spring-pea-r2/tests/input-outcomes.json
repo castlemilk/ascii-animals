@@ -1,0 +1,444 @@
+{
+  "kind": "Canonical model outcome check for the exact private review seed/config; not browser event delivery",
+  "base": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "settings": {
+    "seed": 23,
+    "director": {
+      "scene": "stillwater",
+      "count": 1,
+      "autonomy": false,
+      "layout": "shelter",
+      "roles": [
+        "hunter",
+        "hunter",
+        "dreamer"
+      ]
+    }
+  },
+  "records": [
+    {
+      "event": {
+        "type": "hop",
+        "frogId": 0,
+        "padId": 1,
+        "tick": 24,
+        "seq": 0
+      },
+      "initialPad": 0,
+      "finalPad": 1,
+      "finalPosition": {
+        "x": -0.020000000000000018,
+        "y": -0.21999999999999997
+      },
+      "finalBehavior": "interest",
+      "finalMotive": "rest",
+      "caught": false,
+      "phases": [
+        {
+          "tick": 1,
+          "phase": "idle/rest/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 24,
+          "phase": "crouch/hop/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 38,
+          "phase": "flight/hop/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 80,
+          "phase": "landing/hop/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 92,
+          "phase": "recovery/hop/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 116,
+          "phase": "cooldown/hop/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 134,
+          "phase": "interest/settle/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 182,
+          "phase": "interest/rest/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        }
+      ]
+    },
+    {
+      "event": {
+        "type": "hop",
+        "frogId": 0,
+        "padId": 3,
+        "tick": 24,
+        "seq": 0
+      },
+      "initialPad": 0,
+      "finalPad": 3,
+      "finalPosition": {
+        "x": -0.7,
+        "y": -0.58
+      },
+      "finalBehavior": "interest",
+      "finalMotive": "rest",
+      "caught": false,
+      "phases": [
+        {
+          "tick": 1,
+          "phase": "idle/rest/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 24,
+          "phase": "crouch/hop/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 38,
+          "phase": "flight/hop/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 80,
+          "phase": "landing/hop/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 92,
+          "phase": "recovery/hop/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 116,
+          "phase": "cooldown/hop/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 134,
+          "phase": "interest/settle/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 182,
+          "phase": "interest/rest/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        }
+      ]
+    },
+    {
+      "event": {
+        "type": "hunt",
+        "frogId": 0,
+        "x": 0.36,
+        "y": -0.4,
+        "tick": 24,
+        "seq": 0
+      },
+      "initialPad": 0,
+      "finalPad": 1,
+      "finalPosition": {
+        "x": -0.020000000000000018,
+        "y": -0.21999999999999997
+      },
+      "finalBehavior": "interest",
+      "finalMotive": "rest",
+      "caught": true,
+      "phases": [
+        {
+          "tick": 1,
+          "phase": "idle/rest/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 24,
+          "phase": "interest/track/hover",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 60,
+          "phase": "crouch/hop/chased",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 74,
+          "phase": "flight/hop/chased",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 116,
+          "phase": "landing/hop/chased",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 128,
+          "phase": "recovery/hop/chased",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 152,
+          "phase": "cooldown/hop/chased",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 170,
+          "phase": "interest/strike/chased",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 179,
+          "phase": "interest/strike/caught",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 200,
+          "phase": "interest/settle/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        },
+        {
+          "tick": 248,
+          "phase": "interest/rest/none",
+          "padId": 1,
+          "position": {
+            "x": -0.020000000000000018,
+            "y": -0.21999999999999997
+          }
+        }
+      ]
+    },
+    {
+      "event": {
+        "type": "hunt",
+        "frogId": 0,
+        "x": -0.76,
+        "y": -0.7,
+        "tick": 24,
+        "seq": 0
+      },
+      "initialPad": 0,
+      "finalPad": 3,
+      "finalPosition": {
+        "x": -0.7,
+        "y": -0.58
+      },
+      "finalBehavior": "interest",
+      "finalMotive": "rest",
+      "caught": true,
+      "phases": [
+        {
+          "tick": 1,
+          "phase": "idle/rest/none",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 24,
+          "phase": "interest/track/hover",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 60,
+          "phase": "crouch/hop/chased",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 74,
+          "phase": "flight/hop/chased",
+          "padId": 0,
+          "position": {
+            "x": -0.66,
+            "y": 0.25
+          }
+        },
+        {
+          "tick": 116,
+          "phase": "landing/hop/chased",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 128,
+          "phase": "recovery/hop/chased",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 152,
+          "phase": "cooldown/hop/chased",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 170,
+          "phase": "interest/strike/chased",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 179,
+          "phase": "interest/strike/caught",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 200,
+          "phase": "interest/settle/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        },
+        {
+          "tick": 248,
+          "phase": "interest/rest/none",
+          "padId": 3,
+          "position": {
+            "x": -0.7,
+            "y": -0.58
+          }
+        }
+      ]
+    }
+  ]
+}

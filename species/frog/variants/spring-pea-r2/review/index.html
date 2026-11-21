@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Spring Pea R2 · Frog comparison</title>
+  <link rel="stylesheet" href="review.css">
+</head>
+<body>
+  <main>
+    <header class="heading">
+      <div><p class="eyebrow">ASCII ANIMALS / FROG</p><h1>Spring Pea <span>R2</span></h1></div>
+      <p class="private">Private study<br><span>Original stays unchanged</span></p>
+    </header>
+
+    <form class="comparison" aria-label="Choose a rendering">
+      <label><input type="radio" name="renderer" value="original"><span>Original</span></label>
+      <label><input type="radio" name="renderer" value="spring-pea-r2" checked><span>Spring Pea R2</span></label>
+      <p>Switching starts the same frog again.</p>
+    </form>
+
+    <div class="study">
+      <section class="scene" aria-label="Frog scene">
+        <div class="scene-bar"><span id="renderer-label">SPRING PEA R2</span><span id="phase">RESTING</span></div>
+        <canvas id="frog" tabindex="0" aria-label="Interactive ASCII frog. Use arrow keys to choose a direction and Enter to leap. Use the controls below for a precise landing or firefly aim." aria-describedby="canvas-help">Your browser cannot display the frog canvas. A broad, squat frog with raised eyes rests beside lily pads.</canvas>
+        <p id="fallback" hidden>The frog could not start in this browser. The source and capture evidence remain available in the review packet.</p>
+        <div class="transport"><button id="pause" type="button">Pause</button><button id="reset" type="button">Reset</button><span id="motion">Motion follows your system</span></div>
+      </section>
+
+      <section class="direction" aria-label="Direct the frog">
+        <fieldset class="moments"><legend>Choose a moment</legend>
+          <label><input type="radio" name="moment" value="leap" checked><span>Startled leap</span></label>
+          <label><input type="radio" name="moment" value="hunt"><span>Firefly snap</span></label>
+        </fieldset>
+        <div id="leap-controls" class="action-group">
+          <label class="field" for="landing">Landing pad<select id="landing"></select></label>
+          <button id="leap" class="primary" type="button">Startle &amp; leap <span aria-hidden="true">↗</span></button>
+          <p class="hint">Your pad changes the landing. Watch the crouch, stretch and soft recovery.</p>
+        </div>
+        <div id="hunt-controls" class="action-group" hidden>
+          <label class="field" for="lure">Firefly aim<select id="lure"><option value="upper-right">Upper right</option><option value="upper-left">Upper left</option><option value="lower-right">Lower right</option></select></label>
+          <button id="hunt" class="primary" type="button">Lure a firefly <span aria-hidden="true">✦</span></button>
+          <p class="hint">Your aim chooses a reachable perch. Watch the eyes lead, then the tongue snap and return.</p>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite">Choose a pad, then startle the frog.</p>
+        <p id="canvas-help" class="keyboard">On the scene: arrows aim · Enter leaps · H hunts · Escape clears. Touch a free pad to leap.</p>
+      </section>
+    </div>
+
+    <details class="inspection">
+      <summary>Still poses &amp; review details</summary>
+      <div class="inspection-controls">
+        <label class="field" for="pose">Still pose<select id="pose"><option value="">Follow playback</option><option value="rest">Rest</option><option value="crouch">Crouch</option><option value="airborne">Airborne</option><option value="landed">Landed</option></select></label>
+        <label class="field" for="view">View<select id="view"><option value="front">Front</option><option value="left">Left turn</option><option value="right">Right turn</option><option value="profile">Profile</option></select></label>
+        <label class="check"><input id="silhouette" type="checkbox">Silhouette</label>
+      </div>
+      <p class="fine">One frog · seed 23 · stillwater · shelter · no autonomous actions. Original and R2 use the same controller and choreography. Only one controller is mounted at a time.</p>
+      <div class="review-buttons"><button id="snapshot" type="button">Refresh state snapshot</button><button id="export-log" type="button">Download action log</button><button id="export-text" type="button">Show ASCII cells</button></div>
+      <pre id="diagnostics" aria-label="Controller state snapshot">A snapshot appears here on request.</pre>
+      <pre id="ascii" hidden aria-label="Current printable ASCII cells"></pre>
+    </details>
+    <footer>Private opt-in variant. Browser screenshots and native renders are identified separately in the review evidence.</footer>
+  </main>
+  <script type="module" src="review.mjs"></script>
+</body>
+</html>

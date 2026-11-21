@@ -1,0 +1,20 @@
+{
+  "schema": "spring-pea-r2-base-compatibility/v1",
+  "initial_main": "3b5ffcce7bea56e1402fc16d0edc2c14c3cd5779",
+  "native_capture_base": "3b5ffcce7bea56e1402fc16d0edc2c14c3cd5779",
+  "final_patch_base": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "checked_at": "2026-11-21T04:49:15.575061+00:00",
+  "checked_paths": [
+    "species/frog",
+    "src/public/frog.ts",
+    "src/core/scheduler.js",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "scripts/build.mjs"
+  ],
+  "changed_paths_in_checked_scope": [],
+  "protected_hashes_verified": 14,
+  "runtime_changed": false,
+  "native_evidence_reuse": "Native images retain their original3b5 capture-base labels and source hashes; the final base contains identical Frog rendering/model/controller sources. Final tests are rerun on the final base."
+}
