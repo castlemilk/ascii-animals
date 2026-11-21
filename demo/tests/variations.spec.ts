@@ -9,7 +9,7 @@ async function expectVariant(page: Page, variant: 'original' | 'pocket-trickster
   await expect(host).toHaveAttribute('data-status', 'ready');
   await expect(host).toHaveAttribute('data-variation', variant);
   await expect(host.locator('canvas')).toHaveCount(1);
-  await expect(page.getByRole('button', { name: variant === 'original' ? 'Original' : 'Pocket Trickster', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('radio', { name: variant === 'original' ? 'Original' : 'Pocket Trickster', exact: true })).toBeChecked();
 }
 
 test('same-page alternate preserves input focus and URL, Back/Forward and reload', async ({ page }) => {
@@ -18,10 +18,21 @@ test('same-page alternate preserves input focus and URL, Back/Forward and reload
   await page.goto(octopus + '?source=guide#main-content');
   await expectVariant(page, 'original');
   await expect(page.getByRole('region', { name: 'Movement controls' })).toBeVisible();
-  const trickster = page.getByRole('button', { name: 'Pocket Trickster', exact: true });
-  await trickster.focus();
-  await page.keyboard.press('Enter');
+  const group = page.getByRole('radiogroup', { name: 'Variation' });
+  const original = group.getByRole('radio', { name: 'Original', exact: true });
+  const trickster = group.getByRole('radio', { name: 'Pocket Trickster', exact: true });
+  await original.focus();
+  await expect(original).toBeFocused();
+  await expect(original).toHaveAttribute('tabindex', '0');
+  await expect(trickster).toHaveAttribute('tabindex', '-1');
+  await page.keyboard.press('ArrowRight');
   await expectVariant(page, 'pocket-trickster');
+  await expect(trickster).toBeFocused();
+  await expect(original).toHaveAttribute('tabindex', '-1');
+  await expect(trickster).toHaveAttribute('tabindex', '0');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'Pause animation' })).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
   await expect(trickster).toBeFocused();
   await expect(page).toHaveURL(octopus + '?source=guide&' + query + '#main-content');
   await expect(page.getByRole('region', { name: 'Movement controls' })).toHaveCount(0);
@@ -43,7 +54,7 @@ test('invalid, empty, duplicate and other-species variation URLs are left alone'
   }
   await page.goto(other + '?' + query);
   await expect(page.getByTestId('renderer-host')).toHaveAttribute('data-variation', 'original');
-  await expect(page.getByRole('group', { name: 'Variation' })).toHaveCount(0);
+  await expect(page.getByRole('radiogroup', { name: 'Variation' })).toHaveCount(0);
   await expect(page).toHaveURL(other + '?' + query);
 });
 
@@ -54,14 +65,14 @@ test('rapid selections, compact touch, global Still and system reduction keep on
   await expectVariant(page, 'pocket-trickster');
   await expect(page.getByRole('button', { name: 'Offer a hand' })).toBeDisabled();
   await expect(page.getByRole('button', { name: 'Play animation' })).toBeDisabled();
-  await expect(page.getByRole('button', { name: 'Pocket Trickster' })).toBeInViewport();
+  await expect(page.getByRole('radio', { name: 'Pocket Trickster' })).toBeInViewport();
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBe(360);
   await page.evaluate(() => {
-    const buttons = [...document.querySelectorAll<HTMLButtonElement>('.variation-options button')];
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('.variation-options [data-slot=segmented-control-item]')];
     for (const index of [0, 1, 0, 1, 0]) buttons[index].click();
   });
   await expectVariant(page, 'original');
-  await page.getByRole('button', { name: 'Pocket Trickster' }).tap();
+  await page.getByRole('radio', { name: 'Pocket Trickster' }).tap();
   await expectVariant(page, 'pocket-trickster');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await expect(page.getByRole('button', { name: 'Offer a hand' })).toBeDisabled();
@@ -77,7 +88,7 @@ test('no-JavaScript keeps the original studio and no dummy picker', async ({ bro
   const page = await context.newPage();
   await page.goto(octopus + '?' + query);
   await expect(page.getByRole('heading', { level: 1, name: 'Octopus' })).toBeVisible();
-  await expect(page.getByRole('group', { name: 'Variation' })).toHaveCount(0);
+  await expect(page.getByRole('radiogroup', { name: 'Variation' })).toHaveCount(0);
   await expect(page.locator('noscript').getByRole('link', { name: 'Open the original Octopus studio' })).toBeVisible();
   await context.close();
 });
