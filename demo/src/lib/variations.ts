@@ -6,6 +6,10 @@ export const availableVariations = {
     name: 'Pocket Trickster',
     description: 'An elastic little octopus. Offer a hand to invite an arm out, or tap to trigger an ink puff and peek.',
   },
+  'reef-curmudgeon': {
+    name: 'Reef Curmudgeon',
+    description: 'A grumpy little pufferfish. Invite it over, make it puff up, then give it space to settle.',
+  },
   'ink-puppet': {
     name: 'Ink Puppet',
     description: 'A cuttlefish with curious arms and a quick retreat. Invite it to investigate or see it vanish behind a cloud of ink.',
@@ -17,6 +21,7 @@ export type VariationId = keyof typeof availableVariations;
 const alternates: Partial<Record<SpeciesId, Exclude<VariationId, 'original'>>> = {
   cuttlefish: 'ink-puppet',
   octopus: 'pocket-trickster',
+  pufferfish: 'reef-curmudgeon',
 };
 
 export function alternateFor(species: SpeciesId) {

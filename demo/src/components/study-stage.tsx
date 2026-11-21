@@ -6,6 +6,7 @@ import { BASE_PATH, apiPath, originalPath, type Animal } from '../lib/catalogue'
 import { isMarineSpecies, mountRenderer, type RendererSession } from '../lib/renderers';
 import { movementControls } from '../extensions/movement-controls';
 import { useMotionPolicy } from './motion-policy';
+import { ReefCurmudgeonControls } from './reef-curmudgeon-controls';
 import { InkPuppetControls } from './ink-puppet-controls';
 import { alternateFor, availableVariations, readVariation, variationHref, type VariationId } from '../lib/variations';
 
@@ -85,14 +86,15 @@ export function StudyStage({ animal }: { animal: Animal }) {
 
   useEffect(() => {
     const element = host.current;
-    if (!element || !['gecko', 'owl'].includes(animal.id)) return;
+    if (!element || (!['gecko', 'owl'].includes(animal.id) && variation !== 'reef-curmudgeon')) { setCompact(false); return; }
     const observer = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect;
-      setCompact(animal.id === 'gecko' ? width < 360 : width < 350 || height < 330);
+      setCompact(variation === 'reef-curmudgeon' ? width < 360 || height < 270
+        : animal.id === 'gecko' ? width < 360 : width < 350 || height < 330);
     });
     observer.observe(element);
     return () => observer.disconnect();
-  }, [animal.id]);
+  }, [animal.id, variation]);
 
   function togglePlayback() {
     if (motion.reduced) return;
@@ -151,6 +153,8 @@ export function StudyStage({ animal }: { animal: Animal }) {
         {status === 'loading' && <div className="stage-message"><span className="loading-mark" aria-hidden="true">{'{a}'}</span><p>Opening {animal.name.toLowerCase()}…</p></div>}
         {status === 'error' && <div className="stage-message error-message" role="alert"><h2>The study could not open.</h2><p>Try again, or explore its original studio.</p><button className="button primary" onClick={() => setAttempt(value => value + 1)}>Retry study</button>{variation !== 'original' && <button className="button quiet" onClick={() => chooseVariation('original')}>Use Original</button>}<a className="text-link" href={originalPath(animal)}>Open original studio</a></div>}
       </div>
+      {session?.variation === 'reef-curmudgeon' && selection === 'reef-curmudgeon' &&
+        <ReefCurmudgeonControls controller={session.controller} />}
       {session?.variation === 'ink-puppet' && selection === 'ink-puppet' && <InkPuppetControls controller={session.controller} paused={motion.paused} />}
       {session?.variation === 'pocket-trickster' && selection === 'pocket-trickster' && <section className="trickster-controls" aria-labelledby="trickster-title">
         <h2 id="trickster-title">Invite it closer</h2>

@@ -36,6 +36,8 @@ const localVariation = '../../../species/octopus/trickster/browser.mjs';
 const localVariationFactory = 'createOctopusTrickster';
 const puppetAdapter = './ink-puppet.mjs';
 const puppetFactory = 'createInkPuppetVariant';
+const curmudgeonEntry = '../../../species/pufferfish/build/character.js';
+const curmudgeonFactory = 'mountPufferfishCharacter';
 
 /**
  * Structural build evidence, not a browser execution claim: inspect TypeScript
@@ -50,6 +52,7 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   let eagerPackageImports = 0;
   let lazyVariationImports = 0;
   let lazyPuppetImports = 0;
+  let lazyCurmudgeonImports = 0;
   for (const relative of (await filesBelow(sourceRoot)).filter(file => /\.tsx?$/.test(file))) {
     const filename = path.join(sourceRoot, relative);
     const parsed = ts.createSourceFile(filename, await readFile(filename, 'utf8'), ts.ScriptTarget.Latest, true);
@@ -69,7 +72,7 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
         }
         if (specifier.startsWith('.')) {
           const resolved = path.resolve(path.dirname(filename), specifier);
-          const exactVariationTypeImport = relative === 'lib/renderers.ts' && specifier === localVariation
+          const exactVariationTypeImport = relative === 'lib/renderers.ts' && (specifier === localVariation || specifier === curmudgeonEntry)
             && ts.isImportDeclaration(node) && node.importClause?.isTypeOnly;
           assert(exactVariationTypeImport || resolved.startsWith(appDir + path.sep), `Demo source imports outside its package: ${relative} → ${specifier}`);
         }
@@ -84,9 +87,12 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
         }
         if (specifier.startsWith('.') && !path.resolve(path.dirname(filename), specifier).startsWith(appDir + path.sep)) {
           const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
-          assert(relative === 'lib/renderers.ts' && specifier === localVariation && loader?.name?.text === 'mountTrickster',
+          const trickster = specifier === localVariation && loader?.name?.text === 'mountTrickster';
+          const curmudgeon = specifier === curmudgeonEntry && loader?.name?.text === 'mountCurmudgeon';
+          assert(relative === 'lib/renderers.ts' && (trickster || curmudgeon),
             `Unexpected out-of-package renderer import: ${relative} → ${specifier}`);
-          lazyVariationImports++;
+          if (trickster) lazyVariationImports++;
+          if (curmudgeon) lazyCurmudgeonImports++;
         }
         if (specifier.startsWith('ascii-animals-review')) {
           assert(Object.hasOwn(packageFactories, specifier), `Unexpected renderer import: ${specifier}`);
@@ -120,7 +126,8 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
 
   assert.equal(lazyVariationImports, 1, 'Exactly one local variation must be imported on demand');
   assert.equal(lazyPuppetImports, 1, 'Exactly one Ink Puppet adapter must be imported on demand');
-  const factories = new Set([...Object.values(packageFactories), localVariationFactory, puppetFactory]);
+  assert.equal(lazyCurmudgeonImports, 1, 'Exactly one Reef Curmudgeon renderer must be imported on demand');
+  const factories = new Set([...Object.values(packageFactories), localVariationFactory, puppetFactory, curmudgeonFactory]);
   const factoryChunks = new Map([...factories].map(factory => [factory, new Set()]));
   const chunkRoot = path.join(outputDir, '_next/static/chunks');
   for (const relative of (await filesBelow(chunkRoot)).filter(file => file.endsWith('.js'))) {

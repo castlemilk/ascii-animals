@@ -16,6 +16,7 @@ import type { FoxArtwork } from 'ascii-animals-review/fox';
 import type { FrogArtwork } from 'ascii-animals-review/frog';
 import type { GeckoArtwork } from 'ascii-animals-review/gecko';
 import type { OwlArtwork } from 'ascii-animals-review/owl';
+import type { mountPufferfishCharacter } from '../../../species/pufferfish/build/character.js';
 import type { PufferfishArtwork } from 'ascii-animals-review/pufferfish';
 import type { SeahorseArtwork } from 'ascii-animals-review/seahorse';
 import type { TurtleArtwork } from 'ascii-animals-review/turtle';
@@ -110,9 +111,15 @@ type PuppetSession = RendererLifecycle & {
   readonly controller: InkPuppetController;
 };
 
+type CurmudgeonSession = RendererLifecycle & {
+  readonly species: 'pufferfish';
+  readonly variation: 'reef-curmudgeon';
+  readonly controller: ReturnType<typeof mountPufferfishCharacter>;
+};
+
 // Marine deliberately shares one supported engine. Other members retain their
 // exact native controller types: a fixed-tick guide is not a marine advance.
-export type RendererSession = PuppetSession | TricksterSession | SessionFor<MarineSpeciesId> | {
+export type RendererSession = CurmudgeonSession | PuppetSession | TricksterSession | SessionFor<MarineSpeciesId> | {
   [S in Exclude<SpeciesId, MarineSpeciesId>]: SessionFor<S>
 }[Exclude<SpeciesId, MarineSpeciesId>];
 
@@ -270,6 +277,23 @@ async function mountPuppet(host: HTMLElement, options: RendererMountOptions): Pr
   });
 }
 
+async function mountCurmudgeon(host: HTMLElement, options: RendererMountOptions): Promise<CurmudgeonSession> {
+  const { mountPufferfishCharacter } = await import('../../../species/pufferfish/build/character.js');
+  return mountVariationCanvas('pufferfish', 'reef-curmudgeon', host, options, canvas => {
+    const controller = mountPufferfishCharacter(canvas, {
+      species: { seed: 23 }, director: { count: 1 }, paused: true,
+    });
+    const playback: PlaybackController = {
+      get disposed() { return controller.getStatus().destroyed; },
+      play() { controller.setPaused(false); },
+      pause() { controller.setPaused(true); },
+      restart() { controller.reset(); },
+      dispose() { controller.destroy(); },
+    };
+    return { playback, identity: { species: 'pufferfish', variation: 'reef-curmudgeon', controller } as const };
+  });
+}
+
 /**
  * No eager runtime imports, prefetches, secondary animation clocks or globals.
  * All construction is paused; ownership and motion policy are established before
@@ -284,6 +308,7 @@ export async function mountRenderer(
   throwIfAborted(options.signal);
   if (species === 'octopus' && variation === 'pocket-trickster') return mountTrickster(host, options);
   if (species === 'cuttlefish' && variation === 'ink-puppet') return mountPuppet(host, options);
+  if (species === 'pufferfish' && variation === 'reef-curmudgeon') return mountCurmudgeon(host, options);
   switch (species) {
     case 'cuttlefish':
     case 'manta':
