@@ -54,8 +54,8 @@ It is separately labelled native Canvas, not a screenshot of the site.
 
 ## Two directions and the selected character
 
-The retained raster boards are Spring Pea and Reed Rascal. Their original native
-Library identities, byte lengths and SHA-256 hashes are in `PROVENANCE.json`.
+The retained raster boards are Spring Pea and Reed Rascal. Their original
+filenames, byte lengths and SHA-256 hashes are in `PROVENANCE.json`.
 The review ZIP contains those exact board bytes. `review/concepts/` supplies
 newly authored, editable SVG interpretations, their authoring script and explicit
 reconstructed art briefs. The old generation prompts/editable source were not

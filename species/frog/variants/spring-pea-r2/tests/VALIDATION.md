@@ -2,7 +2,9 @@
 
 **The final private matrix passed 20/20, with no skips and no source changes during the run.** This is a new, additive reconstruction on current main `26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd`. It is not a recovery of the missing original patch/ZIP based on `f63b20e`.
 
-The final run used Node `v24.22.3`, started at `2026-11-21T04:50:36Z`, and completed at `04:51:15Z`. [validation.json](validation.json) records the exact command, matching Git HEAD before/after, and before/after SHA-256 values for the wrapper, preview, pose, geometry, base manifest and all three test files. [final-tests.log](final-tests.log) contains the complete TAP result.
+The final run used Node `v24.22.3`, started at `2026-11-21T04:50:36Z`, and completed at `04:51:15Z`. [validation.json](validation.json) records the exact command, matching Git HEAD before/after, and before/after SHA-256 values for the wrapper, preview, pose, geometry, base manifest and all three test files. `final-tests.log` contains the complete TAP result.
+
+The durable review ZIP is separate from this repository. Code-formatted evidence filenames below refer to that bundle; links point to files tracked here.
 
 ## Results and scope
 
@@ -17,11 +19,11 @@ The final run used Node `v24.22.3`, started at `2026-11-21T04:50:36Z`, and compl
 | Tracked files changed from current main | None | Protected hashes match and `git diff --name-only` was empty |
 | Actual candidate browser/device acceptance | Blocked | No browser acceptance claim |
 
-The final canonical command passed **83 distinct tests**, recorded in [canonical-final-base.log](canonical-final-base.log); [canonical-typecheck-final-base.log](canonical-typecheck-final-base.log) records the successful repository typecheck. [The private review log](../review/review-tests-final-base.log) records the eight toggle, disposal, BFCache and bounded visibility-bridge checks. None is an actual browser test.
+The final canonical command passed **83 distinct tests**, recorded in `canonical-final-base.log`; `canonical-typecheck-final-base.log` records the successful repository typecheck. `review/review-tests-final-base.log` records the eight toggle, disposal, BFCache and bounded visibility-bridge checks. None is an actual browser test.
 
-Earlier canonical runs on `3b5ffcce` are retained in [canonical-frog-baseline.log](canonical-frog-baseline.log), [canonical-pond-public-scheduler.log](canonical-pond-public-scheduler.log) and [canonical-typecheck.log](canonical-typecheck.log). Their 45/45 and 69/69 reported cases include 31 repeated pond/director cases through an integration entrypoint; they must not be reported as 114 unique tests.
+Earlier canonical runs on `3b5ffcce` are retained in `canonical-frog-baseline.log`, `canonical-pond-public-scheduler.log` and `canonical-typecheck.log`. Their 45/45 and 69/69 reported cases include 31 repeated pond/director cases through an integration entrypoint; they must not be reported as 114 unique tests.
 
-Main advanced during reconstruction. [BASE-COMPATIBILITY.json](../BASE-COMPATIBILITY.json) records that the Frog tree, public factory, shared scheduler, root package files, README and build script are unchanged between the initial `3b5ffcce` pin and final `26ee6ffc` pin. Earlier native captures retain their original labels and exact runtime hashes. The [earlier 20-test log](final-tests-at-3b5ffcce.log) and [earlier manifest](validation-at-3b5ffcce.json) remain historical evidence; final acceptance uses the rerun on `26ee6ffc` above.
+Main advanced during reconstruction. [BASE-COMPATIBILITY.json](../BASE-COMPATIBILITY.json) records that the Frog tree, public factory, shared scheduler, root package files, README and build script are unchanged between the initial `3b5ffcce` pin and final `26ee6ffc` pin. Earlier native captures retain their original labels and exact runtime hashes. The `final-tests-at-3b5ffcce.log` and `validation-at-3b5ffcce.json` remain historical evidence; final acceptance uses the rerun on `26ee6ffc` above.
 
 ## Integration and preservation
 
@@ -81,9 +83,9 @@ These are controlled host-event tests. They do not establish actual touchscreen 
 
 The first logs are intentionally retained:
 
-- [initial-contract-lifecycle.log](initial-contract-lifecycle.log): 13/14 passed. The test incorrectly expected a motive named `hunt`; the canonical action actually proceeds through `track`, `hop`, `strike` and `settle`. The assertion was corrected to require the real stages.
-- [fixture-and-wrapper-check.log](fixture-and-wrapper-check.log) and [historical-busy-call-fixture.log](historical-busy-call-fixture.log): the fixture expected a call at tick 200, while the hunt correctly remained in its settle phase until tick 225. The final test explicitly asserts that busy call is ignored, adds an accepted call at tick 240, and verifies rest by tick 400. [The historical manifest](historical-busy-call-fixture-validation.json) records the earlier 19/20 result.
-- [initial-geometry.log](initial-geometry.log): the first geometry pass preceded the final eye/tuck/lean refinement. Final acceptance uses the final log and hashes above.
+- `initial-contract-lifecycle.log`: 13/14 passed. The test incorrectly expected a motive named `hunt`; the canonical action actually proceeds through `track`, `hop`, `strike` and `settle`. The assertion was corrected to require the real stages.
+- `fixture-and-wrapper-check.log` and `historical-busy-call-fixture.log`: the fixture expected a call at tick 200, while the hunt correctly remained in its settle phase until tick 225. The final test explicitly asserts that busy call is ignored, adds an accepted call at tick 240, and verifies rest by tick 400. `historical-busy-call-fixture-validation.json` records the earlier 19/20 result.
+- `initial-geometry.log`: the first geometry pass preceded the final eye/tuck/lean refinement. Final acceptance uses the final log and hashes above.
 
 These failures required test-fixture corrections, not changes to canonical behavior or weaker thresholds. No visibility, sample, backing, attachment, camera-margin or lifecycle gate was reduced.
 
@@ -98,6 +100,13 @@ node --test --test-concurrency=1 --test-reporter=tap \
   species/frog/variants/spring-pea-r2/tests/geometry.test.mjs
 node species/frog/variants/spring-pea-r2/tests/input-outcomes.mjs
 node species/frog/variants/spring-pea-r2/tests/check-pond-picking.mjs
+```
+
+Run the private review-page tests with VM module support (including on Node 26):
+
+```sh
+node --experimental-vm-modules --test \
+  species/frog/variants/spring-pea-r2/review/scripts/*.test.mjs
 ```
 
 The exact consolidated canonical command on the final base was:
