@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Ink Puppet — Cuttlefish character study</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#artwork">Skip to the character</a>
+  <main>
+    <header>
+      <p class="eyebrow"><span class="edition">01 / CUTTLEFISH</span> AN ASCII CHARACTER STUDY</p>
+      <div class="intro"><h1>Meet the <em>ink puppet.</em></h1><p>A curious glance. A gathering of arms.<br>A little ink, then a quiet return.</p></div>
+    </header>
+    <section class="study" aria-label="Interactive cuttlefish study">
+      <div class="topbar">
+        <label class="view-label">View <select id="view" aria-label="Study view">
+          <option value="puppet">Ink Puppet / prototype</option>
+          <option value="source">Current main / gallery pose</option>
+          <option value="lens">Classic / full lens</option>
+          <option value="swim">Classic / small swimmers</option>
+        </select></label>
+        <div class="playback"><button id="pause" type="button">Pause</button><button id="restart" type="button">Restart</button></div>
+      </div>
+      <div class="gesturebar">
+        <div class="tools" role="group" aria-label="Choose a touch or pointer action">
+          <button data-tool="investigate" aria-pressed="true" type="button"><span class="key">I</span> Offer a shrimp</button>
+          <button data-tool="retreat" aria-pressed="false" type="button"><span class="key">R</span> Disturb the water</button>
+        </div>
+        <label class="size-label">Scale <select id="size" aria-label="Character scale"><option value="1">Normal</option><option value="0.65">Small</option><option value="0.35">35%</option></select></label>
+      </div>
+      <figure>
+        <div class="lens"><canvas id="artwork" tabindex="0" role="img" aria-label="An inquisitive ASCII cuttlefish with a broad mantle, recessed lateral W pupil and connected arm crown. Choose an action and tap the water, or focus here and press I or R."></canvas></div>
+        <figcaption><span id="source-label">INK PUPPET / LOCAL PROTOTYPE</span><span id="phase">Watching the current</span></figcaption>
+      </figure>
+      <div class="instructions"><p id="hint">Choose an action, then tap anywhere in the water. The position changes the response.</p><p id="status" role="status" aria-live="polite">The current is yours to explore.</p></div>
+    </section>
+    <section class="review" aria-label="Motion keys and review exports">
+      <div class="review-heading"><div><p class="eyebrow">THE PERFORMANCE, FRAME BY FRAME</p><h2>A gesture has a beginning and an end.</h2></div><button id="play-sequence" type="button">Play selected action</button></div>
+      <div class="keys" role="group" aria-label="Explore static motion keys">
+        <button data-still="notice" type="button"><span>01 / NOTICE</span><strong>Gather &amp; look</strong><small>Anticipation</small></button>
+        <button data-still="reach" type="button"><span>02 / REACH</span><strong>Follow the invitation</strong><small>Response</small></button>
+        <button data-still="jet" type="button"><span>03 / SOFT JET</span><strong>A little distance</strong><small>Response</small></button>
+        <button data-still="settle" type="button"><span>04 / SETTLE</span><strong>Back to the current</strong><small>Recovery</small></button>
+      </div>
+      <div class="footer-row"><p>Keyboard: arrows move the target, <kbd>I</kbd> invites, <kbd>R</kbd> disturbs, <kbd>Space</kbd> pauses. Motion preferences stay respected.</p><div class="exports"><button id="save" type="button">Save frame</button><button id="record" type="button">Record both moments</button></div></div>
+      <p class="evidence-note">Prototype art and controls are local review work. The three current-main views use the existing renderer unchanged. No concept image is used to draw this animal.</p>
+      <details><summary>Reproduction details</summary><p id="evidence">Seed 7 · 60 simulation ticks per second · original Cuttlefish source at f63b20e</p><p><a href="./CONCEPTS.md">Editable concepts</a> · <a href="./AUTHORING.md">Authoring record</a> · <a href="./REVIEW.md">Final review</a></p></details>
+    </section>
+    <footer>DRAWN IN CHARACTERS. <span>CURIOUS BY DESIGN.</span></footer>
+  </main>
+  <script type="module" src="./page.mjs"></script>
+</body>
+</html>

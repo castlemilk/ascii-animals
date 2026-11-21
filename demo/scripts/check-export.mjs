@@ -32,6 +32,11 @@ const packageFactories = {
   'ascii-animals-review/butterfly': 'createButterflyArtwork',
 };
 
+const localVariation = '../../../species/octopus/trickster/browser.mjs';
+const localVariationFactory = 'createOctopusTrickster';
+const puppetAdapter = './ink-puppet.mjs';
+const puppetFactory = 'createInkPuppetVariant';
+
 /**
  * Structural build evidence, not a browser execution claim: inspect TypeScript
  * imports, actual installed package export resolution and Webpack's emitted
@@ -43,6 +48,8 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   const sourceRoot = path.join(appDir, 'src');
   const dynamicSpecifiers = new Set();
   let eagerPackageImports = 0;
+  let lazyVariationImports = 0;
+  let lazyPuppetImports = 0;
   for (const relative of (await filesBelow(sourceRoot)).filter(file => /\.tsx?$/.test(file))) {
     const filename = path.join(sourceRoot, relative);
     const parsed = ts.createSourceFile(filename, await readFile(filename, 'utf8'), ts.ScriptTarget.Latest, true);
@@ -56,13 +63,31 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
           if (!typeOnly) eagerPackageImports++;
           assert(typeOnly, `Eager renderer package import in ${relative}: ${specifier}`);
         }
+        if (specifier === puppetAdapter || /(?:^|\/)ink-puppet\/(?:browser|page)\.mjs$/.test(specifier)) {
+          assert(ts.isImportDeclaration(node) && node.importClause?.isTypeOnly,
+            `Eager Ink Puppet adapter or renderer import: ${relative}`);
+        }
         if (specifier.startsWith('.')) {
           const resolved = path.resolve(path.dirname(filename), specifier);
-          assert(resolved.startsWith(appDir + path.sep), `Demo source imports outside its package: ${relative} → ${specifier}`);
+          const exactVariationTypeImport = relative === 'lib/renderers.ts' && specifier === localVariation
+            && ts.isImportDeclaration(node) && node.importClause?.isTypeOnly;
+          assert(exactVariationTypeImport || resolved.startsWith(appDir + path.sep), `Demo source imports outside its package: ${relative} → ${specifier}`);
         }
       }
       if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
         const specifier = node.arguments[0].text;
+        if (specifier === puppetAdapter) {
+          const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
+          assert(relative === 'lib/renderers.ts' && loader?.name?.text === 'mountPuppet',
+            `Ink Puppet adapter import must remain in its mount entry: ${relative}`);
+          lazyPuppetImports++;
+        }
+        if (specifier.startsWith('.') && !path.resolve(path.dirname(filename), specifier).startsWith(appDir + path.sep)) {
+          const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
+          assert(relative === 'lib/renderers.ts' && specifier === localVariation && loader?.name?.text === 'mountTrickster',
+            `Unexpected out-of-package renderer import: ${relative} → ${specifier}`);
+          lazyVariationImports++;
+        }
         if (specifier.startsWith('ascii-animals-review')) {
           assert(Object.hasOwn(packageFactories, specifier), `Unexpected renderer import: ${specifier}`);
           const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
@@ -93,7 +118,9 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
     await readFile(path.join(packageRoot, entry.types));
   }
 
-  const factories = new Set(Object.values(packageFactories));
+  assert.equal(lazyVariationImports, 1, 'Exactly one local variation must be imported on demand');
+  assert.equal(lazyPuppetImports, 1, 'Exactly one Ink Puppet adapter must be imported on demand');
+  const factories = new Set([...Object.values(packageFactories), localVariationFactory, puppetFactory]);
   const factoryChunks = new Map([...factories].map(factory => [factory, new Set()]));
   const chunkRoot = path.join(outputDir, '_next/static/chunks');
   for (const relative of (await filesBelow(chunkRoot)).filter(file => file.endsWith('.js'))) {
@@ -113,7 +140,7 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   }
   for (const [factory, chunks] of factoryChunks) assert.equal(chunks.size, 1, `Expected one emitted Webpack entry chunk for ${factory}; update this build-format-specific check before claiming lazy chunks`);
   const rendererChunks = new Set([...factoryChunks.values()].flatMap(chunks => [...chunks]));
-  assert.equal(rendererChunks.size, factories.size, 'Unrelated public renderer factories were combined into one entry chunk');
+  assert.equal(rendererChunks.size, factories.size, 'Unrelated renderer factories were combined into one entry chunk');
   const initialPages = ['index.html', ...species.map(slug => `animals/${slug}/index.html`)];
   for (const file of initialPages) {
     const elements = htmlTags?.get(file) ?? tags(await readFile(path.join(outputDir, file), 'utf8'));

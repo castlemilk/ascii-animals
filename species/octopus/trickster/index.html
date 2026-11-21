@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Pocket Trickster — Octopus / ASCII Animals</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#controls">Skip to octopus controls</a>
+  <main>
+    <header><a href="https://github.com/castlemilk/ascii-animals">{a} &nbsp; ascii animals.</a><span>Octopus / character study</span></header>
+    <section aria-labelledby="title">
+      <div class="intro"><div><p class="eyebrow">Pocket Trickster</p><h1 id="title">A little <em>trouble.</em></h1></div><p>Eight arms. One very curious mind.<br>Offer a pearl. See who blinks first.</p></div>
+      <figure>
+        <div class="stage">
+          <canvas id="octopus" tabindex="0" role="img" aria-label="An expressive coral ASCII octopus with large slit-pupil eyes and eight curled arms. It can touch a pearl and hide in ink before peeking out."
+            aria-describedby="instructions keyboard" aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Enter J Escape Space">An octopus waits beside a small rock shelf. Use the buttons to offer a pearl or play ink peekaboo. Canvas 2D is required for the artwork.</canvas>
+          <div class="stage-caption" aria-hidden="true"><span>01 / The curious shallows</span><span id="playback">Playing</span></div>
+        </div>
+        <figcaption id="instructions">Move slowly or tap the water to offer a pearl. Tap the octopus to see its disappearing trick.</figcaption>
+      </figure>
+      <div id="controls" class="controls" tabindex="-1">
+        <div class="actions" role="group" aria-label="Octopus moments">
+          <button id="reach" class="primary" type="button">Offer a pearl <span aria-hidden="true">↗</span></button>
+          <button id="ink" type="button">Ink peekaboo</button>
+          <button id="release" type="button">Release</button>
+        </div>
+        <div class="playback" role="group" aria-label="Playback">
+          <button id="pause" type="button" aria-label="Pause animation">Pause</button>
+          <button id="restart" type="button">Restart</button>
+        </div>
+      </div>
+      <p id="status" role="status" aria-live="polite" aria-atomic="true">The shallows are quiet. Offer a pearl.</p>
+      <p id="motion" hidden>Reduced motion is on. This still pose will stay still until you choose Play.</p>
+      <details><summary>Two little moments</summary><div class="notes"><p><strong>A curious touch.</strong> Eyes lead. One arm coils, unfolds and touches the pearl. Release it early to see the tip recoil. Place your next invitation on the other side.</p><p><strong>Now you see me.</strong> A small squash comes before the ink. Watch for one eye and a curled arm at the edge of the cloud. The side of the disturbance changes where it peeks.</p><p id="keyboard"><strong>Keyboard.</strong> Focus the artwork. Arrows move the invitation; Enter offers it, J plays ink peekaboo, Escape releases, and Space pauses or plays. Tab leaves the artwork.</p></div></details>
+    </section>
+    <footer><span>Original ASCII character art</span><span>Isolated local prototype · main f63b20e</span></footer>
+  </main>
+  <script type="module" src="./preview.mjs"></script>
+</body>
+</html>

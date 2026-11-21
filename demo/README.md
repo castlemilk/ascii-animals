@@ -148,3 +148,26 @@ project prefix in URLs.
 The existing manual `.github/workflows/pages.yml` validates the package and
 static export before uploading `demo/out`. This change does not run the workflow,
 publish the package, or deploy the site.
+
+### Study variations
+
+Both Cuttlefish and Octopus open on the canonical **Original** study. Their
+opt-in studies use separately authored renderers, not new npm exports or
+iframes. Direct links:
+
+- Ink Puppet: `/ascii-animals/animals/cuttlefish/?variation=ink-puppet`
+- Pocket Trickster: `/ascii-animals/animals/octopus/?variation=pocket-trickster`
+
+
+Unrecognised, wrong-species or duplicate choices fall back without a redirect. The switch keeps
+playback preference, replaces (rather than overlays) the active renderer, and
+does not add an alternate to studies without one. The movement controls are
+specific to the Original renderer. Classic studio URLs retain their existing
+files and meaning.
+
+The variation selector uses the pinned Vercel Labs UI SDK segmented control
+(`@ui-sdk/react/segmented-control`). Use Left or Right Arrow within the radio
+group, or tap either segment. Playback is next to the selector; restart and
+persistent Still mode remain under Motion preferences. For future changes,
+read the versioned `node_modules/@ui-sdk/react/docs/llms.txt` and the
+segmented control component page shipped with that dependency.

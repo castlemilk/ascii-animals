@@ -110,6 +110,7 @@ function MarineJourneyPanel({ controller, paused, reducedMotion, requestPaused }
 
 function MovementPanel(props: MovementPanelProps) {
   const { session } = props;
+  if (session.variation !== 'original') return null;
   if (session.species !== 'cuttlefish' && session.species !== 'manta' && session.species !== 'octopus') return null;
   // Only marine session members share this supported pose adapter.
   return <MarineJourneyPanel controller={session.controller} paused={props.paused}

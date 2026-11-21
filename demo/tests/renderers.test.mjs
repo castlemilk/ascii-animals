@@ -270,3 +270,35 @@ for (const species of ['cuttlefish', 'manta', 'octopus']) {
     assertReleased(host, session);
   });
 }
+
+test('Pocket Trickster owns its one canvas, obeys the shared motion guard and releases its resources', async () => {
+  const host = rendererHost({ reducedMotion: true });
+  const abort = new AbortController();
+  const session = await mountRenderer('octopus', host.host, {
+    paused: true, reducedMotion: true, signal: abort.signal,
+  }, 'pocket-trickster');
+  assert.equal(session.variation, 'pocket-trickster');
+  assert.equal(session.element.dataset.rendererVariation, 'pocket-trickster');
+  assert.deepEqual(host.host.children, [host.sibling, session.element]);
+  host.intersectAll(true);
+  session.play(); // Neither reduced motion gate allows native explicit opt-in.
+  assert.equal(session.controller.getStats().paused, true);
+  assert.equal(session.controller.getStats().running, false);
+  assert.equal(session.controller.invite(), false);
+  abort.abort();
+  assert.equal(session.controller.getStats().destroyed, true);
+  assert.equal(session.disposed, true);
+  assert.deepEqual(host.host.children, [host.sibling]);
+  assert.equal(host.resourceCount, 0);
+});
+
+test('stale alternate loads cannot acquire any canvas or listener', async () => {
+  const host = rendererHost(), abort = new AbortController();
+  const pending = mountRenderer('octopus', host.host, {
+    paused: true, reducedMotion: false, signal: abort.signal,
+  }, 'pocket-trickster');
+  abort.abort();
+  await assert.rejects(pending, { name: 'AbortError' });
+  assert.deepEqual(host.host.children, [host.sibling]);
+  assert.equal(host.resourceCount, 0);
+});

@@ -28,7 +28,7 @@ export default async function SpeciesPage({ params }: PageProps) {
   return <main id="main-content" className="study-page" tabIndex={-1}>
     <Breadcrumbs animal={animal} />
     <Link className="back-link" href="/#catalogue" prefetch={false}><span aria-hidden="true">←</span> Back to catalogue</Link>
-    <div className="study-heading"><div><p className="eyebrow">{numberOf(animal)} / {animals.length} <span aria-hidden="true">·</span> {animal.habitat}</p><h1 tabIndex={-1}>{animal.name}<span className="heading-period" aria-hidden="true">.</span></h1></div><p>{animal.description}</p></div>
+    <div className="study-heading"><div><p className="eyebrow">{numberOf(animal)} / {animals.length} <span aria-hidden="true">·</span> {animal.habitat}</p><h1 tabIndex={-1}>{animal.name}<span className="heading-period" aria-hidden="true">.</span></h1></div></div>
     <div className="study-layout"><SpeciesNavigation key={animal.id} selected={animal.id} /><div className="study-content"><StudyStage key={animal.id} animal={animal} />
       <nav className="adjacent-navigation" aria-label="Previous and next animals">
         {previous ? <Link href={animalPath(previous.id)} prefetch={false} aria-label={`Previous: ${previous.name}`}><span className="eyebrow">← Previous</span><strong>{previous.name}</strong></Link> : <span className="collection-boundary">The first in the collection</span>}
