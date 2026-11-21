@@ -9,10 +9,13 @@
     "build:site": "next build --webpack && node scripts/finalize-export.mjs && node scripts/check-export.mjs",
     "typecheck": "tsc --noEmit",
     "check:export": "node scripts/check-export.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "generate:social": "node scripts/generate-social-preview.mjs",
     "serve": "node scripts/serve-export.mjs",
     "test": "playwright test",
-    "test:static": "node --test tests/export.test.mjs",
-    "test:unit": "node --test tests/export.test.mjs tests/renderers.test.mjs"
+    "test:static": "node --test tests/export.test.mjs tests/seo.test.mjs",
+    "test:unit": "node --test tests/export.test.mjs tests/renderers.test.mjs tests/seo.test.mjs",
+    "test:seo": "playwright test tests/seo.spec.ts"
   },
   "dependencies": {
     "ascii-animals-review": "file:..",

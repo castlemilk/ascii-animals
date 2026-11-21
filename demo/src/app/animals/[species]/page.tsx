@@ -5,13 +5,19 @@ import { Breadcrumbs } from '../../../components/site-shell';
 import { SpeciesNavigation } from '../../../components/species-navigation';
 import { StudyStage } from '../../../components/study-stage';
 import { animals, animalPath, findAnimal, numberOf } from '../../../lib/catalogue';
+import { pageMetadata } from '../../../lib/seo';
 
 type PageProps = { params: Promise<{ species: string }> };
 export const dynamicParams = false;
 export function generateStaticParams() { return animals.map(animal => ({ species: animal.id })); }
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const animal = findAnimal((await params).species);
-  return { title: animal ? `${animal.name} study` : 'Study not found', description: animal?.description };
+  if (!animal) notFound();
+  return pageMetadata(
+    `${animal.name} ASCII animation · ASCII Animals`,
+    `Explore the interactive ${animal.name.toLowerCase()} ASCII study. ${animal.description}`,
+    animalPath(animal.id),
+  );
 }
 
 export default async function SpeciesPage({ params }: PageProps) {
