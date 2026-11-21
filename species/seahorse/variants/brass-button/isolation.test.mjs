@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { getEventListeners } from 'node:events';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -38,8 +38,15 @@ after(async () => {
   finally { await rm(output, { recursive: true, force: true }); }
 });
 let built;
-try { built = await buildBrassButton(output); }
-catch (error) { await rm(output, { recursive: true, force: true }); throw error; }
+try {
+  // A different-depth alias also exercises macOS's /var → /private/var issue on Linux.
+  const physical = path.join(output, 'physical');
+  const alias = path.join(output, 'alias', 'nested', 'compiled');
+  await mkdir(physical);
+  await mkdir(path.dirname(alias), { recursive: true });
+  await symlink(physical, alias, 'junction');
+  built = await buildBrassButton(alias);
+} catch (error) { await rm(output, { recursive: true, force: true }); throw error; }
 const runtimeURL = pathToFileURL(built.runtime).href;
 const adapterURL = pathToFileURL(built.adapter).href;
 
@@ -180,6 +187,51 @@ test('adapter import is inert; explicit mount owns one accessible child and keep
   } finally { session.dispose(); }
   assertClean(h);
   assert(h.removals.every(removal => removal.listeners === 0), 'controller listeners release before child removal');
+});
+
+test('focused Space toggles only host-owned playback and cannot bypass either reduction policy', async () => {
+  const h = hostHarness();
+  const { mountBrassButton } = await import(adapterURL);
+  const session = await mountBrassButton(h.host, { paused: false, reducedMotion: true,
+    configuration: { reducedMotion: 'ignore' } });
+  const canvas = session.element;
+  function space(target = canvas, extra = {}) {
+    let prevented = false;
+    canvas.emit('keydown', { target, key: ' ', preventDefault() { prevented = true; }, ...extra });
+    return prevented;
+  }
+  try {
+    h.intersect(canvas, true);
+    canvas.focus();
+    assert.equal(space({}), false, 'other controls keep Space');
+    assert.equal(space(canvas, { ctrlKey: true }), false, 'modified Space stays available');
+    assert.equal(space(), true, 'a focused canvas owns an unmodified Space');
+    tick(h);
+    assert.equal(session.controller.getStatus().tick, 0, 'host Still remains authoritative');
+    assert.equal(h.pending, 0);
+    session.setReducedMotion(false);
+    assert.equal(h.pending, 1, 'removing Still restores the original play intent');
+    tick(h);
+    const playingTick = session.controller.getStatus().tick;
+    assert(playingTick > 0);
+    space();
+    assert.equal(h.pending, 0, 'normal focused Space pauses');
+    session.setReducedMotion(true); space(); session.setReducedMotion(false); tick(h);
+    assert.equal(session.controller.getStatus().tick, playingTick, 'a blocked key never clears manual pause');
+    space();
+    assert.equal(h.pending, 1, 'normal focused Space resumes');
+
+    h.setReduced(true); space(); tick(h);
+    assert.equal(h.pending, 0, 'system preference wins even when configuration requested ignore');
+    assert.equal(session.controller.getStatus().tick, playingTick);
+    h.setReduced(false);
+    assert.equal(h.pending, 1, 'removing system reduction restores play intent');
+    session.pause();
+    h.setReduced(true); space(); h.setReduced(false);
+    assert.equal(h.pending, 0, 'system preference changes preserve manual pause');
+    assert.equal(h.document.activeElement, canvas, 'policy changes do not steal canvas focus');
+  } finally { session.dispose(); }
+  assertClean(h);
 });
 
 test('Original and Brass Button borrow one shared scheduler per window and release only their own resources', async () => {

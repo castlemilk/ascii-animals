@@ -5,7 +5,7 @@
  * deliberately import adapter.mjs to mount the variation.
  */
 import ts from 'typescript';
-import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
@@ -32,7 +32,9 @@ export async function buildBrassButton(output = path.join(root, 'artifacts/seaho
     getCanonicalFileName: name => name, getCurrentDirectory: () => root, getNewLine: () => '\n',
   }));
   await mkdir(out, { recursive: true });
-  let schedulerImport = path.relative(out, scheduler).split(path.sep).join('/');
+  // Node resolves emitted modules from their real directory (including macOS /var aliases).
+  const [realOutput, realScheduler] = await Promise.all([realpath(out), realpath(scheduler)]);
+  let schedulerImport = path.relative(realOutput, realScheduler).split(path.sep).join('/');
   if (!schedulerImport.startsWith('.')) schedulerImport = './' + schedulerImport;
   const files = {};
   for (const name of sources) {

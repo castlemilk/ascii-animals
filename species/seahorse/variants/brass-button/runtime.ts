@@ -621,7 +621,8 @@ export interface SeahorseArtwork {
   pulse(): void; guide(x: number, y: number): void; clearGuide(): void; resize(): void; dispose(): void;
 }
 /** Browser-only mount, SSR-safe import. One borrowed shared scheduler, no private loop. */
-export function createBrassButtonArtwork(canvas: HTMLCanvasElement, input: SeahorseBrowserOptions = {}): SeahorseArtwork {
+export function createBrassButtonArtwork(canvas: HTMLCanvasElement, input: SeahorseBrowserOptions = {},
+  onPlaybackToggle?: () => void): SeahorseArtwork {
   object(input, 'Options');
   const { frameSource, ...raw } = input;
   const model = createBrassButtonModel(raw), view = canvas?.ownerDocument?.defaultView, doc = canvas?.ownerDocument;
@@ -753,7 +754,10 @@ export function createBrassButtonArtwork(canvas: HTMLCanvasElement, input: Seaho
     else if (e.key.toLowerCase() === 'r') model.direct({ type: 'release' }, blocked());
     else if (e.key.toLowerCase() === 'b') model.direct({ type: 'startle' }, blocked());
     else if (e.key === 'Escape') model.clearGuide();
-    else if (e.key === ' ') { requestedPaused = !requestedPaused; sync(); }
+    else if (e.key === ' ') {
+      if (onPlaybackToggle) onPlaybackToggle();
+      else { requestedPaused = !requestedPaused; sync(); }
+    }
     else return;
     e.preventDefault(); draw();
   }

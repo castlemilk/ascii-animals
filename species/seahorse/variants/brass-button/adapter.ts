@@ -74,6 +74,12 @@ export async function mountBrassButton(host: HTMLElement, options: BrassButtonMo
     if (requestedPaused || forcedReduced || motion.matches) controller.pause();
     else controller.play();
   }
+  function togglePlayback(): void {
+    // A focused canvas may toggle user pause, never override host Still or OS reduction.
+    if (forcedReduced || motion.matches) return;
+    requestedPaused = !requestedPaused;
+    synchronize();
+  }
   function dispose(): void {
     if (disposed) return;
     disposed = true;
@@ -84,7 +90,7 @@ export async function mountBrassButton(host: HTMLElement, options: BrassButtonMo
   try {
     // Construction is paused until ownership and both motion policies exist.
     // Structural assignment checks the existing Seahorse controller contract.
-    controller = createBrassButtonArtwork(canvas, { ...options.configuration, paused: true, reducedMotion: 'system' });
+    controller = createBrassButtonArtwork(canvas, { ...options.configuration, paused: true, reducedMotion: 'system' }, togglePlayback);
     motion.addEventListener('change', synchronize);
     options.signal?.addEventListener('abort', dispose, { once: true });
     throwIfAborted(options.signal);
