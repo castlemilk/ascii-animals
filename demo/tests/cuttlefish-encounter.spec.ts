@@ -17,6 +17,10 @@ function footprint(canvas: Locator) {
   });
 }
 
+function bitmap(canvas: Locator) {
+  return canvas.evaluate(node => (node as HTMLCanvasElement).toDataURL('image/png'));
+}
+
 for (const [device, width, height] of [['desktop', 1280, 940], ['touch phone', 390, 844]] as const) {
   test(`original Cuttlefish lens: small approach and shared full-frame contact on ${device}`, async ({ browser, baseURL }, info) => {
     const measures = [];
@@ -41,10 +45,18 @@ for (const [device, width, height] of [['desktop', 1280, 940], ['touch phone', 3
         await expect(page.locator('#scene-phase')).toHaveText('Exploring the lens');
         const contact = await footprint(canvas);
         await info.attach(`${device} lens ${size}`, {body: await canvas.screenshot(), contentType: 'image/png'});
-        await page.locator('#pause-btn').click({force: true});
-        await expect(page.locator('#pause-btn')).toHaveAttribute('aria-label', 'Play animation');
+        const pause = page.locator('#pause-btn');
+        await pause.click({force: true});
+        await expect(pause).toHaveAttribute('aria-label', 'Play animation');
+        // Pause synchronously paints the settled frame before unsubscribing.
+        // Compare that frame, not the last live paint, to the later bitmap.
+        const paused = await bitmap(canvas);
         await page.clock.runFor(650);
-        expect(await footprint(canvas)).toEqual(contact);
+        expect(await bitmap(canvas) === paused, 'paused bitmap remains identical').toBe(true);
+        await pause.click({force: true});
+        await expect(pause).toHaveAttribute('aria-label', 'Pause animation');
+        await page.clock.runFor(650);
+        expect(await bitmap(canvas) === paused, 'resumed animation paints a different bitmap').toBe(false);
         expect(errors).toEqual([]);
         measures.push({approach, contact});
       } finally { await context.close(); }
