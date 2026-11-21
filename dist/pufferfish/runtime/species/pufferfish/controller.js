@@ -20,6 +20,10 @@ export function normalizePufferfishPointer(clientX, clientY, rect) {
 }
 /** Browser lifecycle only. No legacy constructor/listener/RAF is created by the painter. */
 export function mountPufferfish(canvas, legacy, options = {}) {
+    return mountPufferfishWithPainter(canvas, options, (surface, config) => createPufferfishPainter(surface, legacy, config));
+}
+/** Internal dependency injection for art variations. All variants share this lifecycle. */
+export function mountPufferfishWithPainter(canvas, options, createPainter) {
     record(options, ['species', 'director', 'render', 'paused', 'onChange', 'onError', 'frameSource'], 'mount options');
     if (options.paused !== undefined && typeof options.paused !== 'boolean')
         throw new TypeError('paused must be boolean');
@@ -351,7 +355,7 @@ export function mountPufferfish(canvas, legacy, options = {}) {
         exportText() { alive(); return lastRender?.text ?? ''; }, destroy,
     };
     try {
-        painter = createPufferfishPainter(canvas, legacy, renderConfig);
+        painter = createPainter(canvas, renderConfig);
         listen(canvas, 'pointermove', event => {
             const pointer = event;
             if (resting() || pointer.pointerType === 'touch')
