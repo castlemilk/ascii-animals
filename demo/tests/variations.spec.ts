@@ -55,8 +55,12 @@ test('invalid, empty, duplicate and other-species variation URLs are left alone'
   }
   await page.goto(other + '?' + query);
   await expect(page.getByTestId('renderer-host')).toHaveAttribute('data-variation', 'original');
-  await expect(page.getByRole('radiogroup', { name: 'Variation' })).toHaveCount(0);
+  await expect(page.getByRole('radio', { name: 'Original', exact: true })).toBeChecked();
   await expect(page).toHaveURL(other + '?' + query);
+  const noVariant = '/ascii-animals/animals/turtle/';
+  await page.goto(noVariant + '?' + query);
+  await expect(page.getByRole('radiogroup', { name: 'Variation' })).toHaveCount(0);
+  await expect(page).toHaveURL(noVariant + '?' + query);
 });
 
 test('rapid selections, compact touch, global Still and system reduction keep one renderer', async ({ browser }) => {

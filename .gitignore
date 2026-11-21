@@ -10,3 +10,5 @@ node_modules/
 /lib/
 /artifacts/
 *.tgz
+
+/demo/.private-renderers/

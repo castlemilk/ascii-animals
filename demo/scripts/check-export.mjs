@@ -38,6 +38,10 @@ const puppetAdapter = './ink-puppet.mjs';
 const puppetFactory = 'createInkPuppetVariant';
 const curmudgeonEntry = '../../../species/pufferfish/build/character.js';
 const curmudgeonFactory = 'mountPufferfishCharacter';
+const privateStudies = new Map([
+  ['../../.private-renderers/src/public/crab/variants/tidepool-trouper.js', ['mountTrouper', 'createTidepoolTrouperArtwork']],
+  ['../../.private-renderers/species/butterfly/variations/sunpatch/index.js', ['mountSunpatch', 'createSunpatchButterflyArtwork']],
+]);
 
 /**
  * Structural build evidence, not a browser execution claim: inspect TypeScript
@@ -53,6 +57,7 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   let lazyVariationImports = 0;
   let lazyPuppetImports = 0;
   let lazyCurmudgeonImports = 0;
+  const lazyPrivateStudies = new Map();
   for (const relative of (await filesBelow(sourceRoot)).filter(file => /\.tsx?$/.test(file))) {
     const filename = path.join(sourceRoot, relative);
     const parsed = ts.createSourceFile(filename, await readFile(filename, 'utf8'), ts.ScriptTarget.Latest, true);
@@ -66,6 +71,7 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
           if (!typeOnly) eagerPackageImports++;
           assert(typeOnly, `Eager renderer package import in ${relative}: ${specifier}`);
         }
+        assert(!specifier.includes('/.private-renderers/'), `Eager private study import: ${relative}`);
         if (specifier === puppetAdapter || /(?:^|\/)ink-puppet\/(?:browser|page)\.mjs$/.test(specifier)) {
           assert(ts.isImportDeclaration(node) && node.importClause?.isTypeOnly,
             `Eager Ink Puppet adapter or renderer import: ${relative}`);
@@ -79,6 +85,12 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
       }
       if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
         const specifier = node.arguments[0].text;
+        if (specifier.includes('/.private-renderers/')) {
+          const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
+          assert(relative === 'lib/renderers.ts' && privateStudies.get(specifier)?.[0] === loader?.name?.text,
+            `Unexpected private study import: ${relative} → ${specifier}`);
+          lazyPrivateStudies.set(specifier, 1 + (lazyPrivateStudies.get(specifier) ?? 0));
+        }
         if (specifier === puppetAdapter) {
           const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
           assert(relative === 'lib/renderers.ts' && loader?.name?.text === 'mountPuppet',
@@ -127,7 +139,11 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   assert.equal(lazyVariationImports, 1, 'Exactly one local variation must be imported on demand');
   assert.equal(lazyPuppetImports, 1, 'Exactly one Ink Puppet adapter must be imported on demand');
   assert.equal(lazyCurmudgeonImports, 1, 'Exactly one Reef Curmudgeon renderer must be imported on demand');
-  const factories = new Set([...Object.values(packageFactories), localVariationFactory, puppetFactory, curmudgeonFactory]);
+  for (const [specifier, [, factory]] of privateStudies) {
+    assert.equal(lazyPrivateStudies.get(specifier), 1, `Exactly one lazy import required for ${factory}`);
+  }
+  const factories = new Set([...Object.values(packageFactories), localVariationFactory, puppetFactory, curmudgeonFactory,
+    ...[...privateStudies.values()].map(([, factory]) => factory)]);
   const factoryChunks = new Map([...factories].map(factory => [factory, new Set()]));
   const chunkRoot = path.join(outputDir, '_next/static/chunks');
   for (const relative of (await filesBelow(chunkRoot)).filter(file => file.endsWith('.js'))) {

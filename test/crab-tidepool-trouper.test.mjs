@@ -230,9 +230,14 @@ test('Tidepool Trouper: study canvas taps distinguish visible crab from sand and
     const sand = frame.cells.findIndex((cell, i) => cell.layer === 'sand'
       && i % frame.columns > frame.columns * 0.7);
     assert(sand >= 0, 'fixture has visible sand to the right');
-    const tap = index => canvas.emit('pointerdown', { isPrimary: true, pointerType: 'touch',
+    const at = index => ({ isPrimary: true, pointerType: 'touch', pointerId: 1, button: 0,
       clientX: ((index % frame.columns) + 0.5) / frame.columns * canvas.rect.width,
       clientY: (Math.floor(index / frame.columns) + 0.5) / frame.rows * canvas.rect.height });
+    const tap = index => { const point = at(index); canvas.emit('pointerdown', point); canvas.emit('pointerup', point); };
+    canvas.emit('pointerdown', at(sand));
+    canvas.emit('pointercancel', at(sand));
+    canvas.emit('pointerup', at(sand));
+    assert.equal(art.getFrame().text, neutral, 'A cancelled scroll remains neutral.');
     tap(sand);
     const strut = art.getFrame().text;
     assert.notEqual(strut, neutral);
@@ -263,15 +268,17 @@ test('Tidepool Trouper: phone letterboxing and DPR use the same displayed glyph 
     assert(marks.every(mark => mark.x >= 0 && mark.x <= 350 && mark.y > 15 && mark.y < 345),
       'the phone has unused top/bottom letterbox space');
     const initial = art.getFrame().text;
-    canvas.emit('pointerdown', { isPrimary: true, pointerType: 'touch',
-      clientX: canvas.rect.left + 175, clientY: canvas.rect.top + 5 });
+    const tap = (clientX, clientY) => {
+      const event = { isPrimary: true, pointerType: 'touch', pointerId: 1, button: 0, clientX, clientY };
+      canvas.emit('pointerdown', event); canvas.emit('pointerup', event);
+    };
+    tap(canvas.rect.left + 175, canvas.rect.top + 5);
     assert(art.getFrame().text === initial, 'a padding tap must not invent a sand or crab hit');
     assert.equal(art.getStatus().phase, 'idle');
     const hit = cells.findIndex(cell => cell.layer === 'crab' && cell.owner === 0);
     assert(hit >= 0);
     const rendered = marks[hit];
-    canvas.emit('pointerdown', { isPrimary: true, pointerType: 'touch',
-      clientX: canvas.rect.left + rendered.x, clientY: canvas.rect.top + rendered.y });
+    tap(canvas.rect.left + rendered.x, canvas.rect.top + rendered.y);
     assert.equal(art.getScene().actors[0].behavior.kind, 'signal',
       'the actual drawn crab glyph maps back to the creature, including padding and CSS offset');
     assert.equal(art.getStatus().phase, 'defend');

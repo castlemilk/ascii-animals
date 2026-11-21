@@ -288,12 +288,23 @@ export function createTidepoolTrouperArtwork(canvas:HTMLCanvasElement,input:Crab
     const px=(e.clientX-r.left)/r.width*width,py=(e.clientY-r.top)/r.height*height;
     if(px<box.x||px>box.x+box.w||py<box.y||py>box.y+box.h)return null;
     const x=(px-box.x)/box.w*2-1,y=(py-box.y)/box.h*2-1;return Number.isFinite(x)&&Number.isFinite(y)?[clamp(x,-1,1),clamp(y,-1,1)]:null;}
-  function pointer(e:PointerEvent){if(disposed)return;const p=coords(e);if(p){model.guide(...p);if(blocked())draw();}}
+  let press: PointerEvent | null = null;
+  function pointer(e:PointerEvent){if(disposed||e.pointerType==='touch'||e.pointerType==='pen')return;const p=coords(e);if(p){model.guide(...p);if(blocked())draw();}}
   function leave(){if(disposed)return;model.clearGuide();draw();notify(true);}
-  function up(e:PointerEvent){if(e.pointerType==='touch'||e.pointerType==='pen')leave();}
+  function cancelPress(){press=null;}
+  function up(e:PointerEvent){
+    if(!press||press.pointerId!==e.pointerId)return;
+    const start=press;press=null;
+    if(Math.hypot(start.clientX-e.clientX,start.clientY-e.clientY)<=12){hit(e);leave();}
+  }
   function greet(){if(disposed)return;model.greet(blocked());draw();notify(true);}
   function cue(action:CrabAction,id?:number){if(disposed)return;model.cue(action,id,blocked());draw();notify(true);}
   function down(e:PointerEvent){
+    if(disposed||e.isPrimary===false||e.button!==0)return;
+    if(e.pointerType==='touch'||e.pointerType==='pen'){press=e;return;}
+    hit(e);
+  }
+  function hit(e:PointerEvent){
     if(disposed)return;const p=coords(e);if(!p)return;const frame=model.frame();model.guide(...p);
     const c=Math.round((p[0]+1)*.5*(frame.columns-1)),r=Math.round((p[1]+1)*.5*(frame.rows-1));
     // Only a visible creature glyph owns a hit: sand, waves, labels and covering rocks do not.
@@ -315,8 +326,8 @@ export function createTidepoolTrouperArtwork(canvas:HTMLCanvasElement,input:Crab
     }else handled=false;
     if(handled)e.preventDefault();
   }
-  function dispose(){if(disposed)return;disposed=true;unsubscribe?.();unsubscribe=null;listeners.clear();ro?.disconnect();io?.disconnect();media.removeEventListener('change',motion);doc!.removeEventListener('visibilitychange',visibility);view!.removeEventListener('resize',resize);canvas.removeEventListener('pointermove',pointer);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('pointercancel',leave);canvas.removeEventListener('lostpointercapture',leave);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keyboard);}
-  try{media.addEventListener('change',motion);doc.addEventListener('visibilitychange',visibility);view.addEventListener('resize',resize);canvas.addEventListener('pointermove',pointer);canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointerleave',leave);canvas.addEventListener('pointercancel',leave);canvas.addEventListener('lostpointercapture',leave);canvas.addEventListener('pointerup',up);canvas.addEventListener('keydown',keyboard);
+  function dispose(){if(disposed)return;disposed=true;unsubscribe?.();unsubscribe=null;listeners.clear();ro?.disconnect();io?.disconnect();media.removeEventListener('change',motion);doc!.removeEventListener('visibilitychange',visibility);view!.removeEventListener('resize',resize);canvas.removeEventListener('pointermove',pointer);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('pointercancel',cancelPress);canvas.removeEventListener('lostpointercapture',cancelPress);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('keydown',keyboard);}
+  try{media.addEventListener('change',motion);doc.addEventListener('visibilitychange',visibility);view.addEventListener('resize',resize);canvas.addEventListener('pointermove',pointer);canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointerleave',leave);canvas.addEventListener('pointercancel',cancelPress);canvas.addEventListener('lostpointercapture',cancelPress);canvas.addEventListener('pointerup',up);canvas.addEventListener('keydown',keyboard);
     const host=view as Window & {ResizeObserver?:typeof ResizeObserver;IntersectionObserver?:typeof IntersectionObserver};
     if(host.ResizeObserver){ro=new host.ResizeObserver(resize);ro.observe(canvas);}if(host.IntersectionObserver){inViewport=false;io=new host.IntersectionObserver(entries=>{if(disposed)return;inViewport=entries.some(e=>e.isIntersecting);sync();});io.observe(canvas);}resize();
   }catch(error){dispose();throw error;}

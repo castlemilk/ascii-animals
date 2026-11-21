@@ -6,6 +6,7 @@ import { BASE_PATH, apiPath, originalPath, type Animal } from '../lib/catalogue'
 import { isMarineSpecies, mountRenderer, type RendererSession } from '../lib/renderers';
 import { movementControls } from '../extensions/movement-controls';
 import { useMotionPolicy } from './motion-policy';
+import { NatureVariationControls } from './nature-variation-controls';
 import { ReefCurmudgeonControls } from './reef-curmudgeon-controls';
 import { InkPuppetControls } from './ink-puppet-controls';
 import { alternateFor, availableVariations, readVariation, variationHref, type VariationId } from '../lib/variations';
@@ -153,6 +154,8 @@ export function StudyStage({ animal }: { animal: Animal }) {
         {status === 'loading' && <div className="stage-message"><span className="loading-mark" aria-hidden="true">{'{a}'}</span><p>Opening {animal.name.toLowerCase()}…</p></div>}
         {status === 'error' && <div className="stage-message error-message" role="alert"><h2>The study could not open.</h2><p>Try again, or explore its original studio.</p><button className="button primary" onClick={() => setAttempt(value => value + 1)}>Retry study</button>{variation !== 'original' && <button className="button quiet" onClick={() => chooseVariation('original')}>Use Original</button>}<a className="text-link" href={originalPath(animal)}>Open original studio</a></div>}
       </div>
+      {(session?.variation === 'tidepool-trouper' || session?.variation === 'sunpatch') && session.variation === selection &&
+        <NatureVariationControls key={session.variation} session={session} />}
       {session?.variation === 'reef-curmudgeon' && selection === 'reef-curmudgeon' &&
         <ReefCurmudgeonControls controller={session.controller} />}
       {session?.variation === 'ink-puppet' && selection === 'ink-puppet' && <InkPuppetControls controller={session.controller} paused={motion.paused} />}

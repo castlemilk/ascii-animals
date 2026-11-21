@@ -10,6 +10,8 @@ export const availableVariations = {
     name: 'Reef Curmudgeon',
     description: 'A grumpy little pufferfish. Invite it over, make it puff up, then give it space to settle.',
   },
+  'tidepool-trouper': { name: 'Tidepool Trouper', description: 'A shore crab that scuttles for food, signals with raised claws, and takes cover.' },
+  sunpatch: { name: 'Sunpatch', description: 'A patterned butterfly that fans its wings at a flower or darts clear of a breeze.' },
   'ink-puppet': {
     name: 'Ink Puppet',
     description: 'A cuttlefish with curious arms and a quick retreat. Invite it to investigate or see it vanish behind a cloud of ink.',
@@ -22,6 +24,8 @@ const alternates: Partial<Record<SpeciesId, Exclude<VariationId, 'original'>>> =
   cuttlefish: 'ink-puppet',
   octopus: 'pocket-trickster',
   pufferfish: 'reef-curmudgeon',
+  crab: 'tidepool-trouper',
+  butterfly: 'sunpatch',
 };
 
 export function alternateFor(species: SpeciesId) {

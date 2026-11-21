@@ -119,7 +119,14 @@ type CurmudgeonSession = RendererLifecycle & {
 
 // Marine deliberately shares one supported engine. Other members retain their
 // exact native controller types: a fixed-tick guide is not a marine advance.
-export type RendererSession = CurmudgeonSession | PuppetSession | TricksterSession | SessionFor<MarineSpeciesId> | {
+type TrouperSession = RendererLifecycle & {
+  readonly species: 'crab'; readonly variation: 'tidepool-trouper'; readonly controller: CrabArtwork;
+};
+type SunpatchSession = RendererLifecycle & {
+  readonly species: 'butterfly'; readonly variation: 'sunpatch'; readonly controller: ButterflyArtwork;
+};
+
+export type RendererSession = TrouperSession | SunpatchSession | CurmudgeonSession | PuppetSession | TricksterSession | SessionFor<MarineSpeciesId> | {
   [S in Exclude<SpeciesId, MarineSpeciesId>]: SessionFor<S>
 }[Exclude<SpeciesId, MarineSpeciesId>];
 
@@ -294,6 +301,22 @@ async function mountCurmudgeon(host: HTMLElement, options: RendererMountOptions)
   });
 }
 
+async function mountTrouper(host: HTMLElement, options: RendererMountOptions): Promise<TrouperSession> {
+  const { createTidepoolTrouperArtwork } = await import('../../.private-renderers/src/public/crab/variants/tidepool-trouper.js');
+  return mountVariationCanvas('crab', 'tidepool-trouper', host, options, canvas => {
+    const controller = createTidepoolTrouperArtwork(canvas, { seed: 23, scene: 'study', count: 1, paused: true, reducedMotion: 'system' });
+    return { playback: controller, identity: { species: 'crab', variation: 'tidepool-trouper', controller } as const };
+  });
+}
+
+async function mountSunpatch(host: HTMLElement, options: RendererMountOptions): Promise<SunpatchSession> {
+  const { createSunpatchButterflyArtwork } = await import('../../.private-renderers/species/butterfly/variations/sunpatch/index.js');
+  return mountVariationCanvas('butterfly', 'sunpatch', host, options, canvas => {
+    const controller = createSunpatchButterflyArtwork(canvas, { seed: 23, director: { scene: 'specimen' }, paused: true, reducedMotion: 'system' });
+    return { playback: controller, identity: { species: 'butterfly', variation: 'sunpatch', controller } as const };
+  });
+}
+
 /**
  * No eager runtime imports, prefetches, secondary animation clocks or globals.
  * All construction is paused; ownership and motion policy are established before
@@ -309,6 +332,8 @@ export async function mountRenderer(
   if (species === 'octopus' && variation === 'pocket-trickster') return mountTrickster(host, options);
   if (species === 'cuttlefish' && variation === 'ink-puppet') return mountPuppet(host, options);
   if (species === 'pufferfish' && variation === 'reef-curmudgeon') return mountCurmudgeon(host, options);
+  if (species === 'crab' && variation === 'tidepool-trouper') return mountTrouper(host, options);
+  if (species === 'butterfly' && variation === 'sunpatch') return mountSunpatch(host, options);
   switch (species) {
     case 'cuttlefish':
     case 'manta':
