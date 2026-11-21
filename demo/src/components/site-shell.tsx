@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { REPOSITORY, type Animal } from '../lib/catalogue';
+import { BASE_PATH, REPOSITORY, type Animal } from '../lib/catalogue';
 
 export function Header() {
   return <header className="site-header">
@@ -27,6 +27,7 @@ export function Breadcrumbs({ animal }: { animal?: Animal }) {
 export function Footer() {
   return <footer className="site-footer">
     <p><span className="brand-mark" aria-hidden="true">{'{a}'}</span> A living character collection.</p>
+    <a href={`${BASE_PATH}/sitemap.xml`}>Sitemap</a>
     <Link href="/#catalogue" prefetch={false}>Back to the field guide <span aria-hidden="true">↑</span></Link>
   </footer>;
 }

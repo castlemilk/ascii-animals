@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
 import { basePath, demoRoot, exportRoot, filesBelow, legacyManifestName, legacyRoot, sha256 } from './finalize-export.mjs';
+import { checkSeo } from './check-seo.mjs';
 
 export const species = ['cuttlefish', 'manta', 'octopus', 'seahorse', 'crab', 'turtle', 'pufferfish', 'frog', 'butterfly', 'dragonfly', 'gecko', 'owl', 'fox'];
 
@@ -184,7 +185,8 @@ export async function checkExport({ outputDir = exportRoot, legacyDir = legacyRo
   }
   assert(moduleImports > 0, 'The check must inspect real legacy module dependencies');
   const consumer = await checkConsumerImports({ outputDir, htmlTags });
-  return { canonicalSpeciesRoutes: species.length, legacyFilesPreserved: manifest.files.length, localLinksChecked: links, fragmentsChecked: fragments, legacyModuleImportsChecked: moduleImports, ...consumer, staticFallback: false };
+  const seo = await checkSeo({ outputDir });
+  return { canonicalSpeciesRoutes: species.length, legacyFilesPreserved: manifest.files.length, localLinksChecked: links, fragmentsChecked: fragments, legacyModuleImportsChecked: moduleImports, ...consumer, ...seo, staticFallback: false };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
