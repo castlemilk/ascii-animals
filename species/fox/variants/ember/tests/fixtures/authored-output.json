@@ -1,0 +1,1095 @@
+{
+  "schema": "fox-ember-authored-oracle/v1",
+  "authoredBase": "f63b20e2045b1070b10bde2efc4eb3a8536e606b",
+  "integrationBase": "3b5ffcce7bea56e1402fc16d0edc2c14c3cd5779",
+  "authoredPatchSha256": "834209eed51987b4ae23ccf990c32ca2d10c0ce9ad35f652f3ee9e705aea6aae",
+  "scope": "Logical state, pose and ASCII/material output; no browser pixels or device-performance assertion.",
+  "sourceHashes": {
+    "original": {
+      "model.ts": "b48da24df40fade6089f3ec5e076e74707ec8974973f2aa6156651d6fd5aac2b",
+      "geometry.ts": "1be92f7fca8c1c1c9f7b90edb983cad7c1122defe1cc3729d3621645b55a63de",
+      "preview.ts": "cd0066d7f8dce1295b55f03fd83f5b344338eafee4e1d6e26617e35ee536fd81",
+      "director.ts": "12033a2a0cb9ced4c7614a83c731a1f3fe88b81e14cb3283c3bee0dfc2bd20b6",
+      "director-render.ts": "81e442d66e7bfc2480dcdd9b5ab5426ad288112c16bc89cc3662eab6add9f768"
+    },
+    "authored": {
+      "model.ts": "b48da24df40fade6089f3ec5e076e74707ec8974973f2aa6156651d6fd5aac2b",
+      "geometry.ts": "ff1e96653162c3fdbb6f4cd1f701469148167d1fcc4b9ebb082a3e2110cf9dc5",
+      "preview.ts": "97d10190b4becf0dba9ddfadee16cbb0a9b222f0682b3c96e26f7556e19e5f27",
+      "director.ts": "6c439b2069e2cbf8bab372f98bdba8014e8a5eb54e73f079abba094f7c9cfa17",
+      "director-render.ts": "d99bd79a20f8297f0f10df90fc76f5c3411504de775c56095af77924dfcdcea6"
+    }
+  },
+  "solo": {
+    "original": {
+      "seed": 17,
+      "events": [
+        {
+          "type": "guide",
+          "tick": 7,
+          "seq": 0,
+          "x": -0.8,
+          "y": 0.68
+        },
+        {
+          "type": "pounce",
+          "tick": 12,
+          "seq": 1
+        },
+        {
+          "type": "guide",
+          "tick": 21,
+          "seq": 2,
+          "x": 0.8,
+          "y": -0.2
+        }
+      ],
+      "captures": [
+        {
+          "tick": 0,
+          "state": "ce35b97e8b04e66440abb88d4171affc4e221281673c63be1ddb06cd6a126fa3",
+          "pose": "5f14b2e7df0e2f8d9411759bca36b0b188c0c6cc803cb09ccc7307f9d4de41cd",
+          "phone": {
+            "text": "32d1c83564a3b8e04f8e217957080c6344c927da50ec2b08a8b01306f042f75a",
+            "materials": "a65b210c5e5d1bda40d0cd07710e1f0f7c1f6709ec176b9477935c7318b7ee19"
+          },
+          "desktop": {
+            "text": "7128ddafcfbe2b0a889e937e5158960f108e9463cc55ab5b7223d0fdf4b85fe3",
+            "materials": "49fceac9ea24488f274d71f40afcc734f976382ce3e22720732cead830ec1a15"
+          }
+        },
+        {
+          "tick": 12,
+          "state": "e9725994e0b31efda3b0a0ab959760e759b0c44e3c6bd42fc3043d3a9a0a62be",
+          "pose": "4f5e6ea8c9aabaa684673ad227ed5f7a0d8937bd9e04ca45410f1cbb3c20f77f",
+          "phone": {
+            "text": "d71af5e00b9b5835e385a532c19169f00a0f98351afb013e085a26e236cb3438",
+            "materials": "96c84de0eb01bce4440cae4c1df4add9a67bca3d5564b810b76a27ad9aaf0604"
+          },
+          "desktop": {
+            "text": "17a1de3bb34dd25bcd724b6b85e6e8d8714a8a001502fc7b50582ae5a9cff771",
+            "materials": "15ce3394ea7a0b96edfb330b1b42cf1298801fe2173c4240a8494fb511d2b98b"
+          }
+        },
+        {
+          "tick": 35,
+          "state": "4831780745dc2fd5f4305970ea7b01daf66cce9f3e7b4b4935c92b826c9cf101",
+          "pose": "c0f5c3895e2252d08b237b511814c9c458d75f42201d074c5e3749fecda71f8d",
+          "phone": {
+            "text": "0ae9c6a7b56954db58328e16d858d1acee5e2d233910e4e1cde268092c0cdc19",
+            "materials": "b35c40ed23dab0aa85b512efd925abe8aa74eee9c88e9bfc82bcbac563dab034"
+          },
+          "desktop": {
+            "text": "a9213b594eef16d51c8c0e37938d2dab8ac5c821991b05bab61669a0d1d31f43",
+            "materials": "888ec426a298bd84c8f5983273c586f6146b4ff075b42a200ffd4c73839df505"
+          }
+        },
+        {
+          "tick": 36,
+          "state": "1025ba9d12ba16e2d0f2f692b4de2bf57e5f3d3e8ca7ce8869427b7363977aa6",
+          "pose": "1e0a3e87ca0bc1825d5a2059997fb72e8ad3e8eba1db0eb53d45cce0fa7331d6",
+          "phone": {
+            "text": "78cb09852366249f380b73c449c7b3c05fc5b22fa1c465a740b2baaa6be7bb4b",
+            "materials": "be75edc4419b2bf41b8fc1b36a2ee04c62fb4d7a92a5593494d7a28d6f03b0df"
+          },
+          "desktop": {
+            "text": "eddae2622147afefbca627b905c4ddf8e250ddd153eb1422fc104022bb9e77ea",
+            "materials": "103037bdb8d2a244c3cc18377cfdb8ac9dd1436fd1be83f7ecc4a5b1da4b87c9"
+          }
+        },
+        {
+          "tick": 54,
+          "state": "fca97589931be77465a7fa733b748e12a6eea4d509d3feb9594ce0dd3a5cf3ed",
+          "pose": "09d0237d0be70011f4fcddc8a85adb6a7116d239c5da85db3a6440d231a0d454",
+          "phone": {
+            "text": "73a4e6835a858d2d269a739f685fe845f1dd199e0a9db80945ae96cf87e0640d",
+            "materials": "6c1fa21dc323d5828160532c55bf75541b5de568e3191054fd9b02f94e1a786a"
+          },
+          "desktop": {
+            "text": "0fec3ff5d213989a3fa31a6083f3f2f22d4c1708ae80c1cd0abde0655fcd3003",
+            "materials": "cfda2dd970cdb91cfdd04fe6bdfc7ec003bc0a6dafe863d99ff2b0d164835d89"
+          }
+        },
+        {
+          "tick": 72,
+          "state": "d236b8ed98954222c5678f1dd5e5b6a5ff8d39cc4a7dd16dbe41d9a9c5bea16e",
+          "pose": "bccadb2d66acc2310523ca952d6528e66f38f54fdd86c3daf41af842960fb6d3",
+          "phone": {
+            "text": "93c1b06e186ed9087adf2f79f7a6074e9022ea7f09b28184589bee3b6beac34a",
+            "materials": "b38b24cc7c5e12bad20c3619796df0c2b3a0f62f07616db4774ec85eb72f474a"
+          },
+          "desktop": {
+            "text": "30ef56b05ea8ef8e7951e82bbf98b9d4489b59efb2fb8f25a16d068e0bb7ff31",
+            "materials": "d646aab76bf2b11a50c0168f339e0e12014ba355ab1b37f03267dcf946251978"
+          }
+        },
+        {
+          "tick": 190,
+          "state": "aa14eea5d0506a6e10568043e7f4d25c99b8a616e86405920c147d83ea00c197",
+          "pose": "9eee12c22cb80b1ac3739d0bdf0a7c88995161413edfc57e53c5a83b660d69f7",
+          "phone": {
+            "text": "c36574c9a47b1c233cba8f16197f5a1170654d8756fee38abe3e0288b326c8c4",
+            "materials": "22ab5cd7fdeac5e7f96ff5ca84ae4e48f86095719c7937c0c28e5ba5ddf553b0"
+          },
+          "desktop": {
+            "text": "7c6b18b810f311157a85715ababccb3b423b21ff3bb431d379142fd5f19bfa83",
+            "materials": "b219fe50bbf58a268a5cec52a3423b5fd137b91ed441d5d560e12ef982b94181"
+          }
+        }
+      ]
+    },
+    "authored": {
+      "seed": 17,
+      "events": [
+        {
+          "type": "guide",
+          "tick": 7,
+          "seq": 0,
+          "x": -0.8,
+          "y": 0.68
+        },
+        {
+          "type": "pounce",
+          "tick": 12,
+          "seq": 1
+        },
+        {
+          "type": "guide",
+          "tick": 21,
+          "seq": 2,
+          "x": 0.8,
+          "y": -0.2
+        }
+      ],
+      "captures": [
+        {
+          "tick": 0,
+          "state": "ce35b97e8b04e66440abb88d4171affc4e221281673c63be1ddb06cd6a126fa3",
+          "pose": "df1c680cfb426f08c9c0c0504bb651a903971adfd65323df95baaa65f48055d4",
+          "phone": {
+            "text": "29710add6fa77b9dbe626cbf56d244f29b53e5e288d3c1efa01bc3307f7f2182",
+            "materials": "e367f2d86c12d1f4cad254d1901ad34573cb900eeb6a8dfc1bb93eb0d7787505"
+          },
+          "desktop": {
+            "text": "0aa7c8e0dc110da5796b7a20402807af7f47333f4e2e899dae940b57e8db0188",
+            "materials": "bf635aa546c2c5ee490cc7c09fc472372c49a06cb47e9d5bb3e875a0ad848be7"
+          }
+        },
+        {
+          "tick": 12,
+          "state": "e9725994e0b31efda3b0a0ab959760e759b0c44e3c6bd42fc3043d3a9a0a62be",
+          "pose": "a349b95ceec51db4966eb5f91b4077c20a648e578f1a5c2b39a6b389daef7429",
+          "phone": {
+            "text": "51eb5a77eebca3cf549b78b08ae25aff078c058c07b1fa95ed4bf45a365e4a23",
+            "materials": "cbc3606f0a83e3c1a0f6163972d811364deb80e720010998756b8cfb2163e4a4"
+          },
+          "desktop": {
+            "text": "8a53942e97dc26ca0f358d22be6d6721da55873fd875f63253e0e71c7ce617ea",
+            "materials": "5989c7fe0c113b77cdc4b93ae20c1d393f0e074eb286019b7512fcd3a8f199bc"
+          }
+        },
+        {
+          "tick": 35,
+          "state": "4831780745dc2fd5f4305970ea7b01daf66cce9f3e7b4b4935c92b826c9cf101",
+          "pose": "4422e1eb99fdd7f0ab0560a98eabb9a2e45c90f410f2e20eefbb724eea35acd5",
+          "phone": {
+            "text": "7253de3e7afbe17e8181c39ffebcef444a50a122c2749d6baeb9c96d7c85c1f2",
+            "materials": "d451aa4752f69572c5d97e027fb3432f9c48e67f39d52a14f1ef7b8b7806e7a3"
+          },
+          "desktop": {
+            "text": "e4e4100b25a4cde4e428bfe8260806d9da5d0a4082c6e8da25b4a6e58326c95a",
+            "materials": "31830eeb04dfe11368cac66ebaa0e97f5b8eabd9b4d27c334ef489d3361e0c95"
+          }
+        },
+        {
+          "tick": 36,
+          "state": "1025ba9d12ba16e2d0f2f692b4de2bf57e5f3d3e8ca7ce8869427b7363977aa6",
+          "pose": "c4df91d6f37644c443d4462252198d76f465fe437ba5d23171d67f99e7beb091",
+          "phone": {
+            "text": "7be4d805c744421802257433505347fe02f6c7bbda5fca2b2d2675020e12e73d",
+            "materials": "4e5018011b95e056b79799c7f24ca634367e66f010c4b41b9f2df34059e3472f"
+          },
+          "desktop": {
+            "text": "3104c6b526b4d090859bd93b601e0e4f95d26ca6b36c73c5383358f4507c1e3f",
+            "materials": "200c271fb408ba046a9ce39c3b5ce8fc76fc9c1cc490c61052f49d045817679e"
+          }
+        },
+        {
+          "tick": 54,
+          "state": "fca97589931be77465a7fa733b748e12a6eea4d509d3feb9594ce0dd3a5cf3ed",
+          "pose": "4ace188dff124526752e8193cbd76c840c74ffe65fb739102984ed78bdb352e3",
+          "phone": {
+            "text": "1ce34f0009f94e7bae303942509f19bb139b7c2855366e9c7594fc7c50008ca5",
+            "materials": "e61e4c70af5992bcb2a4c30657c8c626d64512eecce744a0fd8e7fe5c9a325fb"
+          },
+          "desktop": {
+            "text": "d7ca9cc1d5d369dba4aa2a5880205f751674508b610ddbebcdec48d3d7c72e30",
+            "materials": "531cd9e22d53b6a6007617d0498c92b4e9f77dba13ba1a6e43fbf10b39cbef0f"
+          }
+        },
+        {
+          "tick": 72,
+          "state": "d236b8ed98954222c5678f1dd5e5b6a5ff8d39cc4a7dd16dbe41d9a9c5bea16e",
+          "pose": "71594ccf68e6393eebcfeda291114a2c277f45674d14be20aeefb0b8afcece81",
+          "phone": {
+            "text": "481568cac56639aa643e1b9eaa48f68d3ccc11e10737a98ec93bea1e3376f8f2",
+            "materials": "9b53396eaa02b1482a0af5d2e7970d7091358574fc05ae804d2e69d3e2eedcf7"
+          },
+          "desktop": {
+            "text": "c49a1a148b044e2e8a5057be33a4be3fcdeb0aa2abf22f1e30a2fee776369d07",
+            "materials": "3b1068b1c01abd31e2c9225352317461c6229e8e67339007d38c435680088445"
+          }
+        },
+        {
+          "tick": 190,
+          "state": "aa14eea5d0506a6e10568043e7f4d25c99b8a616e86405920c147d83ea00c197",
+          "pose": "3326d2db93edf25d84245e8c4afeecc296818f34cb79cd56661543c38b5ee2fe",
+          "phone": {
+            "text": "976e5c7923561e58fa7a7ce11cae5a680e40177ecf3cb4d4c31a3a49724ec0a7",
+            "materials": "674af4c4deea8418d50e0c67e8079567cfc8e7a8f5613b284656eef241a2cb41"
+          },
+          "desktop": {
+            "text": "feb036a05177f619c515b20a50a3b237651676b04afad999f1b935695a19e9ca",
+            "materials": "ae09875b2421d20ac7c20b9a7a6b763592ee4479dff5c87f9eb915b751265456"
+          }
+        }
+      ]
+    }
+  },
+  "directed": {
+    "original": {
+      "rustle": {
+        "seed": 17,
+        "count": 1,
+        "event": {
+          "type": "cue",
+          "tick": 60,
+          "seq": 0,
+          "cue": "rustle",
+          "id": 0,
+          "x": 0.8,
+          "y": 0.7
+        },
+        "captures": [
+          {
+            "tick": 0,
+            "state": "c0293622fbf0fc638d7d6022a892aeb4ecea348a99c4ec860d1a8430d62c3949",
+            "pose": "c568d97b9a93e9187436dab988ff02261bd80f946e815ee263b71fe24c3751d9",
+            "phone": {
+              "text": "1980ae3d62a04e7f50dc5a2e1475185b22537525b70c4ac2532cb237c7d9872a",
+              "materials": "f4297f591e39855b9f3c23cbcb4fa1a0437cc76f68d9148fc89c479842a8be62"
+            },
+            "desktop": {
+              "text": "da4d527ec96b8278245b888ccc05b0bd6669c9eb65d52e6e91a418a110779114",
+              "materials": "a4a021caf10e526b5dd1b18131ad639120cd62e6ad440ea18aff864f1fd61134"
+            }
+          },
+          {
+            "tick": 80,
+            "state": "ae7974b0d35a2935d7584e1ea128bd961e55507b4ccdbb96679395f78fa9e120",
+            "pose": "1f07870c2049d9624a19781d35bb13ec35c374559a5fea9f66f9c678f33b3118",
+            "phone": {
+              "text": "45ca85f38435c798db8c46d03e0c582e061d80bfcaf1c74a162c21b23a2be18c",
+              "materials": "9d43018f3ee7f10cbcf7e5abd591a013e9a91d85aed664d61c29a9ad29f8b3e2"
+            },
+            "desktop": {
+              "text": "c7f4002cd4c0e70a97feac91d3b3b7dd8da9c6df3dc6097e67009d644940edfb",
+              "materials": "eacb3255bd7284d68cf2b26981ee6b3f6ecc84f873d57cc4cf80ed5e46815998"
+            }
+          },
+          {
+            "tick": 140,
+            "state": "184a1a382d84543dac0d2bec37bf658fff4d4f09adf74e0e0b406b61fbd68f3e",
+            "pose": "f1a8a4eb7824e33cbeabc1a5c629d0f7f90024d58a29cbc3092fb75813a2ee7d",
+            "phone": {
+              "text": "8ef24aa6adaa1081b9b8f3f44fcaad10f00a18f26a1850e468d3b161f43f0c43",
+              "materials": "a977f1f82eec16562b59d959186c1956c88c77d61c2bd93f5c972e48a5c3dfd1"
+            },
+            "desktop": {
+              "text": "49ff0bca4097866d203b337529f2eefd6e1f1a4352cb555d1ae933fa65723464",
+              "materials": "3a9d15d1f2f42c26488acefc5ee2f86a9a5f025521f2653339e8952095d48d6b"
+            }
+          },
+          {
+            "tick": 205,
+            "state": "b5138907a24c124348dc292d9cccb9c156a517e05f0ced974ba5dcabe8132b40",
+            "pose": "7c4956d61fe9542f04113a003fec926d847370e3edef5f034c1899629f2bfded",
+            "phone": {
+              "text": "285ef771dac33634e90d43de9c72ebace9378939b4824d865f09555088b5ac2c",
+              "materials": "58a284f4533d759e488c1ca6fbc980f1b9c69e36a19ea760703921c0d3b6a8db"
+            },
+            "desktop": {
+              "text": "728ee1ae0cf8b9b1a24569700b75d7cc5ef3d7cbb2f51d50f5f5c77c593734c9",
+              "materials": "132cc3b4a23cad4c270e878aa8ed99b014753f38c645ca66f22e7ee96831edcd"
+            }
+          },
+          {
+            "tick": 213,
+            "state": "db1c935b52d7950d84c3b82b49a7b747c8b25282618b16ece92702895515358f",
+            "pose": "31ed30c92b63c734baea60c14bff36353517562ec3d0236ff9f7b15d0cc97790",
+            "phone": {
+              "text": "79bae7812b308e96000fab3da6e65b7bd20aac8ae2785d4ed5cbdcb16bf9ac1c",
+              "materials": "ed10a093dbc8b609ccf7bb273b9ea47224ecddc0128ca51396e6d5f8f2a25aeb"
+            },
+            "desktop": {
+              "text": "149a5bb7ee3395068e23a3d634384b8d24d523099a44f3c9d4f09c3f98240b9b",
+              "materials": "4e0f13fe3e5f6287f0a21d55d90ba93c65150ed7648f96190255594c7dfb2279"
+            }
+          },
+          {
+            "tick": 230,
+            "state": "928be3e63640d4bbb6d614269fff9f8d91f0cf07b8899935c02661b9497299e0",
+            "pose": "b079af27d4cbe6d4f7400d844d2bcc8379ccfd101506e86c138d3062fdd3f93e",
+            "phone": {
+              "text": "6b42131632eeb3ba9bc4efaec4cb4d50ba22c76c790719e892894d57d5f7adcd",
+              "materials": "44e10ca5c54d9da10032021117fd939fcde7cbc8e6e688a20064a021c5189b4c"
+            },
+            "desktop": {
+              "text": "bd796b5002e72c0f978f1abb8cd7457f4f501993913151d1fd0357794598a4e3",
+              "materials": "0f638751db0758fe9c74ee48c732440f55aa63c45308a3bc9198862c632afe07"
+            }
+          },
+          {
+            "tick": 249,
+            "state": "eabd42b761c1d8f851cc4dd101a14433a9c1071af08c1312877b006141ac3eff",
+            "pose": "862105503efb3c55994b1a5fe1fabc4dc8cd39b15818fa914da058bb9bf665da",
+            "phone": {
+              "text": "84a29767394f647cc0e68c08e817182d23710751e4fe401fed0c5fecb20aa24c",
+              "materials": "374365308090d29c9bfbb8202a2519090469aae3cbc34e924bd32d6649c48eea"
+            },
+            "desktop": {
+              "text": "c08dfc47e1dcc4db905c0ecc89eca50a22d07caddca678eeea264967f3f019ef",
+              "materials": "ca7c015ebeb4bd2487b0a23db9921b49ae1e47d877a33c577a0c836a24ea4d7c"
+            }
+          },
+          {
+            "tick": 280,
+            "state": "6621127311c44c5eb92481e40912ad1b9f4916b703337605c2a101dcc3702351",
+            "pose": "4c2e7dc91b00eb38e24cb85ce1ca4b2ca1bc676c072bc33d1e1a054f23aabe17",
+            "phone": {
+              "text": "89b7760edd96aead0817fdd2e114332db89253da79bb1848a4841edb4d087fa9",
+              "materials": "4e5dc1b903eda39419bbf7661ca9c06dde7ff14e04724335e79aa645d4a84a79"
+            },
+            "desktop": {
+              "text": "39c3a418f2477a84eb2328a3827ce74ac468b89e28bbfedefa0a1eeabe16cfb6",
+              "materials": "7ec25d9abc592a9a27b461f2ebc7ad4bfb7af37ff53263f97120b62914e37e03"
+            }
+          },
+          {
+            "tick": 288,
+            "state": "ce32ac035c830554beb1b772bb09e9648c1f3abab6e43c7fe5a4e4bcd24104e1",
+            "pose": "abe4a6fd6848a4cc06b3cbb594239b3fbd53ca44bfbff4e5fd84b7f20ff1e6c7",
+            "phone": {
+              "text": "0fbd5f7cec6bd0dd1b1cd1c1bc8ad73b40ba069280cd02d010e0a74fdc33baeb",
+              "materials": "d02f259f61fff7aacf881e3e5aca3792a4cfd7372bee1ebad8815ab4a2270891"
+            },
+            "desktop": {
+              "text": "4a4e70bef28479132ef0b26d41af962493f1c717a88fcd956023eab78eb4c36b",
+              "materials": "d405a0979421beb3145c2c9dfb5d544a0559184adb73e8ec47730236075de728"
+            }
+          },
+          {
+            "tick": 305,
+            "state": "209c35cf5f86d10614ff4e02db467c848e37eeb24392b7f328e6c0cb80d62348",
+            "pose": "a230623d8d92b185df38cc12c86d4835a6969c5257421efcab93383b873ed970",
+            "phone": {
+              "text": "627a0187424f2aa8475fc5920b2a26fae98eb70fff6f821752bed8e562c56d9b",
+              "materials": "12f5f4c5ba28567678cb9963173bc7b5bd72d3a935a8e1e39546271ee4ec3837"
+            },
+            "desktop": {
+              "text": "85779481512cb9d74873235611406b31f5bd12394994b37485b3d8dfc2931c69",
+              "materials": "85d5655e476d2f05004e9725fce76de3ad94babeed99c48dc1325938aa67cc5b"
+            }
+          },
+          {
+            "tick": 324,
+            "state": "db11993d58152a2a46a33ff7285191395368c634afd65af4a163baf970f9af2e",
+            "pose": "4bdae696bdde228bab027835948a6ac8e7ee9ae8f1bfd519ca133aeb971d289a",
+            "phone": {
+              "text": "180252e92ca35fab698363c89a29e18b8f8249ee7d58ed7ee95fbc9ead52adf2",
+              "materials": "3bdc21c725caafe6d86b62d253810020af6d184781785ce2d5da98a2b6bee29e"
+            },
+            "desktop": {
+              "text": "471cc9aa541b2c97721bcf34189837a73478cd3cb3d42d2aea8f203860e96701",
+              "materials": "67e4f5739ff1e2ef5d0486e630bc229f254b23faf6ecfa871f9dd390706a9f31"
+            }
+          },
+          {
+            "tick": 470,
+            "state": "3bd48c0e8e3414c53dcf307de94cf6a03b425e51d9c1666756a2c56103e5663d",
+            "pose": "1e647bd12fee6edbce2278bf89f8df958c2053b66d1311c1fefe07ca0cf9cbca",
+            "phone": {
+              "text": "54c80d9590a741885e098cff2ed660c563b5fdf84bea2a7cc684c0c66f40cc5b",
+              "materials": "aaae6144639585c2137381ff954be8e6a9aa54d9be71964a18f850d58d3becd8"
+            },
+            "desktop": {
+              "text": "520c5754a3fd97ceb3133392d36096b3ca3180fdbc9d12010cc16c7232668a4b",
+              "materials": "c7a574b74ddc08d4bfde47888e8d483af76b8d19945e53167b7fd6285aaf28aa"
+            }
+          }
+        ],
+        "tableaus": {
+          "rest": {
+            "text": "0c7cd6a9ded8396a1e53a5e0e964c95486117ac59836d7474d68094d7ddbd5ec",
+            "materials": "18c58ebe27f1a6b13c12391785224d607b731ab6f06abc12063ce5dbdc43a4dc"
+          },
+          "listen": {
+            "text": "b1594eab3c1c6653a53e1aef7215db73b428bc6bc1bf52cdd550e545723bab5a",
+            "materials": "b4e656772cdf56285a97610df296f300718264acaa32c46a12c29fd2ca475854"
+          },
+          "pounce": {
+            "text": "b990a1249f5ff205cdf3b56f7ecb6fab6207c65ea2f30b2e7591c3d633606bf6",
+            "materials": "9fa62e9a649af8b923825104bce8857138ae81eebbb0d63e297d551ed059b0c1"
+          }
+        }
+      },
+      "play": {
+        "seed": 17,
+        "count": 1,
+        "event": {
+          "type": "cue",
+          "tick": 60,
+          "seq": 0,
+          "cue": "play",
+          "id": 0,
+          "x": 0.8,
+          "y": 0.7
+        },
+        "captures": [
+          {
+            "tick": 0,
+            "state": "c0293622fbf0fc638d7d6022a892aeb4ecea348a99c4ec860d1a8430d62c3949",
+            "pose": "c568d97b9a93e9187436dab988ff02261bd80f946e815ee263b71fe24c3751d9",
+            "phone": {
+              "text": "1980ae3d62a04e7f50dc5a2e1475185b22537525b70c4ac2532cb237c7d9872a",
+              "materials": "f4297f591e39855b9f3c23cbcb4fa1a0437cc76f68d9148fc89c479842a8be62"
+            },
+            "desktop": {
+              "text": "da4d527ec96b8278245b888ccc05b0bd6669c9eb65d52e6e91a418a110779114",
+              "materials": "a4a021caf10e526b5dd1b18131ad639120cd62e6ad440ea18aff864f1fd61134"
+            }
+          },
+          {
+            "tick": 80,
+            "state": "6bb2b5183179f0da60baf1b5ad883d2b119e0747506f4b984b1e75cde950c57a",
+            "pose": "294339b70080c78aa6e690d3457a77cf260e2d2c5067e5d548ecff9ecd5da496",
+            "phone": {
+              "text": "f6b90d40424ca909e03d7ab1ad3a7088d2f8e17b62a2d5ea619cd2e3b2e44667",
+              "materials": "1e86a27d4158482c188a20b50365a4f155b9371e063a033b74621ba9f30a4ad6"
+            },
+            "desktop": {
+              "text": "a850f19041184a8b525403128530404cce7d6284319fc4e3b9beb2f62ac8f451",
+              "materials": "f2fc860f2d034a69b9584710125c50e01190ec3d900942796e1e2fc46acf352a"
+            }
+          },
+          {
+            "tick": 140,
+            "state": "8832ca2ec436d88341f54cce62846c0d1a210f6c323e79cb26c7a915d0817145",
+            "pose": "75b5d894086a8c4b2ebbff35b2857ca48db0bc759b82f9a63b836e75b766e8db",
+            "phone": {
+              "text": "6fa5f8b656ed78af7f8fa799314033c07189c29df8968baf536e6e45ce9b0b34",
+              "materials": "12f4e122ad07a9dae938ebc9b03ad73f298eb38f150da93da3a1de336fb228e5"
+            },
+            "desktop": {
+              "text": "ce35fdc25152c7e824a87902f909c4c9180bc9d2f9259dad1dbcf8ad139597cb",
+              "materials": "4b048e4a4e7c02cb630669bc758bc021a441d23d9ab49814277085fb67fb2f11"
+            }
+          },
+          {
+            "tick": 205,
+            "state": "a8dadf9e9ec326b7ce91e5a6849a3a54ec19283c29e3965b61d7b3107caf292b",
+            "pose": "d8e1d4d062026b7be7d07affc878de76d8134225838cd99dc178d1fef5107c7c",
+            "phone": {
+              "text": "ce1d9dbef5526fc1c254d1d854dbc0d99624e06464bd09c14a5d5d4634f66823",
+              "materials": "679578a1ab1ca2b4fbf58565c0c1c80abe9feca9240bc74c6cbfd47b80db196f"
+            },
+            "desktop": {
+              "text": "bd4c9685324ba6fab98eec9dbeffda7f402523d8146e6a5fd71e1fdc934b1b12",
+              "materials": "c4f5b168c7784ecb02afe7b04004ca75e14867c1b229fa8b5a9a735a773ebecb"
+            }
+          },
+          {
+            "tick": 213,
+            "state": "fb0fa5d24b822f664b8c665c525be8f49d27c9a6f62269d019eb044a423d5693",
+            "pose": "8712a381f0b48d50056ad7c460bc910092ee454a2f00d3044d9fc7a6205ba76e",
+            "phone": {
+              "text": "a9eb1dedecb1f63353ea7e693e9ef956e9e37fd047d91a7a121a8c554ad5adc0",
+              "materials": "4ef554c576e44ea52782baf584cebdaa27316fbecb3d771e7235fef9ee17d409"
+            },
+            "desktop": {
+              "text": "169e1e4099623f02ffb645048b64536df205dea5e62ff3c4bfecf8594c0d55e6",
+              "materials": "0e270a8ec2813f8af587fc58c46df945c32709ebe200e416d90577f142fc1e04"
+            }
+          },
+          {
+            "tick": 230,
+            "state": "db646d302f0dd0f8b8a113286f6e5971a1aa2b94c6014c5ff5cf722ade4ce52c",
+            "pose": "3eca612770eb1495bd6f86e0efbcdfc5c99963278d0bbdc9bd0ef79f9cee64d1",
+            "phone": {
+              "text": "e5d3a82283bc663c2501c36abde82fe5582fbd5abcbc293857f10fda386a7f20",
+              "materials": "8fa33eb6a5211e8abf1aed7a330febbc2b530ec7320d00527b87e653d66421fc"
+            },
+            "desktop": {
+              "text": "ea8ec9bc32448aae914ff642e21881ce7e722cf7cdd5fbab26cd740481ce4447",
+              "materials": "7532b6d3ea4dcbdea051c7a00fc915f957a931021e1f0fbbb53debb572f6db78"
+            }
+          },
+          {
+            "tick": 249,
+            "state": "22195a4fbb1b0c335f0c807f8d5be3d1890f985efe5e52cb1aa9d8ff2326632a",
+            "pose": "f6c77d061d2133e1866a899994776927ecd9dd4bb65e2081f75afc6639b93496",
+            "phone": {
+              "text": "b5695164cce6656e8a4e012d2793eedc7a88da79191ccecb8460a65dfe1f1830",
+              "materials": "f521e842ab83151fc199718abc11bca0bc3d3840905c968390d1c137901a18ec"
+            },
+            "desktop": {
+              "text": "0d92627bea947c711fda8ff901930e056f7621a7050c403cf38be1488cf0a640",
+              "materials": "c80a0bb0021026f785209e0423abdd8e8698a54dececfdba2199d6a1b0eb748f"
+            }
+          },
+          {
+            "tick": 280,
+            "state": "1370d8fc649e6618bdeb57b33c2d01a535aaa03bd66ed5f9405346476ac44d38",
+            "pose": "8062525d3e427098c1bdb1bfdcc932ca2132090c421fab8dcf394a6702b38948",
+            "phone": {
+              "text": "0c7ba2f48dd7b5d66fd18736fc91a61290a412ba779c3c8e1d5f89c9919ed9a4",
+              "materials": "7bc01b21078af5c6df140b0cfc3ae03ed9ef9c3c7b69b51fd320cd1eb7a87749"
+            },
+            "desktop": {
+              "text": "133310fa41da6904bb57bfc9edf8420cfd336288024c0d62a917daadbf442146",
+              "materials": "aade3cd5bcfd1dce5f08c16d674d13f9550096d5f404cb0e30be3c78db228a48"
+            }
+          },
+          {
+            "tick": 288,
+            "state": "8a3a1d9705467d520c2cac80f4b0d37263c30675600a42600c703b260b5f9f46",
+            "pose": "ce6416f47f6804905845ed2ec396c7fb6f7c3df7d7e45bf1c8abd98ce6a0ba56",
+            "phone": {
+              "text": "5ea60073f9be65db477de02a0252561aa346de33e00f86f0f1205983980dd742",
+              "materials": "f8af34a09ec22529fa1bbf95b76b4563d8e24d030b932777855f86ea4df5bd8e"
+            },
+            "desktop": {
+              "text": "3043747dcf46896f652bea2b3bab69a2b9a059cd2b055133236b238a97374231",
+              "materials": "c58ae114efdc8b85dbc32c943ca7e97d542cbddf0c76beaf2c281c1f4b69ebc2"
+            }
+          },
+          {
+            "tick": 305,
+            "state": "73352ecc77a2afe441d108be5a5c4429a5c0b90e0fc5a599a140e693c762846f",
+            "pose": "8292d855aa5798d514e1fcb297a9fbc9aa9d6a21014690a9e13ff4df51e5c636",
+            "phone": {
+              "text": "ce7d0d96a4d030afdb27c2ff871bf0dcb885e3de8932ef85d56c56a293865d50",
+              "materials": "23be0fa76e0de4d76e739903d4ce115cc900faaa3d01c9015a19043461b3e11a"
+            },
+            "desktop": {
+              "text": "47ed03202fc1cfa0d04acec295b9d0a68c8c5cf4a5897f54d548193509da6649",
+              "materials": "87ff1a46e19e26cddc7abe5fb8be45bb4ef3eabe73469464025154ca6e21e5e6"
+            }
+          },
+          {
+            "tick": 324,
+            "state": "4037973e0b4ee196ad8de2ca497c70cd4618760f5745a7f83acfd911be2465b6",
+            "pose": "1b910eae555fd47611c2b3049229d91143b76feeba21edaf1ea289671db7ad06",
+            "phone": {
+              "text": "8e743413bc500e5d52f698ef928d5f09075cf428e9c095bb82008c42b5560d6c",
+              "materials": "ce4f27055a7a3c5a5d42cc3aba27c5532e5ef10852bfa00495be810db18b2269"
+            },
+            "desktop": {
+              "text": "6323d28516c4950bbf104863c73e735ca631b7ffe6773946219d68485cb7a1bd",
+              "materials": "1df7f9f68d62bc7a53761b002f7b945caf5f9e36a9fa80dbc32c6770c8b2b75b"
+            }
+          },
+          {
+            "tick": 470,
+            "state": "0f451f7ca83d82be6486b406f08ef1636bca2537574d8819fa391255eae06844",
+            "pose": "5b7d7fb7be4bbb69091638151c57533f0a4abc17fa4f04efaf8fd00689d25e3b",
+            "phone": {
+              "text": "54c80d9590a741885e098cff2ed660c563b5fdf84bea2a7cc684c0c66f40cc5b",
+              "materials": "aaae6144639585c2137381ff954be8e6a9aa54d9be71964a18f850d58d3becd8"
+            },
+            "desktop": {
+              "text": "520c5754a3fd97ceb3133392d36096b3ca3180fdbc9d12010cc16c7232668a4b",
+              "materials": "c7a574b74ddc08d4bfde47888e8d483af76b8d19945e53167b7fd6285aaf28aa"
+            }
+          }
+        ],
+        "tableaus": {
+          "rest": {
+            "text": "0c7cd6a9ded8396a1e53a5e0e964c95486117ac59836d7474d68094d7ddbd5ec",
+            "materials": "18c58ebe27f1a6b13c12391785224d607b731ab6f06abc12063ce5dbdc43a4dc"
+          },
+          "listen": {
+            "text": "b1594eab3c1c6653a53e1aef7215db73b428bc6bc1bf52cdd550e545723bab5a",
+            "materials": "b4e656772cdf56285a97610df296f300718264acaa32c46a12c29fd2ca475854"
+          },
+          "pounce": {
+            "text": "b990a1249f5ff205cdf3b56f7ecb6fab6207c65ea2f30b2e7591c3d633606bf6",
+            "materials": "9fa62e9a649af8b923825104bce8857138ae81eebbb0d63e297d551ed059b0c1"
+          }
+        }
+      }
+    },
+    "authored": {
+      "rustle": {
+        "seed": 17,
+        "count": 1,
+        "event": {
+          "type": "cue",
+          "tick": 60,
+          "seq": 0,
+          "cue": "rustle",
+          "id": 0,
+          "x": 0.8,
+          "y": 0.7
+        },
+        "captures": [
+          {
+            "tick": 0,
+            "state": "c0293622fbf0fc638d7d6022a892aeb4ecea348a99c4ec860d1a8430d62c3949",
+            "pose": "6769f9b36768c9367dd0251a77fcb119e3596ed2dcdc172a914dfa064afeebd4",
+            "phone": {
+              "text": "98ca2fe7789e8d1a9b9e198c0f15d2878563257bb4793284f832e8cc7c0ec660",
+              "materials": "52f4bc295822d46c41d3b091de8d12db31620e66cfb86d78a9af59c1267aa51e"
+            },
+            "desktop": {
+              "text": "4bb42104455819c4562852d0c6f0596b0b14bc4cc53784b49c956ef0e19c1481",
+              "materials": "415e7eacefed2fb1482f4e46d185c68a3d131c1ab40e94a4c5310121a3a7c427"
+            }
+          },
+          {
+            "tick": 80,
+            "state": "ae7974b0d35a2935d7584e1ea128bd961e55507b4ccdbb96679395f78fa9e120",
+            "pose": "9476eff47127b59bf7d09324afffba2b4bfc2bf6ce605b35d6b9f4eae843da65",
+            "phone": {
+              "text": "387421029893491191f59ef466c3443ea12bd13655cfff462487ca385b205142",
+              "materials": "e0a0eb31110374958321a380918a2b3ae11a0ca917871ab136bbbad46afa41fb"
+            },
+            "desktop": {
+              "text": "e1a47df1dbdc865fb8cff6165856be967b3dd141c24e778f95146a113dd9a617",
+              "materials": "acb03177d74ecb267983ea34145f597bd847f6be05a98fe32d2a07ecd361a631"
+            }
+          },
+          {
+            "tick": 140,
+            "state": "184a1a382d84543dac0d2bec37bf658fff4d4f09adf74e0e0b406b61fbd68f3e",
+            "pose": "5ec1790e85b1169de5802caada71b5b8d7a935676b4580b90c64eb92e3ac97eb",
+            "phone": {
+              "text": "337959f1351d3b3205957ded7670ba4f5cbf3ff2a09898b2b2e159c1c3c0e986",
+              "materials": "ceee05700e9abba03e1451aa28073ceb37b7003facb3e6f0e998df3cef562deb"
+            },
+            "desktop": {
+              "text": "d7be4499f61cbedb8b37c2850319d17ff69f3e75ba719e0b84f76e9547c17347",
+              "materials": "022e1e5662b7049913afee4e429172df21878825ad6edf672d0f5109b831abd8"
+            }
+          },
+          {
+            "tick": 205,
+            "state": "b5138907a24c124348dc292d9cccb9c156a517e05f0ced974ba5dcabe8132b40",
+            "pose": "9fc7eaba3735e2f951e2e33edf981c23311e400045755e237eca7d05485d76c3",
+            "phone": {
+              "text": "3a286dcf29d8a66b3086fd491f168579d3fa1e957e5479738602e52b1e3292da",
+              "materials": "9088c000738d64efc88663b128bceeb7257e4c299148583e148e67d379d216a5"
+            },
+            "desktop": {
+              "text": "bf2af7da78331880b3030520d1e51b9538c7ffd6b249fe77ada7b0d24a135579",
+              "materials": "7ea28fe169c014f7d15825a37797118cf75840f1da8014ddc78ad41eb01d3499"
+            }
+          },
+          {
+            "tick": 213,
+            "state": "db1c935b52d7950d84c3b82b49a7b747c8b25282618b16ece92702895515358f",
+            "pose": "d14afad463ca5cee792b571113ff8ca4fd9c913278085adbe87a1c2f71823081",
+            "phone": {
+              "text": "d6b5a9609e37a1157835058fe731ff65357769f13b4ff0fc68ba9ed4a4939bf7",
+              "materials": "ec801affaec8a7550ae7cd7e1e0b233a5dcc655771d306d66f127deb510cb0a5"
+            },
+            "desktop": {
+              "text": "cf407930bbdd11d3878a796caaf6a1eb5bb64ffe2aeaf800d31959907fef31fb",
+              "materials": "8c30b53d08b861150d3585d5f416640929081f7d05c8341896f381d1f54e9f25"
+            }
+          },
+          {
+            "tick": 230,
+            "state": "928be3e63640d4bbb6d614269fff9f8d91f0cf07b8899935c02661b9497299e0",
+            "pose": "abba98581d81297c0d140eb2664aebb482474c481fee3f4640140bba6b4d4d16",
+            "phone": {
+              "text": "1aa3b0e2d236c14f296fcbf864c88c63cf63c0069ed629e5f8d42db0ba2e001a",
+              "materials": "b50d6031a61c63443734b9129a685ab89087c028a3a9f13c3772032afe69c82e"
+            },
+            "desktop": {
+              "text": "142b66026bbf4550e3f7f37b62068d11665f9d17205434a4d06a101e77e284ee",
+              "materials": "d199f7bf8a38f8327d5884c56cb7cd2c380c4f095e06f5cf49637ecfcafc0a8f"
+            }
+          },
+          {
+            "tick": 249,
+            "state": "eabd42b761c1d8f851cc4dd101a14433a9c1071af08c1312877b006141ac3eff",
+            "pose": "47686534114264413271fec83b328f7fa76c3c8829cbde3a123b400fd5a93a49",
+            "phone": {
+              "text": "8e2690952c5019338cb5d9c075ea9038998d38e8f87a3d297a9d71e47cff775e",
+              "materials": "f564c5491edd73f790317427c0a1b959c13c5fdc0e8ac669d43397197c3c0e94"
+            },
+            "desktop": {
+              "text": "96137d47dde99b22a89f60c25c5027a934e42e3a535dd9c49ffa9c406423fc0b",
+              "materials": "0f0112c6273c1bb1856bdd11be96cb9e3965c590816369c62c903ad20ef1ab08"
+            }
+          },
+          {
+            "tick": 280,
+            "state": "6621127311c44c5eb92481e40912ad1b9f4916b703337605c2a101dcc3702351",
+            "pose": "53857d5c7d7aeea5f5c751fa783c66d6a0a24d3905ee345970e1e4c2c8fb407a",
+            "phone": {
+              "text": "3db48fbe3c38c62b093d91c46f859b4b65fd17e3e321ce2638ed8b37f6f150d1",
+              "materials": "751f06a688f7ec1a4346f3e13e3fd71cae8060163fda773510162c404a018380"
+            },
+            "desktop": {
+              "text": "ffa1079231f537e1b43bd53936390d641275e2a5836b631e7934a57645c4dc23",
+              "materials": "73409f3d1605e0a86dd0dc727be011cb852f8db9c257f96195a6af9bcedc2db1"
+            }
+          },
+          {
+            "tick": 288,
+            "state": "ce32ac035c830554beb1b772bb09e9648c1f3abab6e43c7fe5a4e4bcd24104e1",
+            "pose": "b73a13508bc4d6d5afb242bf7015821d3632afdd9ac07ed4bdcdb301bbe1b3f5",
+            "phone": {
+              "text": "375fc007492a82faddf865bb21846ce65666308fb975818539047639da1a55f0",
+              "materials": "90966bdd1e16e12606850f5ac5e4f8192aecdcf4f434e175caf12ee870ef2a7d"
+            },
+            "desktop": {
+              "text": "b027928b0203e097caefde77472c39d7ad2802cf43b87a9d13229401784355d0",
+              "materials": "b53c08cbed7dc7ca2227e49516be896ecf367d3ce4e731772c17e165204ef26a"
+            }
+          },
+          {
+            "tick": 305,
+            "state": "209c35cf5f86d10614ff4e02db467c848e37eeb24392b7f328e6c0cb80d62348",
+            "pose": "e173c9dd09d7a053aaab3425c05e26de9d012e89dc27fbd6e520d96b22d66249",
+            "phone": {
+              "text": "ebfa290cf9fdad3c5f923599d8b02ff2330bcc704a7a724ee21b3e4e782486e7",
+              "materials": "83779034c23158f157b1c09fa787e9d289bb67329a24f775f130a07eaa0a455e"
+            },
+            "desktop": {
+              "text": "ecccf85e6bda5583e10d4032df868a2565d1bc8739f38ea917e0b335848fd0a8",
+              "materials": "a172dc23fa7fa5ebd4415cece5454e6b1ed57d82aca74a89a8d13a6ae26c8766"
+            }
+          },
+          {
+            "tick": 324,
+            "state": "db11993d58152a2a46a33ff7285191395368c634afd65af4a163baf970f9af2e",
+            "pose": "a22c75914b0fb60ad4a803506d8c0e512ae85bfd73314bc6c34b7ddae9467261",
+            "phone": {
+              "text": "b45eaf0deb07eefbbc75945e43c7ed110acb60ee537c39a41940846362cf8a69",
+              "materials": "f59e390a2b5fafed2f1dee9d0d3994e69102dd4616ce8153a6fc0cfe2dc51733"
+            },
+            "desktop": {
+              "text": "e031ad5cc9e9cc943ef339a0925be42a97caf75ce9dc0ffe0f8cbd7af9f7151f",
+              "materials": "60c1d7ab7d8266ffdc5aead6daa61afd6c8501d230de6b506ccfcaef37000431"
+            }
+          },
+          {
+            "tick": 470,
+            "state": "3bd48c0e8e3414c53dcf307de94cf6a03b425e51d9c1666756a2c56103e5663d",
+            "pose": "244dd9103a1929a4e35bf05020cc059dfec90b396315528d5d32857aa6f12a99",
+            "phone": {
+              "text": "1ffc1e37f75e1d03227330abf8d5ce2286ed9e34a1d39449e029ae02db02e65f",
+              "materials": "95a536c7904d3f476fb8d95066c6c39e4907172585343b2f3c60e22d2f40d39d"
+            },
+            "desktop": {
+              "text": "66d389c92e8f3912cd5617cd168664151f0b47790e01c33b0c1d384d46d8f69b",
+              "materials": "33cbdc8fc506d4a087ba4dca76793ee4369742479a30c80f98690457dbe7bef6"
+            }
+          }
+        ],
+        "tableaus": {
+          "rest": {
+            "text": "c31951af967330dfcfd88b1be5ae67acd8f065409e6aa5b6d63173ae04757834",
+            "materials": "8f220cdefc8043f6e4120eb309d6e921886d5fe4446ab598000a1dadb22ba7a8"
+          },
+          "listen": {
+            "text": "30e5da3b4b734d4ac5a771d9c7dffe599a936b4a598a834ecabc00fdfb148ebd",
+            "materials": "4291abf5c8838469de07deaad4fe3a7e2410e93602aa9faa69e4aec9d232588e"
+          },
+          "pounce": {
+            "text": "4690f624210bd5d745dabd96b6fd1493039fd8f0ec5b6ad71c12bff95beb2dd6",
+            "materials": "0241a1fcbbb3184bce840a5c80d019bea048aeadb1a1fa0074456966aa7587d9"
+          }
+        }
+      },
+      "play": {
+        "seed": 17,
+        "count": 1,
+        "event": {
+          "type": "cue",
+          "tick": 60,
+          "seq": 0,
+          "cue": "play",
+          "id": 0,
+          "x": 0.8,
+          "y": 0.7
+        },
+        "captures": [
+          {
+            "tick": 0,
+            "state": "c0293622fbf0fc638d7d6022a892aeb4ecea348a99c4ec860d1a8430d62c3949",
+            "pose": "6769f9b36768c9367dd0251a77fcb119e3596ed2dcdc172a914dfa064afeebd4",
+            "phone": {
+              "text": "98ca2fe7789e8d1a9b9e198c0f15d2878563257bb4793284f832e8cc7c0ec660",
+              "materials": "52f4bc295822d46c41d3b091de8d12db31620e66cfb86d78a9af59c1267aa51e"
+            },
+            "desktop": {
+              "text": "4bb42104455819c4562852d0c6f0596b0b14bc4cc53784b49c956ef0e19c1481",
+              "materials": "415e7eacefed2fb1482f4e46d185c68a3d131c1ab40e94a4c5310121a3a7c427"
+            }
+          },
+          {
+            "tick": 80,
+            "state": "6bb2b5183179f0da60baf1b5ad883d2b119e0747506f4b984b1e75cde950c57a",
+            "pose": "f04c0438c921f91b80fb938c09842973e89cedd34085122e5716453c082c9954",
+            "phone": {
+              "text": "655d3c681e2d7c488cc7572000e6e35e47331f065b374658b6d8967c9f1e399f",
+              "materials": "24b5902866a6a5cda2ae02e508d049b7db6064a8958df1b9cdc80260fe6535c5"
+            },
+            "desktop": {
+              "text": "75ba1ba9da956cdfdaa93b137fc9eb1114b830c1e65b37b4bdd94c5925e4d1d9",
+              "materials": "684e22614cf4bd9f0a9f1b666b5eb14157f7a7962c86208c8aec664bcce0cfd3"
+            }
+          },
+          {
+            "tick": 140,
+            "state": "8832ca2ec436d88341f54cce62846c0d1a210f6c323e79cb26c7a915d0817145",
+            "pose": "8b6e7f76039e2f99c279d6fdfecbfee020b0322d960525704d80348aebea1b1e",
+            "phone": {
+              "text": "82d5509336e080d8b826bd037dc44f7e85038481b2d9fada3cab9be42ec413cf",
+              "materials": "8642a3fbb6af8fb8d8b4a81ffdea7d394bf5aac940ff877278e16ec72fdbd117"
+            },
+            "desktop": {
+              "text": "ee657408f5260079e9b87b9e98c69596bb4768c1c5748df047d9404eda763c7f",
+              "materials": "151726afdd813924874f36c60efc5f83502ce27f47ad42d07e586a827505e4fd"
+            }
+          },
+          {
+            "tick": 205,
+            "state": "a8dadf9e9ec326b7ce91e5a6849a3a54ec19283c29e3965b61d7b3107caf292b",
+            "pose": "98f9711fed15fa3007ed1d466572d221d46b2595decbea5f02b588a05ed6c383",
+            "phone": {
+              "text": "78bd0c47ec33b1a9846234e9521eee7ec042ca49e1c96626f78e782b3a35db34",
+              "materials": "734fa6e6d71ba4c2bcf8999621ce3b148f229459b378757214d161cd5a9da561"
+            },
+            "desktop": {
+              "text": "050471aa2356c90702500fab9ecbba63b449d6336b60c83dbc1aa3de6b621a4b",
+              "materials": "b1725d9021ebe0675d9c9d8c3961afcca9b6c444dc90f15da219bf84b930adc2"
+            }
+          },
+          {
+            "tick": 213,
+            "state": "fb0fa5d24b822f664b8c665c525be8f49d27c9a6f62269d019eb044a423d5693",
+            "pose": "25c4b58d66601049ef22a6561aa58e96a249b6d02c3548fe5bc59abc35576287",
+            "phone": {
+              "text": "dcadf0e9582a28cd8249cadd10a58561fb5b3b9494771434de1a9ce802dd1f01",
+              "materials": "1d10bbff0a900e58f7bcf0fb51a34ef68d5722eca5e8dafc4fa1a463292e37a7"
+            },
+            "desktop": {
+              "text": "c8e53f966bffcbed2138931b024ddd8fee7d7148348725ac11a02f3d3b1392b0",
+              "materials": "681fd61fe67f73715d3f842635326f120d024401e2a49ae4c93725349f8b501a"
+            }
+          },
+          {
+            "tick": 230,
+            "state": "db646d302f0dd0f8b8a113286f6e5971a1aa2b94c6014c5ff5cf722ade4ce52c",
+            "pose": "406a72faff795b16ef952248ee000ab1e0331b5073c6a0231d97062e8b710df2",
+            "phone": {
+              "text": "6f008f7783f8e681faaa92cc054f6818a8a4aa179da7f1984787e27ca80ac38e",
+              "materials": "8c75cd681c2af22498ce521a4194ac446d0228d76d4feb1481c8b0d57ec5f7a3"
+            },
+            "desktop": {
+              "text": "b23f8f12150ea257a9065f1c7a15b927005f2e5bc33b86cb839fefc8fbfc55c2",
+              "materials": "5513253d91a7cc7a69d6fd2ffdaba89a499c35bfe70fd3d1ae04d0ef896687b6"
+            }
+          },
+          {
+            "tick": 249,
+            "state": "22195a4fbb1b0c335f0c807f8d5be3d1890f985efe5e52cb1aa9d8ff2326632a",
+            "pose": "42b6a3208c254f607ece98ef186515a103312e6a74fe76ec38289b4241de71c0",
+            "phone": {
+              "text": "2050d408e77927fbb224a77e284e177debf4764b4dbe1aef549550ef78d48d41",
+              "materials": "a81ed484b9f4eb5a6584d8af9b671d48616fcc7db3b2d8d9f246d22951a3f79f"
+            },
+            "desktop": {
+              "text": "0f04c49711389a42b7ecc22951c56e657e1ffdd9e4d19d110481538911444b43",
+              "materials": "b86954ecd4f4c4a8a4653a4139f9401ff78ebe8954614e346e3a8b539abb4000"
+            }
+          },
+          {
+            "tick": 280,
+            "state": "1370d8fc649e6618bdeb57b33c2d01a535aaa03bd66ed5f9405346476ac44d38",
+            "pose": "ef0e339496e14fbbf09732fed822c0a946108dd2845258aae5672b7dec631893",
+            "phone": {
+              "text": "a6e68b6ce9dff6a606c83efb890b00111a9a2ee7ef1f7d473d4422dfd5a8101f",
+              "materials": "d996dcadc61e77599529f0af6a975e54dc8eae4d4a9675065513a39c29523e44"
+            },
+            "desktop": {
+              "text": "2ad0dd3fb0332c7a4190403766bfc87c2239f5d5ebd1b41802bf1227616a68d7",
+              "materials": "7483a1f8ae51cd4e2215ab86d6dc5b1edcfed7a76c657366c548f077f184acbe"
+            }
+          },
+          {
+            "tick": 288,
+            "state": "8a3a1d9705467d520c2cac80f4b0d37263c30675600a42600c703b260b5f9f46",
+            "pose": "1015abe6345e24e06316473eb7ee17c1652dae8acd958360afaaa3c4b3a6194c",
+            "phone": {
+              "text": "4aa5d1974c2c68bb8ccb61a27a6fe94b41813efc1de33b8b779972af9637c4f2",
+              "materials": "b23494421894554cc092d2ef3e96333238446fc42fee9d2bdbd1da43c6aa61d1"
+            },
+            "desktop": {
+              "text": "0b0602ae52e67df4856abf0bbd19c9fdf478db86081342f71b2e725d1fd77869",
+              "materials": "17aac1fd1efed98c3ac98e8bb3747b51c9cb7bd2a9e5ceb92013ad4e2fc45d98"
+            }
+          },
+          {
+            "tick": 305,
+            "state": "73352ecc77a2afe441d108be5a5c4429a5c0b90e0fc5a599a140e693c762846f",
+            "pose": "2afc7fc81cba112229c85e7c5cb18fcf018e96b8425ee5e1534b37ce7fa5f1fa",
+            "phone": {
+              "text": "1449bc512b4a26e42660034f6500a2418589e4e442d4db594218a0f678017d9e",
+              "materials": "add5c949cb0a02289d4341edea1bf264b3e535b40106ad7c3f679c0d855a4e09"
+            },
+            "desktop": {
+              "text": "230a0b860bf8df7a7d2b857d76313353f9ad705a6b09b762a3ae15230610f3c6",
+              "materials": "32e3286d5d1f4dada9b8db3fc0b6863534f5a6357c8afbeebd861fdfb6b87613"
+            }
+          },
+          {
+            "tick": 324,
+            "state": "4037973e0b4ee196ad8de2ca497c70cd4618760f5745a7f83acfd911be2465b6",
+            "pose": "1e8c9aaef5de0b82c50430a8ff209b30145d4e744b8638a91ff042118f09ed30",
+            "phone": {
+              "text": "c68b99ef18ac52cb7bea1e37e667ab053427cba539739f924c174c8db7abc84e",
+              "materials": "62a063ff80574b5920e228c58e60627bfa1fff24edcdd05edd9c09f056bcbbd5"
+            },
+            "desktop": {
+              "text": "7f906151fc2fbb7671949e2e91b91aee8aee938abd1bc6aeed9e4ac5a2f6ca0b",
+              "materials": "467b74312208b1d8ee836c1d4712a29ff323cda59752f9d2222018cc7b39c443"
+            }
+          },
+          {
+            "tick": 470,
+            "state": "0f451f7ca83d82be6486b406f08ef1636bca2537574d8819fa391255eae06844",
+            "pose": "e3300de477080e6529f7a29b579049d130221cd63ad7e290e4245732568982c4",
+            "phone": {
+              "text": "1ffc1e37f75e1d03227330abf8d5ce2286ed9e34a1d39449e029ae02db02e65f",
+              "materials": "95a536c7904d3f476fb8d95066c6c39e4907172585343b2f3c60e22d2f40d39d"
+            },
+            "desktop": {
+              "text": "66d389c92e8f3912cd5617cd168664151f0b47790e01c33b0c1d384d46d8f69b",
+              "materials": "33cbdc8fc506d4a087ba4dca76793ee4369742479a30c80f98690457dbe7bef6"
+            }
+          }
+        ],
+        "tableaus": {
+          "rest": {
+            "text": "c31951af967330dfcfd88b1be5ae67acd8f065409e6aa5b6d63173ae04757834",
+            "materials": "8f220cdefc8043f6e4120eb309d6e921886d5fe4446ab598000a1dadb22ba7a8"
+          },
+          "listen": {
+            "text": "30e5da3b4b734d4ac5a771d9c7dffe599a936b4a598a834ecabc00fdfb148ebd",
+            "materials": "4291abf5c8838469de07deaad4fe3a7e2410e93602aa9faa69e4aec9d232588e"
+          },
+          "pounce": {
+            "text": "4690f624210bd5d745dabd96b6fd1493039fd8f0ec5b6ad71c12bff95beb2dd6",
+            "materials": "0241a1fcbbb3184bce840a5c80d019bea048aeadb1a1fa0074456966aa7587d9"
+          }
+        }
+      }
+    }
+  },
+  "static": {
+    "original": [
+      {
+        "facing": "left",
+        "mode": "idle",
+        "pose": "2c19a0b351360313abac27e47dd9bc38890a3ac5df281bd0b40f9e2042db5641",
+        "text": "53fd9ebee28229d4befc18f05f4f04f4bc9d70875dc3a705b2303eb934b0cbac",
+        "materials": "a5422fc9a9ef96fa2beddbaea669dc37695813b87276ab41efaffc9484a21d4d"
+      },
+      {
+        "facing": "left",
+        "mode": "sniff",
+        "pose": "a0442d252775d29301488de799c885207d2292b0539cb293184ea73e262e9598",
+        "text": "b6aecc6c5dd3e2f046f9d0c9b21cf3c0b3cbf31a4025653c08044180d4590a4a",
+        "materials": "4f536524937ceea0bd341af1943e0253308b348c5bcb4396837ed5758d6c3adc"
+      },
+      {
+        "facing": "left",
+        "mode": "crouch",
+        "pose": "be863494ed53b332fd4bda3e903b5ae3516063f50924084b366d8184cc8ea180",
+        "text": "eeacd5b83df791f222d2dc800a2d8bdb13e5195f80c72615185aca09df38a8cb",
+        "materials": "69f9cd0ce1243742732f6f65209d5880befda5c6afc43999c43b1c658c88af70"
+      },
+      {
+        "facing": "right",
+        "mode": "idle",
+        "pose": "5f14b2e7df0e2f8d9411759bca36b0b188c0c6cc803cb09ccc7307f9d4de41cd",
+        "text": "32d1c83564a3b8e04f8e217957080c6344c927da50ec2b08a8b01306f042f75a",
+        "materials": "a65b210c5e5d1bda40d0cd07710e1f0f7c1f6709ec176b9477935c7318b7ee19"
+      },
+      {
+        "facing": "right",
+        "mode": "sniff",
+        "pose": "39cc1310d4022d407fda5771ccef18fb2b483c516b79032e18ca4b7e4288d1d2",
+        "text": "5f57f4e6ccc1d6a75cd27b68f5cde91f523427640b55a4c8ccfe7bcdeae60abe",
+        "materials": "18dcc5a8b71291c604ca74a8b285c725b6bd13f2319c2f50288e5771f74adce4"
+      },
+      {
+        "facing": "right",
+        "mode": "crouch",
+        "pose": "e83ea028526d2b7be0ab6d9a9d4d84565f2d2f01b08ccf0ca1de4a9fe94bf3cb",
+        "text": "e3659c0c7bc6cbb1af1c1fdc217dd101d9e9142f736965661076d018a6b5c782",
+        "materials": "30992567a5072dec00491c7b26ae0ec7b156d845be523b54a4a3185cad122781"
+      }
+    ],
+    "authored": [
+      {
+        "facing": "left",
+        "mode": "idle",
+        "pose": "a98e5776514fa024b7e20c2ba67f363197aefbabc96e9eea2e68ed8744a54cc7",
+        "text": "153eddb12b599a23589e98cf5f4f0fd47b8c4cb8264bf85800d99f9892ad175d",
+        "materials": "0eb5452f240f0369989a7ef3df7208e328bde303035b973ced392a4204b03149"
+      },
+      {
+        "facing": "left",
+        "mode": "sniff",
+        "pose": "ca03d8ce38be814811831916868029b1839c4558b2b5b8ffd3d8995c59d6e920",
+        "text": "15f6d08d9e050aa7beb11c821213f8d35b450a12b1a4f837ccab42361177825d",
+        "materials": "38d5dea190839727534fb65237873fed5fd6b034c4059036218bf89d59a87157"
+      },
+      {
+        "facing": "left",
+        "mode": "crouch",
+        "pose": "d4f46fdc79cb75f6683b29a9e22cbe45652bccaff9f5a113c2c76a3e47f8b572",
+        "text": "ee8d6a6048eec0a6bca91d415e687e377ef28005a59a361f8b6b888fb99dbdb9",
+        "materials": "89d8d69e2381ab167d79e80c79ee59460a0117c8915987e7cbc756ced15f6e12"
+      },
+      {
+        "facing": "right",
+        "mode": "idle",
+        "pose": "df1c680cfb426f08c9c0c0504bb651a903971adfd65323df95baaa65f48055d4",
+        "text": "29710add6fa77b9dbe626cbf56d244f29b53e5e288d3c1efa01bc3307f7f2182",
+        "materials": "e367f2d86c12d1f4cad254d1901ad34573cb900eeb6a8dfc1bb93eb0d7787505"
+      },
+      {
+        "facing": "right",
+        "mode": "sniff",
+        "pose": "a4ed8257800868a3d9708030608b17a051f7ae3da5c849ee829f932bfac02242",
+        "text": "0116d37ee83564c8ed31fe7e116bff50b3be7e5691a45d271c430b3b8fbe0c8a",
+        "materials": "0b82afc4ed41680c956cefd1b41a4a6cb7c6830788e9cf49968cd21258aab24b"
+      },
+      {
+        "facing": "right",
+        "mode": "crouch",
+        "pose": "121b4dd637a65bde7a1243c7948f7eb6bd32b91e2932a7d013f32414912447c6",
+        "text": "afaf6f6c7b2d6f972112aacfd11cb1055851c084db5ff4edf10804a31a6793af",
+        "materials": "e05842448060c0239212bbaef2d85f420e501003f72778eb4778766d2ab8c2ff"
+      }
+    ]
+  }
+}
