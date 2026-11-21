@@ -221,9 +221,9 @@ test('complete specimen touch keeps the cue; cancellation, offscreen state and d
   const canvas = host.canvas(672, 500); // exactly the declared 120:50 grid aspect
   const art = createButterflyArtwork(canvas);
   host.intersect(canvas, true);
-  const touch = { clientX: 121, clientY: 415, pointerType: 'touch', pointerId: 1 };
+  const touch = { clientX: 121, clientY: 415, pointerType: 'touch', pointerId: 1, button: 0 };
   canvas.emit('pointerdown', touch);
-  assert.equal(art.getGarden().cue, 'gather');
+  assert.equal(art.getGarden().cue, 'none', 'Do not cue on contact before a possible scroll.');
   canvas.emit('pointerup', touch);
   canvas.emit('lostpointercapture', touch);
   canvas.emit('pointerleave', touch);
@@ -238,10 +238,15 @@ test('complete specimen touch keeps the cue; cancellation, offscreen state and d
   host.intersect(canvas, true);
   host.frame(60000);
   assert.equal(art.getStatus().tick, tick, 'Returning cannot catch up hidden wall time.');
-  canvas.emit('pointerdown', { ...touch, clientX: 540, clientY: 220 });
-  assert.equal(art.getGarden().cue, 'breeze', 'The open-air tap selects a startled lift.');
-  canvas.emit('pointercancel', touch);
-  assert.equal(art.getGarden().cue, 'none');
+  const openAir = { ...touch, clientX: 540, clientY: 220 };
+  const before = art.getGarden().cue;
+  canvas.emit('pointerdown', openAir);
+  canvas.emit('pointercancel', openAir);
+  canvas.emit('pointerup', openAir);
+  assert.equal(art.getGarden().cue, before, 'A cancelled scroll cannot change the cue.');
+  canvas.emit('pointerdown', openAir);
+  canvas.emit('pointerup', openAir);
+  assert.equal(art.getGarden().cue, 'breeze', 'A completed open-air tap selects a startled lift.');
   art.dispose();
   assert.equal(host.pending, 0);
   assert.equal(canvas.listenerCount, 0);

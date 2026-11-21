@@ -163,14 +163,25 @@ export function createSunpatchButterflyArtwork(canvas:HTMLCanvasElement,input:Bu
     const x=(e.clientX-r.left-(r.width-gw)/2)/gw*2-1,y=(e.clientY-r.top-(r.height-gh)/2)/gh*2-1;
     return Number.isFinite(x)&&Number.isFinite(y)?[clamp(x,-1,1),clamp(y,-1,1)]:null;
   }
+  let touchPress: PointerEvent | null = null;
   function pointer(e:PointerEvent){
-    if(disposed||blocked())return;const p=coordinates(e);if(p)pendingGuide=p;
+    if(disposed||blocked()||e.pointerType==='touch'||e.pointerType==='pen')return;const p=coordinates(e);if(p)pendingGuide=p;
   }
   function leave(){if(disposed)return;pendingGuide=null;model.release();if(blocked())still();draw();}
   function exitPointer(){if(disposed)return;pendingGuide=null;unhover();draw();}
-  function releaseTouch(e:PointerEvent){if(e.pointerType==='touch')exitPointer();}
+  function cancelPress(){touchPress=null;}
+  function releaseTouch(e:PointerEvent){
+    if(!touchPress||touchPress.pointerId!==e.pointerId)return;
+    const start=touchPress;touchPress=null;
+    if(Math.hypot(start.clientX-e.clientX,start.clientY-e.clientY)<=12){hit(e);exitPointer();}
+  }
   function greet(){if(disposed)return;model.greet(blocked());draw();}
   function press(e:PointerEvent){
+    if(disposed||e.isPrimary===false||e.button!==0)return;
+    if(e.pointerType==='touch'||e.pointerType==='pen'){touchPress=e;return;}
+    hit(e);
+  }
+  function hit(e:PointerEvent){
     if(disposed)return;pendingGuide=null;const p=coordinates(e);if(!p)return;
     model.guide(...p);
     if(model.getOptions().director.scene==='specimen')model.cue(p[1]>.30&&Math.abs(p[0])>.28?'gather':'breeze',blocked());
@@ -193,8 +204,8 @@ export function createSunpatchButterflyArtwork(canvas:HTMLCanvasElement,input:Bu
       e.preventDefault();pendingGuide=null;model.cue(e.key==='Enter'?'gather':'breeze',blocked());draw();
     }else if(e.key==='Escape'){e.preventDefault();leave();}
   }
-  function dispose(){if(disposed)return;disposed=true;unsubscribe?.();unsubscribe=null;ro?.disconnect();io?.disconnect();media.removeEventListener('change',motion);doc!.removeEventListener('visibilitychange',visibility);view!.removeEventListener('resize',resize);canvas.removeEventListener('pointermove',pointer);canvas.removeEventListener('pointerdown',press);canvas.removeEventListener('pointerleave',exitPointer);canvas.removeEventListener('pointerup',releaseTouch);canvas.removeEventListener('pointercancel',leave);canvas.removeEventListener('lostpointercapture',exitPointer);canvas.removeEventListener('keydown',key);restoreDescription();pendingGuide=null;}
-  try{media.addEventListener('change',motion);doc.addEventListener('visibilitychange',visibility);view.addEventListener('resize',resize);canvas.addEventListener('pointermove',pointer);canvas.addEventListener('pointerdown',press);canvas.addEventListener('pointerleave',exitPointer);canvas.addEventListener('pointerup',releaseTouch);canvas.addEventListener('pointercancel',leave);canvas.addEventListener('lostpointercapture',exitPointer);canvas.addEventListener('keydown',key);describe();
+  function dispose(){if(disposed)return;disposed=true;unsubscribe?.();unsubscribe=null;ro?.disconnect();io?.disconnect();media.removeEventListener('change',motion);doc!.removeEventListener('visibilitychange',visibility);view!.removeEventListener('resize',resize);canvas.removeEventListener('pointermove',pointer);canvas.removeEventListener('pointerdown',press);canvas.removeEventListener('pointerleave',exitPointer);canvas.removeEventListener('pointerup',releaseTouch);canvas.removeEventListener('pointercancel',cancelPress);canvas.removeEventListener('lostpointercapture',cancelPress);canvas.removeEventListener('keydown',key);restoreDescription();pendingGuide=null;}
+  try{media.addEventListener('change',motion);doc.addEventListener('visibilitychange',visibility);view.addEventListener('resize',resize);canvas.addEventListener('pointermove',pointer);canvas.addEventListener('pointerdown',press);canvas.addEventListener('pointerleave',exitPointer);canvas.addEventListener('pointerup',releaseTouch);canvas.addEventListener('pointercancel',cancelPress);canvas.addEventListener('lostpointercapture',cancelPress);canvas.addEventListener('keydown',key);describe();
     const host=view as Window & {ResizeObserver?:typeof ResizeObserver;IntersectionObserver?:typeof IntersectionObserver};
     if(host.ResizeObserver){ro=new host.ResizeObserver(resize);ro.observe(canvas);}if(reduced())still();if(host.IntersectionObserver){inViewport=false;io=new host.IntersectionObserver(entries=>{if(disposed)return;inViewport=entries.some(e=>e.isIntersecting);sync();});io.observe(canvas);}resize();
   }catch(error){dispose();throw error;}

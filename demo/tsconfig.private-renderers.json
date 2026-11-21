@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "rootDir": "..",
+    "outDir": ".private-renderers",
+    "sourceMap": false,
+    "inlineSources": false
+  },
+  "include": [
+    "../src/public/crab/variants/tidepool-trouper.ts",
+    "../species/butterfly/variations/sunpatch/index.ts",
+    "../src/core/scheduler.js"
+  ]
+}
