@@ -15,6 +15,11 @@ import {
 // Instrumented controller/source checks, not rendered-browser or phone acceptance.
 const phone = { cols:72, rows:44, view:'oblique', neutral:false };
 const digest = value => createHash('sha256').update(typeof value==='string' ? value : JSON.stringify(value)).digest('hex');
+// Freeze every sampled geometry field and its order, but not final IEEE-754
+// bits from implementation-dependent trig routines. State and phone cells
+// remain byte-exact. Numbers are in model space, rounded only in this oracle.
+const geometryDigest = value => digest(JSON.stringify(value, (_, member) =>
+  typeof member === 'number' && !Number.isInteger(member) ? Number(member.toFixed(9)) : member));
 const eventLog = [
   {type:'pointer',tick:1,seq:0,x:-.8,y:-.25},
   {type:'dart',tick:45,seq:1},
@@ -27,18 +32,18 @@ const eventLog = [
 const ORIGINAL = {
   initial: {
     state:'2891818c62e05dfc9866febfb750bc17b65dbf7ffe116cbb5cc62bb8cd2851db',
-    geometry:'56d0bd994cae2f595f53845b2e1aa739ff9475406877109eb84a2662ddada945',
+    geometry:'76f8abd5e94242ed58501a78876b65e9afd7397f66b5920342d66b78df05dba2',
     cells:'83bb33dd00d16593dfdd86f28863b117504bcafb789501c97761a4f5adda080e',
   },
   guided: {
     state:'b0bda236febf9f8c94cf9e4a3dceee6b926fdaeaa7dc2c3a66214fd4ede41026',
-    geometry:'13f481a56005cb5cad68a648ccccdcc42969c0eb9967ad457862fb5a4233aa3c',
+    geometry:'2178049955b4a83393afd25109281503985aa6e9cddb1cd500c32d87c7189cd5',
     cells:'7866931943e82c5845f8b25e7576897fe9ac796ba86428af4a8582f655fb4140',
   },
 };
 function capture(model) {
   const geometry=model.sample();
-  return {state:digest(model.getState()),geometry:digest(geometry),
+  return {state:digest(model.getState()),geometry:geometryDigest(geometry),
     cells:digest(gridToText(rasterizeDragonfly(geometry,phone)))};
 }
 function canvasFor(browser,width=390,height=360) {
@@ -90,9 +95,11 @@ test('Original state, anatomy and phone ASCII remain exact while the alternative
   }
   assert.deepEqual(capture(original),ORIGINAL.guided);
   assert.notEqual(digest(alternative.getState()),ORIGINAL.guided.state,'The opt-in motion actually differs');
-  assert.notEqual(digest(alternative.sample()),ORIGINAL.guided.geometry);
+  assert.notEqual(geometryDigest(alternative.sample()),ORIGINAL.guided.geometry);
+  const exactBeforeDisposal = digest(original.sample());
   alternative.configure({wingAmplitude:.4});alternative.reset(991);alternative.dispose();
   assert.deepEqual(capture(original),ORIGINAL.guided,'Alternative configuration and disposal do not mutate Original');
+  assert.equal(digest(original.sample()),exactBeforeDisposal,'Within one runtime, disposal leaves exact geometry bits untouched');
   original.dispose();
 });
 
