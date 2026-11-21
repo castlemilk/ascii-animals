@@ -148,3 +148,15 @@ project prefix in URLs.
 The existing manual `.github/workflows/pages.yml` validates the package and
 static export before uploading `demo/out`. This change does not run the workflow,
 publish the package, or deploy the site.
+
+### Study variations
+
+Octopus opens on the canonical **Original** study. Its opt-in **Pocket
+Trickster** study uses the separately authored renderer under
+`species/octopus/trickster/`, not a new npm export or an iframe. A direct
+link uses `/ascii-animals/animals/octopus/?variation=pocket-trickster`;
+unrecognised/duplicate choices fall back without a redirect. The switch keeps
+playback preference, replaces (rather than overlays) the active renderer, and
+does not add an alternate to studies without one. The movement controls are
+specific to the Original renderer. Classic studio URLs retain their existing
+files and meaning.

@@ -303,3 +303,21 @@
   .card-copy p { font-size: 12px; margin-bottom: 8px; }
   .card-copy .study-link { min-height: 44px; padding-top: 2px; }
 }
+
+@layer components {
+  .variation-picker { display:flex; align-items:center; flex-wrap:wrap; gap:8px 16px; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .variation-picker-label { color:var(--muted); font:600 12px var(--mono); }
+  .variation-options { display:flex; flex-wrap:wrap; gap:4px; max-width:100%; }
+  .variation-options button { min-height:44px; padding:7px 12px; border:1px solid var(--line); border-radius:4px; background:var(--page); color:var(--text); font:600 12px var(--mono); cursor:pointer; }
+  .variation-options button:hover { border-color:var(--accent); }
+  .variation-options button[aria-pressed="true"] { color:var(--page); background:var(--accent); border-color:var(--accent); }
+  .variation-options button:focus-visible { outline-offset:2px; }
+  .trickster-controls { padding:14px 16px; border-top:1px solid var(--line); }
+  .trickster-controls h2 { margin:0; font:600 13px var(--mono); }
+  .trickster-controls p { margin:4px 0 8px; color:var(--muted); font-size:13px; }
+  .trickster-controls .reaction-notice:not(:empty) { margin:8px 0 0; color:var(--accent); }
+  .trickster-controls .reaction-notice:empty { margin:0; }
+  @media (max-width: 500px) {
+    .variation-picker { align-items:flex-start; flex-direction:column; }
+  }
+}

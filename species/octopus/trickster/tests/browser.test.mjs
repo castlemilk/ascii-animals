@@ -74,7 +74,8 @@ test('reduced motion and user pause survive inputs, restart, options and visibil
   assert.equal(a.paused, true); assert.equal(host.pending, 0);
   assert.equal(a.invite(.7, .3), false); assert.equal(a.pulse(-.6, 0), false);
   emitPoint(canvas, 'pointermove', .7, .33);
-  emitPoint(canvas, 'pointerdown', .8, -.6, { pointerType: 'touch' });
+  emitPoint(canvas, 'pointerdown', .8, -.6, { pointerType: 'touch', pointerId: 1 });
+  emitPoint(canvas, 'pointerup', .8, -.6, { pointerType: 'touch', pointerId: 1 });
   key(canvas, 'Enter'); key(canvas, 'j');
   a.advance(1); assert.equal(a.getStats().tick, 0);
   a.restart(); a.setOptions({ seed: 18 });
@@ -129,7 +130,8 @@ test('touch input uses CSS coordinates and actual visible owner cells', () => {
   canvas.rect.left = 83; canvas.rect.top = 47;
   const grid = rasterizeOctopus(createOctopusState(17), { width: 390, height: 460 });
   assert.equal(grid.hitTest(.8, -.6), false);
-  emitPoint(canvas, 'pointerdown', .8, -.6, { pointerType: 'touch' });
+  emitPoint(canvas, 'pointerdown', .8, -.6, { pointerType: 'touch', pointerId: 1 });
+  emitPoint(canvas, 'pointerup', .8, -.6, { pointerType: 'touch', pointerId: 1 });
   a.advance(1 / 60); assert.equal(a.getStats().stage, 'notice');
   assert(Math.abs(a.getStats().pose.target.x - .8) < 1e-12);
   a.restart();
@@ -138,7 +140,18 @@ test('touch input uses CSS coordinates and actual visible owner cells', () => {
   const col = n % grid.cols, row = Math.floor(n / grid.cols);
   const x = ((col + .5) * grid.cellW - grid.cx) / grid.scale;
   const y = ((row + .5) * grid.cellH - grid.cy) / grid.scale;
-  emitPoint(canvas, 'pointerdown', x, y, { pointerType: 'touch' });
+  const touch = { pointerType: 'touch', pointerId: 1 };
+  emitPoint(canvas, 'pointerdown', x, y, touch);
+  a.advance(1 / 60); assert.equal(a.getStats().stage, 'idle');
+  emitPoint(canvas, 'pointermove', x, y - .25, touch);
+  emitPoint(canvas, 'pointerup', x, y, touch); // Moving back cannot recover a tap.
+  a.advance(1 / 60); assert.equal(a.getStats().stage, 'idle');
+  emitPoint(canvas, 'pointerdown', x, y, touch);
+  emitPoint(canvas, 'pointercancel', x, y, touch);
+  emitPoint(canvas, 'pointerup', x, y, touch);
+  a.advance(1 / 60); assert.equal(a.getStats().stage, 'idle');
+  emitPoint(canvas, 'pointerdown', x, y, touch);
+  emitPoint(canvas, 'pointerup', x, y, touch);
   a.advance(1 / 60); assert.equal(a.getStats().stage, 'gather');
   a.destroy();
 });

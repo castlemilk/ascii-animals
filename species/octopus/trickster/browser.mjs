@@ -58,6 +58,8 @@ export function createOctopusTrickster(canvas, input = {}) {
   let droppedSeconds = 0, discardedEvents = 0, renderCount = 0, stepCount = 0;
   let lastRenderMs = 0, renderStats = {}, pendingEvents = [];
   let aim = { x: .7, y: .33 }, lastInvitation = null, pointerInside = false;
+  let touchStart = null;
+  const tapSlop = 12; // CSS pixels, independent of DPR and art scale.
   const cleanups = [];
   const isPaused = () => userPaused || motionHeld;
   const blocked = () => destroyed || isPaused() || hidden || offscreen || zeroSize;
@@ -193,7 +195,7 @@ export function createOctopusTrickster(canvas, input = {}) {
   function setPaused(paused) {
     if (typeof paused !== 'boolean') throw new TypeError('paused must be a boolean.');
     if (destroyed) return;
-    userPaused = paused;
+    userPaused = paused; touchStart = null;
     if (!paused) motionHeld = false; // Explicit Play, including reduced-motion opt-in.
     pendingEvents = [];
     syncScheduling();
@@ -202,7 +204,7 @@ export function createOctopusTrickster(canvas, input = {}) {
   function restart() {
     if (destroyed) return;
     state = createOctopusState(options.seed);
-    pendingEvents = []; aim = { x: .7, y: .33 }; lastInvitation = null; pointerInside = false;
+    pendingEvents = []; touchStart = null; aim = { x: .7, y: .33 }; lastInvitation = null; pointerInside = false;
     droppedSeconds = 0; discardedEvents = 0; stepCount = 0;
     resetClock(); draw(); syncScheduling();
   }
@@ -242,7 +244,7 @@ export function createOctopusTrickster(canvas, input = {}) {
         const entry = entries.find(item => item.target === canvas);
         if (!entry) return;
         offscreen = !entry.isIntersecting;
-        if (offscreen) { pendingEvents = []; pointerInside = false; }
+        if (offscreen) { pendingEvents = []; pointerInside = false; touchStart = null; }
         syncScheduling();
       }, { threshold: 0 });
       intersectionObserver.observe(canvas);
@@ -271,27 +273,47 @@ export function createOctopusTrickster(canvas, input = {}) {
   }
 
   try {
+    const traveled = event => Math.hypot(event.clientX - touchStart.x, event.clientY - touchStart.y) > tapSlop;
+    function pointerAction(event) {
+      const next = eventPoint(event); if (!next) return;
+      aim = next; pointerInside = true;
+      if (animalHit(next.x, next.y)) pulse(next.x, next.y);
+      else invite(next.x, next.y);
+    }
     listen(canvas, 'pointermove', event => {
+      if (event.pointerType === 'touch') {
+        if (touchStart && touchStart.id === event.pointerId && traveled(event)) touchStart = null;
+        return;
+      }
       if (blocked()) return;
       const next = eventPoint(event); if (!next) return;
       aim = next;
       const stage = sampleOctopus(state).stage;
       const moved = !pointerInside || !lastInvitation || Math.hypot(next.x - lastInvitation.x, next.y - lastInvitation.y) > .08;
       pointerInside = true;
-      if (event.pointerType !== 'touch' && ['idle', 'rest'].includes(stage) && moved) {
+      if (['idle', 'rest'].includes(stage) && moved) {
         if (enqueue({ type: 'invite', ...next }, true)) lastInvitation = next;
       } else enqueue({ type: 'move', ...next }, true);
     }, { passive: true });
     listen(canvas, 'pointerdown', event => {
       if (blocked() || event.button > 0) return;
-      const next = eventPoint(event); if (!next) return;
-      aim = next; pointerInside = true;
-      if (animalHit(next.x, next.y)) pulse(next.x, next.y);
-      else invite(next.x, next.y);
+      if (event.pointerType !== 'touch') { pointerAction(event); return; }
+      touchStart = event.isPrimary === false ? null : { id: event.pointerId, x: event.clientX, y: event.clientY };
     }, { passive: true });
-    listen(canvas, 'pointerleave', release);
-    listen(canvas, 'pointercancel', release);
-    listen(canvas, 'lostpointercapture', release);
+    listen(canvas, 'pointerup', event => {
+      if (event.pointerType !== 'touch' || !touchStart || touchStart.id !== event.pointerId) return;
+      const tap = !traveled(event);
+      touchStart = null;
+      if (tap && !blocked()) pointerAction(event);
+    }, { passive: true });
+    function endPointer(event) {
+      if (event?.pointerType === 'touch') {
+        if (touchStart?.id === event.pointerId) touchStart = null;
+      } else release();
+    }
+    listen(canvas, 'pointerleave', endPointer);
+    listen(canvas, 'pointercancel', endPointer);
+    listen(canvas, 'lostpointercapture', endPointer);
     listen(canvas, 'keydown', event => {
       if (event.target !== canvas || event.altKey || event.ctrlKey || event.metaKey) return;
       const arrows = { ArrowLeft: [-.06, 0], ArrowRight: [.06, 0], ArrowUp: [0, -.06], ArrowDown: [0, .06] };
@@ -310,12 +332,12 @@ export function createOctopusTrickster(canvas, input = {}) {
     listen(doc, 'visibilitychange', () => {
       if (destroyed) return;
       hidden = Boolean(doc.hidden);
-      if (hidden) { pendingEvents = []; pointerInside = false; }
+      if (hidden) { pendingEvents = []; pointerInside = false; touchStart = null; }
       syncScheduling();
     });
     listen(media, 'change', () => {
       if (destroyed || options.reducedMotion !== 'system') return;
-      if (media.matches) { motionHeld = true; pendingEvents = []; }
+      if (media.matches) { motionHeld = true; pendingEvents = []; touchStart = null; }
       syncScheduling();
     });
     listen(view, 'resize', resize);
