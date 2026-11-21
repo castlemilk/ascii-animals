@@ -2,14 +2,15 @@ import { test, expect, type Page } from '@playwright/test';
 
 const octopus = '/ascii-animals/animals/octopus/';
 const other = '/ascii-animals/animals/crab/';
+const cuttlefish = '/ascii-animals/animals/cuttlefish/';
 const query = 'variation=pocket-trickster';
 
-async function expectVariant(page: Page, variant: 'original' | 'pocket-trickster') {
+async function expectVariant(page: Page, variant: 'original' | 'pocket-trickster' | 'ink-puppet') {
   const host = page.getByTestId('renderer-host');
   await expect(host).toHaveAttribute('data-status', 'ready');
   await expect(host).toHaveAttribute('data-variation', variant);
   await expect(host.locator('canvas')).toHaveCount(1);
-  await expect(page.getByRole('radio', { name: variant === 'original' ? 'Original' : 'Pocket Trickster', exact: true })).toBeChecked();
+  await expect(page.getByRole('radio', { name: ({original: 'Original', 'pocket-trickster': 'Pocket Trickster', 'ink-puppet': 'Ink Puppet'})[variant], exact: true })).toBeChecked();
 }
 
 test('same-page alternate preserves input focus and URL, Back/Forward and reload', async ({ page }) => {
@@ -113,5 +114,27 @@ test('short phone offers visible feedback when artwork is offscreen instead of s
     await page.keyboard.press('Enter');
     return await page.getByText('Invitation sent.').count();
   }).toBe(1);
+  await context.close();
+});
+
+
+test('Ink Puppet is opt-in on Cuttlefish and can show a deliberate snapshot while reduced', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile:true, reducedMotion:'reduce' });
+  const page = await context.newPage();
+  await page.goto(cuttlefish + '?variation=pocket-trickster');
+  await expectVariant(page, 'original');
+  await expect(page).toHaveURL(cuttlefish + '?variation=pocket-trickster');
+  await expect(page.getByRole('region', { name: 'Movement controls' })).toBeVisible();
+  await page.getByRole('radio', { name: 'Ink Puppet' }).tap();
+  await expectVariant(page, 'ink-puppet');
+  await expect(page).toHaveURL(cuttlefish + '?variation=ink-puppet');
+  await expect(page.getByRole('region', { name: 'Movement controls' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Play animation' })).toBeDisabled();
+  await page.getByRole('button', { name: 'Investigate', exact: true }).tap();
+  await expect(page.getByText('Investigate still frame. Playback stays paused.')).toBeVisible();
+  await page.getByRole('button', { name: 'Ink and retreat', exact: true }).tap();
+  await expect(page.getByText('Ink and retreat still frame. Playback stays paused.')).toBeVisible();
+  await page.reload();
+  await expectVariant(page, 'ink-puppet');
   await context.close();
 });

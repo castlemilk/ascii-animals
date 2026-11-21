@@ -34,6 +34,8 @@ const packageFactories = {
 
 const localVariation = '../../../species/octopus/trickster/browser.mjs';
 const localVariationFactory = 'createOctopusTrickster';
+const puppetAdapter = './ink-puppet.mjs';
+const puppetFactory = 'createInkPuppetVariant';
 
 /**
  * Structural build evidence, not a browser execution claim: inspect TypeScript
@@ -47,6 +49,7 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   const dynamicSpecifiers = new Set();
   let eagerPackageImports = 0;
   let lazyVariationImports = 0;
+  let lazyPuppetImports = 0;
   for (const relative of (await filesBelow(sourceRoot)).filter(file => /\.tsx?$/.test(file))) {
     const filename = path.join(sourceRoot, relative);
     const parsed = ts.createSourceFile(filename, await readFile(filename, 'utf8'), ts.ScriptTarget.Latest, true);
@@ -60,6 +63,10 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
           if (!typeOnly) eagerPackageImports++;
           assert(typeOnly, `Eager renderer package import in ${relative}: ${specifier}`);
         }
+        if (specifier === puppetAdapter || /(?:^|\/)ink-puppet\/(?:browser|page)\.mjs$/.test(specifier)) {
+          assert(ts.isImportDeclaration(node) && node.importClause?.isTypeOnly,
+            `Eager Ink Puppet adapter or renderer import: ${relative}`);
+        }
         if (specifier.startsWith('.')) {
           const resolved = path.resolve(path.dirname(filename), specifier);
           const exactVariationTypeImport = relative === 'lib/renderers.ts' && specifier === localVariation
@@ -69,6 +76,12 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
       }
       if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments[0] && ts.isStringLiteral(node.arguments[0])) {
         const specifier = node.arguments[0].text;
+        if (specifier === puppetAdapter) {
+          const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
+          assert(relative === 'lib/renderers.ts' && loader?.name?.text === 'mountPuppet',
+            `Ink Puppet adapter import must remain in its mount entry: ${relative}`);
+          lazyPuppetImports++;
+        }
         if (specifier.startsWith('.') && !path.resolve(path.dirname(filename), specifier).startsWith(appDir + path.sep)) {
           const loader = ts.findAncestor(node, ancestor => ts.isFunctionDeclaration(ancestor));
           assert(relative === 'lib/renderers.ts' && specifier === localVariation && loader?.name?.text === 'mountTrickster',
@@ -106,7 +119,8 @@ export async function checkConsumerImports({ outputDir = exportRoot, appDir = de
   }
 
   assert.equal(lazyVariationImports, 1, 'Exactly one local variation must be imported on demand');
-  const factories = new Set([...Object.values(packageFactories), localVariationFactory]);
+  assert.equal(lazyPuppetImports, 1, 'Exactly one Ink Puppet adapter must be imported on demand');
+  const factories = new Set([...Object.values(packageFactories), localVariationFactory, puppetFactory]);
   const factoryChunks = new Map([...factories].map(factory => [factory, new Set()]));
   const chunkRoot = path.join(outputDir, '_next/static/chunks');
   for (const relative of (await filesBelow(chunkRoot)).filter(file => file.endsWith('.js'))) {

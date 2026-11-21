@@ -6,7 +6,8 @@ import { BASE_PATH, apiPath, originalPath, type Animal } from '../lib/catalogue'
 import { isMarineSpecies, mountRenderer, type RendererSession } from '../lib/renderers';
 import { movementControls } from '../extensions/movement-controls';
 import { useMotionPolicy } from './motion-policy';
-import { availableVariations, hasVariations, readVariation, variationHref, type VariationId } from '../lib/variations';
+import { InkPuppetControls } from './ink-puppet-controls';
+import { alternateFor, availableVariations, readVariation, variationHref, type VariationId } from '../lib/variations';
 
 export function StudyStage({ animal }: { animal: Animal }) {
   const host = useRef<HTMLDivElement>(null);
@@ -14,8 +15,8 @@ export function StudyStage({ animal }: { animal: Animal }) {
   const currentMotion = useRef(motion);
   currentMotion.current = motion;
   const [session, setSession] = useState<RendererSession | null>(null);
-  const canVary = hasVariations(animal.id);
-  const [selection, setSelection] = useState<VariationId | null>(canVary ? null : 'original');
+  const alternate = alternateFor(animal.id);
+  const [selection, setSelection] = useState<VariationId | null>(alternate ? null : 'original');
   const selected = useRef(selection);
   const variation = selection ?? 'original';
   const chosen = availableVariations[variation];
@@ -27,7 +28,7 @@ export function StudyStage({ animal }: { animal: Animal }) {
   const descriptionId = `description-${animal.id}`;
 
   useLayoutEffect(() => {
-    if (!canVary) return;
+    if (!alternate) return;
     const sync = () => {
       selected.current = readVariation(animal.id, window.location.search);
       setSelection(selected.current);
@@ -36,7 +37,7 @@ export function StudyStage({ animal }: { animal: Animal }) {
     sync();
     window.addEventListener('popstate', sync);
     return () => window.removeEventListener('popstate', sync);
-  }, [animal.id, canVary]);
+  }, [animal.id, alternate]);
 
   function chooseVariation(next: VariationId) {
     if (selected.current === next) return;
@@ -60,7 +61,7 @@ export function StudyStage({ animal }: { animal: Animal }) {
     // changes. Only the current policy may start it after ownership is acquired.
     mountRenderer(animal.id, element, {
       paused: true, reducedMotion: currentMotion.current.reduced,
-      signal: cancellation.signal, label: variation === 'original' ? `${animal.name} ASCII study` : 'Octopus ASCII study: Pocket Trickster',
+      signal: cancellation.signal, label: variation === 'original' ? `${animal.name} ASCII study` : `${animal.name} ASCII study: ${chosen.name}`,
       descriptionId, configuration: movementControls.configuration,
     }, variation).then(renderer => {
       if (cancellation.signal.aborted) { renderer.dispose(); return; }
@@ -74,7 +75,7 @@ export function StudyStage({ animal }: { animal: Animal }) {
       setStatus('error');
     });
     return () => { cancellation.abort(); active?.dispose(); };
-  }, [animal.id, descriptionId, motion.ready, attempt, selection, variation]);
+  }, [animal.id, animal.name, chosen.name, descriptionId, motion.ready, attempt, selection, variation]);
 
   useEffect(() => {
     if (!session) return;
@@ -126,11 +127,11 @@ export function StudyStage({ animal }: { animal: Animal }) {
   return <div className="study-workspace">
     <div className="stage-panel">
       <div className="study-toolbar">
-        {canVary && selection !== null ? <div className="variation-picker">
+        {alternate && selection !== null ? <div className="variation-picker">
           <span id="variation-label" className="variation-picker-label">Variation</span>
           <SegmentedControl<VariationId> className="variation-options" aria-labelledby="variation-label"
             value={selection} onValueChange={value => { if (value !== null) chooseVariation(value); }}>
-            {(['original', 'pocket-trickster'] as const).map(option =>
+            {(['original', alternate] as const).map(option =>
               <SegmentedControlItem key={option} value={option}>{availableVariations[option].name}</SegmentedControlItem>
             )}
           </SegmentedControl>
@@ -150,6 +151,7 @@ export function StudyStage({ animal }: { animal: Animal }) {
         {status === 'loading' && <div className="stage-message"><span className="loading-mark" aria-hidden="true">{'{a}'}</span><p>Opening {animal.name.toLowerCase()}…</p></div>}
         {status === 'error' && <div className="stage-message error-message" role="alert"><h2>The study could not open.</h2><p>Try again, or explore its original studio.</p><button className="button primary" onClick={() => setAttempt(value => value + 1)}>Retry study</button>{variation !== 'original' && <button className="button quiet" onClick={() => chooseVariation('original')}>Use Original</button>}<a className="text-link" href={originalPath(animal)}>Open original studio</a></div>}
       </div>
+      {session?.variation === 'ink-puppet' && selection === 'ink-puppet' && <InkPuppetControls controller={session.controller} paused={motion.paused} />}
       {session?.variation === 'pocket-trickster' && selection === 'pocket-trickster' && <section className="trickster-controls" aria-labelledby="trickster-title">
         <h2 id="trickster-title">Invite it closer</h2>
         <p>Point or tap the water to beckon it. Tap the octopus for an ink puff.</p>

@@ -1,11 +1,12 @@
 /**
  * Demo-only lifecycle bridge. Every runtime import below resolves the built
  * review package's public export map for canonical animals. The local
- * Pocket Trickster study is a distinct, opt-in renderer, not a package export.
+ * variation studies are distinct, opt-in renderers, not package exports.
  * Type imports are erased and do not load inactive species at runtime.
  */
 import type { ArtworkOptions } from 'ascii-animals-review';
 import type { OctopusTricksterController } from '../../../species/octopus/trickster/browser.mjs';
+import type { InkPuppetController } from './ink-puppet.mjs';
 import type { VariationId } from './variations';
 import type { MarineMovementArtwork } from 'ascii-animals-review/movement/marine';
 import type { ButterflyArtwork } from 'ascii-animals-review/butterfly';
@@ -103,9 +104,15 @@ type TricksterSession = RendererLifecycle & {
   readonly controller: OctopusTricksterController;
 };
 
+type PuppetSession = RendererLifecycle & {
+  readonly species: 'cuttlefish';
+  readonly variation: 'ink-puppet';
+  readonly controller: InkPuppetController;
+};
+
 // Marine deliberately shares one supported engine. Other members retain their
 // exact native controller types: a fixed-tick guide is not a marine advance.
-export type RendererSession = TricksterSession | SessionFor<MarineSpeciesId> | {
+export type RendererSession = PuppetSession | TricksterSession | SessionFor<MarineSpeciesId> | {
   [S in Exclude<SpeciesId, MarineSpeciesId>]: SessionFor<S>
 }[Exclude<SpeciesId, MarineSpeciesId>];
 
@@ -218,16 +225,31 @@ function mountCanvas<S extends Exclude<SpeciesId, 'owl'>>(
   }
 }
 
-async function mountTrickster(host: HTMLElement, options: RendererMountOptions): Promise<TricksterSession> {
-  const { createOctopusTrickster } = await import('../../../species/octopus/trickster/browser.mjs');
+function mountVariationCanvas<T extends { species: SpeciesId; variation: Exclude<VariationId, 'original'>; controller: unknown }>(
+  species: T['species'], variation: T['variation'], host: HTMLElement, options: RendererMountOptions,
+  create: (canvas: HTMLCanvasElement) => { playback: PlaybackController; identity: T },
+): RendererLifecycle & T {
   throwIfAborted(options.signal);
-  const canvas = prepareElement('octopus', host.ownerDocument.createElement('canvas'), options);
-  canvas.dataset.rendererVariation = 'pocket-trickster';
+  const canvas = prepareElement(species, host.ownerDocument.createElement('canvas'), options);
+  canvas.dataset.rendererVariation = variation;
   canvas.textContent = 'This artwork needs Canvas 2D. Its description and navigation remain available.';
   host.appendChild(canvas);
-  let controller: OctopusTricksterController | undefined;
+  let playback: PlaybackController | undefined;
   try {
-    const active = controller = createOctopusTrickster(canvas, { seed: 23, paused: true, reducedMotion: 'system' });
+    const instance = create(canvas);
+    playback = instance.playback;
+    return ownLifecycle(playback, canvas, options, instance.identity);
+  } catch (error) {
+    try { playback?.dispose(); }
+    finally { canvas.remove(); }
+    throw error;
+  }
+}
+
+async function mountTrickster(host: HTMLElement, options: RendererMountOptions): Promise<TricksterSession> {
+  const { createOctopusTrickster } = await import('../../../species/octopus/trickster/browser.mjs');
+  return mountVariationCanvas('octopus', 'pocket-trickster', host, options, canvas => {
+    const active = createOctopusTrickster(canvas, { seed: 23, paused: true, reducedMotion: 'system' });
     let released = false;
     const playback: PlaybackController = {
       get disposed() { return released; },
@@ -236,14 +258,16 @@ async function mountTrickster(host: HTMLElement, options: RendererMountOptions):
       restart() { active.restart(); },
       dispose() { released = true; active.dispose(); },
     };
-    return ownLifecycle(playback, canvas, options, {
-      species: 'octopus', variation: 'pocket-trickster', controller: active,
-    } as const);
-  } catch (error) {
-    try { controller?.dispose(); }
-    finally { canvas.remove(); }
-    throw error;
-  }
+    return { playback, identity: { species: 'octopus', variation: 'pocket-trickster', controller: active } as const };
+  });
+}
+
+async function mountPuppet(host: HTMLElement, options: RendererMountOptions): Promise<PuppetSession> {
+  const { createInkPuppetVariant } = await import('./ink-puppet.mjs');
+  return mountVariationCanvas('cuttlefish', 'ink-puppet', host, options, canvas => {
+    const { controller, playback } = createInkPuppetVariant(canvas);
+    return { playback, identity: { species: 'cuttlefish', variation: 'ink-puppet', controller } as const };
+  });
 }
 
 /**
@@ -259,6 +283,7 @@ export async function mountRenderer(
 ): Promise<RendererSession> {
   throwIfAborted(options.signal);
   if (species === 'octopus' && variation === 'pocket-trickster') return mountTrickster(host, options);
+  if (species === 'cuttlefish' && variation === 'ink-puppet') return mountPuppet(host, options);
   switch (species) {
     case 'cuttlefish':
     case 'manta':

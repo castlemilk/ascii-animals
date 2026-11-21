@@ -14,7 +14,7 @@
     "serve": "node scripts/serve-export.mjs",
     "test": "playwright test",
     "test:static": "node --test tests/export.test.mjs tests/seo.test.mjs",
-    "test:unit": "node --test tests/export.test.mjs tests/renderers.test.mjs tests/seo.test.mjs",
+    "test:unit": "node --test tests/export.test.mjs tests/renderers.test.mjs tests/seo.test.mjs tests/ink-puppet-adapter.test.mjs",
     "test:seo": "playwright test tests/seo.spec.ts"
   },
   "dependencies": {

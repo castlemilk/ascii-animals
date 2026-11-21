@@ -20,7 +20,7 @@ export function InkPuppetControls({ controller, paused }: { controller: InkPuppe
   return <section className="trickster-controls" aria-labelledby={titleId}>
     <h2 id={titleId}>Meet the Ink Puppet</h2>
     <p>Invite a closer look or send it jetting away. Choose an action, then tap the artwork to aim it.</p>
-    <div className="playback-buttons">
+    <div className="reaction-buttons">
       <button className="button quiet" type="button" onClick={() => act('investigate')}>Investigate</button>
       <button className="button quiet" type="button" onClick={() => act('retreat')}>Ink and retreat</button>
     </div>
