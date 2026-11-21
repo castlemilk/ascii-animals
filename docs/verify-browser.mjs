@@ -96,9 +96,12 @@ async function screenshot(page, filename) {
 }
 
 async function restoreFromCache(page, changeMotion) {
+  const returnUrl = page.url();
   await page.goto(`${origin}/away.html`);
   if (changeMotion) await page.emulateMedia({ reducedMotion: changeMotion });
-  await page.goBack({ waitUntil: 'load' });
+  // A restored document resumes at pageshow, without a new load event.
+  await page.evaluate(() => history.back());
+  await page.waitForURL(returnUrl, { waitUntil: 'commit' });
   await page.waitForFunction(() => window.__lastPageShowPersisted === true, undefined, { timeout: 10000 });
   assert.equal(await page.evaluate(() => window.__lastPageShowPersisted), true,
     'Must observe actual BFCache restoration, not a reload or synthetic event');
@@ -106,8 +109,8 @@ async function restoreFromCache(page, changeMotion) {
 
 try {
   const executablePath = values.executable ?? process.env.ASCII_CHROMIUM;
-  browser = await chromium.launch({ headless: true, args: ['--no-sandbox'],
-    ...(executablePath ? { executablePath } : {}),
+  browser = await chromium.launch({ headless: true, chromiumSandbox: true,
+    ...(executablePath ? { executablePath } : { channel: 'chromium' }),
     ignoreDefaultArgs: ['--disable-back-forward-cache'] });
   record.browser = browser.version();
   const desktop = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: 'no-preference' });
