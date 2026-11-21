@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASCII Animals — browser example</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {"imports":{"ascii-animals-review":"./node_modules/ascii-animals-review/lib/index.js"}}
+  </script>
+  <script type="module" src="./basic.js"></script>
+</head>
+<body>
+  <main>
+    <nav aria-label="Examples">Basic artwork · <a href="./director.html">Marine director</a></nav>
+    <h1>A cuttlefish in the browser</h1>
+    <p>Move over the canvas or tap an animal to interact. Use the buttons with a mouse, touch, or Tab and Enter. Startle does not resume a paused scene.</p>
+    <canvas id="artwork" role="img" aria-label="A cuttlefish drawn with animated characters" aria-describedby="description">
+      A cuttlefish drawn with characters. This browser could not display the canvas.
+    </canvas>
+    <p id="description">The cuttlefish swims and reacts with a retreat and ink. With reduced motion enabled, the initial scene stays still. Play deliberately enables motion.</p>
+    <div class="controls" role="group" aria-label="Artwork controls">
+      <button type="button" id="play">Play</button>
+      <button type="button" id="pause">Pause</button>
+      <button type="button" id="restart">Restart</button>
+      <button type="button" id="action">Startle</button>
+    </div>
+    <div class="controls lifecycle" role="group" aria-label="Example lifecycle">
+      <button type="button" id="mount">Mount</button>
+      <button type="button" id="dispose">Dispose</button>
+    </div>
+    <p id="status" role="status">Loading the installed local package…</p>
+    <noscript><p>Enable JavaScript to run this example. The description remains available without animation.</p></noscript>
+  </main>
+</body>
+</html>

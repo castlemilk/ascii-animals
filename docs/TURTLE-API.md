@@ -1,5 +1,7 @@
 # Sea turtle API and reef director
 
+**Current source contract:** checked against [`main` at `f63b20e2045b`](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/src/public/turtle.ts) on 21 November 2026. The API below is present in that source. Use the [local-package setup](GETTING-STARTED.md); [current validation](VALIDATION-2026-11-21.md) separates the built package, live Pages and npm availability. Older authoring bases and capture results below are historical evidence, not additional release claims.
+
 This is the turtle-local implementation in the private, unpublished `ascii-animals-review`
 package. Its integrated source is `src/public/turtle.ts`, not `src/species/turtle`.
 It borrows the existing scheduler and does not depend on the canonical marine renderer.
@@ -253,10 +255,12 @@ cross-version/pixel determinism promise. Fonts affect pixels, not logical cells.
 
 ## Browser input, still scenes, and lifecycle
 
-`createTurtleArtwork` exposes the model's observation methods plus `update`,
+`createTurtleArtwork` exposes `getOptions`, `getStatus`, `getFrame` and
+`getDirectorState`, plus `update`,
 `play`, `pause`, `restart`, `pulse`, `guide`, `clearGuide`, `direct`, `stage`,
 `select`, `inspect`, `subscribe`, `resize`, and `dispose`. Browser `inspect` chooses
-a static poster automatically when motion is blocked. Existing mutators and new
+a static poster automatically when motion is blocked. `getState`, `getPhase`
+and `advanceTicks` belong to `createTurtleModel`, not the browser artwork. Existing mutators and new
 mutators no-op after disposal; snapshots remain readable. Subscription callbacks
 are synchronous consumer code and should not throw or reconfigure recursively.
 

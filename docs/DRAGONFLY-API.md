@@ -1,5 +1,7 @@
 # Dragonfly typed adapter
 
+**Current source contract:** checked against [`main` at `f63b20e2045b`](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/src/public/dragonfly.ts) on 21 November 2026. The API below is present in that source. Use the [local-package setup](GETTING-STARTED.md); [current validation](VALIDATION-2026-11-21.md) separates the built package, live Pages and npm availability. Older authoring bases and capture results below are historical evidence, not additional release claims.
+
 ## Additive pond director
 
 The Dragonfly entry now also offers an opt-in bounded ensemble. Passing
@@ -29,8 +31,9 @@ All visitors share one existing scheduler subscription and one composed canvas.
 The implementation and full contract are documented in
 [the species director API](../species/dragonfly/DIRECTOR-API.md), including which
 model options affect ensemble motion, accessibility, fixed phase windows,
-configuration/reset/disposal semantics, bounds and evidence limits. This addition
-is pending integration review; it is not a shared species-contract migration.
+configuration/reset/disposal semantics, bounds and evidence limits. The director
+is integrated in the pinned source; its historical review record is separate
+from the current package and live-site checks.
 
 ## Original solo adapter
 
@@ -95,13 +98,16 @@ Dragonfly TypeScript in `species/dragonfly/src`, not an independently edited cop
 The default host is resolved from the canvas's owning document. Tests may inject
 an explicit environment. Browser options reject unknown keys and invalid callbacks.
 Supported model option bounds are in the maintained species API reference:
-https://github.com/castlemilk/ascii-animals/blob/main/species/dragonfly/API.md
+[Dragonfly source API](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/species/dragonfly/API.md)
 
 ## Generated demo and validation
 
 `npm run build` compiles species TypeScript, generates package modules, and builds
-`dist/dragonfly/` using the real public adapter. After approved Pages deployment the
-route is `/ascii-animals/dragonfly/`. The local source study remains separate for
+`dist/dragonfly/` using the real public adapter. The repository's Pages base path
+is `/ascii-animals/`, so that generated route maps to `/ascii-animals/dragonfly/`.
+The canonical [live Dragonfly route](https://castlemilk.github.io/ascii-animals/animals/dragonfly/)
+was checked separately in the validation record; that check does not establish
+HTTP status for the legacy route above. The local source study remains separate for
 research. Catalogue registration is handled by its owner; no release status is
 inferred from a local demo.
 

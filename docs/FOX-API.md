@@ -1,12 +1,12 @@
 # Fox: typed character and meadow director
 
+**Current source contract:** checked against [`main` at `f63b20e2045b`](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/src/public/fox.ts) on 21 November 2026. The API below is present in that source. Use the [local-package setup](GETTING-STARTED.md); [current validation](VALIDATION-2026-11-21.md) separates the built package, live Pages and npm availability. Older authoring bases and capture results below are historical evidence, not additional release claims.
+
 ## Availability and compatibility
 
-At inspected main **`c06114404900884814bef879a02f1a49a3e7d590`**, Fox is already integrated through `createFoxArtwork` and the `ascii-animals-review/fox` subpath. This branch adds an **opt-in meadow director** and an updated Fox demo. The director additions described here are proposed source in this unmerged change; they are not a claim that the current live Pages release already contains them.
+Fox and its optional meadow director are integrated in the source revision above. Earlier authoring used `c06114404900884814bef879a02f1a49a3e7d590`, then `c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`; those are historical bases, not the current implementation target.
 
-Main subsequently advanced to **`c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`** with a README-only status reconciliation. The delivery branch includes that unchanged central documentation; the Fox runtime baseline is identical to the inspected release.
-
-The package remains private and unpublished. Examples refer to the locally built package or tarball, not an npm-registry release. Existing `createFoxArtwork` remains available from the root and `./fox`. **New director helpers and explicit director types are exported through `./fox` only**; this change adds no root exports, shared registry, or generic species contract.
+The package is the private `ascii-animals-review@0.0.0-review.0` candidate. Examples use its locally built tarball. `createFoxArtwork` is exported from the root and `./fox`. **Director helpers and explicit director types are exported through `./fox` only.** There is no shared registry or generic species contract.
 
 Omit `director` to keep the original single-character behavior, its `FoxState` schema, closed behavior/static-pose unions, and fixed-tick timing contract. Supplying `director: {}` enables the default meadow. A mounted controller cannot switch between those two modes; dispose and create a new mount when changing mode.
 
@@ -153,7 +153,7 @@ The scene compositor reuses the existing Fox polygon rasterizer separately for e
 
 The browser backing remains capped at 1280×768 logical pixels and DPR≤2. One mounted meadow borrows one shared scheduler subscription, not one loop per actor. Hidden, offscreen, zero-size, paused and reduced-motion conditions compose; resumption resets accumulated wall time. At most five fixed ticks run per callback, and dropped wall time is reported. Canvas/observer setup failures and throwing consumer callbacks roll back owned resources. Importing modules makes no DOM reads.
 
-Use native controls for scene, cast, motives, pause and deliberate stills. The included demo adds canvas-focused arrow guidance, Enter rustle, P pounce, Space pause, and Escape clear-guide, with equivalent labeled buttons. It does not intercept these keys elsewhere on the page. Continuous telemetry is not a live region; user actions receive concise status text. Reduced motion keeps automatic motion off; `showTableau('listen')`, `showTableau('pounce')`, and `showTableau('rest')` provide deliberate alternatives without animation. A Canvas-unavailable demo exposes a static text specimen and description.
+Use native controls for scene, cast, motives, pause and deliberate stills. The included demo adds canvas-focused arrow guidance, Enter rustle, P pounce, Space pause, and Escape clear-guide, with equivalent labeled buttons. These key bindings are demo code; `createFoxArtwork` itself installs pointer listeners, not a keyboard handler. Embedders must provide their own native controls or scoped key bindings. It does not intercept these keys elsewhere on the page. Continuous telemetry is not a live region; user actions receive concise status text. Reduced motion keeps automatic motion off; `showTableau('listen')`, `showTableau('pounce')`, and `showTableau('rest')` provide deliberate alternatives without animation. A Canvas-unavailable demo exposes a static text specimen and description.
 
 ## Source, reproduction and evidence
 
@@ -166,6 +166,6 @@ npm run typecheck
 node --test test/fox-integration.test.mjs test/fox-director-integration.test.mjs species/fox/tests/*.test.mjs
 ```
 
-Serve `dist/` locally and open `/fox/` to inspect this branch's integrated demo. The canonical study demo also remains under `species/fox/demo/`. The [authoring record](../species/fox/DIRECTOR-AUTHORING.md) records the inspected main, scope, scenes, budgets and evidence plan. [Director model tests](../species/fox/tests/director.test.mjs) and [consumer type fixtures](../species/fox/tests/types/director.ts) exercise the new contract.
+Serve `dist/` locally and open `/fox/` to inspect the generated integrated demo. The canonical study demo also remains under `species/fox/demo/`. The [authoring record](../species/fox/DIRECTOR-AUTHORING.md) records the inspected main, scope, scenes, budgets and evidence plan. [Director model tests](../species/fox/tests/director.test.mjs) and [consumer type fixtures](../species/fox/tests/types/director.ts) exercise the new contract.
 
 Source documentation does not establish a final acceptance pass. Distinguish actual browser interaction, native Canvas captures, explicit mocks, compiler tests and numerical tests in the accompanying review/validation artifacts. The original `VALIDATION.md` and original native GIF describe the earlier single-Fox implementation, not acceptance of this director. Deployment, package publication, real-device performance, physical touch and assistive-technology acceptance require their own recorded evidence.

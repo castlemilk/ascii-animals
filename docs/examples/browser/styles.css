@@ -1,0 +1,17 @@
+:root { color-scheme: dark; font: 17px/1.5 system-ui, sans-serif; color: #e4ecef; background: #0d171d; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 960px; margin: 0 auto; padding: 24px; }
+nav { font-size: 0.9rem; color: #abc0c8; }
+a { color: #a5e4e5; text-underline-offset: 0.2em; }
+h1 { font-size: clamp(1.65rem, 4vw, 2.25rem); line-height: 1.15; margin: 24px 0 16px; }
+p { max-width: 76ch; margin: 14px 0; }
+canvas { display: block; width: 100%; height: clamp(240px, 42vw, 400px); border: 1px solid #344951; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+button { min-height: 44px; padding: 9px 16px; border: 1px solid #68858d; border-radius: 4px; background: #193139; color: #efffff; font: inherit; cursor: pointer; }
+button:hover:not(:disabled) { background: #25434c; }
+button:disabled { opacity: 0.5; cursor: default; }
+:focus-visible { outline: 3px solid #f4ca74; outline-offset: 3px; }
+.lifecycle { padding-top: 12px; border-top: 1px solid #344951; }
+#status { color: #b7cbd2; font-size: 0.9rem; min-height: 1.5em; }
+@media (max-width: 480px) { main { padding: 16px; } button { padding-inline: 12px; } }

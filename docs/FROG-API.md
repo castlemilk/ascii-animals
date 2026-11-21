@@ -1,5 +1,7 @@
 # Frog: typed leap study and optional pond director
 
+**Current source contract:** checked against [`main` at `f63b20e2045b`](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/src/public/frog.ts) on 21 November 2026. The API below is present in that source. Use the [local-package setup](GETTING-STARTED.md); [current validation](VALIDATION-2026-11-21.md) separates the built package, live Pages and npm availability. Older authoring bases and capture results below are historical evidence, not additional release claims.
+
 The `ascii-animals-review/frog` entry exposes `createFrogArtwork`, the pure `createFrog`/`stepFrog`/`sampleFrog` model and generated strict TypeScript declarations. The root entry also exports `createFrogArtwork`. This package remains private and unpublished.
 
 ```ts
@@ -26,7 +28,7 @@ The [species-local director API](../species/frog/director/API.md) documents ever
 
 ## Honest lifecycle and configuration
 
-This is a fixed 60 Hz model with a latched ballistic landing point, not the marine choreography clock. `pulse()` maps to `leap()`. `update()` maps to validated `updateConfig()` and resets simulation with the same seed while preserving pause. `restart()` maps to `reset()`. OS reduced motion remains authoritative: deliberate Leap cycles static poses rather than travelling. At most five ticks run after a visible stall; hidden time is discarded. Existing `target`, `clearTarget`, `setStaticPose`, `getState`, `getStatus`, `exportText`, and seed-bearing `reset` remain available.
+This is a fixed 60 Hz model with a latched ballistic landing point, not the marine choreography clock. `pulse()` maps to `leap()`. `update()` maps to validated `updateConfig()` and resets simulation with the same seed while preserving pause. `restart()` maps to `reset()`. OS reduced motion remains authoritative: deliberate Leap cycles static poses rather than travelling. At most five ticks run after a visible stall; hidden time is discarded. Existing `target`, `clearTarget`, `setStaticPose`, `getState`, `getStatus`, `exportText`, and `reset({ seed: 23 })` remain available. `reset` takes an optional object, not a numeric seed. `updateDirector(patch)` can enable director mode on a solo mount and resets the ensemble after validating the preview.
 
 All mutation/state/export methods reject after disposal; status and the facade's `disposed` remain readable. Disposal is idempotent and releases only this instance's shared-scheduler subscription. Settings reject unknown/nonfinite/out-of-range values before mutation. `frameSource` may supply an explicit borrowed continuous scheduler; otherwise the per-window shared scheduler is used.
 

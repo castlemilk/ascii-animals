@@ -1,5 +1,7 @@
 # Crab API — tidepool theatre
 
+**Current source contract:** checked against [`main` at `f63b20e2045b`](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/src/public/crab.ts) on 21 November 2026. The API below is present in that source. Use the [local-package setup](GETTING-STARTED.md); [current validation](VALIDATION-2026-11-21.md) separates the built package, live Pages and npm availability. Older authoring bases and capture results below are historical evidence, not additional release claims.
+
 The tidal-flat revision starts from verified `main` commit
 `b8f222dab868821f27bf2a64a98434f3483fc8e6` and preserves the existing crab
 public types and director API. The package remains the private, unpublished
