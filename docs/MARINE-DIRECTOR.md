@@ -1,5 +1,12 @@
 # Combined marine director
 
+**Current source boundary:** this API is present in verified `main` at
+`f63b20e2045b1070b10bde2efc4eb3a8536e606b`. The earlier integration commits below
+are historical provenance. Use the [local-package setup](GETTING-STARTED.md) and
+[runnable director example](examples/browser/director.html); the
+[dated validation record](VALIDATION-2026-11-21.md) separates source, npm, live
+Pages and browser-example evidence.
+
 The marine director adds opt-in choreography for **cuttlefish, manta rays, and octopuses** through the existing `ascii-animals-review/cuttlefish` entry. It uses their canonical renderer, geometry, buffers, input, ink, and shared scheduler. It does not replace the package root API, add a species registry, or run a separate renderer or animation loop.
 
 This implementation was inspected and started at release [`c06114404900884814bef879a02f1a49a3e7d590`](https://github.com/castlemilk/ascii-animals/tree/c06114404900884814bef879a02f1a49a3e7d590), then fast-forwarded onto current main [`c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02`](https://github.com/castlemilk/ascii-animals/tree/c7c385f7cf58d9169ab1eb4f5f8dd3500fe31a02) before final validation. That intervening change only reconciles the README; all marine baseline files are identical. The actual marine source is `src/animals/`, including the shared private cuttlefish renderer; the marine animals are not under `src/species/`. The earlier dist-only proposal is not the integration base.

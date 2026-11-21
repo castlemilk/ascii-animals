@@ -1,5 +1,7 @@
 # Butterfly API — veined flight study
 
+**Current source contract:** checked against [`main` at `f63b20e2045b`](https://github.com/castlemilk/ascii-animals/blob/f63b20e2045b1070b10bde2efc4eb3a8536e606b/src/public/butterfly.ts) on 21 November 2026. The API below is present in that source. Use the [local-package setup](GETTING-STARTED.md); [current validation](VALIDATION-2026-11-21.md) separates the built package, live Pages and npm availability. Older authoring bases and capture results below are historical evidence, not additional release claims.
+
 This Butterfly-only study preserves the typed model/controller and extends its existing garden choreography with original veined wing geometry and contact-aware flight. The package remains `ascii-animals-review`, private and unpublished. These examples use its existing local package subpath.
 
 ## Start a garden
@@ -80,7 +82,7 @@ Powered flight occurs in short bouts separated by sustained broad-wing glides. T
 
 ## Inputs and contextual recovery
 
-`guide(x, y)` accepts finite coordinates clamped to −1…1. Browser pointer coordinates are mapped through the canvas CSS rectangle **and** any letterboxing; DPR does not alter input. Pointer motion coalesces to the latest coordinate before each animation callback, with no event queue growth. Automatic pointer motion is ignored while blocked; explicit API/keyboard actions may select a still pose.
+`guide(x, y)` accepts finite coordinates clamped to −1…1. Browser pointer coordinates are mapped through the canvas CSS rectangle **and** any letterboxing; DPR does not alter input. Pointer motion coalesces to the latest coordinate before each animation callback, with no event queue growth. Automatic pointer motion is ignored while blocked; explicit API actions may select a still pose. Keyboard equivalents are supplied by the demo or embedding application.
 
 Attraction interests nearby foragers/scouts; a basker keeps its place unless it is the only visitor. Breeze produces a local lift and glide. A tap starts the chosen cue at the tap's actual location. In attraction mode a tap within 0.13 normalized units of a flower selects a physical flower visit; other invited visitors use neighboring blooms. A tap in open air retains invitation inspection. `cue('gather')` without a pointer selects a deterministic flower without creating a persistent hover target. A successful touch release, ordinary pointer leave, or lost capture ends pointer attention while allowing the explicit cue to complete. `pointercancel` cancels it. Explicit `release()` cancels attention and cues and starts a 90-tick recovery; while paused it selects a static recovery composition.
 
@@ -102,7 +104,7 @@ The pure model adds `getGarden()`, `getScenes()`, `cue(action, poster?)`, `nextA
 
 The browser adds `getGarden()`, `getScenes()`, `cue`, `nextAct` and `release` to its existing methods. It borrows the shared per-window scheduler or a caller-owned `frameSource`. It never disposes that source. Catch-up remains capped at six ticks per callback and 0.1 s; excess time is exposed as `droppedSeconds`. Pause, reduced motion, hidden document, offscreen, zero size and disposal are independent blocking causes. Resume resets the wall-clock accumulator. Reset preserves options and requested pause while clearing ticks, inputs, cue, cycle and seeded state. Disposal is idempotent; later mutations are no-ops, and listeners/observers/subscriptions are removed. Importing the package does not access the DOM; only mounting requires a browser canvas.
 
-System reduced motion remains authoritative even after Play, updates, reset or cues. A still garden has useful scene/act/cue choices. The demo's separate 250 ms status timer stops while hidden and on pagehide; non-persisted teardown removes its listeners. No framework adapter is introduced or certified.
+With `reducedMotion: 'system'`, system reduced motion remains authoritative after Play, reset or cues. An explicit `update({ reducedMotion: 'ignore' })` opts out; ordinary updates do not clear the preference. A still garden has useful scene/act/cue choices. The demo's separate 250 ms status timer stops while hidden and on pagehide; non-persisted teardown removes its listeners. No framework adapter is introduced or certified.
 
 ## Rendering and budgets
 
@@ -129,14 +131,14 @@ node species/butterfly/tests/browser-check.mjs
 node species/butterfly/tests/render-native.mjs
 ```
 
-This flight-study review environment blocked a normal Chromium launch with `socket() failed: Operation not permitted`; the cloud browser could not reach the local review server (`ERR_CONNECTION_REFUSED`). The supplied images are **native Canvas renders through the real renderer with a simulated lifecycle host**. They do not prove CSS reflow, real browser keyboard/touch, screen-reader behavior, phone usability, memory behavior or performance. Browser/device acceptance remains a coordinator gate; no FPS or WCAG certification is claimed.
+The historical flight-study review environment blocked a normal Chromium launch with `socket() failed: Operation not permitted`; the cloud browser could not reach the local review server (`ERR_CONNECTION_REFUSED`). The supplied images are **native Canvas renders through the real renderer with a simulated lifecycle host**. They do not prove CSS reflow, real browser keyboard/touch, screen-reader behavior, phone usability, memory behavior or performance. Browser/device acceptance remains a coordinator gate; no FPS or WCAG certification is claimed.
 
 
 ## Central generation boundary
 
-The review patch contains Butterfly source, tests, demo source and documentation.
-It deliberately omits compiled `lib/`, generated `dist/butterfly/`, shared root
-entries and workflows. Central integration regenerates those from the accepted
+The original species review patch contained Butterfly source, tests, demo source
+and documentation. It deliberately omitted compiled `lib/`, generated `dist/butterfly/`, shared root
+entries and workflows. The current build regenerates those from the integrated
 source with the existing commands:
 
 ```sh

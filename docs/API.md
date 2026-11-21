@@ -1,4 +1,14 @@
-# Cuttlefish API: inspected contract and candidate boundary
+# Historical Cuttlefish API review
+
+> **Historical import review.** The initial-main, import-branch and candidate
+> status below describe the original package review. For the verified runtime at
+> `f63b20e2045b1070b10bde2efc4eb3a8536e606b`, start with
+> [Getting started](GETTING-STARTED.md), [Package contract](PACKAGE.md),
+> [Strict TypeScript API](TYPESCRIPT-API.md), [Animal APIs](ANIMAL-APIS.md), and
+> [Browser integration](BROWSER-INTEGRATION.md). The current default branch and
+> Pages deployment have been checked separately in the
+> [dated validation record](VALIDATION-2026-11-21.md). This archive is retained for
+> provenance and legacy migration context, not as the current release status.
 
 **Current canonical integration:** browser and package builds derive from `src/`. Supported marine species/configuration are documented in [SPECIES.md](SPECIES.md); the import provenance below describes the historical baseline, not a separate maintained renderer.
 

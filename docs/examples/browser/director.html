@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASCII Animals — marine director example</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {"imports":{"ascii-animals-review/cuttlefish":"./node_modules/ascii-animals-review/lib/animals/cuttlefish.js"}}
+  </script>
+  <script type="module" src="./director.js"></script>
+</head>
+<body>
+  <main>
+    <nav aria-label="Examples"><a href="./index.html">Basic artwork</a> · Marine director</nav>
+    <h1>Invite an octopus to investigate</h1>
+    <p>A manta, octopus and cuttlefish share a directed scene. Invite left and Invite right set a persistent point of interest for the octopus. Release lets it settle back.</p>
+    <canvas id="artwork" role="img" aria-label="A directed scene with a manta, octopus and cuttlefish" aria-describedby="description">
+      Three marine animals drawn with characters. This browser could not display the canvas.
+    </canvas>
+    <p id="description">The example opens on a paused Explore still. Invitations work while paused. Play deliberately enables motion, including when the OS requests reduced motion.</p>
+    <div class="controls" role="group" aria-label="Director controls">
+      <button type="button" id="play">Play</button>
+      <button type="button" id="pause">Pause</button>
+      <button type="button" id="invite-left">Invite left</button>
+      <button type="button" id="invite-right">Invite right</button>
+      <button type="button" id="release">Release</button>
+      <button type="button" id="still">Explore still</button>
+      <button type="button" id="disturb">Disturb octopus</button>
+    </div>
+    <div class="controls lifecycle" role="group" aria-label="Example lifecycle">
+      <button type="button" id="mount">Mount</button>
+      <button type="button" id="dispose">Dispose</button>
+    </div>
+    <p id="status" role="status">Loading the installed local package…</p>
+    <noscript><p>Enable JavaScript to run this example. The description remains available without animation.</p></noscript>
+  </main>
+</body>
+</html>
