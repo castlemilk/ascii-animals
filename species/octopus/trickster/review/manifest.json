@@ -1,0 +1,58 @@
+{
+  "reviewDate": "2026-11-21",
+  "timezone": "Australia/Melbourne",
+  "baseCommit": "f63b20e2045b1070b10bde2efc4eb3a8536e606b",
+  "scope": "species/octopus/trickster/**",
+  "kind": "isolated-prototype",
+  "publication": false,
+  "publicApi": "unchanged; local prototype API is separately named and not a createArtwork replacement",
+  "browserEvidence": "shipped site only",
+  "candidateEvidence": "native Skia Canvas plus simulated host, not browser",
+  "tests": {
+    "packageBuild": "passed",
+    "prototype": {
+      "passed": 38,
+      "failed": 0
+    },
+    "selectedExisting": {
+      "passed": 45,
+      "failed": 0
+    },
+    "localTypes": "passed",
+    "wholeRepositorySuite": "not run",
+    "browserEndToEnd": "blocked before page load"
+  },
+  "sourceSha256": {
+    "src/animals/octopus.js": "48c2f1ca0be6d2d36182a184a115c32c1c5245779e33f45ff67d8ae419937165",
+    "src/core/scheduler.js": "f39ac308f3eda2186ffb1e50da1fccc69128a94d7c91952629ad27cbe97792cd",
+    "docs/ANIMAL-APIS.md": "19061968e6db7e0518ece5bbd1c807c416285f8a09d655fdfe003aec6a6e92f5",
+    "demo/src/lib/renderers.ts": "43a3b6ce278474860478fd8dc4a7d9cc7eeb88740125ed42503dbbd4a2401452",
+    "species/octopus/preview.js": "1fd4337e589a7b1f9818fcef775e7cb7c13f7f92444b331fc318ea8edcf3e262",
+    "species/octopus/trickster/core.mjs": "3eda58bd5a17554c974e63e5703572bdeba506a513470987fbe047492f771cc1",
+    "species/octopus/trickster/render.mjs": "e0cce10dc569314bddb5c8cb18494a6cd283454508a3421b9bb95363523b9fbd",
+    "species/octopus/trickster/browser.mjs": "563487a960e272e7c3eb4bede5c5acddf546eb4500d9b8bab3d675983fc8744c"
+  },
+  "standalone": {
+    "bytes": 55960,
+    "sourceSha256": "c7b71edfaa5ee94bcd1ab731938701c4065adf8ed387ecbd78695fef233efff5",
+    "inputs": [
+      "../../../src/core/scheduler.js",
+      "core.mjs",
+      "render.mjs",
+      "browser.mjs",
+      "preview.mjs",
+      "style.css",
+      "index.html"
+    ],
+    "runtimeDependencies": 0,
+    "publication": false
+  },
+  "unresolved": [
+    "Candidate browser CSS, responsive layout and font rendering",
+    "Trusted keyboard/touch and screen-reader behavior",
+    "Physical-phone performance",
+    "Native raster-and-draw p95 31.369ms exceeds 16ms reference",
+    "Front-view cartoon and overlapping arm roots in some poses",
+    "Coordinated adaptation into existing public species API"
+  ]
+}
