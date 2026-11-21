@@ -1,0 +1,32 @@
+{
+  "revision": "Spring Pea R2 reconstruction",
+  "reconstruction_date": "2026-11-21",
+  "repository": "https://github.com/castlemilk/ascii-animals",
+  "exact_base": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "missing_original_base": "f63b20e2045b1070b10bde2efc4eb3a8536e606b",
+  "original_patch_and_zip_recovered": false,
+  "input_boards": [
+    {
+      "filename": "Spring Pea frog action board.png",
+      "size_bytes": 1621381,
+      "sha256": "85c9b6beea0050a39fdd9b2950404ec2354fcf2249e87cc28e71a8497467c926",
+      "kind": "retained generated concept art; not browser evidence",
+      "role": "chosen direction"
+    },
+    {
+      "filename": "Angular Reed Rascal concept board.png",
+      "size_bytes": 1842183,
+      "sha256": "f64398668a9221e5b1bab4ca62c4f05632dc4a2b9957dbaf9bfaf6a96ea5f167",
+      "kind": "retained generated concept art; not browser evidence",
+      "role": "distinct comparison direction"
+    }
+  ],
+  "source": "Canonical Frog model, choreography and public controller from the exact base. R2 supplies a newly reconstructed private pose/geometry/cell preview and explicit adapter.",
+  "editable_concepts": "New reconstruction assets in review/concepts; not recovered original editable source or prompts.",
+  "scope": "Additions only under species/frog/variants/spring-pea-r2/. No default selection, shared integration, package or README change.",
+  "fonts": "System monospace family requests only; no font binaries redistributed.",
+  "claims": "Stylized generic frog. Same-runtime logical determinism; no biological fidelity or cross-browser pixel identity claim.",
+  "evidence_policy": "Retained raster concept art, editable design assets, native Canvas renders, mocked hosts and actual browser captures must be labelled separately.",
+  "initial_main": "3b5ffcce7bea56e1402fc16d0edc2c14c3cd5779",
+  "native_capture_base": "3b5ffcce7bea56e1402fc16d0edc2c14c3cd5779"
+}

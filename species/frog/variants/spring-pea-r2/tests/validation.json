@@ -1,0 +1,46 @@
+{
+  "schema": "spring-pea-r2-private-validation/v1",
+  "base": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "gitHead": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "node": "v24.22.3",
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "species/frog/variants/spring-pea-r2/tests/contract.test.mjs",
+    "species/frog/variants/spring-pea-r2/tests/lifecycle.test.mjs",
+    "species/frog/variants/spring-pea-r2/tests/geometry.test.mjs"
+  ],
+  "started": "2026-11-21T04:50:36.064693+00:00",
+  "sourceHashesBefore": {
+    "index.mjs": "9a48e232291546dcae2acf97e293c01ef71d304b287b49dbae10a90811fc1f00",
+    "preview.mjs": "6382392f7c05abba679008d82c4c4c3cef1737c8c6c5d5cffd323783894b1958",
+    "pose.mjs": "b4e8a1fe0096f3309fc5bf745327707a617515f676b5fa779ac0452f563cffa7",
+    "geometry.mjs": "302b7e848b39b18311f940622b460e7abb2abeb884046809e81bcb5e369ed8e4",
+    "BASE.json": "d5ce9a48e0e8efdaaf03589c4d0b67d61a5fdd298ce9ac528dc854b7bc9cda85",
+    "tests/contract.test.mjs": "0b3f88893f02f9fa60d8db1e6bcb77abd711326685af2a6e0d6996181765525a",
+    "tests/lifecycle.test.mjs": "3abf53c6c87ab6ceca23529536504da60227cb30962db634d045bc24b526183f",
+    "tests/geometry.test.mjs": "f47beb31766900b78ea324440094674cbd1c41a6ad4745cd44d6567e8f469c96"
+  },
+  "evidenceKind": "Numerical rendering and controlled host events; not browser pixels or device acceptance",
+  "exitCode": 0,
+  "sourceHashesAfter": {
+    "index.mjs": "9a48e232291546dcae2acf97e293c01ef71d304b287b49dbae10a90811fc1f00",
+    "preview.mjs": "6382392f7c05abba679008d82c4c4c3cef1737c8c6c5d5cffd323783894b1958",
+    "pose.mjs": "b4e8a1fe0096f3309fc5bf745327707a617515f676b5fa779ac0452f563cffa7",
+    "geometry.mjs": "302b7e848b39b18311f940622b460e7abb2abeb884046809e81bcb5e369ed8e4",
+    "BASE.json": "d5ce9a48e0e8efdaaf03589c4d0b67d61a5fdd298ce9ac528dc854b7bc9cda85",
+    "tests/contract.test.mjs": "0b3f88893f02f9fa60d8db1e6bcb77abd711326685af2a6e0d6996181765525a",
+    "tests/lifecycle.test.mjs": "3abf53c6c87ab6ceca23529536504da60227cb30962db634d045bc24b526183f",
+    "tests/geometry.test.mjs": "f47beb31766900b78ea324440094674cbd1c41a6ad4745cd44d6567e8f469c96"
+  },
+  "sourceChanged": false,
+  "gitHeadAfter": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "completed": "2026-11-21T04:51:15.074132+00:00",
+  "tests": 20,
+  "pass": 20,
+  "fail": 0,
+  "skipped": 0,
+  "status": "passed"
+}

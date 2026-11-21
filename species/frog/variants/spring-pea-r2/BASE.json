@@ -1,0 +1,24 @@
+{
+  "revision": "Spring Pea R2 reconstruction",
+  "base": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "missing_original_base": "f63b20e2045b1070b10bde2efc4eb3a8536e606b",
+  "original_bytes_recovered": false,
+  "canonical_sha256": {
+    "package.json": "7635a4b5aaf23fcf4a0b28ac3e5e0a2605bbe13c103a7ed41d2592cc60cfa47a",
+    "package-lock.json": "8a55decc912067055b2a5f0c69a77ac7819efc25a6409340307f171273d9d619",
+    "README.md": "4338c50fbdb61ba20221b8907c06a74da149f9f4cc3f39fa281f63ef6d091330",
+    "src/public/frog.ts": "775c4ed8adb37620b96d5c89cd5332c7868af9598c097da7111a3607f6adebab",
+    "species/frog/src/types.mts": "bdc434832cd5c01c0d36585c3f7ba066b178217ab68bab03f6e50a9a4cc0ddb7",
+    "species/frog/src/choreography.mts": "aae9b96faf190e654a3e3534e19d5a6a11aa4ff175bc61e36886bd45b7723d72",
+    "species/frog/src/legacy-preview.mts": "5e3676b64d5f173d4e0603b6764219a12293617b968f688dfedd226fd2c5e482",
+    "species/frog/src/controller.mts": "f197191f1c58739f6b2cb2d42afef734e8e745cb1f062d503dfa498d2e5f451e",
+    "species/frog/src/frog.mts": "f7a81aa636cb26be5ae41924fd57ae5d281c18d8e56990cbae014ce651999c33",
+    "species/frog/src/pond.mts": "3a4c537e8fc485b590eef381462b0f8dd61f4f22611a017b8a247c9299c00eae",
+    "species/frog/src/geometry.mts": "c180907d120c1f305cc7559252376c3b6d29cc9d31a8c6b5968a3963a039600e",
+    "species/frog/src/index.mts": "eb0efaee85b34d52df3c73689ae241a66f3d7a0779a5bcd068e8a4e5866ed787",
+    "species/frog/src/pond-types.mts": "8a3f7af8dedf3f778a55a04848af5814d75a2e42d84e209f128511445e0d5ae1",
+    "species/frog/src/demo.mts": "b1b9e0d2396837a442ee874ac597e094d941c8fe72d9016606dbd742d3faeb25"
+  },
+  "initial_main": "3b5ffcce7bea56e1402fc16d0edc2c14c3cd5779",
+  "repin_reason": "Main advanced during reconstruction; all Frog, public factory, scheduler, root package and build source stayed byte-identical."
+}

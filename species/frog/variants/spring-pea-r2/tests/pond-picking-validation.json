@@ -1,0 +1,257 @@
+{
+  "evidence": "Numerical fake Canvas host; not browser, pixel or device-performance evidence",
+  "base": "26ee6ffc623e0adb2256e66d5b7cefc9ff36c7dd",
+  "revision": "Spring Pea R2 reconstruction",
+  "command": "node species/frog/variants/spring-pea-r2/tests/check-pond-picking.mjs",
+  "sourceSha256": {
+    "../index.mjs": "9a48e232291546dcae2acf97e293c01ef71d304b287b49dbae10a90811fc1f00",
+    "../pose.mjs": "b4e8a1fe0096f3309fc5bf745327707a617515f676b5fa779ac0452f563cffa7",
+    "../geometry.mjs": "302b7e848b39b18311f940622b460e7abb2abeb884046809e81bcb5e369ed8e4",
+    "../preview.mjs": "6382392f7c05abba679008d82c4c4c3cef1737c8c6c5d5cffd323783894b1958",
+    "../../../generated/pond.mjs": "c36f4bdb4b9f565c2c90e2d6167309951029bc6da4da8ed46adfb1a37cbc8467",
+    "../../../generated/frog.mjs": "e7cc5ed0daa435fcb529cdb206120c1206c36d0f74d6d65f0952dbe0390e2d17",
+    "../../../generated/choreography.mjs": "20486fbaf1fb5ba0742c8745c6604cb32bfc8c45f9b09e8d8fe949b61f9312bf"
+  },
+  "sourceUnchangedDuringCheck": true,
+  "seed": 23,
+  "previewOptions": {
+    "cols": 180,
+    "rows": 100,
+    "labels": false,
+    "view": "front"
+  },
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 720,
+      "height": 440
+    },
+    {
+      "name": "phone",
+      "width": 390,
+      "height": 520
+    }
+  ],
+  "scan": {
+    "spacingCssPixels": 1,
+    "offsetCssPixels": 0.5
+  },
+  "requiredInverseTolerance": 1e-12,
+  "cases": [
+    {
+      "viewport": "desktop",
+      "width": 720,
+      "height": 440,
+      "count": 1,
+      "scene": "moonlit-chorus",
+      "layout": "arc",
+      "autonomy": false,
+      "cols": 180,
+      "rows": 82,
+      "samples": 18723,
+      "glyphs": 1187,
+      "actorGlyphs": [
+        808,
+        0,
+        0
+      ],
+      "visibleOwnerIds": [
+        0
+      ],
+      "ownerPixelHits": [
+        17428,
+        0,
+        0
+      ],
+      "outsideProbe": {
+        "x": 1.01,
+        "y": 0
+      },
+      "outsideHit": null,
+      "scheduledHostFrames": 0,
+      "padPointsChecked": 6,
+      "maxInverseError": 4.440892098500626e-16
+    },
+    {
+      "viewport": "desktop",
+      "width": 720,
+      "height": 440,
+      "count": 2,
+      "scene": "moonlit-chorus",
+      "layout": "arc",
+      "autonomy": false,
+      "cols": 180,
+      "rows": 82,
+      "samples": 36653,
+      "glyphs": 1554,
+      "actorGlyphs": [
+        605,
+        588,
+        0
+      ],
+      "visibleOwnerIds": [
+        0,
+        1
+      ],
+      "ownerPixelHits": [
+        13060,
+        12660,
+        0
+      ],
+      "outsideProbe": {
+        "x": 1.01,
+        "y": 0
+      },
+      "outsideHit": null,
+      "scheduledHostFrames": 0,
+      "padPointsChecked": 6,
+      "maxInverseError": 4.996003610813204e-16
+    },
+    {
+      "viewport": "desktop",
+      "width": 720,
+      "height": 440,
+      "count": 3,
+      "scene": "moonlit-chorus",
+      "layout": "arc",
+      "autonomy": false,
+      "cols": 180,
+      "rows": 82,
+      "samples": 54583,
+      "glyphs": 1796,
+      "actorGlyphs": [
+        499,
+        497,
+        497
+      ],
+      "visibleOwnerIds": [
+        0,
+        1,
+        2
+      ],
+      "ownerPixelHits": [
+        10736,
+        10708,
+        10688
+      ],
+      "outsideProbe": {
+        "x": 1.01,
+        "y": 0
+      },
+      "outsideHit": null,
+      "scheduledHostFrames": 0,
+      "padPointsChecked": 6,
+      "maxInverseError": 4.440892098500626e-16
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 520,
+      "count": 1,
+      "scene": "moonlit-chorus",
+      "layout": "arc",
+      "autonomy": false,
+      "cols": 65,
+      "rows": 65,
+      "samples": 18723,
+      "glyphs": 320,
+      "actorGlyphs": [
+        168,
+        0,
+        0
+      ],
+      "visibleOwnerIds": [
+        0
+      ],
+      "ownerPixelHits": [
+        8142,
+        0,
+        0
+      ],
+      "outsideProbe": {
+        "x": 1.01,
+        "y": 0
+      },
+      "outsideHit": null,
+      "scheduledHostFrames": 0,
+      "padPointsChecked": 6,
+      "maxInverseError": 4.440892098500626e-16
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 520,
+      "count": 2,
+      "scene": "moonlit-chorus",
+      "layout": "arc",
+      "autonomy": false,
+      "cols": 65,
+      "rows": 65,
+      "samples": 36653,
+      "glyphs": 394,
+      "actorGlyphs": [
+        135,
+        123,
+        0
+      ],
+      "visibleOwnerIds": [
+        0,
+        1
+      ],
+      "ownerPixelHits": [
+        6534,
+        6018,
+        0
+      ],
+      "outsideProbe": {
+        "x": 1.01,
+        "y": 0
+      },
+      "outsideHit": null,
+      "scheduledHostFrames": 0,
+      "padPointsChecked": 6,
+      "maxInverseError": 3.3306690738754696e-16
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 520,
+      "count": 3,
+      "scene": "moonlit-chorus",
+      "layout": "arc",
+      "autonomy": false,
+      "cols": 65,
+      "rows": 65,
+      "samples": 54583,
+      "glyphs": 443,
+      "actorGlyphs": [
+        109,
+        106,
+        109
+      ],
+      "visibleOwnerIds": [
+        0,
+        1,
+        2
+      ],
+      "ownerPixelHits": [
+        5256,
+        5190,
+        5256
+      ],
+      "outsideProbe": {
+        "x": 1.01,
+        "y": 0
+      },
+      "outsideHit": null,
+      "scheduledHostFrames": 0,
+      "padPointsChecked": 6,
+      "maxInverseError": 6.661338147750939e-16
+    }
+  ],
+  "result": {
+    "passed": true,
+    "caseCount": 6,
+    "maximumInverseError": 6.661338147750939e-16
+  }
+}
