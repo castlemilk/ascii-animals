@@ -9,7 +9,7 @@ Integrated against the 13-species uplift on `main` (`59bd5be`).
 
 ## Run locally
 
-From the repository root, using Node >=20.9 (validated with Node 24.22.3):
+From the repository root, use the Node version in `.nvmrc` (`nvm use`).
 
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
